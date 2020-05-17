@@ -1,16 +1,18 @@
 # anylearn
 
-A new Flutter project.
+anyLearn Flutter project.
 
-## Getting Started
+## Project structure
 
-This project is a starting point for a Flutter application.
+- **blocs**: all BLoC & BLoC Providers
+- **dto**: Data Transfer Objects
+- **models**: all logic processors
+- **screens**: all screens and their components
+- **services**: app Api services
+- **theme**: style of app
+- **widget**: widgets which be used cross screens
+- main.dart: app entry point
+- route.dart
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Copyright &copy;2020
+thang102@gmail.com 
