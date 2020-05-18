@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:anylearn/widgets/account_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -8,31 +10,36 @@ class HomeBody extends StatelessWidget {
         child: CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-          expandedHeight: 120.0,
+          expandedHeight: 200.0,
           floating: false,
           pinned: true,
           actions: <Widget>[
             AccountIcon(),
           ],
-          flexibleSpace: FlexibleSpaceBar(
-            titlePadding: EdgeInsets.all(15.0),
-            centerTitle: true,
-
-            title: Container(
-              child: Image.network(
-                "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
-                fit: BoxFit.cover,
-              ),
-            ),
-            // title: Text("Collapsing Toolbar",
-            //     style: TextStyle(
-            //       color: Colors.white,
-            //       fontSize: 16.0,
-            //     )),
-            // background: Image.network(
-            //   "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
-            //   fit: BoxFit.cover,
-            // ),
+          flexibleSpace: LayoutBuilder(
+            builder: (context, bc) {
+              return FlexibleSpaceBar(
+                centerTitle: false,
+                background: new ClipRect(
+                  child: new Container(
+                    child: new BackdropFilter(
+                      filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                      child: new Container(
+                        decoration: new BoxDecoration(
+                          color: Colors.black.withOpacity(0.5),
+                        ),
+                      ),
+                    ),
+                    decoration: new BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                              "images/bg.png",
+                            ),
+                            fit: BoxFit.fitWidth)),
+                  ),
+                ),
+              );
+            },
           ),
         ),
         SliverList(

@@ -10,8 +10,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
   ScrollController controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.blue));
     return new WillPopScope(
         onWillPop: _willExit,
         child: Scaffold(
