@@ -11,24 +11,27 @@ class FeatureIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Icon(icon, size: iconSize ?? 24.0,),
-            Container(
-              padding: EdgeInsets.only(top: 5.0),
-              alignment: Alignment.center,
-              child: Text(
-                title,
-                style: TextStyle(fontSize: 10.0, color: Colors.black87),
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Icon(
+            icon,
+            size: iconSize ?? 24.0,
+            color: Colors.black87,
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 5.0),
+            alignment: Alignment.center,
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 10.0, color: Colors.black87),
             ),
-          ],
-        ),
-        onPressed: () {
-          Navigator.of(context).pushNamed(route);
-        },
-   
+          ),
+        ],
+      ),
+      onPressed: () {
+        Navigator.of(context).pushNamed(route);
+      },
     );
   }
 }

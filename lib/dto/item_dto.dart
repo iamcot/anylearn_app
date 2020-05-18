@@ -1,5 +1,6 @@
 class ItemDTO {
   final int id;
+  final String name;
   final String image;
   final String title;
   final int price;
@@ -7,6 +8,18 @@ class ItemDTO {
   final String shortContent;
   final String content;
   final String route;
+  final String date;
 
-  ItemDTO({this.id, this.image, this.title, this.price, this.salePrice, this.shortContent, this.content, this.route});
+  ItemDTO({
+    this.id,
+    this.name,
+    this.image,
+    this.title,
+    this.price,
+    this.salePrice,
+    this.shortContent,
+    this.content,
+    this.route,
+    this.date,
+  });
 }

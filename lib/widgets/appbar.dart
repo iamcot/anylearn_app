@@ -1,4 +1,5 @@
 import 'package:anylearn/widgets/account_icon.dart';
+import 'package:anylearn/widgets/notification_icon.dart';
 import 'package:anylearn/widgets/search_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -12,14 +13,17 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: hasBack ?? false,
+      automaticallyImplyLeading: hasBack ?? true,
+      titleSpacing: 0.0,
       actions: <Widget>[
-        SearchIcon(),
-        screen != "account" ? new AccountIcon() : Text("")],
+        screen != "notification" ? SearchIcon() : Text(""),
+        screen != "account" && screen != "notification" ? NotificationIcon() : Text(""),
+        screen != "account" && screen != "notification" ? new AccountIcon() : Text(""),
+      ],
       centerTitle: false,
       title: Text(
         title,
-        style: TextStyle(fontSize: 16.0),
+        style: TextStyle(fontSize: 14.0),
       ),
     );
   }

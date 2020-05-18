@@ -13,7 +13,12 @@ class HomeBanner extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Container(
         child: CarouselSlider(
-          options: CarouselOptions(enlargeCenterPage: true, height: 150.0),
+          options: CarouselOptions(
+            enlargeCenterPage: true,
+            height: 150.0,
+            autoPlay: true,
+            autoPlayInterval: Duration(seconds: 3),
+          ),
           items: _imageSliders(),
         ),
       ),

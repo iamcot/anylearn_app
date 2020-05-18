@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/school/school_body.dart';
 import 'package:anylearn/widgets/appbar.dart';
 import 'package:anylearn/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,7 @@ class _SchoolScreen extends State<SchoolScreen> {
       appBar: BaseAppBar(
         title: "Học viện & Trung tâm đào tạo",
       ),
-      body: Container(
-        child: Text("School Screen"),
-      ),
+      body: SchoolBody(),
       bottomNavigationBar: BottomNav(
         index: BottomNav.SCHOOL_INDEX,
       ),

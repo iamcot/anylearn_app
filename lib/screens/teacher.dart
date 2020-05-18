@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/teacher/teacher_body.dart';
 import 'package:anylearn/widgets/appbar.dart';
 import 'package:anylearn/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,7 @@ class _TeacherScreen extends State<TeacherScreen> {
       appBar: BaseAppBar(
         title: "Giảng viên & Chuyên gia",
       ),
-      body: Container(
-        child: Text("Teacher Screen"),
-      ),
+      body: TeacherBody(),
       bottomNavigationBar: BottomNav(
         index: BottomNav.TEACHER_INDEX,
       ),

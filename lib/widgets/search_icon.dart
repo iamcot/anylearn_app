@@ -1,4 +1,4 @@
-import 'package:anylearn/models/search_delegate.dart';
+import 'package:anylearn/customs/custom_search_delegate.dart';
 import 'package:flutter/material.dart';
 
 class SearchIcon extends StatelessWidget {
@@ -9,7 +9,7 @@ class SearchIcon extends StatelessWidget {
       child: IconButton(
         icon: Icon(
           Icons.search,
-          size: 32.0,
+          size: 24.0,
         ),
         onPressed: () {
           showSearch(context: context, delegate: CustomSearchDelegate());
