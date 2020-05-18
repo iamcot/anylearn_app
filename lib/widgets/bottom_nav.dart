@@ -19,8 +19,8 @@ class BottomNav extends StatelessWidget {
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.black54,
         iconSize: 18.0,
-        selectedFontSize: 12.0,
-        unselectedFontSize: 12.0,
+        selectedFontSize: 11.0,
+        unselectedFontSize: 10.0,
         currentIndex: this.index,
         onTap: (i) => _navigate(context, i),
         items: const <BottomNavigationBarItem>[

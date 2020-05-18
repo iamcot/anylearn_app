@@ -1,8 +1,10 @@
 import 'package:anylearn/screens/account.dart';
 import 'package:anylearn/screens/ask.dart';
+import 'package:anylearn/screens/developing.dart';
 import 'package:anylearn/screens/event.dart';
 import 'package:anylearn/screens/home.dart';
 import 'package:anylearn/screens/school.dart';
+import 'package:anylearn/screens/search.dart';
 import 'package:anylearn/screens/teacher.dart';
 import 'package:flutter/widgets.dart';
 
@@ -13,4 +15,9 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/event": (BuildContext context) => EventScreen(),
   "/ask": (BuildContext context) => AskScreen(),
   "/account": (BuildContext context) => AccountScreen(),
+  "/account/deposit": (BuildContext context) => DevelopingScreen(),
+  "/account/withdraw": (BuildContext context) => DevelopingScreen(),
+  "/account/commission": (BuildContext context) => DevelopingScreen(),
+  "/account/transaction": (BuildContext context) => DevelopingScreen(),
+  "/search": (BuildContext context) => SearchScreen(),
 };
