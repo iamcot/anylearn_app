@@ -50,7 +50,7 @@ class _TeacherBody extends State<TeacherBody> {
               maxCrossAxisExtent: width,
               mainAxisSpacing: 10.0,
               crossAxisSpacing: 10.0,
-              childAspectRatio: 0.75,
+              childAspectRatio: 0.7,
             ),
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {

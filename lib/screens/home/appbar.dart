@@ -8,7 +8,7 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 195.0,
+      expandedHeight: 190.0,
       title: Image.asset(
         "assets/images/logo.png",
         height: 40.0,
