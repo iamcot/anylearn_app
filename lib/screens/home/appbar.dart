@@ -11,7 +11,7 @@ class HomeAppBar extends StatelessWidget {
       expandedHeight: 190.0,
       title: Image.asset(
         "assets/images/logo.png",
-        height: 40.0,
+        height: 24.0,
       ),
       centerTitle: false,
       floating: false,
