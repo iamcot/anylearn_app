@@ -1,8 +1,8 @@
-import 'package:anylearn/dto/event_detail.dart';
+import 'package:anylearn/dto/event_dto.dart';
 import 'package:flutter/material.dart';
 
 class DayEvents extends StatelessWidget {
-  final EventDetail eventToday;
+  final EventDTO eventToday;
 
   const DayEvents({Key key, this.eventToday}) : super(key: key);
   @override

@@ -1,4 +1,4 @@
-import 'package:anylearn/dto/event_detail.dart';
+import 'package:anylearn/dto/event_dto.dart';
 import 'package:anylearn/screens/event/day_events.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -16,7 +16,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
 
   Map<DateTime, List> _events = {
     new DateTime(2020,5,10) : [
-      new EventDetail(
+      new EventDTO(
         title: "Events 1",
         time: "09:00",
         location: "Q7"

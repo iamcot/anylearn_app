@@ -1,14 +1,14 @@
-class EventDetail {
+class EventDTO {
   final String title;
   final String time;
   final String location;
   final String banner;
   final String register;
 
-  EventDetail({this.title, this.time, this.location, this.banner, this.register});
+  EventDTO({this.title, this.time, this.location, this.banner, this.register});
 
-  factory EventDetail.fromJson(Map<String, dynamic> json) {
-    return EventDetail(
+  factory EventDTO.fromJson(Map<String, dynamic> json) {
+    return EventDTO(
         title: json['title'],
         time: json['time'],
         location: json['location'],

@@ -52,11 +52,11 @@ class HotItems extends StatelessWidget {
         .map(
           (hotList) => Container(
             padding: EdgeInsets.only(bottom: 20.0),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
                   width: 15.0,
-                  color: Colors.black12,
+                  color: Colors.grey[100],
                 ),
               ),
             ),

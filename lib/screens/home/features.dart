@@ -1,17 +1,18 @@
 import 'package:anylearn/dto/feature_data_dto.dart';
 import 'package:anylearn/screens/home/feature_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FeatureList extends StatelessWidget {
   final List<FeatureDataDTO> features = [
-    FeatureDataDTO(icon: Icons.school, title: "Học viện", route: "/school"),
-    FeatureDataDTO(icon: Icons.supervised_user_circle, title: "Chuyên gia", route: "/teacher"),
-    FeatureDataDTO(icon: Icons.event, title: "Lịch đào tạo", route: "/event"),
-    FeatureDataDTO(icon: Icons.toys, title: "Dụng cụ", route: "/developing"),
+    FeatureDataDTO(icon: MdiIcons.qrcode, title: "Mã Giới thiệu", route: "/school"),
+    FeatureDataDTO(icon: MdiIcons.accountGroup , title: "Bạn bè", route: "/teacher"),
+    FeatureDataDTO(icon: MdiIcons.calendarClock, title: "Lịch học", route: "/event"),
+    FeatureDataDTO(icon: MdiIcons.presentationPlay, title: "Tạo khóa học", route: "/developing"),
     FeatureDataDTO(icon: Icons.video_label, title: "Xem & Học", route: "/ask"),
     FeatureDataDTO(icon: Icons.chrome_reader_mode, title: "Đọc & Học", route: "/ask"),
     FeatureDataDTO(icon: Icons.question_answer, title: "Hỏi & Học", route: "/ask"),
-    FeatureDataDTO(icon: Icons.extension, title: "Học bổng", route: "/account"),
+    FeatureDataDTO(icon: MdiIcons.piggyBank, title: "Quỹ học bổng", route: "/account"),
   ];
   @override
   Widget build(BuildContext context) {

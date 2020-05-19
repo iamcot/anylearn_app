@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double statusHeight = MediaQuery.of(context).padding.top;//iOS = 44 & Android = 22
     return SliverAppBar(
-      expandedHeight: 190.0,
+      expandedHeight: 185 - (statusHeight - 24),
       title: Image.asset(
         "assets/images/logo.png",
         height: 24.0,

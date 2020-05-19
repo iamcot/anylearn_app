@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class SchoolFilter extends StatefulWidget {
+class ItemsFilter extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _SchooFilter();
+  State<StatefulWidget> createState() => _ItemsFilter();
 }
 
-class _SchooFilter extends State<SchoolFilter> {
-  String dropdownValue = "price";
+class _ItemsFilter extends State<ItemsFilter> {
+  String dropdownValue = "newest";
   Map<String, String> options = {
     // 'nameaz': 'Theo tên A-Z',
     // 'nameza': 'Theo tên Z-A',
     // 'course': 'Theo Số lượng Khóa học',
-    'price': 'Theo mức độ quan tâm',
+    'newest': 'Mới nhất',
   };
 
   @override

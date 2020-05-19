@@ -3,7 +3,9 @@ import 'package:anylearn/screens/ask.dart';
 import 'package:anylearn/screens/developing.dart';
 import 'package:anylearn/screens/event.dart';
 import 'package:anylearn/screens/home.dart';
+import 'package:anylearn/screens/items.dart';
 import 'package:anylearn/screens/notification.dart';
+import 'package:anylearn/screens/pdp.dart';
 import 'package:anylearn/screens/school.dart';
 import 'package:anylearn/screens/search.dart';
 import 'package:anylearn/screens/teacher.dart';
@@ -23,4 +25,6 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/search": (BuildContext context) => SearchScreen(),
   "/developing": (BuildContext context) => DevelopingScreen(),
   "/notification": (BuildContext context) => NotificationScreen(),
+  "/items": (BuildContext context) => ItemsScreen(),
+  "/pdp": (BuildContext context) => PDPScreen(),
 };

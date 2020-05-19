@@ -79,7 +79,7 @@ class WeekCourses extends StatelessWidget {
               ),
               Divider(
                 height: 0,
-                color: Colors.black12,
+                color: Colors.grey[300],
               ),
             ],
           );

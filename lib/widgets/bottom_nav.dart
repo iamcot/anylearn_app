@@ -17,30 +17,30 @@ class BottomNav extends StatelessWidget {
     return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.black54,
+        unselectedItemColor: Colors.black87,
         iconSize: 18.0,
-        selectedFontSize: 11.0,
+        selectedFontSize: 10.0,
         unselectedFontSize: 10.0,
         currentIndex: this.index,
         onTap: (i) => _navigate(context, i),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+        items:  <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
             icon: Icon(Icons.school),
             title: Text("Học viện"),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.supervised_user_circle),
             title: Text("Chuyên gia"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Image.asset("assets/icons/home.png", fit: BoxFit.cover, width: 20.0, height: 20.0,) ,
             title: Text("Trang chủ"),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.event),
             title: Text("Lịch/Sự kiện"),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.question_answer),
             title: Text("Học & Hỏi"),
           ),

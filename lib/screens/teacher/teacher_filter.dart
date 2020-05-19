@@ -6,12 +6,12 @@ class TeacherFilter extends StatefulWidget {
 }
 
 class _TeacherFilter extends State<TeacherFilter> {
-  String dropdownValue = "nameaz";
+  String dropdownValue = "popular";
   Map<String, String> options = {
-    'nameaz': 'Theo tên A-Z',
-    'nameza': 'Theo tên Z-A',
-    'course': 'Theo Số lượng Khóa học',
-    'popular': 'Theo Số người quan tâm',
+    // 'nameaz': 'Theo tên A-Z',
+    // 'nameza': 'Theo tên Z-A',
+    // 'course': 'Theo Số lượng Khóa học',
+    'popular': 'Theo mức độ quan tâm',
   };
 
   @override
@@ -44,7 +44,7 @@ class _TeacherFilter extends State<TeacherFilter> {
           ),
           Divider(
             height: 0.0,
-            thickness: 2.0,
+            thickness: 1.0,
             color: Colors.black12,
           ),
         ],

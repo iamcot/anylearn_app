@@ -25,7 +25,7 @@ class FeatureIcon extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               title,
-              style: TextStyle(fontSize: 10.0, color: Colors.black87),
+              style: TextStyle(fontSize: 10.0, color: Colors.grey[800]),
             ),
           ),
         ],

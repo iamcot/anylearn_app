@@ -26,6 +26,9 @@ dependencies:
   carousel_slider: ^2.1.0 
   flutter_launcher_icons: ^0.7.5
   table_calendar: ^2.2.3
+  material_design_icons_flutter: ^4.0.5245
+  intl: ^0.16.1
+  flutter_html: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +59,7 @@ flutter:
   assets:
     - assets/images/
     - assets/banners/
+    - assets/icons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
