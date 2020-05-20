@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/screens/home/wallet_card.dart';
 import 'package:anylearn/widgets/account_icon.dart';
 import 'package:anylearn/widgets/notification_icon.dart';
@@ -5,6 +6,9 @@ import 'package:anylearn/widgets/search_icon.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget {
+  final UserDTO user;
+
+  const HomeAppBar({Key key, this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double statusHeight = MediaQuery.of(context).padding.top;//iOS = 44 & Android = 22
@@ -20,7 +24,7 @@ class HomeAppBar extends StatelessWidget {
       actions: <Widget>[
         SearchIcon(),
         NotificationIcon(),
-        AccountIcon(),
+        AccountIcon(userAvatar: user.image,),
       ],
       flexibleSpace: LayoutBuilder(
         builder: (context, bc) {

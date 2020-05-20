@@ -1,6 +1,7 @@
 import 'package:anylearn/dto/event_dto.dart';
 import 'package:anylearn/screens/event/day_events.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:anylearn/widgets/appbar.dart';
 import 'package:anylearn/widgets/bottom_nav.dart';
@@ -15,12 +16,36 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
   AnimationController _animationController;
 
   Map<DateTime, List> _events = {
-    new DateTime(2020,5,10) : [
+    DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now())): [
       new EventDTO(
-        title: "Events 1",
-        time: "09:00",
-        location: "Q7"
-      )
+          title: "Events wewe ewertfd fw1",
+          image: "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+          route: "/pdp",
+          date: "2020-05-10",
+          time: "09:00",
+          location: "Q7",
+          content: "Giới thiệu sơ về event",
+          userName: "Giảng viên A"),
+      new EventDTO(
+          title: "Events 1",
+          date: "2020-05-10",
+          image: "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+          route: "/pdp",
+          time: "12:00",
+          location: "Q7",
+          content: "Giới thiệu sơ về event",
+          userName: "Trung tâm B")
+    ],
+    new DateTime(2020, 5, 10): [
+      new EventDTO(
+          title: "Events  2 yujyu yuyu",
+          route: "/pdp",
+          date: "2020-05-10",
+          image: "",
+          time: "09:00",
+          location: "Q7",
+          content: "Giới thiệu sơ về event",
+          userName: "Giảng viên A")
     ]
   };
   List _selectedEvents;
@@ -66,7 +91,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     // var eventData = Provider.of<Event>(context, listen: true);
     // _events = eventData.monthEvents;
-    // _selectedEvents = _selectedEvents ?? eventData.dayEvents;
+    _selectedEvents = _selectedEvents ?? _events[DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()))];
 
     return Scaffold(
       appBar: BaseAppBar(
@@ -74,9 +99,9 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildTableCalendarWithBuilders(),
-          const SizedBox(height: 8.0),
           Expanded(child: _buildEventList()),
         ],
       ),
@@ -117,7 +142,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
             child: Container(
               margin: const EdgeInsets.all(4.0),
               padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-              color: Colors.deepOrange[300],
+              color: Colors.green[300],
               width: 100,
               height: 100,
               child: Text(
@@ -165,8 +190,8 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         color: _calendarController.isSelected(date)
-            ? Colors.brown[500]
-            : _calendarController.isToday(date) ? Colors.brown[300] : Colors.blue[400],
+            ? Colors.red[500]
+            : _calendarController.isToday(date) ? Colors.red[500] : Colors.blue[400],
       ),
       width: 16.0,
       height: 16.0,
@@ -184,7 +209,13 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
 
   Widget _buildEventList() {
     return ListView(
-      children: _selectedEvents == null ? [] : _selectedEvents.map((event) => DayEvents(eventToday: event,)).toList(),
+      children: _selectedEvents == null
+          ? []
+          : _selectedEvents
+              .map((event) => DayEvents(
+                    eventToday: event,
+                  ))
+              .toList(),
     );
   }
 }

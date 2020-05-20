@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/dto/users_dto.dart';
 import 'package:anylearn/screens/school/school_filter.dart';
@@ -70,48 +72,53 @@ class _SchoolBody extends State<SchoolBody> {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return Column(
-                children: <Widget>[
-                  ListTile(
-                      isThreeLine: true,
-                      leading: Container(
-                        width: 60.0,
-                        height: 60.0,
-                        child: Image.network(
-                          schoolsData.list[index].image,
-                          fit: BoxFit.cover,
-                        ),
+              final int itemIndex = index ~/ 2;
+              if (index.isEven) {
+                return ListTile(
+                    isThreeLine: true,
+                    leading: Container(
+                      width: 60.0,
+                      height: 60.0,
+                      child: Image.network(
+                        schoolsData.list[itemIndex].image,
+                        fit: BoxFit.cover,
                       ),
-                      onTap: () {
-                        Navigator.of(context).pushNamed(schoolsData.list[index].route);
-                      },
-                      title: Text(
-                        schoolsData.list[index].name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(schoolsData.list[itemIndex].route);
+                    },
+                    title: Text(
+                      schoolsData.list[itemIndex].name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    trailing: Icon(Icons.arrow_right),
+                    subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      schoolsData.list[itemIndex].introduce != null
+                          ? Text(
+                              schoolsData.list[itemIndex].introduce,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          : Text(""),
+                      RatingBox(
+                        score: schoolsData.list[itemIndex].rating,
+                        alignment: "start",
                       ),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                      subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        RatingBox(
-                          score: schoolsData.list[index].rating,
-                          alignment: "start",
-                        ),
-                        schoolsData.list[index].introduce != null
-                            ? Text(
-                                schoolsData.list[index].introduce,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              )
-                            : Text(""),
-                      ])),
-                  Divider(
-                    height: 0,
-                    color: Colors.black12,
-                  ),
-                ],
+                    ]));
+              }
+              return Divider(
+                height: 0,
+                color: Colors.black12,
               );
             },
-            childCount: schoolsData.list.length,
+            childCount: math.max(0, schoolsData.list.length * 2 - 1),
+            semanticIndexCallback: (Widget widget, int localIndex) {
+              if (localIndex.isEven) {
+                return localIndex ~/ 2;
+              }
+              return null;
+            },
           ),
         ),
       ],

@@ -1,5 +1,7 @@
 import 'package:anylearn/dto/item_dto.dart';
+import 'package:anylearn/widgets/calendar_box.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class WeekCourses extends StatelessWidget {
   final List<ItemDTO> monthCourses = [
@@ -34,57 +36,37 @@ class WeekCourses extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          return Column(
-            children: <Widget>[
-              ListTile(
-                isThreeLine: true,
-                leading: Container(
-                    width: 50.0,
-                    child: Stack(
-                      children: <Widget>[
-                        Image.asset(
-                          "assets/images/date_bg.png",
-                          fit: BoxFit.fitHeight,
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(top: 20.0),
-                          child: Text(
-                            DateTime.parse(monthCourses[index].date).day.toString(),
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24.0,
-                            ),
-                          ),
-                        )
-                      ],
-                    )),
-                onTap: () {
-                  Navigator.of(context).pushNamed(monthCourses[index].route);
-                },
-                title: Text(
-                  monthCourses[index].title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                trailing: Icon(Icons.favorite_border),
-                subtitle: monthCourses[index].shortContent != null
-                    ? Text(
-                        monthCourses[index].shortContent,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    : Text(""),
+          final int itemIndex = index ~/ 2;
+          if (index.isEven) {
+            return ListTile(
+              isThreeLine: true,
+              leading: CalendarBox(text: DateTime.parse(monthCourses[itemIndex].date).day.toString()),
+              onTap: () {
+                Navigator.of(context).pushNamed(monthCourses[itemIndex].route);
+              },
+              title: Text(
+                monthCourses[itemIndex].title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              Divider(
-                height: 0,
-                color: Colors.grey[300],
-              ),
-            ],
+              trailing: Icon(Icons.favorite_border),
+              subtitle: monthCourses[itemIndex].shortContent != null
+                  ? Text(monthCourses[itemIndex].shortContent, maxLines: 2, overflow: TextOverflow.ellipsis)
+                  : Text(""),
+            );
+          }
+          return Divider(
+            height: 0,
+            color: Colors.grey[200],
           );
         },
-        childCount: monthCourses.length,
+        childCount: math.max(0, monthCourses.length * 2 - 1),
+        semanticIndexCallback: (Widget widget, int localIndex) {
+          if (localIndex.isEven) {
+            return localIndex ~/ 2;
+          }
+          return null;
+        },
       ),
     );
   }

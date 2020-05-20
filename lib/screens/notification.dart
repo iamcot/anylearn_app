@@ -12,7 +12,7 @@ class NotificationScreen extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: Text("Trang này đang được hoàn thiện."),
+        child: Text("Bạn chưa có thông báo nào."),
       ),
     );
   }
