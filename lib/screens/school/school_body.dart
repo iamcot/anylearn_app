@@ -1,6 +1,7 @@
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/dto/users_dto.dart';
 import 'package:anylearn/screens/school/school_filter.dart';
+import 'package:anylearn/widgets/rating.dart';
 import 'package:anylearn/widgets/sliver_banner.dart';
 import 'package:flutter/material.dart';
 
@@ -15,37 +16,49 @@ class _SchoolBody extends State<SchoolBody> {
         "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
     list: [
       new UserDTO(
-          name: "Trung tâm A",
-          image:
-              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/items",
-          introduce: "Có giới thiệu ngắn"),
+        name: "Trung tâm A",
+        image:
+            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+        route: "/items",
+        introduce: "Có giới thiệu ngắn",
+        rating: 5.0,
+      ),
       new UserDTO(
-          name: "Trung tâm B có tên siêu dài cần cắt bớt đi cho đẹp",
-          image:
-              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/items"),
+        name: "Trung tâm B có tên siêu dài cần cắt bớt đi cho đẹp",
+        image:
+            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+        route: "/items",
+        rating: 0.0,
+      ),
       new UserDTO(
-          name: "Trung tâm C",
-          image:
-              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/items"),
+        name: "Trung tâm C",
+        image:
+            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+        route: "/items",
+        rating: 0.0,
+      ),
       new UserDTO(
-          name: "Trung tâm A",
-          image:
-              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/items",
-          introduce: "Có giới thiệu ngắn"),
+        name: "Trung tâm A",
+        image:
+            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+        route: "/items",
+        introduce: "Có giới thiệu ngắn",
+        rating: 0.0,
+      ),
       new UserDTO(
-          name: "Trung tâm B có tên siêu dài cần cắt bớt đi cho đẹp",
-          image:
-              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/items"),
+        name: "Trung tâm B có tên siêu dài cần cắt bớt đi cho đẹp",
+        image:
+            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+        route: "/items",
+        rating: 0.0,
+      ),
       new UserDTO(
-          name: "Trung tâm C",
-          image:
-              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/items"),
+        name: "Trung tâm C",
+        image:
+            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+        route: "/items",
+        rating: 0.0,
+      ),
     ],
   );
   @override
@@ -60,32 +73,37 @@ class _SchoolBody extends State<SchoolBody> {
               return Column(
                 children: <Widget>[
                   ListTile(
-                    isThreeLine: true,
-                    leading: Container(
-                      width: 60.0,
-                      height: 60.0,
-                      child: Image.network(
-                        schoolsData.list[index].image,
-                        fit: BoxFit.cover,
+                      isThreeLine: true,
+                      leading: Container(
+                        width: 60.0,
+                        height: 60.0,
+                        child: Image.network(
+                          schoolsData.list[index].image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pushNamed(schoolsData.list[index].route);
-                    },
-                    title: Text(
-                      schoolsData.list[index].name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    trailing: Icon(Icons.arrow_forward_ios),
-                    subtitle: schoolsData.list[index].introduce != null
-                        ? Text(
-                            schoolsData.list[index].introduce,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        : Text(""),
-                  ),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(schoolsData.list[index].route);
+                      },
+                      title: Text(
+                        schoolsData.list[index].name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      trailing: Icon(Icons.arrow_forward_ios),
+                      subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        RatingBox(
+                          score: schoolsData.list[index].rating,
+                          alignment: "start",
+                        ),
+                        schoolsData.list[index].introduce != null
+                            ? Text(
+                                schoolsData.list[index].introduce,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            : Text(""),
+                      ])),
                   Divider(
                     height: 0,
                     color: Colors.black12,

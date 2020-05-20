@@ -12,6 +12,7 @@ class Text2Lines extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Text(
         text,
+        softWrap: true,
         overflow: TextOverflow.ellipsis,
         maxLines: 2,
         style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.normal),

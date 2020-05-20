@@ -21,6 +21,7 @@ class UserDTO {
   final int status;
   final int updateDoc;
   final String route;
+  final double rating;
 
   UserDTO({
     this.id,
@@ -45,5 +46,6 @@ class UserDTO {
     this.status,
     this.updateDoc,
     this.route,
+    this.rating,
   });
 }

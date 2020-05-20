@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 class RatingBox extends StatelessWidget {
   final double score;
-  final max = 5;
-  final fontSize;
+  final int max = 5;
+  final double fontSize;
+  final String alignment;
 
-  const RatingBox({Key key, this.score, this.fontSize = 14.0}) : super(key: key);
+  const RatingBox({Key key, this.score, this.fontSize = 14.0, this.alignment: "center"}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: this.alignment == "center" ?  MainAxisAlignment.center : MainAxisAlignment.start ,
         children: _buildStar(),
       ),
     );

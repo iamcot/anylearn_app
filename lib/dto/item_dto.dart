@@ -13,6 +13,9 @@ class ItemDTO {
   final String dateEnd;
   final String timeStart;
   final String timeEnd;
+  final int numCart;
+  final int numShare;
+  final int numFavorite;
 
   ItemDTO({
     this.id,
@@ -29,5 +32,8 @@ class ItemDTO {
     this.dateEnd,
     this.timeStart,
     this.timeEnd,
+    this.numCart,
+    this.numFavorite,
+    this.numShare,
   });
 }

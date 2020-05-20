@@ -38,62 +38,70 @@ class _ItemsBody extends State<ItemsBody> {
           ),
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              return InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(data.items[index].route);
-                },
-                child: Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                        color: Colors.grey[100],
-                        width: 1.0,
-                      ),
-                      bottom: BorderSide(
-                        color: Colors.grey[100],
-                        width: 1.0,
-                      ),
+              return Container(
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  border: Border(
+                    right: BorderSide(
+                      color: Colors.grey[100],
+                      width: 1.0,
+                    ),
+                    bottom: BorderSide(
+                      color: Colors.grey[100],
+                      width: 1.0,
                     ),
                   ),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: width * 3 / 4,
-                        child: ClipRRect(
-                          child: Image.network(
-                            data.items[index].image,
-                            fit: BoxFit.cover,
+                ),
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(data.items[index].route);
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            height: width * 3 / 4,
+                            child: ClipRRect(
+                              child: Image.network(
+                                data.items[index].image,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text2Lines(
-                          text: data.items[index].title,
-                        ),
-                      ),
-                      RatingBox(
-                        score: data.items[index].rating,
-                        fontSize: 14.0,
-                      ),
-                      Row(children: [
-                        Expanded(
-                          child: Container(
+                          Padding(
                             padding: EdgeInsets.only(top: 10.0),
-                            child: PriceBox(price: data.items[index].price, orgPrice: data.items[index].priceOrg),
+                            child: Text2Lines(
+                              text: data.items[index].title,
+                            ),
                           ),
+                        ],
+                      ),
+                    ),
+                    RatingBox(
+                      score: data.items[index].rating,
+                      fontSize: 14.0,
+                      alignment: "start",
+                    ),
+                    Row(children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: PriceBox(price: data.items[index].price, orgPrice: data.items[index].priceOrg),
                         ),
-                        Container(
-                            child: IconButton(
-                          icon: Icon(Icons.add_shopping_cart, color: Colors.blue,),
-                          onPressed: null,
-                        )),
-                      ]),
-                    ],
-                  ),
+                      ),
+                      Container(
+                          child: IconButton(
+                        icon: Icon(
+                          Icons.add_shopping_cart,
+                          color: Colors.blue,
+                        ),
+                        onPressed: null,
+                      )),
+                    ]),
+                  ],
                 ),
               );
             },
