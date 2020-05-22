@@ -25,6 +25,12 @@ class _RegisterScreen extends State<RegisterScreen> {
   String confirmPassword;
   bool _agreedToc = false;
 
+    final FocusNode _focusRef = FocusNode();
+    final FocusNode _focusName = FocusNode();
+    final FocusNode _focusPhone = FocusNode();
+    final FocusNode _focusPass = FocusNode();
+    final FocusNode _focusRePass = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 2;
@@ -67,6 +73,11 @@ class _RegisterScreen extends State<RegisterScreen> {
                       _user.refcode = value;
                     });
                   },
+                  focusNode: _focusRef,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (term) {
+                    _fieldFocusChange(context, _focusRef, _focusName);
+                  },
                   decoration: InputDecoration(
                     labelText: "Mã giới thiệu",
                     contentPadding: EdgeInsets.all(5.0),
@@ -90,6 +101,11 @@ class _RegisterScreen extends State<RegisterScreen> {
                     }
                     _formKey.currentState.save();
                     return null;
+                  },
+                  focusNode: _focusName,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (term) {
+                    _fieldFocusChange(context, _focusName, _focusPhone);
                   },
                   decoration: InputDecoration(
                     labelText: "Họ & Tên",
@@ -115,6 +131,11 @@ class _RegisterScreen extends State<RegisterScreen> {
                     _formKey.currentState.save();
                     return null;
                   },
+                  focusNode: _focusPhone,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (term) {
+                    _fieldFocusChange(context, _focusPhone, _focusPass);
+                  },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(5.0),
                     labelText: "Số điện thoại",
@@ -138,6 +159,11 @@ class _RegisterScreen extends State<RegisterScreen> {
                     _formKey.currentState.save();
                     return null;
                   },
+                   focusNode: _focusPass,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (term) {
+                    _fieldFocusChange(context, _focusPass, _focusRePass);
+                  },
                   decoration: InputDecoration(
                     labelText: "Mật khẩu",
                     prefixIcon: Icon(MdiIcons.lock),
@@ -154,6 +180,11 @@ class _RegisterScreen extends State<RegisterScreen> {
                     setState(() {
                       confirmPassword = value;
                     });
+                  },
+                    focusNode: _focusRePass,
+                  textInputAction: TextInputAction.done,
+                  onFieldSubmitted: (term) {
+                    _focusRePass.unfocus();
                   },
                   validator: (String value) {
                     if (value != _user.password) {
@@ -180,10 +211,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 child: Row(
                   children: <Widget>[
                     CustomRadio(
-                        groupValue: _user.role,
-                        value: "member",
-                        label: "Học viên",
-                        func: () => _selectRole("member")),
+                        groupValue: _user.role, value: "member", label: "Học viên", func: () => _selectRole("member")),
                     CustomRadio(
                         groupValue: _user.role,
                         value: "teacher",
@@ -242,30 +270,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 15.0),
                 child: FlatButton(
                   onPressed: () {
-                    if (!_agreedToc) {
-                      showDialog(
-                        context: context,
-                        child: AlertDialog(
-                          scrollable: true,
-                          title: Text(
-                            "Chưa đồng ý điều khoản sử dụng.",
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          content: Text(
-                              "Bạn vui lòng đọc và tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
-                          actions: <Widget>[
-                            FlatButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text("Tôi sẽ đọc".toUpperCase()),
-                            )
-                          ],
-                        ),
-                      );
-                    }
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      Navigator.of(context).pushReplacementNamed("/account/edit", arguments: _user);
-                    }
+                    _submitForm(context);
                   },
                   child: Text(
                     "Đăng ký",
@@ -299,5 +304,36 @@ class _RegisterScreen extends State<RegisterScreen> {
     setState(() {
       _user.role = value;
     });
+  }
+
+  void _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+  void _submitForm(BuildContext context) {
+    if (!_agreedToc) {
+      showDialog(
+        context: context,
+        child: AlertDialog(
+          scrollable: true,
+          title: Text(
+            "Chưa đồng ý điều khoản sử dụng.",
+            style: TextStyle(fontSize: 14),
+          ),
+          content: Text("Bạn vui lòng đọc và tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("Tôi sẽ đọc".toUpperCase()),
+            )
+          ],
+        ),
+      );
+    }
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      Navigator.of(context).pushReplacementNamed("/account/edit", arguments: _user);
+    }
   }
 }

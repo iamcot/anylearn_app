@@ -16,6 +16,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   UserDTO _user = new UserDTO();
+  final FocusNode _phoneNode = FocusNode();
+  final FocusNode _passwordNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +54,9 @@ class _LoginScreen extends State<LoginScreen> {
                 painter: CustomCurvedPaint(),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
+                padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 20.0),
                 child: TextFormField(
+                  autofocus: true,
                   initialValue: _user.phone,
                   onSaved: (value) {
                     setState(() {
@@ -66,6 +69,11 @@ class _LoginScreen extends State<LoginScreen> {
                     }
                     _formKey.currentState.save();
                     return null;
+                  },
+                  focusNode: _phoneNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (term) {
+                    _fieldFocusChange(context, _phoneNode, _passwordNode);
                   },
                   decoration: InputDecoration(
                     labelText: "Số điện thoại",
@@ -89,6 +97,12 @@ class _LoginScreen extends State<LoginScreen> {
                     _formKey.currentState.save();
                     return null;
                   },
+                  focusNode: _passwordNode,
+                  textInputAction: TextInputAction.send,
+                  onFieldSubmitted: (value) {
+                    _passwordNode.unfocus();
+                    _submitForm(context);
+                  },
                   decoration: InputDecoration(
                     labelText: "Mật khẩu",
                     prefixIcon: Icon(MdiIcons.lock),
@@ -106,10 +120,7 @@ class _LoginScreen extends State<LoginScreen> {
                 margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
                 child: FlatButton(
                   onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      Navigator.of(context).pushReplacementNamed("/");
-                    }
+                    _submitForm(context);
                   },
                   child: Text(
                     "Đăng nhập",
@@ -137,5 +148,17 @@ class _LoginScreen extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+  void _submitForm(BuildContext context) {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      Navigator.of(context).pushReplacementNamed("/");
+    }
   }
 }
