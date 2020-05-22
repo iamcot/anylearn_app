@@ -33,6 +33,13 @@ dependencies:
   url_launcher: ^5.4.7
   qr_flutter: ^3.2.0
   barcode_scan: ^3.0.1
+  share: ^0.6.4+2
+  validators: ^2.0.0+1
+  image_picker: ^0.6.6+4
+  http: ^0.12.1
+  bloc: ^4.0.0
+  flutter_bloc: ^4.0.0
+  equatable: ^1.1.1
 
 dev_dependencies:
   flutter_test:

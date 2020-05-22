@@ -167,7 +167,7 @@ class _PdpBody extends State<PdpBody> {
                             ],
                           ),
                           expanded: Column(children: [
-                            Html(data: data.item.content),
+                            Html(data: data.item.content, shrinkWrap: true,),
                             ExpandableButton(child: Text("THU GỌN", style: TextStyle(color: Colors.blue))),
                           ]),
                         ),

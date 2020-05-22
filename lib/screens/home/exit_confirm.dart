@@ -12,8 +12,9 @@ class ExitConfirm extends StatelessWidget {
           child: new Text('Thoát'),
         ),
         new RaisedButton(
+          color: Colors.blue,
           onPressed: () => Navigator.of(context).pop(false),
-          child: new Text('Ở lại'),
+          child: new Text('Ở lại', style: TextStyle(color: Colors.white),),
         ),
       ],
     );

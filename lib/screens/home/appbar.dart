@@ -1,6 +1,7 @@
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/screens/home/wallet_card.dart';
 import 'package:anylearn/widgets/account_icon.dart';
+import 'package:anylearn/widgets/add_course_icon.dart';
 import 'package:anylearn/widgets/notification_icon.dart';
 import 'package:anylearn/widgets/search_icon.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class HomeAppBar extends StatelessWidget {
       floating: false,
       pinned: true,
       actions: <Widget>[
+        AddCourseIcon(),
         SearchIcon(),
         NotificationIcon(),
         AccountIcon(userAvatar: user.image,),

@@ -1,0 +1,64 @@
+import 'dart:math' as math;
+import 'package:anylearn/dto/transaction_dto.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+class TransactionList extends StatelessWidget {
+  final List<TransactionDTO> transactions;
+
+  const TransactionList({Key key, this.transactions}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    DateFormat dateF = new DateFormat("hh:mm dd/MM/yyyy");
+    var monneyF = new NumberFormat("###,###,###", "vi_VN");
+    return CustomScrollView(
+      slivers: <Widget>[
+        transactions.length > 0
+            ? SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final itemIndex = index ~/ 2;
+                    if (index.isEven) {
+                      return ListTile(
+                        title: Text(transactions[itemIndex].content, style: TextStyle(
+                          // fontWeight: FontWeight.bold
+                        ),),
+                        subtitle: Text((transactions[itemIndex].orderId != null && transactions[itemIndex].orderId > 0
+                            ? "#" + transactions[itemIndex].orderId.toString() + " - "
+                            : "") + dateF.format(DateTime.parse(transactions[itemIndex].createdDate)), style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                            ),),
+                        trailing: Text(
+                          monneyF.format(transactions[itemIndex].amount),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: transactions[itemIndex].amount > 0 ? Colors.green : Colors.red,
+                          ),
+                        ),
+                      );
+                    }
+                    return Divider(
+                      height: 0.0,
+                    );
+                  },
+                  semanticIndexCallback: (Widget widget, int localIndex) {
+                    if (localIndex.isEven) {
+                      return localIndex ~/ 2;
+                    }
+                    return null;
+                  },
+                  childCount: math.max(0, transactions.length * 2 - 1),
+                ),
+              )
+            : SliverToBoxAdapter(
+                child: FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed("/event");
+                    },
+                    child: Text("Bạn không có giao dịch nào. Xem các lịch học đang có")),
+              )
+      ],
+    );
+  }
+}

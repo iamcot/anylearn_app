@@ -1,31 +1,34 @@
 class UserDTO {
   final int id;
-  final String name;
-  final String title;
-  final String role;
-  final String image;
-  final String banner;
-  final String address;
+  String name;
+  String title;
+  String phone;
+  String role;
+  String image;
+  String banner;
+  String address;
   final double walletM;
   final double walletC;
   final int userId;
   final double commissionRate;
-  final String country;
-  final String dob;
-  final String email;
+  String country;
+  String dob;
+  String email;
   final int expire;
-  final String introduce;
+  String introduce;
   final int isHot;
   final int numFriends;
-  final String refcode;
+  String refcode;
   final int status;
   final int updateDoc;
   final String route;
   final double rating;
+  String password;
 
   UserDTO({
     this.id,
     this.name,
+    this.phone,
     this.title,
     this.role,
     this.image,
@@ -47,5 +50,6 @@ class UserDTO {
     this.updateDoc,
     this.route,
     this.rating,
+    this.password,
   });
 }

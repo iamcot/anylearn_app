@@ -2,6 +2,7 @@ import 'package:anylearn/dto/user_dto.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share/share.dart';
 
 class QrCodeScreen extends StatelessWidget {
   final UserDTO user = new UserDTO(
@@ -21,7 +22,9 @@ class QrCodeScreen extends StatelessWidget {
     double textPadding = (width - qrWidth) / 2;
     double qrPadding = (height - qrWidth) / 3;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(user.name),
+      ),
       body: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.only(top: qrPadding, bottom: 10.0),
@@ -47,12 +50,27 @@ class QrCodeScreen extends StatelessWidget {
             Expanded(
           child: Align(
             alignment: FractionalOffset.bottomCenter,
-            child: MaterialButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+              MaterialButton(
+              color: Colors.green,
               onPressed: () => _scan(context),
-              child: Text("[Quét QR]", style: TextStyle(
-                fontSize: 20.0
+              child: Text("QUÉT QR", style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white
               ),),
             ),
+            MaterialButton(
+              onPressed: () {
+                Share.share("Tham gia học cùng tôi trên anyLEARN https://anylearn.vn/ref/" + user.refcode);
+              },
+              child: Text("CHIA SẺ MÃ", style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.blue
+              ),),
+            ),
+            ],)
           ),
         ),
            ],),),
