@@ -1,4 +1,4 @@
-import 'package:anylearn/dto/user_dto.dart';
+import 'user_dto.dart';
 
 class UsersDTO {
   final String banner;

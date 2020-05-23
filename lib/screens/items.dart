@@ -1,9 +1,9 @@
-import 'package:anylearn/dto/item_dto.dart';
-import 'package:anylearn/dto/items_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/screens/items/items_body.dart';
-import 'package:anylearn/widgets/appbar.dart';
-import 'package:anylearn/widgets/bottom_nav.dart';
+import '../dto/item_dto.dart';
+import '../dto/items_dto.dart';
+import '../dto/user_dto.dart';
+import 'items/items_body.dart';
+import '../widgets/appbar.dart';
+import '../widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
 class ItemsScreen extends StatefulWidget {

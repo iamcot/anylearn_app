@@ -1,6 +1,6 @@
-import 'package:anylearn/screens/teacher/teacher_body.dart';
-import 'package:anylearn/widgets/appbar.dart';
-import 'package:anylearn/widgets/bottom_nav.dart';
+import 'teacher/teacher_body.dart';
+import '../widgets/appbar.dart';
+import '../widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
 class TeacherScreen extends StatefulWidget {

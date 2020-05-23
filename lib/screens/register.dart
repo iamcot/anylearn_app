@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:anylearn/customs/custom_radio.dart';
-import 'package:anylearn/customs/register_curved_paint.dart';
-import 'package:anylearn/dto/user_dto.dart';
+import '../customs/custom_radio.dart';
+import '../customs/register_curved_paint.dart';
+import '../dto/user_dto.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';

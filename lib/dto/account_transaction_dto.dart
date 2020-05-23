@@ -1,4 +1,4 @@
-import 'package:anylearn/dto/transaction_dto.dart';
+import 'transaction_dto.dart';
 
 class AccountTransactionDTO {
   static const WALLET_M = "walletm";

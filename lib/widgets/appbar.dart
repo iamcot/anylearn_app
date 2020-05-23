@@ -1,7 +1,7 @@
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/widgets/account_icon.dart';
-import 'package:anylearn/widgets/notification_icon.dart';
-import 'package:anylearn/widgets/search_icon.dart';
+import '../dto/user_dto.dart';
+import '../widgets/account_icon.dart';
+import '../widgets/notification_icon.dart';
+import '../widgets/search_icon.dart';
 import 'package:flutter/material.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {

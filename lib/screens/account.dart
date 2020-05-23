@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/screens/account/app_bar_with_image.dart';
-import 'package:anylearn/screens/account/normal_menu.dart';
+import '../dto/user_dto.dart';
+import 'account/app_bar_with_image.dart';
+import 'account/normal_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

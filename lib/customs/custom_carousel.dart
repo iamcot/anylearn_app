@@ -1,6 +1,6 @@
-import 'package:anylearn/customs/custom_scroll_physical.dart';
-import 'package:anylearn/dto/item_dto.dart';
 import 'package:flutter/material.dart';
+import '../customs/custom_scroll_physical.dart';
+import '../dto/item_dto.dart';
 
 class CustomCarousel extends StatelessWidget {
   CustomCarousel({

@@ -1,4 +1,4 @@
-import 'package:anylearn/widgets/appbar.dart';
+import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatelessWidget {

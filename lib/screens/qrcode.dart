@@ -1,4 +1,4 @@
-import 'package:anylearn/dto/user_dto.dart';
+import '../dto/user_dto.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';

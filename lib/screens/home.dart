@@ -1,5 +1,5 @@
-import 'package:anylearn/screens/home/exit_confirm.dart';
-import 'package:anylearn/widgets/bottom_nav.dart';
+import 'home/exit_confirm.dart';
+import '../widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'home/home_body.dart';
 

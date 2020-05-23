@@ -1,7 +1,7 @@
-import 'package:anylearn/dto/ask_dto.dart';
-import 'package:anylearn/screens/ask/ask_cat_body.dart';
-import 'package:anylearn/widgets/appbar.dart';
-import 'package:anylearn/widgets/bottom_nav.dart';
+import '../dto/ask_dto.dart';
+import 'ask/ask_cat_body.dart';
+import '../widgets/appbar.dart';
+import '../widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
 class AskCatScreen extends StatefulWidget {

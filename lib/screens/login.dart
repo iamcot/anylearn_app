@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:anylearn/customs/register_curved_paint.dart';
-import 'package:anylearn/dto/user_dto.dart';
+import '../customs/register_curved_paint.dart';
+import '../dto/user_dto.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

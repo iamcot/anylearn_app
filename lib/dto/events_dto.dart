@@ -1,4 +1,4 @@
-import 'package:anylearn/dto/event_dto.dart';
+import 'event_dto.dart';
 
 class EventsDTO {
   final Map<String, List<EventDTO>> events;

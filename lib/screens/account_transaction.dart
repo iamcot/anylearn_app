@@ -1,6 +1,6 @@
-import 'package:anylearn/dto/account_transaction_dto.dart';
-import 'package:anylearn/dto/transaction_dto.dart';
-import 'package:anylearn/screens/account/transaction_list.dart';
+import '../dto/account_transaction_dto.dart';
+import '../dto/transaction_dto.dart';
+import 'account/transaction_list.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

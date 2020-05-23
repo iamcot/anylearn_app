@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/screens/account/app_bar_with_image.dart';
+import '../dto/user_dto.dart';
+import 'account/app_bar_with_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

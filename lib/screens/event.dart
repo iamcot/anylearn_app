@@ -1,10 +1,10 @@
-import 'package:anylearn/dto/event_dto.dart';
-import 'package:anylearn/screens/event/day_events.dart';
+import '../dto/event_dto.dart';
+import 'event/day_events.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:anylearn/widgets/appbar.dart';
-import 'package:anylearn/widgets/bottom_nav.dart';
+import '../widgets/appbar.dart';
+import '../widgets/bottom_nav.dart';
 
 class EventScreen extends StatefulWidget {
   @override

@@ -5,11 +5,11 @@ abstract class AuthState extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthUnInit extends AuthState {}
+class AuthInit extends AuthState {}
 
-class AuthChecked extends AuthState {}
+class AuthSuccess extends AuthState {}
 
-class AuthUnCheck extends AuthState {}
+class AuthFail extends AuthState {}
 
-class AuthLoading extends AuthState {}
+class AuthInProgress extends AuthState {}
 

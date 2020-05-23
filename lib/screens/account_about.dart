@@ -1,5 +1,5 @@
-import 'package:anylearn/dto/guide_dto.dart';
-import 'package:anylearn/widgets/appbar.dart';
+import '../dto/guide_dto.dart';
+import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';

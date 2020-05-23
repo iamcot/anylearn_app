@@ -1,6 +1,6 @@
-import 'package:anylearn/dto/account_calendar_dto.dart';
-import 'package:anylearn/dto/event_dto.dart';
-import 'package:anylearn/screens/account/account_calendar_list.dart';
+import '../dto/account_calendar_dto.dart';
+import '../dto/event_dto.dart';
+import 'account/account_calendar_list.dart';
 import 'package:flutter/material.dart';
 
 class AccountCalendarScreen extends StatefulWidget {

@@ -1,5 +1,5 @@
-import 'package:anylearn/routes.dart';
-import 'package:anylearn/themes/default.dart';
+import 'routes.dart';
+import 'themes/default.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

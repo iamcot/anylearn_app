@@ -1,10 +1,10 @@
-import 'package:anylearn/dto/hot_items_dto.dart';
-import 'package:anylearn/dto/item_dto.dart';
-import 'package:anylearn/dto/pdp_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/screens/pdp/pdp_body.dart';
-import 'package:anylearn/widgets/appbar.dart';
-import 'package:anylearn/widgets/bottom_nav.dart';
+import '../dto/hot_items_dto.dart';
+import '../dto/item_dto.dart';
+import '../dto/pdp_dto.dart';
+import '../dto/user_dto.dart';
+import 'pdp/pdp_body.dart';
+import '../widgets/appbar.dart';
+import '../widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
 class PDPScreen extends StatefulWidget {

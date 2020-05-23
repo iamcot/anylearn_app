@@ -1,4 +1,4 @@
-import 'package:anylearn/dto/event_dto.dart';
+import 'event_dto.dart';
 
 class AccountCalendarDTO {
   final List<EventDTO> done;

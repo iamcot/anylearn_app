@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/widgets/appbar.dart';
+import '../dto/user_dto.dart';
+import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
