@@ -1,14 +1,13 @@
-import 'dart:io';
-
-import '../customs/custom_radio.dart';
-import '../customs/register_curved_paint.dart';
-import '../dto/user_dto.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:validators/validators.dart' as validator;
-import 'package:http/http.dart' as http;
+
+import '../customs/custom_radio.dart';
+import '../customs/register_curved_paint.dart';
+import '../dto/const.dart';
+import '../dto/user_dto.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -20,16 +19,16 @@ class _RegisterScreen extends State<RegisterScreen> {
   final String _toc =
       "<p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p><p>html ne</p>";
   UserDTO _user = new UserDTO(
-    role: "member",
+    role: MyConst.ROLE_MEMBER,
   );
   String confirmPassword;
   bool _agreedToc = false;
 
-    final FocusNode _focusRef = FocusNode();
-    final FocusNode _focusName = FocusNode();
-    final FocusNode _focusPhone = FocusNode();
-    final FocusNode _focusPass = FocusNode();
-    final FocusNode _focusRePass = FocusNode();
+  final FocusNode _focusRef = FocusNode();
+  final FocusNode _focusName = FocusNode();
+  final FocusNode _focusPhone = FocusNode();
+  final FocusNode _focusPass = FocusNode();
+  final FocusNode _focusRePass = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +158,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     _formKey.currentState.save();
                     return null;
                   },
-                   focusNode: _focusPass,
+                  focusNode: _focusPass,
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (term) {
                     _fieldFocusChange(context, _focusPass, _focusRePass);
@@ -181,7 +180,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       confirmPassword = value;
                     });
                   },
-                    focusNode: _focusRePass,
+                  focusNode: _focusRePass,
                   textInputAction: TextInputAction.done,
                   onFieldSubmitted: (term) {
                     _focusRePass.unfocus();
@@ -211,17 +210,21 @@ class _RegisterScreen extends State<RegisterScreen> {
                 child: Row(
                   children: <Widget>[
                     CustomRadio(
-                        groupValue: _user.role, value: "member", label: "Học viên", func: () => _selectRole("member")),
+                      groupValue: _user.role,
+                      value: MyConst.ROLE_MEMBER,
+                      label: "Học viên",
+                      func: () => _selectRole(MyConst.ROLE_MEMBER),
+                    ),
                     CustomRadio(
                         groupValue: _user.role,
-                        value: "teacher",
+                        value: MyConst.ROLE_TEACHER,
                         label: "Giảng viên",
-                        func: () => _selectRole("teacher")),
+                        func: () => _selectRole(MyConst.ROLE_TEACHER)),
                     CustomRadio(
                       groupValue: _user.role,
-                      value: "school",
+                      value: MyConst.ROLE_SCHOOL,
                       label: "Trung tâm",
-                      func: () => _selectRole("school"),
+                      func: () => _selectRole(MyConst.ROLE_SCHOOL),
                     ),
                   ],
                 ),
@@ -288,7 +291,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.of(context).pushReplacementNamed("/login");
+                            Navigator.of(context).popAndPushNamed("/login");
                           })
                   ]),
                 ),
@@ -333,7 +336,7 @@ class _RegisterScreen extends State<RegisterScreen> {
     }
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      Navigator.of(context).pushReplacementNamed("/account/edit", arguments: _user);
+      Navigator.of(context).popAndPushNamed("/account/edit", arguments: _user);
     }
   }
 }

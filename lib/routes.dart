@@ -13,6 +13,7 @@ import 'screens/ask.dart';
 import 'screens/ask_cat.dart';
 import 'screens/developing.dart';
 import 'screens/event.dart';
+import 'screens/home.dart';
 import 'screens/items.dart';
 import 'screens/login.dart';
 import 'screens/notification.dart';
@@ -23,6 +24,7 @@ import 'screens/school.dart';
 import 'screens/teacher.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
+  "/": (BuildContext context) => HomeScreen(),
   "/school": (BuildContext context) => SchoolScreen(),
   "/teacher": (BuildContext context) => TeacherScreen(),
   "/event": (BuildContext context) => EventScreen(),

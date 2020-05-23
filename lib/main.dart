@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/auth/auth_bloc.dart';
 import 'blocs/auth/auth_event.dart';
-import 'blocs/auth/auth_state.dart';
 import 'models/user_repo.dart';
 import 'routes.dart';
-import 'screens/home.dart';
 import 'themes/default.dart';
 
 void main() {
@@ -18,7 +16,7 @@ void main() {
     child: BlocProvider<AuthBloc>(
       create: (context) {
         final userRepository = RepositoryProvider.of<UserRepository>(context);
-        return AuthBloc(userRepository: userRepository)..add(AuthStarted());
+        return AuthBloc(userRepository: userRepository)..add(AuthCheckEvent());
       },
       child: MyApp(),
     ),
@@ -33,11 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'anyLearn',
       theme: appTheme(),
       routes: routes,
-      home: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          return HomeScreen();
-        },
-      ),
+      initialRoute: "/",
     );
   }
 }

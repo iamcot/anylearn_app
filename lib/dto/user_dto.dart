@@ -24,6 +24,7 @@ class UserDTO {
   final String route;
   final double rating;
   String password;
+  String token;
 
   UserDTO({
     this.id,
@@ -51,5 +52,6 @@ class UserDTO {
     this.route,
     this.rating,
     this.password,
+    this.token,
   });
 }

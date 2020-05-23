@@ -1,10 +1,11 @@
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/screens/home/wallet_card.dart';
-import 'package:anylearn/widgets/account_icon.dart';
-import 'package:anylearn/widgets/add_course_icon.dart';
-import 'package:anylearn/widgets/notification_icon.dart';
-import 'package:anylearn/widgets/search_icon.dart';
 import 'package:flutter/material.dart';
+
+import '../../dto/user_dto.dart';
+import '../../widgets/account_icon.dart';
+import '../../widgets/add_course_icon.dart';
+import '../../widgets/notification_icon.dart';
+import '../../widgets/search_icon.dart';
+import 'wallet_card.dart';
 
 class HomeAppBar extends StatelessWidget {
   final UserDTO user;
@@ -25,8 +26,8 @@ class HomeAppBar extends StatelessWidget {
       actions: <Widget>[
         AddCourseIcon(),
         SearchIcon(),
-        NotificationIcon(),
-        AccountIcon(userAvatar: user.image,),
+        NotificationIcon(user: user,),
+        AccountIcon(user: user,),
       ],
       flexibleSpace: LayoutBuilder(
         builder: (context, bc) {

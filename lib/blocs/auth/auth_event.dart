@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 
@@ -8,17 +9,17 @@ abstract class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthStarted extends AuthEvent {}
+class AuthCheckEvent extends AuthEvent {}
 
-class AuthLoggedIn extends AuthEvent {
-  final String token;
-  const AuthLoggedIn({@required this.token});
-
-  @override
-  List<Object> get props => [token];
+class AuthLoggedInEvent extends AuthEvent {
+  final UserDTO user;
+  const AuthLoggedInEvent({@required this.user});
 
   @override
-  String toString() => 'LoggedIn {token: $token }';
+  List<Object> get props => [user];
+
+  @override
+  String toString() => 'LoggedIn {token: ${user.token}, name: ${user.name} }';
 }
 
-class AuthLoggedOut extends AuthEvent {}
+class AuthLoggedOutEvent extends AuthEvent {}

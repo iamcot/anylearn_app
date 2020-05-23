@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'auth_state.dart';
-import 'auth_event.dart';
+
 import '../../models/user_repo.dart';
+import 'auth_event.dart';
+import 'auth_state.dart';
 
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -11,30 +12,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({@required this.userRepository}) : assert(userRepository != null);
 
   @override
-  AuthState get initialState => AuthInit();
+  AuthState get initialState => AuthInitState();
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
-    if (event is AuthStarted) {
-      final bool hasToken = await userRepository.hasToken();
-
-      if  (hasToken) {
-        yield AuthSuccess();
+    if (event is AuthCheckEvent) {
+      final String token = await userRepository.getToken();
+      if  (token != null) {
+        yield AuthSuccessState(user: await userRepository.getUser(token));
       } else {
-        yield AuthFail();
+        yield AuthFailState();
       }
     }
 
-    if (event is AuthLoggedIn) {
-      yield AuthInProgress();
-      await userRepository.storeToken(event.token);
-      yield AuthSuccess();
+    if (event is AuthLoggedInEvent) {
+      yield AuthInProgressState();
+      await userRepository.storeToken(event.user.token);
+      yield AuthSuccessState(user: event.user);
     }
 
-    if (event is AuthLoggedOut) {
-      yield AuthInProgress();
+    if (event is AuthLoggedOutEvent) {
+      yield AuthInProgressState();
       await userRepository.deleteToken();
-      yield AuthFail();
+      yield AuthFailState();
     }
   }
 }

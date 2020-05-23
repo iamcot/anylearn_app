@@ -1,4 +1,3 @@
-import 'package:anylearn/blocs/auth/auth_state.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,14 +27,14 @@ class _LoginForm extends State<LoginForm> {
     double width = MediaQuery.of(context).size.width / 2;
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoginFail) {
+        if (state is LoginFailState) {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text('${state.error}'),
             backgroundColor: Colors.red,
           ));
         }
-        if (state is LoginSuccess) {
-          Navigator.of(context).pushReplacementNamed("/");
+        if (state is LoginSuccessState) {
+          Navigator.of(context).popUntil(ModalRoute.withName("/"));
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
@@ -99,7 +98,6 @@ class _LoginForm extends State<LoginForm> {
                       focusNode: _passwordNode,
                       textInputAction: TextInputAction.send,
                       onFieldSubmitted: (value) {
-                        _passwordNode.unfocus();
                         _submitForm(context);
                       },
                       decoration: InputDecoration(
@@ -118,15 +116,20 @@ class _LoginForm extends State<LoginForm> {
                     height: 48.0,
                     margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
                     child: FlatButton(
-                      onPressed: () {
-                        _submitForm(context);
-                      },
-                      child: state is! LoginInProgress
+                      onPressed: state is! LoginInProgressState
+                          ? () {
+                              FocusScope.of(context).requestFocus(new FocusNode());
+                              _submitForm(context);
+                            }
+                          : () {},
+                      child: state is! LoginInProgressState
                           ? Text(
                               "Đăng nhập",
                               style: TextStyle(fontSize: 16.0, color: Colors.white),
                             )
-                          : CircularProgressIndicator(),
+                          : CircularProgressIndicator(
+                              valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
                     ),
                   ),
                   Container(
@@ -139,7 +142,7 @@ class _LoginForm extends State<LoginForm> {
                             style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.of(context).pushReplacementNamed("/register");
+                                Navigator.of(context).popAndPushNamed("/register");
                               })
                       ]),
                     ),
@@ -162,7 +165,7 @@ class _LoginForm extends State<LoginForm> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       // Navigator.of(context).pushReplacementNamed("/");
-      BlocProvider.of<LoginBloc>(context).add(LoginButtonPressed(
+      BlocProvider.of<LoginBloc>(context).add(LoginButtonPressedEvent(
         phone: _phoneController.text,
         password: _passwordController.text,
       ));

@@ -1,15 +1,25 @@
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+
+import '../../dto/user_dto.dart';
 
 abstract class AuthState extends Equatable {
   @override
   List<Object> get props => [];
 }
 
-class AuthInit extends AuthState {}
+class AuthInitState extends AuthState {}
 
-class AuthSuccess extends AuthState {}
+class AuthSuccessState extends AuthState {
+  final UserDTO user;
 
-class AuthFail extends AuthState {}
+  AuthSuccessState({@required this.user}): assert(user != null);
 
-class AuthInProgress extends AuthState {}
+  @override 
+  List<Object> get props => [user];
+}
+
+class AuthFailState extends AuthState {}
+
+class AuthInProgressState extends AuthState {}
 

@@ -16,24 +16,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         assert(authBloc != null);
 
   @override
-  LoginState get initialState => LoginInit();
+  LoginState get initialState => LoginInitState();
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is LoginButtonPressed) {
-      yield LoginInProgress();
+    if (event is LoginButtonPressedEvent) {
+      yield LoginInProgressState();
 
       try {
-        final token = await userRepository.authenticated(phone: event.phone, password: event.password);
-        if (token != null) {
-          authBloc.add(AuthLoggedIn(token: token));
-          yield LoginSuccess();
-          yield LoginInit();
+        final user = await userRepository.authenticated(phone: event.phone, password: event.password);
+        if (user != null) {
+          authBloc.add(AuthLoggedInEvent(user: user));
+          yield LoginSuccessState();
+          yield LoginInitState();
         } else {
-          yield LoginFail(error: "Thông tin đăng nhập không đúng.");
+          yield LoginFailState(error: "Thông tin đăng nhập không đúng.");
         }
       } catch (error) {
-        yield LoginFail(error: error.toString());
+        yield LoginFailState(error: error.toString());
       }
     }
   }

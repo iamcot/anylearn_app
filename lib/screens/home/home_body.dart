@@ -1,22 +1,17 @@
-import 'package:anylearn/dto/hot_items_dto.dart';
-import 'package:anylearn/dto/item_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/screens/home/appbar.dart';
-import 'package:anylearn/screens/home/banner.dart';
-import 'package:anylearn/screens/home/features.dart';
-import 'package:anylearn/screens/home/hot_items.dart';
-import 'package:anylearn/screens/home/week_courses.dart';
-import 'package:anylearn/screens/home/week_courses_header.dart';
 import 'package:flutter/material.dart';
 
+import '../../dto/hot_items_dto.dart';
+import '../../dto/item_dto.dart';
+import '../../dto/user_dto.dart';
+import 'appbar.dart';
+import 'banner.dart';
+import 'features.dart';
+import 'hot_items.dart';
+import 'week_courses.dart';
+import 'week_courses_header.dart';
+
 class HomeBody extends StatelessWidget {
-  final UserDTO user = new UserDTO(
-    name: "MC Hoài Trinh",
-    refcode: "1900113",
-    // image: "",
-    image:
-        "https://scontent.fvca1-2.fna.fbcdn.net/v/t1.0-9/89712877_1076973919331440_3222915485796401152_n.jpg?_nc_cat=107&_nc_sid=7aed08&_nc_ohc=d-jXcHVpNOEAX8IU-ED&_nc_ht=scontent.fvca1-2.fna&oh=f98801f09d0720e77e524fef83f6e472&oe=5EEA3ECF",
-  );
+  final UserDTO user;
   final List<HotItemsDTO> hotItems = [
     new HotItemsDTO(title: "Trung tâm nổi bật", route: "/school", list: [
       new ItemDTO(
@@ -53,6 +48,8 @@ class HomeBody extends StatelessWidget {
           route: "/teacher"),
     ]),
   ];
+
+  HomeBody({Key key, this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(

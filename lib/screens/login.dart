@@ -7,8 +7,6 @@ import '../models/user_repo.dart';
 import 'login/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
-  final UserRepository userRepository = new UserRepository();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +20,7 @@ class LoginScreen extends StatelessWidget {
       ),
       body: BlocProvider(
         create: (context) {
+          final userRepository = RepositoryProvider.of<UserRepository>(context);
           return LoginBloc(
             authBloc: BlocProvider.of<AuthBloc>(context),
             userRepository: userRepository,
