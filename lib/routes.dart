@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 import 'screens/account.dart';
 import 'screens/account_about.dart';
 import 'screens/account_calendar.dart';
@@ -11,7 +13,6 @@ import 'screens/ask.dart';
 import 'screens/ask_cat.dart';
 import 'screens/developing.dart';
 import 'screens/event.dart';
-import 'screens/home.dart';
 import 'screens/items.dart';
 import 'screens/login.dart';
 import 'screens/notification.dart';
@@ -20,10 +21,8 @@ import 'screens/qrcode.dart';
 import 'screens/register.dart';
 import 'screens/school.dart';
 import 'screens/teacher.dart';
-import 'package:flutter/widgets.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
-  "/": (BuildContext context) => HomeScreen(),
   "/school": (BuildContext context) => SchoolScreen(),
   "/teacher": (BuildContext context) => TeacherScreen(),
   "/event": (BuildContext context) => EventScreen(),

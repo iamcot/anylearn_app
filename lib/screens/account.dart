@@ -1,12 +1,16 @@
 import 'dart:ui';
 
-import '../dto/user_dto.dart';
-import 'account/app_bar_with_image.dart';
-import 'account/normal_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
+
+import '../blocs/auth/auth_bloc.dart';
+import '../blocs/auth/auth_event.dart';
+import '../dto/user_dto.dart';
+import 'account/app_bar_with_image.dart';
+import 'account/normal_menu.dart';
 
 class AccountScreen extends StatefulWidget {
   @override
@@ -120,7 +124,9 @@ class _AccountScreen extends State<AccountScreen> {
               ),
               AccountNormalMenu(
                 title: "Đăng xuất",
-                route: "/account/logout",
+                routeFunction: () {
+                  BlocProvider.of<AuthBloc>(context).add(AuthLoggedOut());
+                },
                 leadingIcon: null,
                 trailing: Icon(
                   MdiIcons.logout,

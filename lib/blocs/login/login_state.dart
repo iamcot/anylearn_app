@@ -12,6 +12,8 @@ class LoginInit extends LoginState {}
 
 class LoginInProgress extends LoginState {}
 
+class LoginSuccess extends LoginState {}
+
 class LoginFail extends LoginState {
   final String error;
 
