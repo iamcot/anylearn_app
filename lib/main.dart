@@ -2,25 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/auth/auth_bloc.dart';
-import 'blocs/auth/auth_event.dart';
 import 'models/user_repo.dart';
 import 'routes.dart';
+import 'screens/home.dart';
 import 'themes/default.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  return runApp(RepositoryProvider<UserRepository>(
-    create: (context) {
-      return UserRepository();
-    },
-    child: BlocProvider<AuthBloc>(
+  return runApp(
+    RepositoryProvider<UserRepository>(
       create: (context) {
-        final userRepository = RepositoryProvider.of<UserRepository>(context);
-        return AuthBloc(userRepository: userRepository)..add(AuthCheckEvent());
+        return UserRepository();
       },
-      child: MyApp(),
+      child: BlocProvider<AuthBloc>(
+        create: (context) {
+          final userRepository = RepositoryProvider.of<UserRepository>(context);
+          return AuthBloc(userRepository: userRepository);
+        },
+        child: MyApp(),
+      ),
     ),
-  ));
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
       title: 'anyLearn',
       theme: appTheme(),
       routes: routes,
-      initialRoute: "/",
+      home: HomeScreen(),
     );
   }
 }

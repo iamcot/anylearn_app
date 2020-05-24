@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../dto/user_dto.dart';
 
-class AccountIcon extends StatelessWidget {
+class AccountIcon extends StatefulWidget {
   final UserDTO user;
   const AccountIcon({Key key, this.user}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() => _AccountIcon();
+}
+
+class _AccountIcon extends State<AccountIcon> {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(right: 10.0),
       child: IconButton(
-          icon: user == null || user.image.isEmpty
+          icon: widget.user == null || widget.user.image.isEmpty
               ? Icon(
                   Icons.account_circle,
                   size: 32.0,
@@ -22,13 +27,13 @@ class AccountIcon extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 15,
                     backgroundImage: NetworkImage(
-                      user.image,
+                      widget.user.image,
                     ),
                   ),
                 ),
           onPressed: () {
-            Navigator.of(context).pushNamed("/account");
-            // Navigator.of(context).pushNamed(user != null ? "/account" : "/login");
+            // Navigator.of(context).pushNamed("/account");
+            Navigator.of(context).pushNamed(widget.user != null ? "/account" : "/login");
           }),
     );
   }

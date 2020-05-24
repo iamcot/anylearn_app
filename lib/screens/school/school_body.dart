@@ -1,68 +1,16 @@
 import 'dart:math' as math;
 
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/dto/users_dto.dart';
-import 'package:anylearn/screens/school/school_filter.dart';
-import 'package:anylearn/widgets/rating.dart';
-import 'package:anylearn/widgets/sliver_banner.dart';
 import 'package:flutter/material.dart';
 
-class SchoolBody extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _SchoolBody();
-}
+import '../../dto/users_dto.dart';
+import '../../widgets/rating.dart';
+import '../../widgets/sliver_banner.dart';
+import 'school_filter.dart';
 
-class _SchoolBody extends State<SchoolBody> {
-  final UsersDTO schoolsData = new UsersDTO(
-    banner:
-        "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-    list: [
-      new UserDTO(
-        name: "Trung tâm A",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        introduce: "Có giới thiệu ngắn",
-        rating: 5.0,
-      ),
-      new UserDTO(
-        name: "Trung tâm B có tên siêu dài cần cắt bớt đi cho đẹp",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        rating: 0.0,
-      ),
-      new UserDTO(
-        name: "Trung tâm C",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        rating: 0.0,
-      ),
-      new UserDTO(
-        name: "Trung tâm A",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        introduce: "Có giới thiệu ngắn",
-        rating: 0.0,
-      ),
-      new UserDTO(
-        name: "Trung tâm B có tên siêu dài cần cắt bớt đi cho đẹp",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        rating: 0.0,
-      ),
-      new UserDTO(
-        name: "Trung tâm C",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        rating: 0.0,
-      ),
-    ],
-  );
+class SchoolBody extends StatelessWidget {
+  final UsersDTO schoolsData;
+
+  const SchoolBody({Key key, this.schoolsData}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(

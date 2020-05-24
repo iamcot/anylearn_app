@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
@@ -15,8 +14,9 @@ import 'normal_menu.dart';
 
 class AccountBody extends StatefulWidget {
   final UserDTO user;
+  final AuthBloc authBloc;
 
-  const AccountBody({Key key, this.user}) : super(key: key);
+  const AccountBody({Key key, this.user, this.authBloc}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _AccountBody(user);
 }
@@ -121,7 +121,8 @@ class _AccountBody extends State<AccountBody> {
             AccountNormalMenu(
               title: "Đăng xuất",
               routeFunction: () {
-                BlocProvider.of<AuthBloc>(context).add(AuthLoggedOutEvent());
+                // Navigator.of(context).popUntil(ModalRoute.withName("/"));
+                widget.authBloc.add(AuthLoggedOutEvent());
               },
               leadingIcon: null,
               trailing: Icon(

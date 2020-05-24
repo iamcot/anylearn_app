@@ -1,57 +1,14 @@
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/dto/users_dto.dart';
-import 'package:anylearn/screens/teacher/teacher_filter.dart';
-import 'package:anylearn/widgets/rating.dart';
-import 'package:anylearn/widgets/sliver_banner.dart';
 import 'package:flutter/material.dart';
 
-class TeacherBody extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _TeacherBody();
-}
+import '../../dto/users_dto.dart';
+import '../../widgets/rating.dart';
+import '../../widgets/sliver_banner.dart';
+import 'teacher_filter.dart';
 
-class _TeacherBody extends State<TeacherBody> {
-  final UsersDTO teachers = new UsersDTO(
-    banner:
-        "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-    list: [
-      new UserDTO(
-        name: "Giáo viên A",
-        title: "MC, Giảng viên",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        introduce: "Có giới thiệu ngắn",
-        rating: 5.0,
-      ),
-      new UserDTO(
-        name: "Tiến sỹ B",
-        title: "Giáo viên B có gt siêu dài cần cắt bớt đi cho đẹp",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        rating: 0.0,
-      ),
-      new UserDTO(
-        name: "Giáo viên C",
-        title: "MC, Giảng viên",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        introduce: "Có giới thiệu ngắn",
-        rating: 0.0,
-      ),
-      new UserDTO(
-        name: "Giáo viên D",
-        title: "MC, Giảng viên",
-        image:
-            "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-        route: "/items",
-        introduce: "Có giới thiệu ngắn",
-        rating: 0.0,
-      ),
-    ],
-  );
+class TeacherBody extends StatelessWidget {
+  final UsersDTO teachers;
+
+  TeacherBody({this.teachers});
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 2;

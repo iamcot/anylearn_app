@@ -1,7 +1,9 @@
-import 'package:anylearn/screens/home/feature_icon.dart';
 import 'package:flutter/material.dart';
 
+import 'feature_icon.dart';
+
 class WalletCard extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Card(

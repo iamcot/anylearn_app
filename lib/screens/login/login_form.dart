@@ -9,12 +9,7 @@ import '../../blocs/login/login_event.dart';
 import '../../blocs/login/login_state.dart';
 import '../../customs/register_curved_paint.dart';
 
-class LoginForm extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _LoginForm();
-}
-
-class _LoginForm extends State<LoginForm> {
+class LoginForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _passwordNode = FocusNode();
@@ -23,21 +18,24 @@ class _LoginForm extends State<LoginForm> {
   final _passwordController = TextEditingController();
 
   @override
-  Widget build(Object context) {
+  Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 2;
+    final loginBloc = BlocProvider.of<LoginBloc>(context);
     return BlocListener<LoginBloc, LoginState>(
+      bloc: loginBloc,
       listener: (context, state) {
         if (state is LoginFailState) {
           Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text('${state.error}'),
+            content: Text(
+              '${state.error}',
+              maxLines: 1,
+            ),
             backgroundColor: Colors.red,
           ));
         }
-        if (state is LoginSuccessState) {
-          Navigator.of(context).popUntil(ModalRoute.withName("/"));
-        }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
+        bloc: loginBloc,
         builder: (context, state) {
           return Container(
             child: Form(
@@ -63,7 +61,6 @@ class _LoginForm extends State<LoginForm> {
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 20.0),
                     child: TextFormField(
-                      autofocus: true,
                       controller: _phoneController,
                       validator: (String value) {
                         if (!validator.isNumeric(value)) {
@@ -89,8 +86,8 @@ class _LoginForm extends State<LoginForm> {
                     child: TextFormField(
                       controller: _passwordController,
                       validator: (String value) {
-                        if (value.length < 8) {
-                          return "Mật khẩu ít nhất 8 kí tự";
+                        if (value.isEmpty) {
+                          return "Vui lòng nhập mật khẩu";
                         }
                         _formKey.currentState.save();
                         return null;
@@ -118,7 +115,7 @@ class _LoginForm extends State<LoginForm> {
                     child: FlatButton(
                       onPressed: state is! LoginInProgressState
                           ? () {
-                              FocusScope.of(context).requestFocus(new FocusNode());
+                              // FocusScope.of(context).requestFocus(new FocusNode());
                               _submitForm(context);
                             }
                           : () {},
@@ -164,7 +161,6 @@ class _LoginForm extends State<LoginForm> {
   void _submitForm(BuildContext context) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      // Navigator.of(context).pushReplacementNamed("/");
       BlocProvider.of<LoginBloc>(context).add(LoginButtonPressedEvent(
         phone: _phoneController.text,
         password: _passwordController.text,

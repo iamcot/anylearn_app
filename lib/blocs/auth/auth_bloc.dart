@@ -5,9 +5,8 @@ import '../../models/user_repo.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
-
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-    final UserRepository userRepository;
+  final UserRepository userRepository;
 
   AuthBloc({@required this.userRepository}) : assert(userRepository != null);
 
@@ -17,8 +16,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is AuthCheckEvent) {
+      yield AuthInProgressState();
       final String token = await userRepository.getToken();
-      if  (token != null) {
+      if (token != null) {
         yield AuthSuccessState(user: await userRepository.getUser(token));
       } else {
         yield AuthFailState();
