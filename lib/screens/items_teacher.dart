@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/pdp/pdp_blocs.dart';
+import '../blocs/items/items_blocs.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
+import 'items/items_body.dart';
 import 'loading.dart';
-import 'pdp/pdp_body.dart';
 
-class PDPScreen extends StatefulWidget {
+class ItemsTeacherScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _PDPScreen();
+  State<StatefulWidget> createState() => _ItemsTeacherScreen();
 }
 
-class _PDPScreen extends State<PDPScreen> {
-  PdpBloc pdpBloc;
+class _ItemsTeacherScreen extends State<ItemsTeacherScreen> {
+  ItemsBloc itemsBloc;
   @override
   void didChangeDependencies() {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
-    pdpBloc = PdpBloc(pageRepository: pageRepo);
-    final itemId = ModalRoute.of(context).settings.arguments;
-    pdpBloc.add(LoadPDPEvent(id: itemId));
+    itemsBloc = ItemsBloc(pageRepository: pageRepo);
+    final userId = ModalRoute.of(context).settings.arguments;
+    itemsBloc.add(ItemsTeacherLoadEvent(id: userId));
     super.didChangeDependencies();
   }
 
@@ -31,28 +31,28 @@ class _PDPScreen extends State<PDPScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PdpBloc>(
+    return BlocProvider<ItemsBloc>(
       create: (context) {
-        return pdpBloc;
+        return itemsBloc;
       },
-      child: BlocListener<PdpBloc, PdpState>(
+      child: BlocListener<ItemsBloc, ItemsState>(
         listener: (context, state) {
-          if (state is PdpFailState) {
+          if (state is ItemsLoadFailState) {
             Navigator.of(context).popUntil(ModalRoute.withName("/"));
           }
         },
-        child: BlocBuilder<PdpBloc, PdpState>(
+        child: BlocBuilder<ItemsBloc, ItemsState>(
           builder: (context, state) {
-            if (state is PdpSuccessState) {
+            if (state is ItemsTeacherSuccessState) {
               return Scaffold(
                   appBar: BaseAppBar(
-                    title: "",
+                    title: state.data.user.name,
                   ),
-                  body: PdpBody(
+                  body: ItemsBody(
                     data: state.data,
                   ),
                   bottomNavigationBar: BottomNav(
-                    index: state.data.user.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX,
+                    index: BottomNav.TEACHER_INDEX,
                   ));
             }
             return LoadingScreen();

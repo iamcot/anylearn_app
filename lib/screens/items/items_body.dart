@@ -1,10 +1,11 @@
-import 'package:anylearn/dto/items_dto.dart';
-import 'package:anylearn/screens/teacher/teacher_filter.dart';
-import 'package:anylearn/widgets/price_box.dart';
-import 'package:anylearn/widgets/rating.dart';
-import 'package:anylearn/widgets/sliver_banner.dart';
-import 'package:anylearn/widgets/text2lines.dart';
 import 'package:flutter/material.dart';
+
+import '../../dto/items_dto.dart';
+import '../../widgets/price_box.dart';
+import '../../widgets/rating.dart';
+import '../../widgets/sliver_banner.dart';
+import '../../widgets/text2lines.dart';
+import '../teacher/teacher_filter.dart';
 
 class ItemsBody extends StatefulWidget {
   final ItemsDTO data;
@@ -57,7 +58,7 @@ class _ItemsBody extends State<ItemsBody> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed(data.items[index].route);
+                        Navigator.of(context).pushNamed("/pdp", arguments: data.items[index].id); //data.items[index].id.toString()
                       },
                       child: Column(
                         children: <Widget>[

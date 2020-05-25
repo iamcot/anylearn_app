@@ -29,7 +29,7 @@ class TeacherBody extends StatelessWidget {
             (BuildContext context, int index) {
               return InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamed(teachers.list[index].route);
+                  Navigator.of(context).pushNamed("/items/teacher", arguments: teachers.list[index].id);
                 },
                 child: Container(
                   alignment: Alignment.topCenter,

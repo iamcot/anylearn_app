@@ -33,37 +33,6 @@ class UserRepository {
   }
 
   Future<UsersDTO> getUserList(String role) async {
-    return UsersDTO(
-      banner:
-          "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-      list: [
-        new UserDTO(
-          name: "Giáo viên A",
-          title: "MC, Giảng viên",
-          image:
-              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/items",
-          introduce: "Có giới thiệu ngắn",
-          rating: 5.0,
-        ),
-        new UserDTO(
-          name: "Tiến sỹ B",
-          title: "Giáo viên B có gt siêu dài cần cắt bớt đi cho đẹp",
-          image:
-              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/items",
-          rating: 0.0,
-        ),
-        new UserDTO(
-          name: "Giáo viên C",
-          title: "MC, Giảng viên",
-          image:
-              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/items",
-          introduce: "Có giới thiệu ngắn",
-          rating: 0.0,
-        ),
-      ],
-    );
+    
   }
 }

@@ -1,4 +1,5 @@
 import '../dto/user_dto.dart';
+import '../dto/users_dto.dart';
 
 class UserService {
   final mockData = {
@@ -36,6 +37,43 @@ class UserService {
     await Future.delayed(Duration(microseconds: 500));
     //TODO MOCK
     return mockData[token];
+  }
+
+  Future<UsersDTO> getList(String role, int page, int pageSize) async {
+    await Future.delayed(Duration(microseconds: 500));
+    //TODO MOCK
+    return UsersDTO(
+      banner:
+          "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+      list: [
+        new UserDTO(
+          id: 1,
+          name: "Giáo viên A",
+          title: "MC, Giảng viên",
+          image:
+              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+          introduce: "Có giới thiệu ngắn",
+          rating: 5.0,
+        ),
+        new UserDTO(
+          id: 2,
+          name: "Tiến sỹ B",
+          title: "Giáo viên B có gt siêu dài cần cắt bớt đi cho đẹp",
+          image:
+              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+          rating: 0.0,
+        ),
+        new UserDTO(
+          id: 3,
+          name: "Giáo viên C",
+          title: "MC, Giảng viên",
+          image:
+              "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
+          introduce: "Có giới thiệu ngắn",
+          rating: 0.0,
+        ),
+      ],
+    );
   }
 
   Future<bool> updateInfo(UserDTO user) async {

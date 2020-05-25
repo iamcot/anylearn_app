@@ -13,8 +13,8 @@ import 'screens/ask.dart';
 import 'screens/ask_cat.dart';
 import 'screens/developing.dart';
 import 'screens/event.dart';
-// import 'screens/home.dart';
-import 'screens/items.dart';
+import 'screens/items_school.dart';
+import 'screens/items_teacher.dart';
 import 'screens/login.dart';
 import 'screens/notification.dart';
 import 'screens/pdp.dart';
@@ -44,7 +44,8 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/account/transaction": (BuildContext context) => AccountTransactionScreen(),
   "/developing": (BuildContext context) => DevelopingScreen(),
   "/notification": (BuildContext context) => NotificationScreen(),
-  "/items": (BuildContext context) => ItemsScreen(),
+  "/items/teacher": (BuildContext context) => ItemsTeacherScreen(),
+  "/items/school": (BuildContext context) => ItemsSchoolScreen(),
   "/pdp": (BuildContext context) => PDPScreen(),
   "/qrcode": (BuildContext context) => QrCodeScreen(),
   "/register": (BuildContext context) => RegisterScreen(),

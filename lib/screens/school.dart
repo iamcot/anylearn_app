@@ -1,45 +1,50 @@
-import 'package:anylearn/blocs/users/users_state.dart';
-import 'package:anylearn/screens/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/users/users_bloc.dart';
-import '../blocs/users/users_event.dart';
-import '../dto/const.dart';
-import '../dto/users_dto.dart';
-import '../models/user_repo.dart';
+import '../blocs/users/users_blocs.dart';
+import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
+import 'loading.dart';
 import 'school/school_body.dart';
 
-class SchoolScreen extends StatelessWidget {
+class SchoolScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _SchoolScreen();
+}
+
+class _SchoolScreen extends State<SchoolScreen> {
+  UsersBloc usersBloc;
+  @override
+  void didChangeDependencies() {
+    final pageRepo = RepositoryProvider.of<PageRepository>(context);
+    usersBloc = UsersBloc(pageRepository: pageRepo);
+    usersBloc.add(UsersSchoolLoadEvent());
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _userRepository = RepositoryProvider.of<UserRepository>(context);
-    final UsersBloc _usersBloc = UsersBloc(role: MyConst.ROLE_SCHOOL, userRepository: _userRepository)
-      ..add(LoadList(type: MyConst.ROLE_SCHOOL));
-    UsersDTO _users;
-
-    return Scaffold(
-      appBar: BaseAppBar(
-        title: "Học viện & Trung tâm đào tạo",
-      ),
-      body: BlocProvider<UsersBloc>(
-        create: (context) {
-          return _usersBloc;
-        },
-        child: BlocBuilder<UsersBloc, UsersState>(
-          builder: (context, state) {
-            if (state is UsersLoadSuccessState) {
-              _users = state.users;
-            }
-            return _users != null ? SchoolBody(schoolsData: _users) : LoadingScreen();
-          },
-        ),
-      ),
-      bottomNavigationBar: BottomNav(
-        index: BottomNav.SCHOOL_INDEX,
-      ),
-    );
+    return BlocProvider<UsersBloc>(create: (context) {
+      return usersBloc;
+    }, child: BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
+      if (state is UsersSchoolSuccessState) {
+        return Scaffold(
+          appBar: BaseAppBar(
+            title: "Học viện & Trung tâm đào tạo",
+          ),
+          body: SchoolBody(schoolsData: state.data),
+          bottomNavigationBar: BottomNav(
+            index: BottomNav.SCHOOL_INDEX,
+          ),
+        );
+      }
+      return LoadingScreen();
+    }));
   }
 }

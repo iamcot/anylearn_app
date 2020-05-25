@@ -1,20 +1,31 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class UsersEvent extends Equatable {
   const UsersEvent();
 }
 
-class LoadList extends UsersEvent {
-  final String type;
+class UsersSchoolLoadEvent extends UsersEvent {
   final int page;
   final int pageSize;
 
-  LoadList({@required this.type, this.page = 1, this.pageSize = 9999});
+  UsersSchoolLoadEvent({this.page = 1, this.pageSize = 9999});
 
   @override
-  List<Object> get props => [type];
+  List<Object> get props => [page, pageSize];
 
   @override
-  String toString() => 'UsersEvent LoadList  { type: $type, page: $page, pageSize: $pageSize}';
+  String toString() => 'UsersLoadSchoolsEvent  { page: $page, pageSize: $pageSize}';
+}
+
+class UsersTeacherLoadEvent extends UsersEvent {
+  final int page;
+  final int pageSize;
+
+  UsersTeacherLoadEvent({this.page = 1, this.pageSize = 9999});
+
+  @override
+  List<Object> get props => [page, pageSize];
+
+  @override
+  String toString() => 'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
 }

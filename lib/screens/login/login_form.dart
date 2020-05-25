@@ -4,12 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:validators/validators.dart' as validator;
 
-import '../../blocs/login/login_bloc.dart';
-import '../../blocs/login/login_event.dart';
-import '../../blocs/login/login_state.dart';
+import '../../blocs/login/login_blocs.dart';
 import '../../customs/register_curved_paint.dart';
 
 class LoginForm extends StatelessWidget {
+  final LoginBloc loginBloc;
   final _formKey = GlobalKey<FormState>();
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _passwordNode = FocusNode();
@@ -17,10 +16,11 @@ class LoginForm extends StatelessWidget {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  LoginForm({Key key, this.loginBloc}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 2;
-    final loginBloc = BlocProvider.of<LoginBloc>(context);
     return BlocListener<LoginBloc, LoginState>(
       bloc: loginBloc,
       listener: (context, state) {

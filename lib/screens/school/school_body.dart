@@ -33,7 +33,7 @@ class SchoolBody extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamed(schoolsData.list[itemIndex].route);
+                      Navigator.of(context).pushNamed("/items/school", arguments: schoolsData.list[itemIndex].id);//schoolsData.list[itemIndex].id
                     },
                     title: Text(
                       schoolsData.list[itemIndex].name,

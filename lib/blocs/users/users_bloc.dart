@@ -1,32 +1,37 @@
+import 'package:anylearn/blocs/users/users_event.dart';
+import 'package:anylearn/blocs/users/users_state.dart';
 import 'package:bloc/bloc.dart';
 
-import '../../models/user_repo.dart';
-import 'users_event.dart';
-import 'users_state.dart';
+import '../../models/page_repo.dart';
 
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
-  final UserRepository userRepository;
-  final String role;
-  UsersBloc({this.role, this.userRepository});
+  final PageRepository pageRepository;
+  UsersBloc({this.pageRepository});
 
   @override
   UsersState get initialState => UsersInitState();
 
   @override
   Stream<UsersState> mapEventToState(UsersEvent event) async* {
-    if (event is LoadList) {
+    try {
       yield UsersLoadingState();
-
-      try {
-        final users = await userRepository.getUserList(this.role);
-        if (users != null) {
-          yield UsersLoadSuccessState(users: users);
-        } else {
-          yield UsersLoadFailState(error: "Không có thông tin bạn đang tìm kiếm.");
+      var data;
+      if (event is UsersSchoolLoadEvent) {
+        data = await pageRepository.dataSchoolsPage(event.page, event.pageSize);
+        if (data != null) {
+          yield UsersSchoolSuccessState(data: data);
         }
-      } catch (error) {
-        yield UsersLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại.");
+      } else if (event is UsersTeacherLoadEvent) {
+        data = await pageRepository.dataTeachersPage(event.page, event.pageSize);
+        if (data != null) {
+          yield UsersTeacherSuccessState(data: data);
+        }
       }
+      if (data == null) {
+        yield UsersLoadFailState(error: "Không có thông tin bạn đang tìm kiếm.");
+      }
+    } catch (error) {
+      yield UsersLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
     }
   }
 }
