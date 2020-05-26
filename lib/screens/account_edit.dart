@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-import '../dto/user_dto.dart';
-import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:validators/validators.dart' as validator;
-import 'package:http/http.dart' as http;
+
+import '../dto/user_dto.dart';
+import '../widgets/appbar.dart';
 
 class AccountEditScreen extends StatefulWidget {
   @override
@@ -231,7 +232,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
             Container(
               height: 36.0,
               margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-              child: FlatButton(
+              child: RaisedButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                 color: Colors.blue,
                 onPressed: () {

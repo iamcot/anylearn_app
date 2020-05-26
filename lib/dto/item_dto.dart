@@ -16,6 +16,7 @@ class ItemDTO {
   final int numCart;
   final int numShare;
   final int numFavorite;
+  bool isFavorite;
 
   ItemDTO({
     this.id,

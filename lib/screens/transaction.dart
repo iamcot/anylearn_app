@@ -10,12 +10,12 @@ import '../dto/account_transaction_dto.dart';
 import '../dto/transaction_dto.dart';
 import 'account/transaction_list.dart';
 
-class AccountTransactionScreen extends StatefulWidget {
+class TransactionScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _AccountTransactionScreen();
+  State<StatefulWidget> createState() => _TransactionScreen();
 }
 
-class _AccountTransactionScreen extends State<AccountTransactionScreen> with TickerProviderStateMixin {
+class _TransactionScreen extends State<TransactionScreen> with TickerProviderStateMixin {
   final Map<String, AccountTransactionDTO> data = {
     AccountTransactionDTO.WALLET_M: AccountTransactionDTO(
       currentAmount: 99123456,
@@ -71,17 +71,18 @@ class _AccountTransactionScreen extends State<AccountTransactionScreen> with Tic
 
   bool createdTab = false;
   TabController _tabController;
+  AuthBloc _authBloc;
+  final monneyF = new NumberFormat("###,###,###", "vi_VN");
+
+  @override
+  void didChangeDependencies() {
+    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+    _tabController = new TabController(vsync: this, length: 2, initialIndex: 0);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      if (!createdTab) {
-        createdTab = true;
-        _tabController = new TabController(vsync: this, length: 2, initialIndex: 0);
-      }
-    });
-    var monneyF = new NumberFormat("###,###,###", "vi_VN");
-    final _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     return BlocListener(
         bloc: _authBloc,
         listener: (context, state) {
@@ -116,7 +117,7 @@ class _AccountTransactionScreen extends State<AccountTransactionScreen> with Tic
                                       style: TextStyle(fontSize: 12.0, color: Colors.blue),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          Navigator.of(context).pushNamed("/account/deposit");
+                                          Navigator.of(context).pushNamed("/deposit");
                                         }),
                                 ),
                               ]),
@@ -150,7 +151,7 @@ class _AccountTransactionScreen extends State<AccountTransactionScreen> with Tic
                                       style: TextStyle(fontSize: 12.0, color: Colors.orange),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          Navigator.of(context).pushNamed("/account/withdraw");
+                                          Navigator.of(context).pushNamed("/withdraw");
                                         }),
                                 ),
                               ]),

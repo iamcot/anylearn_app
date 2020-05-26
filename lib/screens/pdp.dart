@@ -31,6 +31,7 @@ class _PDPScreen extends State<PDPScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("build na");
     return BlocProvider<PdpBloc>(
       create: (context) {
         return pdpBloc;
@@ -43,19 +44,29 @@ class _PDPScreen extends State<PDPScreen> {
         },
         child: BlocBuilder<PdpBloc, PdpState>(
           builder: (context, state) {
+            var data;
+
             if (state is PdpSuccessState) {
-              return Scaffold(
-                  appBar: BaseAppBar(
-                    title: "",
-                  ),
-                  body: PdpBody(
-                    data: state.data,
-                  ),
-                  bottomNavigationBar: BottomNav(
-                    index: state.data.user.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX,
-                  ));
+              data = state.data;
             }
-            return LoadingScreen();
+            if (state is PdpFavoriteAddState) {
+              data = state.data;
+            }
+            if (state is PdpFavoriteRemoveState) {
+              data = state.data;
+            }
+            return data != null
+                ? Scaffold(
+                    appBar: BaseAppBar(
+                      title: "",
+                    ),
+                    body: PdpBody(
+                      data: data,
+                    ),
+                    bottomNavigationBar: BottomNav(
+                      index: data.user.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX,
+                    ))
+                : LoadingScreen();
           },
         ),
       ),

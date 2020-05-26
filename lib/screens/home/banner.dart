@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeBanner extends StatelessWidget {
-  final List<String> imgList = [
-    "assets/banners/banner-1.jpg",
-    "assets/banners/banner-2.jpg",
-    "assets/banners/banner-3.jpg",
-  ];
+  final List<String> imgList;
+
+  const HomeBanner({Key key, this.imgList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

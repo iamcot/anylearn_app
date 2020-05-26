@@ -26,6 +26,16 @@ class PdpBloc extends Bloc<PdpEvent, PdpState> {
           yield PdpFailState(error: "Error 404 - Trang không tồn tại.");
         }
       }
+      if (event is PdpFavoriteAddEvent) {
+        final data = await pageRepository.dataPDP(event.itemId);
+        data.isFavorite = true;//TODO mock
+        yield PdpFavoriteAddState(data: data);
+      }
+      if (event is PdpFavoriteRemoveEvent) {
+        final data = await pageRepository.dataPDP(event.itemId);
+        data.isFavorite = false;//TODO mock
+        yield PdpFavoriteRemoveState(data: data);
+      }
     } catch (error) {
       yield PdpFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
     }

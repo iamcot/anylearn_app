@@ -1,8 +1,7 @@
-import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:validators/validators.dart' as validator;
-import 'package:http/http.dart' as http;
+
+import '../widgets/appbar.dart';
 
 class AccountPasswordScreen extends StatefulWidget {
   @override
@@ -104,7 +103,7 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
             Container(
               height: 36.0,
               margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
-              child: FlatButton(
+              child: RaisedButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                 color: Colors.blue,
                 onPressed: () {

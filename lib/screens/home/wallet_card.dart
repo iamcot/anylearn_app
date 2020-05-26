@@ -1,9 +1,9 @@
+import 'package:anylearn/dto/feature_data_dto.dart';
 import 'package:flutter/material.dart';
 
 import 'feature_icon.dart';
 
 class WalletCard extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -24,30 +24,27 @@ class WalletCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: FeatureIcon(
-                    icon: Icons.input,
-                    title: "Nạp tiền",
-                    route: "/account/deposit",
+                    featureData: FeatureDataDTO(icon: Icons.input, title: "Nạp tiền", route: "/deposit"),
+                    iconSize: 24.0,
                   ),
                 ),
                 Expanded(
                   child: FeatureIcon(
-                    icon: Icons.monetization_on,
-                    title: "Rút tiền",
-                    route: "/account/withdraw",
+                    featureData:
+                        FeatureDataDTO(icon: Icons.monetization_on, title: "Rút tiền", route: "/withdraw"),
+                    iconSize: 24.0,
                   ),
                 ),
                 Expanded(
                   child: FeatureIcon(
-                    icon: Icons.card_giftcard,
-                    title: "Điểm",
-                    route: "/account/commission",
+                    featureData: FeatureDataDTO(icon: Icons.card_giftcard, title: "Điểm", route: "/commission"),
+                    iconSize: 24.0,
                   ),
                 ),
                 Expanded(
                   child: FeatureIcon(
-                    icon: Icons.receipt,
-                    title: "Giao dịch",
-                    route: "/account/transaction",
+                    featureData: FeatureDataDTO(icon: Icons.receipt, title: "Giao dịch", route: "/transaction"),
+                    iconSize: 24.0,
                   ),
                 ),
               ],

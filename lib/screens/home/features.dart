@@ -1,19 +1,12 @@
-import 'package:anylearn/dto/feature_data_dto.dart';
-import 'package:anylearn/screens/home/feature_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../../dto/feature_data_dto.dart';
+import 'feature_icon.dart';
 
 class FeatureList extends StatelessWidget {
-  final List<FeatureDataDTO> features = [
-    FeatureDataDTO(icon: MdiIcons.qrcode, title: "Mã Giới thiệu", route: "/qrcode"),
-    FeatureDataDTO(icon: MdiIcons.accountGroup , title: "Bạn bè", route: "/account/friends"),
-    FeatureDataDTO(icon: MdiIcons.calendarClock, title: "Lịch học", route: "/account/calendar"),
-    FeatureDataDTO(icon: MdiIcons.lockOutline, title: "Đăng ký", route: "/register"),
-    FeatureDataDTO(icon: Icons.video_label, title: "Xem & Học", route: "/ask/cat"),
-    FeatureDataDTO(icon: Icons.chrome_reader_mode, title: "Đọc & Học", route: "/login"),
-    FeatureDataDTO(icon: Icons.question_answer, title: "Hỏi & Học", route: "/ask/cat"),
-    FeatureDataDTO(icon: MdiIcons.piggyBank, title: "Quỹ học bổng", route: "/developing"),
-  ];
+  final List<FeatureDataDTO> features;
+
+  const FeatureList({Key key, this.features}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 4;
@@ -28,14 +21,10 @@ class FeatureList extends StatelessWidget {
           ),
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              FeatureDataDTO f = features[index];
               return Container(
                 alignment: Alignment.center,
                 child: FeatureIcon(
-                  icon: f.icon,
-                  iconSize: 40.0,
-                  title: f.title,
-                  route: f.route,
+                  featureData: features[index],
                 ),
               );
             },

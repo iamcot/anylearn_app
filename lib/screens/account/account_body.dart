@@ -55,7 +55,7 @@ class _AccountBody extends State<AccountBody> {
             ),
             AccountNormalMenu(
                 title: "Giao dịch của tôi",
-                route: "/account/transaction",
+                route: "/transaction",
                 leadingIcon: MdiIcons.wallet,
                 trailing: Icon(Icons.arrow_right),
                 subContent: Text.rich(

@@ -1,13 +1,17 @@
-import 'package:anylearn/dto/pdp_dto.dart';
-import 'package:anylearn/screens/home/hot_items.dart';
-import 'package:anylearn/widgets/item_status_icon.dart';
-import 'package:anylearn/widgets/price_box.dart';
-import 'package:anylearn/widgets/rating.dart';
-import 'package:anylearn/widgets/text2lines.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
+import 'package:share/share.dart';
+
+import '../../blocs/pdp/pdp_blocs.dart';
+import '../../dto/pdp_dto.dart';
+import '../../widgets/item_status_icon.dart';
+import '../../widgets/price_box.dart';
+import '../../widgets/rating.dart';
+import '../../widgets/text2lines.dart';
+import '../home/hot_items.dart';
 
 class PdpBody extends StatefulWidget {
   final PdpDTO data;
@@ -27,6 +31,7 @@ class _PdpBody extends State<PdpBody> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double imageHeight = width - 30 - 50;
+    bool isFavorite = data.isFavorite;
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(
@@ -110,16 +115,33 @@ class _PdpBody extends State<PdpBody> {
                   alignment: MainAxisAlignment.center,
                   buttonMinWidth: (width - 30) / 4,
                   children: [
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0,color: Colors.red)),
-                      onPressed: () {},
-                      color: Colors.white,
-                      child: Icon(Icons.favorite_border, color: Colors.red),
+                    BlocBuilder<PdpBloc, PdpState>(
+                      bloc: BlocProvider.of<PdpBloc>(context),
+                      builder: (context, state) {
+                        if (state is PdpFavoriteAddState) {
+                          isFavorite = state.data.isFavorite;
+                        }
+                        if (state is PdpFavoriteRemoveState) {
+                          isFavorite = state.data.isFavorite;
+                        }
+                        return RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(width: 1.0, color: Colors.red)),
+                          color: Colors.white,
+                          onPressed: () {
+                            BlocProvider.of<PdpBloc>(context)
+                              ..add(isFavorite == true
+                                  ? PdpFavoriteRemoveEvent(itemId: data.item.id, userId: data.user.id)
+                                  : PdpFavoriteAddEvent(itemId: data.item.id, userId: data.user.id));
+                          },
+                          child: Icon(isFavorite == true ? Icons.favorite : Icons.favorite_border, color: Colors.red),
+                        );
+                      },
                     ),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0,color: Colors.green)),
+                          borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.green)),
                       onPressed: () {},
                       color: Colors.green,
                       textColor: Colors.white,
@@ -127,9 +149,24 @@ class _PdpBody extends State<PdpBody> {
                     ),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0,color: Colors.blue)),
+                          borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.blue)),
                       color: Colors.white,
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return SimpleDialog(children: <Widget>[
+                                ListTile(title: Text("Chia sẻ tới bạn bè trong hệ thống"), onTap: () {}),
+                                Divider(),
+                                ListTile(
+                                    title: Text("Chia sẻ ra mạng xã hội"),
+                                    onTap: () {
+                                      Share.share(
+                                          "Khóa học hay trên anyLEARN bạn có biết chưa https://anylearn.vn/course/" + data.item.id.toString());
+                                    }),
+                              ]);
+                            });
+                      },
                       child: Icon(Icons.share, color: Colors.blue),
                     ),
                   ],
@@ -167,7 +204,10 @@ class _PdpBody extends State<PdpBody> {
                             ],
                           ),
                           expanded: Column(children: [
-                            Html(data: data.item.content, shrinkWrap: true,),
+                            Html(
+                              data: data.item.content,
+                              shrinkWrap: true,
+                            ),
                             ExpandableButton(child: Text("THU GỌN", style: TextStyle(color: Colors.blue))),
                           ]),
                         ),

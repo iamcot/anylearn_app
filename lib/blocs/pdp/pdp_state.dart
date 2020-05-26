@@ -1,3 +1,4 @@
+import 'package:anylearn/blocs/pdp/pdp_blocs.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,20 @@ class PdpLoadingState extends PdpState {}
 class PdpSuccessState extends PdpState {
   final PdpDTO data;
   PdpSuccessState({@required this.data}) : assert(data != null);
+  @override
+  List<Object> get props => [data];
+}
+
+class PdpFavoriteAddState extends PdpState {
+  final PdpDTO data;
+  PdpFavoriteAddState({@required this.data}) : assert(data != null);
+  @override
+  List<Object> get props => [data];
+}
+
+class PdpFavoriteRemoveState extends PdpState {
+  final PdpDTO data;
+  PdpFavoriteRemoveState({@required this.data}) : assert(data != null);
   @override
   List<Object> get props => [data];
 }

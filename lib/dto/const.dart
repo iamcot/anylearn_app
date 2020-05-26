@@ -5,4 +5,5 @@ class MyConst {
   static const ROLE_SCHOOL = "school";
   static const ROLE_MOD = "mod";
   static const ROLE_ADMIN = "admin";
+  static const ROLE_GUEST = "guest";
 }

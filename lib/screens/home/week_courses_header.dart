@@ -19,7 +19,7 @@ class WeekCourseHeader extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed("/courses");
+                    Navigator.of(context).pushNamed("/event");
                   },
                   child: Text(
                     "Khóa học khác",

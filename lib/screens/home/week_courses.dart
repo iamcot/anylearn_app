@@ -4,33 +4,9 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class WeekCourses extends StatelessWidget {
-  final List<ItemDTO> monthCourses = [
-    new ItemDTO(
-      title: "Khóa học nổi bật A",
-      date: "2020-05-02",
-      image:
-          "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-      route: "/teacher",
-      shortContent:
-          "Thông tin ngắn gọn về khóa học được viết ở dòng để line tự động xuống dòng. dài thêm chút nữa để cắt ba chấm.",
-    ),
-    new ItemDTO(
-      title: "Khóa học nổi bật B có tên siêu dài.",
-      date: "2020-05-17",
-      image:
-          "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-      route: "/teacher",
-      shortContent: "Thông tin ngắn gọn về khóa học",
-    ),
-    new ItemDTO(
-      title: "Khóa học nổi bật C",
-      date: "2020-05-30",
-      image:
-          "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-      route: "/teacher",
-      shortContent: "Thông tin ngắn gọn về khóa học abc",
-    )
-  ];
+  final List<ItemDTO> monthCourses;
+
+  const WeekCourses({Key key, this.monthCourses}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SliverList(
