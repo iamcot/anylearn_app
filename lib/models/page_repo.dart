@@ -1,6 +1,3 @@
-import 'package:anylearn/dto/feature_data_dto.dart';
-import 'package:anylearn/models/default_feature_data.dart';
-
 import '../dto/const.dart';
 import '../dto/home_dto.dart';
 import '../dto/items_dto.dart';
@@ -9,6 +6,7 @@ import '../dto/users_dto.dart';
 import '../services/config_services.dart';
 import '../services/item_services.dart';
 import '../services/user_services.dart';
+import 'default_feature_data.dart';
 
 class PageRepository {
   final userService = UserService();
@@ -42,6 +40,4 @@ class PageRepository {
     }
     return homeConfig;
   }
-
-  
 }

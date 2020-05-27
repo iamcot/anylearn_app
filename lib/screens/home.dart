@@ -1,15 +1,15 @@
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/screens/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/home/home_blocs.dart';
+import '../dto/const.dart';
 import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
 import '../widgets/bottom_nav.dart';
 import 'home/exit_confirm.dart';
 import 'home/home_body.dart';
+import 'loading.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -21,20 +21,19 @@ class _HomeScreen extends State<HomeScreen> {
   HomeBloc _homeBloc;
   @override
   void didChangeDependencies() {
-    _authBloc = BlocProvider.of<AuthBloc>(context);
-    _authBloc.add(AuthCheckEvent());
+    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
     _homeBloc = HomeBloc(pageRepository: pageRepo);
     super.didChangeDependencies();
   }
 
+  UserDTO user;
+  Future<bool> _willExit() async {
+    return await showDialog(context: context, builder: (context) => new ExitConfirm());
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<bool> _willExit() async {
-      return await showDialog(context: context, builder: (context) => new ExitConfirm());
-    }
-
-    UserDTO user;
     return WillPopScope(
       onWillPop: _willExit,
       child: Scaffold(

@@ -19,19 +19,16 @@ class PdpBody extends StatefulWidget {
   const PdpBody({Key key, this.data}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _PdpBody(data);
+  State<StatefulWidget> createState() => _PdpBody();
 }
 
 class _PdpBody extends State<PdpBody> {
-  final PdpDTO data;
-
-  _PdpBody(this.data);
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double imageHeight = width - 30 - 50;
-    bool isFavorite = data.isFavorite;
+    bool isFavorite = widget.data.isFavorite;
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(
@@ -42,10 +39,10 @@ class _PdpBody extends State<PdpBody> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(data.item.image, height: imageHeight, fit: BoxFit.cover),
+                Image.network(widget.data.item.image, height: imageHeight, fit: BoxFit.cover),
                 Padding(
                   padding: EdgeInsets.only(top: 15.0),
-                  child: Text2Lines(text: data.item.title, fontSize: 16.0),
+                  child: Text2Lines(text: widget.data.item.title, fontSize: 16.0),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,8 +54,8 @@ class _PdpBody extends State<PdpBody> {
                             padding: EdgeInsets.only(top: 5.0),
                             child: Row(
                               children: [
-                                RatingBox(score: data.item.rating),
-                                data.item.rating > 0
+                                RatingBox(score: widget.data.item.rating),
+                                widget.data.item.rating > 0
                                     ? Padding(
                                         padding: EdgeInsets.only(left: 10.0),
                                         child: InkWell(
@@ -76,9 +73,9 @@ class _PdpBody extends State<PdpBody> {
                               children: <Widget>[
                                 Icon(Icons.watch_later, color: Colors.black54, size: 14.0),
                                 Text(" " +
-                                    data.item.timeStart +
+                                    widget.data.item.timeStart +
                                     " " +
-                                    DateFormat('dd/MM').format(DateTime.parse(data.item.dateStart)))
+                                    DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart)))
                               ],
                             ),
                           ),
@@ -87,13 +84,13 @@ class _PdpBody extends State<PdpBody> {
                             child: Row(
                               children: <Widget>[
                                 Icon(Icons.supervisor_account, color: Colors.black54, size: 14.0),
-                                Text(" " + data.user.name)
+                                Text(" " + widget.data.user.name)
                               ],
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 10.0),
-                            child: PriceBox(price: data.item.price, orgPrice: data.item.priceOrg, fontSize: 18.0),
+                            child: PriceBox(price: widget.data.item.price, orgPrice: widget.data.item.priceOrg, fontSize: 18.0),
                           ),
                         ],
                       ),
@@ -103,10 +100,10 @@ class _PdpBody extends State<PdpBody> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ItemFavorStatusItem(
-                            text: data.item.numCart.toString(), icon: Icons.add_shopping_cart, color: Colors.green),
-                        ItemFavorStatusItem(text: data.item.numShare.toString(), icon: Icons.share, color: Colors.blue),
+                            text: widget.data.item.numCart.toString(), icon: Icons.add_shopping_cart, color: Colors.green),
+                        ItemFavorStatusItem(text: widget.data.item.numShare.toString(), icon: Icons.share, color: Colors.blue),
                         ItemFavorStatusItem(
-                            text: data.item.numFavorite.toString(), icon: Icons.favorite, color: Colors.red),
+                            text: widget.data.item.numFavorite.toString(), icon: Icons.favorite, color: Colors.red),
                       ],
                     )
                   ],
@@ -132,8 +129,8 @@ class _PdpBody extends State<PdpBody> {
                           onPressed: () {
                             BlocProvider.of<PdpBloc>(context)
                               ..add(isFavorite == true
-                                  ? PdpFavoriteRemoveEvent(itemId: data.item.id, userId: data.user.id)
-                                  : PdpFavoriteAddEvent(itemId: data.item.id, userId: data.user.id));
+                                  ? PdpFavoriteRemoveEvent(itemId: widget.data.item.id, userId: widget.data.user.id)
+                                  : PdpFavoriteAddEvent(itemId: widget.data.item.id, userId: widget.data.user.id));
                           },
                           child: Icon(isFavorite == true ? Icons.favorite : Icons.favorite_border, color: Colors.red),
                         );
@@ -162,7 +159,7 @@ class _PdpBody extends State<PdpBody> {
                                     title: Text("Chia sẻ ra mạng xã hội"),
                                     onTap: () {
                                       Share.share(
-                                          "Khóa học hay trên anyLEARN bạn có biết chưa https://anylearn.vn/course/" + data.item.id.toString());
+                                          "Khóa học hay trên anyLEARN bạn có biết chưa https://anylearn.vn/course/" + widget.data.item.id.toString());
                                     }),
                               ]);
                             });
@@ -190,7 +187,7 @@ class _PdpBody extends State<PdpBody> {
                           collapsed: Column(
                             children: [
                               Text(
-                                data.item.shortContent,
+                                widget.data.item.shortContent,
                                 softWrap: true,
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
@@ -205,7 +202,7 @@ class _PdpBody extends State<PdpBody> {
                           ),
                           expanded: Column(children: [
                             Html(
-                              data: data.item.content,
+                              data: widget.data.item.content,
                               shrinkWrap: true,
                             ),
                             ExpandableButton(child: Text("THU GỌN", style: TextStyle(color: Colors.blue))),
@@ -215,7 +212,7 @@ class _PdpBody extends State<PdpBody> {
                     ),
                   ],
                 ))),
-        HotItems(hotItems: data.hotItems),
+        HotItems(hotItems: widget.data.hotItems),
       ],
     );
   }

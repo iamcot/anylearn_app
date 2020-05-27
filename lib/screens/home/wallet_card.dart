@@ -1,5 +1,6 @@
 import 'package:anylearn/dto/feature_data_dto.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'feature_icon.dart';
 
@@ -24,26 +25,26 @@ class WalletCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: FeatureIcon(
-                    featureData: FeatureDataDTO(icon: Icons.input, title: "Nạp tiền", route: "/deposit"),
+                    featureData: FeatureDataDTO(icon: Icons.input , title: "Nạp tiền", route: "/deposit", iconColor: Colors.green),
                     iconSize: 24.0,
                   ),
                 ),
                 Expanded(
                   child: FeatureIcon(
                     featureData:
-                        FeatureDataDTO(icon: Icons.monetization_on, title: "Rút tiền", route: "/withdraw"),
+                        FeatureDataDTO(icon: Icons.monetization_on, title: "Rút tiền", route: "/withdraw", iconColor: Colors.purple),
                     iconSize: 24.0,
                   ),
                 ),
                 Expanded(
                   child: FeatureIcon(
-                    featureData: FeatureDataDTO(icon: Icons.card_giftcard, title: "Điểm", route: "/commission"),
+                    featureData: FeatureDataDTO(icon: MdiIcons.gift , title: "Điểm", route: "/exchange", iconColor: Colors.orange),
                     iconSize: 24.0,
                   ),
                 ),
                 Expanded(
                   child: FeatureIcon(
-                    featureData: FeatureDataDTO(icon: Icons.receipt, title: "Giao dịch", route: "/transaction"),
+                    featureData: FeatureDataDTO(icon: Icons.receipt, title: "Giao dịch", route: "/transaction", iconColor: Colors.blue),
                     iconSize: 24.0,
                   ),
                 ),

@@ -25,13 +25,7 @@ class _PDPScreen extends State<PDPScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    print("build na");
     return BlocProvider<PdpBloc>(
       create: (context) {
         return pdpBloc;

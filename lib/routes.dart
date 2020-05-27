@@ -1,5 +1,3 @@
-import 'package:anylearn/screens/commission.dart';
-import 'package:anylearn/screens/withdraw.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
@@ -15,6 +13,7 @@ import 'screens/ask_cat.dart';
 import 'screens/deposit.dart';
 import 'screens/developing.dart';
 import 'screens/event.dart';
+import 'screens/exchange.dart';
 import 'screens/items_school.dart';
 import 'screens/items_teacher.dart';
 import 'screens/login.dart';
@@ -25,6 +24,7 @@ import 'screens/register.dart';
 import 'screens/school.dart';
 import 'screens/teacher.dart';
 import 'screens/transaction.dart';
+import 'screens/withdraw.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   // "/": (BuildContext context) => HomeScreen(),
@@ -43,7 +43,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/account/contact": (BuildContext context) => AccountContactScreen(),
   "/deposit": (BuildContext context) => DepositScreen(),
   "/withdraw": (BuildContext context) => WithdrawScreen(),
-  "/commission": (BuildContext context) => CommissionScreen(),
+  "/exchange": (BuildContext context) => ExchangeScreen(),
   "/transaction": (BuildContext context) => TransactionScreen(),
   "/developing": (BuildContext context) => DevelopingScreen(),
   "/notification": (BuildContext context) => NotificationScreen(),

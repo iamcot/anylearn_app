@@ -10,6 +10,8 @@ import '../blocs/auth/auth_state.dart';
 import '../dto/user_dto.dart';
 
 class QrCodeScreen extends StatelessWidget {
+  UserDTO user;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -18,7 +20,6 @@ class QrCodeScreen extends StatelessWidget {
     double qrWidth = width * 2 / 3;
     double textPadding = (width - qrWidth) / 2;
     double qrPadding = (height - qrWidth) / 3;
-    UserDTO user;
     final _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     return BlocListener<AuthBloc, AuthState>(
       bloc: _authBloc,

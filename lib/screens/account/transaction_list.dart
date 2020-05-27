@@ -22,7 +22,6 @@ class TransactionList extends StatelessWidget {
                     if (index.isEven) {
                       return ListTile(
                         title: Text(transactions[itemIndex].content, style: TextStyle(
-                          // fontWeight: FontWeight.bold
                         ),),
                         subtitle: Text((transactions[itemIndex].orderId != null && transactions[itemIndex].orderId > 0
                             ? "#" + transactions[itemIndex].orderId.toString() + " - "

@@ -1,8 +1,9 @@
-import 'package:anylearn/dto/deposit_config_dto.dart';
+import 'package:anylearn/dto/transaction_dto.dart';
 
 import '../dto/home_dto.dart';
 import '../dto/hot_items_dto.dart';
 import '../dto/item_dto.dart';
+import '../dto/transaction_config_dto.dart';
 
 class ConfigServices {
   Future<HomeDTO> homeLayout(String role) async {
@@ -78,15 +79,36 @@ class ConfigServices {
     );
   }
 
-  Future<DepositeConfigDTO> depositeConfigs() async {
-    return DepositeConfigDTO(
+  Future<TransactionConfigDTO> transactionConfigs(String type, int userId) async {
+    return TransactionConfigDTO(
       walletM: 1000,
-      walletC: 99,
+      walletC: 9999,
       vipFee: 930000,
       vipDays: 30,
       suggests: [930000, 5000000, 2000000, 1000000, 500000, 200000],
+      suggestInputColumn: 3,
       payments: [],
-      lastTransactions: [],
+      rate: 1000,
+      lastTransactions: [
+        TransactionDTO(
+          content: "Nạp tiền vào ví",
+          amount: 930000,
+          createdDate: "2020-05-10 09:01:02",
+          status: 1,
+        ),
+        TransactionDTO(
+          content: "Nạp tiền vào ví",
+          amount: 5000000,
+          createdDate: "2020-05-20 09:01:02",
+          status: 0,
+          bankInfo: BankDTO(
+            bankName: "Techcombank",
+            bankNo: "123456",
+            bankBranch: "CN Q1",
+            accountName: "MC Hoài Trinh",
+          ),
+        ),
+      ],
     );
   }
 }

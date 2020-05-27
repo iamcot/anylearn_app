@@ -4,6 +4,7 @@ import '../dto/users_dto.dart';
 class UserService {
   final mockData = {
     "1": UserDTO(
+      id: 1,
       name: "MC Hoài Trinh",
       refcode: "hoaitrinh",
       walletC: 100,
@@ -15,6 +16,7 @@ class UserService {
       token: "1",
     ),
     "2": UserDTO(
+      id: 2,
       name: "Quỳnh Như",
       refcode: "1900114",
       walletC: 0,

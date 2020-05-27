@@ -34,7 +34,7 @@ class FeatureIcon extends StatelessWidget {
                   : Icon(
                       featureData.icon,
                       size: iconSize,
-                      color: Colors.grey[800],
+                      color: featureData.iconColor ?? Colors.grey[800],
                     ))
               : Container(
                   height: iconSize,
