@@ -23,6 +23,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           yield HomeFailState(error: "Không có config cho trang");
         }
       }
+      if (event is LoadQuoteEvent) {
+        yield QuoteLoadingState();
+        final quote = await pageRepository.getQuote();
+        if (quote == null) {
+          yield QuoteFailState();
+        } else {
+          yield QuoteSuccessState(quote: quote);
+        }
+      }
     } catch (error) {
       yield HomeFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
     }

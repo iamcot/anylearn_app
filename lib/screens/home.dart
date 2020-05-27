@@ -1,9 +1,11 @@
+import 'package:anylearn/dto/home_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/home/home_blocs.dart';
 import '../dto/const.dart';
+import '../dto/quote_dto.dart';
 import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
 import '../widgets/bottom_nav.dart';
@@ -19,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   AuthBloc _authBloc;
   HomeBloc _homeBloc;
+  QuoteDTO _quote;
   @override
   void didChangeDependencies() {
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
@@ -28,6 +31,7 @@ class _HomeScreen extends State<HomeScreen> {
   }
 
   UserDTO user;
+  HomeDTO homeData;
   Future<bool> _willExit() async {
     return await showDialog(context: context, builder: (context) => new ExitConfirm());
   }
@@ -52,9 +56,10 @@ class _HomeScreen extends State<HomeScreen> {
               create: (context) => _homeBloc,
               child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
                 if (state is HomeSuccessState) {
-                  return HomeBody(user: user, homeData: state.data);
+                  homeData = state.data;
+                  _homeBloc.add(LoadQuoteEvent());
                 }
-                return LoadingScreen();
+                return homeData != null ? HomeBody(user: user, homeData: homeData) : LoadingScreen();
               }),
             );
           },

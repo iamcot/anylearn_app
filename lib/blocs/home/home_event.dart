@@ -14,3 +14,10 @@ class LoadHomeEvent extends HomeEvent {
   @override
   String toString() => 'LoadHomeEvent';
 }
+
+class LoadQuoteEvent extends HomeEvent {
+  @override
+  List<Object> get props => [];
+  @override
+  String toString() => 'LoadQuoteEvent';
+}

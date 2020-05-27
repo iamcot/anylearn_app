@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/quote_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,18 @@ abstract class HomeState extends Equatable {
 class HomeInitState extends HomeState {}
 
 class HomeLoadingState extends HomeState {}
+
+class QuoteLoadingState extends HomeState {}
+
+class QuoteSuccessState extends HomeState {
+  final QuoteDTO quote;
+
+  QuoteSuccessState({this.quote});
+  @override
+  List<Object> get props => [quote];
+}
+
+class QuoteFailState extends HomeState {}
 
 class HomeSuccessState extends HomeState {
   final HomeDTO data;

@@ -1,4 +1,7 @@
+import 'package:anylearn/blocs/home/home_blocs.dart';
+import 'package:anylearn/screens/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../dto/home_dto.dart';
 import '../../dto/user_dto.dart';
@@ -29,6 +32,32 @@ class HomeBody extends StatelessWidget {
         new WeekCourseHeader(),
         new WeekCourses(
           monthCourses: homeData.monthCourses,
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+            padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+            child: BlocBuilder<HomeBloc, HomeState>(
+              bloc: BlocProvider.of<HomeBloc>(context),
+              builder: (context, state) {
+                if (state is QuoteSuccessState) {
+                  return Card(
+                    child: ListTile(
+                      trailing: Icon(Icons.format_quote),
+                      subtitle: Text.rich(
+                        TextSpan(
+                          text: state.quote.text,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                  );
+                } else {
+                  return LoadingScreen();
+                }
+              },
+            ),
+          ),
         ),
       ],
     );
