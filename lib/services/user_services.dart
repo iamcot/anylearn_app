@@ -39,22 +39,6 @@ class UserService {
   };
   Future<UserDTO> login(String phone, String password) async {
     String url = config.apiUrl + config.loginEP + "?phone=$phone&password=$password";
-    var json;
-    try {
-      final response = await this.httpClient.get(url);
-      if (response.statusCode != 200) {
-        return null;
-      }
-      json = jsonDecode(response.body);
-    } catch (error) {
-      json = null;
-    }
-
-    return UserDTO.fromJson(json);
-  }
-
-  Future<UserDTO> getInfo(String token) async {
-    String url = config.apiUrl + config.userInfoEP + "?${config.tokenParam}=$token";
     print(url);
     var json;
     try {
@@ -62,12 +46,30 @@ class UserService {
       if (response.statusCode != 200) {
         return null;
       }
-      print(response.body);
       json = jsonDecode(response.body);
+      var user = UserDTO.fromJson(json);
+      return user;
     } catch (error) {
-      json = null;
+      print(error);
+      return null;
     }
-    return UserDTO.fromJson(json);
+  }
+
+  Future<UserDTO> getInfo(String token) async {
+    String url = config.apiUrl + config.userInfoEP + "?${config.tokenParam}=$token";
+    print(url);
+    var json;
+   try {
+      final response = await this.httpClient.get(url);
+      if (response.statusCode != 200) {
+        return null;
+      }
+      json = jsonDecode(response.body);
+      return UserDTO.fromJson(json);
+    } catch (error) {
+      print(error);
+      return null;
+    }
   }
 
   Future<UsersDTO> getList(String role, int page, int pageSize) async {

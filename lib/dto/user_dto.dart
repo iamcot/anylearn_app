@@ -9,8 +9,8 @@ class UserDTO extends Equatable {
   String image;
   String banner;
   String address;
-  final double walletM;
-  final double walletC;
+  final int walletM;
+  final int walletC;
   final int userId;
   final double commissionRate;
   String country;

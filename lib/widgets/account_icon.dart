@@ -16,7 +16,7 @@ class _AccountIcon extends State<AccountIcon> {
     return Container(
       padding: EdgeInsets.only(right: 10.0),
       child: IconButton(
-          icon: widget.user == null || widget.user.image.isEmpty
+          icon: widget.user == null || widget.user.image == null
               ? Icon(
                   Icons.account_circle,
                   size: 32.0,

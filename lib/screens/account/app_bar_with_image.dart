@@ -12,10 +12,10 @@ class AccountAppBarWithImage extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double barHeight = width * 3 / 5;
     return SliverAppBar(
-      expandedHeight: user.image.isNotEmpty ? barHeight : 0,
+      expandedHeight: user.image != null ? barHeight : 0,
       centerTitle: true,
       floating: true,
-      pinned: user.image.isNotEmpty ? false : true,
+      pinned: user.image != null ? false : true,
       actions: <Widget>[
         IconButton(
             icon: Icon(MdiIcons.qrcodeScan),
@@ -29,7 +29,7 @@ class AccountAppBarWithImage extends StatelessWidget {
             centerTitle: false,
             title: Container(
               padding: EdgeInsets.only(left: 5.0, right: 5.0),
-              decoration: user.image.isNotEmpty
+              decoration: user.image != null
                   ? BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       color: Colors.black38,
@@ -43,7 +43,7 @@ class AccountAppBarWithImage extends StatelessWidget {
             background: new ClipRect(
               child: new Container(
                 decoration: new BoxDecoration(
-                  image: user.image.isNotEmpty
+                  image: user.image != null
                       ? DecorationImage(
                           image: NetworkImage(user.image), fit: BoxFit.cover, alignment: Alignment.topCenter)
                       : null,
