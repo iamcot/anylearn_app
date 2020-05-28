@@ -1,4 +1,6 @@
-class UserDTO {
+import 'package:equatable/equatable.dart';
+
+class UserDTO extends Equatable {
   final int id;
   String name;
   String title;
@@ -54,4 +56,66 @@ class UserDTO {
     this.password,
     this.token,
   });
+
+  @override
+  List<Object> get props => [
+        id,
+        name,
+        phone,
+        title,
+        role,
+        image,
+        banner,
+        address,
+        walletM,
+        walletC,
+        userId,
+        commissionRate,
+        country,
+        dob,
+        email,
+        expire,
+        introduce,
+        isHot,
+        numFriends,
+        refcode,
+        updateDoc,
+        route,
+        rating,
+        token,
+        status,
+      ];
+
+  @override
+  String toString() => 'UserDTO {id: $id, name: $name, phone: $phone, token: $token}';
+
+  static UserDTO fromJson(dynamic json) {
+    return json != null
+        ? UserDTO(
+            id: json['id'],
+            name: json['name'],
+            email: json['email'],
+            phone: json['phone'],
+            refcode: json['refcode'],
+            token: json['api_token'],
+            role: json['role'],
+            status: json['status'],
+            updateDoc: json['update_doc'],
+            expire: json['expire'],
+            walletC: json['wallet_c'],
+            walletM: json['wallet_m'],
+            commissionRate: json['commission_rate'],
+            userId: json['user_id'],
+            isHot: json['is_hot'],
+            image: json['image'],
+            banner: json['banner'],
+            introduce: json['introduce'],
+            title: json['title'],
+            dob: json['dob'],
+            address: json['address'],
+            country: json['country'],
+            numFriends: json['num_friends'],
+          )
+        : null;
+  }
 }

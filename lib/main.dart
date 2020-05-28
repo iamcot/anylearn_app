@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'app_config.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'models/page_repo.dart';
 import 'models/transaction_repo.dart';
@@ -9,23 +10,31 @@ import 'routes.dart';
 import 'screens/home.dart';
 import 'themes/default.dart';
 
-void main() {
+void main() async {
+  final env = "dev";
+  WidgetsFlutterBinding.ensureInitialized();
+  final config = await AppConfig.forEnv(env);
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  final userRepo = UserRepository();
-  final pageRepo = PageRepository();
+  final userRepo = UserRepository(config: config);
+  final pageRepo = PageRepository(config: config);
   final transRepo = TransactionRepository();
   return runApp(
-    MultiRepositoryProvider(providers: [
-      RepositoryProvider<UserRepository>(
-        create: (context) => userRepo,
-      ),
-      RepositoryProvider<PageRepository>(
-        create: (context) => pageRepo,
-      ),
-      RepositoryProvider<TransactionRepository>(
-        create: (context) => transRepo,
-      ),
-    ], child: BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo), child: MyApp())),
+    MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<UserRepository>(
+            create: (context) => userRepo,
+          ),
+          RepositoryProvider<PageRepository>(
+            create: (context) => pageRepo,
+          ),
+          RepositoryProvider<TransactionRepository>(
+            create: (context) => transRepo,
+          ),
+        ],
+        child: BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(userRepository: userRepo),
+          child: MyApp(),
+        )),
   );
 }
 

@@ -87,7 +87,7 @@ class ItemService {
           ),
         ]),
       ],
-      user: new UserDTO(
+      author: new UserDTO(
         id: 1,
         name: "Thầy giáo Ba",
         role: "teacher",

@@ -1,3 +1,5 @@
+import 'package:anylearn/blocs/auth/auth_blocs.dart';
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +17,7 @@ class ItemsSchoolScreen extends StatefulWidget {
 
 class _ItemsSchoolScreen extends State<ItemsSchoolScreen> {
   ItemsBloc itemsBloc;
+  UserDTO user;
   @override
   void didChangeDependencies() {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
@@ -31,35 +34,41 @@ class _ItemsSchoolScreen extends State<ItemsSchoolScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ItemsBloc>(
-      create: (context) {
-        return itemsBloc;
-      },
-      child: BlocListener<ItemsBloc, ItemsState>(
-        listener: (context, state) {
-          if (state is ItemsLoadFailState) {
-            Navigator.of(context).popUntil(ModalRoute.withName("/"));
+    return BlocBuilder<AuthBloc, AuthState>(
+        bloc: BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent()),
+        builder: (BuildContext context, AuthState state) {
+          if (state is AuthSuccessState) {
+            user = state.user;
           }
-        },
-        child: BlocBuilder<ItemsBloc, ItemsState>(
-          builder: (context, state) {
-            if (state is ItemsSchoolSuccessState) {
-              return Scaffold(
-                appBar: BaseAppBar(
-                  title: state.data.user.name,
-                ),
-                body: ItemsBody(
-                  data: state.data,
-                ),
-                bottomNavigationBar: BottomNav(
-                  index: BottomNav.SCHOOL_INDEX,
-                ),
-              );
-            }
-            return LoadingScreen();
-          },
-        ),
-      ),
-    );
+          return BlocProvider<ItemsBloc>(
+            create: (context) => itemsBloc,
+            child: BlocListener<ItemsBloc, ItemsState>(
+              listener: (context, state) {
+                if (state is ItemsLoadFailState) {
+                  Navigator.of(context).popUntil(ModalRoute.withName("/"));
+                }
+              },
+              child: BlocBuilder<ItemsBloc, ItemsState>(
+                builder: (context, state) {
+                  if (state is ItemsSchoolSuccessState) {
+                    return Scaffold(
+                      appBar: BaseAppBar(
+                        user: user,
+                        title: state.data.user.name,
+                      ),
+                      body: ItemsBody(
+                        data: state.data,
+                      ),
+                      bottomNavigationBar: BottomNav(
+                        index: BottomNav.SCHOOL_INDEX,
+                      ),
+                    );
+                  }
+                  return LoadingScreen();
+                },
+              ),
+            ),
+          );
+        });
   }
 }

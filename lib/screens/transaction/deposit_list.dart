@@ -26,53 +26,48 @@ class _DepositList extends State<DepositList> {
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return AlertDialog(
-                                actions: <Widget>[
-                                  RaisedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    color: Colors.blue,
-                                    child: Text("OK"),
-                                  ),
-                                ],
+                              return SimpleDialog(
                                 title:
                                     Text("Vui lòng chuyển khoản theo thông tin sau:", style: TextStyle(fontSize: 12.0)),
-                                content: Container(
-                                  height: 300,
-                                  child: Column(
-                                    children: [
-                                      ListTile(
-                                        contentPadding: EdgeInsets.all(0),
-                                        title: Text("Ngân hàng"),
-                                        subtitle: Text(e.bankInfo.bankName),
-                                      ),
-                                      ListTile(
-                                        contentPadding: EdgeInsets.all(0),
-                                        title: Text("Chi nhánh"),
-                                        subtitle: Text(e.bankInfo.bankBranch),
-                                      ),
-                                      ListTile(
-                                        contentPadding: EdgeInsets.all(0),
-                                        title: Text("Số tài khoản"),
-                                        subtitle: Text(e.bankInfo.bankNo),
-                                        trailing: Icon(Icons.content_copy),
-                                        onTap: () {
-                                          Clipboard.setData(new ClipboardData(text: e.bankInfo.bankNo));
-                                          // Scaffold.of(context).showSnackBar(new SnackBar(
-                                          //   content: Text("Đã chép STK"),
-                                          //   duration: Duration(seconds: 2),
-                                          // ));
-                                        },
-                                      ),
-                                      ListTile(
-                                        contentPadding: EdgeInsets.all(0),
-                                        title: Text("Người  thụ hưởng"),
-                                        subtitle: Text(e.bankInfo.accountName),
-                                      ),
-                                    ],
+                                children: [
+                                  ListTile(
+                                    title: Text("Ngân hàng"),
+                                    subtitle: Text(e.bankInfo.bankName),
                                   ),
-                                ),
+                                  ListTile(
+                                    title: Text("Chi nhánh"),
+                                    subtitle: Text(e.bankInfo.bankBranch),
+                                  ),
+                                  ListTile(
+                                    title: Text("Số tài khoản"),
+                                    subtitle: Text(e.bankInfo.bankNo),
+                                    trailing: Icon(Icons.content_copy),
+                                    onTap: () {
+                                      Clipboard.setData(new ClipboardData(text: e.bankInfo.bankNo));
+                                      // Scaffold.of(context).showSnackBar(new SnackBar(
+                                      //   content: Text("Đã chép STK"),
+                                      //   duration: Duration(seconds: 2),
+                                      // ));
+                                    },
+                                  ),
+                                  ListTile(
+                                    title: Text("Người  thụ hưởng"),
+                                    subtitle: Text(e.bankInfo.accountName),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: RaisedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      color: Colors.blue,
+                                      child: Text(
+                                        "OK",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               );
                             });
                       }

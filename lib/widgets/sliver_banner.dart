@@ -14,8 +14,9 @@ class SliverBanner extends StatelessWidget {
           Container(
             width: double.infinity,
             height: height,
-            child: Image.network(
-              this.banner,
+            child: 
+            //Image.network(this.banner,
+            Image.asset("assets/banners/teacher-1.jpg",
               fit: BoxFit.cover,
             ),
           ),

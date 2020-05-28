@@ -13,10 +13,17 @@ import '../services/user_services.dart';
 import 'default_feature_data.dart';
 
 class PageRepository {
-  final userService = UserService();
+  UserService userService;
+  QuoteService quoteService;
   final itemService = ItemService();
   final configService = ConfigServices();
-  final quoteService = QuoteService(httpClient: http.Client());
+  final config;
+  final httpClient = http.Client();
+
+  PageRepository({this.config}) {
+    quoteService = QuoteService(httpClient: this.httpClient);
+    userService = UserService(config: config, httpClient: this.httpClient);
+  }
 
   Future<PdpDTO> dataPDP(int itemId) async {
     return await itemService.getPDPData(itemId);

@@ -47,6 +47,13 @@ class HomeBody extends StatelessWidget {
                         TextSpan(
                           text: state.quote.text,
                           style: TextStyle(fontSize: 12),
+                          children: [
+                            TextSpan(text: " " + state.quote.author, style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 11,
+                              color: Colors.pink
+                            ))
+                          ],
                         ),
                         textAlign: TextAlign.justify,
                       ),

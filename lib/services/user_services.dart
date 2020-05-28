@@ -1,7 +1,15 @@
+import 'dart:convert';
+
+import '../app_config.dart';
 import '../dto/user_dto.dart';
 import '../dto/users_dto.dart';
+import 'package:http/http.dart' as http;
 
 class UserService {
+  final http.Client httpClient;
+  final AppConfig config;
+
+  UserService({this.config, this.httpClient});
   final mockData = {
     "1": UserDTO(
       id: 1,
@@ -30,15 +38,36 @@ class UserService {
     ),
   };
   Future<UserDTO> login(String phone, String password) async {
-    await Future.delayed(Duration(microseconds: 500));
-    //TODO MOCK
-    return mockData[phone];
+    String url = config.apiUrl + config.loginEP + "?phone=$phone&password=$password";
+    var json;
+    try {
+      final response = await this.httpClient.get(url);
+      if (response.statusCode != 200) {
+        return null;
+      }
+      json = jsonDecode(response.body);
+    } catch (error) {
+      json = null;
+    }
+
+    return UserDTO.fromJson(json);
   }
 
   Future<UserDTO> getInfo(String token) async {
-    await Future.delayed(Duration(microseconds: 500));
-    //TODO MOCK
-    return mockData[token];
+    String url = config.apiUrl + config.userInfoEP + "?${config.tokenParam}=$token";
+    print(url);
+    var json;
+    try {
+      final response = await this.httpClient.get(url);
+      if (response.statusCode != 200) {
+        return null;
+      }
+      print(response.body);
+      json = jsonDecode(response.body);
+    } catch (error) {
+      json = null;
+    }
+    return UserDTO.fromJson(json);
   }
 
   Future<UsersDTO> getList(String role, int page, int pageSize) async {

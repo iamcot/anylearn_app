@@ -22,6 +22,7 @@ class _HomeScreen extends State<HomeScreen> {
   AuthBloc _authBloc;
   HomeBloc _homeBloc;
   QuoteDTO _quote;
+  String _role;
   @override
   void didChangeDependencies() {
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
@@ -46,12 +47,13 @@ class _HomeScreen extends State<HomeScreen> {
           builder: (context, state) {
             if (state is AuthSuccessState) {
               user = state.user;
-              _homeBloc..add(LoadHomeEvent(role: state.user.role));
+              _role = state.user.role;
             }
             if (state is AuthFailState) {
               user = null;
-              _homeBloc..add(LoadHomeEvent(role: MyConst.ROLE_GUEST));
+              _role = MyConst.ROLE_GUEST;
             }
+            _homeBloc..add(LoadHomeEvent(role: _role));
             return BlocProvider<HomeBloc>(
               create: (context) => _homeBloc,
               child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
@@ -59,7 +61,12 @@ class _HomeScreen extends State<HomeScreen> {
                   homeData = state.data;
                   _homeBloc.add(LoadQuoteEvent());
                 }
-                return homeData != null ? HomeBody(user: user, homeData: homeData) : LoadingScreen();
+                return homeData != null
+                    ? RefreshIndicator(
+                        child: HomeBody(user: user, homeData: homeData),
+                        onRefresh: _reloadPage,
+                      )
+                    : LoadingScreen();
               }),
             );
           },
@@ -69,5 +76,9 @@ class _HomeScreen extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _reloadPage() async {
+    _homeBloc..add(LoadHomeEvent(role: _role));
   }
 }

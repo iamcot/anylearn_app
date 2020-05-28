@@ -19,6 +19,15 @@ class AuthSuccessState extends AuthState {
   List<Object> get props => [user];
 }
 
+class AuthSubpageSuccessState extends AuthState {
+  final UserDTO user;
+
+  AuthSubpageSuccessState({@required this.user}): assert(user != null);
+
+  @override 
+  List<Object> get props => [user];
+}
+
 class AuthFailState extends AuthState {}
 
 class AuthInProgressState extends AuthState {}

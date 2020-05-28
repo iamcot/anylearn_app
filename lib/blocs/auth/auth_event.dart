@@ -11,6 +11,8 @@ abstract class AuthEvent extends Equatable {
 
 class AuthCheckEvent extends AuthEvent {}
 
+class AuthSubpageCheckEvent extends AuthEvent {}
+
 class AuthLoggedInEvent extends AuthEvent {
   final UserDTO user;
   const AuthLoggedInEvent({@required this.user});

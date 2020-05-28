@@ -3,27 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
-import 'package:share/share.dart';
 
 import '../../blocs/pdp/pdp_blocs.dart';
 import '../../dto/pdp_dto.dart';
+import '../../dto/user_dto.dart';
 import '../../widgets/item_status_icon.dart';
 import '../../widgets/price_box.dart';
 import '../../widgets/rating.dart';
 import '../../widgets/text2lines.dart';
 import '../home/hot_items.dart';
+import 'course_confirm.dart';
+import 'share_dialog.dart';
 
 class PdpBody extends StatefulWidget {
   final PdpDTO data;
+  final UserDTO user;
 
-  const PdpBody({Key key, this.data}) : super(key: key);
+  const PdpBody({Key key, this.data, this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PdpBody();
 }
 
 class _PdpBody extends State<PdpBody> {
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -84,13 +86,14 @@ class _PdpBody extends State<PdpBody> {
                             child: Row(
                               children: <Widget>[
                                 Icon(Icons.supervisor_account, color: Colors.black54, size: 14.0),
-                                Text(" " + widget.data.user.name)
+                                Text(" " + widget.data.author.name)
                               ],
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 10.0),
-                            child: PriceBox(price: widget.data.item.price, orgPrice: widget.data.item.priceOrg, fontSize: 18.0),
+                            child: PriceBox(
+                                price: widget.data.item.price, orgPrice: widget.data.item.priceOrg, fontSize: 18.0),
                           ),
                         ],
                       ),
@@ -100,8 +103,11 @@ class _PdpBody extends State<PdpBody> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ItemFavorStatusItem(
-                            text: widget.data.item.numCart.toString(), icon: Icons.add_shopping_cart, color: Colors.green),
-                        ItemFavorStatusItem(text: widget.data.item.numShare.toString(), icon: Icons.share, color: Colors.blue),
+                            text: widget.data.item.numCart.toString(),
+                            icon: Icons.add_shopping_cart,
+                            color: Colors.green),
+                        ItemFavorStatusItem(
+                            text: widget.data.item.numShare.toString(), icon: Icons.share, color: Colors.blue),
                         ItemFavorStatusItem(
                             text: widget.data.item.numFavorite.toString(), icon: Icons.favorite, color: Colors.red),
                       ],
@@ -127,10 +133,14 @@ class _PdpBody extends State<PdpBody> {
                               side: BorderSide(width: 1.0, color: Colors.red)),
                           color: Colors.white,
                           onPressed: () {
-                            BlocProvider.of<PdpBloc>(context)
-                              ..add(isFavorite == true
-                                  ? PdpFavoriteRemoveEvent(itemId: widget.data.item.id, userId: widget.data.user.id)
-                                  : PdpFavoriteAddEvent(itemId: widget.data.item.id, userId: widget.data.user.id));
+                            if (widget.user != null) {
+                              BlocProvider.of<PdpBloc>(context)
+                                ..add(isFavorite == true
+                                    ? PdpFavoriteRemoveEvent(itemId: widget.data.item.id, userId: widget.user.id)
+                                    : PdpFavoriteAddEvent(itemId: widget.data.item.id, userId: widget.user.id));
+                            } else {
+                              Navigator.of(context).pushNamed('/login');
+                            }
                           },
                           child: Icon(isFavorite == true ? Icons.favorite : Icons.favorite_border, color: Colors.red),
                         );
@@ -139,7 +149,14 @@ class _PdpBody extends State<PdpBody> {
                     RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.green)),
-                      onPressed: () {},
+                      onPressed: () {
+                        widget.user != null
+                            ? showDialog(
+                                context: context,
+                                builder: (context) => CourseConfirm(user: widget.user, pdpDTO: widget.data,),
+                              )
+                            : Navigator.of(context).pushNamed('/login');
+                      },
                       color: Colors.green,
                       textColor: Colors.white,
                       child: Row(children: [Icon(Icons.add_shopping_cart), Text(" Đăng ký học")]),
@@ -149,20 +166,12 @@ class _PdpBody extends State<PdpBody> {
                           borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.blue)),
                       color: Colors.white,
                       onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return SimpleDialog(children: <Widget>[
-                                ListTile(title: Text("Chia sẻ tới bạn bè trong hệ thống"), onTap: () {}),
-                                Divider(),
-                                ListTile(
-                                    title: Text("Chia sẻ ra mạng xã hội"),
-                                    onTap: () {
-                                      Share.share(
-                                          "Khóa học hay trên anyLEARN bạn có biết chưa https://anylearn.vn/course/" + widget.data.item.id.toString());
-                                    }),
-                              ]);
-                            });
+                        widget.user != null
+                            ? showDialog(
+                                context: context,
+                                builder: (context) => PdpShareDialog(itemId: widget.data.item.id),
+                              )
+                            : Navigator.of(context).pushNamed('/login');
                       },
                       child: Icon(Icons.share, color: Colors.blue),
                     ),

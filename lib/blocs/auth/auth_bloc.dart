@@ -25,6 +25,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     }
 
+    if (event is AuthSubpageCheckEvent) {
+      yield AuthInProgressState();
+      final String token = await userRepository.getToken();
+      if (token != null) {
+        yield AuthSubpageSuccessState(user: await userRepository.getUser(token));
+      } else {
+        yield AuthFailState();
+      }
+    }
+
     if (event is AuthLoggedInEvent) {
       yield AuthInProgressState();
       await userRepository.storeToken(event.user.token);

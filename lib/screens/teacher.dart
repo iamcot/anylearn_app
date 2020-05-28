@@ -1,3 +1,5 @@
+import 'package:anylearn/blocs/auth/auth_blocs.dart';
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +17,7 @@ class TeacherScreen extends StatefulWidget {
 
 class _TeacherScreen extends State<TeacherScreen> {
   UsersBloc usersBloc;
+  UserDTO user;
   @override
   void didChangeDependencies() {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
@@ -30,23 +33,29 @@ class _TeacherScreen extends State<TeacherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<UsersBloc>(
-      create: (context) {
-        return usersBloc;
-      },
-      child: BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
-        if (state is UsersTeacherSuccessState) {
-          return Scaffold(
-              appBar: BaseAppBar(
-                title: "Giảng viên & Chuyên gia",
-              ),
-              body: TeacherBody(teachers: state.data),
-              bottomNavigationBar: BottomNav(
-                index: BottomNav.TEACHER_INDEX,
-              ));
-        }
-        return LoadingScreen();
-      }),
-    );
+    return BlocBuilder<AuthBloc, AuthState>(
+        bloc: BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent()),
+        builder: (BuildContext context, AuthState state) {
+          if (state is AuthSuccessState) {
+            user = state.user;
+          }
+          return BlocProvider<UsersBloc>(
+            create: (context) => usersBloc,
+            child: BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
+              if (state is UsersTeacherSuccessState) {
+                return Scaffold(
+                    appBar: BaseAppBar(
+                      user: user,
+                      title: "Giảng viên & Chuyên gia",
+                    ),
+                    body: TeacherBody(teachers: state.data),
+                    bottomNavigationBar: BottomNav(
+                      index: BottomNav.TEACHER_INDEX,
+                    ));
+              }
+              return LoadingScreen();
+            }),
+          );
+        });
   }
 }
