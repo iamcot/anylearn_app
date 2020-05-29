@@ -39,6 +39,11 @@ class _LoginScreen extends State<LoginScreen> {
           if (state is AuthSuccessState) {
             Navigator.of(context).pop();
           }
+          if (ModalRoute.of(context).settings.arguments != null) {
+            Scaffold.of(context).showSnackBar(new SnackBar(
+              content: Text(ModalRoute.of(context).settings.arguments.toString()),
+            ));
+          }
         },
         child: BlocProvider(
           create: (context) {
