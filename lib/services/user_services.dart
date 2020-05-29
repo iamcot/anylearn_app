@@ -15,14 +15,14 @@ class UserService extends BaseService {
   UserService({this.config, this.httpClient});
 
   Future<UserDTO> login(String phone, String password) async {
-    String url = config.apiUrl + config.loginEP + "?phone=$phone&password=$password";
+    String url = config.apiUrl + "/login?phone=$phone&password=$password";
     print(url);
     final json = await get(url);
     return UserDTO.fromJson(json);
   }
 
   Future<UserDTO> getInfo(String token) async {
-    String url = config.apiUrl + config.userInfoEP + "?${config.tokenParam}=$token";
+    String url = config.apiUrl + "/user?${config.tokenParam}=$token";
     print(url);
     final json = await get(url);
     return UserDTO.fromJson(json);
@@ -75,5 +75,12 @@ class UserService extends BaseService {
     await Future.delayed(Duration(microseconds: 500));
     //TODO Implement
     return true;
+  }
+
+  Future<UserDTO> register(String phone, String name, String password, String refcode, String role) async {
+    final String url = config.apiUrl + "/register?phone=$phone&name=$name&password=$password&ref=$refcode&role=$role";
+    print(url);
+    final json = await get(url);
+    return UserDTO.fromJson(json);
   }
 }

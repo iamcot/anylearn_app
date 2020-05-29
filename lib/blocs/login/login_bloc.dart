@@ -1,3 +1,4 @@
+import 'package:anylearn/blocs/auth/auth_blocs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -30,6 +31,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield LoginInitState();
       } catch (error) {
         yield LoginFailState(error: error.toString());
+      }
+    }
+
+    if (event is RegisterButtonPressedEvent) {
+      yield RegisterInprogressState();
+      try {
+        final user = await userRepository.register(event.userInput.phone, event.userInput.name,
+            event.userInput.password, event.userInput.refcode, event.userInput.role);
+        this.add(LoginButtonPressedEvent(phone: user.phone, password: event.userInput.password));
+        yield RegisterSuccessState();
+        yield RegisterInitState();
+      } catch (e) {
+        yield RegisterFailState(error: e.toString());
       }
     }
   }

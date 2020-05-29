@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 abstract class LoginState extends Equatable {
   const LoginState();
 
-  @override 
+  @override
   List<Object> get props => [];
 }
 
@@ -19,9 +19,37 @@ class LoginFailState extends LoginState {
 
   const LoginFailState({@required this.error});
 
-  @override 
+  @override
   List<Object> get props => [error];
 
+  @override
+  String toString() => '{error: $error}';
+}
+
+class RegisterInitState extends LoginState {
+  final String toc;
+
+  RegisterInitState({this.toc});
+
   @override 
+  List<Object> get props => [toc];
+
+  @override
+  String toString() => '{toc: $toc}';
+}
+
+class RegisterInprogressState extends LoginState {}
+
+class RegisterSuccessState extends LoginState {}
+
+class RegisterFailState extends LoginState {
+  final String error;
+
+  const RegisterFailState({@required this.error});
+
+  @override
+  List<Object> get props => [error];
+
+  @override
   String toString() => '{error: $error}';
 }

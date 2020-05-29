@@ -39,5 +39,7 @@ class UserRepository {
     return await storage.read(key: MyConst.AUTH_TOKEN);
   }
 
-  Future<UsersDTO> getUserList(String role) async {}
+  Future<UserDTO> register(String phone, String name, String password, String refcode, String role) async {
+    return await userService.register(phone, name, password, refcode, role);
+  }
 }
