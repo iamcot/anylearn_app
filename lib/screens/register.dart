@@ -6,7 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:validators/validators.dart' as validator;
 
 import '../blocs/auth/auth_blocs.dart';
-import '../blocs/login/login_blocs.dart';
+import '../blocs/register/register_blocs.dart';
 import '../customs/custom_radio.dart';
 import '../customs/register_curved_paint.dart';
 import '../dto/const.dart';
@@ -33,13 +33,13 @@ class _RegisterScreen extends State<RegisterScreen> {
   final FocusNode _focusPass = FocusNode();
   final FocusNode _focusRePass = FocusNode();
 
-  LoginBloc _loginBloc;
+  RegisterBloc _loginBloc;
   AuthBloc _authBloc;
   @override
   void didChangeDependencies() {
     final userRepository = RepositoryProvider.of<UserRepository>(context);
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
-    _loginBloc = LoginBloc(userRepository: userRepository, authBloc: _authBloc);
+    _loginBloc = RegisterBloc(userRepository: userRepository);
     super.didChangeDependencies();
   }
 
@@ -62,9 +62,9 @@ class _RegisterScreen extends State<RegisterScreen> {
           ),
           elevation: 0.0,
         ),
-        body: BlocListener<LoginBloc, LoginState>(
+        body: BlocListener<RegisterBloc, RegisterState>(
           bloc: _loginBloc,
-          listener: (BuildContext context, LoginState state) {
+          listener: (context, state) {
             if (state is RegisterFailState) {
               Scaffold.of(context).showSnackBar(new SnackBar(
                 content: Text(state.error),

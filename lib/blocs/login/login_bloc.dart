@@ -28,22 +28,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final user = await userRepository.authenticated(phone: event.phone, password: event.password);
         authBloc..add(AuthLoggedInEvent(user: user));
         yield LoginSuccessState();
-        yield LoginInitState();
+        // yield LoginInitState();
       } catch (error) {
         yield LoginFailState(error: error.toString());
       }
     }
 
-    if (event is RegisterButtonPressedEvent) {
-      yield RegisterInprogressState();
-      try {
-        final user = await userRepository.register(event.userInput.phone, event.userInput.name,
-            event.userInput.password, event.userInput.refcode, event.userInput.role);
-        yield RegisterSuccessState();
-        yield RegisterInitState();
-      } catch (e) {
-        yield RegisterFailState(error: e.toString());
-      }
-    }
   }
 }
