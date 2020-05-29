@@ -25,15 +25,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       try {
         final user = await userRepository.authenticated(phone: event.phone, password: event.password);
-        if (user != null) {
-          authBloc..add(AuthLoggedInEvent(user: user));
-          yield LoginSuccessState();
-          yield LoginInitState();
-        } else {
-          yield LoginFailState(error: "Thông tin đăng nhập không đúng.");
-        }
+        authBloc..add(AuthLoggedInEvent(user: user));
+        yield LoginSuccessState();
+        yield LoginInitState();
       } catch (error) {
-        yield LoginFailState(error: "Có lỗi xảy ra, vui lòng thử lại.");
+        yield LoginFailState(error: error.toString());
       }
     }
   }

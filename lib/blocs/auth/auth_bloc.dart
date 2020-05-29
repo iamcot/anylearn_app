@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -15,23 +16,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
+    try {
     if (event is AuthCheckEvent) {
       yield AuthInProgressState();
       final String token = await userRepository.getToken();
-      if (token != null) {
-        yield AuthSuccessState(user: await userRepository.getUser(token));
-      } else {
+      if (token == null) {
         yield AuthFailState();
-      }
-    }
-
-    if (event is AuthSubpageCheckEvent) {
-      yield AuthInProgressState();
-      final String token = await userRepository.getToken();
-      if (token != null) {
-        yield AuthSubpageSuccessState(user: await userRepository.getUser(token));
       } else {
-        yield AuthFailState();
+        UserDTO userDTO = await userRepository.getUser(token);
+        if (userDTO == null) {
+          await userRepository.deleteToken();
+          yield AuthTokenFailState();
+          yield AuthFailState();
+        } else {
+          yield AuthSuccessState(user: userDTO);
+        }
       }
     }
 
@@ -45,6 +44,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield AuthInProgressState();
       await userRepository.deleteToken();
       yield AuthFailState();
+    }
+    } catch(error) {
+      yield AuthFailState(error: error.toString());
     }
   }
 }

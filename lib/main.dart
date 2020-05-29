@@ -1,3 +1,4 @@
+import 'package:anylearn/blocs/auth/auth_blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,21 +21,22 @@ void main() async {
   final transRepo = TransactionRepository();
   return runApp(
     MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider<UserRepository>(
-            create: (context) => userRepo,
-          ),
-          RepositoryProvider<PageRepository>(
-            create: (context) => pageRepo,
-          ),
-          RepositoryProvider<TransactionRepository>(
-            create: (context) => transRepo,
-          ),
-        ],
-        child: BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(userRepository: userRepo),
-          child: MyApp(),
-        )),
+      providers: [
+        RepositoryProvider<UserRepository>(
+          create: (context) => userRepo,
+        ),
+        RepositoryProvider<PageRepository>(
+          create: (context) => pageRepo,
+        ),
+        RepositoryProvider<TransactionRepository>(
+          create: (context) => transRepo,
+        ),
+      ],
+      child: BlocProvider<AuthBloc>(
+        create: (context) => AuthBloc(userRepository: userRepo),
+        child: MyApp(),
+      ),
+    ),
   );
 }
 

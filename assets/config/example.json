@@ -1,3 +1,6 @@
 {
-    "apiUrl": ""
+    "apiUrl": "http://localhost:8000/api",
+    "tokenParam" : "api_token",
+    "loginEP": "/login",
+    "userInfoEP": "/user"
 }
