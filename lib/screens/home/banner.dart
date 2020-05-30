@@ -31,7 +31,7 @@ class HomeBanner extends StatelessWidget {
                 margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                  child: Image.asset(item, fit: BoxFit.cover),
+                  child: Image.network(item, fit: BoxFit.cover),
                 ),
               ),
             ))

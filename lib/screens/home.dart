@@ -1,10 +1,9 @@
-import 'package:anylearn/dto/home_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/home/home_blocs.dart';
-import '../dto/const.dart';
+import '../dto/home_dto.dart';
 import '../dto/quote_dto.dart';
 import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
@@ -47,14 +46,15 @@ class _HomeScreen extends State<HomeScreen> {
           builder: (context, state) {
             if (state is AuthSuccessState) {
               user = state.user;
+              _homeBloc.add(LoadHomeEvent(user: user));
             }
             if (state is AuthFailState) {
               user = null;
+              _homeBloc.add(LoadHomeEvent(user: user));
             }
-            _homeBloc.add(LoadHomeEvent(user: user));
 
             return BlocProvider<HomeBloc>(
-              create: (context) => _homeBloc,//..add(LoadHomeEvent(role: _role)),
+              create: (context) => _homeBloc, //..add(LoadHomeEvent(role: _role)),
               child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
                 if (state is HomeSuccessState) {
                   homeData = state.data;

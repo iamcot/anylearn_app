@@ -16,13 +16,14 @@ class PageRepository {
   UserService userService;
   QuoteService quoteService;
   final itemService = ItemService();
-  final configService = ConfigServices();
+  ConfigServices configService;
   final config;
   final httpClient = http.Client();
 
   PageRepository({this.config}) {
     quoteService = QuoteService(httpClient: this.httpClient);
     userService = UserService(config: config, httpClient: this.httpClient);
+    configService = ConfigServices(config: config, httpClient: this.httpClient);
   }
 
   Future<PdpDTO> dataPDP(int itemId) async {

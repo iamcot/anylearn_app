@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class PriceBox extends StatelessWidget {
-  final double orgPrice;
-  final double price;
+  final int orgPrice;
+  final int price;
   final double fontSize;
 
   const PriceBox({Key key, this.orgPrice = 0, this.price, this.fontSize = 16.0}) : super(key: key);

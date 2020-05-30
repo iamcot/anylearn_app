@@ -1,4 +1,3 @@
-import '../dto/hot_items_dto.dart';
 import '../dto/item_dto.dart';
 import '../dto/items_dto.dart';
 import '../dto/pdp_dto.dart';
@@ -66,26 +65,6 @@ class ItemService {
   Future<PdpDTO> getPDPData(int itemId) async {
     return new PdpDTO(
       hotItems: [
-        new HotItemsDTO(title: "Các sản phẩm liên quan", route: "/school", list: [
-          new ItemDTO(
-            title: "Trung tâm A",
-            image:
-                "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-            id: 1,
-          ),
-          new ItemDTO(
-            id: 2,
-            title: "Trung tâm B có tên siêu dài cần cắt bớt đi cho đẹp",
-            image:
-                "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          ),
-          new ItemDTO(
-            id: 3,
-            title: "Trung tâm C",
-            image:
-                "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          ),
-        ]),
       ],
       author: new UserDTO(
         id: 1,

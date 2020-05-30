@@ -1,6 +1,7 @@
 import 'package:anylearn/customs/custom_carousel.dart';
 import 'package:anylearn/dto/hot_items_dto.dart';
 import 'package:anylearn/dto/item_dto.dart';
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 
 class HotItems extends StatelessWidget {
@@ -62,7 +63,7 @@ class HotItems extends StatelessWidget {
         .toList();
   }
 
-  Widget _itemSlider(BuildContext context, ItemDTO item, double cardHeight) {
+  Widget _itemSlider(BuildContext context, UserDTO item, double cardHeight) {
     double width = MediaQuery.of(context).size.width;
     width = width - width / 3;
     return InkWell(
@@ -80,17 +81,17 @@ class HotItems extends StatelessWidget {
                 width: double.infinity,
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(7.0), topRight: Radius.circular(7.0)),
-                  child: Image.network(
+                  child: item.image != null && item.image.isNotEmpty ? Image.network(
                     item.image,
                     fit: BoxFit.cover,
-                  ),
+                  ) : Icon(Icons.broken_image),
                 ),
               ),
               Container(
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.all(15.0),
                 child: Text(
-                  item.title,
+                  item.title ?? "",
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(),
                 ),

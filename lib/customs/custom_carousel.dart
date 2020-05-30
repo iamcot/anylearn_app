@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import '../customs/custom_scroll_physical.dart';
 import '../dto/item_dto.dart';
@@ -13,7 +14,7 @@ class CustomCarousel extends StatelessWidget {
 
   final List<dynamic> items;
   final double dividerIndent;
-  final Function(BuildContext context, ItemDTO item, double cardHeight) builderFunction;
+  final Function(BuildContext context, UserDTO item, double cardHeight) builderFunction;
   final double height;
 
   @override
