@@ -1,4 +1,3 @@
-import '../widgets/appbar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +10,9 @@ class _AccountContactScreen extends State<AccountContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(
-        title: "Liên hệ với chúng tôi",
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text("Liên hệ với chúng tôi"),
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),

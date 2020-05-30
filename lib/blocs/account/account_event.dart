@@ -26,7 +26,7 @@ class AccChangeAvatarEvent extends AccountEvent {
   @override
   List<Object> get props => [token, file];
   @override
-  String toString() => 'AccChangeAvatarEvent $file';
+  String toString() => 'AccChangeAvatarEvent';
 }
 
 class AccChangeBannerEvent extends AccountEvent {
@@ -37,7 +37,7 @@ class AccChangeBannerEvent extends AccountEvent {
   @override
   List<Object> get props => [token, file];
   @override
-  String toString() => 'AccChangeBannerEvent $file';
+  String toString() => 'AccChangeBannerEvent';
 }
 
 class AccEditSubmitEvent extends AccountEvent {

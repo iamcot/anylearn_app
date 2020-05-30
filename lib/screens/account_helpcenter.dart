@@ -1,8 +1,8 @@
-import '../dto/guide_dto.dart';
-import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
+
+import '../dto/guide_dto.dart';
 
 class AccountHelpCenterScreen extends StatefulWidget {
   @override
@@ -20,8 +20,9 @@ class _AccountHelpCenterScreen extends State<AccountHelpCenterScreen> {
   Widget build(BuildContext context) {
     DateFormat f = DateFormat("dd/MM/yyyy");
     return Scaffold(
-        appBar: BaseAppBar(
-          title: "Hướng dẫn sử dụng",
+        appBar: AppBar(
+          centerTitle: false,
+          title: Text("Hướng dẫn sử dụng"),
         ),
         body: ListView(
           children: <Widget>[

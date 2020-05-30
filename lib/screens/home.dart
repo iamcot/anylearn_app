@@ -47,13 +47,11 @@ class _HomeScreen extends State<HomeScreen> {
           builder: (context, state) {
             if (state is AuthSuccessState) {
               user = state.user;
-              _role = state.user.role;
             }
             if (state is AuthFailState) {
               user = null;
-              _role = MyConst.ROLE_GUEST;
             }
-            _homeBloc.add(LoadHomeEvent(role: _role));
+            _homeBloc.add(LoadHomeEvent(user: user));
 
             return BlocProvider<HomeBloc>(
               create: (context) => _homeBloc,//..add(LoadHomeEvent(role: _role)),
@@ -80,6 +78,6 @@ class _HomeScreen extends State<HomeScreen> {
   }
 
   Future<void> _reloadPage() async {
-    _homeBloc..add(LoadHomeEvent(role: _role));
+    _homeBloc..add(LoadHomeEvent(user: user));
   }
 }

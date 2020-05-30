@@ -46,12 +46,16 @@ class _AccountEditScreen extends State<AccountEditScreen> {
           Navigator.of(context).popUntil(ModalRoute.withName("/"));
         }
         if (state is AuthSuccessState) {
+          // setState(() {
+          //   _user = state.user;
+          // });
           accountBloc..add(AccInitPageEvent(user: state.user));
         }
       },
       child: Scaffold(
-        appBar: BaseAppBar(
-          title: "Thông tin cá nhân",
+        appBar: AppBar(
+          centerTitle: false,
+          title: Text("Thông tin cá nhân"),
         ),
         body: BlocProvider<AccountBloc>(
           create: (context) => accountBloc,
@@ -273,9 +277,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   bloc: accountBloc,
                                   builder: (context, state) {
                                     if (state is AccEditSavingState) {
-                                      return CircularProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                                      );
+                                      return CircularProgressIndicator();
                                     }
                                     return Text(
                                       "Lưu thay đổi",
@@ -338,12 +340,12 @@ class _AccountEditScreen extends State<AccountEditScreen> {
           bloc: accountBloc,
           builder: (context, state) {
             if (state is UploadAvatarInprogressState) {
-              return LoadingScreen();
+              return CircularProgressIndicator();
             }
             return IconButton(
               icon: Icon(Icons.camera_alt),
               iconSize: 28.0,
-              color: Colors.white,
+              color: Colors.grey,
               onPressed: () {
                 showDialog(
                     context: context,
@@ -370,7 +372,6 @@ class _AccountEditScreen extends State<AccountEditScreen> {
         ),
       ],
     );
-    
   }
 
   Widget _bannerBox(double size) {
@@ -389,8 +390,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
         child: BlocBuilder(
           bloc: accountBloc,
           builder: (context, state) {
-            if (state is UploadAvatarInprogressState) {
-              return LoadingScreen();
+            if (state is UploadBannerInprogressState) {
+              return CircularProgressIndicator();
             }
             return IconButton(
               icon: Icon(Icons.camera_alt),

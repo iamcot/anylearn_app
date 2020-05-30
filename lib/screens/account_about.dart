@@ -3,7 +3,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
 
 import '../dto/guide_dto.dart';
-import '../widgets/appbar.dart';
 
 class AccountAboutScreen extends StatefulWidget {
   @override
@@ -21,8 +20,9 @@ class _AccountAboutScreen extends State<AccountAboutScreen> {
   Widget build(BuildContext context) {
     DateFormat f = DateFormat("dd/MM/yyyy");
     return Scaffold(
-      appBar: BaseAppBar(
-        title: "Giới thiệu",
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text("Giới thiệu"),
       ),
       body: ListView(
         children: <Widget>[

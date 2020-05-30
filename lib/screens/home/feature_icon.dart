@@ -54,7 +54,7 @@ class FeatureIcon extends StatelessWidget {
         ],
       ),
       onPressed: () {
-        Navigator.of(context).pushNamed(featureData.route);
+        Navigator.of(context).pushNamed(featureData.route, arguments: featureData.routeParam);
       },
     );
   }

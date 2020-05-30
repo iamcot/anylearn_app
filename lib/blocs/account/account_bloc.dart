@@ -22,20 +22,20 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         yield UploadAvatarInprogressState();
 
         String url = await userRepository.uploadAvatar(event.file, event.token);
-        if (url != null) {
+        if (url != null && url.isNotEmpty) {
           yield UploadAvatarSuccessState(url: url);
         } else {
-          yield AccountFailState(error: "Up ảnh không thành công. Vui lòng thử lại");
+          yield AccountFailState(error: "Up ảnh không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
         }
       }
 
       if (event is AccChangeBannerEvent) {
         yield UploadBannerInprogressState();
         String url = await userRepository.uploadBanner(event.file, event.token);
-        if (url != null) {
+        if (url != null && url.isNotEmpty) {
           yield UploadBannerSuccessState(url: url);
         } else {
-          yield AccountFailState(error: "Up banner không thành công. Vui lòng thử lại");
+          yield AccountFailState(error: "Up banner không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
         }
       }
 

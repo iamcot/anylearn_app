@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../widgets/appbar.dart';
-
 class AccountPasswordScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _AccountPasswordScreen();
@@ -17,8 +15,9 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(
-        title: "Đổi mật khẩu",
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text("Đổi mật khẩu"),
       ),
       body: Form(
         key: _formKey,

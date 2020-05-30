@@ -45,10 +45,10 @@ class PageRepository {
     return await itemService.itemsListOfUser(userId, page, pageSize);
   }
 
-  Future<HomeDTO> dataHome(String role) async {
+  Future<HomeDTO> dataHome(String role, int userId) async {
     HomeDTO homeConfig = await configService.homeLayout(role);
     if (homeConfig.featuresIcons == null) {
-      homeConfig.featuresIcons = defaultHomeFeatures(role);
+      homeConfig.featuresIcons = defaultHomeFeatures(role, userId);
     }
     return homeConfig;
   }

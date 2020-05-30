@@ -1,15 +1,17 @@
 import 'package:equatable/equatable.dart';
 
+import '../../dto/user_dto.dart';
+
 abstract class HomeEvent extends Equatable {
   const HomeEvent();
 }
 
 class LoadHomeEvent extends HomeEvent {
-  final String role;
+  final UserDTO user;
 
-  LoadHomeEvent({this.role});
+  LoadHomeEvent({this.user});
   @override
-  List<Object> get props => [role];
+  List<Object> get props => [user];
 
   @override
   String toString() => 'LoadHomeEvent';

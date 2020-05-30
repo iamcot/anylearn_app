@@ -1,16 +1,14 @@
 import 'dart:math' as math;
 
-import 'package:anylearn/screens/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../blocs/account/account_blocs.dart';
 import '../blocs/auth/auth_blocs.dart';
 import '../dto/friends_dto.dart';
-import '../dto/user_dto.dart';
 import '../models/user_repo.dart';
 import 'account/app_bar_with_image.dart';
+import 'loading.dart';
 
 class AccountFriendsScreen extends StatefulWidget {
   @override
@@ -39,6 +37,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
       listener: (context, state) {
         if (state is AuthFailState) {
           Navigator.of(context).popUntil(ModalRoute.withName("/"));
+          Navigator.of(context).pushNamed("/login");
         }
         if (state is AuthSuccessState) {
           _accountBloc.add(AccLoadFriendsEvent(token: state.user.token, userId: friendsOfUserId));
