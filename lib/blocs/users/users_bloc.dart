@@ -30,8 +30,9 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       if (data == null) {
         yield UsersLoadFailState(error: "Không có thông tin bạn đang tìm kiếm.");
       }
-    } catch (error) {
+    } catch (error, trace) {
       yield UsersLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
+      print(trace.toString());
     }
   }
 }

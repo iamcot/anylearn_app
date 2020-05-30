@@ -27,30 +27,41 @@ class SchoolBody extends StatelessWidget {
                     leading: Container(
                       width: 60.0,
                       height: 60.0,
-                      child: Image.network(
-                        schoolsData.list[itemIndex].image,
-                        fit: BoxFit.cover,
-                      ),
+                      child: schoolsData.list.data[itemIndex].image != null &&
+                              schoolsData.list.data[itemIndex].image.isNotEmpty
+                          ? Image.network(
+                              schoolsData.list.data[itemIndex].image,
+                              fit: BoxFit.cover,
+                            )
+                          : SizedBox(
+                              height: 60,
+                              child: Icon(
+                                Icons.school,
+                                size: 60,
+                                color: Colors.grey,
+                              ),
+                            ),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamed("/items/school", arguments: schoolsData.list[itemIndex].id);//schoolsData.list[itemIndex].id
+                      Navigator.of(context).pushNamed("/items/school",
+                          arguments: schoolsData.list.data[itemIndex].id); //schoolsData.list[itemIndex].id
                     },
                     title: Text(
-                      schoolsData.list[itemIndex].name,
+                      schoolsData.list.data[itemIndex].name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     trailing: Icon(Icons.arrow_right),
                     subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      schoolsData.list[itemIndex].introduce != null
+                      schoolsData.list.data[itemIndex].introduce != null
                           ? Text(
-                              schoolsData.list[itemIndex].introduce,
+                              schoolsData.list.data[itemIndex].introduce,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             )
                           : Text(""),
                       RatingBox(
-                        score: schoolsData.list[itemIndex].rating,
+                        score: schoolsData.list.data[itemIndex].rating,
                         alignment: "start",
                       ),
                     ]));
@@ -60,7 +71,7 @@ class SchoolBody extends StatelessWidget {
                 color: Colors.black12,
               );
             },
-            childCount: math.max(0, schoolsData.list.length * 2 - 1),
+            childCount: math.max(0, schoolsData.list.data.length * 2 - 1),
             semanticIndexCallback: (Widget widget, int localIndex) {
               if (localIndex.isEven) {
                 return localIndex ~/ 2;

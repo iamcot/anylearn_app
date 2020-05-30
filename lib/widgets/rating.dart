@@ -21,6 +21,9 @@ class RatingBox extends StatelessWidget {
   List<Widget> _buildStar() {
     List<Widget> list = [];
     double current = 0;
+    if (score == null) {
+      return [];
+    }
     while (current < score) {
       list.add(Padding(
         padding: EdgeInsets.all(0.0),

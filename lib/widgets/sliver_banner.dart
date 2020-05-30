@@ -9,14 +9,14 @@ class SliverBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.width / 3;
     return SliverToBoxAdapter(
-      child: Column(
+      child: banner != null && banner.isNotEmpty ? Column(
         children: [
           Container(
             width: double.infinity,
             height: height,
             child: 
-            //Image.network(this.banner,
-            Image.asset("assets/banners/teacher-1.jpg",
+            Image.network(this.banner,
+            // Image.asset("assets/banners/teacher-1.jpg",
               fit: BoxFit.cover,
             ),
           ),
@@ -26,7 +26,7 @@ class SliverBanner extends StatelessWidget {
             color: Colors.black12,
           ),
         ],
-      ),
+      ) : SizedBox(height: 0,),
     );
   }
 }

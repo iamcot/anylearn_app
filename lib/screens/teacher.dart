@@ -39,23 +39,30 @@ class _TeacherScreen extends State<TeacherScreen> {
           if (state is AuthSuccessState) {
             user = state.user;
           }
-          return BlocProvider<UsersBloc>(
-            create: (context) => usersBloc,
-            child: BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
-              if (state is UsersTeacherSuccessState) {
-                return Scaffold(
-                    appBar: BaseAppBar(
-                      user: user,
-                      title: "Giảng viên & Chuyên gia",
-                    ),
-                    body: TeacherBody(teachers: state.data),
-                    bottomNavigationBar: BottomNav(
-                      index: BottomNav.TEACHER_INDEX,
-                    ));
-              }
-              return LoadingScreen();
-            }),
-          );
+          return Scaffold(
+              appBar: BaseAppBar(
+                user: user,
+                title: "Giảng viên & Chuyên gia",
+              ),
+              body: BlocProvider<UsersBloc>(
+                create: (context) => usersBloc,
+                child: BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
+                  if (state is UsersTeacherSuccessState) {
+                    return RefreshIndicator(
+                      child: TeacherBody(teachers: state.data),
+                      onRefresh: _reloadPage,
+                    );
+                  }
+                  return LoadingScreen();
+                }),
+              ),
+              bottomNavigationBar: BottomNav(
+                index: BottomNav.TEACHER_INDEX,
+              ));
         });
+  }
+
+  Future<void> _reloadPage() async {
+    usersBloc.add(UsersTeacherLoadEvent());
   }
 }

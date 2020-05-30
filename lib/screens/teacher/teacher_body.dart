@@ -29,7 +29,7 @@ class TeacherBody extends StatelessWidget {
             (BuildContext context, int index) {
               return InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamed("/items/teacher", arguments: teachers.list[index].id);
+                  Navigator.of(context).pushNamed("/items/teacher", arguments: teachers.list.data[index].id);
                 },
                 child: Container(
                   alignment: Alignment.topCenter,
@@ -56,27 +56,32 @@ class TeacherBody extends StatelessWidget {
                           width: double.infinity,
                           height: width * 3 / 4,
                           child: ClipRRect(
-                            child: Image.network(
-                              teachers.list[index].image,
-                              fit: BoxFit.cover,
-                            ),
+                            child: teachers.list.data[index].image != null && teachers.list.data[index].image != ""
+                                ? Image.network(
+                                    teachers.list.data[index].image,
+                                    fit: BoxFit.cover,
+                                  )
+                                : SizedBox(height: width * 3 / 4,
+                                child: Icon(Icons.account_box, size: width * 3 / 4, color: Colors.grey,),),
                           ),
                         ),
                         Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.all(5.0),
                           margin: EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            teachers.list[index].title,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 10.0),
-                          ),
+                          child: teachers.list.data[index].title != null
+                              ? Text(
+                                  teachers.list.data[index].title,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 10.0),
+                                )
+                              :  SizedBox(height: 0),
                         ),
                         Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.all(5.0),
                           child: Text(
-                            teachers.list[index].name,
+                            teachers.list.data[index].name,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
                           ),
@@ -84,7 +89,7 @@ class TeacherBody extends StatelessWidget {
                         Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(top: 5.0),
-                          child: RatingBox(score: teachers.list[index].rating),
+                          child: RatingBox(score: teachers.list.data[index].rating),
                         ),
                       ],
                     ),
@@ -92,7 +97,7 @@ class TeacherBody extends StatelessWidget {
                 ),
               );
             },
-            childCount: teachers.list.length,
+            childCount: teachers.list.data.length,
           ),
         ),
       ],

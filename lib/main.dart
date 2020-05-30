@@ -12,7 +12,7 @@ import 'screens/home.dart';
 import 'themes/default.dart';
 
 void main() async {
-  final env = "prod";
+  final env = "dev";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
   BlocSupervisor.delegate = SimpleBlocDelegate();

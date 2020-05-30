@@ -1,8 +1,22 @@
-import 'user_dto.dart';
+import 'package:equatable/equatable.dart';
 
-class UsersDTO {
+import 'users_paging_dto.dart';
+
+class UsersDTO extends Equatable {
   final String banner;
-  final List<UserDTO> list;
+  final UsersPagingDTO list;
 
   UsersDTO({this.banner, this.list});
+
+  @override
+  List<Object> get props => [banner, list];
+
+  static UsersDTO fromJson(dynamic json) {
+    return json == null
+        ? null
+        : UsersDTO(
+            banner: json['banner'],
+            list: UsersPagingDTO.fromJson(json['list']),
+          );
+  }
 }
