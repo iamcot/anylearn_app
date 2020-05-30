@@ -15,10 +15,16 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreen extends State<AccountScreen> {
   UserDTO user;
+  AuthBloc _authBloc;
+
+  @override
+  void didChangeDependencies() {
+    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     return BlocListener<AuthBloc, AuthState>(
       bloc: _authBloc,
       listener: (context, state) {
@@ -27,6 +33,7 @@ class _AccountScreen extends State<AccountScreen> {
         }
       },
       child: BlocBuilder<AuthBloc, AuthState>(
+        bloc: _authBloc,
         builder: (context, state) {
           if (state is AuthSuccessState) {
             user = state.user;

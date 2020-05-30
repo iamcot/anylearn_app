@@ -11,11 +11,13 @@ class AccountNormalMenu extends StatelessWidget {
   final Color leadingColor;
   final Color trailingColor;
   final Color titleColor;
+  final dynamic routeParam;
 
   const AccountNormalMenu(
       {Key key,
       this.title,
       this.route,
+      this.routeParam,
       this.leadingIcon,
       this.trailing,
       this.subContent,
@@ -38,12 +40,8 @@ class AccountNormalMenu extends StatelessWidget {
         onTap: () {
           if (routeFunction != null) {
             routeFunction();
-            // Scaffold.of(context).showSnackBar(new SnackBar(
-            //   content: Text(routeFunctionMsg),
-            //   duration: new Duration(seconds: 2),
-            // ));
           } else {
-            Navigator.of(context).pushNamed(route);
+            Navigator.of(context).pushNamed(route, arguments: routeParam);
           }
         },
         leading: Icon(

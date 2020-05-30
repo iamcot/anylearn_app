@@ -1,12 +1,12 @@
-import 'dart:convert';
+import 'dart:io';
 
-import 'package:anylearn/customs/rest_exception.dart';
-import 'package:anylearn/services/base_service.dart';
 import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
+import '../dto/friends_dto.dart';
 import '../dto/user_dto.dart';
 import '../dto/users_dto.dart';
+import 'base_service.dart';
 
 class UserService extends BaseService {
   final http.Client httpClient;
@@ -15,14 +15,19 @@ class UserService extends BaseService {
   UserService({this.config, this.httpClient});
 
   Future<UserDTO> login(String phone, String password) async {
-    String url = config.apiUrl + "/login?phone=$phone&password=$password";
+    final url = buildUrl(
+        appConfig: config,
+        endPoint: "/login",
+        query: buildQuery(
+          {'phone': phone, 'password': password},
+        ));
     print(url);
     final json = await get(url);
     return UserDTO.fromJson(json);
   }
 
   Future<UserDTO> getInfo(String token) async {
-    String url = config.apiUrl + "/user?${config.tokenParam}=$token";
+    final url = buildUrl(appConfig: config, endPoint: "/user", token: token);
     print(url);
     final json = await get(url);
     return UserDTO.fromJson(json);
@@ -66,21 +71,51 @@ class UserService extends BaseService {
   }
 
   Future<bool> updateInfo(UserDTO user) async {
-    await Future.delayed(Duration(microseconds: 500));
-    //TODO Implement
-    return true;
+    final url = buildUrl(appConfig: config, endPoint: "/user/edit", token: user.token);
+    final json = await post(url, {
+      "name": user.name,
+      "refcode": user.refcode,
+      "title": user.title,
+      "introduce": user.introduce,
+      "phone": user.phone,
+      "email": user.email,
+      "address": user.address,
+      "country": user.country,
+    });
+    return json["result"];
   }
 
   Future<bool> updatePassword(String oldPassword, String newPassword) async {
-    await Future.delayed(Duration(microseconds: 500));
+    await Future.delayed(Duration(seconds: 1));
     //TODO Implement
     return true;
   }
 
   Future<UserDTO> register(String phone, String name, String password, String refcode, String role) async {
-    final String url = config.apiUrl + "/register?phone=$phone&name=$name&password=$password&ref=$refcode&role=$role";
+    final url = buildUrl(appConfig: config, endPoint: "/register");
     print(url);
-    final json = await get(url);
+    final json = await post(url, {
+      "phone": phone,
+      "name": name,
+      "password": password,
+      "ref": refcode,
+      "role": role,
+    });
     return UserDTO.fromJson(json);
   }
+
+  Future<String> uploadUserImage(String type, String token, File file) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/upload-image/$type", token: token);
+    print(url);
+    final rs = await postImage(url, file);
+    return rs;
+  }
+
+  Future<FriendsDTO> friends(String token, int userId) async {
+    final url = buildUrl(appConfig: config, endPoint: "/friends/$userId", token: token);
+    print(url);
+    final json = await get(url);
+    return FriendsDTO.fromJson(json);
+  }
 }
+ 

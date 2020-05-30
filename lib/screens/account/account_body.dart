@@ -86,11 +86,12 @@ class _AccountBody extends State<AccountBody> {
             AccountNormalMenu(
               title: "Danh sách bạn bè",
               route: "/account/friends",
+              routeParam: user.id,
               leadingIcon: MdiIcons.accountGroup,
               trailing: SizedBox(
                   width: 80.0,
                   child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Text(user.numFriends.toString() + " bạn "),
+                    // Text(user.numFriends.toString() + " bạn "),
                     Icon(Icons.arrow_right),
                   ])),
             ),

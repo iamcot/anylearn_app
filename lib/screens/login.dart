@@ -37,7 +37,7 @@ class _LoginScreen extends State<LoginScreen> {
         bloc: _authBloc,
         listener: (context, state) {
           if (state is AuthSuccessState) {
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(true);
           }
           if (ModalRoute.of(context).settings.arguments != null) {
             Scaffold.of(context).showSnackBar(new SnackBar(

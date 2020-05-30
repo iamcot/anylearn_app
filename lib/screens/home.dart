@@ -53,9 +53,10 @@ class _HomeScreen extends State<HomeScreen> {
               user = null;
               _role = MyConst.ROLE_GUEST;
             }
-            _homeBloc..add(LoadHomeEvent(role: _role));
+            _homeBloc.add(LoadHomeEvent(role: _role));
+
             return BlocProvider<HomeBloc>(
-              create: (context) => _homeBloc,
+              create: (context) => _homeBloc,//..add(LoadHomeEvent(role: _role)),
               child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
                 if (state is HomeSuccessState) {
                   homeData = state.data;

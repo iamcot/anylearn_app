@@ -1,10 +1,12 @@
+import 'dart:io';
+
+import 'package:anylearn/dto/friends_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../dto/const.dart';
 import '../dto/user_dto.dart';
-import '../dto/users_dto.dart';
 import '../services/user_services.dart';
 
 class UserRepository {
@@ -14,7 +16,7 @@ class UserRepository {
   final httpClient = http.Client();
 
   UserRepository({this.config}) {
-   userService = new UserService(httpClient: httpClient, config: config);
+    userService = new UserService(httpClient: httpClient, config: config);
   }
 
   Future<UserDTO> getUser(String token) async {
@@ -41,5 +43,21 @@ class UserRepository {
 
   Future<UserDTO> register(String phone, String name, String password, String refcode, String role) async {
     return await userService.register(phone, name, password, refcode, role);
+  }
+
+  Future<String> uploadAvatar(File file, String token) async {
+    return await userService.uploadUserImage("image", token, file);
+  }
+
+  Future<String> uploadBanner(File file, String token) async {
+    return await userService.uploadUserImage("banner", token, file);
+  }
+
+  Future<bool> editUser(UserDTO user, String token) async {
+    return await userService.updateInfo(user);
+  }
+
+  Future<FriendsDTO> friends(int userId, String token) async {
+    return await userService.friends(token, userId);
   }
 }
