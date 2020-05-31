@@ -1,21 +1,16 @@
-import 'dart:convert';
-
-import 'package:anylearn/dto/quote_dto.dart';
 import 'package:http/http.dart' as http;
 
-class QuoteService {
-  final _baseUrl = 'https://quote-garden.herokuapp.com';
+import '../dto/quote_dto.dart';
+import 'base_service.dart';
+
+class QuoteService extends BaseService {
   final http.Client httpClient;
 
   QuoteService({this.httpClient});
 
   Future<QuoteDTO> getQuote() async {
-    final url = '$_baseUrl/quotes/random';
-    final response = await this.httpClient.get(url);
-    if (response.statusCode != 200) {
-      return null;
-    }
-    final json = jsonDecode(response.body);
+    final url = 'https://quote-garden.herokuapp.com/quotes/random';
+    final json = await get(httpClient, url);
     return QuoteDTO.fromJson(json);
   }
 }

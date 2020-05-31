@@ -3,28 +3,30 @@ import 'package:equatable/equatable.dart';
 class ItemDTO extends Equatable {
   final int id;
   final String image;
-  final String title;
-  final int price;
-  final int priceOrg;
-  final String shortContent;
-  final String content;
+  String type;
+  String title;
+  int price;
+  int priceOrg;
+  String shortContent;
+  String content;
   final String route;
   final String date;
   final double rating;
-  final String dateStart;
-  final String dateEnd;
-  final String timeStart;
-  final String timeEnd;
+  String dateStart;
+  String dateEnd;
+  String timeStart;
+  String timeEnd;
   final int numCart;
   final int numShare;
   final int numFavorite;
   bool isFavorite;
-  final String location;
+  String location;
 
   ItemDTO({
     this.id,
     this.image,
     this.title,
+    this.type,
     this.price,
     this.priceOrg,
     this.shortContent,
@@ -47,6 +49,7 @@ class ItemDTO extends Equatable {
         id,
         image,
         title,
+        type,
         price,
         priceOrg,
         shortContent,
@@ -62,12 +65,16 @@ class ItemDTO extends Equatable {
         location
       ];
 
+  @override
+  String toString() => 'ItemDTO {title: $title, type: $type}';
+
   static ItemDTO fromJson(dynamic json) {
     return json == null
         ? null
         : ItemDTO(
             title: json['title'],
             id: json['id'],
+            type: json['type'],
             image: json['image'],
             price: json['price'],
             priceOrg: json['org_price'],

@@ -22,14 +22,14 @@ class UserService extends BaseService {
           {'phone': phone, 'password': password},
         ));
     print(url);
-    final json = await get(url);
+    final json = await get(httpClient, url);
     return UserDTO.fromJson(json);
   }
 
   Future<UserDTO> getInfo(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/user", token: token);
     print(url);
-    final json = await get(url);
+    final json = await get(httpClient, url);
     return UserDTO.fromJson(json);
   }
 
@@ -37,13 +37,13 @@ class UserService extends BaseService {
     final url =
         buildUrl(appConfig: config, endPoint: "/users/$role", query: buildQuery({"page": page, "pageSize": pageSize}));
     print(url);
-    final json = await get(url);
+    final json = await get(httpClient, url);
     return UsersDTO.fromJson(json);
   }
 
   Future<bool> updateInfo(UserDTO user) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/edit", token: user.token);
-    final json = await post(url, {
+    final json = await post(httpClient, url, {
       "name": user.name,
       "refcode": user.refcode,
       "title": user.title,
@@ -65,7 +65,7 @@ class UserService extends BaseService {
   Future<UserDTO> register(String phone, String name, String password, String refcode, String role) async {
     final url = buildUrl(appConfig: config, endPoint: "/register");
     print(url);
-    final json = await post(url, {
+    final json = await post(httpClient, url, {
       "phone": phone,
       "name": name,
       "password": password,
@@ -85,7 +85,7 @@ class UserService extends BaseService {
   Future<FriendsDTO> friends(String token, int userId) async {
     final url = buildUrl(appConfig: config, endPoint: "/friends/$userId", token: token);
     print(url);
-    final json = await get(url);
+    final json = await get(httpClient, url);
     return FriendsDTO.fromJson(json);
   }
 }

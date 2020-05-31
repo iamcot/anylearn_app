@@ -10,6 +10,7 @@ import 'screens/account_helpcenter.dart';
 import 'screens/account_password.dart';
 import 'screens/ask.dart';
 import 'screens/ask_cat.dart';
+import 'screens/course_form.dart';
 import 'screens/deposit.dart';
 import 'screens/developing.dart';
 import 'screens/event.dart';
@@ -53,4 +54,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/qrcode": (BuildContext context) => QrCodeScreen(),
   "/register": (BuildContext context) => RegisterScreen(),
   "/login": (BuildContext context) => LoginScreen(),
+  "/course/form": (BuildContext context) => CourseFormScreen()
 };

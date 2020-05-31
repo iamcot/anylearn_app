@@ -1,0 +1,31 @@
+import 'package:equatable/equatable.dart';
+
+import '../../dto/item_dto.dart';
+
+abstract class CourseEvent extends Equatable {
+  const CourseEvent();
+}
+
+class LoadCourseEvent extends CourseEvent {
+  final int id;
+  final String token;
+
+  LoadCourseEvent({this.id, this.token});
+  @override
+  List<Object> get props => [id, token];
+
+  @override
+  String toString() => 'LoadCourseEvent {id: $id}';
+}
+
+class SaveCourseEvent extends CourseEvent {
+  final ItemDTO item;
+  final String token;
+
+  SaveCourseEvent({this.item, this.token});
+  @override
+  List<Object> get props => [item, token];
+
+  @override
+  String toString() => 'SaveCourseEvent {item: $item}';
+}

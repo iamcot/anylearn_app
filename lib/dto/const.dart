@@ -10,4 +10,8 @@ class MyConst {
   static const TRANS_TYPE_DEPOSIT = "deposit";
   static const TRANS_TYPE_WITHDRAW = "withdraw";
   static const TRANS_TYPE_EXCHANGE = "exchange";
+
+  static const ITEM_COURSE = "course";
+  static const ITEM_CLASS = "class";
+  static const ITEM_PRODUCT = "product";
 }

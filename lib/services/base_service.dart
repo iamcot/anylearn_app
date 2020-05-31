@@ -22,10 +22,10 @@ class BaseService {
     return rs;
   }
 
-  Future<dynamic> get(String url) async {
+  Future<dynamic> get(http.Client httpClient, String url) async {
     var responseJson;
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await httpClient.get(Uri.parse(url));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');
@@ -33,10 +33,10 @@ class BaseService {
     return responseJson;
   }
 
-  Future<dynamic> post(String url, Map<String, dynamic> body) async {
+  Future<dynamic> post(http.Client httpClient, String url, Map<String, dynamic> body) async {
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(url), body: body);
+      final response = await httpClient.post(Uri.parse(url), body: body);
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');
