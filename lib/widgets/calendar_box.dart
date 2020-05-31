@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class CalendarBox extends StatelessWidget {
   final String text;
   final double fontSize;
+  final String image;
 
-  const CalendarBox({Key key, this.text, this.fontSize: 24.0}) : super(key: key);
+  const CalendarBox({Key key, this.text, this.fontSize: 20.0, this.image}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 50.0,
-        child: Stack(
+      alignment: Alignment.center,
+        width: 55.0,
+        child: image == null ? Stack(
           children: <Widget>[
             Image.asset(
               "assets/images/date_bg.png",
@@ -17,7 +19,7 @@ class CalendarBox extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.only(top: 20.0),
+              padding: EdgeInsets.only(top: 15.0),
               child: Text(
                 text,
                 maxLines: 1,
@@ -28,6 +30,7 @@ class CalendarBox extends StatelessWidget {
               ),
             )
           ],
-        ));
+        ) : Image.network(image),
+        );
   }
 }

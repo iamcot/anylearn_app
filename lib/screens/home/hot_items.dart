@@ -91,7 +91,7 @@ class HotItems extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.all(15.0),
                 child: Text(
-                  item.title ?? "",
+                  item.name ?? "",
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(),
                 ),

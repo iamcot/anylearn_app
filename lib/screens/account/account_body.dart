@@ -47,6 +47,12 @@ class _AccountBody extends State<AccountBody> {
               subContent: Text(user.refcode + " (chạm để chia sẻ)"),
               routeFunction: () => _tabToCopy(user.refcode),
             ),
+             AccountNormalMenu(
+              title: "Khóa học của tôi",
+              route: "/course/list",
+              leadingIcon: MdiIcons.viewList,
+              trailing: Icon(Icons.arrow_right),
+            ),
             AccountNormalMenu(
               title: "Lịch học của tôi",
               route: "/account/calendar",
@@ -110,13 +116,13 @@ class _AccountBody extends State<AccountBody> {
             AccountNormalMenu(
               title: "Thông tin về anyLEARN.vn",
               route: "/account/about",
-              leadingIcon: MdiIcons.officeBuilding,
+              leadingIcon: MdiIcons.information,
               trailing: Icon(Icons.arrow_right),
             ),
             AccountNormalMenu(
               title: "Đổi mật khẩu",
               route: "/account/password",
-              leadingIcon: MdiIcons.formTextboxPassword,
+              leadingIcon: MdiIcons.lock,
               trailing: Icon(Icons.arrow_right),
             ),
             AccountNormalMenu(

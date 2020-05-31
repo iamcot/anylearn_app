@@ -14,6 +14,15 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
   @override
   Stream<CourseState> mapEventToState(CourseEvent event) async* {
     try {
+      if (event is LoadCourseEvent) {
+        yield CourseLoadingState();
+        final item = await itemRepository.loadItemEdit(event.id, event.token);
+        if (item != null) {
+          yield CourseLoadSuccess(item: item);
+        } else {
+          yield CourseFailState(error: "Không lấy được không tin");
+        }
+      }
       if (event is SaveCourseEvent) {
         yield CourseSavingState();
         final result = await itemRepository.saveItem(event.item, event.token);
@@ -23,9 +32,15 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
           yield CourseFailState(error: "Lưu khóa học thất bại, vui lòng thử lại.");
         }
       }
+
+      if (event is ListCourseEvent) {
+        yield CourseListLoadingState();
+        final result = await itemRepository.coursesOfUser(event.token);
+        yield CourseListSuccessState(data: result);
+      }
     } catch (error, trace) {
       yield CourseFailState(error: error.toString());
-      // print(trace.toString());
+      print(trace.toString());
     }
   }
 }

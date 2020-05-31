@@ -29,3 +29,14 @@ class SaveCourseEvent extends CourseEvent {
   @override
   String toString() => 'SaveCourseEvent {item: $item}';
 }
+
+class ListCourseEvent extends CourseEvent {
+  final String token;
+
+  ListCourseEvent({this.token});
+  @override
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'ListCourseEvent';
+}

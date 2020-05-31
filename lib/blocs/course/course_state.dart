@@ -1,4 +1,6 @@
+import 'package:anylearn/blocs/course/course_blocs.dart';
 import 'package:anylearn/dto/item_dto.dart';
+import 'package:anylearn/dto/user_courses_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,19 @@ class CourseLoadSuccess extends CourseState {
 class CourseSavingState extends CourseState {}
 
 class CourseSaveSuccessState extends CourseState {}
+
+class CourseListLoadingState extends CourseState {}
+
+class CourseListSuccessState extends CourseState {
+  final UserCoursesDTO data;
+
+  CourseListSuccessState({this.data});
+
+  @override
+  List<Object> get props => [data];
+  @override
+  String toString() => 'UserCoursesDTO {data: $data}';
+}
 
 class CourseFailState extends CourseState {
   final String error;

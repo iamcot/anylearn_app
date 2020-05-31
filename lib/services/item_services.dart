@@ -1,10 +1,11 @@
-import 'package:anylearn/customs/rest_exception.dart';
 import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
+import '../customs/rest_exception.dart';
 import '../dto/item_dto.dart';
 import '../dto/items_dto.dart';
 import '../dto/pdp_dto.dart';
+import '../dto/user_courses_dto.dart';
 import '../dto/user_dto.dart';
 import 'base_service.dart';
 
@@ -25,7 +26,7 @@ class ItemService extends BaseService {
     );
     print(url);
     final json = await post(httpClient, url, {
-      "id": item.id ?? "",
+      "id": item.id != null ? item.id.toString() : "",
       "type": item.type ?? "",
       "title": item.title ?? "",
       "price": item.price != null ? item.price.toString() : "",
@@ -39,6 +40,20 @@ class ItemService extends BaseService {
       "content": item.content ?? "",
     });
     return json['result'];
+  }
+
+  Future<UserCoursesDTO> coursesOfUser(String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/item/list", token: token);
+    print(url);
+    final json = await get(httpClient, url);
+    return UserCoursesDTO.fromJson(json);
+  }
+
+  Future<ItemDTO> loadItemEdit(int itemId, String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/edit", token: token);
+    print(url);
+    final json = await get(httpClient, url);
+    return ItemDTO.fromJson(json);
   }
 
   Future<ItemsDTO> itemsListOfUser(int userId, int page, int pageSize) async {

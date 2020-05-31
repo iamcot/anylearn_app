@@ -24,6 +24,11 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (ModalRoute.of(context).settings.arguments != null) {
+      Scaffold.of(context).showSnackBar(new SnackBar(
+        content: Text(ModalRoute.of(context).settings.arguments.toString()),
+      ));
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -38,11 +43,6 @@ class _LoginScreen extends State<LoginScreen> {
         listener: (context, state) {
           if (state is AuthSuccessState) {
             Navigator.of(context).pop(true);
-          }
-          if (ModalRoute.of(context).settings.arguments != null) {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: Text(ModalRoute.of(context).settings.arguments.toString()),
-            ));
           }
         },
         child: BlocProvider(

@@ -1,10 +1,11 @@
-import 'package:anylearn/blocs/auth/auth_blocs.dart';
-import 'package:anylearn/models/item_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app_config.dart';
 import 'blocs/auth/auth_bloc.dart';
+import 'blocs/auth/auth_blocs.dart';
+import 'blocs/course/course_blocs.dart';
+import 'models/item_repo.dart';
 import 'models/page_repo.dart';
 import 'models/transaction_repo.dart';
 import 'models/user_repo.dart';
@@ -23,25 +24,24 @@ void main() async {
   final itemRepo = ItemRepository(config: config);
   return runApp(
     MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<UserRepository>(
-          create: (context) => userRepo,
-        ),
-        RepositoryProvider<PageRepository>(
-          create: (context) => pageRepo,
-        ),
-        RepositoryProvider<TransactionRepository>(
-          create: (context) => transRepo,
-        ),
-        RepositoryProvider<ItemRepository>(
-          create: (context) => itemRepo,
-        ),
-      ],
-      child: BlocProvider<AuthBloc>(
-        create: (context) => AuthBloc(userRepository: userRepo),
-        child: MyApp(),
-      ),
-    ),
+        providers: [
+          RepositoryProvider<UserRepository>(
+            create: (context) => userRepo,
+          ),
+          RepositoryProvider<PageRepository>(
+            create: (context) => pageRepo,
+          ),
+          RepositoryProvider<TransactionRepository>(
+            create: (context) => transRepo,
+          ),
+          RepositoryProvider<ItemRepository>(
+            create: (context) => itemRepo,
+          ),
+        ],
+        child: MultiBlocProvider(providers: [
+          BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
+          BlocProvider<CourseBloc>(create: (context) => CourseBloc(itemRepository: itemRepo)),
+        ], child: MyApp())),
   );
 }
 

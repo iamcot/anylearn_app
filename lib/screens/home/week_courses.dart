@@ -15,7 +15,7 @@ class WeekCourses extends StatelessWidget {
           final int itemIndex = index ~/ 2;
           if (index.isEven) {
             return ListTile(
-              isThreeLine: true,
+              // isThreeLine: true,
               leading: CalendarBox(text: DateTime.parse(monthCourses[itemIndex].dateStart).day.toString()),
               onTap: () {
                 Navigator.of(context).pushNamed(monthCourses[itemIndex].route);

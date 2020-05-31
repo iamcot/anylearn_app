@@ -1,14 +1,14 @@
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/dto/item_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/models/item_repo.dart';
-import 'package:anylearn/widgets/gradient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/course/course_blocs.dart';
+import '../dto/const.dart';
+import '../dto/item_dto.dart';
+import '../dto/user_dto.dart';
+import '../widgets/gradient_button.dart';
+import 'loading.dart';
 
 class CourseFormScreen extends StatefulWidget {
   @override
@@ -29,13 +29,12 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   @override
   void didChangeDependencies() {
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
-    _courseBloc = CourseBloc(itemRepository: RepositoryProvider.of<ItemRepository>(context));
+    _courseBloc = BlocProvider.of<CourseBloc>(context);
     editId = ModalRoute.of(context).settings.arguments;
-    if (editId == null) {
-      _itemDTO = new ItemDTO(
-        type: MyConst.ITEM_COURSE,
-      );
-    }
+
+    _itemDTO = new ItemDTO(
+      type: MyConst.ITEM_COURSE,
+    );
     super.didChangeDependencies();
   }
 
@@ -49,21 +48,19 @@ class _CourseFormScreen extends State<CourseFormScreen> {
         }
         if (state is AuthSuccessState) {
           _user = state.user;
+          if (editId != null && editId > 0) {
+            _courseBloc..add(LoadCourseEvent(id: editId, token: _user.token));
+          }
         }
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text("Thông tin khóa học"),
           centerTitle: false,
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.menu), onPressed: () {
-              Navigator.of(context).popAndPushNamed("/account/calendar");
-            }),
-          ],
         ),
-        body: BlocProvider<CourseBloc>(
-          create: (context) => _courseBloc,
-          child: BlocListener<CourseBloc, CourseState>(listener: (context, state) {
+        body: BlocListener<CourseBloc, CourseState>(
+          bloc: _courseBloc,
+          listener: (context, state) {
             if (state is CourseFailState) {
               Scaffold.of(context).showSnackBar(new SnackBar(
                 content: Text(state.error.toString()),
@@ -73,172 +70,180 @@ class _CourseFormScreen extends State<CourseFormScreen> {
               Scaffold.of(context).showSnackBar(new SnackBar(
                 content: Text("Lưu khóa học thành công."),
               ));
+              Navigator.of(context).popUntil( ModalRoute.withName("/") );
+              Navigator.of(context).pushNamed("/course/list");
             }
-          }, child: BlocBuilder<CourseBloc, CourseState>(
+          },
+          child: BlocBuilder<CourseBloc, CourseState>(
+            bloc: _courseBloc,
             builder: (context, state) {
               if (state is CourseLoadSuccess) {
                 _itemDTO = state.item;
+                dateMask.text = _itemDTO.dateStart;
+                timeStartMask.text = _itemDTO.timeStart;
+                timeEndMask.text = _itemDTO.timeEnd;
               }
-              return Padding(
-                padding: const EdgeInsets.all(15),
-                child: Form(
-                    key: _formKey,
-                    child: ListView(
-                      children: [
-                        _itemDTO == null || _itemDTO.id == null
-                            ? Container(
-                                child: Text(
-                                "Sẽ cập nhật được ảnh đại diện khóa học sau khi tạo thành công",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
+              return (editId == null || (editId > 0 && _itemDTO.id != null))
+                  ? Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Form(
+                          key: _formKey,
+                          child: ListView(
+                            children: [
+                              _itemDTO == null || _itemDTO.id == null
+                                  ? Container(
+                                      child: Text(
+                                      "Sẽ cập nhật được ảnh đại diện khóa học sau khi tạo thành công",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                      ),
+                                    ))
+                                  : Container(child: Text("")),
+                              TextFormField(
+                                validator: (String value) {
+                                  if (value.length < 8) {
+                                    return "Cần nhập tên khóa học tối thiểu 8 kí tự";
+                                  }
+                                  _formKey.currentState.save();
+                                  return null;
+                                },
+                                initialValue: _itemDTO.title ?? "",
+                                onSaved: (value) {
+                                  setState(() {
+                                    _itemDTO.title = value;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  labelText: "Tên khóa học",
                                 ),
-                              ))
-                            : Container(child: Text("")),
-                        TextFormField(
-                          validator: (String value) {
-                            if (value.length < 10) {
-                              return "Cần nhập tên khóa học tối thiểu 10 kí tự";
-                            }
-                            _formKey.currentState.save();
-                            return null;
-                          },
-                          onSaved: (value) {
-                            setState(() {
-                              _itemDTO.title = value;
-                            });
-                          },
-                          decoration: InputDecoration(
-                            labelText: "Tên khóa học",
-                          ),
-                        ),
-                        TextFormField(
-                           validator: (String value) {
-                            if (value == "") {
-                              return "Chưa nhập học phí khóa học";
-                            }
-                            _formKey.currentState.save();
-                            return null;
-                          },
-                          onSaved: (value) {
-                            setState(() {
-                              _itemDTO.price = int.tryParse(value);
-                            });
-                          },
-                          decoration: InputDecoration(
-                            labelText: "Học phí",
-                          ),
-                        ),
-                        TextFormField(
-                          onSaved: (value) {
-                            setState(() {
-                              _itemDTO.priceOrg = int.tryParse(value);
-                            });
-                          },
-                          decoration: InputDecoration(
-                            labelText: "Học phí gốc",
-                          ),
-                        ),
-                        TextFormField(
-                           validator: (String value) {
-                            if (value == "") {
-                              return "Chưa nhập ngày diễn ra";
-                            }
-                            _formKey.currentState.save();
-                            return null;
-                          },
-                          onSaved: (value) {
-                            setState(() {
-                              _itemDTO.dateStart = value;
-                            });
-                          },
-                          controller: dateMask,
-                          decoration: InputDecoration(
-                            labelText: "Ngày diễn ra (yyyy-MM-dd)",
-                          ),
-                        ),
-                        TextFormField(
-                          onSaved: (value) {
-                            setState(() {
-                              _itemDTO.timeStart = value;
-                            });
-                          },
-                          controller: timeStartMask,
-                           validator: (String value) {
-                            if (value == "") {
-                              return "Chưa nhập giờ bắt đầu";
-                            }
-                            _formKey.currentState.save();
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            labelText: "Giờ bắt đầu (HH:mm)",
-                          ),
-                        ),
-                        TextFormField(
-                          onSaved: (value) {
-                            setState(() {
-                              _itemDTO.timeEnd = value;
-                            });
-                          },
-                          controller: timeEndMask,
-                          decoration: InputDecoration(
-                            labelText: "Giờ kết thúc",
-                          ),
-                        ),
-                        TextFormField(
-                          onSaved: (value) {
-                            setState(() {
-                              _itemDTO.location = value;
-                            });
-                          },
-                          decoration: InputDecoration(
-                            labelText: "Địa điểm/Room online",
-                          ),
-                        ),
-                        TextFormField(
-                          maxLines: 3,
-                          onSaved: (value) {
-                            setState(() {
-                              _itemDTO.shortContent = value;
-                            });
-                          },
-                          decoration: InputDecoration(
-                            labelText: "Giới thiệu ngắn",
-                          ),
-                        ),
-                        TextFormField(
-                          maxLines: 8,
-                          onSaved: (value) {
-                            setState(() {
-                              _itemDTO.content = value;
-                            });
-                          },
-                           validator: (String value) {
-                            if (value == "") {
-                              return "Chưa nhập giới thiệu khóa học";
-                            }
-                            _formKey.currentState.save();
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            labelText: "Nội dung khóa học",
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                          child: GradientButton(
-                            title: "Lưu khóa học",
-                            function: () {
-                              _submit();
-                            },
-                          ),
-                        ),
-                      ],
-                    )),
-              );
+                              ),
+                              TextFormField(
+                                validator: (String value) {
+                                  if (value == "") {
+                                    return "Chưa nhập học phí khóa học";
+                                  }
+                                  _formKey.currentState.save();
+                                  return null;
+                                },
+                                initialValue: _itemDTO.price != null ? _itemDTO.price.toString() : "",
+                                onSaved: (value) {
+                                  setState(() {
+                                    _itemDTO.price = int.tryParse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  labelText: "Học phí",
+                                ),
+                              ),
+                              TextFormField(
+                                onSaved: (value) {
+                                  setState(() {
+                                    _itemDTO.priceOrg = int.tryParse(value);
+                                  });
+                                },
+                                initialValue: _itemDTO.priceOrg != null ? _itemDTO.priceOrg.toString() : "",
+                                decoration: InputDecoration(
+                                  labelText: "Học phí gốc",
+                                ),
+                              ),
+                              TextFormField(
+                                validator: (String value) {
+                                  if (value == "") {
+                                    return "Chưa nhập ngày diễn ra";
+                                  }
+                                  _formKey.currentState.save();
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  setState(() {
+                                    _itemDTO.dateStart = value;
+                                  });
+                                },
+                                controller: dateMask,
+                                decoration: InputDecoration(
+                                  labelText: "Ngày diễn ra (yyyy-MM-dd)",
+                                ),
+                              ),
+                              TextFormField(
+                                onSaved: (value) {
+                                  setState(() {
+                                    _itemDTO.timeStart = value;
+                                  });
+                                },
+                                controller: timeStartMask,
+                                validator: (String value) {
+                                  if (value == "") {
+                                    return "Chưa nhập giờ bắt đầu";
+                                  }
+                                  _formKey.currentState.save();
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  labelText: "Giờ bắt đầu (HH:mm)",
+                                ),
+                              ),
+                              TextFormField(
+                                onSaved: (value) {
+                                  setState(() {
+                                    _itemDTO.timeEnd = value;
+                                  });
+                                },
+                                controller: timeEndMask,
+                                decoration: InputDecoration(
+                                  labelText: "Giờ kết thúc",
+                                ),
+                              ),
+                              TextFormField(
+                                onSaved: (value) {
+                                  setState(() {
+                                    _itemDTO.location = value;
+                                  });
+                                },
+                                initialValue: _itemDTO.location ?? "",
+                                decoration: InputDecoration(
+                                  labelText: "Địa điểm/Room online",
+                                ),
+                              ),
+                              TextFormField(
+                                maxLines: 3,
+                                onSaved: (value) {
+                                  setState(() {
+                                    _itemDTO.shortContent = value;
+                                  });
+                                },
+                                initialValue: _itemDTO.shortContent ?? "",
+                                decoration: InputDecoration(
+                                  labelText: "Giới thiệu ngắn",
+                                ),
+                              ),
+                              TextFormField(
+                                maxLines: 8,
+                                onSaved: (value) {
+                                  setState(() {
+                                    _itemDTO.content = value;
+                                  });
+                                },
+                                initialValue: _itemDTO.content ?? "",
+                                decoration: InputDecoration(
+                                  labelText: "Nội dung khóa học",
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                                child: GradientButton(
+                                  title: "Lưu khóa học",
+                                  function: () {
+                                    _submit();
+                                  },
+                                ),
+                              ),
+                            ],
+                          )),
+                    )
+                  : LoadingScreen();
             },
-          )),
+          ),
         ),
       ),
     );
