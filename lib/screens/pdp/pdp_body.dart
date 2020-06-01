@@ -41,7 +41,7 @@ class _PdpBody extends State<PdpBody> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(widget.data.item.image, height: imageHeight, fit: BoxFit.cover),
+                widget.data.item.image != null ? Image.network(widget.data.item.image, height: imageHeight, fit: BoxFit.cover) : Icon(Icons.broken_image),
                 Padding(
                   padding: EdgeInsets.only(top: 15.0),
                   child: Text2Lines(text: widget.data.item.title, fontSize: 16.0),
@@ -57,7 +57,7 @@ class _PdpBody extends State<PdpBody> {
                             child: Row(
                               children: [
                                 RatingBox(score: widget.data.item.rating),
-                                widget.data.item.rating > 0
+                                widget.data.item.rating != null
                                     ? Padding(
                                         padding: EdgeInsets.only(left: 10.0),
                                         child: InkWell(
@@ -221,7 +221,7 @@ class _PdpBody extends State<PdpBody> {
                     ),
                   ],
                 ))),
-        HotItems(hotItems: widget.data.hotItems),
+        HotItems(hotItems: [widget.data.hotItems]),
       ],
     );
   }

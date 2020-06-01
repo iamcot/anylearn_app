@@ -23,7 +23,7 @@ class _ItemsSchoolScreen extends State<ItemsSchoolScreen> {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
     itemsBloc = ItemsBloc(pageRepository: pageRepo);
     final userId = ModalRoute.of(context).settings.arguments;
-    itemsBloc.add(ItemsSchoolLoadEvent(id: userId));
+    itemsBloc..add(ItemsSchoolLoadEvent(id: userId));
     super.didChangeDependencies();
   }
 
@@ -57,7 +57,7 @@ class _ItemsSchoolScreen extends State<ItemsSchoolScreen> {
                         title: state.data.user.name,
                       ),
                       body: ItemsBody(
-                        data: state.data,
+                        itemsDTO: state.data,
                       ),
                       bottomNavigationBar: BottomNav(
                         index: BottomNav.SCHOOL_INDEX,

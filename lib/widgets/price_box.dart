@@ -24,7 +24,7 @@ class PriceBox extends StatelessWidget {
             ),
           ),
         ),
-        orgPrice > 0.0
+        orgPrice != null && orgPrice > 0.0
             ? Container(
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.only(left: 5.0),

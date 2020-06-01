@@ -1,5 +1,6 @@
 import 'package:anylearn/blocs/auth/auth_blocs.dart';
 import 'package:anylearn/dto/user_dto.dart';
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,7 +54,7 @@ class _SchoolScreen extends State<SchoolScreen> {
                       onRefresh: _reloadPage,
                     );
                   }
-                  return LoadingScreen();
+                  return LoadingWidget();
                 })),
             bottomNavigationBar: BottomNav(
               index: BottomNav.SCHOOL_INDEX,

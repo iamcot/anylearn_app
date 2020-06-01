@@ -3,6 +3,7 @@ import 'package:anylearn/dto/transaction_config_dto.dart';
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/screens/transaction/bank_form.dart';
 import 'package:anylearn/screens/transaction/withdraw_list.dart';
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,7 +87,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                   max = max > 0 ? max : 0;
                 }
                 return config == null
-                    ? LoadingScreen()
+                    ? LoadingWidget()
                     : Form(
                         key: _formKey,
                         child: Container(

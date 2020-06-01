@@ -24,7 +24,7 @@ class _PDPScreen extends State<PDPScreen> {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
     pdpBloc = PdpBloc(pageRepository: pageRepo);
     final itemId = ModalRoute.of(context).settings.arguments;
-    pdpBloc.add(LoadPDPEvent(id: itemId));
+    pdpBloc..add(LoadPDPEvent(id: itemId));
 
     super.didChangeDependencies();
   }
@@ -71,7 +71,7 @@ class _PDPScreen extends State<PDPScreen> {
                           user: user,
                         ),
                         bottomNavigationBar: BottomNav(
-                          index: data.author.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX,
+                          index: data.author != null && data.author.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX,
                         ))
                     : LoadingScreen();
               },

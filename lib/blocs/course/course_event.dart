@@ -56,3 +56,17 @@ class CourseUploadImageEvent extends CourseEvent {
   @override
   String toString() => 'CourseUploadImageEvent item $itemId';
 }
+
+class CourseChangeUserStatusEvent extends CourseEvent {
+  final String token;
+  final int itemId;
+  final int newStatus;
+
+  CourseChangeUserStatusEvent({this.token, this.newStatus, this.itemId});
+
+  @override
+  List<Object> get props => [token, newStatus, itemId];
+
+  @override
+  String toString() => 'CourseChangeUserStatusEvent item $itemId status $newStatus';
+}

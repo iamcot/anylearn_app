@@ -1,3 +1,4 @@
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,7 +45,7 @@ class _AccountScreen extends State<AccountScreen> {
                     user: user,
                     authBloc: _authBloc,
                   )
-                : LoadingScreen(),
+                : LoadingWidget(),
           );
         },
       ),

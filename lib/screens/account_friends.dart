@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,7 +58,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                 _data = state.friends;
               }
               return _data == null
-                  ? LoadingScreen()
+                  ? LoadingWidget()
                   : CustomScrollView(
                       slivers: <Widget>[
                         AccountAppBarWithImage(user: _data.user),

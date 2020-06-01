@@ -30,8 +30,9 @@ class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
       if (data == null) {
         yield ItemsLoadFailState(error: "Không có thông tin bạn đang tìm kiếm.");
       }
-    } catch (error) {
+    } catch (error, trace) {
       yield ItemsLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
+      print(trace);
     }
   }
 }

@@ -31,4 +31,8 @@ class ItemRepository {
   Future<String> uploadImage(File file, String token, int itemId) async {
     return await itemService.uploadImage(token, file, itemId);
   }
+
+  Future<bool> changeUserStatus(int itemId, int newStatus, String token) async {
+    return await itemService.changeUserStatus(itemId, newStatus, token);
+  }
 }

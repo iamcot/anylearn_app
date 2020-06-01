@@ -15,7 +15,7 @@ import 'default_feature_data.dart';
 class PageRepository {
   UserService userService;
   QuoteService quoteService;
-  final itemService = ItemService();
+  ItemService itemService;
   ConfigServices configService;
   final config;
   final httpClient = http.Client();
@@ -24,6 +24,7 @@ class PageRepository {
     quoteService = QuoteService(httpClient: this.httpClient);
     userService = UserService(config: config, httpClient: this.httpClient);
     configService = ConfigServices(config: config, httpClient: this.httpClient);
+    itemService = ItemService(config: config, httpClient: this.httpClient);
   }
 
   Future<PdpDTO> dataPDP(int itemId) async {

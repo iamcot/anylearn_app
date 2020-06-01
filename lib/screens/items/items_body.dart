@@ -8,26 +8,22 @@ import '../../widgets/text2lines.dart';
 import '../teacher/teacher_filter.dart';
 
 class ItemsBody extends StatefulWidget {
-  final ItemsDTO data;
+  final ItemsDTO itemsDTO;
 
-  const ItemsBody({Key key, this.data}) : super(key: key);
+  const ItemsBody({Key key, this.itemsDTO}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ItemsBody(data);
+  State<StatefulWidget> createState() => _ItemsBody();
 }
 
 class _ItemsBody extends State<ItemsBody> {
-  final ItemsDTO data;
-
-  _ItemsBody(this.data);
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 2;
     return CustomScrollView(
       slivers: <Widget>[
         SliverBanner(
-          banner: data.user.banner,
+          banner: widget.itemsDTO.user.banner,
         ),
         TeacherFilter(),
         SliverGrid(
@@ -58,7 +54,8 @@ class _ItemsBody extends State<ItemsBody> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed("/pdp", arguments: data.items[index].id); //data.items[index].id.toString()
+                        Navigator.of(context).pushNamed("/pdp",
+                            arguments: widget.itemsDTO.items.data[index].id); //data.items[index].id.toString()
                       },
                       child: Column(
                         children: <Widget>[
@@ -66,23 +63,24 @@ class _ItemsBody extends State<ItemsBody> {
                             width: double.infinity,
                             height: width * 3 / 4,
                             child: ClipRRect(
-                              child: Image.network(
-                                data.items[index].image,
+                              child: widget.itemsDTO.items.data[index].image != null ? 
+                              Image.network(
+                                widget.itemsDTO.items.data[index].image,
                                 fit: BoxFit.cover,
-                              ),
+                              ) : Icon(Icons.broken_image),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 10.0),
                             child: Text2Lines(
-                              text: data.items[index].title,
+                              text: widget.itemsDTO.items.data[index].title,
                             ),
                           ),
                         ],
                       ),
                     ),
                     RatingBox(
-                      score: data.items[index].rating,
+                      score: widget.itemsDTO.items.data[index].rating,
                       fontSize: 14.0,
                       alignment: "start",
                     ),
@@ -90,7 +88,9 @@ class _ItemsBody extends State<ItemsBody> {
                       Expanded(
                         child: Container(
                           padding: EdgeInsets.only(top: 10.0),
-                          child: PriceBox(price: data.items[index].price, orgPrice: data.items[index].priceOrg),
+                          child: PriceBox(
+                              price: widget.itemsDTO.items.data[index].price,
+                              orgPrice: widget.itemsDTO.items.data[index].priceOrg),
                         ),
                       ),
                       Container(
@@ -106,7 +106,7 @@ class _ItemsBody extends State<ItemsBody> {
                 ),
               );
             },
-            childCount: data.items.length,
+            childCount: widget.itemsDTO.items.data.length,
           ),
         ),
       ],

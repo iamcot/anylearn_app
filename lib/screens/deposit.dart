@@ -1,3 +1,4 @@
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,7 +84,7 @@ class _DepositScreen extends State<DepositScreen> {
                 config = state.configs;
               }
               return config == null
-                  ? LoadingScreen()
+                  ? LoadingWidget()
                   : Form(
                       key: _formKey,
                       child: Container(

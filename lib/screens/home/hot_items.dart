@@ -1,8 +1,8 @@
-import 'package:anylearn/customs/custom_carousel.dart';
-import 'package:anylearn/dto/hot_items_dto.dart';
-import 'package:anylearn/dto/item_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
+
+import '../../customs/custom_carousel.dart';
+import '../../dto/hot_items_dto.dart';
+import '../../dto/user_dto.dart';
 
 class HotItems extends StatelessWidget {
   final List<HotItemsDTO> hotItems;

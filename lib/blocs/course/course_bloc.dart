@@ -47,7 +47,12 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         } else {
           yield CourseFailState(error: "Up hình không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
         }
+      }
 
+      if (event is CourseChangeUserStatusEvent) {
+        yield CourseUserStatusInprogressState();
+        final result = await itemRepository.changeUserStatus(event.itemId, event.newStatus, event.token);
+        yield CourseUserStatusSuccessState();
       }
     } catch (error, trace) {
       yield CourseFailState(error: error.toString());

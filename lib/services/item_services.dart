@@ -59,20 +59,24 @@ class ItemService extends BaseService {
   }
 
   Future<ItemsDTO> itemsListOfUser(int userId, int page, int pageSize) async {
-    return ItemsDTO(
-      user: new UserDTO(),
-      items: <ItemDTO>[
-        new ItemDTO(),
-      ],
-    );
+    final url = buildUrl(
+        appConfig: config,
+        endPoint: "/user/$userId/items",
+        query: buildQuery({
+          'pageSize': pageSize,
+          'page': page,
+        }));
+    print(url);
+    final json = await get(httpClient, url);
+    print(json);
+    return ItemsDTO.fromJson(json);
   }
 
   Future<PdpDTO> getPDPData(int itemId) async {
-    return new PdpDTO(
-      hotItems: [],
-      author: new UserDTO(),
-      item: new ItemDTO(),
-    );
+    final url = buildUrl(appConfig: config, endPoint: "/pdp/$itemId");
+    print(url);
+    final json = await get(httpClient, url);
+    return PdpDTO.fromJson(json);
   }
 
   Future<String> uploadImage(String token, File file, int itemId) async {
@@ -80,5 +84,12 @@ class ItemService extends BaseService {
     print(url);
     final rs = await postImage(url, file);
     return rs;
+  }
+
+  Future<bool> changeUserStatus(int itemId, int newStatus, String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/user-status/$newStatus", token: token);
+    print(url);
+    final rs = await get(httpClient, url);
+    return rs['result'];
   }
 }

@@ -21,6 +21,8 @@ class ItemDTO extends Equatable {
   final int numFavorite;
   bool isFavorite;
   String location;
+  final int status;
+  final int userStatus;
 
   ItemDTO({
     this.id,
@@ -42,6 +44,8 @@ class ItemDTO extends Equatable {
     this.numFavorite,
     this.numShare,
     this.location,
+    this.status,
+    this.userStatus,
   });
 
   @override
@@ -62,7 +66,9 @@ class ItemDTO extends Equatable {
         numCart,
         numFavorite,
         numShare,
-        location
+        location,
+        status,
+        userStatus,
       ];
 
   @override
@@ -88,6 +94,8 @@ class ItemDTO extends Equatable {
             numFavorite: json['num_favorite'],
             numShare: json['num_share'],
             location: json['location'],
+            status: json['status'],
+            userStatus: json['user_status'],
           );
   }
 }

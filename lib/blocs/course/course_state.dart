@@ -51,6 +51,10 @@ class UploadImageSuccessState extends CourseState {
   String toString() => '{url: $url}';
 }
 
+class CourseUserStatusInprogressState extends CourseState {}
+
+class CourseUserStatusSuccessState extends CourseState {}
+
 class CourseFailState extends CourseState {
   final String error;
   const CourseFailState({@required this.error});

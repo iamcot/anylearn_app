@@ -1,5 +1,6 @@
 import 'package:anylearn/blocs/home/home_blocs.dart';
 import 'package:anylearn/screens/loading.dart';
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,7 +61,7 @@ class HomeBody extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return LoadingScreen();
+                  return LoadingWidget();
                 }
               },
             ),

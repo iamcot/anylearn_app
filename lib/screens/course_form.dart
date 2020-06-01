@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -36,13 +37,16 @@ class _CourseFormScreen extends State<CourseFormScreen> {
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     _courseBloc = BlocProvider.of<CourseBloc>(context);
     editId = ModalRoute.of(context).settings.arguments;
-
-    _itemDTO = new ItemDTO(
-      type: MyConst.ITEM_COURSE,
-    );
     super.didChangeDependencies();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _itemDTO = new ItemDTO(
+      type: MyConst.ITEM_COURSE,
+    );
+  }
   @override
   void dispose() {
     _itemDTO = null;
@@ -83,15 +87,15 @@ class _CourseFormScreen extends State<CourseFormScreen> {
               Scaffold.of(context).showSnackBar(new SnackBar(
                 content: Text("Lưu khóa học thành công."),
               ));
-              Navigator.of(context).popUntil( ModalRoute.withName("/") );
+              Navigator.of(context).popUntil(ModalRoute.withName("/"));
               Navigator.of(context).pushNamed("/course/list");
             }
             if (state is UploadImageSuccessState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Cập nhật hình ảnh thành công."),
-                ));
-                _itemDTO.image = state.url;
-              }
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: Text("Cập nhật hình ảnh thành công."),
+              ));
+              _itemDTO.image = state.url;
+            }
           },
           child: BlocBuilder<CourseBloc, CourseState>(
             bloc: _courseBloc,
@@ -118,7 +122,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                         color: Colors.grey,
                                       ),
                                     ))
-                                  : _imageBox(width/2),
+                                  : _imageBox(width / 2),
                               TextFormField(
                                 validator: (String value) {
                                   if (value.length < 8) {
@@ -127,8 +131,8 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   _formKey.currentState.save();
                                   return null;
                                 },
-                                initialValue: _itemDTO.title ?? "",
-                                onSaved: (value) {
+                                initialValue: _itemDTO.title != null ? _itemDTO.title : "",
+                                onChanged: (value) {
                                   setState(() {
                                     _itemDTO.title = value;
                                   });
@@ -146,7 +150,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   return null;
                                 },
                                 initialValue: _itemDTO.price != null ? _itemDTO.price.toString() : "",
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _itemDTO.price = int.tryParse(value);
                                   });
@@ -156,7 +160,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 ),
                               ),
                               TextFormField(
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _itemDTO.priceOrg = int.tryParse(value);
                                   });
@@ -174,7 +178,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   _formKey.currentState.save();
                                   return null;
                                 },
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _itemDTO.dateStart = value;
                                   });
@@ -185,7 +189,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 ),
                               ),
                               TextFormField(
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _itemDTO.timeStart = value;
                                   });
@@ -203,7 +207,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 ),
                               ),
                               TextFormField(
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _itemDTO.timeEnd = value;
                                   });
@@ -214,7 +218,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 ),
                               ),
                               TextFormField(
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _itemDTO.location = value;
                                   });
@@ -226,7 +230,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               ),
                               TextFormField(
                                 maxLines: 3,
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _itemDTO.shortContent = value;
                                   });
@@ -236,12 +240,12 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   labelText: "Giới thiệu ngắn",
                                 ),
                               ),
-                               HtmlEditor(
-                                  hint: "Nội dung khóa học",
-                                  value: _itemDTO.content ?? "",
-                                  key: keyEditor,
-                                  height: 400,
-                                  showBottomToolbar: false,
+                              HtmlEditor(
+                                hint: "Nội dung khóa học",
+                                value: _itemDTO.content ?? "",
+                                key: keyEditor,
+                                height: 400,
+                                showBottomToolbar: false,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
@@ -256,7 +260,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                             ],
                           )),
                     )
-                  : LoadingScreen();
+                  : LoadingWidget();
             },
           ),
         ),
@@ -267,7 +271,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   void _submit() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-       _itemDTO.content = await keyEditor.currentState.getText();
+      _itemDTO.content = await keyEditor.currentState.getText();
       _courseBloc.add(SaveCourseEvent(item: _itemDTO, token: _user.token));
     }
   }
@@ -289,7 +293,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
           bloc: _courseBloc,
           builder: (context, state) {
             if (state is UploadImageInprogressState) {
-              return CircularProgressIndicator();
+              return LoadingWidget();
             }
             return IconButton(
               icon: Icon(Icons.camera_alt),
@@ -302,6 +306,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
           },
         ));
   }
+
   Future _getImage() async {
     final File image = await ImagePicker.pickImage(
       source: ImageSource.gallery,

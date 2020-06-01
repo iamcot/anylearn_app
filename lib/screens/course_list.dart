@@ -1,5 +1,4 @@
-import 'account/course_list_tab.dart';
-import 'loading.dart';
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +6,8 @@ import '../blocs/auth/auth_blocs.dart';
 import '../blocs/course/course_blocs.dart';
 import '../dto/user_courses_dto.dart';
 import '../dto/user_dto.dart';
-import '../models/item_repo.dart';
+import 'account/course_list_tab.dart';
+import 'loading.dart';
 
 class CourseListScreen extends StatefulWidget {
   @override
@@ -70,23 +70,34 @@ class _AccountCalendarScreen extends State<CourseListScreen> with TickerProvider
             if (state is CourseSaveSuccessState) {
               _courseBloc..add(ListCourseEvent(token: _user.token));
             }
+            if (state is CourseUserStatusSuccessState) {
+              _courseBloc..add(ListCourseEvent(token: _user.token));
+            }
           },
           child: BlocBuilder<CourseBloc, CourseState>(
-            bloc: _courseBloc,
-            builder: (context, state) {
-            if (state is CourseListSuccessState) {
-              _data = state.data;
-            }
-            return _data == null
-                ? TabBarView(
-                    controller: _tabController,
-                    children: [LoadingScreen(), Text("")],
-                  )
-                : TabBarView(controller: _tabController, children: [
-                    CourseList(list: _data.open),
-                    CourseList(list: _data.close),
-                  ]);
-          }),
+              bloc: _courseBloc,
+              builder: (context, state) {
+                if (state is CourseListSuccessState) {
+                  _data = state.data;
+                }
+                return _data == null
+                    ? TabBarView(
+                        controller: _tabController,
+                        children: [LoadingWidget(), Text("")],
+                      )
+                    : TabBarView(controller: _tabController, children: [
+                        CourseList(
+                          list: _data.open,
+                          hasMenu: true,
+                          courseBloc: _courseBloc,
+                          user: _user,
+                        ),
+                        CourseList(
+                          list: _data.close,
+                          hasMenu: false,
+                        ),
+                      ]);
+              }),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -276,7 +277,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   bloc: accountBloc,
                                   builder: (context, state) {
                                     if (state is AccEditSavingState) {
-                                      return CircularProgressIndicator();
+                                      return LoadingWidget();
                                     }
                                     return Text(
                                       "Lưu thay đổi",
@@ -289,7 +290,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                           ],
                         ),
                       )
-                    : LoadingScreen();
+                    : LoadingWidget();
               },
             ),
           ),
@@ -339,7 +340,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
           bloc: accountBloc,
           builder: (context, state) {
             if (state is UploadAvatarInprogressState) {
-              return CircularProgressIndicator();
+              return LoadingWidget();
             }
             return IconButton(
               icon: Icon(Icons.camera_alt),
@@ -390,7 +391,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
           bloc: accountBloc,
           builder: (context, state) {
             if (state is UploadBannerInprogressState) {
-              return CircularProgressIndicator();
+              return LoadingWidget();
             }
             return IconButton(
               icon: Icon(Icons.camera_alt),
