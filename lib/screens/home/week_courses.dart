@@ -18,7 +18,7 @@ class WeekCourses extends StatelessWidget {
               // isThreeLine: true,
               leading: CalendarBox(text: DateTime.parse(monthCourses[itemIndex].dateStart).day.toString()),
               onTap: () {
-                Navigator.of(context).pushNamed(monthCourses[itemIndex].route);
+                Navigator.of(context).pushNamed("/pdp", arguments: monthCourses[itemIndex].id);
               },
               title: Text(
                 monthCourses[itemIndex].title,

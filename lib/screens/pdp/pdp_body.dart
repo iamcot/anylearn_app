@@ -196,7 +196,7 @@ class _PdpBody extends State<PdpBody> {
                           collapsed: Column(
                             children: [
                               Text(
-                                widget.data.item.shortContent,
+                                widget.data.item.shortContent ?? "",
                                 softWrap: true,
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
@@ -211,7 +211,7 @@ class _PdpBody extends State<PdpBody> {
                           ),
                           expanded: Column(children: [
                             Html(
-                              data: widget.data.item.content,
+                              data: widget.data.item.content ?? "",
                               shrinkWrap: true,
                             ),
                             ExpandableButton(child: Text("THU GỌN", style: TextStyle(color: Colors.blue))),

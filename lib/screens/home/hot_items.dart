@@ -68,7 +68,7 @@ class HotItems extends StatelessWidget {
     width = width - width / 3;
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(item.route);
+        Navigator.of(context).pushNamed("/items/" + item.role, arguments: item.id);
       },
       child: Card(
         child: Container(

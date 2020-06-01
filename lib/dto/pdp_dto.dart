@@ -18,7 +18,7 @@ class PdpDTO extends Equatable{
   static PdpDTO fromJson(dynamic json) {
     return json == null ? null : PdpDTO(
       item: ItemDTO.fromJson(json['item']),
-      author: UserDTO.fromJson(json['json']),
+      author: UserDTO.fromJson(json['author']),
       hotItems: HotItemsDTO.fromJson(json['hotItems']),
     );
   }
