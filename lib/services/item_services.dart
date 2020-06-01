@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
@@ -71,5 +73,12 @@ class ItemService extends BaseService {
       author: new UserDTO(),
       item: new ItemDTO(),
     );
+  }
+
+  Future<String> uploadImage(String token, File file, int itemId) async {
+    final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/upload-image", token: token);
+    print(url);
+    final rs = await postImage(url, file);
+    return rs;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 import '../../dto/item_dto.dart';
@@ -39,4 +41,18 @@ class ListCourseEvent extends CourseEvent {
 
   @override
   String toString() => 'ListCourseEvent';
+}
+
+class CourseUploadImageEvent extends CourseEvent {
+  final File image;
+  final String token;
+  final int itemId;
+
+  CourseUploadImageEvent({this.token, this.image, this.itemId});
+
+  @override
+  List<Object> get props => [token, image, itemId];
+
+  @override
+  String toString() => 'CourseUploadImageEvent item $itemId';
 }

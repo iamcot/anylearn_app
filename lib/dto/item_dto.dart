@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class ItemDTO extends Equatable {
   final int id;
-  final String image;
+  String image;
   String type;
   String title;
   int price;

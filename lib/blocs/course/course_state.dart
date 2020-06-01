@@ -40,6 +40,17 @@ class CourseListSuccessState extends CourseState {
   String toString() => 'UserCoursesDTO {data: $data}';
 }
 
+class UploadImageInprogressState extends CourseState {}
+
+class UploadImageSuccessState extends CourseState {
+  final String url;
+  const UploadImageSuccessState({@required this.url});
+  @override
+  List<Object> get props => [url];
+  @override
+  String toString() => '{url: $url}';
+}
+
 class CourseFailState extends CourseState {
   final String error;
   const CourseFailState({@required this.error});

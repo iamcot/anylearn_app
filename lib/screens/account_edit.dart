@@ -12,7 +12,6 @@ import '../blocs/account/account_state.dart';
 import '../blocs/auth/auth_blocs.dart';
 import '../dto/user_dto.dart';
 import '../models/user_repo.dart';
-import '../widgets/appbar.dart';
 import 'loading.dart';
 
 class AccountEditScreen extends StatefulWidget {

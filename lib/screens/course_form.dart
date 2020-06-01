@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:html_editor/html_editor.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/course/course_blocs.dart';
@@ -16,6 +20,7 @@ class CourseFormScreen extends StatefulWidget {
 }
 
 class _CourseFormScreen extends State<CourseFormScreen> {
+  GlobalKey<HtmlEditorState> keyEditor = GlobalKey();
   final _formKey = GlobalKey<FormState>();
   final dateMask = new MaskedTextController(mask: '0000-00-00');
   final timeStartMask = new MaskedTextController(mask: '00:00');
@@ -39,7 +44,15 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   }
 
   @override
+  void dispose() {
+    _itemDTO = null;
+    editId = null;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return BlocListener<AuthBloc, AuthState>(
       bloc: _authBloc,
       listener: (context, state) {
@@ -73,6 +86,12 @@ class _CourseFormScreen extends State<CourseFormScreen> {
               Navigator.of(context).popUntil( ModalRoute.withName("/") );
               Navigator.of(context).pushNamed("/course/list");
             }
+            if (state is UploadImageSuccessState) {
+                Scaffold.of(context).showSnackBar(new SnackBar(
+                  content: Text("Cập nhật hình ảnh thành công."),
+                ));
+                _itemDTO.image = state.url;
+              }
           },
           child: BlocBuilder<CourseBloc, CourseState>(
             bloc: _courseBloc,
@@ -99,7 +118,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                         color: Colors.grey,
                                       ),
                                     ))
-                                  : Container(child: Text("")),
+                                  : _imageBox(width/2),
                               TextFormField(
                                 validator: (String value) {
                                   if (value.length < 8) {
@@ -217,21 +236,17 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   labelText: "Giới thiệu ngắn",
                                 ),
                               ),
-                              TextFormField(
-                                maxLines: 8,
-                                onSaved: (value) {
-                                  setState(() {
-                                    _itemDTO.content = value;
-                                  });
-                                },
-                                initialValue: _itemDTO.content ?? "",
-                                decoration: InputDecoration(
-                                  labelText: "Nội dung khóa học",
-                                ),
+                               HtmlEditor(
+                                  hint: "Nội dung khóa học",
+                                  value: _itemDTO.content ?? "",
+                                  key: keyEditor,
+                                  height: 400,
+                                  showBottomToolbar: false,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                                 child: GradientButton(
+                                  height: 48,
                                   title: "Lưu khóa học",
                                   function: () {
                                     _submit();
@@ -249,10 +264,50 @@ class _CourseFormScreen extends State<CourseFormScreen> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+       _itemDTO.content = await keyEditor.currentState.getText();
       _courseBloc.add(SaveCourseEvent(item: _itemDTO, token: _user.token));
+    }
+  }
+
+  Widget _imageBox(double size) {
+    return Container(
+        height: size,
+        width: size,
+        alignment: Alignment.bottomRight,
+        decoration: _itemDTO.image != null
+            ? BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(_itemDTO.image),
+                  fit: BoxFit.cover,
+                ),
+              )
+            : null,
+        child: BlocBuilder(
+          bloc: _courseBloc,
+          builder: (context, state) {
+            if (state is UploadImageInprogressState) {
+              return CircularProgressIndicator();
+            }
+            return IconButton(
+              icon: Icon(Icons.camera_alt),
+              iconSize: 28.0,
+              color: Colors.grey,
+              onPressed: () {
+                _getImage();
+              },
+            );
+          },
+        ));
+  }
+  Future _getImage() async {
+    final File image = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (image != null) {
+      _courseBloc.add(CourseUploadImageEvent(token: _user.token, image: image, itemId: _itemDTO.id));
     }
   }
 }

@@ -38,6 +38,17 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         final result = await itemRepository.coursesOfUser(event.token);
         yield CourseListSuccessState(data: result);
       }
+
+      if (event is CourseUploadImageEvent) {
+        yield UploadImageInprogressState();
+        String url = await itemRepository.uploadImage(event.image, event.token, event.itemId);
+        if (url != null && url.isNotEmpty) {
+          yield UploadImageSuccessState(url: url);
+        } else {
+          yield CourseFailState(error: "Up hình không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
+        }
+
+      }
     } catch (error, trace) {
       yield CourseFailState(error: error.toString());
       print(trace.toString());

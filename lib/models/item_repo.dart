@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../dto/user_courses_dto.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,5 +26,9 @@ class ItemRepository {
 
   Future<ItemDTO> loadItemEdit(int itemId, String token) async {
     return await itemService.loadItemEdit(itemId, token);
+  }
+
+  Future<String> uploadImage(File file, String token, int itemId) async {
+    return await itemService.uploadImage(token, file, itemId);
   }
 }

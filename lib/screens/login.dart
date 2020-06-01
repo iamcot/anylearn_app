@@ -42,7 +42,7 @@ class _LoginScreen extends State<LoginScreen> {
         bloc: _authBloc,
         listener: (context, state) {
           if (state is AuthSuccessState) {
-            Navigator.of(context).pop(true);
+            Navigator.of(context).popUntil(ModalRoute.withName("/"));
           }
         },
         child: BlocProvider(
