@@ -1,49 +1,53 @@
+import 'package:equatable/equatable.dart';
+
+import 'bank_dto.dart';
 import 'transaction_dto.dart';
 
-class TransactionConfigDTO {
-  final double walletM;
-  final double walletC;
+class TransactionConfigDTO extends Equatable {
   final List<int> suggests;
   final int suggestInputColumn;
   final List<String> payments;
   final int vipFee;
   final int vipDays;
   final List<TransactionDTO> lastTransactions;
-  final double inputAmount;
-  final String inputType;
-  final BankDTO withdrawBank;
   final BankDTO depositBank;
-  final DateTime vipExpired;
   final int rate;
 
   TransactionConfigDTO({
-    this.walletM,
-    this.walletC,
     this.suggests,
     this.payments,
     this.vipFee,
     this.vipDays,
     this.lastTransactions,
-    this.inputAmount,
-    this.inputType,
-    this.withdrawBank,
     this.depositBank,
     this.suggestInputColumn,
-    this.vipExpired,
     this.rate,
   });
-}
 
-class BankDTO {
-  final String bankName;
-  final String bankNo;
-  final String bankBranch;
-  final String accountName;
+  @override
+  List<Object> get props => [
+        suggests,
+        payments,
+        vipFee,
+        vipDays,
+        lastTransactions,
+        depositBank,
+        suggestInputColumn,
+        rate,
+      ];
 
-  BankDTO({
-    this.bankName,
-    this.bankNo,
-    this.bankBranch,
-    this.accountName,
-  });
+  static TransactionConfigDTO fromJson(dynamic json) {
+    return json == null
+        ? null
+        : TransactionConfigDTO(
+            suggests: List<int>.from(json['suggest']?.map((e) => e == null ? null : e)).toList(),
+            vipFee: json['vip_fee'],
+            vipDays: json['vip_days'],
+            lastTransactions: List<TransactionDTO>.from(
+                json['transactions']?.map((e) => e == null ? null : TransactionDTO.fromJson(e))).toList(),
+            depositBank: BankDTO.fromJson(json['bank']),
+            suggestInputColumn: json['suggest_columns'],
+            rate: json['rate'],
+          );
+  }
 }

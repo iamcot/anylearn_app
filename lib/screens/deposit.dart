@@ -53,7 +53,7 @@ class _DepositScreen extends State<DepositScreen> {
         }
         if (state is AuthSuccessState) {
           user = state.user;
-          _transBloc.add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_DEPOSIT, userId: user.id));
+          _transBloc.add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_DEPOSIT, token: user.token));
         }
       },
       child: Scaffold(
@@ -175,7 +175,7 @@ class _DepositScreen extends State<DepositScreen> {
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 subtitle:
-                                    Text("Thông tin chuyển khoản sẽ được gửi tới quý khách hàng ngay khi xác nhận nạp"),
+                                    Text("Thông tin chuyển khoản sẽ được gửi tới quý khách hàng ngay khi xác nhận nạp tiền."),
                                 value: "atm",
                                 groupValue: _paymentSelect,
                                 onChanged: (value) {
@@ -221,7 +221,7 @@ class _DepositScreen extends State<DepositScreen> {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
                                         _transBloc.add(SaveDepositEvent(
-                                            userId: user.id, amount: _amountInput.text, payment: _paymentSelect));
+                                            token: user.token, amount: _amountInput.text, payment: _paymentSelect));
                                       }
                                     },
                                     child: Text(
@@ -294,11 +294,11 @@ class _DepositScreen extends State<DepositScreen> {
   String _buildSuggestText(String value, TransactionConfigDTO config) {
     String suggestText = "";
     final input = int.parse(value);
-    DateTime vipStart = config.vipExpired ?? DateTime.now();
+    DateTime vipStart = user.expire ?? DateTime.now();
     suggestText = "Bạn sẽ nạp " + _moneyFormat.format(input);
     if (input == 0) {
       suggestText = "Nhập số tiền cần nhập hoặc chọn nhanh từ danh sách phía dưới";
-    } else if (config.walletM < config.vipFee && input < config.vipFee - config.walletM) {
+    } else if (user.walletM < config.vipFee && input < config.vipFee - user.walletM) {
       suggestText += ". Hãy nạp thêm " +
           _moneyFormat.format(config.vipFee - input) +
           " để được tài khoản VIP đến ngày " +

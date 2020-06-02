@@ -1,9 +1,3 @@
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/dto/transaction_config_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/screens/transaction/bank_form.dart';
-import 'package:anylearn/screens/transaction/withdraw_list.dart';
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +5,14 @@ import 'package:intl/intl.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/transaction/transaction_blocs.dart';
+import '../dto/bank_dto.dart';
+import '../dto/const.dart';
+import '../dto/transaction_config_dto.dart';
+import '../dto/user_dto.dart';
 import '../models/transaction_repo.dart';
-import 'loading.dart';
+import '../widgets/loading_widget.dart';
+import 'transaction/bank_form.dart';
+import 'transaction/withdraw_list.dart';
 
 class WithdrawScreen extends StatefulWidget {
   @override
@@ -52,7 +52,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
         }
         if (state is AuthSuccessState) {
           user = state.user;
-          _transBloc.add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_WITHDRAW, userId: user.id));
+          _transBloc.add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_WITHDRAW, token: user.token));
         }
       },
       child: Scaffold(
@@ -83,7 +83,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                 if (state is TransactionConfigSuccessState) {
                   config = state.configs;
                   keep = (config.vipFee / config.rate).floor();
-                  max = config.walletC.floor() - keep;
+                  max = user.walletC.floor() - keep;
                   max = max > 0 ? max : 0;
                 }
                 return config == null
@@ -105,7 +105,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                           style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
                                           children: [
                                             TextSpan(
-                                                text: _moneyFormat.format(config.walletC),
+                                                text: _moneyFormat.format(user.walletC),
                                                 style: TextStyle(
                                                     color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 16.0)),
                                           ],
@@ -140,7 +140,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                             if (value.isEmpty) {
                                               return "Bạn chưa nhập số điểm muốn rút";
                                             }
-                                            if (config.walletC < keep || int.parse(value) > max) {
+                                            if (user.walletC < keep || int.parse(value) > max) {
                                               return "Bạn được rút tối đa $max điểm";
                                             }
                                             _formKey.currentState.save();
@@ -213,7 +213,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                           _formKey.currentState.save();
                                           _transBloc.add(SaveWithdrawEvent(
                                               amount: _amountInput.text,
-                                              userId: user.id,
+                                              token: user.token,
                                               bankInfo: BankDTO(
                                                   bankName: _bankName.text,
                                                   bankBranch: _bankBranch.text,

@@ -14,7 +14,7 @@ class CustomCarousel extends StatelessWidget {
 
   final List<dynamic> items;
   final double dividerIndent;
-  final Function(BuildContext context, UserDTO item, double cardHeight) builderFunction;
+  final Function(BuildContext context, dynamic item, double cardHeight) builderFunction;
   final double height;
 
   @override

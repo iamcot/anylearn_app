@@ -3,10 +3,13 @@ import 'package:anylearn/widgets/calendar_box.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:intl/intl.dart';
+
 class WeekCourses extends StatelessWidget {
   final List<ItemDTO> monthCourses;
+  final DateFormat _formatDate = DateFormat("dd/MM");
 
-  const WeekCourses({Key key, this.monthCourses}) : super(key: key);
+  WeekCourses({Key key, this.monthCourses}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SliverList(
@@ -16,7 +19,7 @@ class WeekCourses extends StatelessWidget {
           if (index.isEven) {
             return ListTile(
               // isThreeLine: true,
-              leading: CalendarBox(text: DateTime.parse(monthCourses[itemIndex].dateStart).day.toString()),
+              leading: CalendarBox(text: _formatDate.format(DateTime.parse(monthCourses[itemIndex].dateStart))),
               onTap: () {
                 Navigator.of(context).pushNamed("/pdp", arguments: monthCourses[itemIndex].id);
               },

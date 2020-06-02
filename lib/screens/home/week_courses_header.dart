@@ -10,7 +10,7 @@ class WeekCourseHeader extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Text(
-                "Lịch học tháng " + DateTime.now().month.toString(),
+                "Khóa học sắp diễn ra",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

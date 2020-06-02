@@ -59,45 +59,48 @@ class _AccountCalendarScreen extends State<CourseListScreen> with TickerProvider
             Tab(child: Text("Đã xong")),
           ]),
         ),
-        body: BlocListener<CourseBloc, CourseState>(
-          bloc: _courseBloc,
-          listener: (context, state) {
-            if (state is CourseFailState) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: Text(state.error.toString()),
-              ));
-            }
-            if (state is CourseSaveSuccessState) {
-              _courseBloc..add(ListCourseEvent(token: _user.token));
-            }
-            if (state is CourseUserStatusSuccessState) {
-              _courseBloc..add(ListCourseEvent(token: _user.token));
-            }
-          },
-          child: BlocBuilder<CourseBloc, CourseState>(
-              bloc: _courseBloc,
-              builder: (context, state) {
-                if (state is CourseListSuccessState) {
-                  _data = state.data;
-                }
-                return _data == null
-                    ? TabBarView(
-                        controller: _tabController,
-                        children: [LoadingWidget(), Text("")],
-                      )
-                    : TabBarView(controller: _tabController, children: [
-                        CourseList(
-                          list: _data.open,
-                          hasMenu: true,
-                          courseBloc: _courseBloc,
-                          user: _user,
-                        ),
-                        CourseList(
-                          list: _data.close,
-                          hasMenu: false,
-                        ),
-                      ]);
-              }),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 10, bottom: 10),
+          child: BlocListener<CourseBloc, CourseState>(
+            bloc: _courseBloc,
+            listener: (context, state) {
+              if (state is CourseFailState) {
+                Scaffold.of(context).showSnackBar(new SnackBar(
+                  content: Text(state.error.toString()),
+                ));
+              }
+              if (state is CourseSaveSuccessState) {
+                _courseBloc..add(ListCourseEvent(token: _user.token));
+              }
+              if (state is CourseUserStatusSuccessState) {
+                _courseBloc..add(ListCourseEvent(token: _user.token));
+              }
+            },
+            child: BlocBuilder<CourseBloc, CourseState>(
+                bloc: _courseBloc,
+                builder: (context, state) {
+                  if (state is CourseListSuccessState) {
+                    _data = state.data;
+                  }
+                  return _data == null
+                      ? TabBarView(
+                          controller: _tabController,
+                          children: [LoadingWidget(), Text("")],
+                        )
+                      : TabBarView(controller: _tabController, children: [
+                          CourseList(
+                            list: _data.open,
+                            hasMenu: true,
+                            courseBloc: _courseBloc,
+                            user: _user,
+                          ),
+                          CourseList(
+                            list: _data.close,
+                            hasMenu: false,
+                          ),
+                        ]);
+                }),
+          ),
         ),
       ),
     );

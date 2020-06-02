@@ -51,7 +51,7 @@ class _RegisterScreen extends State<RegisterScreen> {
       bloc: _authBloc,
       listener: (context, state) {
         if (state is AuthSuccessState) {
-          Navigator.of(context).pop('Bạn đã đăng nhập.');
+          Navigator.of(context).popUntil(ModalRoute.withName("/"));
         }
       },
       child: Scaffold(
@@ -70,9 +70,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                 content: Text(state.error),
               ));
             }
-            if (state is RegisterSuccessState) {
-              Navigator.of(context).popAndPushNamed("/login", arguments: "Đăng ký thành công, vui lòng đăng nhập lại.");
-            }
+            // if (state is RegisterSuccessState) {
+              // Navigator.of(context).pushNamed("/login", arguments: "Đăng ký thành công, vui lòng đăng nhập lại.");
+            // }
           },
           child: Container(
             child: Form(

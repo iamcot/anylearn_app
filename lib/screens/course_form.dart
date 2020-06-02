@@ -13,7 +13,6 @@ import '../dto/const.dart';
 import '../dto/item_dto.dart';
 import '../dto/user_dto.dart';
 import '../widgets/gradient_button.dart';
-import 'loading.dart';
 
 class CourseFormScreen extends StatefulWidget {
   @override
@@ -36,7 +35,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   void didChangeDependencies() {
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     _courseBloc = BlocProvider.of<CourseBloc>(context);
-    editId = ModalRoute.of(context).settings.arguments;
+
     super.didChangeDependencies();
   }
 
@@ -47,6 +46,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
       type: MyConst.ITEM_COURSE,
     );
   }
+
   @override
   void dispose() {
     _itemDTO = null;
@@ -56,6 +56,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    editId = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
     return BlocListener<AuthBloc, AuthState>(
       bloc: _authBloc,
@@ -87,6 +88,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
               Scaffold.of(context).showSnackBar(new SnackBar(
                 content: Text("Lưu khóa học thành công."),
               ));
+              _itemDTO = new ItemDTO(
+                type: MyConst.ITEM_COURSE,
+              );
+              ;
               Navigator.of(context).popUntil(ModalRoute.withName("/"));
               Navigator.of(context).pushNamed("/course/list");
             }
@@ -152,7 +157,9 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 initialValue: _itemDTO.price != null ? _itemDTO.price.toString() : "",
                                 onChanged: (value) {
                                   setState(() {
-                                    _itemDTO.price = int.tryParse(value);
+                                    if (value != "") {
+                                      _itemDTO.price = int.parse(value);
+                                    }
                                   });
                                 },
                                 decoration: InputDecoration(
@@ -162,7 +169,9 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               TextFormField(
                                 onChanged: (value) {
                                   setState(() {
-                                    _itemDTO.priceOrg = int.tryParse(value);
+                                    if (value != "") {
+                                      _itemDTO.priceOrg = int.parse(value);
+                                    }
                                   });
                                 },
                                 initialValue: _itemDTO.priceOrg != null ? _itemDTO.priceOrg.toString() : "",
@@ -245,7 +254,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 value: _itemDTO.content ?? "",
                                 key: keyEditor,
                                 height: 400,
-                                showBottomToolbar: false,
+                                showBottomToolbar: true,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
@@ -285,7 +294,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
             ? BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(_itemDTO.image),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.scaleDown,
                 ),
               )
             : null,

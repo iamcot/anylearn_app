@@ -1,4 +1,5 @@
 import 'package:expandable/expandable.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -7,11 +8,11 @@ import 'package:intl/intl.dart';
 import '../../blocs/pdp/pdp_blocs.dart';
 import '../../dto/pdp_dto.dart';
 import '../../dto/user_dto.dart';
+import '../../widgets/hot_items.dart';
 import '../../widgets/item_status_icon.dart';
 import '../../widgets/price_box.dart';
 import '../../widgets/rating.dart';
 import '../../widgets/text2lines.dart';
-import '../home/hot_items.dart';
 import 'course_confirm.dart';
 import 'share_dialog.dart';
 
@@ -39,9 +40,12 @@ class _PdpBody extends State<PdpBody> {
             alignment: Alignment.topLeft,
             padding: EdgeInsets.all(15.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                widget.data.item.image != null ? Image.network(widget.data.item.image, height: imageHeight, fit: BoxFit.cover) : Icon(Icons.broken_image),
+                widget.data.item.image != null
+                    ? Image.network(widget.data.item.image, height: imageHeight, fit: BoxFit.cover)
+                    : Icon(Icons.broken_image),
                 Padding(
                   padding: EdgeInsets.only(top: 15.0),
                   child: Text2Lines(text: widget.data.item.title, fontSize: 16.0),
@@ -86,7 +90,18 @@ class _PdpBody extends State<PdpBody> {
                             child: Row(
                               children: <Widget>[
                                 Icon(Icons.supervisor_account, color: Colors.black54, size: 14.0),
-                                Text(" " + widget.data.author.name)
+                                Text.rich(
+                                  TextSpan(
+                                      text: " " + widget.data.author.name,
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.of(context).pushNamed("/items/" + widget.data.author.role,
+                                              arguments: widget.data.author.id);
+                                        }),
+                                ),
                               ],
                             ),
                           ),
@@ -102,14 +117,20 @@ class _PdpBody extends State<PdpBody> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        ItemFavorStatusItem(
-                            text: widget.data.item.numCart.toString(),
-                            icon: Icons.add_shopping_cart,
-                            color: Colors.green),
-                        ItemFavorStatusItem(
-                            text: widget.data.item.numShare.toString(), icon: Icons.share, color: Colors.blue),
-                        ItemFavorStatusItem(
-                            text: widget.data.item.numFavorite.toString(), icon: Icons.favorite, color: Colors.red),
+                        widget.data.item.numCart != null
+                            ? ItemFavorStatusItem(
+                                text: widget.data.item.numCart.toString(),
+                                icon: Icons.add_shopping_cart,
+                                color: Colors.green)
+                            : SizedBox(height: 0),
+                        widget.data.item.numShare != null
+                            ? ItemFavorStatusItem(
+                                text: widget.data.item.numShare.toString(), icon: Icons.share, color: Colors.blue)
+                            : SizedBox(height: 0),
+                        widget.data.item.numFavorite != null
+                            ? ItemFavorStatusItem(
+                                text: widget.data.item.numFavorite.toString(), icon: Icons.favorite, color: Colors.red)
+                            : SizedBox(height: 0),
                       ],
                     )
                   ],
@@ -153,7 +174,10 @@ class _PdpBody extends State<PdpBody> {
                         widget.user != null
                             ? showDialog(
                                 context: context,
-                                builder: (context) => CourseConfirm(user: widget.user, pdpDTO: widget.data,),
+                                builder: (context) => CourseConfirm(
+                                  user: widget.user,
+                                  pdpDTO: widget.data,
+                                ),
                               )
                             : Navigator.of(context).pushNamed('/login');
                       },

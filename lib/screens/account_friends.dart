@@ -148,7 +148,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                             : SliverToBoxAdapter(
                                 child: Container(
                                   padding: EdgeInsets.all(20),
-                                  child: Text("Hiện tại chưa có cấp dưới nào"),
+                                  child: Text("Hiện tại chưa có bạn nào."),
                                 ),
                               ),
                       ],

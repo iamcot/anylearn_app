@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class RatingBox extends StatelessWidget {
-  final double score;
+  double score;
   final int max = 5;
   final double fontSize;
   final String alignment;
 
-  const RatingBox({Key key, this.score, this.fontSize = 14.0, this.alignment: "center"}) : super(key: key);
+  RatingBox({Key key, this.score, this.fontSize = 14.0, this.alignment: "center"}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +22,7 @@ class RatingBox extends StatelessWidget {
     List<Widget> list = [];
     double current = 0;
     if (score == null) {
-      return [];
+      score = 0.0;
     }
     while (current < score) {
       list.add(Padding(

@@ -15,7 +15,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   Stream<TransactionState> mapEventToState(TransactionEvent event) async* {
     try {
       if (event is LoadTransactionPageEvent) {
-        final config = await transactionRepository.dataTransactionPage(event.type, event.userId);
+        final config = await transactionRepository.dataTransactionPage(event.type, event.token);
         if (config == null) {
           yield TransactionFailState(error: "Không load được cấu hình.");
         } else {
@@ -29,17 +29,18 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
           yield TransactionHistorySuccessState(history: data);
         }
       } else if (event is SaveDepositEvent) {
-        final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_DEPOSIT, event.userId);
+        final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_DEPOSIT, event.token);
         yield TransactionDepositeSaveSuccessState(configs: config);
       } else if (event is SaveWithdrawEvent) {
-        final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_WITHDRAW, event.userId);
+        final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_WITHDRAW, event.token);
         yield TransactionWithdrawSaveSuccessState(configs: config);
       } else if (event is SaveExchangeEvent) {
-        final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_EXCHANGE, event.userId);
+        final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_EXCHANGE, event.token);
         yield TransactionExchangeSaveSuccessState(configs: config);
       }
-    } catch (error) {
+    } catch (error, t) {
       yield TransactionFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
+      print(t);
     }
   }
 }

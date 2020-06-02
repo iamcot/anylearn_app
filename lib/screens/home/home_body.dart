@@ -1,15 +1,14 @@
-import 'package:anylearn/blocs/home/home_blocs.dart';
-import 'package:anylearn/screens/loading.dart';
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/home/home_blocs.dart';
 import '../../dto/home_dto.dart';
 import '../../dto/user_dto.dart';
+import '../../widgets/hot_users.dart';
+import '../../widgets/loading_widget.dart';
 import 'appbar.dart';
 import 'banner.dart';
 import 'features.dart';
-import 'hot_items.dart';
 import 'week_courses.dart';
 import 'week_courses_header.dart';
 
@@ -27,7 +26,7 @@ class HomeBody extends StatelessWidget {
         new HomeBanner(
           imgList: homeData.banners,
         ),
-        new HotItems(
+        new HotUsers(
           hotItems: homeData.hotItems,
         ),
         new WeekCourseHeader(),

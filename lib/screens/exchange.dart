@@ -1,17 +1,16 @@
-import 'package:anylearn/blocs/auth/auth_blocs.dart';
-import 'package:anylearn/blocs/transaction/transaction_blocs.dart';
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/dto/transaction_config_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/models/transaction_repo.dart';
-import 'package:anylearn/screens/transaction/exchange_list.dart';
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import 'loading.dart';
+import '../blocs/auth/auth_blocs.dart';
+import '../blocs/transaction/transaction_blocs.dart';
+import '../dto/const.dart';
+import '../dto/transaction_config_dto.dart';
+import '../dto/user_dto.dart';
+import '../models/transaction_repo.dart';
+import '../widgets/loading_widget.dart';
+import 'transaction/exchange_list.dart';
 
 class ExchangeScreen extends StatefulWidget {
   @override
@@ -47,7 +46,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
         }
         if (state is AuthSuccessState) {
           user = state.user;
-          _transBloc.add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_EXCHANGE, userId: user.id));
+          _transBloc.add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_EXCHANGE, token: user.token));
         }
       },
       child: Scaffold(
@@ -77,7 +76,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
               builder: (context, state) {
                 if (state is TransactionConfigSuccessState) {
                   config = state.configs;
-                  max = config.walletC.floor();
+                  max = user.walletC.floor();
                 }
                 return config == null
                     ? LoadingWidget()
@@ -98,7 +97,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                           style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
                                           children: [
                                             TextSpan(
-                                                text: _moneyFormat.format(config.walletC),
+                                                text: _moneyFormat.format(user.walletC),
                                                 style: TextStyle(
                                                     color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 16.0)),
                                           ],
@@ -125,11 +124,11 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                         controller: _amountInput,
                                         style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
                                         keyboardType: TextInputType.number,
-                                         onChanged: (value) {
-                                            setState(() {
-                                              _ammountMInput.text = (int.parse(value) * config.rate).toString();
-                                            });
-                                          },
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _ammountMInput.text = (int.parse(value) * config.rate).toString();
+                                          });
+                                        },
                                         validator: (String value) {
                                           if (value.isEmpty) {
                                             return "Bạn chưa nhập số điểm muốn rút";
@@ -184,7 +183,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                           _formKey.currentState.save();
                                           _transBloc.add(SaveExchangeEvent(
                                             amount: _amountInput.text,
-                                            userId: user.id,
+                                            token: user.token,
                                           ));
                                         }
                                       },

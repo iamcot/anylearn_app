@@ -8,7 +8,6 @@ import '../dto/item_dto.dart';
 import '../dto/items_dto.dart';
 import '../dto/pdp_dto.dart';
 import '../dto/user_courses_dto.dart';
-import '../dto/user_dto.dart';
 import 'base_service.dart';
 
 class ItemService extends BaseService {
