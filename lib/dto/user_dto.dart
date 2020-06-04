@@ -27,6 +27,7 @@ class UserDTO extends Equatable {
   final double rating;
   String password;
   String token;
+  String refLink;
 
   UserDTO({
     this.id,
@@ -55,6 +56,7 @@ class UserDTO extends Equatable {
     this.rating,
     this.password,
     this.token,
+    this.refLink,
   });
 
   @override
@@ -84,6 +86,7 @@ class UserDTO extends Equatable {
         rating,
         token,
         status,
+        refLink,
       ];
 
   @override
@@ -115,6 +118,7 @@ class UserDTO extends Equatable {
             address: json['address'],
             country: json['country'],
             numFriends: json['num_friends'],
+            refLink: json['reflink'],
           )
         : null;
   }

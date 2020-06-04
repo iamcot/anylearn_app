@@ -75,6 +75,17 @@ class _CourseFormScreen extends State<CourseFormScreen> {
         appBar: AppBar(
           title: Text("Thông tin khóa học"),
           centerTitle: false,
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.save),
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    _itemDTO.content = await keyEditor.currentState.getText();
+                    _courseBloc..add(SaveCourseEvent(item: _itemDTO, token: _user.token));
+                  }
+                })
+          ],
         ),
         body: BlocListener<CourseBloc, CourseState>(
           bloc: _courseBloc,
@@ -91,7 +102,6 @@ class _CourseFormScreen extends State<CourseFormScreen> {
               _itemDTO = new ItemDTO(
                 type: MyConst.ITEM_COURSE,
               );
-              ;
               Navigator.of(context).popUntil(ModalRoute.withName("/"));
               Navigator.of(context).pushNamed("/course/list");
             }

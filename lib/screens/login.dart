@@ -14,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   LoginBloc _loginBloc;
   AuthBloc _authBloc;
+  bool noticeShow = false;
   @override
   void didChangeDependencies() {
     final userRepository = RepositoryProvider.of<UserRepository>(context);
@@ -39,10 +40,14 @@ class _LoginScreen extends State<LoginScreen> {
           if (state is AuthSuccessState) {
             Navigator.of(context).popUntil(ModalRoute.withName("/"));
           }
-          if (ModalRoute.of(context).settings.arguments != null) {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: Text(ModalRoute.of(context).settings.arguments.toString()),
-            ));
+
+          if (!noticeShow) {
+            if (ModalRoute.of(context).settings.arguments != null) {
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: Text(ModalRoute.of(context).settings.arguments.toString()),
+              ));
+              noticeShow = true;
+            }
           }
         },
         child: BlocProvider(
