@@ -12,6 +12,8 @@ class TransactionConfigDTO extends Equatable {
   final List<TransactionDTO> lastTransactions;
   final BankDTO depositBank;
   final int rate;
+  final int pendingM;
+  final int pendingC;
 
   TransactionConfigDTO({
     this.suggests,
@@ -22,6 +24,8 @@ class TransactionConfigDTO extends Equatable {
     this.depositBank,
     this.suggestInputColumn,
     this.rate,
+    this.pendingC,
+    this.pendingM,
   });
 
   @override
@@ -34,6 +38,8 @@ class TransactionConfigDTO extends Equatable {
         depositBank,
         suggestInputColumn,
         rate,
+        pendingM,
+        pendingC,
       ];
 
   static TransactionConfigDTO fromJson(dynamic json) {
@@ -48,6 +54,8 @@ class TransactionConfigDTO extends Equatable {
             depositBank: BankDTO.fromJson(json['bank']),
             suggestInputColumn: json['suggest_columns'],
             rate: json['rate'],
+            pendingM: json['pending_wallet_m'],
+            pendingC: json['pending_wallet_c'],
           );
   }
 }

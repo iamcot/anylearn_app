@@ -21,20 +21,20 @@ class LoadTransactionPageEvent extends TransactionEvent {
 }
 
 class LoadTransactionHistoryEvent extends TransactionEvent {
-  final int userId;
+  final String token;
 
-  LoadTransactionHistoryEvent({@required this.userId});
-
-  @override
-  List<Object> get props => [userId];
+  LoadTransactionHistoryEvent({@required this.token});
 
   @override
-  String toString() => 'LoadTransactionHistoryEvent  { userId: $userId}';
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'LoadTransactionHistoryEvent  {}';
 }
 
 class SaveDepositEvent extends TransactionEvent {
   final String token;
-  final String amount;
+  final int amount;
   final String payment;
 
   SaveDepositEvent({@required this.token, @required this.amount, this.payment});

@@ -42,3 +42,16 @@ class PdpFavoriteRemoveEvent extends PdpEvent {
   @override
   String toString() => 'PdpFavoriteAddEvent  { id: $itemId, user: $userId}';
 }
+
+class PdpRegisterEvent extends PdpEvent {
+  final int itemId;
+  final String token;
+
+  PdpRegisterEvent({@required this.itemId, @required this.token});
+
+  @override
+  List<Object> get props => [itemId, token];
+
+  @override
+  String toString() => 'PdpRegisterEvent  { id: $itemId}';
+}

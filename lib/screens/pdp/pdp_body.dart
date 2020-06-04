@@ -19,8 +19,9 @@ import 'share_dialog.dart';
 class PdpBody extends StatefulWidget {
   final PdpDTO data;
   final UserDTO user;
+  final PdpBloc pdpBloc;
 
-  const PdpBody({Key key, this.data, this.user}) : super(key: key);
+  const PdpBody({Key key, this.data, this.user, this.pdpBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PdpBody();
@@ -175,6 +176,7 @@ class _PdpBody extends State<PdpBody> {
                             ? showDialog(
                                 context: context,
                                 builder: (context) => CourseConfirm(
+                                  pdpBloc: widget.pdpBloc,
                                   user: widget.user,
                                   pdpDTO: widget.data,
                                 ),

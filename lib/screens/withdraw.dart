@@ -140,7 +140,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                             if (value.isEmpty) {
                                               return "Bạn chưa nhập số điểm muốn rút";
                                             }
-                                            if (user.walletC < keep || int.parse(value) > max) {
+                                            if (user.walletC <= keep || int.parse(value) >= max) {
                                               return "Bạn được rút tối đa $max điểm";
                                             }
                                             _formKey.currentState.save();
@@ -211,14 +211,23 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                       onPressed: () {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          _transBloc.add(SaveWithdrawEvent(
-                                              amount: _amountInput.text,
-                                              token: user.token,
-                                              bankInfo: BankDTO(
-                                                  bankName: _bankName.text,
-                                                  bankBranch: _bankBranch.text,
-                                                  bankNo: _bankNo.text,
-                                                  accountName: _bankAccount.text)));
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                content: Text("Chức năng rút tiền tạm thời chưa hỗ trợ."),
+                                              );
+                                            },
+                                          );
+
+                                          // _transBloc.add(SaveWithdrawEvent(
+                                          //     amount: _amountInput.text,
+                                          //     token: user.token,
+                                          //     bankInfo: BankDTO(
+                                          //         bankName: _bankName.text,
+                                          //         bankBranch: _bankBranch.text,
+                                          //         bankNo: _bankNo.text,
+                                          //         accountName: _bankAccount.text)));
                                         }
                                       },
                                       child: Text(

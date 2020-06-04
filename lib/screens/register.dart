@@ -70,9 +70,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                 content: Text(state.error),
               ));
             }
-            // if (state is RegisterSuccessState) {
-              // Navigator.of(context).pushNamed("/login", arguments: "Đăng ký thành công, vui lòng đăng nhập lại.");
-            // }
+            if (state is RegisterSuccessState) {
+              Navigator.of(context).pushNamed("/login", arguments: "Đăng ký thành công, vui lòng đăng nhập lại.");
+            }
           },
           child: Container(
             child: Form(

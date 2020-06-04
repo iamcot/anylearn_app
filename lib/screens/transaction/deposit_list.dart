@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/bank_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -6,8 +7,9 @@ import '../../dto/transaction_dto.dart';
 
 class DepositList extends StatefulWidget {
   final List<TransactionDTO> list;
+  final BankDTO configBank;
 
-  const DepositList({Key key, this.list}) : super(key: key);
+  const DepositList({Key key, this.list, this.configBank}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DepositList();
@@ -23,6 +25,7 @@ class _DepositList extends State<DepositList> {
           .map((TransactionDTO e) => ListTile(
                 onTap: e.status == 0
                     ? () {
+                      BankDTO bankDTO = e.bankInfo ?? widget.configBank;
                         showDialog(
                             context: context,
                             builder: (context) {
@@ -32,15 +35,15 @@ class _DepositList extends State<DepositList> {
                                 children: [
                                   ListTile(
                                     title: Text("Ngân hàng"),
-                                    subtitle: Text(e.bankInfo.bankName),
+                                    subtitle: Text(bankDTO.bankName),
                                   ),
                                   ListTile(
                                     title: Text("Chi nhánh"),
-                                    subtitle: Text(e.bankInfo.bankBranch),
+                                    subtitle: Text(bankDTO.bankBranch),
                                   ),
                                   ListTile(
                                     title: Text("Số tài khoản"),
-                                    subtitle: Text(e.bankInfo.bankNo),
+                                    subtitle: Text(bankDTO.bankNo),
                                     trailing: Icon(Icons.content_copy),
                                     onTap: () {
                                       Clipboard.setData(new ClipboardData(text: e.bankInfo.bankNo));
@@ -52,7 +55,11 @@ class _DepositList extends State<DepositList> {
                                   ),
                                   ListTile(
                                     title: Text("Người  thụ hưởng"),
-                                    subtitle: Text(e.bankInfo.accountName),
+                                    subtitle: Text(bankDTO.accountName),
+                                  ),
+                                  ListTile(
+                                    title: Text("Nội dung chuyển khoản"),
+                                    subtitle: Text(bankDTO.content),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),

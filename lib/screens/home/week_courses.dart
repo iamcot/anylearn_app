@@ -19,7 +19,9 @@ class WeekCourses extends StatelessWidget {
           if (index.isEven) {
             return ListTile(
               // isThreeLine: true,
-              leading: CalendarBox(text: _formatDate.format(DateTime.parse(monthCourses[itemIndex].dateStart))),
+              leading: CalendarBox(
+                fontSize: 12.0,
+                text: _formatDate.format(DateTime.parse(monthCourses[itemIndex].dateStart))),
               onTap: () {
                 Navigator.of(context).pushNamed("/pdp", arguments: monthCourses[itemIndex].id);
               },

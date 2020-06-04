@@ -181,10 +181,18 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                       onPressed: () {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          _transBloc.add(SaveExchangeEvent(
-                                            amount: _amountInput.text,
-                                            token: user.token,
-                                          ));
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                content: Text("Chức năng đổi điểm tạm thời chưa hỗ trợ."),
+                                              );
+                                            },
+                                          );
+                                          // _transBloc.add(SaveExchangeEvent(
+                                          //   amount: _amountInput.text,
+                                          //   token: user.token,
+                                          // ));
                                         }
                                       },
                                       child: Text(

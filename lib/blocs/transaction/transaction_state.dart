@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../dto/account_transaction_dto.dart';
 import '../../dto/transaction_config_dto.dart';
+import '../../dto/transaction_dto.dart';
 
 abstract class TransactionState extends Equatable {
   const TransactionState();
@@ -24,7 +24,7 @@ class TransactionConfigSuccessState extends TransactionState {
 class TransactionHistoryLoadingState extends TransactionState {}
 
 class TransactionHistorySuccessState extends TransactionState {
-  final Map<String, AccountTransactionDTO> history;
+  final Map<String, List<TransactionDTO> > history;
 
   TransactionHistorySuccessState({this.history});
   @override
@@ -44,11 +44,11 @@ class TransactionWithdrawSaveSuccessState extends TransactionState {
 class TransactionDepositavingState extends TransactionState {}
 
 class TransactionDepositeSaveSuccessState extends TransactionState {
-  final TransactionConfigDTO configs;
+  // final TransactionConfigDTO configs;
 
-  TransactionDepositeSaveSuccessState({this.configs});
-  @override
-  List<Object> get props => [configs];
+  // TransactionDepositeSaveSuccessState({this.configs});
+  // @override
+  // List<Object> get props => [configs];
 }
 
 class TransactionExchangeSavingState extends TransactionState {}

@@ -1,4 +1,7 @@
 import 'package:anylearn/blocs/transaction/transaction_blocs.dart';
+import 'package:anylearn/dto/const.dart';
+import 'package:anylearn/dto/transaction_dto.dart';
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/models/transaction_repo.dart';
 import 'package:anylearn/screens/loading.dart';
 import 'package:flutter/gestures.dart';
@@ -20,9 +23,10 @@ class TransactionScreen extends StatefulWidget {
 class _TransactionScreen extends State<TransactionScreen> with TickerProviderStateMixin {
   TabController _tabController;
   AuthBloc _authBloc;
+  UserDTO _user;
   final monneyF = new NumberFormat("###,###,###", "vi_VN");
   TransactionBloc _transBloc;
-  Map<String, AccountTransactionDTO> data;
+  Map<String, List<TransactionDTO>> data;
 
   @override
   void didChangeDependencies() {
@@ -43,7 +47,8 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
             Navigator.of(context).popAndPushNamed("/login");
           }
           if (state is AuthSuccessState) {
-            _transBloc.add(LoadTransactionHistoryEvent(userId: state.user.id));
+            _user = state.user;
+            _transBloc.add(LoadTransactionHistoryEvent(token: _user.token));
           }
         },
         child: BlocProvider<TransactionBloc>(
@@ -93,7 +98,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                         Container(
                                             padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                                             child: Text(
-                                              monneyF.format(data[AccountTransactionDTO.WALLET_M].currentAmount),
+                                              monneyF.format(_user.walletM),
                                               style: TextStyle(
                                                   color: Colors.blue, fontWeight: FontWeight.w200, fontSize: 30.0),
                                             )),
@@ -129,7 +134,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                         Container(
                                             padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                                             child: Text(
-                                              monneyF.format(data[AccountTransactionDTO.WALLET_C].currentAmount),
+                                              monneyF.format(_user.walletC),
                                               style: TextStyle(
                                                   color: Colors.orange, fontWeight: FontWeight.w200, fontSize: 30.0),
                                             )),
@@ -150,8 +155,8 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                       body: TabBarView(
                         controller: _tabController,
                         children: [
-                          TransactionList(transactions: data[AccountTransactionDTO.WALLET_M].transactions),
-                          TransactionList(transactions: data[AccountTransactionDTO.WALLET_C].transactions),
+                          TransactionList(transactions: data[MyConst.WALLET_M]),
+                          TransactionList(transactions: data[MyConst.WALLET_C]),
                         ],
                       ),
                     );

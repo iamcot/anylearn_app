@@ -1,4 +1,5 @@
 import 'package:anylearn/dto/quote_dto.dart';
+import 'package:anylearn/services/transaction_service.dart';
 import 'package:http/http.dart' as http;
 
 import '../dto/const.dart';
@@ -17,6 +18,7 @@ class PageRepository {
   QuoteService quoteService;
   ItemService itemService;
   ConfigServices configService;
+  // TransactionService transactionService;
   final config;
   final httpClient = http.Client();
 
@@ -25,6 +27,7 @@ class PageRepository {
     userService = UserService(config: config, httpClient: this.httpClient);
     configService = ConfigServices(config: config, httpClient: this.httpClient);
     itemService = ItemService(config: config, httpClient: this.httpClient);
+    // transactionService = TransactionService(config: config, httpClient: httpClient);
   }
 
   Future<PdpDTO> dataPDP(int itemId) async {

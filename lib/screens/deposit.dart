@@ -1,4 +1,3 @@
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +9,7 @@ import '../dto/const.dart';
 import '../dto/transaction_config_dto.dart';
 import '../dto/user_dto.dart';
 import '../models/transaction_repo.dart';
-import 'loading.dart';
+import '../widgets/loading_widget.dart';
 import 'transaction/deposit_list.dart';
 
 class DepositScreen extends StatefulWidget {
@@ -66,7 +65,7 @@ class _DepositScreen extends State<DepositScreen> {
           child: BlocListener<TransactionBloc, TransactionState>(
             listener: (BuildContext context, TransactionState state) {
               if (state is TransactionDepositeSaveSuccessState) {
-                config = state.configs;
+                _transBloc..add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_DEPOSIT, token: user.token));
                 Scaffold.of(context).showSnackBar(new SnackBar(
                   content: Text("Gửi lệnh nạp tiền thành công. Vui lòng kiểm tra bước tiếp theo."),
                   duration: Duration(seconds: 2),
@@ -174,8 +173,8 @@ class _DepositScreen extends State<DepositScreen> {
                                   "Chuyển khoản ngân hàng",
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                subtitle:
-                                    Text("Thông tin chuyển khoản sẽ được gửi tới quý khách hàng ngay khi xác nhận nạp tiền."),
+                                subtitle: Text(
+                                    "Thông tin chuyển khoản sẽ được gửi tới quý khách hàng ngay khi xác nhận nạp tiền."),
                                 value: "atm",
                                 groupValue: _paymentSelect,
                                 onChanged: (value) {
@@ -221,7 +220,9 @@ class _DepositScreen extends State<DepositScreen> {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
                                         _transBloc.add(SaveDepositEvent(
-                                            token: user.token, amount: _amountInput.text, payment: _paymentSelect));
+                                            token: user.token,
+                                            amount: int.parse(_amountInput.text),
+                                            payment: _paymentSelect));
                                       }
                                     },
                                     child: Text(
@@ -241,7 +242,7 @@ class _DepositScreen extends State<DepositScreen> {
                                   style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
                                 ),
                               ),
-                              new DepositList(list: config.lastTransactions),
+                              new DepositList(list: config.lastTransactions, configBank: config.depositBank,),
                             ],
                           )),
                     );
@@ -294,7 +295,13 @@ class _DepositScreen extends State<DepositScreen> {
   String _buildSuggestText(String value, TransactionConfigDTO config) {
     String suggestText = "";
     final input = int.parse(value);
-    DateTime vipStart = user.expire ?? DateTime.now();
+    DateTime vipStart = DateTime.now();
+    if (user.expire > 0) {
+      DateTime userVipExpire = new DateTime.fromMillisecondsSinceEpoch(user.expire * 1000);
+      if (userVipExpire.isAfter(DateTime.now())) {
+        vipStart = userVipExpire;
+      }
+    }
     suggestText = "Bạn sẽ nạp " + _moneyFormat.format(input);
     if (input == 0) {
       suggestText = "Nhập số tiền cần nhập hoặc chọn nhanh từ danh sách phía dưới";

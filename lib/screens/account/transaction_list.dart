@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:anylearn/dto/const.dart';
 import 'package:anylearn/dto/transaction_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -21,13 +22,24 @@ class TransactionList extends StatelessWidget {
                     final itemIndex = index ~/ 2;
                     if (index.isEven) {
                       return ListTile(
-                        title: Text(transactions[itemIndex].content, style: TextStyle(
-                        ),),
-                        subtitle: Text((transactions[itemIndex].orderId != null && transactions[itemIndex].orderId > 0
-                            ? "#" + transactions[itemIndex].orderId.toString() + " - "
-                            : "") + dateF.format(DateTime.parse(transactions[itemIndex].createdDate)), style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                            ),),
+                        title: Text(
+                          transactions[itemIndex].content,
+                          style: TextStyle(),
+                        ),
+                        subtitle: Text.rich(
+                          TextSpan(
+                              text: (transactions[itemIndex].orderId != null && transactions[itemIndex].orderId > 0
+                                      ? "#" + transactions[itemIndex].orderId.toString() + " - "
+                                      : "") +
+                                  dateF.format(DateTime.parse(transactions[itemIndex].createdDate)),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                              ),
+                              children: [
+                                TextSpan(text: "\n"),
+                                _statusText(transactions[itemIndex].status),
+                              ]),
+                        ),
                         trailing: Text(
                           monneyF.format(transactions[itemIndex].amount),
                           style: TextStyle(
@@ -59,5 +71,16 @@ class TransactionList extends StatelessWidget {
               )
       ],
     );
+  }
+
+  TextSpan _statusText(int status) {
+    switch (status) {
+      case MyConst.TRANS_STATUS_PENDING:
+        return TextSpan(text: "Đang chờ", style: TextStyle(color: Colors.grey));
+      case MyConst.TRANS_STATUS_APPROVE:
+        return TextSpan(text: "Đã xác nhận", style: TextStyle(color: Colors.green));
+      case MyConst.TRANS_STATUS_CANCEL:
+        return TextSpan(text: "Bị từ chối", style: TextStyle(color: Colors.red));
+    }
   }
 }

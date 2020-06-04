@@ -79,10 +79,14 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                 _authBloc..add(AuthCheckEvent());
               }
               if (state is AccEditSaveSuccessState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Cập nhật thông tin thành công."),
-                ));
                 _authBloc..add(AuthCheckEvent());
+                Scaffold.of(context)
+                    .showSnackBar(new SnackBar(
+                      duration: Duration(seconds: 1),
+                      content: Text("Cập nhật thông tin thành công."),
+                    ))
+                    .closed
+                    .then((value) => Navigator.of(context).pop());
               }
             },
             child: BlocBuilder<AccountBloc, AccountState>(
@@ -262,7 +266,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               ),
                             ),
                             Container(
-                              height: 36.0,
+                              height: 48.0,
                               margin: const EdgeInsets.all(30.0),
                               child: RaisedButton(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),

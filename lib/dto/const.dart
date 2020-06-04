@@ -10,6 +10,8 @@ class MyConst {
   static const TRANS_TYPE_DEPOSIT = "deposit";
   static const TRANS_TYPE_WITHDRAW = "withdraw";
   static const TRANS_TYPE_EXCHANGE = "exchange";
+  static const TRANS_TYPE_ORDER = "order";
+  static const TRANS_TYPE_COMMISSION = "commission";
 
   static const ITEM_COURSE = "course";
   static const ITEM_CLASS = "class";
@@ -18,4 +20,12 @@ class MyConst {
   static const ITEM_USER_STATUS_INACTIVE = 0;
   static const ITEM_USER_STATUS_ACTIVE = 1;
   static const ITEM_USER_STATUS_DONE = 99;
+
+  static const TRANS_STATUS_PENDING = 0;
+  static const TRANS_STATUS_APPROVE = 1;
+  static const TRANS_STATUS_CANCEL = 99;
+
+  static const WALLET_M = 'wallet_m';
+  static const WALLET_C = 'wallet_c';
+
 }

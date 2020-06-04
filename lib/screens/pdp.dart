@@ -1,3 +1,5 @@
+import 'package:anylearn/dto/pdp_dto.dart';
+import 'package:anylearn/models/transaction_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,10 +21,13 @@ class PDPScreen extends StatefulWidget {
 class _PDPScreen extends State<PDPScreen> {
   PdpBloc pdpBloc;
   UserDTO user;
+  PdpDTO data;
+
   @override
   void didChangeDependencies() {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
-    pdpBloc = PdpBloc(pageRepository: pageRepo);
+    final transRepo = RepositoryProvider.of<TransactionRepository>(context);
+    pdpBloc = PdpBloc(pageRepository: pageRepo, transactionRepository: transRepo);
     final itemId = ModalRoute.of(context).settings.arguments;
     pdpBloc..add(LoadPDPEvent(id: itemId));
 
@@ -41,39 +46,52 @@ class _PDPScreen extends State<PDPScreen> {
           create: (context) {
             return pdpBloc;
           },
-          child: BlocListener<PdpBloc, PdpState>(
-            listener: (context, state) {
-              if (state is PdpFailState) {
-                Navigator.of(context).popUntil(ModalRoute.withName("/"));
-              }
-            },
-            child: BlocBuilder<PdpBloc, PdpState>(
-              builder: (context, state) {
-                var data;
-
-                if (state is PdpSuccessState) {
-                  data = state.data;
+          child: Scaffold(
+            appBar: BaseAppBar(
+              title: "",
+              user: user,
+            ),
+            body: BlocListener<PdpBloc, PdpState>(
+              listener: (context, state) {
+                if (state is PdpFailState) {
+                  Navigator.of(context).popUntil(ModalRoute.withName("/"));
                 }
-                if (state is PdpFavoriteAddState) {
-                  data = state.data;
+                if (state is PdpRegisterSuccessState) {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    duration: Duration(seconds: 2),
+                    content: Text(
+                        "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất."),
+                  ));
                 }
-                if (state is PdpFavoriteRemoveState) {
-                  data = state.data;
-                }
-                return data != null
-                    ? Scaffold(
-                        appBar: BaseAppBar(
-                          title: "",
-                          user: user,
-                        ),
-                        body: PdpBody(
+              },
+              child: BlocBuilder<PdpBloc, PdpState>(
+                builder: (context, state) {
+                  if (state is PdpSuccessState) {
+                    data = state.data;
+                  }
+                  if (state is PdpFavoriteAddState) {
+                    data = state.data;
+                  }
+                  if (state is PdpFavoriteRemoveState) {
+                    data = state.data;
+                  }
+                  return data != null
+                      ? PdpBody(
+                          pdpBloc: pdpBloc,
                           data: data,
                           user: user,
-                        ),
-                        bottomNavigationBar: BottomNav(
-                          index: data.author != null && data.author.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX,
-                        ))
-                    : LoadingScreen();
+                        )
+                      : LoadingScreen();
+                },
+              ),
+            ),
+            bottomNavigationBar: BlocBuilder(
+              bloc: pdpBloc,
+              builder: (context, state) {
+                return BottomNav(
+                    index: data != null && data.author.role == "teacher"
+                        ? BottomNav.TEACHER_INDEX
+                        : BottomNav.SCHOOL_INDEX);
               },
             ),
           ),

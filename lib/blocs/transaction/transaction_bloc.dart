@@ -22,15 +22,20 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
           yield TransactionConfigSuccessState(configs: config);
         }
       } else if (event is LoadTransactionHistoryEvent) {
-        final data = await transactionRepository.dataHistoryPage(event.userId);
+        final data = await transactionRepository.dataHistoryPage(event.token);
         if (data == null) {
-          yield TransactionFailState(error: "Không load lịch sử giao dich của ${event.userId}.");
+          yield TransactionFailState(error: "Không load lịch sử giao dich.");
         } else {
           yield TransactionHistorySuccessState(history: data);
         }
       } else if (event is SaveDepositEvent) {
-        final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_DEPOSIT, event.token);
-        yield TransactionDepositeSaveSuccessState(configs: config);
+        final result = await transactionRepository.submitDeposit(event.amount, event.token, event.payment);
+        if (result) {
+          yield TransactionDepositeSaveSuccessState();
+          
+        } else {
+          yield TransactionSaveFailState(error: "Có lỗi xảy ra, vui lòng thử lại");
+        }
       } else if (event is SaveWithdrawEvent) {
         final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_WITHDRAW, event.token);
         yield TransactionWithdrawSaveSuccessState(configs: config);
