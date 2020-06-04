@@ -25,24 +25,7 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
       title: "Khóa học làm giàu 1",
       content: "Giới thiệu về buổi học",
       route: "/pdp",
-      userName: "Thầy giáo X",
-    ),
-    EventDTO(
-      date: "2020-05-20",
-      time: "09:00",
-      title: "Khóa học làm giàu 2",
-      content: "Giới thiệu về buổi học",
-      route: "/pdp",
-      userName: "Thầy giáo X",
-    ),
-  ], later: [
-    EventDTO(
-      date: "2020-06-10",
-      time: "09:00",
-      title: "Khóa học làm giàu 3",
-      content: "Giới thiệu về buổi học",
-      route: "/pdp",
-      userName: "Thầy giáo X",
+      author: "Thầy giáo X",
     ),
   ]);
 

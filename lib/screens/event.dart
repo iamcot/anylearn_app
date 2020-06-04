@@ -1,10 +1,17 @@
-import '../dto/event_dto.dart';
-import 'event/day_events.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../blocs/auth/auth_bloc.dart';
+import '../blocs/auth/auth_blocs.dart';
+import '../blocs/event/event_bloc.dart';
+import '../blocs/event/event_blocs.dart';
+import '../dto/user_dto.dart';
+import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
+import 'event/day_events.dart';
 
 class EventScreen extends StatefulWidget {
   @override
@@ -14,57 +21,26 @@ class EventScreen extends StatefulWidget {
 class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
   CalendarController _calendarController;
   AnimationController _animationController;
+  EventBloc _eventBloc;
+  AuthBloc _authBloc;
+  UserDTO _user;
 
-  Map<DateTime, List> _events = {
-    DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now())): [
-      new EventDTO(
-          title: "Events wewe ewertfd fw1",
-          image: "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/pdp",
-          date: "2020-05-10",
-          time: "09:00",
-          location: "Q7",
-          content: "Giới thiệu sơ về event",
-          userName: "Giảng viên A"),
-      new EventDTO(
-          title: "Events 1",
-          date: "2020-05-10",
-          image: "https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg",
-          route: "/pdp",
-          time: "12:00",
-          location: "Q7",
-          content: "Giới thiệu sơ về event",
-          userName: "Trung tâm B")
-    ],
-    new DateTime(2020, 5, 10): [
-      new EventDTO(
-          title: "Events  2 yujyu yuyu",
-          route: "/pdp",
-          date: "2020-05-10",
-          image: "",
-          time: "09:00",
-          location: "Q7",
-          content: "Giới thiệu sơ về event",
-          userName: "Giảng viên A")
-    ]
-  };
+  Map<DateTime, List> _events;
   List _selectedEvents;
+
+  @override
+  void didChangeDependencies() {
+    final PageRepository pageRepository = RepositoryProvider.of<PageRepository>(context);
+    _eventBloc = EventBloc(pageRepository: pageRepository)..add(LoadEventEvent(month: DateTime.now()));
+    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+    super.didChangeDependencies();
+  }
 
   @override
   void initState() {
     super.initState();
-    // var nowFull = DateTime.now();
-    // var now = DateTime(nowFull.year, nowFull.month, nowFull.day, 0, 0, 0);
-
-    // Future.delayed(Duration.zero).then((_) {
-    //   Provider.of<Event>(context, listen: false).fetchEventList(now, _selectedEvents);
-    // });
-
     _calendarController = CalendarController();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 400));
     _animationController.forward();
   }
 
@@ -84,31 +60,46 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
   void _onVisibleDaysChanged(DateTime first, DateTime last, CalendarFormat format) {
     _selectedEvents = null;
     _events = null;
-    // Provider.of<Event>(context, listen: false).fetchEventList(first, _selectedEvents);
+    _eventBloc..add(LoadEventEvent(month: first));
   }
 
   @override
   Widget build(BuildContext context) {
-    // var eventData = Provider.of<Event>(context, listen: true);
-    // _events = eventData.monthEvents;
-    _selectedEvents = _selectedEvents ?? _events[DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()))];
+    return BlocBuilder<AuthBloc, AuthState>(
+        bloc: _authBloc,
+        builder: (context, state) {
+          if (state is AuthSuccessState) {
+            _user = state.user;
+          }
 
-    return Scaffold(
-      appBar: BaseAppBar(
-        title: "Lịch đào tạo & Sự kiện",
-      ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _buildTableCalendarWithBuilders(),
-          Expanded(child: _buildEventList()),
-        ],
-      ),
-      bottomNavigationBar: BottomNav(
-        index: BottomNav.EVENT_INDEX,
-      ),
-    );
+          return Scaffold(
+            appBar: BaseAppBar(
+              title: "Lịch đào tạo & Sự kiện",
+              user: _user ?? null,
+            ),
+            body: BlocProvider<EventBloc>(
+              create: (context) => _eventBloc,
+              child: BlocBuilder<EventBloc, EventState>(builder: (context, state) {
+                if (state is EventSuccessState) {
+                  _events = state.data;
+                  _selectedEvents =
+                      _selectedEvents ?? _events[DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()))];
+                }
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _buildTableCalendarWithBuilders(),
+                    Expanded(child: _buildEventList()),
+                  ],
+                );
+              }),
+            ),
+            bottomNavigationBar: BottomNav(
+              index: BottomNav.EVENT_INDEX,
+            ),
+          );
+        });
   }
 
   Widget _buildTableCalendarWithBuilders() {

@@ -60,4 +60,11 @@ class TransactionService extends BaseService {
     final json = await get(httpClient, url);
     return json['result'];
   }
+
+  Future<int> foundation() async {
+    final url = buildUrl(appConfig: config, endPoint: "/foundation");
+    print(url);
+    final json = await get(httpClient, url);
+    return json['value'];
+  }
 }

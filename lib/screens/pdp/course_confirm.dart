@@ -1,10 +1,10 @@
-import 'package:anylearn/blocs/pdp/pdp_blocs.dart';
-import 'package:anylearn/dto/pdp_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/widgets/gradient_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../../blocs/pdp/pdp_blocs.dart';
+import '../../dto/pdp_dto.dart';
+import '../../dto/user_dto.dart';
+import '../../widgets/gradient_button.dart';
 
 class CourseConfirm extends StatelessWidget {
   final PdpDTO pdpDTO;
@@ -103,7 +103,7 @@ class CourseConfirm extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
-                child: user.walletM > pdpDTO.item.price
+                child: user.walletM >= pdpDTO.item.price
                     ? GradientButton(
                         function: () {
                           pdpBloc..add(PdpRegisterEvent(token: user.token, itemId: pdpDTO.item.id));

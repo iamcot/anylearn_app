@@ -5,29 +5,34 @@ import '../../models/user_repo.dart';
 import 'register_event.dart';
 import 'register_state.dart';
 
-
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final UserRepository userRepository;
 
-  RegisterBloc({@required this.userRepository})
-      : assert(userRepository != null);
+  RegisterBloc({@required this.userRepository}) : assert(userRepository != null);
 
   @override
   RegisterState get initialState => RegisterInitState();
 
   @override
   Stream<RegisterState> mapEventToState(RegisterEvent event) async* {
-    
-    if (event is RegisterButtonPressedEvent) {
-      yield RegisterInprogressState();
-      try {
-        await userRepository.register(event.userInput.phone, event.userInput.name,
-            event.userInput.password, event.userInput.refcode, event.userInput.role);
+    try {
+      if (event is RegisterButtonPressedEvent) {
+        yield RegisterInprogressState();
+
+        await userRepository.register(event.userInput.phone, event.userInput.name, event.userInput.password,
+            event.userInput.refcode, event.userInput.role);
         yield RegisterSuccessState();
         // yield RegisterInitState();
-      } catch (e) {
-        yield RegisterFailState(error: e.toString());
+
       }
+
+      if (event is RegisterFormLoadEvent) {
+        yield RegisterLoadingTocState();
+        final toc = await userRepository.toc();
+        yield RegisterTocSuccessState(toc: toc);
+      }
+    } catch (e) {
+      yield RegisterFailState(error: e.toString());
     }
   }
 }

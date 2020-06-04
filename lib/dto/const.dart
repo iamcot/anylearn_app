@@ -28,4 +28,6 @@ class MyConst {
   static const WALLET_M = 'wallet_m';
   static const WALLET_C = 'wallet_c';
 
+  static const CONFIG_DOC_TOC = 'guide_toc';
+
 }

@@ -20,7 +20,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreen extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _toc = "toc";
+  String _toc = "";
   UserDTO _user = new UserDTO(
     role: MyConst.ROLE_MEMBER,
   );
@@ -39,7 +39,7 @@ class _RegisterScreen extends State<RegisterScreen> {
   void didChangeDependencies() {
     final userRepository = RepositoryProvider.of<UserRepository>(context);
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
-    _loginBloc = RegisterBloc(userRepository: userRepository);
+    _loginBloc = RegisterBloc(userRepository: userRepository)..add(RegisterFormLoadEvent());
     super.didChangeDependencies();
   }
 
@@ -69,6 +69,9 @@ class _RegisterScreen extends State<RegisterScreen> {
               Scaffold.of(context).showSnackBar(new SnackBar(
                 content: Text(state.error),
               ));
+            }
+            if (state is RegisterTocSuccessState) {
+              _toc = state.toc;
             }
             if (state is RegisterSuccessState) {
               Navigator.of(context).pushNamed("/login", arguments: "Đăng ký thành công, vui lòng đăng nhập lại.");
@@ -353,6 +356,7 @@ class _RegisterScreen extends State<RegisterScreen> {
       showDialog(
         context: context,
         child: AlertDialog(
+          contentPadding: EdgeInsets.all(0),
           scrollable: true,
           title: Text(
             "Chưa đồng ý điều khoản sử dụng.",

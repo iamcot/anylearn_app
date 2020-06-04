@@ -72,3 +72,11 @@ class SaveExchangeEvent extends TransactionEvent {
   @override
   String toString() => 'SaveExchangeEvent  {  amount: $amount}';
 }
+
+class LoadFoundationEvent extends TransactionEvent {
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => '  {  LoadFoundationEvent}';
+}

@@ -8,16 +8,20 @@ abstract class RegisterState extends Equatable {
   List<Object> get props => [];
 }
 
-class RegisterInitState extends RegisterState {
+class RegisterInitState extends RegisterState {}
+
+class RegisterLoadingTocState extends RegisterState {}
+
+class RegisterTocSuccessState extends RegisterState {
   final String toc;
 
-  RegisterInitState({this.toc});
+  const RegisterTocSuccessState({@required this.toc});
 
   @override
   List<Object> get props => [toc];
 
   @override
-  String toString() => '{toc: $toc}';
+  String toString() => '{RegisterSuccessState}';
 }
 
 class RegisterInprogressState extends RegisterState {}

@@ -57,8 +57,9 @@ class _PDPScreen extends State<PDPScreen> {
                   Navigator.of(context).popUntil(ModalRoute.withName("/"));
                 }
                 if (state is PdpRegisterSuccessState) {
+                  BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
                   Scaffold.of(context).showSnackBar(new SnackBar(
-                    duration: Duration(seconds: 2),
+                    duration: Duration(seconds: 5),
                     content: Text(
                         "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất."),
                   ));

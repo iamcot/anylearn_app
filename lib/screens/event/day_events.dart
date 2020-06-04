@@ -11,7 +11,7 @@ class DayEvents extends StatelessWidget {
     return Column(
       children: [
         Container(
-          decoration: eventToday.image.isNotEmpty
+          decoration: eventToday.image != null
               ? BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(eventToday.image),
@@ -32,19 +32,19 @@ class DayEvents extends StatelessWidget {
             ),
             subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                eventToday.userName,
+                eventToday.author,
                 style: TextStyle(color: Colors.black87),
               ),
-              Text(
+              eventToday.content != null ? Text(
                 eventToday.content,
                 style: TextStyle(color: Colors.black87),
                 maxLines: 2,
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,
-              ),
+              ) : Text(""),
             ]),
             onTap: () {
-              Navigator.of(context).pushNamed(eventToday.route);
+              Navigator.of(context).pushNamed("/pdp", arguments: eventToday.id);
             },
           ),
         ),

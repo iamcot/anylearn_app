@@ -1,22 +1,25 @@
 import 'dart:io';
 
-import 'package:anylearn/dto/friends_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../dto/const.dart';
+import '../dto/friends_dto.dart';
 import '../dto/user_dto.dart';
+import '../services/config_services.dart';
 import '../services/user_services.dart';
 
 class UserRepository {
   UserService userService;
+  ConfigServices configServices;
   final storage = new FlutterSecureStorage();
   final config;
   final httpClient = http.Client();
 
   UserRepository({this.config}) {
     userService = new UserService(httpClient: httpClient, config: config);
+    configServices = new ConfigServices(httpClient: httpClient, config: config);
   }
 
   Future<UserDTO> getUser(String token) async {
@@ -59,5 +62,9 @@ class UserRepository {
 
   Future<FriendsDTO> friends(int userId, String token) async {
     return await userService.friends(token, userId);
+  }
+
+  Future<String> toc() async {
+    return await configServices.doc(MyConst.CONFIG_DOC_TOC);
   }
 }

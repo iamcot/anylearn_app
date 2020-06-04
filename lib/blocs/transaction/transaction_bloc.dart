@@ -1,6 +1,6 @@
-import 'package:anylearn/dto/const.dart';
 import 'package:bloc/bloc.dart';
 
+import '../../dto/const.dart';
 import '../../models/transaction_repo.dart';
 import 'transaction_blocs.dart';
 
@@ -32,7 +32,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         final result = await transactionRepository.submitDeposit(event.amount, event.token, event.payment);
         if (result) {
           yield TransactionDepositeSaveSuccessState();
-          
         } else {
           yield TransactionSaveFailState(error: "Có lỗi xảy ra, vui lòng thử lại");
         }
@@ -42,6 +41,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       } else if (event is SaveExchangeEvent) {
         final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_EXCHANGE, event.token);
         yield TransactionExchangeSaveSuccessState(configs: config);
+      } else if (event is LoadFoundationEvent) {
+        final value = await transactionRepository.foundation();
+        yield FoundationSuccessState(value: value);
       }
     } catch (error, t) {
       yield TransactionFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");

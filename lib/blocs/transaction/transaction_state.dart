@@ -24,7 +24,7 @@ class TransactionConfigSuccessState extends TransactionState {
 class TransactionHistoryLoadingState extends TransactionState {}
 
 class TransactionHistorySuccessState extends TransactionState {
-  final Map<String, List<TransactionDTO> > history;
+  final Map<String, List<TransactionDTO>> history;
 
   TransactionHistorySuccessState({this.history});
   @override
@@ -39,6 +39,16 @@ class TransactionWithdrawSaveSuccessState extends TransactionState {
   TransactionWithdrawSaveSuccessState({this.configs});
   @override
   List<Object> get props => [configs];
+}
+
+class FoundationLoadingState extends TransactionState {}
+
+class FoundationSuccessState extends TransactionState {
+  final int value;
+
+  FoundationSuccessState({this.value});
+  @override
+  List<Object> get props => [value];
 }
 
 class TransactionDepositavingState extends TransactionState {}

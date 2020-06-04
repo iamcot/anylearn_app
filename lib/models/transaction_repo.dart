@@ -36,4 +36,8 @@ class TransactionRepository {
   Future<bool> register(String token, int itemId) async {
     return transactionService.register(token, itemId);
   }
+
+  Future<int> foundation() async {
+    return transactionService.foundation();
+  }
 }
