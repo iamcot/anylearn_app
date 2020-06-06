@@ -17,7 +17,7 @@ void main() async {
   final env = "prod";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+  // BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepo = UserRepository(config: config);
   final pageRepo = PageRepository(config: config);
   final transRepo = TransactionRepository(config: config);
@@ -40,7 +40,7 @@ void main() async {
         ],
         child: MultiBlocProvider(providers: [
           BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
-          BlocProvider<CourseBloc>(create: (context) => CourseBloc(itemRepository: itemRepo, userRepository : userRepo)),
+          BlocProvider<CourseBloc>(create: (context) => CourseBloc(itemRepository: itemRepo, userRepository: userRepo)),
         ], child: MyApp())),
   );
 }
@@ -49,6 +49,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (BuildContext context, Widget child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+        child: child,
+      ),
       debugShowCheckedModeBanner: false,
       title: 'anyLearn',
       theme: appTheme(),

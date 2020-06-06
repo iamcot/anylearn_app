@@ -29,6 +29,7 @@ class _GuideScreen extends State<GuideScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width - 10;
     return BlocProvider<HomeBloc>(
       create: (context) => _homeBloc,
       child: BlocListener<HomeBloc, HomeState>(
@@ -51,9 +52,9 @@ class _GuideScreen extends State<GuideScreen> {
                     Divider(),
                     Container(
                       alignment: Alignment.topRight,
-                      padding: EdgeInsets.only(right: 10.0),
+                      padding: EdgeInsets.only(right: 15.0, bottom: 15),
                       child: Text(
-                        " Cập nhật ngày: " + DateFormat("hh:mm dd/MM/yyyy").format(state.doc.lastUpdate),
+                        " Cập nhật cuối: " + DateFormat("hh:mm dd/MM/yyyy").format(state.doc.lastUpdate),
                         style: TextStyle(fontStyle: FontStyle.italic, fontSize: 10.0),
                       ),
                     ),
