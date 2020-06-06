@@ -175,13 +175,24 @@ class _PdpBody extends State<PdpBody> {
                         widget.user != null
                             ? showDialog(
                                 context: context,
-                                builder: (context) => CourseConfirm(
-                                  pdpBloc: widget.pdpBloc,
-                                  user: widget.user,
-                                  pdpDTO: widget.data,
-                                ),
+                                builder: (context) => DateTime.now().isAfter(
+                                        DateTime.parse(widget.data.item.dateStart + " " + widget.data.item.timeStart))
+                                    ? AlertDialog(
+                                        content: Container(child: Text("Đã quá hạn đăng ký khóa học này.")),
+                                        actions: [
+                                          RaisedButton (onPressed: () { 
+                                            Navigator.of(context).pop();
+                                          }, child: Text("ĐÃ HIỂU"), color: Colors.blue,),
+                                        ],
+                                      )
+                                    : CourseConfirm(
+                                        pdpBloc: widget.pdpBloc,
+                                        user: widget.user,
+                                        pdpDTO: widget.data,
+                                      ),
                               )
-                            : Navigator.of(context).pushNamed('/login');
+                            : Navigator.of(context)
+                                .pushNamed('/login', arguments: "/pdp/" + widget.data.item.id.toString());
                       },
                       color: Colors.green,
                       textColor: Colors.white,

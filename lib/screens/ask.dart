@@ -12,19 +12,16 @@ class AskScreen extends StatefulWidget {
 class _AskScreen extends State<AskScreen> {
   final Map<String, List<AskDTO>> data = {
     "watch": [
-      AskDTO(title: "video 1", type: "watch", shortContent: "Giới thiệu ngắn", route: "https://www.youtube.com/watch?v=XCWfg_S4Bmc"),
-      AskDTO(title: "video 2", type: "watch", shortContent: "Giới thiệu ngắn", route: "https://www.youtube.com/watch?v=XCWfg_S4Bmc"),
-      AskDTO(title: "video 3", type: "watch", shortContent: "Giới thiệu ngắn", route: "https://www.youtube.com/watch?v=XCWfg_S4Bmc"),
+      AskDTO(title: 'Học "nghề" làm cha mẹ. Tại sao không?', type: "watch", shortContent: '', route: "https://www.youtube.com/watch?v=bg_dF5URoWQ"),
+      AskDTO(title: "Covid sẽ bỏ chạy ngay khi bạn làm theo lời khuyên của chuyên gia", type: "watch", shortContent: "", route: "https://www.youtube.com/watch?v=hEVJWtxw5d0"),
+      AskDTO(title: "Dạy con tránh xa nguy hiểm", type: "watch", shortContent: "", route: "https://www.youtube.com/watch?v=3IZqZpN-_rU"),
     ],
     "read": [
-      AskDTO(title: "Article 1", type: "read", shortContent: "Giới thiệu ngắn", route: "https://www.facebook.com/106596874379224/photos/gm.1042382279491299/120295656342679/"),
-      AskDTO(title: "Article 2", type: "read", shortContent: "Giới thiệu ngắn", route: "https://www.facebook.com/106596874379224/photos/gm.1042382279491299/120295656342679/"),
-      AskDTO(title: "Article 3", type: "read", shortContent: "Giới thiệu ngắn", route: "https://www.facebook.com/106596874379224/photos/gm.1042382279491299/120295656342679/"),
+      AskDTO(title: "Khủng hoảng tuổi lên 2", type: "read", shortContent: "", route: "https://www.facebook.com/permalink.php?story_fbid=120049519700626&id=106596874379224&__tn__=K-R"),
+      AskDTO(title: "Những website giúp luyện kĩ năng nghe TOEIC & IELTS", type: "read", shortContent: "", route: "https://www.facebook.com/106596874379224/photos/a.115750160130562/117069976665247/?type=3&theater"),
+      AskDTO(title: "Khoảng trống miễn dịch ở trẻ", type: "read", shortContent: "", route: "https://www.facebook.com/106596874379224/photos/a.115734663465445/121179776254267/?type=3&theater"),
     ],
     "forum": [
-       AskDTO(title: "Forum 1", type: "forum", shortContent: "Giới thiệu ngắn", route: "/ask"),
-       AskDTO(title: "Forum 2", type: "forum", shortContent: "Giới thiệu ngắn", route: "/ask"),
-       AskDTO(title: "Forum 3", type: "forum", shortContent: "Giới thiệu ngắn", route: "/ask"),
     ],
   };
   @override

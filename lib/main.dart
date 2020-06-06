@@ -14,7 +14,7 @@ import 'screens/home.dart';
 import 'themes/default.dart';
 
 void main() async {
-  final env = "dev";
+  final env = "prod";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -40,7 +40,7 @@ void main() async {
         ],
         child: MultiBlocProvider(providers: [
           BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
-          BlocProvider<CourseBloc>(create: (context) => CourseBloc(itemRepository: itemRepo)),
+          BlocProvider<CourseBloc>(create: (context) => CourseBloc(itemRepository: itemRepo, userRepository : userRepo)),
         ], child: MyApp())),
   );
 }

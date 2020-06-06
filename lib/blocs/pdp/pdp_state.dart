@@ -43,6 +43,15 @@ class PdpRegisterSuccessState extends PdpState {
   List<Object> get props => [result];
 }
 
+class PdpRegisterFailState extends PdpState {
+  final String error;
+  const PdpRegisterFailState({@required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}
+
 class PdpFailState extends PdpState {
   final String error;
   const PdpFailState({@required this.error});

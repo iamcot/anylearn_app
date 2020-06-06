@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/doc_dto.dart';
 import 'package:anylearn/dto/quote_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -40,4 +41,25 @@ class HomeFailState extends HomeState {
   List<Object> get props => [error];
   @override
   String toString() => '{error: $error}';
+}
+
+class GuideLoadingState extends HomeState {}
+
+class GuideFailState extends HomeState {
+  final String error;
+  const GuideFailState({@required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}
+
+class GuideLoadSuccessState extends HomeState {
+  final DocDTO doc;
+
+  GuideLoadSuccessState({this.doc});
+  @override
+  List<Object> get props => [doc];
+  @override
+  String toString() => 'GuideLoadSuccessState';
 }

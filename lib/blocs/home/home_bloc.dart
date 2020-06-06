@@ -17,7 +17,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       if (event is LoadHomeEvent) {
         yield HomeLoadingState();
-        final data = await pageRepository.dataHome(event.user != null ? event.user.role : MyConst.ROLE_GUEST, event.user != null ? event.user.id : null);
+        final data = await pageRepository.dataHome(
+            event.user != null ? event.user.role : MyConst.ROLE_GUEST, event.user != null ? event.user.id : null);
         if (data != null) {
           yield HomeSuccessState(data: data);
         } else {
@@ -35,7 +36,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
     } catch (error, trace) {
       yield HomeFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
-       print(trace.toString());
+      print(trace.toString());
+    }
+
+    if (event is LoadGuideEvent) {
+      try {
+        yield GuideLoadingState();
+        final doc = await pageRepository.guide(event.path);
+        if (doc != null) {
+          yield GuideLoadSuccessState(doc: doc);
+        }
+      } catch (error) {
+        yield GuideFailState(error: error.toString());
+      }
     }
   }
 }

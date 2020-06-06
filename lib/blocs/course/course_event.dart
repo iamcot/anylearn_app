@@ -70,3 +70,16 @@ class CourseChangeUserStatusEvent extends CourseEvent {
   @override
   String toString() => 'CourseChangeUserStatusEvent item $itemId status $newStatus';
 }
+
+
+class RegisteredUsersEvent extends CourseEvent {
+  final String token;
+  final int itemId;
+
+  RegisteredUsersEvent({this.token, this.itemId});
+  @override
+  List<Object> get props => [token, itemId];
+  @override
+  String toString() => 'RegisteredUsersEvent $itemId';
+}
+

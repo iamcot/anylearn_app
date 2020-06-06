@@ -56,6 +56,12 @@ class _PDPScreen extends State<PDPScreen> {
                 if (state is PdpFailState) {
                   Navigator.of(context).popUntil(ModalRoute.withName("/"));
                 }
+                if (state is PdpRegisterFailState) {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    duration: Duration(seconds: 5),
+                    content: Text(state.error),
+                  ));
+                }
                 if (state is PdpRegisterSuccessState) {
                   BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
                   Scaffold.of(context).showSnackBar(new SnackBar(

@@ -1,7 +1,8 @@
 import 'dart:ui';
 
+import 'package:anylearn/dto/const.dart';
+import 'package:anylearn/dto/friend_params_dto.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share/share.dart';
@@ -45,9 +46,9 @@ class _AccountBody extends State<AccountBody> {
               leadingIcon: MdiIcons.qrcode,
               trailing: Icon(Icons.content_copy),
               subContent: Text(user.refcode + " (chạm để chia sẻ)"),
-              routeFunction: () => _tabToCopy(user.refcode),
+              routeFunction: () => _tabToCopy(user.refLink),
             ),
-             AccountNormalMenu(
+            AccountNormalMenu(
               title: "Khóa học của tôi",
               route: "/course/list",
               leadingIcon: MdiIcons.viewList,
@@ -92,7 +93,7 @@ class _AccountBody extends State<AccountBody> {
             AccountNormalMenu(
               title: "Danh sách bạn bè",
               route: "/account/friends",
-              routeParam: user.id,
+              routeParam: FriendParamsDTO(userId: user.id, level: 1),
               leadingIcon: MdiIcons.accountGroup,
               trailing: SizedBox(
                   width: 80.0,
@@ -103,28 +104,39 @@ class _AccountBody extends State<AccountBody> {
             ),
             AccountNormalMenu(
               title: "Hướng dẫn sử dụng",
-              route: "/account/helpcenter",
+              route: "/guide",
+              routeParam: "guide_" + user.role,
               leadingIcon: MdiIcons.televisionGuide,
               trailing: Icon(Icons.arrow_right),
             ),
-            AccountNormalMenu(
-              title: "Gửi phản hồi về ứng dụng",
-              route: "/account/contact",
-              leadingIcon: MdiIcons.comment,
-              trailing: Icon(Icons.arrow_right),
-            ),
+            user.role == MyConst.ROLE_SCHOOL || user.role == MyConst.ROLE_TEACHER
+                ? AccountNormalMenu(
+                    title: "Chính sách",
+                    route: "/guide",
+                    routeParam: "guide_toc_" + user.role,
+                    leadingIcon: MdiIcons.televisionGuide,
+                    trailing: Icon(Icons.arrow_right),
+                  )
+                : SizedBox(height: 0),
+            // AccountNormalMenu(
+            //   title: "Gửi phản hồi về ứng dụng",
+            //   route: "/account/contact",
+            //   leadingIcon: MdiIcons.comment,
+            //   trailing: Icon(Icons.arrow_right),
+            // ),
             AccountNormalMenu(
               title: "Thông tin về anyLEARN.vn",
-              route: "/account/about",
+              route: "/guide",
+              routeParam: MyConst.GUIDE_ABOUT,
               leadingIcon: MdiIcons.information,
               trailing: Icon(Icons.arrow_right),
             ),
-            AccountNormalMenu(
-              title: "Đổi mật khẩu",
-              route: "/account/password",
-              leadingIcon: MdiIcons.lock,
-              trailing: Icon(Icons.arrow_right),
-            ),
+            // AccountNormalMenu(
+            //   title: "Đổi mật khẩu",
+            //   route: "/account/password",
+            //   leadingIcon: MdiIcons.lock,
+            //   trailing: Icon(Icons.arrow_right),
+            // ),
             AccountNormalMenu(
               title: "Đăng xuất",
               routeFunction: () {

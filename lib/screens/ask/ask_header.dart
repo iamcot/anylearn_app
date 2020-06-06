@@ -18,12 +18,12 @@ class AskHeader extends StatelessWidget {
           Expanded(
             child: Text(title, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
           ),
-          InkWell(
-            child: Text("XEM THÊM", style: TextStyle(color: Colors.blue, fontSize: 12.0)),
-            onTap: () {
-              Navigator.of(context).pushNamed(route);
-            },
-          )
+          // InkWell(
+          //   child: Text("XEM THÊM", style: TextStyle(color: Colors.blue, fontSize: 12.0)),
+          //   onTap: () {
+          //     Navigator.of(context).pushNamed(route);
+          //   },
+          // )
         ],
       ),
     );

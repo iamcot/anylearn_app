@@ -54,6 +54,19 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         FriendsDTO friendsDTO = await userRepository.friends(event.userId, event.token);
         yield AccFriendsLoadSuccessState(friends: friendsDTO);
       }
+
+      if (event is AccLoadMyCalendarEvent) {
+        yield AccMyCalendarLoadingState();
+        final calendar = await userRepository.myCalendar(event.token);
+        yield AccMyCalendarSuccessState(calendar: calendar);
+      }
+
+      if (event is AccJoinCourseEvent) {
+        final result = await userRepository.joinCourse(event.token, event.itemId);
+        yield AccJoinSuccessState(result: result);
+        this..add(AccLoadMyCalendarEvent(token: event.token));
+      }
+
     } catch (error) {
       yield AccountFailState(error: error.toString());
     }

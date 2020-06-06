@@ -20,6 +20,7 @@ class MyConst {
   static const ITEM_USER_STATUS_INACTIVE = 0;
   static const ITEM_USER_STATUS_ACTIVE = 1;
   static const ITEM_USER_STATUS_DONE = 99;
+  static const ITEM_USER_STATUS_CANCEL = 90;
 
   static const TRANS_STATUS_PENDING = 0;
   static const TRANS_STATUS_APPROVE = 1;
@@ -28,6 +29,11 @@ class MyConst {
   static const WALLET_M = 'wallet_m';
   static const WALLET_C = 'wallet_c';
 
-  static const CONFIG_DOC_TOC = 'guide_toc';
-
+  static const GUIDE_TOC = 'guide_toc';
+  static const GUIDE_MEMBER = 'guide_member';
+  static const GUIDE_TEACHER = 'guide_teacher';
+  static const GUIDE_SCHOOL = 'guide_school';
+  static const GUIDE_ABOUT = 'guide_about';
+  static const GUIDE_TOC_SCHOOL = 'guide_toc_school';
+  static const GUIDE_TOC_TEACHER = 'guide_toc_teacher';
 }

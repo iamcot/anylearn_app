@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 
 import '../../models/item_repo.dart';
+import '../../models/user_repo.dart';
 import 'course_event.dart';
 import 'course_state.dart';
 
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
   final ItemRepository itemRepository;
-  CourseBloc({this.itemRepository});
+  final UserRepository userRepository;
+  CourseBloc({this.userRepository, this.itemRepository});
 
   @override
   CourseState get initialState => CourseInitState();
@@ -53,6 +55,11 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         yield CourseUserStatusInprogressState();
         final result = await itemRepository.changeUserStatus(event.itemId, event.newStatus, event.token);
         yield CourseUserStatusSuccessState();
+      }
+
+      if (event is RegisteredUsersEvent) {
+        final users = await userRepository.registeredUsers(event.token, event.itemId);
+        yield RegisteredUsersSuccessState(users: users);
       }
     } catch (error, trace) {
       yield CourseFailState(error: error.toString());

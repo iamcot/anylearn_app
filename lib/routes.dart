@@ -12,11 +12,13 @@ import 'screens/ask.dart';
 import 'screens/ask_cat.dart';
 import 'screens/course_form.dart';
 import 'screens/course_list.dart';
+import 'screens/course_registered.dart';
 import 'screens/deposit.dart';
 import 'screens/developing.dart';
 import 'screens/event.dart';
 import 'screens/exchange.dart';
 import 'screens/foundation.dart';
+import 'screens/guide.dart';
 import 'screens/items_school.dart';
 import 'screens/items_teacher.dart';
 import 'screens/login.dart';
@@ -58,5 +60,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/login": (BuildContext context) => LoginScreen(),
   "/course/form": (BuildContext context) => CourseFormScreen(),
   "/course/list": (BuildContext context) => CourseListScreen(),
+  "/course/registered": (BuildContext context) => CourseRegisteredScreen(),
   "/foundation": (BuildContext context) => FoundationScreen(),
+  "/guide": (BuildContext context) => GuideScreen(),
 };

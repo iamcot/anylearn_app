@@ -45,7 +45,7 @@ class QrCodeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   QrImage(
-                    data: user.refcode,
+                    data: user.refLink,
                     version: QrVersions.auto,
                     size: qrWidth,
                     gapless: true,
@@ -78,8 +78,7 @@ class QrCodeScreen extends StatelessWidget {
                             ),
                             MaterialButton(
                               onPressed: () {
-                                Share.share(
-                                    "Tham gia học cùng tôi trên anyLEARN https://anylearn.vn/ref/" + user.refcode);
+                                Share.share(user.refLink);
                               },
                               child: Text(
                                 "CHIA SẺ MÃ",
@@ -107,6 +106,5 @@ class QrCodeScreen extends StatelessWidget {
             android: AndroidOptions(
               useAutoFocus: true,
             )));
-    print(result.rawContent);
   }
 }

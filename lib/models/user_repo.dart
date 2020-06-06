@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
+import '../dto/account_calendar_dto.dart';
 import '../dto/const.dart';
 import '../dto/friends_dto.dart';
 import '../dto/user_dto.dart';
@@ -65,6 +66,22 @@ class UserRepository {
   }
 
   Future<String> toc() async {
-    return await configServices.doc(MyConst.CONFIG_DOC_TOC);
+    final docDTO = await configServices.doc(MyConst.GUIDE_TOC);
+    if (docDTO != null) {
+      return docDTO.content;
+    }
+    return "";
+  }
+
+  Future<AccountCalendarDTO> myCalendar(String token) async {
+    return await userService.myCalendar(token);
+  }
+
+  Future<int> joinCourse(String token, int itemId) async {
+    return userService.joinCourse(token, itemId);
+  }
+
+  Future<List<UserDTO>> registeredUsers(String token, int itemId) async {
+    return userService.registeredUsers(token, itemId);
   }
 }

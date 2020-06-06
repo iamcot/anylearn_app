@@ -23,3 +23,13 @@ class LoadQuoteEvent extends HomeEvent {
   @override
   String toString() => 'LoadQuoteEvent';
 }
+
+class LoadGuideEvent extends HomeEvent {
+  final String path;
+
+  LoadGuideEvent({this.path});
+  @override
+  List<Object> get props => [];
+  @override
+  String toString() => 'LoadGuideEvent';
+}

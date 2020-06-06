@@ -1,8 +1,9 @@
-import 'package:anylearn/blocs/course/course_blocs.dart';
-import 'package:anylearn/dto/item_dto.dart';
-import 'package:anylearn/dto/user_courses_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+
+import '../../dto/item_dto.dart';
+import '../../dto/user_courses_dto.dart';
+import '../../dto/user_dto.dart';
 
 abstract class CourseState extends Equatable {
   const CourseState();
@@ -62,4 +63,16 @@ class CourseFailState extends CourseState {
   List<Object> get props => [error];
   @override
   String toString() => '{error: $error}';
+}
+
+class RegisteredUsersSuccessState extends CourseState {
+  final List<UserDTO> users;
+
+  RegisteredUsersSuccessState({this.users});
+
+  @override
+  List<Object> get props => [users];
+
+  @override
+  String toString() => 'RegisteredUsersSuccessState {}';
 }

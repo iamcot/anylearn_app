@@ -1,5 +1,6 @@
 import 'package:anylearn/blocs/course/course_blocs.dart';
 import 'package:anylearn/dto/const.dart';
+import 'package:anylearn/dto/course_registered_params_dto.dart';
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -39,13 +40,15 @@ class CourseList extends StatelessWidget {
                             title: Text("Danh sách đăng ký"),
                             onTap: () {
                               Navigator.of(context).pop();
+                              Navigator.of(context).pushNamed('/course/registered',
+                                  arguments: CourseRegisteredPramsDTO(token: user.token, itemId: list[index].id));
                             }),
                         Divider(),
                         _userStatusAction(context, list[index]),
                         Divider(),
                         ListTile(
                             trailing: Icon(Icons.close),
-                            title: Text("Lớp đã xong/ Đóng lớp"),
+                            title: Text("Hủy lớp"),
                             onTap: () {
                               showDialog(
                                   context: context,
@@ -60,12 +63,12 @@ class CourseList extends StatelessWidget {
                                               child: Text("Quay lại")),
                                           RaisedButton(
                                               color: Colors.red,
-                                              child: Text("Đóng lớp"),
+                                              child: Text("Hủy lớp"),
                                               onPressed: () {
                                                 courseBloc.add(CourseChangeUserStatusEvent(
                                                     itemId: list[index].id,
                                                     token: user.token,
-                                                    newStatus: MyConst.ITEM_USER_STATUS_DONE));
+                                                    newStatus: MyConst.ITEM_USER_STATUS_CANCEL));
                                                 Navigator.of(context).pop();
                                               }),
                                         ],
@@ -123,7 +126,12 @@ class CourseList extends StatelessWidget {
         );
       case MyConst.ITEM_USER_STATUS_DONE:
         return TextSpan(
-          text: "Đã đóng",
+          text: "Đã xong",
+          style: TextStyle(color: Colors.green),
+        );
+      case MyConst.ITEM_USER_STATUS_CANCEL:
+        return TextSpan(
+          text: "Đã hủy",
           style: TextStyle(color: Colors.red),
         );
       default:
@@ -147,14 +155,25 @@ class CourseList extends StatelessWidget {
             });
 
       case MyConst.ITEM_USER_STATUS_ACTIVE:
-        return ListTile(
-            trailing: Icon(Icons.pause_circle_outline),
-            title: Text("Tạm ẩn lớp, dừng đăng ký"),
-            onTap: () {
-              courseBloc.add(CourseChangeUserStatusEvent(
-                  itemId: itemDTO.id, token: user.token, newStatus: MyConst.ITEM_USER_STATUS_INACTIVE));
-              Navigator.of(context).pop();
-            });
+        if (DateTime.now().isAfter(DateTime.parse(itemDTO.dateStart + " " + itemDTO.timeStart))) {
+          return ListTile(
+              trailing: Icon(Icons.check),
+              title: Text("Lớp đã hoàn thành"),
+              onTap: () {
+                courseBloc.add(CourseChangeUserStatusEvent(
+                    itemId: itemDTO.id, token: user.token, newStatus: MyConst.ITEM_USER_STATUS_DONE));
+                Navigator.of(context).pop();
+              });
+        } else {
+          return ListTile(
+              trailing: Icon(Icons.pause_circle_outline),
+              title: Text("Tạm ẩn lớp, dừng đăng ký"),
+              onTap: () {
+                courseBloc.add(CourseChangeUserStatusEvent(
+                    itemId: itemDTO.id, token: user.token, newStatus: MyConst.ITEM_USER_STATUS_INACTIVE));
+                Navigator.of(context).pop();
+              });
+        }
     }
   }
 }

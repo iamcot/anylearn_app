@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../dto/user_dto.dart';
 
 abstract class AccountEvent extends Equatable {
   const AccountEvent();
@@ -60,4 +61,25 @@ class AccLoadFriendsEvent extends AccountEvent {
   List<Object> get props => [userId, token];
   @override
   String toString() => 'AccLoadFriendsEvent $userId';
+}
+
+class AccLoadMyCalendarEvent extends AccountEvent {
+  final String token;
+
+  AccLoadMyCalendarEvent({this.token});
+  @override
+  List<Object> get props => [token];
+  @override
+  String toString() => 'AccLoadMyCalendarEvent';
+}
+
+class AccJoinCourseEvent extends AccountEvent {
+  final String token;
+  final int itemId;
+
+  AccJoinCourseEvent({this.token, this.itemId});
+  @override
+  List<Object> get props => [token, itemId];
+  @override
+  String toString() => 'AccJoinCourseEvent $itemId';
 }

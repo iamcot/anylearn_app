@@ -1,31 +1,81 @@
+import 'dart:io';
 import 'dart:math' as math;
-import 'package:anylearn/dto/event_dto.dart';
-import 'package:anylearn/widgets/calendar_box.dart';
+
+import 'package:anylearn/dto/const.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class AccountCalendarList extends StatelessWidget {
+import '../../blocs/account/account_blocs.dart';
+import '../../dto/event_dto.dart';
+import '../../dto/user_dto.dart';
+import '../../widgets/calendar_box.dart';
+
+class AccountCalendarList extends StatefulWidget {
   final List<EventDTO> events;
+  final isOpen;
+  final UserDTO user;
 
-  const AccountCalendarList({Key key, this.events}) : super(key: key);
+  const AccountCalendarList({Key key, this.events, this.isOpen, this.user}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _AccountCalendarList();
+}
+
+class _AccountCalendarList extends State<AccountCalendarList> with TickerProviderStateMixin {
+  List<AnimationController> controllers;
+
+  String timerString(AnimationController controller) {
+    Duration duration = controller.duration * controller.value;
+    return '${(duration.inHours).toString().padLeft(2, '0')}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controllers = new List();
+  }
+
+  @override
+  void dispose() {
+    controllers.forEach((e) {
+      e.dispose();
+    });
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // String nowStr = DateFormat("yyyy-MM-dd").format(DateTime.now());
     return CustomScrollView(
       slivers: <Widget>[
-        events.length > 0
+        widget.events.length > 0
             ? SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final itemIndex = index ~/ 2;
                     if (index.isEven) {
                       return ListTile(
-                        leading: CalendarBox(text: DateTime.parse(events[itemIndex].date).day.toString()),
-                        title: Text(events[itemIndex].title),
-                        subtitle:
-                            events[itemIndex].content != null ? Text(events[itemIndex].content) : SizedBox(height: 0),
-                        trailing: Icon(Icons.arrow_right),
-                        onTap: () {
-                          Navigator.of(context).pushNamed(events[itemIndex].route);
+                        leading: CalendarBox(
+                            fontSize: 12,
+                            text: DateFormat("dd/MM").format(DateTime.parse(widget.events[itemIndex].date))),
+                        title: Text(widget.events[itemIndex].title),
+                        subtitle: Text.rich(TextSpan(
+                          text: widget.events[itemIndex].content == null ? "" : widget.events[itemIndex].content + "\n",
+                          children: [
+                            TextSpan(text: widget.events[itemIndex].time),
+                            TextSpan(
+                                text: widget.events[itemIndex].userJoined == null ? "" : "\nĐã xác nhận",
+                                style: TextStyle(color: Colors.green))
+                          ],
+                        )),
+                        trailing: widget.events[itemIndex].authorStatus == MyConst.ITEM_USER_STATUS_CANCEL
+                            ? Text("Lớp đã hủy")
+                            : _buildTrailing(widget.events[itemIndex]),
+                        onLongPress: () {
+                          Navigator.of(context).pushNamed("/pdp", arguments: widget.events[itemIndex].id);
                         },
                       );
                     }
@@ -39,7 +89,7 @@ class AccountCalendarList extends StatelessWidget {
                     }
                     return null;
                   },
-                  childCount: math.max(0, events.length * 2 - 1),
+                  childCount: math.max(0, widget.events.length * 2 - 1),
                 ),
               )
             : SliverToBoxAdapter(
@@ -64,6 +114,155 @@ class AccountCalendarList extends StatelessWidget {
                 ),
               )
       ],
+    );
+  }
+
+  Widget _buildTrailing(EventDTO event) {
+    if (!widget.isOpen) {
+      if (event.userJoined == null) {
+        return BlocBuilder<AccountBloc, AccountState>(
+          bloc: BlocProvider.of<AccountBloc>(context),
+          builder: (context, state) {
+            return event.userJoined != null && event.userJoined > 0
+                ? Text("Đã tham gia")
+                : RaisedButton(
+                    color: Colors.blue,
+                    onPressed: () {
+                      BlocProvider.of<AccountBloc>(context)
+                        ..add(AccJoinCourseEvent(token: widget.user.token, itemId: event.id));
+                    },
+                    child: Text(
+                      "Xác nhận",
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ));
+          },
+        );
+      } else {
+        return Text("Đã tham gia");
+      }
+    } else {
+      final today = DateFormat("yyyy-MM-dd").format(DateTime.now());
+      if (today == event.date) {
+        if (event.userJoined == null) {
+          Duration diffInSeconds = DateTime.parse(event.date + " " + event.time).difference(DateTime.now());
+          if (!diffInSeconds.isNegative) {
+            AnimationController controller = AnimationController(
+              vsync: this,
+              duration: diffInSeconds,
+            );
+            controllers.add(controller);
+            controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
+            return AnimatedBuilder(
+                animation: controller,
+                builder: (context, child) {
+                  return controller.isAnimating
+                      ? RaisedButton(
+                          onPressed: () {
+                            _dialogJoin(event, false);
+                          },
+                          child: Text(
+                            timerString(controller),
+                            style: TextStyle(fontSize: 12),
+                          ))
+                      : RaisedButton(
+                          color: Colors.blue,
+                          onPressed: () {
+                            _dialogJoin(event, true);
+                          },
+                          child: Text(
+                            "Tham gia",
+                            style: TextStyle(fontSize: 12, color: Colors.white),
+                          ));
+                });
+          } else {
+            return BlocBuilder<AccountBloc, AccountState>(
+              bloc: BlocProvider.of<AccountBloc>(context),
+              builder: (context, state) {
+                return event.userJoined != null && event.userJoined > 0
+                    ? RaisedButton(
+                        onPressed: () {
+                          _dialogJoin(event, false);
+                        },
+                        color: Colors.blue,
+                        child: Text(
+                          "Vào lớp",
+                          style: TextStyle(fontSize: 12, color: Colors.white),
+                        ))
+                    : RaisedButton(
+                        color: Colors.blue,
+                        onPressed: () {
+                          _dialogJoin(event, true);
+                        },
+                        child: Text(
+                          "Tham gia",
+                          style: TextStyle(fontSize: 12, color: Colors.white),
+                        ));
+              },
+            );
+          }
+        } else {
+          return RaisedButton(
+              onPressed: () {
+                _dialogJoin(event, false);
+              },
+              color: Colors.blue,
+              child: Text(
+                "Vào lớp",
+                style: TextStyle(fontSize: 12, color: Colors.white),
+              ));
+        }
+      } else {
+        return Text("Chưa diễn ra");
+      }
+    }
+  }
+
+  void _dialogJoin(EventDTO eventDTO, bool hasConfirm) {
+    showDialog(
+      context: context,
+      child: SimpleDialog(
+        children: <Widget>[
+          ListTile(
+            title: Text("Vào lớp học"),
+            subtitle: Text(eventDTO.location != null ? eventDTO.location : "Vui lòng chờ cập nhập lớp học"),
+            onTap: () async {
+              Navigator.of(context).pop();
+
+              if (eventDTO.location != null) {
+                final route = eventDTO.location;
+                if (Platform.isIOS) {
+                  if (await canLaunch(route)) {
+                    await launch(route, forceSafariVC: false);
+                  } else {
+                    if (await canLaunch(route)) {
+                      await launch(route);
+                    } else {
+                      throw 'Could not launch';
+                    }
+                  }
+                } else {
+                  if (await canLaunch(route)) {
+                    await launch(route);
+                  } else {
+                    throw 'Could not launch';
+                  }
+                }
+              }
+            },
+          ),
+          hasConfirm ? Divider() : SizedBox(height: 0),
+          hasConfirm
+              ? ListTile(
+                  title: Text("Xác nhận tham gia"),
+                  onTap: () {
+                    BlocProvider.of<AccountBloc>(context)
+                      ..add(AccJoinCourseEvent(token: widget.user.token, itemId: eventDTO.id));
+                    Navigator.of(context).pop();
+                  },
+                )
+              : Text(""),
+        ],
+      ),
     );
   }
 }

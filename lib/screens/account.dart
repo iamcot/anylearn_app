@@ -1,4 +1,3 @@
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,8 +5,8 @@ import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
 import '../blocs/auth/auth_state.dart';
 import '../dto/user_dto.dart';
+import '../widgets/loading_widget.dart';
 import 'account/account_body.dart';
-import 'loading.dart';
 
 class AccountScreen extends StatefulWidget {
   @override

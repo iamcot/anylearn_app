@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/doc_dto.dart';
 import 'package:anylearn/dto/event_dto.dart';
 import 'package:anylearn/dto/quote_dto.dart';
 import 'package:anylearn/services/transaction_service.dart';
@@ -65,5 +66,9 @@ class PageRepository {
 
   Future<Map<DateTime, List<EventDTO>>> monthEvent(DateTime month) async {
     return configService.monthEvent(month);
+  }
+
+  Future<DocDTO> guide(String key) async {
+    return configService.doc(key);
   }
 }

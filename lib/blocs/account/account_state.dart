@@ -1,4 +1,5 @@
 import 'package:anylearn/blocs/account/account_blocs.dart';
+import 'package:anylearn/dto/account_calendar_dto.dart';
 import 'package:anylearn/dto/friends_dto.dart';
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:equatable/equatable.dart';
@@ -76,6 +77,32 @@ class AccFriendsLoadSuccessState extends AccountState {
 
   @override
   String toString() => 'AccFriendsLoadSuccessState {friends: $friends}';
+}
+
+class AccMyCalendarLoadingState extends AccountState {}
+
+class AccMyCalendarSuccessState extends AccountState {
+  final AccountCalendarDTO calendar;
+
+  AccMyCalendarSuccessState({this.calendar});
+
+  @override
+  List<Object> get props => [calendar];
+
+  @override
+  String toString() => 'AccMyCalendarSuccessState {}';
+}
+
+class AccJoinSuccessState extends AccountState {
+  final int result;
+
+  AccJoinSuccessState({this.result});
+
+  @override
+  List<Object> get props => [result];
+
+  @override
+  String toString() => 'AccJoinSuccessState $result';
 }
 
 class AccountFailState extends AccountState {

@@ -71,7 +71,6 @@ class AskList extends StatelessWidget {
           }
         }
       } else {
-        // const url = 'youtube://www.youtube.com/channel/UCwXdFgeE9KYzlDdR7TG9cMw';
         if (await canLaunch(route)) {
           await launch(route);
         } else {

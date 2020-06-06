@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:anylearn/dto/friend_params_dto.dart';
 import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,18 +21,20 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
   FriendsDTO _data;
   AccountBloc _accountBloc;
   AuthBloc _authBloc;
+  int level;
 
   @override
   void didChangeDependencies() {
     final userRepo = RepositoryProvider.of<UserRepository>(context);
     _accountBloc = AccountBloc(userRepository: userRepo);
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    int friendsOfUserId = ModalRoute.of(context).settings.arguments;
+    FriendParamsDTO param = ModalRoute.of(context).settings.arguments;
     // var moneyFormat = new NumberFormat("###,###,###", "vi_VN");
     return BlocListener<AuthBloc, AuthState>(
       bloc: _authBloc,
@@ -41,7 +44,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
           Navigator.of(context).pushNamed("/login");
         }
         if (state is AuthSuccessState) {
-          _accountBloc.add(AccLoadFriendsEvent(token: state.user.token, userId: friendsOfUserId));
+          _accountBloc.add(AccLoadFriendsEvent(token: state.user.token, userId: param.userId));
         }
       },
       child: Scaffold(
@@ -125,7 +128,11 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                               Icon(Icons.arrow_right),
                                             ])),
                                         onTap: () {
-                                          Navigator.of(context).pushNamed("/account/friends", arguments: _data.friends[itemIndex].id);
+                                          if (level < 3) {
+                                            Navigator.of(context).pushNamed("/account/friends",
+                                                arguments: FriendParamsDTO(
+                                                    userId: _data.friends[itemIndex].id, level: level + 1));
+                                          }
                                         },
                                         // onLongPress: () {
                                         //   Navigator.of(context).pushNamed("/account");
