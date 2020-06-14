@@ -70,7 +70,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                   color: Colors.blue,
                                   onPressed: () async {
                                     final File image = await ImagePicker.pickImage(
-                                      source: ImageSource.gallery,
+                                      source: ImageSource.camera,
                                     );
                                     if (image != null) {
                                       accountBloc..add(AccAddDocEvent(token: token, file: image));

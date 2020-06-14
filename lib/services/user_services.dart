@@ -52,7 +52,7 @@ class UserService extends BaseService {
       "email": user.email,
       "address": user.address,
       "country": user.country,
-      "full_content": user.fullContent,
+      "full_content": user.fullContent ?? "",
     });
     return json["result"];
   }

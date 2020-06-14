@@ -133,7 +133,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.name,
-                                onChanged: (value) {
+                                onSaved: (value) {
                                   setState(() {
                                     _user.name = value;
                                   });
@@ -162,7 +162,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   _formKey.currentState.save();
                                   return null;
                                 },
-                                onChanged: (value) {
+                                onSaved: (value) {
                                   setState(() {
                                     _user.refcode = value;
                                   });
@@ -177,7 +177,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.title,
-                                onChanged: (value) {
+                                onSaved: (value) {
                                   setState(() {
                                     _user.title = value;
                                   });
@@ -193,7 +193,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.phone,
-                                onChanged: (value) {
+                                onSaved: (value) {
                                   setState(() {
                                     _user.phone = value;
                                   });
@@ -216,7 +216,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.email,
-                                onChanged: (value) {
+                                onSaved: (value) {
                                   setState(() {
                                     _user.email = value;
                                   });
@@ -239,7 +239,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.address,
-                                onChanged: (value) {
+                                onSaved: (value) {
                                   setState(() {
                                     _user.address = value;
                                   });
@@ -254,7 +254,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.country,
-                                onChanged: (value) {
+                                onSaved: (value) {
                                   setState(() {
                                     _user.country = value;
                                   });
@@ -270,7 +270,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               child: TextFormField(
                                 maxLines: 3,
                                 initialValue: _user.introduce,
-                                onChanged: (value) {
+                                onSaved: (value) {
                                   setState(() {
                                     _user.introduce = value;
                                   });
