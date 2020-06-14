@@ -4,10 +4,12 @@ import 'screens/account.dart';
 import 'screens/account_about.dart';
 import 'screens/account_calendar.dart';
 import 'screens/account_contact.dart';
+import 'screens/account_docs.dart';
 import 'screens/account_edit.dart';
 import 'screens/account_friends.dart';
 import 'screens/account_helpcenter.dart';
 import 'screens/account_password.dart';
+import 'screens/account_profile.dart';
 import 'screens/ask.dart';
 import 'screens/ask_cat.dart';
 import 'screens/course_form.dart';
@@ -63,4 +65,6 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/course/registered": (BuildContext context) => CourseRegisteredScreen(),
   "/foundation": (BuildContext context) => FoundationScreen(),
   "/guide": (BuildContext context) => GuideScreen(),
+  "/profile": (BuildContext context) => AccountProfileScreen(),
+  "/account/docs": (BuildContext context) => AccountDocsScreen(),
 };

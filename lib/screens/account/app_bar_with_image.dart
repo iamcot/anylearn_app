@@ -27,25 +27,20 @@ class AccountAppBarWithImage extends StatelessWidget {
         builder: (context, bc) {
           return FlexibleSpaceBar(
             centerTitle: false,
-            title: Container(
-              padding: EdgeInsets.only(left: 5.0, right: 5.0),
-              decoration: user.image != null
-                  ? BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                      color: Colors.black38,
-                    )
-                  : null,
-              child: Text(
-                user.name,
-                style: TextStyle(),
-              ),
+            title: Text(
+              user.name,
+              style: TextStyle(),
             ),
             background: new ClipRect(
               child: new Container(
                 decoration: new BoxDecoration(
                   image: user.image != null
                       ? DecorationImage(
-                          image: NetworkImage(user.image), fit: BoxFit.cover, alignment: Alignment.topCenter)
+                          image: NetworkImage(user.image),
+                          colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.darken),
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                        )
                       : null,
                 ),
               ),

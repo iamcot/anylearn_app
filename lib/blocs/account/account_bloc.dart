@@ -17,8 +17,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     try {
       if (event is AccInitPageEvent) {
         yield AccInitPageSuccess(user: event.user);
-      }
-      if (event is AccChangeAvatarEvent) {
+      } else if (event is AccChangeAvatarEvent) {
         yield UploadAvatarInprogressState();
 
         String url = await userRepository.uploadAvatar(event.file, event.token);
@@ -27,9 +26,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         } else {
           yield AccountFailState(error: "Up ảnh không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
         }
-      }
-
-      if (event is AccChangeBannerEvent) {
+      } else if (event is AccChangeBannerEvent) {
         yield UploadBannerInprogressState();
         String url = await userRepository.uploadBanner(event.file, event.token);
         if (url != null && url.isNotEmpty) {
@@ -37,9 +34,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         } else {
           yield AccountFailState(error: "Up banner không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
         }
-      }
-
-      if (event is AccEditSubmitEvent) {
+      } else if (event is AccEditSubmitEvent) {
         yield AccEditSavingState();
         bool result = await userRepository.editUser(event.user, event.token);
         if (!result) {
@@ -47,26 +42,33 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         } else {
           yield AccEditSaveSuccessState(result: result);
         }
-      }
-
-      if (event is AccLoadFriendsEvent) {
+      } else if (event is AccLoadFriendsEvent) {
         yield AccFriendsLoadingState();
         FriendsDTO friendsDTO = await userRepository.friends(event.userId, event.token);
         yield AccFriendsLoadSuccessState(friends: friendsDTO);
-      }
-
-      if (event is AccLoadMyCalendarEvent) {
+      } else if (event is AccLoadMyCalendarEvent) {
         yield AccMyCalendarLoadingState();
         final calendar = await userRepository.myCalendar(event.token);
         yield AccMyCalendarSuccessState(calendar: calendar);
-      }
-
-      if (event is AccJoinCourseEvent) {
+      } else if (event is AccJoinCourseEvent) {
         final result = await userRepository.joinCourse(event.token, event.itemId);
         yield AccJoinSuccessState(result: result);
         this..add(AccLoadMyCalendarEvent(token: event.token));
+      } else if (event is AccProfileEvent) {
+        yield AccProfileLoadingState();
+        final user = await userRepository.getProfile(event.userId);
+        yield AccProfileSuccessState(user: user);
+      } else if (event is AccLoadDocsEvent) {
+        final userDocs = await userRepository.getDocs(event.token);
+        yield AccLoadDocsSuccessState(userDocs: userDocs);
+      } else if (event is AccAddDocEvent) {
+        yield AccAddDocLoadingState();
+        final userDocs = await userRepository.addDoc(event.token, event.file);
+        yield AccAddDocSuccessState(userDocs: userDocs);
+      } else if (event is AccRemoveDocEvent) {
+        final userDocs = await userRepository.removeDoc(event.token, event.fileId);
+        yield AccRemoveDocSuccessState(userDocs: userDocs);
       }
-
     } catch (error) {
       yield AccountFailState(error: error.toString());
     }

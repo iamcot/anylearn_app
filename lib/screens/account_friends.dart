@@ -1,16 +1,15 @@
 import 'dart:math' as math;
 
-import 'package:anylearn/dto/friend_params_dto.dart';
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/account/account_blocs.dart';
 import '../blocs/auth/auth_blocs.dart';
+import '../dto/friend_params_dto.dart';
 import '../dto/friends_dto.dart';
 import '../models/user_repo.dart';
+import '../widgets/loading_widget.dart';
 import 'account/app_bar_with_image.dart';
-import 'loading.dart';
 
 class AccountFriendsScreen extends StatefulWidget {
   @override
@@ -21,7 +20,6 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
   FriendsDTO _data;
   AccountBloc _accountBloc;
   AuthBloc _authBloc;
-  int level;
 
   @override
   void didChangeDependencies() {
@@ -75,22 +73,23 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                 style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
                           ),
                         ),
-                        // SliverToBoxAdapter(
-                        //   child: Container(
-                        //       padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                        //       decoration: BoxDecoration(
-                        //           // color: Colors.grey[100],
-                        //           ),
-                        //       child: Row(children: [
-                        //         Icon(
-                        //           Icons.info,
-                        //           color: Colors.grey,
-                        //           size: 12.0,
-                        //         ),
-                        //         Text(" Chạm để xem cấp duới. Giữ để xem thông tin.",
-                        //             style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
-                        //       ])),
-                        // ),
+                        SliverToBoxAdapter(
+                          child: Container(
+                              padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              decoration: BoxDecoration(
+                                  // color: Colors.grey[100],
+                                  ),
+                              child: Row(children: [
+                                Icon(
+                                  Icons.info,
+                                  color: Colors.grey,
+                                  size: 12.0,
+                                ),
+                                Text(" Chạm để xem cấp duới. Giữ để xem thông tin.",
+                                    style: TextStyle(
+                                        fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
+                              ])),
+                        ),
                         _data.friends != null && _data.friends.length > 0
                             ? SliverList(
                                 delegate: SliverChildBuilderDelegate(
@@ -125,18 +124,19 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                             width: 80.0,
                                             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                                               // Text(_data.friends[itemIndex].numFriends.toString() + " bạn "),
-                                              Icon(Icons.arrow_right),
+                                              Icon(Icons.chevron_right),
                                             ])),
                                         onTap: () {
-                                          if (level < 3) {
+                                          if (param.level < 3) {
                                             Navigator.of(context).pushNamed("/account/friends",
                                                 arguments: FriendParamsDTO(
-                                                    userId: _data.friends[itemIndex].id, level: level + 1));
+                                                    userId: _data.friends[itemIndex].id, level: param.level + 1));
                                           }
                                         },
-                                        // onLongPress: () {
-                                        //   Navigator.of(context).pushNamed("/account");
-                                        // },
+                                        onLongPress: () {
+                                          Navigator.of(context)
+                                              .pushNamed("/profile", arguments: _data.friends[itemIndex].id);
+                                        },
                                       );
                                     }
                                     return Divider(

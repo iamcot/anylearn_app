@@ -1,14 +1,13 @@
-import 'package:anylearn/blocs/auth/auth_blocs.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/auth/auth_blocs.dart';
 import '../blocs/users/users_blocs.dart';
+import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
-import 'loading.dart';
+import '../widgets/loading_widget.dart';
 import 'school/school_body.dart';
 
 class SchoolScreen extends StatefulWidget {

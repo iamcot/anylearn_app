@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'user_doc_dto.dart';
+
 class UserDTO extends Equatable {
   final int id;
   String name;
@@ -28,6 +30,8 @@ class UserDTO extends Equatable {
   String password;
   String token;
   String refLink;
+  String fullContent;
+  final List<UserDocDTO> docs;
 
   UserDTO({
     this.id,
@@ -57,6 +61,8 @@ class UserDTO extends Equatable {
     this.password,
     this.token,
     this.refLink,
+    this.fullContent,
+    this.docs,
   });
 
   @override
@@ -87,10 +93,12 @@ class UserDTO extends Equatable {
         token,
         status,
         refLink,
+        fullContent,
+        docs,
       ];
 
   @override
-  String toString() => 'UserDTO {id: $id, name: $name, phone: $phone, token: $token}';
+  String toString() => 'UserDTO {id: $id, name: $name, phone: $phone}';
 
   static UserDTO fromJson(dynamic json) {
     return json != null
@@ -119,6 +127,8 @@ class UserDTO extends Equatable {
             country: json['country'],
             numFriends: json['num_friends'],
             refLink: json['reflink'],
+            fullContent: json['full_content'],
+            docs: json['docs'] == null ? null : List<UserDocDTO>.from(json['docs']?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList(),
           )
         : null;
   }

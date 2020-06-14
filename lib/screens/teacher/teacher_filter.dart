@@ -17,37 +17,29 @@ class _TeacherFilter extends State<TeacherFilter> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Column(
-        children: <Widget>[
-          Container(
-            alignment: Alignment.centerLeft,
-            // padding: EdgeInsets.only(left: 15.0),
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: DropdownButton<String>(
-              value: dropdownValue,
-              icon: Icon(Icons.keyboard_arrow_down),
-              iconSize: 24,
-              elevation: 16,
-              isExpanded: true,
-              selectedItemBuilder: (BuildContext context) => _buildSelected(context),
-              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
-              underline: Container(
-                color: Colors.transparent,
-              ),
-              onChanged: (String newValue) {
-                setState(() {
-                  dropdownValue = newValue;
-                });
-              },
-              items: _buildList(options),
-            ),
+      child: Container(
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey[200]))),
+        // padding: EdgeInsets.only(left: 15.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: DropdownButton<String>(
+          value: dropdownValue,
+          icon: Icon(Icons.keyboard_arrow_down),
+          iconSize: 24,
+          elevation: 16,
+          isExpanded: true,
+          selectedItemBuilder: (BuildContext context) => _buildSelected(context),
+          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
+          underline: Container(
+            color: Colors.transparent,
           ),
-          Divider(
-            height: 0.0,
-            thickness: 1.0,
-            color: Colors.black12,
-          ),
-        ],
+          onChanged: (String newValue) {
+            setState(() {
+              dropdownValue = newValue;
+            });
+          },
+          items: _buildList(options),
+        ),
       ),
     );
   }

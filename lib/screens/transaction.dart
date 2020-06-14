@@ -1,9 +1,3 @@
-import 'package:anylearn/blocs/transaction/transaction_blocs.dart';
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/dto/transaction_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/models/transaction_repo.dart';
-import 'package:anylearn/screens/loading.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +6,13 @@ import 'package:intl/intl.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
 import '../blocs/auth/auth_state.dart';
-import '../dto/account_transaction_dto.dart';
+import '../blocs/transaction/transaction_blocs.dart';
+import '../dto/const.dart';
+import '../dto/transaction_dto.dart';
+import '../dto/user_dto.dart';
+import '../models/transaction_repo.dart';
 import 'account/transaction_list.dart';
+import 'loading.dart';
 
 class TransactionScreen extends StatefulWidget {
   @override
@@ -84,7 +83,11 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                             Text.rich(
                                               TextSpan(
                                                   text: "NẠP TIỀN",
-                                                  style: TextStyle(fontSize: 12.0, color: Colors.blue),
+                                                  style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    color: Colors.blue,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                   recognizer: TapGestureRecognizer()
                                                     ..onTap = () {
                                                       Navigator.of(context).pushNamed("/deposit");
@@ -120,7 +123,11 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                             Text.rich(
                                               TextSpan(
                                                   text: "ĐỔI ĐIỂM",
-                                                  style: TextStyle(fontSize: 12.0, color: Colors.orange),
+                                                  style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    color: Colors.orange,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                   recognizer: TapGestureRecognizer()
                                                     ..onTap = () {
                                                       Navigator.of(context).pushNamed("/withdraw");

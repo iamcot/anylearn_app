@@ -1,3 +1,4 @@
+import 'package:anylearn/widgets/bank_info.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,10 +67,19 @@ class _DepositScreen extends State<DepositScreen> {
             listener: (BuildContext context, TransactionState state) {
               if (state is TransactionDepositeSaveSuccessState) {
                 _transBloc..add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_DEPOSIT, token: user.token));
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Gửi lệnh nạp tiền thành công. Vui lòng kiểm tra bước tiếp theo."),
-                  duration: Duration(seconds: 2),
-                ));
+                Scaffold.of(context)
+                    .showSnackBar(new SnackBar(
+                      content: Text("Gửi lệnh nạp tiền thành công. Vui lòng kiểm tra bước tiếp theo."),
+                      duration: Duration(seconds: 1),
+                    ))
+                    .closed
+                    .then((value) => showDialog(
+                        context: context,
+                        builder: (context) {
+                          return BankInfo(
+                            bankDTO: config.depositBank,
+                          );
+                        }));
               }
               if (state is TransactionSaveFailState) {
                 Scaffold.of(context).showSnackBar(new SnackBar(
@@ -219,10 +229,32 @@ class _DepositScreen extends State<DepositScreen> {
                                     onPressed: () {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        _transBloc.add(SaveDepositEvent(
-                                            token: user.token,
-                                            amount: int.parse(_amountInput.text),
-                                            payment: _paymentSelect));
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                content: Text(
+                                                    "Bạn đang gửi lệnh nạp ${_moneyFormat.format(int.parse(_amountInput.text))} vào ví tiền."),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      child: Text("Nhập lại")),
+                                                  RaisedButton(
+                                                    color: Colors.blue,
+                                                    onPressed: () {
+                                                      _transBloc.add(SaveDepositEvent(
+                                                          token: user.token,
+                                                          amount: int.parse(_amountInput.text),
+                                                          payment: _paymentSelect));
+                                                          Navigator.of(context).pop();
+                                                    },
+                                                    child: Text("Nạp tiền"),
+                                                  )
+                                                ],
+                                              );
+                                            });
                                       }
                                     },
                                     child: Text(
@@ -242,7 +274,23 @@ class _DepositScreen extends State<DepositScreen> {
                                   style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
                                 ),
                               ),
-                              new DepositList(list: config.lastTransactions, configBank: config.depositBank,),
+                              new DepositList(
+                                list: config.lastTransactions,
+                                configBank: config.depositBank,
+                              ),
+                              config.lastTransactions.length > 0 ? 
+                              Center(
+                                child: Text.rich(
+                                        TextSpan(
+                                            text: "TOÀN BỘ GIAO DỊCH",
+                                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                Navigator.of(context).pushNamed("/transaction");
+                                              }),
+                                      ),
+                              )
+                              : SizedBox(height: 0)
                             ],
                           )),
                     );

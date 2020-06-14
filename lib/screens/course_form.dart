@@ -65,6 +65,9 @@ class _CourseFormScreen extends State<CourseFormScreen> {
           Navigator.of(context).popAndPushNamed("/login");
         }
         if (state is AuthSuccessState) {
+          if (state.user.updateDoc == 0) {
+            Navigator.of(context).popAndPushNamed("/account/docs", arguments: state.user.token);
+          }
           _user = state.user;
           if (editId != null && editId > 0) {
             _courseBloc..add(LoadCourseEvent(id: editId, token: _user.token));

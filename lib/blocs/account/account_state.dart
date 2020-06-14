@@ -1,6 +1,7 @@
 import 'package:anylearn/blocs/account/account_blocs.dart';
 import 'package:anylearn/dto/account_calendar_dto.dart';
 import 'package:anylearn/dto/friends_dto.dart';
+import 'package:anylearn/dto/user_doc_dto.dart';
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -105,6 +106,20 @@ class AccJoinSuccessState extends AccountState {
   String toString() => 'AccJoinSuccessState $result';
 }
 
+class AccProfileLoadingState extends AccountState {}
+
+class AccProfileSuccessState extends AccountState {
+  final UserDTO user;
+
+  AccProfileSuccessState({this.user});
+
+  @override
+  List<Object> get props => [user];
+
+  @override
+  String toString() => 'AccProfileSuccessState $user';
+}
+
 class AccountFailState extends AccountState {
   final String error;
   const AccountFailState({@required this.error});
@@ -112,4 +127,41 @@ class AccountFailState extends AccountState {
   List<Object> get props => [error];
   @override
   String toString() => '{error: $error}';
+}
+
+class AccLoadDocsSuccessState extends AccountState {
+  final List<UserDocDTO> userDocs;
+
+  AccLoadDocsSuccessState({this.userDocs});
+
+  @override
+  List<Object> get props => [userDocs];
+
+  @override
+  String toString() => 'AccLoadDocsSuccessState';
+}
+class AccAddDocLoadingState extends AccountState {}
+
+class AccAddDocSuccessState extends AccountState {
+  final List<UserDocDTO> userDocs;
+
+  AccAddDocSuccessState({this.userDocs});
+
+  @override
+  List<Object> get props => [userDocs];
+
+  @override
+  String toString() => 'AccAddDocSuccessState';
+}
+
+class AccRemoveDocSuccessState extends AccountState {
+  final List<UserDocDTO> userDocs;
+
+  AccRemoveDocSuccessState({this.userDocs});
+
+  @override
+  List<Object> get props => [userDocs];
+
+  @override
+  String toString() => 'AccRemoveDocSuccessState';
 }

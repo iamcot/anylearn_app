@@ -83,3 +83,45 @@ class AccJoinCourseEvent extends AccountEvent {
   @override
   String toString() => 'AccJoinCourseEvent $itemId';
 }
+
+class AccProfileEvent extends AccountEvent {
+  final int userId;
+
+  AccProfileEvent({this.userId});
+  @override
+  List<Object> get props => [userId];
+  @override
+  String toString() => 'AccProfileEvent $userId';
+}
+
+class AccLoadDocsEvent extends AccountEvent {
+  final String token;
+
+  AccLoadDocsEvent({this.token});
+  @override
+  List<Object> get props => [token];
+  @override
+  String toString() => 'AccLoadDocsEvent';
+}
+
+class AccAddDocEvent extends AccountEvent {
+  final String token;
+  final File file;
+
+  AccAddDocEvent({this.token, this.file});
+  @override
+  List<Object> get props => [token, file];
+  @override
+  String toString() => 'AccAddDocEvent';
+}
+
+class AccRemoveDocEvent extends AccountEvent {
+  final String token;
+  final int fileId;
+
+  AccRemoveDocEvent({this.token, this.fileId});
+  @override
+  List<Object> get props => [token, fileId];
+  @override
+  String toString() => 'AccRemoveDocEvent $fileId';
+}

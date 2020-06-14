@@ -1,3 +1,4 @@
+import 'package:anylearn/widgets/goto_profile_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../dto/items_dto.dart';
@@ -25,6 +26,7 @@ class _ItemsBody extends State<ItemsBody> {
         SliverBanner(
           banner: widget.itemsDTO.user.banner,
         ),
+        GotoProfileBar(userId: widget.itemsDTO.user.id),
         TeacherFilter(),
         SliverGrid(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

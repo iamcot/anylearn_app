@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:html_editor/html_editor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:validators/validators.dart' as validator;
@@ -11,9 +11,10 @@ import '../blocs/account/account_bloc.dart';
 import '../blocs/account/account_event.dart';
 import '../blocs/account/account_state.dart';
 import '../blocs/auth/auth_blocs.dart';
+import '../dto/const.dart';
 import '../dto/user_dto.dart';
 import '../models/user_repo.dart';
-import 'loading.dart';
+import '../widgets/loading_widget.dart';
 
 class AccountEditScreen extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class AccountEditScreen extends StatefulWidget {
 }
 
 class _AccountEditScreen extends State<AccountEditScreen> {
+  GlobalKey<HtmlEditorState> keyEditor = GlobalKey<HtmlEditorState>();
   final _formKey = GlobalKey<FormState>();
   UserDTO _user;
   File _image;
@@ -29,10 +31,10 @@ class _AccountEditScreen extends State<AccountEditScreen> {
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     final userRepo = RepositoryProvider.of<UserRepository>(context);
     accountBloc = AccountBloc(userRepository: userRepo);
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
-    super.didChangeDependencies();
   }
 
   @override
@@ -46,9 +48,6 @@ class _AccountEditScreen extends State<AccountEditScreen> {
           Navigator.of(context).popUntil(ModalRoute.withName("/"));
         }
         if (state is AuthSuccessState) {
-          // setState(() {
-          //   _user = state.user;
-          // });
           accountBloc..add(AccInitPageEvent(user: state.user));
         }
       },
@@ -56,10 +55,22 @@ class _AccountEditScreen extends State<AccountEditScreen> {
         appBar: AppBar(
           centerTitle: false,
           title: Text("Thông tin cá nhân"),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.save),
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    _user.fullContent = await keyEditor.currentState.getText();
+                    accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
+                  }
+                })
+          ],
         ),
         body: BlocProvider<AccountBloc>(
           create: (context) => accountBloc,
           child: BlocListener<AccountBloc, AccountState>(
+            bloc: accountBloc,
             listener: (context, state) {
               if (state is AccountFailState) {
                 Scaffold.of(context).showSnackBar(new SnackBar(
@@ -86,10 +97,13 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                       content: Text("Cập nhật thông tin thành công."),
                     ))
                     .closed
-                    .then((value) => Navigator.of(context).pop());
+                    .then((value) {
+                  Navigator.of(context).pop();
+                });
               }
             },
             child: BlocBuilder<AccountBloc, AccountState>(
+              bloc: accountBloc,
               builder: (context, state) {
                 if (state is AccInitPageSuccess) {
                   _user = state.user;
@@ -100,7 +114,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                         child: ListView(
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
+                              padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                               decoration: BoxDecoration(
                                 color: Colors.grey[100],
                               ),
@@ -111,22 +125,22 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                             ),
                             Stack(
                               children: [
-                                _bannerBox(width / 3),
-                                _imageBox(width / 2),
+                                _bannerBox(width / 2),
+                                _imageBox(width / 3),
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.name,
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _user.name = value;
                                   });
                                 },
                                 validator: (String value) {
-                                  if (value.length < 6) {
-                                    return "Tên của bạn cần lớn hơn 6 kí tự";
+                                  if (value.length < 3) {
+                                    return "Tên của bạn cần lớn hơn 3 kí tự";
                                   }
                                   _formKey.currentState.save();
                                   return null;
@@ -138,7 +152,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.refcode,
                                 validator: (String value) {
@@ -148,7 +162,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   _formKey.currentState.save();
                                   return null;
                                 },
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _user.refcode = value;
                                   });
@@ -160,40 +174,26 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.title,
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _user.title = value;
                                   });
                                 },
                                 decoration: InputDecoration(
-                                  labelText: "Chức danh",
+                                  labelText:
+                                      "Chức danh" + (_user.role == MyConst.ROLE_SCHOOL ? " & Tên người đại diện" : ""),
                                   icon: Icon(MdiIcons.officeBuilding),
                                 ),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                              child: TextFormField(
-                                initialValue: _user.introduce,
-                                onSaved: (value) {
-                                  setState(() {
-                                    _user.introduce = value;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                  labelText: "Giới thiệu ngắn",
-                                  icon: Icon(MdiIcons.information),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.phone,
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _user.phone = value;
                                   });
@@ -213,10 +213,10 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.email,
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _user.email = value;
                                   });
@@ -236,10 +236,10 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.address,
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _user.address = value;
                                   });
@@ -251,30 +251,57 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                               child: TextFormField(
                                 initialValue: _user.country,
-                                onSaved: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     _user.country = value;
                                   });
                                 },
                                 decoration: InputDecoration(
-                                  labelText: "Quốc tịch",
+                                  labelText: "Quốc gia",
                                   icon: Icon(MdiIcons.earth),
                                 ),
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                              child: TextFormField(
+                                maxLines: 3,
+                                initialValue: _user.introduce,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _user.introduce = value;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  labelText: "Giới thiệu ngắn",
+                                  icon: Icon(MdiIcons.information),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15),
+                              child: HtmlEditor(
+                                hint: "Thông tin giới thiệu",
+                                value: _user.fullContent ?? "",
+                                key: keyEditor,
+                                height: 400,
+                                showBottomToolbar: true,
+                              ),
+                            ),
                             Container(
                               height: 48.0,
-                              margin: const EdgeInsets.all(30.0),
+                              margin: const EdgeInsets.all(15.0),
                               child: RaisedButton(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                                 color: Colors.blue,
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_formKey.currentState.validate()) {
+                                    _user.fullContent = await keyEditor.currentState.getText();
                                     _formKey.currentState.save();
-                                    accountBloc.add(AccEditSubmitEvent(user: _user, token: _user.token));
+                                    accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
                                   }
                                 },
                                 child: BlocBuilder(
@@ -308,7 +335,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
       source: ImageSource.gallery,
     );
     if (image != null) {
-      accountBloc.add(AccChangeBannerEvent(token: _user.token, file: image));
+      accountBloc..add(AccChangeBannerEvent(token: _user.token, file: image));
     }
   }
 
@@ -317,7 +344,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
       source: fromCamera ? ImageSource.camera : ImageSource.gallery,
     );
     if (image != null) {
-      accountBloc.add(AccChangeAvatarEvent(token: _user.token, file: image));
+      accountBloc..add(AccChangeAvatarEvent(token: _user.token, file: image));
     }
   }
 
@@ -326,7 +353,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(top: 10.0, left: size / 2, right: size / 2),
+          padding: EdgeInsets.only(top: size, left: size, right: size),
           child: CircleAvatar(
             backgroundColor: Colors.green,
             radius: size / 2,
@@ -390,7 +417,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                   fit: BoxFit.cover,
                 ),
               )
-            : null,
+            : BoxDecoration(color: Colors.grey[300]),
         child: BlocBuilder(
           bloc: accountBloc,
           builder: (context, state) {

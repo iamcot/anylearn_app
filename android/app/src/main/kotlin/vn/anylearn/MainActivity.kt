@@ -1,4 +1,4 @@
-package com.example.anylearn
+package vn.anylearn
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

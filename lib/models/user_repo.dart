@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/user_doc_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -83,5 +84,21 @@ class UserRepository {
 
   Future<List<UserDTO>> registeredUsers(String token, int itemId) async {
     return userService.registeredUsers(token, itemId);
+  }
+
+  Future<UserDTO> getProfile(int userId) async {
+    return userService.getProfile(userId);
+  }
+
+  Future<List<UserDocDTO>> getDocs(String token) async {
+    return userService.getDocs(token);
+  }
+
+  Future<List<UserDocDTO>> addDoc(String token, File file) async {
+    return userService.addDoc(token, file);
+  }
+
+  Future<List<UserDocDTO>> removeDoc(String token, int fileId) async {
+    return userService.removeDoc(token, fileId);
   }
 }
