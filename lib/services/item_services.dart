@@ -25,7 +25,6 @@ class ItemService extends BaseService {
       endPoint: item.id == null ? "/item/create" : "/item/${item.id}/edit",
       token: token,
     );
-    print(url);
     final json = await post(httpClient, url, {
       "id": item.id != null ? item.id.toString() : "",
       "type": item.type ?? "",

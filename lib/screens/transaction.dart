@@ -7,6 +7,7 @@ import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
 import '../blocs/auth/auth_state.dart';
 import '../blocs/transaction/transaction_blocs.dart';
+import '../customs/feedback.dart';
 import '../dto/const.dart';
 import '../dto/transaction_dto.dart';
 import '../dto/user_dto.dart';
@@ -159,12 +160,15 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                           preferredSize: Size.fromHeight(150.0),
                         ),
                       ),
-                      body: TabBarView(
-                        controller: _tabController,
-                        children: [
-                          TransactionList(transactions: data[MyConst.WALLET_M]),
-                          TransactionList(transactions: data[MyConst.WALLET_C]),
-                        ],
+                      body: CustomFeedback(
+                        user: _user,
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: [
+                            TransactionList(transactions: data[MyConst.WALLET_M]),
+                            TransactionList(transactions: data[MyConst.WALLET_C]),
+                          ],
+                        ),
                       ),
                     );
             },

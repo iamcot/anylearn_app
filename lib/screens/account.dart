@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
 import '../blocs/auth/auth_state.dart';
+import '../customs/feedback.dart';
 import '../dto/user_dto.dart';
 import '../widgets/loading_widget.dart';
 import 'account/account_body.dart';
@@ -40,9 +41,12 @@ class _AccountScreen extends State<AccountScreen> {
           }
           return Scaffold(
             body: user != null
-                ? AccountBody(
+                ? CustomFeedback(
                     user: user,
-                    authBloc: _authBloc,
+                    child: AccountBody(
+                      user: user,
+                      authBloc: _authBloc,
+                    ),
                   )
                 : LoadingWidget(),
           );

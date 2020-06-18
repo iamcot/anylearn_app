@@ -1,13 +1,14 @@
-import 'package:anylearn/dto/doc_dto.dart';
-import 'package:anylearn/dto/event_dto.dart';
-import 'package:anylearn/dto/quote_dto.dart';
-import 'package:anylearn/services/transaction_service.dart';
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 
 import '../dto/const.dart';
+import '../dto/doc_dto.dart';
+import '../dto/event_dto.dart';
 import '../dto/home_dto.dart';
 import '../dto/items_dto.dart';
 import '../dto/pdp_dto.dart';
+import '../dto/quote_dto.dart';
 import '../dto/users_dto.dart';
 import '../services/config_services.dart';
 import '../services/item_services.dart';
@@ -70,5 +71,9 @@ class PageRepository {
 
   Future<DocDTO> guide(String key) async {
     return configService.doc(key);
+  }
+
+  Future<bool> saveFeedback(String token, String content, File file) async {
+    return await configService.saveFeedback(token, content, file);
   }
 }

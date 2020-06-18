@@ -1,13 +1,14 @@
-import 'package:anylearn/dto/pdp_dto.dart';
-import 'package:anylearn/models/transaction_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/pdp/pdp_blocs.dart';
+import '../customs/feedback.dart';
+import '../dto/pdp_dto.dart';
 import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
+import '../models/transaction_repo.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
 import 'loading.dart';
@@ -83,10 +84,13 @@ class _PDPScreen extends State<PDPScreen> {
                     data = state.data;
                   }
                   return data != null
-                      ? PdpBody(
-                          pdpBloc: pdpBloc,
-                          data: data,
+                      ? CustomFeedback(
                           user: user,
+                          child: PdpBody(
+                            pdpBloc: pdpBloc,
+                            data: data,
+                            user: user,
+                          ),
                         )
                       : LoadingScreen();
                 },

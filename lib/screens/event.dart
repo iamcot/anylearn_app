@@ -7,6 +7,7 @@ import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/event/event_bloc.dart';
 import '../blocs/event/event_blocs.dart';
+import '../customs/feedback.dart';
 import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
@@ -85,13 +86,16 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
                   _selectedEvents =
                       _selectedEvents ?? _events[DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()))];
                 }
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _buildTableCalendarWithBuilders(),
-                    Expanded(child: _buildEventList()),
-                  ],
+                return CustomFeedback(
+                  user: _user,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildTableCalendarWithBuilders(),
+                      Expanded(child: _buildEventList()),
+                    ],
+                  ),
                 );
               }),
             ),

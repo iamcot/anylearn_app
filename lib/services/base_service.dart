@@ -49,9 +49,21 @@ class BaseService {
       final request = http.MultipartRequest('POST', Uri.parse(url));
       request.files.add(await http.MultipartFile.fromPath('image', file.path));
       return returnResponseStream(await request.send());
-    } catch (error) {
-      print(error.toString());
-      return "";
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+  }
+
+  Future<dynamic> postImageHasContent(String url, File file, Map<String, String> body) async {
+    try {
+      final request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields.addAll(body);
+      request.files.add(await http.MultipartFile.fromPath('image', file.path));
+
+      final str = await returnResponseStream(await request.send());
+      return json.decode(str);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
     }
   }
 

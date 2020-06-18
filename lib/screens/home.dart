@@ -1,3 +1,4 @@
+import 'package:anylearn/customs/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -62,7 +63,7 @@ class _HomeScreen extends State<HomeScreen> {
                 }
                 return homeData != null
                     ? RefreshIndicator(
-                        child: HomeBody(user: user, homeData: homeData),
+                        child: CustomFeedback(user: user, child: HomeBody(user: user, homeData: homeData)),
                         onRefresh: _reloadPage,
                       )
                     : LoadingScreen();

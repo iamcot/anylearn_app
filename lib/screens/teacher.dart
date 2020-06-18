@@ -1,9 +1,10 @@
-import 'package:anylearn/blocs/auth/auth_blocs.dart';
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/auth/auth_blocs.dart';
 import '../blocs/users/users_blocs.dart';
+import '../customs/feedback.dart';
+import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
@@ -49,7 +50,7 @@ class _TeacherScreen extends State<TeacherScreen> {
                 child: BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
                   if (state is UsersTeacherSuccessState) {
                     return RefreshIndicator(
-                      child: TeacherBody(teachers: state.data),
+                      child: CustomFeedback(user: user, child: TeacherBody(teachers: state.data)),
                       onRefresh: _reloadPage,
                     );
                   }

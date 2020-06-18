@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 
 class BankInfo extends StatelessWidget {
   final BankDTO bankDTO;
+  final String phone;
 
-  const BankInfo({Key key, this.bankDTO}) : super(key: key);
+  const BankInfo({Key key, this.bankDTO, this.phone}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
@@ -33,11 +34,14 @@ class BankInfo extends StatelessWidget {
         ),
         ListTile(
           title: Text("Nội dung chuyển khoản"),
-          subtitle: Text(bankDTO.content),
+          subtitle: Text(bankDTO.content + (phone != null ? " - $phone" : "")),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: RaisedButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             onPressed: () {
               Navigator.of(context).pop();
             },

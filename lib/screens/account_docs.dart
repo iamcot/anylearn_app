@@ -67,6 +67,9 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(15),
                                 child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
                                   color: Colors.blue,
                                   onPressed: () async {
                                     final File image = await ImagePicker.pickImage(

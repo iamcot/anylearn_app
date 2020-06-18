@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/users/users_blocs.dart';
+import '../customs/feedback.dart';
 import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
@@ -49,7 +50,7 @@ class _SchoolScreen extends State<SchoolScreen> {
                 child: BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
                   if (state is UsersSchoolSuccessState) {
                     return RefreshIndicator(
-                      child: SchoolBody(schoolsData: state.data),
+                      child: CustomFeedback(user: user, child: SchoolBody(schoolsData: state.data)),
                       onRefresh: _reloadPage,
                     );
                   }

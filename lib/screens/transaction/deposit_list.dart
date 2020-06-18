@@ -9,8 +9,9 @@ import '../../widgets/bank_info.dart';
 class DepositList extends StatefulWidget {
   final List<TransactionDTO> list;
   final BankDTO configBank;
+  final String phone;
 
-  const DepositList({Key key, this.list, this.configBank}) : super(key: key);
+  const DepositList({Key key, this.list, this.configBank, this.phone}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DepositList();
@@ -30,7 +31,7 @@ class _DepositList extends State<DepositList> {
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return BankInfo(bankDTO: bankDTO);
+                              return BankInfo(bankDTO: bankDTO, phone: widget.phone,);
                             });
                       }
                     : null,
