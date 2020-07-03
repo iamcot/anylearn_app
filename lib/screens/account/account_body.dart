@@ -152,7 +152,7 @@ class _AccountBody extends State<AccountBody> {
               title: "Đăng xuất",
               routeFunction: () {
                 // Navigator.of(context).popUntil(ModalRoute.withName("/"));
-                widget.authBloc.add(AuthLoggedOutEvent());
+                widget.authBloc.add(AuthLoggedOutEvent(token: widget.user.token));
               },
               leadingIcon: null,
               trailing: Icon(

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:anylearn/dto/user_doc_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +7,8 @@ import 'package:http/http.dart' as http;
 import '../dto/account_calendar_dto.dart';
 import '../dto/const.dart';
 import '../dto/friends_dto.dart';
+import '../dto/notification_dto.dart';
+import '../dto/user_doc_dto.dart';
 import '../dto/user_dto.dart';
 import '../services/config_services.dart';
 import '../services/user_services.dart';
@@ -24,8 +25,11 @@ class UserRepository {
     configServices = new ConfigServices(httpClient: httpClient, config: config);
   }
 
-  Future<UserDTO> getUser(String token) async {
-    return await userService.getInfo(token);
+  Future<UserDTO> getUser(String token, bool isFull) async {
+    if (isFull) {
+      return await userService.getInfo(token);
+    }
+    return await userService.getInfoLess(token);
   }
 
   Future<UserDTO> authenticated({@required String phone, @required String password}) async {
@@ -100,5 +104,17 @@ class UserRepository {
 
   Future<List<UserDocDTO>> removeDoc(String token, int fileId) async {
     return userService.removeDoc(token, fileId);
+  }
+
+  Future<NotificationPagingDTO> notification(String token) async {
+    return userService.notification(token);
+  }
+
+  Future<void> notifRead(String token, int id) async {
+    return userService.notifRead(token, id);
+  }
+
+  Future<void> logout(String token) async {
+    return userService.logout(token);
   }
 }

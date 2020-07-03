@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html_editor/html_editor.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:html_editor/html_editor.dart';
+// import 'package:html_editor/html_editor.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../blocs/auth/auth_blocs.dart';
@@ -265,8 +266,12 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     labelText: "Giới thiệu ngắn",
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Text("Nội dung khóa học"),
+                                ),
                                 HtmlEditor(
-                                  hint: "Nội dung khóa học",
+                                  // hint: "Nội dung khóa học",
                                   value: _itemDTO.content ?? "",
                                   key: keyEditor,
                                   height: 400,

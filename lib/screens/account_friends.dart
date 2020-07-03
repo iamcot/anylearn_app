@@ -36,7 +36,13 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FriendParamsDTO param = ModalRoute.of(context).settings.arguments;
+    var args = ModalRoute.of(context).settings.arguments;
+    FriendParamsDTO param;
+    if (args is String) {
+      param = FriendParamsDTO(level: 1, userId: int.parse(args));
+    } else {
+      param = args;
+    }
     // var moneyFormat = new NumberFormat("###,###,###", "vi_VN");
     return BlocListener<AuthBloc, AuthState>(
       bloc: _authBloc,

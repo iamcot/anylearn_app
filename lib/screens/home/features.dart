@@ -17,7 +17,7 @@ class FeatureList extends StatelessWidget {
             maxCrossAxisExtent: width,
             mainAxisSpacing: 10.0,
             crossAxisSpacing: 0.0,
-            childAspectRatio: 1.5,
+            childAspectRatio: 1.2,
           ),
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {

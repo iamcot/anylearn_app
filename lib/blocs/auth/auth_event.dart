@@ -9,7 +9,16 @@ abstract class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthCheckEvent extends AuthEvent {}
+class AuthCheckEvent extends AuthEvent {
+  bool isFull = false;
+  AuthCheckEvent({this.isFull});
+
+  @override
+  List<Object> get props => [isFull];
+
+  @override
+  String toString() => 'AuthCheckEvent { isFull: $isFull }';
+}
 
 class AuthSubpageCheckEvent extends AuthEvent {}
 
@@ -24,4 +33,37 @@ class AuthLoggedInEvent extends AuthEvent {
   String toString() => 'LoggedIn {token: ${user.token}, name: ${user.name} }';
 }
 
-class AuthLoggedOutEvent extends AuthEvent {}
+class AuthLoggedOutEvent extends AuthEvent {
+  final String token;
+  const AuthLoggedOutEvent({@required this.token});
+
+  @override
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'AuthLoggedOutEvent';
+}
+
+class AuthNotifEvent extends AuthEvent {
+  final String token;
+  const AuthNotifEvent({@required this.token});
+
+  @override
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'AuthNotifEvent';
+}
+
+
+class AuthNotifReadEvent extends AuthEvent {
+  final String token;
+  final int id;
+  const AuthNotifReadEvent({@required this.token, this.id, });
+
+  @override
+  List<Object> get props => [token, id];
+
+  @override
+  String toString() => 'AuthNotifReadEvent id: $id';
+}

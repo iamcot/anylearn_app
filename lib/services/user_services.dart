@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:anylearn/dto/notification_dto.dart';
+import 'package:anylearn/main.dart';
 import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
@@ -22,14 +24,27 @@ class UserService extends BaseService {
         appConfig: config,
         endPoint: "/login",
         query: buildQuery(
-          {'phone': phone, 'password': password},
+          {'phone': phone, 'password': password, 'notif_token': notifToken},
         ));
     final json = await get(httpClient, url);
     return UserDTO.fromJson(json);
   }
 
+  Future<void> logout(String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/logout", token: token);
+    print(url);
+    await get(httpClient, url);
+    return;
+  }
+
   Future<UserDTO> getInfo(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/user", token: token);
+    final json = await get(httpClient, url);
+    return UserDTO.fromJson(json);
+  }
+
+  Future<UserDTO> getInfoLess(String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user-less", token: token);
     final json = await get(httpClient, url);
     return UserDTO.fromJson(json);
   }
@@ -134,5 +149,18 @@ class UserService extends BaseService {
     return json == null
         ? null
         : List<UserDocDTO>.from(json?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList();
+  }
+
+  Future<NotificationPagingDTO> notification(String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/notification", token: token);
+    final json = await get(httpClient, url);
+    return json == null ? null : NotificationPagingDTO.fromJson(json);
+  }
+
+  Future<void> notifRead(String token, int id) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/notification/" + id.toString(), token: token);
+    print(url);
+    await get(httpClient, url);
+    return;
   }
 }

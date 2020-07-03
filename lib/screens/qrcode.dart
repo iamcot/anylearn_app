@@ -1,3 +1,4 @@
+import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ class QrCodeScreen extends StatelessWidget {
           if (state is AuthSuccessState) {
             user = state.user;
           }
-          return Scaffold(
+          return user == null ? LoadingWidget : Scaffold(
             appBar: AppBar(
               title: Text(user.name),
             ),

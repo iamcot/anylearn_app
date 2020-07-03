@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:html_editor/html_editor.dart';
+import 'package:flutter_html_editor/html_editor.dart';
+// import 'package:html_editor/html_editor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:validators/validators.dart' as validator;
@@ -35,7 +36,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
     super.didChangeDependencies();
     final userRepo = RepositoryProvider.of<UserRepository>(context);
     accountBloc = AccountBloc(userRepository: userRepo);
-    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent(isFull: true));
   }
 
   @override
@@ -285,14 +286,17 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   ),
                                 ),
                               ),
+                              Padding(padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15),
+                              child: Text("Thông tin giới thiệu"),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15),
                                 child: HtmlEditor(
-                                  hint: "Thông tin giới thiệu",
+                                  // hint: "Thông tin giới thiệu",
                                   value: _user.fullContent ?? "",
                                   key: keyEditor,
                                   height: 400,
-                                  showBottomToolbar: true,
+                                  showBottomToolbar: false,
                                 ),
                               ),
                               Container(
