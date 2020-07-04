@@ -14,6 +14,7 @@ import 'models/transaction_repo.dart';
 import 'models/user_repo.dart';
 import 'routes.dart';
 import 'screens/home.dart';
+import 'services/firebase_service.dart';
 import 'themes/default.dart';
 
 bool newNotification = false;
@@ -59,88 +60,96 @@ class MyApp extends StatefulWidget {
 class _MyApp extends State<MyApp> {
   final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-  @override
-  void initState() {
-    super.initState();
-    //Needed by iOS only
-    _firebaseMessaging
-        .requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true));
-    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings) {});
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   //Needed by iOS only
+  //   _firebaseMessaging
+  //       .requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true));
+  //   _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings) {});
 
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        final notifObj = NotificationDTO.fromFireBase(message);
-        print("onMessage: $message");
-        showOverlayNotification((context) {
-          return SlideDismissible(
-            enable: true,
-            key: ValueKey(widget.key),
-            child: Material(
-              color: Colors.transparent,
-              child: SafeArea(
-                  bottom: false,
-                  top: true,
-                  child: Container(
-                    margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.grey[400],
-                        )),
-                    child: ListTile(
-                      title: Text(notifObj.content),
-                      onTap: () {
-                        OverlaySupportEntry.of(context).dismiss();
-                        _navigate(notifObj);
-                      },
-                      trailing: Builder(builder: (context) {
-                        return IconButton(
-                            onPressed: () {
-                              OverlaySupportEntry.of(context).dismiss();
-                            },
-                            icon: Icon(Icons.close));
-                      }),
-                    ),
-                  )),
-            ),
-          );
-        }, duration: Duration.zero);
+  //   _firebaseMessaging.configure(
+  //     onMessage: (Map<String, dynamic> message) async {
+  //       final notifObj = NotificationDTO.fromFireBase(message);
+  //       print("onMessage: $message");
+  //       showOverlayNotification((context) {
+  //         return SlideDismissible(
+  //           enable: true,
+  //           key: ValueKey(widget.key),
+  //           child: Material(
+  //             color: Colors.transparent,
+  //             child: SafeArea(
+  //                 bottom: false,
+  //                 top: true,
+  //                 child: Container(
+  //                   margin: EdgeInsets.all(8),
+  //                   decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.all(Radius.circular(10)),
+  //                       color: Colors.white,
+  //                       border: Border.all(
+  //                         color: Colors.grey[400],
+  //                       )),
+  //                   child: ListTile(
+  //                     title: Text(notifObj.content),
+  //                     onTap: () {
+  //                       OverlaySupportEntry.of(context).dismiss();
+  //                       _navigate(notifObj);
+  //                     },
+  //                     trailing: Builder(builder: (context) {
+  //                       return IconButton(
+  //                           onPressed: () {
+  //                             OverlaySupportEntry.of(context).dismiss();
+  //                           },
+  //                           icon: Icon(Icons.close));
+  //                     }),
+  //                   ),
+  //                 )),
+  //           ),
+  //         );
+  //       }, duration: Duration.zero);
 
-        setState(() {
-          newNotification = true;
-        });
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        final notifObj = NotificationDTO.fromFireBase(message);
-        _navigate(notifObj);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        final notifObj = NotificationDTO.fromFireBase(message);
-        _navigate(notifObj);
-      },
-    );
+  //       setState(() {
+  //         newNotification = true;
+  //       });
+  //     },
+  //     onLaunch: (Map<String, dynamic> message) async {
+  //       print("onLaunch: $message");
+  //       final notifObj = NotificationDTO.fromFireBase(message);
+  //       _navigate(notifObj);
+  //     },
+  //     onResume: (Map<String, dynamic> message) async {
+  //       print("onResume: $message");
+  //       final notifObj = NotificationDTO.fromFireBase(message);
+  //       _navigate(notifObj);
+  //     },
+  //   );
 
-    //Getting the token from FCM
-    _firebaseMessaging.getToken().then((String token) {
-      assert(token != null);
-      print(token);
-      notifToken = token;
-    });
-  }
+  //   //Getting the token from FCM
+  //   _firebaseMessaging.getToken().then((String token) {
+  //     assert(token != null);
+  //     print(token);
+  //     notifToken = token;
+  //   });
+  // }
 
-  void _navigate(NotificationDTO notifObj) {
-    if (notifObj.route != null) {
-      navigatorKey.currentState.pushNamed(notifObj.route, arguments: notifObj.extraContent ?? null);
-    }
-  }
+  // void _navigate(NotificationDTO notifObj) {
+  //   if (notifObj.route != null) {
+  //     navigatorKey.currentState.pushNamed(notifObj.route, arguments: notifObj.extraContent ?? null);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    FirebaseService(
+        key: widget.key,
+        navigatorKey: navigatorKey,
+        func: () {
+          setState(() {
+            newNotification = true;
+          });
+        }).init(context);
     return OverlaySupport(
       child: MaterialApp(
         builder: (BuildContext context, Widget child) => MediaQuery(
