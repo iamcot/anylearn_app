@@ -1,4 +1,3 @@
-import 'package:anylearn/screens/account/user_doc_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -9,6 +8,7 @@ import '../dto/const.dart';
 import '../dto/user_dto.dart';
 import '../models/user_repo.dart';
 import '../widgets/loading_widget.dart';
+import 'account/user_doc_list.dart';
 
 class AccountProfileScreen extends StatefulWidget {
   @override
@@ -64,11 +64,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Divider(),
-              ),
-              user.role == MyConst.ROLE_SCHOOL
+              user.role == MyConst.ROLE_SCHOOL && user.title != null
                   ? ListTile(
                       dense: true,
                       contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15),
@@ -86,19 +82,26 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                       isThreeLine: false,
                     )
                   : SizedBox(height: 0),
+              user.docs == null || user.docs.length == 0
+                  ? SizedBox(height: 0)
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Divider(),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          child: Text(
+                            "Chứng chỉ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Divider(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Text("Chứng chỉ", style: TextStyle(
-                  fontWeight: FontWeight.bold
-                ),),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: user.docs == null ? Text("Thành viên này chưa có chứng chỉ nào.") : UserDocList(userDocs: user.docs),
+                child: user.docs == null || user.docs.length == 0
+                    ? SizedBox(height: 0)
+                    : UserDocList(userDocs: user.docs),
               ),
               Divider(
                 thickness: 10,

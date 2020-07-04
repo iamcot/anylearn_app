@@ -8,12 +8,20 @@ class TimeAgo extends StatelessWidget {
   Widget build(BuildContext context) {
     String str;
     DateTime now = DateTime.now();
-    if (now.difference(time).inHours < 24) {
+    if (now.difference(time).inHours <= 1) {
+      str = now.difference(time).inMinutes.toString() + " phút trước";
+    } else if (now.difference(time).inHours < 24) {
       str = now.difference(time).inHours.toString() + " giờ trước";
     } else if (now.difference(time).inDays < 7) {
       str = _vnWeekday(time.weekday) + " lúc " + time.hour.toString() + ":" + time.minute.toString();
     } else {
-      str = time.day.toString() + " Th" + time.month.toString() + " lúc " + time.hour.toString() + ":" + time.minute.toString();
+      str = time.day.toString() +
+          " Th" +
+          time.month.toString() +
+          " lúc " +
+          time.hour.toString() +
+          ":" +
+          time.minute.toString();
     }
     return Text(str, style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic));
   }

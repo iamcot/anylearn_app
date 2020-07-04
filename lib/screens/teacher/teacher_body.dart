@@ -23,7 +23,7 @@ class TeacherBody extends StatelessWidget {
             maxCrossAxisExtent: width,
             mainAxisSpacing: 0.0,
             crossAxisSpacing: 0.0,
-            childAspectRatio: 0.8,
+            childAspectRatio: 0.7,
           ),
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {

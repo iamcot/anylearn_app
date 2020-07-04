@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/notification_dto.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,10 +19,10 @@ import 'themes/default.dart';
 bool newNotification = false;
 String notifToken;
 void main() async {
-  final env = "dev";
+  final env = "prod";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+  // BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepo = UserRepository(config: config);
   final pageRepo = PageRepository(config: config);
   final transRepo = TransactionRepository(config: config);
@@ -66,11 +67,11 @@ class _MyApp extends State<MyApp> {
     //Needed by iOS only
     _firebaseMessaging
         .requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true));
-    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
-    });
+    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings) {});
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
+        final notifObj = NotificationDTO.fromFireBase(message);
         print("onMessage: $message");
         showOverlayNotification((context) {
           return SlideDismissible(
@@ -83,12 +84,17 @@ class _MyApp extends State<MyApp> {
                   top: true,
                   child: Container(
                     margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Colors.white),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.grey[400],
+                        )),
                     child: ListTile(
-                      title: Text(message['notification']['body']),
+                      title: Text(notifObj.content),
                       onTap: () {
                         OverlaySupportEntry.of(context).dismiss();
-                        _navigate(message);
+                        _navigate(notifObj);
                       },
                       trailing: Builder(builder: (context) {
                         return IconButton(
@@ -109,11 +115,13 @@ class _MyApp extends State<MyApp> {
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
-        _navigate(message);
+        final notifObj = NotificationDTO.fromFireBase(message);
+        _navigate(notifObj);
       },
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
-        _navigate(message);
+        final notifObj = NotificationDTO.fromFireBase(message);
+        _navigate(notifObj);
       },
     );
 
@@ -125,13 +133,9 @@ class _MyApp extends State<MyApp> {
     });
   }
 
-  void _navigate(var message) {
-    if (message.containsKey('data')) {
-      var data = message['data'];
-      if (data.containsKey('screen')) {
-        print(data['screen']);
-        navigatorKey.currentState.pushNamed(data['screen'], arguments: !data.containsKey('args') ? null : data['args']);
-      }
+  void _navigate(NotificationDTO notifObj) {
+    if (notifObj.route != null) {
+      navigatorKey.currentState.pushNamed(notifObj.route, arguments: notifObj.extraContent ?? null);
     }
   }
 

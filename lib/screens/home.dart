@@ -25,10 +25,10 @@ class _HomeScreen extends State<HomeScreen> {
   String _role;
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
     _homeBloc = HomeBloc(pageRepository: pageRepo);
-    super.didChangeDependencies();
   }
 
   UserDTO user;

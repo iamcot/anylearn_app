@@ -1,7 +1,6 @@
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
+
 import '../customs/custom_scroll_physical.dart';
-import '../dto/item_dto.dart';
 
 class CustomCarousel extends StatelessWidget {
   CustomCarousel({
@@ -9,7 +8,7 @@ class CustomCarousel extends StatelessWidget {
     @required this.items,
     @required this.builderFunction,
     @required this.height,
-    this.dividerIndent = 20,
+    this.dividerIndent = 10,
   }) : super(key: key);
 
   final List<dynamic> items;
@@ -20,7 +19,7 @@ class CustomCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    width = width - width / 3 + this.dividerIndent + 10;
+    width = width * 2 / 5 - 10 + this.dividerIndent;
     return Container(
       alignment: Alignment.topCenter,
       height: height,

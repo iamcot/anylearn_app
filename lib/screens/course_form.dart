@@ -147,8 +147,8 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     : _imageBox(width / 2),
                                 TextFormField(
                                   validator: (String value) {
-                                    if (value.length < 8) {
-                                      return "Cần nhập tên khóa học tối thiểu 8 kí tự";
+                                    if (value.length < 3) {
+                                      return "Cần nhập tên khóa học tối thiểu 3 kí tự";
                                     }
                                     _formKey.currentState.save();
                                     return null;
@@ -275,7 +275,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   value: _itemDTO.content ?? "",
                                   key: keyEditor,
                                   height: 400,
-                                  showBottomToolbar: true,
+                                  showBottomToolbar: false,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),

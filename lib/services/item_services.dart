@@ -44,14 +44,12 @@ class ItemService extends BaseService {
 
   Future<UserCoursesDTO> coursesOfUser(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/item/list", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return UserCoursesDTO.fromJson(json);
   }
 
   Future<ItemDTO> loadItemEdit(int itemId, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/edit", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return ItemDTO.fromJson(json);
   }
@@ -64,29 +62,24 @@ class ItemService extends BaseService {
           'pageSize': pageSize,
           'page': page,
         }));
-    print(url);
     final json = await get(httpClient, url);
-    print(json);
     return ItemsDTO.fromJson(json);
   }
 
   Future<PdpDTO> getPDPData(int itemId) async {
     final url = buildUrl(appConfig: config, endPoint: "/pdp/$itemId");
-    print(url);
     final json = await get(httpClient, url);
     return PdpDTO.fromJson(json);
   }
 
   Future<String> uploadImage(String token, File file, int itemId) async {
     final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/upload-image", token: token);
-    print(url);
     final rs = await postImage(url, file);
     return rs;
   }
 
   Future<bool> changeUserStatus(int itemId, int newStatus, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/user-status/$newStatus", token: token);
-    print(url);
     final rs = await get(httpClient, url);
     return rs['result'];
   }

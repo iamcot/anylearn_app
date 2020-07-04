@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 class NotificationDTO extends Equatable {
@@ -43,8 +45,25 @@ class NotificationDTO extends Equatable {
             read: json['read'],
             extraContent: json['extra_content'],
             createdAt: DateTime.parse(json['created_at']),
-            type: json['type']
-          );
+            type: json['type']);
+  }
+
+  static NotificationDTO fromFireBase(dynamic json) {
+    if (Platform.isIOS) {
+      return NotificationDTO(
+        title: json['aps']['alert']['title'],
+        content: json['aps']['alert']['body'],
+        route: json['screen'] != null ? json['screen'] : null,
+        extraContent: json['args'] != null ? json['args'] : null,
+      );
+    } else {
+      return NotificationDTO(
+        title: json['notification']['title'],
+        content: json['notification']['body'],
+        route: json['data']['screen'] != null ? json['data']['screen'] : null,
+        extraContent: json['data']['args'] != null ? json['data']['args'] : null,
+      );
+    }
   }
 }
 

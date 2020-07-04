@@ -55,7 +55,7 @@ class HotUsers extends StatelessWidget {
                   ],
                 ),
               ),
-              CustomCarousel(items: hotList.list, builderFunction: _itemSlider, height: 170.0),
+              CustomCarousel(items: hotList.list, builderFunction: _itemSlider, height: 140.0),
             ]),
           ),
         )
@@ -64,7 +64,7 @@ class HotUsers extends StatelessWidget {
 
   Widget _itemSlider(BuildContext context, dynamic item, double cardHeight) {
     double width = MediaQuery.of(context).size.width;
-    width = width - width / 3;
+    width = width * 2 / 5 - 10;
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed("/items/" + item.role, arguments: item.id);
@@ -76,7 +76,7 @@ class HotUsers extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                height: cardHeight * 2 / 3,
+                height: cardHeight * 3 / 5,
                 width: double.infinity,
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(7.0), topRight: Radius.circular(7.0)),

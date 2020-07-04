@@ -90,6 +90,7 @@ class ItemDTO extends Equatable {
             dateStart: json['date_start'],
             dateEnd: json['date_end'],
             timeStart: json['time_start'],
+            timeEnd: json['time_end'],
             numCart: json['num_cart'],
             numFavorite: json['num_favorite'],
             numShare: json['num_share'],

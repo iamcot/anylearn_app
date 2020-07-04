@@ -35,6 +35,7 @@ class BaseService {
 
   Future<dynamic> post(http.Client httpClient, String url, Map<String, dynamic> body) async {
     var responseJson;
+    print(body);
     try {
       final response = await httpClient.post(Uri.parse(url), body: body);
       responseJson = returnResponse(response);

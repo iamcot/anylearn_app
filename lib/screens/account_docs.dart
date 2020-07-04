@@ -1,15 +1,14 @@
 import 'dart:io';
 
-import 'package:anylearn/blocs/account/account_blocs.dart';
-import 'package:anylearn/dto/user_doc_dto.dart';
-import 'package:anylearn/models/user_repo.dart';
-import 'package:anylearn/screens/account/user_doc_list.dart';
-import 'package:anylearn/screens/loading.dart';
-import 'package:anylearn/widgets/gradient_button.dart';
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../blocs/account/account_blocs.dart';
+import '../dto/user_doc_dto.dart';
+import '../models/user_repo.dart';
+import '../widgets/loading_widget.dart';
+import 'loading.dart';
 
 class AccountDocsScreen extends StatefulWidget {
   @override
@@ -97,7 +96,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                     .map((e) => e == null
                                         ? null
                                         : Container(
-                                            height: 100,
+                                            height: 200,
                                             padding: EdgeInsets.only(bottom: 5),
                                             child: ListTile(
                                               onTap: () {
@@ -107,7 +106,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                       children: <Widget>[
                                                         Image.network(
                                                           e.data,
-                                                          fit: BoxFit.fitWidth,
+                                                          fit: BoxFit.fitHeight,
                                                         ),
                                                         FlatButton(
                                                             onPressed: () {

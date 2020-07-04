@@ -11,18 +11,29 @@ import '../blocs/auth/auth_state.dart';
 import '../customs/feedback.dart';
 import '../dto/user_dto.dart';
 
-class QrCodeScreen extends StatelessWidget {
+class QrCodeScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _QrCodeScreen();
+}
+
+class _QrCodeScreen extends State<QrCodeScreen> {
   UserDTO user;
+  AuthBloc _authBloc;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
     double qrWidth = width * 2 / 3;
     double textPadding = (width - qrWidth) / 2;
     double qrPadding = (height - qrWidth) / 3;
-    final _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+
     return BlocListener<AuthBloc, AuthState>(
       bloc: _authBloc,
       listener: (context, state) {
@@ -36,67 +47,69 @@ class QrCodeScreen extends StatelessWidget {
           if (state is AuthSuccessState) {
             user = state.user;
           }
-          return user == null ? LoadingWidget : Scaffold(
-            appBar: AppBar(
-              title: Text(user.name),
-            ),
-            body: CustomFeedback(
-              user: user,
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(top: qrPadding, bottom: 10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    QrImage(
-                      data: user.refLink,
-                      version: QrVersions.auto,
-                      size: qrWidth,
-                      gapless: true,
-                      embeddedImage: AssetImage('assets/images/logo_app.png'),
-                      embeddedImageStyle: QrEmbeddedImageStyle(
-                        size: Size(40, 40),
-                      ),
-                    ),
-                    Container(
+          return user == null
+              ? LoadingWidget
+              : Scaffold(
+                  appBar: AppBar(
+                    title: Text(user.name),
+                  ),
+                  body: CustomFeedback(
+                    user: user,
+                    child: Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.only(left: textPadding, right: textPadding),
-                      child: Text(
-                        "Bạn bè có thể kết nối với bạn khi quét mã QR này. Thêm bạn học thêm vui.",
-                        textAlign: TextAlign.center,
+                      padding: EdgeInsets.only(top: qrPadding, bottom: 10.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          QrImage(
+                            data: user.refLink,
+                            version: QrVersions.auto,
+                            size: qrWidth,
+                            gapless: true,
+                            embeddedImage: AssetImage('assets/images/logo_app.jpg'),
+                            embeddedImageStyle: QrEmbeddedImageStyle(
+                              size: Size(40, 40),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(left: textPadding, right: textPadding),
+                            child: Text(
+                              "Bạn bè có thể kết nối với bạn khi quét mã QR này. Thêm bạn học thêm vui.",
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Expanded(
+                            child: Align(
+                                alignment: FractionalOffset.bottomCenter,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    MaterialButton(
+                                      color: Colors.green,
+                                      onPressed: () => _scan(context),
+                                      child: Text(
+                                        "QUÉT QR",
+                                        style: TextStyle(fontSize: 18.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    MaterialButton(
+                                      onPressed: () {
+                                        Share.share(user.refLink);
+                                      },
+                                      child: Text(
+                                        "CHIA SẺ MÃ",
+                                        style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ],
                       ),
                     ),
-                    Expanded(
-                      child: Align(
-                          alignment: FractionalOffset.bottomCenter,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              MaterialButton(
-                                color: Colors.green,
-                                onPressed: () => _scan(context),
-                                child: Text(
-                                  "QUÉT QR",
-                                  style: TextStyle(fontSize: 18.0, color: Colors.white),
-                                ),
-                              ),
-                              MaterialButton(
-                                onPressed: () {
-                                  Share.share(user.refLink);
-                                },
-                                child: Text(
-                                  "CHIA SẺ MÃ",
-                                  style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                                ),
-                              ),
-                            ],
-                          )),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+                  ),
+                );
         },
       ),
     );

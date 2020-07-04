@@ -1,5 +1,9 @@
+// import 'package:anylearn/blocs/pdp/pdp_blocs.dart';
+// import 'package:anylearn/models/page_repo.dart';
+// import 'package:anylearn/models/transaction_repo.dart';
 import 'package:anylearn/widgets/goto_profile_bar.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../dto/items_dto.dart';
 import '../../widgets/price_box.dart';
@@ -18,6 +22,16 @@ class ItemsBody extends StatefulWidget {
 }
 
 class _ItemsBody extends State<ItemsBody> {
+  // PdpBloc pdpBloc;
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   final pageRepo = RepositoryProvider.of<PageRepository>(context);
+  //   final transRepo = RepositoryProvider.of<TransactionRepository>(context);
+  //   pdpBloc = PdpBloc(pageRepository: pageRepo, transactionRepository: transRepo);
+  // }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 2;
@@ -33,7 +47,7 @@ class _ItemsBody extends State<ItemsBody> {
             maxCrossAxisExtent: width,
             mainAxisSpacing: 0.0,
             crossAxisSpacing: 0.0,
-            childAspectRatio: 0.7,
+            childAspectRatio: 0.65,
           ),
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
@@ -65,11 +79,12 @@ class _ItemsBody extends State<ItemsBody> {
                             width: double.infinity,
                             height: width * 3 / 4,
                             child: ClipRRect(
-                              child: widget.itemsDTO.items.data[index].image != null ? 
-                              Image.network(
-                                widget.itemsDTO.items.data[index].image,
-                                fit: BoxFit.cover,
-                              ) : Icon(Icons.broken_image),
+                              child: widget.itemsDTO.items.data[index].image != null
+                                  ? Image.network(
+                                      widget.itemsDTO.items.data[index].image,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Icon(Icons.broken_image),
                             ),
                           ),
                           Padding(
@@ -95,14 +110,14 @@ class _ItemsBody extends State<ItemsBody> {
                               orgPrice: widget.itemsDTO.items.data[index].priceOrg),
                         ),
                       ),
-                      Container(
-                          child: IconButton(
-                        icon: Icon(
-                          Icons.add_shopping_cart,
-                          color: Colors.blue,
-                        ),
-                        onPressed: null,
-                      )),
+                      // Container(
+                      //     child: IconButton(
+                      //   icon: Icon(
+                      //     Icons.add_shopping_cart,
+                      //     color: Colors.blue,
+                      //   ),
+                      //   onPressed: null,
+                      // )),
                     ]),
                   ],
                 ),
