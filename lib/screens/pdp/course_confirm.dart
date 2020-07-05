@@ -76,7 +76,7 @@ class CourseConfirm extends StatelessWidget {
                         fontWeight: FontWeight.w300,
                       )),
                   TextSpan(
-                      text: pdpDTO.item.timeStart + " " + pdpDTO.item.dateStart,
+                      text: pdpDTO.item.timeStart + " " + DateFormat('dd/MM').format(DateTime.parse(pdpDTO.item.dateStart)) ,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         // color: Colors.pink,

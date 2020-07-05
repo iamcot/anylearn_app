@@ -23,7 +23,10 @@ class WeekCourseHeader extends StatelessWidget {
                   },
                   child: Text(
                     "Khóa học khác",
-                    style: TextStyle(color: Colors.blue),
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

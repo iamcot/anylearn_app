@@ -28,11 +28,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow to access camera.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Used to capture audio for image picker plugin</string>
+	<string>Chúng tôi cần sử dụng camera của bạn để giúp bạn đổi ảnh cá nhân, scan barcode và cập nhật các giấy tờ liên quan</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to demonstrate image picker plugin</string>
+	<string>Chúng tôi cần truy xuất thư viện hình ảnh của bạn để giúp bạn đổi ảnh cá nhân và hỗ trợ soạn thảo bài giảng.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
