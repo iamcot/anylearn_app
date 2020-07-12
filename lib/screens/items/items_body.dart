@@ -1,6 +1,7 @@
 // import 'package:anylearn/blocs/pdp/pdp_blocs.dart';
 // import 'package:anylearn/models/page_repo.dart';
 // import 'package:anylearn/models/transaction_repo.dart';
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:anylearn/widgets/goto_profile_bar.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,10 +81,7 @@ class _ItemsBody extends State<ItemsBody> {
                             height: width * 3 / 4,
                             child: ClipRRect(
                               child: widget.itemsDTO.items.data[index].image != null
-                                  ? Image.network(
-                                      widget.itemsDTO.items.data[index].image,
-                                      fit: BoxFit.cover,
-                                    )
+                                  ? CustomCachedImage(url: widget.itemsDTO.items.data[index].image)
                                   : Icon(Icons.broken_image),
                             ),
                           ),

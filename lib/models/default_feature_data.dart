@@ -11,7 +11,7 @@ List<FeatureDataDTO> defaultHomeFeatures(String role, int userId) {
       FeatureDataDTO(icon: MdiIcons.qrcode, title: "Mã Giới thiệu", route: "/qrcode", iconBg: "red"),
       FeatureDataDTO(icon: MdiIcons.accountGroup, title: "Bạn bè", route: "/account/friends", iconBg: "green", routeParam: FriendParamsDTO(userId: userId, level: 1)),
       FeatureDataDTO(icon: MdiIcons.calendarClock, title: "Lịch học", route: "/account/calendar", iconBg: "orange"),
-      FeatureDataDTO(icon: MdiIcons.searchWeb, title: "Tìm khóa học", route: "/all", iconBg: "purple"),
+      FeatureDataDTO(icon: MdiIcons.searchWeb, title: "Tìm khóa học", route: "/event", iconBg: "purple"),
       FeatureDataDTO(icon: Icons.video_label, title: "Xem Để Học", route: "/ask", iconBg: "blue"),
       FeatureDataDTO(icon: Icons.chrome_reader_mode, title: "Đọc Để Học", route: "/ask", iconBg: "yellow"),
       FeatureDataDTO(icon: Icons.question_answer, title: "Hỏi Để Học", route: "/developing", iconBg: "cyan"),

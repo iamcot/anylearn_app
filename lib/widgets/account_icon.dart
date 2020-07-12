@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../dto/user_dto.dart';
@@ -26,9 +27,7 @@ class _AccountIcon extends State<AccountIcon> {
                   backgroundColor: Colors.white,
                   child: CircleAvatar(
                     radius: 15,
-                    backgroundImage: NetworkImage(
-                      widget.user.image,
-                    ),
+                    backgroundImage: CachedNetworkImageProvider(widget.user.image),
                   ),
                 ),
           onPressed: () {

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:anylearn/dto/user_dto.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -119,11 +120,9 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                                   radius: 28,
                                                   backgroundColor: _roleColor(_data.friends[itemIndex].role),
                                                   child: CircleAvatar(
-                                                    radius: 27,
-                                                    backgroundImage: NetworkImage(
-                                                      _data.friends[itemIndex].image,
-                                                    ),
-                                                  ),
+                                                      radius: 27,
+                                                      backgroundImage:
+                                                          CachedNetworkImageProvider(_data.friends[itemIndex].image)),
                                                 )
                                               : Icon(
                                                   Icons.account_circle,

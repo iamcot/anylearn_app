@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -104,10 +105,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                     context: context,
                                                     child: SimpleDialog(
                                                       children: <Widget>[
-                                                        Image.network(
-                                                          e.data,
-                                                          fit: BoxFit.fitHeight,
-                                                        ),
+                                                        CustomCachedImage(url: e.data),
                                                         FlatButton(
                                                             onPressed: () {
                                                               Navigator.of(context).pop();
@@ -116,10 +114,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                       ],
                                                     ));
                                               },
-                                              title: Image.network(
-                                                e.data,
-                                                fit: BoxFit.cover,
-                                              ),
+                                              title: CustomCachedImage(url: e.data),
                                               trailing: IconButton(
                                                   icon: Icon(Icons.delete),
                                                   onPressed: () {

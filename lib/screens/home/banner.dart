@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+
+import '../../customs/custom_cached_image.dart';
 
 class HomeBanner extends StatelessWidget {
   final List<String> imgList;
@@ -17,13 +19,13 @@ class HomeBanner extends StatelessWidget {
             autoPlay: true,
             autoPlayInterval: Duration(seconds: 3),
           ),
-          items: _imageSliders(),
+          items: _imageSliders(context),
         ),
       ),
     );
   }
 
-  List<Widget> _imageSliders() {
+  List<Widget> _imageSliders(BuildContext context) {
     return this
         .imgList
         .map((item) => Container(
@@ -31,7 +33,7 @@ class HomeBanner extends StatelessWidget {
                 margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                  child: Image.network(item, fit: BoxFit.cover),
+                  child: CustomCachedImage(url: item),
                 ),
               ),
             ))

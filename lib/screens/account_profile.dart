@@ -1,3 +1,5 @@
+import 'package:anylearn/customs/custom_cached_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -99,9 +101,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                     ),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
-                child: user.docs == null || user.docs.length == 0
-                    ? SizedBox(height: 0)
-                    : UserDocList(userDocs: user.docs),
+                child:
+                    user.docs == null || user.docs.length == 0 ? SizedBox(height: 0) : UserDocList(userDocs: user.docs),
               ),
               Divider(
                 thickness: 10,
@@ -128,12 +129,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
             backgroundColor: Colors.white,
             radius: size / 2,
             child: (user.image != null && user.image != "")
-                ? CircleAvatar(
-                    radius: size / 2 - 2.0,
-                    backgroundImage: NetworkImage(
-                      user.image,
-                    ),
-                  )
+                ? CircleAvatar(radius: size / 2 - 2.0, backgroundImage: CachedNetworkImageProvider(user.image))
                 : Icon(
                     Icons.account_circle,
                     size: size,
@@ -150,14 +146,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
       height: size,
       width: double.infinity,
       alignment: Alignment.bottomRight,
-      decoration: user.banner != null
-          ? BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(user.banner),
-                fit: BoxFit.cover,
-              ),
-            )
-          : BoxDecoration(color: Colors.grey[200]),
+      color: Colors.grey[200],
+      child: user.banner != null ? CustomCachedImage(url: user.banner) : SizedBox(height: size),
     );
   }
 }

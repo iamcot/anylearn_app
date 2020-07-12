@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html_editor/html_editor.dart';
@@ -315,7 +316,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
         decoration: _itemDTO.image != null
             ? BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(_itemDTO.image),
+                  image: CachedNetworkImageProvider(_itemDTO.image),
                   fit: BoxFit.scaleDown,
                 ),
               )

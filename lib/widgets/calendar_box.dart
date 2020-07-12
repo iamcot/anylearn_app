@@ -1,3 +1,4 @@
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 
 class CalendarBox extends StatelessWidget {
@@ -10,27 +11,29 @@ class CalendarBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-        width: 55.0,
-        child: image == null ? Stack(
-          children: <Widget>[
-            Image.asset(
-              "assets/images/date_bg.png",
-              fit: BoxFit.fitHeight,
-            ),
-            Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(top: 15.0),
-              child: Text(
-                text,
-                maxLines: 1,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: fontSize,
+      width: 55.0,
+      child: image == null
+          ? Stack(
+              children: <Widget>[
+                Image.asset(
+                  "assets/images/date_bg.png",
+                  fit: BoxFit.fitHeight,
                 ),
-              ),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(top: 15.0),
+                  child: Text(
+                    text,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSize,
+                    ),
+                  ),
+                )
+              ],
             )
-          ],
-        ) : Image.network(image),
-        );
+          : CustomCachedImage(url: image),
+    );
   }
 }

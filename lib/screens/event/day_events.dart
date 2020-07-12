@@ -1,5 +1,6 @@
 import 'package:anylearn/dto/event_dto.dart';
 import 'package:anylearn/widgets/calendar_box.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class DayEvents extends StatelessWidget {
@@ -14,7 +15,7 @@ class DayEvents extends StatelessWidget {
           decoration: eventToday.image != null
               ? BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(eventToday.image),
+                    image:CachedNetworkImageProvider(eventToday.image),
                     fit: BoxFit.cover,
                     colorFilter: new ColorFilter.mode(
                       Colors.black.withOpacity(0.2),

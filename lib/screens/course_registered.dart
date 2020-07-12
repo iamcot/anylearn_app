@@ -1,3 +1,4 @@
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,11 +52,7 @@ class _CourseRegisteredScreen extends State<CourseRegisteredScreen> {
                           return ListTile(
                             leading: users[index].image == null
                                 ? Icon(Icons.account_circle)
-                                : Image.network(
-                                    users[index].image,
-                                    fit: BoxFit.cover,
-                                    width: 50.0,
-                                  ),
+                                : Container(width: 50, child: CustomCachedImage(url: users[index].image)),
                             title: Text(users[index].name),
                             subtitle: Text(users[index].phone),
                           );

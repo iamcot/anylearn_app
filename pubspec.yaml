@@ -49,6 +49,7 @@ dependencies:
   path_provider: ^1.6.10
   firebase_messaging: ^6.0.16
   overlay_support: ^1.0.4
+  cached_network_image: ^2.2.0+1
 
 dev_dependencies:
   flutter_test:

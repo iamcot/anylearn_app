@@ -1,3 +1,4 @@
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -44,9 +45,12 @@ class _PdpBody extends State<PdpBody> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                widget.data.item.image != null
-                    ? Image.network(widget.data.item.image, height: imageHeight, fit: BoxFit.cover)
-                    : Icon(Icons.broken_image),
+                Container(
+                  height: imageHeight,
+                  child: widget.data.item.image != null
+                      ? CustomCachedImage(url: widget.data.item.image) 
+                      : Icon(Icons.broken_image),
+                ),
                 Padding(
                   padding: EdgeInsets.only(top: 15.0),
                   child: Text2Lines(text: widget.data.item.title, fontSize: 16.0),

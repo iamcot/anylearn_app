@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html_editor/html_editor.dart';
@@ -369,9 +370,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
             child: (_user.image != null && _user.image != "")
                 ? CircleAvatar(
                     radius: size / 2 - 2.0,
-                    backgroundImage: NetworkImage(
-                      _user.image,
-                    ),
+                    backgroundImage: CachedNetworkImageProvider(_user.image),
                   )
                 : Icon(Icons.account_circle),
           ),
@@ -422,7 +421,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
         decoration: _user.banner != null
             ? BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(_user.banner),
+                  image: CachedNetworkImageProvider(_user.banner),
                   fit: BoxFit.cover,
                 ),
               )

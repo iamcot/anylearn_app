@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../dto/users_dto.dart';
@@ -33,10 +34,10 @@ class SchoolBody extends StatelessWidget {
                     },
                     child: Stack(children: [
                       Container(
-                          margin: EdgeInsets.only(top: imgH / 3, left: 10),
+                          margin: EdgeInsets.only(top: imgH / 4, left: 10),
                           child: ConstrainedBox(
                             constraints: new BoxConstraints(
-                              minHeight: imgH * 2 / 3 + 15,
+                              minHeight: imgH * 3 / 4 + 15,
                             ),
                             child: Card(
                               elevation: 0.5,
@@ -82,10 +83,9 @@ class SchoolBody extends StatelessWidget {
                                 schoolsData.list.data[itemIndex].image.isNotEmpty
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
-                                child: Image.network(
-                                  schoolsData.list.data[itemIndex].image,
-                                  fit: BoxFit.cover,
-                                ),
+                                child: schoolsData.list.data[itemIndex].image != null
+                                    ? CustomCachedImage(url: schoolsData.list.data[itemIndex].image)
+                                    : Icon(Icons.broken_image),
                               )
                             : SizedBox(
                                 height: 60,
@@ -99,49 +99,6 @@ class SchoolBody extends StatelessWidget {
                     ]),
                   ),
                 );
-                // return ListTile(
-                //     isThreeLine: true,
-                //     leading: Container(
-                //       width: 60.0,
-                //       height: 60.0,
-                //       child: schoolsData.list.data[itemIndex].image != null &&
-                //               schoolsData.list.data[itemIndex].image.isNotEmpty
-                //           ? Image.network(
-                //               schoolsData.list.data[itemIndex].image,
-                //               fit: BoxFit.cover,
-                //             )
-                //           : SizedBox(
-                //               height: 60,
-                //               child: Icon(
-                //                 Icons.school,
-                //                 size: 60,
-                //                 color: Colors.grey,
-                //               ),
-                //             ),
-                //     ),
-                //     onTap: () {
-                //       Navigator.of(context).pushNamed("/items/school",
-                //           arguments: schoolsData.list.data[itemIndex].id); //schoolsData.list[itemIndex].id
-                //     },
-                //     title: Text(
-                //       schoolsData.list.data[itemIndex].name,
-                //       maxLines: 1,
-                //       overflow: TextOverflow.ellipsis,
-                //     ),
-                //     trailing: Icon(Icons.arrow_right),
-                //     subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                //       schoolsData.list.data[itemIndex].introduce != null
-                //           ? Text(
-                //               schoolsData.list.data[itemIndex].introduce,
-                //               maxLines: 2,
-                //               overflow: TextOverflow.ellipsis,
-                //             )
-                //           : Text(""),
-                //       RatingBox(
-                //         score: schoolsData.list.data[itemIndex].rating,
-                //         alignment: "start",
-                //       ),
-                //     ]));
               }
               return Divider(
                 height: 0,

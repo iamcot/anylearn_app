@@ -1,3 +1,4 @@
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:anylearn/dto/user_doc_dto.dart';
 import 'package:flutter/material.dart';
 
@@ -23,10 +24,7 @@ class UserDocList extends StatelessWidget {
                   context: context,
                   child: SimpleDialog(
                     children: <Widget>[
-                      Image.network(
-                        userDocs[index].data,
-                        fit: BoxFit.cover,
-                      ),
+                      CustomCachedImage(url: userDocs[index].data),
                       FlatButton(
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -36,12 +34,10 @@ class UserDocList extends StatelessWidget {
                   ));
             },
             child: Card(
-              elevation: 0,
-              child: Image.network(
-                userDocs[index].data,
-                fit: BoxFit.cover,
-              ),
-            ),
+                elevation: 0,
+                child: CustomCachedImage(
+                  url: userDocs[index].data,
+                )),
           );
         },
       ),

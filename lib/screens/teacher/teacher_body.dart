@@ -1,3 +1,4 @@
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../dto/users_dto.dart';
@@ -57,12 +58,17 @@ class TeacherBody extends StatelessWidget {
                           height: width * 3 / 4,
                           child: ClipRRect(
                             child: teachers.list.data[index].image != null && teachers.list.data[index].image != ""
-                                ? Image.network(
-                                    teachers.list.data[index].image,
-                                    fit: BoxFit.cover,
+                                ? CustomCachedImage(
+                                    url: teachers.list.data[index].image,
                                   )
-                                : SizedBox(height: width * 3 / 4,
-                                child: Icon(Icons.account_box, size: width * 3 / 4, color: Colors.grey,),),
+                                : SizedBox(
+                                    height: width * 3 / 4,
+                                    child: Icon(
+                                      Icons.account_box,
+                                      size: width * 3 / 4,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                           ),
                         ),
                         Container(
@@ -75,7 +81,7 @@ class TeacherBody extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: 10.0),
                                 )
-                              :  SizedBox(height: 0),
+                              : SizedBox(height: 0),
                         ),
                         Container(
                           alignment: Alignment.center,

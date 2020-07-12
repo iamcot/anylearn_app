@@ -1,3 +1,4 @@
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 
 class SliverBanner extends StatelessWidget {
@@ -9,24 +10,24 @@ class SliverBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.width / 3;
     return SliverToBoxAdapter(
-      child: banner != null && banner.isNotEmpty ? Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: height,
-            child: 
-            Image.network(this.banner,
-            // Image.asset("assets/banners/teacher-1.jpg",
-              fit: BoxFit.cover,
+      child: banner != null && banner.isNotEmpty
+          ? Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: height,
+                  child: CustomCachedImage(url: banner),
+                ),
+                Divider(
+                  height: 0.0,
+                  thickness: 1.0,
+                  color: Colors.black12,
+                ),
+              ],
+            )
+          : SizedBox(
+              height: 0,
             ),
-          ),
-          Divider(
-            height: 0.0,
-            thickness: 1.0,
-            color: Colors.black12,
-          ),
-        ],
-      ) : SizedBox(height: 0,),
     );
   }
 }

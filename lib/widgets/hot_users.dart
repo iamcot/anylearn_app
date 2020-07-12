@@ -1,3 +1,4 @@
+import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 
 import '../customs/custom_carousel.dart';
@@ -81,10 +82,7 @@ class HotUsers extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(7.0), topRight: Radius.circular(7.0)),
                   child: item.image != null && item.image.isNotEmpty
-                      ? Image.network(
-                          item.banner ?? item.image,
-                          fit: BoxFit.cover,
-                        )
+                      ? CustomCachedImage(url: item.banner ?? item.image)
                       : Icon(Icons.broken_image),
                 ),
               ),
