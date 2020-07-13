@@ -2,6 +2,9 @@ import '../customs/custom_search_delegate.dart';
 import 'package:flutter/material.dart';
 
 class SearchIcon extends StatelessWidget {
+  final screen;
+
+  const SearchIcon({Key key, this.screen}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,7 +15,7 @@ class SearchIcon extends StatelessWidget {
           size: 24.0,
         ),
         onPressed: () {
-          showSearch(context: context, delegate: CustomSearchDelegate());
+          showSearch(context: context, delegate: CustomSearchDelegate(screen: screen));
         },
       ),
     );

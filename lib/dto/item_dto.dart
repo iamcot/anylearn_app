@@ -23,6 +23,8 @@ class ItemDTO extends Equatable {
   String location;
   final int status;
   final int userStatus;
+  final String authorName;
+  final String authorType;
 
   ItemDTO({
     this.id,
@@ -46,6 +48,8 @@ class ItemDTO extends Equatable {
     this.location,
     this.status,
     this.userStatus,
+    this.authorName,
+    this.authorType,
   });
 
   @override
@@ -69,6 +73,8 @@ class ItemDTO extends Equatable {
         location,
         status,
         userStatus,
+        authorName,
+        authorType,
       ];
 
   @override
@@ -97,6 +103,8 @@ class ItemDTO extends Equatable {
             location: json['location'],
             status: json['status'],
             userStatus: json['user_status'],
+            authorName: json['author'] ?? null,
+            authorType: json['author_type'] ?? null,
           );
   }
 }

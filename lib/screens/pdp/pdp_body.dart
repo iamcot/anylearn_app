@@ -1,4 +1,3 @@
-import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
 
 import '../../blocs/pdp/pdp_blocs.dart';
+import '../../customs/custom_cached_image.dart';
 import '../../dto/pdp_dto.dart';
 import '../../dto/user_dto.dart';
 import '../../widgets/hot_items.dart';

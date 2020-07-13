@@ -18,7 +18,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: hasBack ?? true,
       titleSpacing: 0.0,
       actions: <Widget>[
-        screen != "notification" ? SearchIcon() : Text(""),
+        screen != "notification" ? SearchIcon(screen: screen,) : Text(""),
         screen != "account" && screen != "notification" ? NotificationIcon() : Container(child: null),
         screen != "account" && screen != "notification" ? new AccountIcon(user: user ?? null,) : Text(""),
       ],

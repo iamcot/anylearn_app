@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/item_dto.dart';
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:http/http.dart' as http;
 
 import '../dto/const.dart';
@@ -75,5 +77,13 @@ class PageRepository {
 
   Future<bool> saveFeedback(String token, String content, File file) async {
     return await configService.saveFeedback(token, content, file);
+  }
+
+  Future<List<UserDTO>> searchUser(String screen, String query) async {
+    return await configService.searchUser(screen, query);
+  }
+
+  Future<List<ItemDTO>> searchItem(String screen, String query) async {
+     return await configService.searchItem(screen, query);
   }
 }

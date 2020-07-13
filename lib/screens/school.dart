@@ -44,6 +44,7 @@ class _SchoolScreen extends State<SchoolScreen> {
             appBar: BaseAppBar(
               user: user,
               title: "Học viện & Trung tâm đào tạo",
+              screen: "school",
             ),
             body: BlocProvider<UsersBloc>(
                 create: (context) => usersBloc,

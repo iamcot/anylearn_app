@@ -7,7 +7,9 @@ import '../app_config.dart';
 import '../dto/doc_dto.dart';
 import '../dto/event_dto.dart';
 import '../dto/home_dto.dart';
+import '../dto/item_dto.dart';
 import '../dto/transaction_config_dto.dart';
+import '../dto/user_dto.dart';
 import 'base_service.dart';
 
 class ConfigServices extends BaseService {
@@ -65,7 +67,25 @@ class ConfigServices extends BaseService {
     final json = await postImageHasContent(url, file, {
       "content": content ?? "",
     });
-    
+
     return json == null ? false : json['result'];
+  }
+
+  Future<List<UserDTO>> searchUser(String screen, String query) async {
+    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=user&s=${screen ?? ""}&q=$query");
+    print(url);
+    final json = await get(httpClient, url);
+    return json == null || json.length == 0
+        ? null
+        : List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
+  }
+
+  Future<List<ItemDTO>> searchItem(String screen, String query) async {
+    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=item&s=${screen ?? ""}&q=$query");
+    print(url);
+    final json = await get(httpClient, url);
+    return json == null || json.length == 0
+        ? null
+        : List<ItemDTO>.from(json?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList();
   }
 }
