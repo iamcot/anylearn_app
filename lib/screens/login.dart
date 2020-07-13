@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/login_callback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,12 +16,16 @@ class _LoginScreen extends State<LoginScreen> {
   LoginBloc _loginBloc;
   AuthBloc _authBloc;
   bool noticeShow = false;
+  LoginCallback callback;
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     final userRepository = RepositoryProvider.of<UserRepository>(context);
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     _loginBloc = LoginBloc(userRepository: userRepository, authBloc: _authBloc);
-    super.didChangeDependencies();
+    if (ModalRoute.of(context).settings.arguments != null) {
+      callback = ModalRoute.of(context).settings.arguments;
+    }
   }
 
   @override
@@ -38,23 +43,28 @@ class _LoginScreen extends State<LoginScreen> {
         bloc: _authBloc,
         listener: (context, state) {
           if (state is AuthSuccessState) {
-            Navigator.of(context).popUntil(ModalRoute.withName("/"));
+            if (callback.routeName != null) {
+              Navigator.of(context).popUntil(ModalRoute.withName("/"));
+              Navigator.of(context).pushNamed(callback.routeName, arguments: callback.routeArgs);
+            } else {
+              Navigator.of(context).popUntil(ModalRoute.withName("/"));
+            }
           }
 
-          if (!noticeShow) {
-            if (ModalRoute.of(context).settings.arguments != null) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: Text(ModalRoute.of(context).settings.arguments.toString()),
+          if (!noticeShow && callback != null && callback.message != null) {
+            Scaffold.of(context)
+              ..removeCurrentSnackBar()
+              ..showSnackBar(new SnackBar(
+                content: Text(callback.message),
               ));
-              noticeShow = true;
-            }
+            noticeShow = true;
           }
         },
         child: BlocProvider(
           create: (context) {
             return _loginBloc;
           },
-          child: LoginForm(loginBloc: _loginBloc),
+          child: LoginForm(loginBloc: _loginBloc, callback: callback,),
         ),
       ),
     );

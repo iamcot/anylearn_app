@@ -1,7 +1,7 @@
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../dto/user_dto.dart';
 import '../../models/user_repo.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
@@ -42,14 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await userRepository.deleteToken();
         await userRepository.logout(event.token);
         yield AuthFailState();
-      } else if (event is AuthNotifEvent) {
-        yield AuthNotifLoadingState();
-        final notifs = await userRepository.notification(event.token);
-        yield AuthNotifSuccessState(notif: notifs);
-      } else if (event is AuthNotifReadEvent) {
-        await userRepository.notifRead(event.token, event.id);
-        yield AuthNotifReadState();
-      }
+      } 
     } catch (error) {
       yield AuthFailState(error: error.toString());
     }

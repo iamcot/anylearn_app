@@ -41,16 +41,3 @@ class AuthFailState extends AuthState {
 class AuthTokenFailState extends AuthState {}
 
 class AuthInProgressState extends AuthState {}
-
-class AuthNotifLoadingState extends AuthState {}
-
-class AuthNotifSuccessState extends AuthState {
-  final NotificationPagingDTO notif;
-
-  AuthNotifSuccessState({@required this.notif}) : assert(notif != null);
-
-  @override
-  List<Object> get props => [notif];
-}
-
-class AuthNotifReadState extends AuthState {}

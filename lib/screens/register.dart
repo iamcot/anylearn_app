@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/login_callback.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,15 +33,19 @@ class _RegisterScreen extends State<RegisterScreen> {
   final FocusNode _focusPhone = FocusNode();
   final FocusNode _focusPass = FocusNode();
   final FocusNode _focusRePass = FocusNode();
+  LoginCallback callback;
 
   RegisterBloc _loginBloc;
   AuthBloc _authBloc;
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     final userRepository = RepositoryProvider.of<UserRepository>(context);
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     _loginBloc = RegisterBloc(userRepository: userRepository)..add(RegisterFormLoadEvent());
-    super.didChangeDependencies();
+    if (ModalRoute.of(context).settings.arguments != null) {
+      callback = ModalRoute.of(context).settings.arguments;
+    }
   }
 
   @override
@@ -74,7 +79,12 @@ class _RegisterScreen extends State<RegisterScreen> {
               _toc = state.toc;
             }
             if (state is RegisterSuccessState) {
-              Navigator.of(context).pushNamed("/login", arguments: "Đăng ký thành công, vui lòng đăng nhập lại.");
+              Navigator.of(context).pushNamed("/login",
+                  arguments: LoginCallback(
+                    message: "Đăng ký thành công, vui lòng đăng nhập lại.",
+                    routeName: callback != null && callback.routeName != null ? callback.routeName : null,
+                    routeArgs: callback != null && callback.routeArgs != null ? callback.routeArgs : null,
+                  ));
             }
           },
           child: Container(
@@ -326,7 +336,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                             style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.of(context).popAndPushNamed("/login");
+                                Navigator.of(context).popAndPushNamed("/login", arguments: callback);
                               })
                       ]),
                     ),

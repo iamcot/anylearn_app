@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/login_callback.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +166,7 @@ class _PdpBody extends State<PdpBody> {
                                     ? PdpFavoriteRemoveEvent(itemId: widget.data.item.id, userId: widget.user.id)
                                     : PdpFavoriteAddEvent(itemId: widget.data.item.id, userId: widget.user.id));
                             } else {
-                              Navigator.of(context).pushNamed('/login');
+                              Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
                             }
                           },
                           child: Icon(isFavorite == true ? Icons.favorite : Icons.favorite_border, color: Colors.red),
@@ -196,7 +197,7 @@ class _PdpBody extends State<PdpBody> {
                                       ),
                               )
                             : Navigator.of(context)
-                                .pushNamed('/login', arguments: "/pdp/" + widget.data.item.id.toString());
+                                .pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
                       },
                       color: Colors.green,
                       textColor: Colors.white,
@@ -212,7 +213,7 @@ class _PdpBody extends State<PdpBody> {
                                 context: context,
                                 builder: (context) => PdpShareDialog(itemId: widget.data.item.id),
                               )
-                            : Navigator.of(context).pushNamed('/login');
+                            : Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
                       },
                       child: Icon(Icons.share, color: Colors.blue),
                     ),

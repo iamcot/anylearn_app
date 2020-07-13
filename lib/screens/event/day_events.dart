@@ -26,7 +26,7 @@ class DayEvents extends StatelessWidget {
               : null,
           child: ListTile(
             trailing: Icon(Icons.arrow_right),
-            leading: CalendarBox(text: eventToday.time, fontSize: 12.0),
+            leading: eventToday.time == null ? Icon(Icons.calendar_today) :CalendarBox(text: eventToday.time, fontSize: 12.0),
             title: Text(
               eventToday.title,
               style: TextStyle(color: Colors.black),

@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/login_callback.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import '../../blocs/login/login_blocs.dart';
 import '../../customs/register_curved_paint.dart';
 
 class LoginForm extends StatelessWidget {
+  final LoginCallback callback;
   final LoginBloc loginBloc;
   final _formKey = GlobalKey<FormState>();
   final FocusNode _phoneNode = FocusNode();
@@ -16,7 +18,7 @@ class LoginForm extends StatelessWidget {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  LoginForm({Key key, this.loginBloc}) : super(key: key);
+  LoginForm({Key key, this.loginBloc, this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class LoginForm extends StatelessWidget {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(
               '${state.error}',
-              maxLines: 1,
+              maxLines: 2,
             ),
             backgroundColor: Colors.red,
           ));
@@ -139,7 +141,7 @@ class LoginForm extends StatelessWidget {
                             style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.of(context).popAndPushNamed("/register");
+                                Navigator.of(context).popAndPushNamed("/register", arguments: callback);
                               })
                       ]),
                     ),

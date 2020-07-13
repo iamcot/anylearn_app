@@ -1,12 +1,13 @@
-import 'package:anylearn/widgets/loading_widget.dart';
-import 'package:anylearn/widgets/time_ago.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../blocs/auth/auth_blocs.dart';
+import '../blocs/notif/notif_blocs.dart';
 import '../dto/notification_dto.dart';
 import '../dto/user_dto.dart';
+import '../widgets/loading_widget.dart';
+import '../widgets/time_ago.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -15,13 +16,15 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreen extends State<NotificationScreen> {
   AuthBloc _authBloc;
+  NotifBloc _notifBloc;
   UserDTO _user;
   NotificationPagingDTO _notif;
 
   @override
   void didChangeDependencies() {
-    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     super.didChangeDependencies();
+    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+    _notifBloc = BlocProvider.of<NotifBloc>(context);
   }
 
   @override
@@ -34,7 +37,7 @@ class _NotificationScreen extends State<NotificationScreen> {
         }
         if (state is AuthSuccessState) {
           _user = state.user;
-          _authBloc..add(AuthNotifEvent(token: _user.token));
+          _notifBloc..add(NotifLoadEvent(token: _user.token));
         }
       },
       child: Scaffold(
@@ -43,13 +46,13 @@ class _NotificationScreen extends State<NotificationScreen> {
           centerTitle: false,
         ),
         body: BlocBuilder(
-            bloc: _authBloc,
+            bloc: _notifBloc,
             builder: (context, state) {
-              if (state is AuthNotifSuccessState) {
+              if (state is NotifSuccessState) {
                 _notif = state.notif;
                 return RefreshIndicator(
                     onRefresh: () async {
-                      _authBloc..add(AuthNotifEvent(token: _user.token));
+                      _notifBloc..add(NotifLoadEvent(token: _user.token));
                     },
                     child: _notif.total == 0
                         ? Container(
@@ -62,10 +65,10 @@ class _NotificationScreen extends State<NotificationScreen> {
                                 color: _notif.data[index].read == null ? Colors.blue[50] : Colors.white,
                                 child: ListTile(
                                   onTap: () {
-                                    // _authBloc..add(AuthNotifReadEvent(token: _user.token, id: _notif.data[index].id));
+                                    _notifBloc..add(NotifReadEvent(token: _user.token, id: _notif.data[index].id));
                                     if (_notif.data[index].route != null) {
                                       Navigator.of(context).pushNamed(_notif.data[index].route,
-                                          arguments: _notif.data[index].extraContent ?? null);
+                                          arguments: _notif.data[index].extraContent);
                                     }
                                   },
                                   leading: Icon(
@@ -79,7 +82,6 @@ class _NotificationScreen extends State<NotificationScreen> {
                               );
                             },
                             separatorBuilder: (BuildContext context, int index) => Divider(
-                                  height: 0,
                                   color: Colors.grey,
                                 ),
                             itemCount: _notif.data.length));

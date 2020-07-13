@@ -1,3 +1,4 @@
+import 'package:anylearn/blocs/notif/notif_blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -19,7 +20,7 @@ import 'themes/default.dart';
 bool newNotification = false;
 String notifToken;
 void main() async {
-  final env = "prod";
+  final env = "dev";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
   // BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -48,6 +49,7 @@ void main() async {
           BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
           BlocProvider<CourseBloc>(create: (context) => CourseBloc(itemRepository: itemRepo, userRepository: userRepo)),
           BlocProvider<SearchBloc>(create: (context) => SearchBloc(pageRepository: pageRepo)),
+          BlocProvider<NotifBloc>(create: (context) => NotifBloc(userRepository: userRepo)),
         ], child: MyApp())),
   );
 }

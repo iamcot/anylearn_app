@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/login_callback.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,11 @@ class _AccountIcon extends State<AccountIcon> {
                 ),
           onPressed: () {
             // Navigator.of(context).pushNamed("/account");
-            Navigator.of(context).pushNamed(widget.user != null ? "/account" : "/login");
+            if (widget.user != null) {
+              Navigator.of(context).pushNamed("/account");
+            } else {
+              Navigator.of(context).pushNamed("/login", arguments: LoginCallback(routeName: "/account"));
+            }
           }),
     );
   }

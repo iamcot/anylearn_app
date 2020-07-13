@@ -43,27 +43,3 @@ class AuthLoggedOutEvent extends AuthEvent {
   @override
   String toString() => 'AuthLoggedOutEvent';
 }
-
-class AuthNotifEvent extends AuthEvent {
-  final String token;
-  const AuthNotifEvent({@required this.token});
-
-  @override
-  List<Object> get props => [token];
-
-  @override
-  String toString() => 'AuthNotifEvent';
-}
-
-
-class AuthNotifReadEvent extends AuthEvent {
-  final String token;
-  final int id;
-  const AuthNotifReadEvent({@required this.token, this.id, });
-
-  @override
-  List<Object> get props => [token, id];
-
-  @override
-  String toString() => 'AuthNotifReadEvent id: $id';
-}
