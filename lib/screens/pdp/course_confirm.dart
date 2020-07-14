@@ -52,7 +52,7 @@ class CourseConfirm extends StatelessWidget {
                         fontSize: 15.0,
                         color: Colors.blue,
                       )),
-                  TextSpan(text: "\ncủa: ", style: TextStyle()),
+                  TextSpan(text: "\n${pdpDTO.author.role == 'school' ? 'Trường học' : 'Giảng viên'}: ", style: TextStyle()),
                   TextSpan(
                       text: pdpDTO.author.name,
                       style: TextStyle(
@@ -71,7 +71,7 @@ class CourseConfirm extends StatelessWidget {
                         color: Colors.red,
                       )),
                   TextSpan(
-                      text: "\nThời gian: ",
+                      text: "\nKhai giảng: ",
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                       )),
@@ -85,7 +85,7 @@ class CourseConfirm extends StatelessWidget {
               )),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
-                child: Text.rich(TextSpan(text: "Số dư Ví tiền: ", children: [
+                child: Text.rich(TextSpan(text: "Số dư tài khoản: ", children: [
                   TextSpan(
                       text: _moneyFormat.format(user.walletM),
                       style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
@@ -98,7 +98,7 @@ class CourseConfirm extends StatelessWidget {
                     text: _moneyFormat.format(pdpDTO.commission),
                     style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
                   ),
-                  TextSpan(text: " điểm thưởng vào Ví cho giao dịch này.")
+                  TextSpan(text: " điểm thưởng cho giao dịch này.")
                 ])),
               ),
               Padding(

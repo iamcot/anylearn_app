@@ -61,15 +61,18 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                       style: TextStyle(),
                     )
                   : SizedBox(height: 0),
-              Text(
-                user.introduce ?? "",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12),
+              Container(
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  user.introduce ?? "",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12),
+                ),
               ),
               user.role == MyConst.ROLE_SCHOOL && user.title != null
                   ? ListTile(
                       dense: true,
-                      contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15),
+                      contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
                       leading: Icon(MdiIcons.shieldAccount),
                       title: Text(user.title),
                       isThreeLine: false,
@@ -78,7 +81,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
               user.address != null
                   ? ListTile(
                       dense: true,
-                      contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15),
+                      contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
                       leading: Icon(MdiIcons.mapMarker),
                       title: Text(user.address),
                       isThreeLine: false,

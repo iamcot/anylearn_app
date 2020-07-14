@@ -77,7 +77,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                           child: Row(children: [
                                             Expanded(
                                               child: Text(
-                                                "Ví tiền",
+                                                "Tài khoản tiền",
                                                 style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
                                               ),
                                             ),
@@ -117,7 +117,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                           child: Row(children: [
                                             Expanded(
                                               child: Text(
-                                                "Ví điểm",
+                                                "Tài khoản điểm",
                                                 style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
                                               ),
                                             ),
@@ -152,8 +152,8 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                 ],
                               ),
                               TabBar(controller: _tabController, tabs: [
-                                Tab(child: Text("Ví tiền")),
-                                Tab(child: Text("Ví điểm")),
+                                Tab(child: Text("Tài khoản tiền")),
+                                Tab(child: Text("Tài khoản điểm")),
                               ]),
                             ],
                           ),

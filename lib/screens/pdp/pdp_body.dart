@@ -49,7 +49,7 @@ class _PdpBody extends State<PdpBody> {
                 Container(
                   height: imageHeight,
                   child: widget.data.item.image != null
-                      ? CustomCachedImage(url: widget.data.item.image) 
+                      ? CustomCachedImage(url: widget.data.item.image)
                       : Icon(Icons.broken_image),
                 ),
                 Padding(
@@ -88,7 +88,9 @@ class _PdpBody extends State<PdpBody> {
                                     widget.data.item.timeStart +
                                     " " +
                                     DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart))),
-                                widget.data.numSchedule > 1 ? Text(" (${widget.data.numSchedule} buổi học)") : SizedBox(height: 1)
+                                widget.data.numSchedule > 1
+                                    ? Text(" (${widget.data.numSchedule} buổi học)")
+                                    : SizedBox(height: 1)
                               ],
                             ),
                           ),
@@ -142,85 +144,92 @@ class _PdpBody extends State<PdpBody> {
                     )
                   ],
                 ),
-                ButtonBar(
-                  alignment: MainAxisAlignment.center,
-                  buttonMinWidth: (width - 30) / 4,
-                  children: [
-                    BlocBuilder<PdpBloc, PdpState>(
-                      bloc: BlocProvider.of<PdpBloc>(context),
-                      builder: (context, state) {
-                        if (state is PdpFavoriteAddState) {
-                          isFavorite = state.data.isFavorite;
-                        }
-                        if (state is PdpFavoriteRemoveState) {
-                          isFavorite = state.data.isFavorite;
-                        }
-                        return RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(width: 1.0, color: Colors.red)),
-                          color: Colors.white,
-                          onPressed: () {
-                            if (widget.user != null) {
-                              BlocProvider.of<PdpBloc>(context)
-                                ..add(isFavorite == true
-                                    ? PdpFavoriteRemoveEvent(itemId: widget.data.item.id, userId: widget.user.id)
-                                    : PdpFavoriteAddEvent(itemId: widget.data.item.id, userId: widget.user.id));
-                            } else {
-                              Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                            }
-                          },
-                          child: Icon(isFavorite == true ? Icons.favorite : Icons.favorite_border, color: Colors.red),
-                        );
-                      },
-                    ),
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.green)),
-                      onPressed: () {
-                        widget.user != null
-                            ? showDialog(
-                                context: context,
-                                builder: (context) => DateTime.now().isAfter(
-                                        DateTime.parse(widget.data.item.dateStart + " " + widget.data.item.timeStart))
-                                    ? AlertDialog(
-                                        content: Container(child: Text("Đã quá hạn đăng ký khóa học này.")),
-                                        actions: [
-                                          RaisedButton (onPressed: () { 
-                                            Navigator.of(context).pop();
-                                          }, child: Text("ĐÃ HIỂU"), color: Colors.blue,),
-                                        ],
-                                      )
-                                    : CourseConfirm(
-                                        pdpBloc: widget.pdpBloc,
-                                        user: widget.user,
-                                        pdpDTO: widget.data,
-                                      ),
-                              )
-                            : Navigator.of(context)
-                                .pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                      },
-                      color: Colors.green,
-                      textColor: Colors.white,
-                      child: Row(children: [Icon(Icons.add_shopping_cart), Text(" Đăng ký học")]),
-                    ),
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.blue)),
-                      color: Colors.white,
-                      onPressed: () {
-                        widget.user != null
-                            ? showDialog(
-                                context: context,
-                                builder: (context) => PdpShareDialog(itemId: widget.data.item.id),
-                              )
-                            : Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                      },
-                      child: Icon(Icons.share, color: Colors.blue),
-                    ),
-                  ],
-                  // ),
-                ),
+                // ButtonBar(
+                //   alignment: MainAxisAlignment.center,
+                //   buttonMinWidth: (width - 30) / 4,
+                //   children: [
+                    // BlocBuilder<PdpBloc, PdpState>(
+                    //   bloc: BlocProvider.of<PdpBloc>(context),
+                    //   builder: (context, state) {
+                    //     if (state is PdpFavoriteAddState) {
+                    //       isFavorite = state.data.isFavorite;
+                    //     }
+                    //     if (state is PdpFavoriteRemoveState) {
+                    //       isFavorite = state.data.isFavorite;
+                    //     }
+                    //     return RaisedButton(
+                    //       shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(18.0),
+                    //           side: BorderSide(width: 1.0, color: Colors.red)),
+                    //       color: Colors.white,
+                    //       onPressed: () {
+                    //         if (widget.user != null) {
+                    //           BlocProvider.of<PdpBloc>(context)
+                    //             ..add(isFavorite == true
+                    //                 ? PdpFavoriteRemoveEvent(itemId: widget.data.item.id, userId: widget.user.id)
+                    //                 : PdpFavoriteAddEvent(itemId: widget.data.item.id, userId: widget.user.id));
+                    //         } else {
+                    //           Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                    //         }
+                    //       },
+                    //       child: Icon(isFavorite == true ? Icons.favorite : Icons.favorite_border, color: Colors.red),
+                    //     );
+                    //   },
+                    // ),
+RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(width: 1.0, color: Colors.green)),
+                        onPressed: () {
+                          widget.user != null
+                              ? showDialog(
+                                  context: context,
+                                  builder: (context) => DateTime.now().isAfter(
+                                          DateTime.parse(widget.data.item.dateStart + " " + widget.data.item.timeStart))
+                                      ? AlertDialog(
+                                          content: Container(child: Text("Đã quá hạn đăng ký khóa học này.")),
+                                          actions: [
+                                            RaisedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("ĐÃ HIỂU"),
+                                              color: Colors.blue,
+                                            ),
+                                          ],
+                                        )
+                                      : CourseConfirm(
+                                          pdpBloc: widget.pdpBloc,
+                                          user: widget.user,
+                                          pdpDTO: widget.data,
+                                        ),
+                                )
+                              : Navigator.of(context).pushNamed('/login',
+                                  arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                        },
+                        color: Colors.green,
+                        textColor: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Icon(Icons.add_shopping_cart), Text(" Đăng ký học")]),
+                      ),
+                    // RaisedButton(
+                    //   shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.blue)),
+                    //   color: Colors.white,
+                    //   onPressed: () {
+                    //     widget.user != null
+                    //         ? showDialog(
+                    //             context: context,
+                    //             builder: (context) => PdpShareDialog(itemId: widget.data.item.id),
+                    //           )
+                    //         : Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                    //   },
+                    //   child: Icon(Icons.share, color: Colors.blue),
+                    // ),
+                //   ],
+                //   // ),
+                // ),
               ],
             ),
           ),

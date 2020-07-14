@@ -51,7 +51,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Đổi điểm sang ví tiền"),
+          title: Text("Đổi điểm sang tài khoản tiền"),
           centerTitle: false,
         ),
         body: BlocProvider<TransactionBloc>(

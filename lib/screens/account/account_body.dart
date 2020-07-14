@@ -78,7 +78,7 @@ class _AccountBody extends State<AccountBody> {
                 trailing: Icon(Icons.chevron_right),
                 subContent: Text.rich(
                   TextSpan(
-                      text: "Ví tiền: " + moneyFormat.format(widget.user.walletM),
+                      text: "TK tiền: " + moneyFormat.format(widget.user.walletM),
                       style: TextStyle(
                         color: Colors.blue,
                         fontSize: 12.0,
@@ -92,7 +92,7 @@ class _AccountBody extends State<AccountBody> {
                           ),
                         ),
                         TextSpan(
-                          text: "Ví điểm: " + moneyFormat.format(widget.user.walletC),
+                          text: "TK điểm: " + moneyFormat.format(widget.user.walletC),
                           style: TextStyle(
                             color: Colors.orange,
                             fontSize: 12.0,

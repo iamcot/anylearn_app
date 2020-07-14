@@ -59,7 +59,7 @@ class _DepositScreen extends State<DepositScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Nạp tiền vào ví"),
+          title: Text("Nạp tiền vào tài khoản"),
           centerTitle: false,
         ),
         body: BlocProvider<TransactionBloc>(
@@ -238,7 +238,7 @@ class _DepositScreen extends State<DepositScreen> {
                                               builder: (context) {
                                                 return AlertDialog(
                                                   content: Text(
-                                                      "Bạn đang gửi lệnh nạp ${_moneyFormat.format(int.parse(_amountInput.text))} vào ví tiền."),
+                                                      "Bạn đang gửi lệnh nạp ${_moneyFormat.format(int.parse(_amountInput.text))} vào Tài khoản tiền."),
                                                   actions: <Widget>[
                                                     FlatButton(
                                                         onPressed: () {

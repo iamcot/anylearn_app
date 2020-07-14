@@ -26,7 +26,7 @@ class BottomNav extends StatelessWidget {
         items:  <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
             icon: Icon(Icons.school),
-            title: Text("Học viện"),
+            title: Text("Trường học"),
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.supervised_user_circle),

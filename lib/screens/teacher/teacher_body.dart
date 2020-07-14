@@ -12,7 +12,7 @@ class TeacherBody extends StatelessWidget {
   TeacherBody({this.teachers});
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width / 2;
+    double width = MediaQuery.of(context).size.width / 3;
     return CustomScrollView(
       slivers: <Widget>[
         SliverBanner(
@@ -54,18 +54,18 @@ class TeacherBody extends StatelessWidget {
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: double.infinity,
-                          height: width * 3 / 4,
+                          width: width - 40,
+                          height: width - 40,
                           child: ClipRRect(
+                            borderRadius: BorderRadius.circular(width / 3),
                             child: teachers.list.data[index].image != null && teachers.list.data[index].image != ""
                                 ? CustomCachedImage(
                                     url: teachers.list.data[index].image,
                                   )
                                 : SizedBox(
-                                    height: width * 3 / 4,
                                     child: Icon(
-                                      Icons.account_box,
-                                      size: width * 3 / 4,
+                                      Icons.account_circle,
+                                      size: width - 40,
                                       color: Colors.grey,
                                     ),
                                   ),
@@ -75,9 +75,11 @@ class TeacherBody extends StatelessWidget {
                           alignment: Alignment.center,
                           padding: EdgeInsets.all(5.0),
                           margin: EdgeInsets.only(top: 5.0),
+                          
                           child: teachers.list.data[index].title != null
                               ? Text(
                                   teachers.list.data[index].title,
+                                  maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: 10.0),
                                 )

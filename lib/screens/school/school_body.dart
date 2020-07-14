@@ -16,7 +16,7 @@ class SchoolBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final imgH = (width - 40) / 3;
-    final imgW = (width - 40) / 4;
+    final imgW = (width - 40) / 3;
     return CustomScrollView(
       slivers: <Widget>[
         SliverBanner(banner: this.schoolsData.banner),

@@ -45,9 +45,12 @@ class _GuideScreen extends State<GuideScreen> {
                 return Scaffold(
                   appBar: AppBar(),
                   body: ListView(children: [
-                    Html(
-                      data: state.doc.content,
-                      shrinkWrap: true,
+                    Container(
+                      padding: EdgeInsets.only(left:15, right: 15.0, bottom: 15),
+                      child: Html(
+                        data: state.doc.content,
+                        shrinkWrap: true,
+                      ),
                     ),
                     Divider(),
                     Container(

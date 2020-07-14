@@ -13,7 +13,7 @@ class WalletCard extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Ví của tôi",
+              "Tài khoản của tôi",
               style: TextStyle(fontSize: 12.0),
             ),
             padding: EdgeInsets.all(10.0),
