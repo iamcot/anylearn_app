@@ -1,4 +1,3 @@
-import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../blocs/account/account_blocs.dart';
+import '../customs/custom_cached_image.dart';
 import '../dto/const.dart';
 import '../dto/user_dto.dart';
 import '../models/user_repo.dart';
@@ -153,4 +153,5 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
       child: user.banner != null ? CustomCachedImage(url: user.banner) : SizedBox(height: size),
     );
   }
+
 }

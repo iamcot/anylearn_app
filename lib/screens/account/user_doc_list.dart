@@ -2,14 +2,20 @@ import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:anylearn/dto/user_doc_dto.dart';
 import 'package:flutter/material.dart';
 
+import '../image_view.dart';
+
 class UserDocList extends StatelessWidget {
   final List<UserDocDTO> userDocs;
 
   const UserDocList({Key key, this.userDocs}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    List<String> images = [];
+    userDocs.forEach((e) {
+      images.add(e.data);
+    });
     final width = MediaQuery.of(context).size.width;
-    print(width);
     return Container(
       height: (userDocs.length / 3).ceil().toDouble() * (width / 3),
       child: GridView.builder(
@@ -20,18 +26,7 @@ class UserDocList extends StatelessWidget {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              showDialog(
-                  context: context,
-                  child: SimpleDialog(
-                    children: <Widget>[
-                      CustomCachedImage(url: userDocs[index].data),
-                      FlatButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text("Đóng"))
-                    ],
-                  ));
+              open(context, index, images);
             },
             child: Card(
                 elevation: 0,
@@ -40,6 +35,23 @@ class UserDocList extends StatelessWidget {
                 )),
           );
         },
+      ),
+    );
+  }
+
+   void open(BuildContext context, final int index, List<String> galleryItems) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ImageViewScreen(
+          galleryItems: galleryItems,
+          backgroundDecoration: const BoxDecoration(
+            color: Colors.black,
+          ),
+          initialIndex: index,
+          scrollDirection: Axis.horizontal,
+          imageText: "Chứng chỉ",
+        ),
       ),
     );
   }
