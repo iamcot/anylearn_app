@@ -159,7 +159,7 @@ class UserService extends BaseService {
 
   Future<void> notifRead(String token, int id) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/notification/" + id.toString(), token: token);
-    print(url);
+    // print(url);
     await get(httpClient, url);
     return;
   }

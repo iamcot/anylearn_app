@@ -1,11 +1,11 @@
-import 'package:anylearn/blocs/course/course_blocs.dart';
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/dto/course_registered_params_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../blocs/course/course_blocs.dart';
+import '../../dto/const.dart';
+import '../../dto/course_registered_params_dto.dart';
 import '../../dto/item_dto.dart';
+import '../../dto/user_dto.dart';
 import '../../widgets/calendar_box.dart';
 
 class CourseList extends StatelessWidget {

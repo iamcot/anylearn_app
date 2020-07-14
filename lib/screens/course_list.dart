@@ -1,14 +1,13 @@
-import 'package:anylearn/customs/feedback.dart';
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/course/course_blocs.dart';
+import '../customs/feedback.dart';
 import '../dto/user_courses_dto.dart';
 import '../dto/user_dto.dart';
+import '../widgets/loading_widget.dart';
 import 'account/course_list_tab.dart';
-import 'loading.dart';
 
 class CourseListScreen extends StatefulWidget {
   @override

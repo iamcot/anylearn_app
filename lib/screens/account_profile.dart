@@ -63,18 +63,24 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                   : SizedBox(height: 0),
               Container(
                 padding: EdgeInsets.all(15),
-                child: Text(
-                  user.introduce ?? "",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12),
-                ),
+                child: Text(user.introduce ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      fontSize: 12,
+                      color: Colors.blue,
+                    )),
               ),
               user.role == MyConst.ROLE_SCHOOL && user.title != null
-                  ? ListTile(
+                  ?
+                  // Container(
+                  //     padding: EdgeInsets.only(left: 15, right: 15),
+                  //     child: Text.rich(TextSpan(text: "Người đại diện: ", children: [TextSpan(text: user.title)])))
+                  ListTile(
                       dense: true,
                       contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
                       leading: Icon(MdiIcons.shieldAccount),
-                      title: Text(user.title),
+                      title: Text("Người đại diện: " + user.title),
                       isThreeLine: false,
                     )
                   : SizedBox(height: 0),
@@ -153,5 +159,4 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
       child: user.banner != null ? CustomCachedImage(url: user.banner) : SizedBox(height: size),
     );
   }
-
 }

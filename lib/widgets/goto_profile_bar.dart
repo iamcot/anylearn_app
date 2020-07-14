@@ -14,7 +14,9 @@ class GotoProfileBar extends StatelessWidget {
           ),
           child: ListTile(
             title: Text("Thông tin giới thiệu", style: TextStyle(
-              fontSize: 14
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue
             ),),
             trailing: Icon(Icons.chevron_right),
             onTap: () {

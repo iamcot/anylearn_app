@@ -1,4 +1,3 @@
-import 'package:anylearn/dto/notification_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 

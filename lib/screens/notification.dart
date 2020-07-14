@@ -83,6 +83,7 @@ class _NotificationScreen extends State<NotificationScreen> {
                             },
                             separatorBuilder: (BuildContext context, int index) => Divider(
                                   color: Colors.grey,
+                                  height: 0,
                                 ),
                             itemCount: _notif.data.length));
               }

@@ -52,7 +52,7 @@ class CourseConfirm extends StatelessWidget {
                         fontSize: 15.0,
                         color: Colors.blue,
                       )),
-                  TextSpan(text: "\n${pdpDTO.author.role == 'school' ? 'Trường học' : 'Giảng viên'}: ", style: TextStyle()),
+                  TextSpan(text: "\n${pdpDTO.author.role == 'school' ? 'Trường' : 'Giảng viên'}: ", style: TextStyle()),
                   TextSpan(
                       text: pdpDTO.author.name,
                       style: TextStyle(

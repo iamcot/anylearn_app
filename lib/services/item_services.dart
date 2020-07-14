@@ -50,7 +50,6 @@ class ItemService extends BaseService {
 
   Future<ItemDTO> loadItemEdit(int itemId, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/edit", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return ItemDTO.fromJson(json);
   }

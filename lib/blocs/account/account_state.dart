@@ -1,10 +1,10 @@
-import 'package:anylearn/blocs/account/account_blocs.dart';
-import 'package:anylearn/dto/account_calendar_dto.dart';
-import 'package:anylearn/dto/friends_dto.dart';
-import 'package:anylearn/dto/user_doc_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+
+import '../../dto/account_calendar_dto.dart';
+import '../../dto/friends_dto.dart';
+import '../../dto/user_doc_dto.dart';
+import '../../dto/user_dto.dart';
 
 abstract class AccountState extends Equatable {
   const AccountState();

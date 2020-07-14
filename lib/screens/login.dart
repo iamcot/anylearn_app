@@ -43,11 +43,9 @@ class _LoginScreen extends State<LoginScreen> {
         bloc: _authBloc,
         listener: (context, state) {
           if (state is AuthSuccessState) {
-            if (callback.routeName != null) {
-              Navigator.of(context).popUntil(ModalRoute.withName("/"));
+            Navigator.of(context).popUntil(ModalRoute.withName("/"));
+            if (callback!= null && callback.routeName != null) {
               Navigator.of(context).pushNamed(callback.routeName, arguments: callback.routeArgs);
-            } else {
-              Navigator.of(context).popUntil(ModalRoute.withName("/"));
             }
           }
 

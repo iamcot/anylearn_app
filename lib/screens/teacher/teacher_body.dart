@@ -12,7 +12,7 @@ class TeacherBody extends StatelessWidget {
   TeacherBody({this.teachers});
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width / 3;
+    double width = MediaQuery.of(context).size.width / 2;
     return CustomScrollView(
       slivers: <Widget>[
         SliverBanner(
@@ -57,7 +57,7 @@ class TeacherBody extends StatelessWidget {
                           width: width - 40,
                           height: width - 40,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(width / 3),
+                            borderRadius: BorderRadius.circular(width / 2),
                             child: teachers.list.data[index].image != null && teachers.list.data[index].image != ""
                                 ? CustomCachedImage(
                                     url: teachers.list.data[index].image,

@@ -53,7 +53,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
 
       if (event is CourseChangeUserStatusEvent) {
         yield CourseUserStatusInprogressState();
-        final result = await itemRepository.changeUserStatus(event.itemId, event.newStatus, event.token);
+        await itemRepository.changeUserStatus(event.itemId, event.newStatus, event.token);
         yield CourseUserStatusSuccessState();
       }
 

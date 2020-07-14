@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/transaction/transaction_blocs.dart';
-import '../dto/bank_dto.dart';
 import '../dto/const.dart';
 import '../dto/transaction_config_dto.dart';
 import '../dto/user_dto.dart';

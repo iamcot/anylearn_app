@@ -1,7 +1,7 @@
-import 'package:anylearn/dto/ask_dto.dart';
-import 'package:anylearn/screens/ask/ask_header.dart';
-import 'package:anylearn/screens/ask/ask_list.dart';
 import 'package:flutter/material.dart';
+
+import '../../dto/ask_dto.dart';
+import 'ask_list.dart';
 
 class AskCatBody extends StatelessWidget {
   final List<AskDTO> data;
