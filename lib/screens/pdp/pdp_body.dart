@@ -83,11 +83,12 @@ class _PdpBody extends State<PdpBody> {
                             padding: EdgeInsets.only(top: 5.0),
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.watch_later, color: Colors.black54, size: 14.0),
+                                Icon(Icons.calendar_today, color: Colors.black54, size: 14.0),
                                 Text(" " +
                                     widget.data.item.timeStart +
                                     " " +
-                                    DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart)))
+                                    DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart))),
+                                widget.data.numSchedule > 1 ? Text(" (${widget.data.numSchedule} buổi học)") : SizedBox(height: 1)
                               ],
                             ),
                           ),

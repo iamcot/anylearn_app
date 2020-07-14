@@ -109,7 +109,7 @@ class _AccountBody extends State<AccountBody> {
               trailing: SizedBox(
                   width: 80.0,
                   child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    // Text(widget.user.numFriends.toString() + " bạn "),
+                    Text(widget.user.numFriends.toString() + " bạn "),
                     Icon(Icons.chevron_right),
                   ])),
             ),

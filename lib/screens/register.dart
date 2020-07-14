@@ -109,6 +109,34 @@ class _RegisterScreen extends State<RegisterScreen> {
                     painter: CustomCurvedPaint(),
                   ),
                   Padding(
+                    padding: const EdgeInsets.only(left: 40.0, top: 15.0),
+                    child: Text("Tôi là: "),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      children: <Widget>[
+                        CustomRadio(
+                          groupValue: _user.role,
+                          value: MyConst.ROLE_MEMBER,
+                          label: "Thành viên",
+                          func: () => _selectRole(MyConst.ROLE_MEMBER),
+                        ),
+                        CustomRadio(
+                            groupValue: _user.role,
+                            value: MyConst.ROLE_TEACHER,
+                            label: "Giảng viên",
+                            func: () => _selectRole(MyConst.ROLE_TEACHER)),
+                        CustomRadio(
+                          groupValue: _user.role,
+                          value: MyConst.ROLE_SCHOOL,
+                          label: "Trường học",
+                          func: () => _selectRole(MyConst.ROLE_SCHOOL),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
                     child: TextFormField(
                       initialValue: _user.refcode,
@@ -152,7 +180,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         _fieldFocusChange(context, _focusName, _focusPhone);
                       },
                       decoration: InputDecoration(
-                        labelText: "Họ & Tên",
+                        labelText: _user.role == MyConst.ROLE_SCHOOL ? "Tên trường" : "Họ & Tên",
                         prefixIcon: Icon(MdiIcons.account),
                         labelStyle: TextStyle(fontSize: 14.0),
                         contentPadding: EdgeInsets.all(5.0),
@@ -246,34 +274,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       obscureText: true,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 40.0, top: 15.0),
-                    child: Text("Tôi là: "),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 30.0),
-                    child: Row(
-                      children: <Widget>[
-                        CustomRadio(
-                          groupValue: _user.role,
-                          value: MyConst.ROLE_MEMBER,
-                          label: "Học viên",
-                          func: () => _selectRole(MyConst.ROLE_MEMBER),
-                        ),
-                        CustomRadio(
-                            groupValue: _user.role,
-                            value: MyConst.ROLE_TEACHER,
-                            label: "Giảng viên",
-                            func: () => _selectRole(MyConst.ROLE_TEACHER)),
-                        CustomRadio(
-                          groupValue: _user.role,
-                          value: MyConst.ROLE_SCHOOL,
-                          label: "Trung tâm",
-                          func: () => _selectRole(MyConst.ROLE_SCHOOL),
-                        ),
-                      ],
-                    ),
-                  ),
+                  
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0, top: 0),
                     child: CheckboxListTile(

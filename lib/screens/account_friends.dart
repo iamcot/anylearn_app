@@ -138,7 +138,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                           trailing: SizedBox(
                                               width: 80.0,
                                               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                                                // Text(_data.friends[itemIndex].numFriends.toString() + " bạn "),
+                                                Text(_data.friends[itemIndex].numFriends.toString() + " bạn "),
                                                 Icon(Icons.chevron_right),
                                               ])),
                                           onTap: () {
