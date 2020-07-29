@@ -84,6 +84,14 @@ class PageRepository {
   }
 
   Future<List<ItemDTO>> searchItem(String screen, String query) async {
-     return await configService.searchItem(screen, query);
+    return await configService.searchItem(screen, query);
+  }
+
+  Future<List<UserDTO>> allFriends(String token) async {
+    return await userService.allFriends(token);
+  }
+
+  Future<bool> shareFriends(String token, int id, List<int> friends, bool isALL) async {
+    return await userService.shareFriends(token, id, friends, isALL);
   }
 }

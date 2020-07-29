@@ -12,11 +12,11 @@ class TransactionService extends BaseService {
 
   TransactionService({this.config, this.httpClient});
 
-  Future<bool> submitDeposit(int amount, String token, String payMethod) async {
+  Future<bool> submitDeposit(String amount, String token, String payMethod) async {
     final url = buildUrl(appConfig: config, endPoint: "/transaction/deposit", token: token);
     print(url);
     final json = await post(httpClient, url, {
-      'amount': amount.toString(),
+      'amount': amount,
       'pay_method': payMethod,
     });
     return json['result'];
@@ -32,8 +32,8 @@ class TransactionService extends BaseService {
     return json['result'];
   }
 
-  Future<bool> submitXchange(int amount, String token) async {
-    final url = buildUrl(appConfig: config, endPoint: "/transaction/xchange", token: token);
+  Future<bool> submitExchange(int amount, String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/transaction/exchange", token: token);
     print(url);
     final json = await post(httpClient, url, {
       'amount': amount.toString(),
@@ -45,7 +45,7 @@ class TransactionService extends BaseService {
     final url = buildUrl(appConfig: config, endPoint: "/transaction/history", token: token);
     print(url);
     final json = await get(httpClient, url);
-    print(json);
+    // print(json);
     return {
       MyConst.WALLET_M:
           List<TransactionDTO>.from(json[MyConst.WALLET_M]?.map((e) => e == null ? null : TransactionDTO.fromJson(e))),

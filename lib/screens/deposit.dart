@@ -24,6 +24,8 @@ class _DepositScreen extends State<DepositScreen> {
   final _amountInput = TextEditingController();
   final _moneyFormat = NumberFormat("###,###,###", "vi_VN");
   final _dateFormat = DateFormat("HH:mm dd/MM/yyyy");
+  final voucherController = TextEditingController();
+
   String _suggestText = "Nhập số tiền cần nhập hoặc chọn nhanh từ danh sách phía dưới";
   TransactionBloc _transBloc;
   AuthBloc _authBloc;
@@ -68,23 +70,33 @@ class _DepositScreen extends State<DepositScreen> {
             listener: (BuildContext context, TransactionState state) {
               if (state is TransactionDepositeSaveSuccessState) {
                 _transBloc..add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_DEPOSIT, token: user.token));
-                Scaffold.of(context)
-                    .showSnackBar(new SnackBar(
+                if (_paymentSelect == MyConst.PAYMENT_VOUCHER) {
+                  _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+                  Scaffold.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(new SnackBar(
+                      content: Text("Nhập voucher thành công."),
+                      duration: Duration(seconds: 2),
+                    ));
+                } else {
+                  Scaffold.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(new SnackBar(
                       content: Text("Gửi lệnh nạp tiền thành công. Vui lòng kiểm tra bước tiếp theo."),
                       duration: Duration(seconds: 1),
-                    ))
-                    .closed
-                    .then((value) => showDialog(
+                    )).closed.then((value) => showDialog(
                         context: context,
                         builder: (context) {
                           return BankInfo(bankDTO: config.depositBank, phone: user.phone);
                         }));
+                }
               }
               if (state is TransactionSaveFailState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Có lỗi khi lưu, vui lòng thử lại"),
-                  duration: Duration(seconds: 2),
-                ));
+                Scaffold.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(new SnackBar(
+                    content: Text(state.error.toString()),
+                  ));
               }
             },
             child: BlocBuilder<TransactionBloc, TransactionState>(builder: (context, state) {
@@ -146,7 +158,7 @@ class _DepositScreen extends State<DepositScreen> {
                                             });
                                           },
                                           validator: (String value) {
-                                            if (value.isEmpty) {
+                                            if (value.isEmpty && _paymentSelect != "voucher") {
                                               return "Bạn chưa nhập số tiền muốn nạp";
                                             }
                                             _formKey.currentState.save();
@@ -183,16 +195,44 @@ class _DepositScreen extends State<DepositScreen> {
                                 RadioListTile(
                                   dense: true,
                                   title: Text(
+                                    "Tôi có Voucher",
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  subtitle: Column(children: [
+                                    Text("Nhập mã voucher và nhấn nút Nạp để nhận ưu đãi của bạn"),
+                                    _paymentSelect != MyConst.PAYMENT_VOUCHER
+                                        ? SizedBox(height: 0)
+                                        : Container(
+                                            child: TextFormField(
+                                              controller: voucherController,
+                                              decoration: InputDecoration(
+                                                hintText: "Nhập voucher của bạn",
+                                              ),
+                                            ),
+                                          )
+                                  ]),
+                                  value: MyConst.PAYMENT_VOUCHER,
+                                  groupValue: _paymentSelect,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _paymentSelect = MyConst.PAYMENT_VOUCHER;
+                                    });
+                                  },
+                                ),
+                                Divider(),
+                                RadioListTile(
+                                  dense: true,
+                                  title: Text(
                                     "Chuyển khoản ngân hàng",
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   subtitle: Text(
                                       "Thông tin chuyển khoản sẽ được gửi tới quý khách hàng ngay khi xác nhận nạp tiền."),
-                                  value: "atm",
+                                  value: MyConst.PAYMENT_ATM,
                                   groupValue: _paymentSelect,
                                   onChanged: (value) {
                                     setState(() {
-                                      _paymentSelect = "atm";
+                                      _paymentSelect = MyConst.PAYMENT_ATM;
                                     });
                                   },
                                 ),
@@ -217,8 +257,7 @@ class _DepositScreen extends State<DepositScreen> {
                                   value: "walletc",
                                   groupValue: _paymentSelect,
                                   onChanged: (value) {
-                                    Navigator.of(context)
-                                        .pushNamed("/exchange", arguments: TextEditingValue(text: "100"));
+                                    Navigator.of(context).pushNamed("/exchange");
                                   },
                                 ),
                                 Container(
@@ -233,32 +272,41 @@ class _DepositScreen extends State<DepositScreen> {
                                       onPressed: () {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertDialog(
-                                                  content: Text(
-                                                      "Bạn đang gửi lệnh nạp ${_moneyFormat.format(int.parse(_amountInput.text))} vào Tài khoản tiền."),
-                                                  actions: <Widget>[
-                                                    FlatButton(
+                                          if (_paymentSelect == MyConst.PAYMENT_VOUCHER) {
+                                            _transBloc
+                                              ..add(SaveDepositEvent(
+                                                  token: user.token,
+                                                  amount: voucherController.text,
+                                                  payment: _paymentSelect));
+                                          } else {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    content: Text(
+                                                        "Bạn đang gửi lệnh nạp ${_moneyFormat.format(int.parse(_amountInput.text))} vào Tài khoản tiền."),
+                                                    actions: <Widget>[
+                                                      FlatButton(
+                                                          onPressed: () {
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          child: Text("Nhập lại")),
+                                                      RaisedButton(
+                                                        color: Colors.blue,
                                                         onPressed: () {
+                                                          _transBloc
+                                                            ..add(SaveDepositEvent(
+                                                                token: user.token,
+                                                                amount: _amountInput.text,
+                                                                payment: _paymentSelect));
                                                           Navigator.of(context).pop();
                                                         },
-                                                        child: Text("Nhập lại")),
-                                                    RaisedButton(
-                                                      color: Colors.blue,
-                                                      onPressed: () {
-                                                        _transBloc.add(SaveDepositEvent(
-                                                            token: user.token,
-                                                            amount: int.parse(_amountInput.text),
-                                                            payment: _paymentSelect));
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                      child: Text("Nạp tiền"),
-                                                    )
-                                                  ],
-                                                );
-                                              });
+                                                        child: Text("Nạp tiền"),
+                                                      )
+                                                    ],
+                                                  );
+                                                });
+                                          }
                                         }
                                       },
                                       child: Text(

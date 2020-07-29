@@ -145,41 +145,12 @@ class _PdpBody extends State<PdpBody> {
                     )
                   ],
                 ),
-                // ButtonBar(
-                //   alignment: MainAxisAlignment.center,
-                //   buttonMinWidth: (width - 30) / 4,
-                //   children: [
-                    // BlocBuilder<PdpBloc, PdpState>(
-                    //   bloc: BlocProvider.of<PdpBloc>(context),
-                    //   builder: (context, state) {
-                    //     if (state is PdpFavoriteAddState) {
-                    //       isFavorite = state.data.isFavorite;
-                    //     }
-                    //     if (state is PdpFavoriteRemoveState) {
-                    //       isFavorite = state.data.isFavorite;
-                    //     }
-                    //     return RaisedButton(
-                    //       shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(18.0),
-                    //           side: BorderSide(width: 1.0, color: Colors.red)),
-                    //       color: Colors.white,
-                    //       onPressed: () {
-                    //         if (widget.user != null) {
-                    //           BlocProvider.of<PdpBloc>(context)
-                    //             ..add(isFavorite == true
-                    //                 ? PdpFavoriteRemoveEvent(itemId: widget.data.item.id, userId: widget.user.id)
-                    //                 : PdpFavoriteAddEvent(itemId: widget.data.item.id, userId: widget.user.id));
-                    //         } else {
-                    //           Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                    //         }
-                    //       },
-                    //       child: Icon(isFavorite == true ? Icons.favorite : Icons.favorite_border, color: Colors.red),
-                    //     );
-                    //   },
-                    // ),
-RaisedButton(
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: RaisedButton(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+                            borderRadius: BorderRadius.circular(10.0),
                             side: BorderSide(width: 1.0, color: Colors.green)),
                         onPressed: () {
                           widget.user != null
@@ -211,23 +182,76 @@ RaisedButton(
                         color: Colors.green,
                         textColor: Colors.white,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [Icon(Icons.add_shopping_cart), Text(" Đăng ký học")]),
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [Icon(Icons.add_shopping_cart), Text(" Đăng ký học")]),
                       ),
-                    // RaisedButton(
-                    //   shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.blue)),
-                    //   color: Colors.white,
-                    //   onPressed: () {
-                    //     widget.user != null
-                    //         ? showDialog(
-                    //             context: context,
-                    //             builder: (context) => PdpShareDialog(itemId: widget.data.item.id),
-                    //           )
-                    //         : Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                    //   },
-                    //   child: Icon(Icons.share, color: Colors.blue),
-                    // ),
+                    ),
+                    IconButton(
+                        icon: Icon(Icons.share),
+                        color: Colors.blue,
+                        onPressed: () {
+                          widget.user != null
+                              ? showDialog(
+                                  context: context,
+                                  builder: (context) => PdpShareDialog(
+                                    itemId: widget.data.item.id,
+                                    user: widget.user,
+                                    pdpBloc: widget.pdpBloc,
+                                  ),
+                                )
+                              : Navigator.of(context).pushNamed('/login',
+                                  arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                        })
+                  ],
+                ),
+                // ButtonBar(
+                //   alignment: MainAxisAlignment.center,
+                //   buttonMinWidth: (width - 30) / 4,
+                //   children: [
+                //     // BlocBuilder<PdpBloc, PdpState>(
+                //     //   bloc: BlocProvider.of<PdpBloc>(context),
+                //     //   builder: (context, state) {
+                //     //     if (state is PdpFavoriteAddState) {
+                //     //       isFavorite = state.data.isFavorite;
+                //     //     }
+                //     //     if (state is PdpFavoriteRemoveState) {
+                //     //       isFavorite = state.data.isFavorite;
+                //     //     }
+                //     //     return RaisedButton(
+                //     //       shape: RoundedRectangleBorder(
+                //     //           borderRadius: BorderRadius.circular(18.0),
+                //     //           side: BorderSide(width: 1.0, color: Colors.red)),
+                //     //       color: Colors.white,
+                //     //       onPressed: () {
+                //     //         if (widget.user != null) {
+                //     //           BlocProvider.of<PdpBloc>(context)
+                //     //             ..add(isFavorite == true
+                //     //                 ? PdpFavoriteRemoveEvent(itemId: widget.data.item.id, userId: widget.user.id)
+                //     //                 : PdpFavoriteAddEvent(itemId: widget.data.item.id, userId: widget.user.id));
+                //     //         } else {
+                //     //           Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                //     //         }
+                //     //       },
+                //     //       child: Icon(isFavorite == true ? Icons.favorite : Icons.favorite_border, color: Colors.red),
+                //     //     );
+                //     //   },
+                //     // ),
+
+                //     RaisedButton(
+                //       shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.blue)),
+                //       color: Colors.white,
+                //       onPressed: () {
+                //         widget.user != null
+                //             ? showDialog(
+                //                 context: context,
+                //                 builder: (context) => PdpShareDialog(itemId: widget.data.item.id),
+                //               )
+                //             : Navigator.of(context).pushNamed('/login',
+                //                 arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                //       },
+                //       child: Icon(Icons.share, color: Colors.blue),
+                //     ),
                 //   ],
                 //   // ),
                 // ),

@@ -27,6 +27,7 @@ class ConfigServices extends BaseService {
 
   Future<TransactionConfigDTO> transactionConfigs(String type, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/config/transaction/$type", token: token);
+    print(url);
     final json = await get(httpClient, url);
     return TransactionConfigDTO.fromJson(json);
   }

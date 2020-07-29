@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/transaction/transaction_blocs.dart';
+import '../dto/bank_dto.dart';
 import '../dto/const.dart';
 import '../dto/transaction_config_dto.dart';
 import '../dto/user_dto.dart';
@@ -51,7 +52,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
         }
         if (state is AuthSuccessState) {
           user = state.user;
-          _transBloc.add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_WITHDRAW, token: user.token));
+          _transBloc..add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_WITHDRAW, token: user.token));
         }
       },
       child: Scaffold(
@@ -64,7 +65,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
           child: BlocListener<TransactionBloc, TransactionState>(
             listener: (BuildContext context, TransactionState state) {
               if (state is TransactionWithdrawSaveSuccessState) {
-                config = state.configs;
+                _transBloc..add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_WITHDRAW, token: user.token));
                 Scaffold.of(context).showSnackBar(new SnackBar(
                   content: Text("Gửi lệnh rút tiền thành công. Vui lòng chờ chúng tôi xác nhận."),
                   duration: Duration(seconds: 2),
@@ -210,23 +211,23 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                       onPressed: () {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                content: Text("Chức năng rút tiền tạm thời chưa hỗ trợ."),
-                                              );
-                                            },
-                                          );
+                                          // showDialog(
+                                          //   context: context,
+                                          //   builder: (context) {
+                                          //     return AlertDialog(
+                                          //       content: Text("Chức năng rút tiền tạm thời chưa hỗ trợ."),
+                                          //     );
+                                          //   },
+                                          // );
 
-                                          // _transBloc.add(SaveWithdrawEvent(
-                                          //     amount: _amountInput.text,
-                                          //     token: user.token,
-                                          //     bankInfo: BankDTO(
-                                          //         bankName: _bankName.text,
-                                          //         bankBranch: _bankBranch.text,
-                                          //         bankNo: _bankNo.text,
-                                          //         accountName: _bankAccount.text)));
+                                          _transBloc.add(SaveWithdrawEvent(
+                                              amount: int.parse(_amountInput.text),
+                                              token: user.token,
+                                              bankInfo: BankDTO(
+                                                  bankName: _bankName.text,
+                                                  bankBranch: _bankBranch.text,
+                                                  bankNo: _bankNo.text,
+                                                  accountName: _bankAccount.text)));
                                         }
                                       },
                                       child: Text(

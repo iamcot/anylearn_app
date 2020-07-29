@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,30 @@ class PdpRegisterFailState extends PdpState {
   List<Object> get props => [error];
   @override
   String toString() => '{error: $error}';
+}
+
+class PdpSharingState extends PdpState {}
+
+class PdpShareFailState extends PdpState {
+  final String error;
+  const PdpShareFailState({@required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}
+
+class PdpShareSuccessState extends PdpState {}
+
+class PdpShareFriendListingState extends PdpState {}
+
+class PdpShareFriendListSuccessState extends PdpState {
+  final List<UserDTO> friends;
+
+  PdpShareFriendListSuccessState({this.friends});
+
+  @override
+  List<Object> get props => [friends];
 }
 
 class PdpFailState extends PdpState {

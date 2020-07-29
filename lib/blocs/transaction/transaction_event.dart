@@ -34,7 +34,7 @@ class LoadTransactionHistoryEvent extends TransactionEvent {
 
 class SaveDepositEvent extends TransactionEvent {
   final String token;
-  final int amount;
+  final String amount;
   final String payment;
 
   SaveDepositEvent({@required this.token, @required this.amount, this.payment});
@@ -48,7 +48,7 @@ class SaveDepositEvent extends TransactionEvent {
 
 class SaveWithdrawEvent extends TransactionEvent {
   final String token;
-  final String amount;
+  final int amount;
   final BankDTO bankInfo;
 
   SaveWithdrawEvent({@required this.token, @required this.amount, this.bankInfo});
@@ -62,7 +62,7 @@ class SaveWithdrawEvent extends TransactionEvent {
 
 class SaveExchangeEvent extends TransactionEvent {
   final String token;
-  final String amount;
+  final int amount;
 
   SaveExchangeEvent({@required this.token, @required this.amount});
 

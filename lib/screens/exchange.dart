@@ -29,8 +29,6 @@ class _ExchangeScreen extends State<ExchangeScreen> {
 
   @override
   void didChangeDependencies() {
-    final amount = ModalRoute.of(context).settings.arguments;
-    if (amount != null) _amountInput.value = amount;
     final transRepo = RepositoryProvider.of<TransactionRepository>(context);
     _transBloc = TransactionBloc(transactionRepository: transRepo);
     BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
@@ -59,15 +57,21 @@ class _ExchangeScreen extends State<ExchangeScreen> {
           child: BlocListener<TransactionBloc, TransactionState>(
             listener: (BuildContext context, TransactionState state) {
               if (state is TransactionExchangeSaveSuccessState) {
-                config = state.configs;
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Gửi lệnh đổi điểm thành công"),
-                  duration: Duration(seconds: 2),
-                ));
+                BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+                _amountInput.clear();
+                _ammountMInput.clear();
+                Scaffold.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(new SnackBar(
+                    content: Text("Gửi lệnh đổi điểm thành công"),
+                    duration: Duration(seconds: 2),
+                  )).closed.then((value) {
+                    Navigator.of(context).pop();
+                  });
               }
               if (state is TransactionSaveFailState) {
                 Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Có lỗi khi lưu, vui lòng thử lại"),
+                  content: Text(state.error + "| Có lỗi khi lưu, vui lòng thử lại"),
                   duration: Duration(seconds: 2),
                 ));
               }
@@ -181,18 +185,18 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                       onPressed: () {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                content: Text("Chức năng đổi điểm tạm thời chưa hỗ trợ."),
-                                              );
-                                            },
-                                          );
-                                          // _transBloc.add(SaveExchangeEvent(
-                                          //   amount: _amountInput.text,
-                                          //   token: user.token,
-                                          // ));
+                                          // showDialog(
+                                          //   context: context,
+                                          //   builder: (context) {
+                                          //     return AlertDialog(
+                                          //       content: Text("Chức năng đổi điểm tạm thời chưa hỗ trợ."),
+                                          //     );
+                                          //   },
+                                          // );
+                                          _transBloc.add(SaveExchangeEvent(
+                                            amount: int.parse(_amountInput.text),
+                                            token: user.token,
+                                          ));
                                         }
                                       },
                                       child: Text(

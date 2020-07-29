@@ -38,21 +38,35 @@ class PdpBloc extends Bloc<PdpEvent, PdpState> {
         data.isFavorite = false; //TODO mock
         yield PdpFavoriteRemoveState(data: data);
       }
+      if (event is PdpFriendLoadEvent) {
+        final friends = await pageRepository.allFriends(event.token);
+        yield PdpShareFriendListSuccessState(friends: friends);
+      }
     } catch (error) {
-      yield PdpFailState(error: error);
+      yield PdpFailState(error: error.toString());
     }
 
-    try {
-      if (event is PdpRegisterEvent) {
+    if (event is PdpFriendShareEvent) {
+      try {
+        await pageRepository.shareFriends(event.token, event.itemId, event.friendIds, event.isALL);
+        yield PdpShareSuccessState();
+      } catch (error, trace) {
+        print(trace);
+        yield PdpShareFailState(error: error.toString());
+      }
+    }
+
+    if (event is PdpRegisterEvent) {
+      try {
         final data = await transactionRepository.register(event.token, event.itemId);
         if (data) {
           yield PdpRegisterSuccessState(result: data);
         } else {
           yield PdpRegisterFailState(error: "Có lỗi xảy ra, vui lòng thử lại");
         }
+      } catch (error) {
+        yield PdpRegisterFailState(error: error.toString());
       }
-    } catch (error) {
-      yield PdpRegisterFailState(error: error.toString());
     }
   }
 }

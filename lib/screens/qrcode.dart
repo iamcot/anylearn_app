@@ -48,7 +48,7 @@ class _QrCodeScreen extends State<QrCodeScreen> {
             user = state.user;
           }
           return user == null
-              ? LoadingWidget
+              ? LoadingWidget()
               : Scaffold(
                   appBar: AppBar(
                     title: Text(user.name),

@@ -1,9 +1,9 @@
-import 'package:anylearn/customs/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/home/home_blocs.dart';
+import '../customs/feedback.dart';
 import '../dto/home_dto.dart';
 import '../dto/quote_dto.dart';
 import '../dto/user_dto.dart';

@@ -36,4 +36,7 @@ class MyConst {
   static const GUIDE_ABOUT = 'guide_about';
   static const GUIDE_TOC_SCHOOL = 'guide_toc_school';
   static const GUIDE_TOC_TEACHER = 'guide_toc_teacher';
+
+  static const PAYMENT_ATM = 'atm';
+  static const PAYMENT_VOUCHER = 'voucher';
 }

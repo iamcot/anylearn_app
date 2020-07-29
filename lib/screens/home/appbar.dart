@@ -1,3 +1,4 @@
+import 'package:anylearn/widgets/foundation_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../../dto/user_dto.dart';
@@ -5,7 +6,7 @@ import '../../widgets/account_icon.dart';
 import '../../widgets/add_course_icon.dart';
 import '../../widgets/notification_icon.dart';
 import '../../widgets/search_icon.dart';
-import 'wallet_card.dart';
+import 'home_top_icons.dart';
 
 class HomeAppBar extends StatelessWidget {
   final UserDTO user;
@@ -13,7 +14,7 @@ class HomeAppBar extends StatelessWidget {
   const HomeAppBar({Key key, this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    double statusHeight = MediaQuery.of(context).padding.top;//iOS = 44 & Android = 22
+    double statusHeight = MediaQuery.of(context).padding.top; //iOS = 44 & Android = 22
     return SliverAppBar(
       expandedHeight: 185 - (statusHeight - 24),
       title: Image.asset(
@@ -24,10 +25,15 @@ class HomeAppBar extends StatelessWidget {
       floating: false,
       pinned: true,
       actions: <Widget>[
-        AddCourseIcon(),
-        SearchIcon(),
-        NotificationIcon(user: user,),
-        AccountIcon(user: user,),
+        // AddCourseIcon(),
+        // SearchIcon(),
+        FoundationIcon(),
+        NotificationIcon(
+          user: user,
+        ),
+        AccountIcon(
+          user: user,
+        ),
       ],
       flexibleSpace: LayoutBuilder(
         builder: (context, bc) {
@@ -35,7 +41,11 @@ class HomeAppBar extends StatelessWidget {
             centerTitle: false,
             background: new ClipRect(
               child: new Container(
-                child: Container(margin: EdgeInsets.fromLTRB(30.0, 90.0, 30.0, 5.0), child: WalletCard()),
+                child: Container(
+                    margin: EdgeInsets.fromLTRB(30.0, 90.0, 30.0, 5.0),
+                    child: HomeTopIcons(
+                      user: user,
+                    )),
                 decoration: new BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(

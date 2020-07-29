@@ -55,3 +55,30 @@ class PdpRegisterEvent extends PdpEvent {
   @override
   String toString() => 'PdpRegisterEvent  { id: $itemId}';
 }
+
+class PdpFriendLoadEvent extends PdpEvent {
+  final String token;
+
+  PdpFriendLoadEvent({@required this.token});
+
+  @override
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'PdpFriendLoadEvent';
+}
+
+class PdpFriendShareEvent extends PdpEvent {
+  final String token;
+  final int itemId;
+  final List<int> friendIds;
+  final bool isALL;
+
+  PdpFriendShareEvent({this.token, this.itemId, this.friendIds, this.isALL});
+
+  @override
+  List<Object> get props => [token, itemId, friendIds, isALL];
+
+  @override
+  String toString() => 'PdpFriendShareEvent {id: $itemId, friends: $friendIds, isALL: $isALL}';
+}

@@ -163,4 +163,19 @@ class UserService extends BaseService {
     await get(httpClient, url);
     return;
   }
+
+  Future<List<UserDTO>> allFriends(String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/all-friends", token: token);
+    final json = await get(httpClient, url);
+    return List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
+  }
+
+  Future<bool> shareFriends(String token, int id, List<int> friends, bool isALL) async {
+    final url = buildUrl(appConfig: config, endPoint: "/item/$id/share", token: token);
+    print(url);
+    final json = await post(httpClient, url, {
+      "friends": isALL ? "ALL" : jsonEncode(friends),
+    });
+    return json['result'];
+  }
 }

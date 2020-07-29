@@ -8,7 +8,7 @@ import '../../widgets/hot_users.dart';
 import '../../widgets/loading_widget.dart';
 import 'appbar.dart';
 import 'banner.dart';
-import 'features.dart';
+import 'search_box.dart';
 import 'week_courses.dart';
 import 'week_courses_header.dart';
 
@@ -22,7 +22,8 @@ class HomeBody extends StatelessWidget {
     return CustomScrollView(
       slivers: <Widget>[
         new HomeAppBar(user: user),
-        new FeatureList(features: homeData.featuresIcons),
+        SliverToBoxAdapter(child: SearchBox()),
+        // new FeatureList(features: homeData.featuresIcons),
         new HomeBanner(
           imgList: homeData.banners,
         ),
@@ -48,11 +49,9 @@ class HomeBody extends StatelessWidget {
                           text: state.quote.text,
                           style: TextStyle(fontSize: 12),
                           children: [
-                            TextSpan(text: " " + state.quote.author, style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              fontSize: 11,
-                              color: Colors.pink
-                            ))
+                            TextSpan(
+                                text: " " + state.quote.author,
+                                style: TextStyle(fontStyle: FontStyle.italic, fontSize: 11, color: Colors.pink))
                           ],
                         ),
                         textAlign: TextAlign.justify,

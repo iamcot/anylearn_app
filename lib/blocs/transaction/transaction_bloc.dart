@@ -28,26 +28,31 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         } else {
           yield TransactionHistorySuccessState(history: data);
         }
-      } else if (event is SaveDepositEvent) {
-        final result = await transactionRepository.submitDeposit(event.amount, event.token, event.payment);
-        if (result) {
-          yield TransactionDepositeSaveSuccessState();
-        } else {
-          yield TransactionSaveFailState(error: "Có lỗi xảy ra, vui lòng thử lại");
-        }
-      } else if (event is SaveWithdrawEvent) {
-        final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_WITHDRAW, event.token);
-        yield TransactionWithdrawSaveSuccessState(configs: config);
-      } else if (event is SaveExchangeEvent) {
-        final config = await transactionRepository.dataTransactionPage(MyConst.TRANS_TYPE_EXCHANGE, event.token);
-        yield TransactionExchangeSaveSuccessState(configs: config);
       } else if (event is LoadFoundationEvent) {
         final value = await transactionRepository.foundation();
         yield FoundationSuccessState(value: value);
       }
     } catch (error, t) {
-      yield TransactionFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
+      yield TransactionFailState(error: error.toString());
+      print(error);
       print(t);
+    }
+
+    try {
+      if (event is SaveDepositEvent) {
+        final result = await transactionRepository.submitDeposit(event.amount, event.token, event.payment);
+        yield TransactionDepositeSaveSuccessState();
+      } else if (event is SaveWithdrawEvent) {
+        final config = await transactionRepository.submitWithdraw(event.amount, event.token, event.bankInfo);
+        yield TransactionWithdrawSaveSuccessState();
+      } else if (event is SaveExchangeEvent) {
+        final config = await transactionRepository.submitExchange(event.amount, event.token);
+        yield TransactionExchangeSaveSuccessState();
+      }
+    } catch (error, trace) {
+      print(error);
+      print(trace);
+      yield TransactionSaveFailState(error: error.toString());
     }
   }
 }

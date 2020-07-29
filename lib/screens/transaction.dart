@@ -58,12 +58,22 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
               if (state is TransactionHistorySuccessState) {
                 data = state.history;
               }
+              // if (state is TransactionHistoryLoadingState) {
+              //   return LoadingScreen();
+              // }
               return data == null
                   ? LoadingScreen()
                   : Scaffold(
                       appBar: AppBar(
                         centerTitle: false,
                         title: const Text("Giao dịch của tôi"),
+                        actions: <Widget>[
+                          IconButton(
+                              icon: Icon(Icons.refresh),
+                              onPressed: () {
+                                _transBloc.add(LoadTransactionHistoryEvent(token: _user.token));
+                              })
+                        ],
                         bottom: PreferredSize(
                           child: Column(
                             children: <Widget>[
@@ -123,7 +133,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                             ),
                                             Text.rich(
                                               TextSpan(
-                                                  text: "ĐỔI ĐIỂM",
+                                                  text: "RÚT ĐIỂM",
                                                   style: TextStyle(
                                                     fontSize: 12.0,
                                                     color: Colors.orange,

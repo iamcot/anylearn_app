@@ -19,19 +19,24 @@ class TransactionRepository {
   }
 
   Future<TransactionConfigDTO> dataTransactionPage(String type, String token) async {
-    return configService.transactionConfigs(type, token);
+    return await configService.transactionConfigs(type, token);
   }
 
   Future<Map<String, List<TransactionDTO>>> dataHistoryPage(String token) async {
-    return transactionService.history(token);
+    return await transactionService.history(token);
   }
 
-  Future<bool> submitDeposit(int amount, String token, String payMethod) async {
-    return transactionService.submitDeposit(amount, token, payMethod);
+  Future<bool> submitDeposit(String amount, String token, String payMethod) async {
+    return await transactionService.submitDeposit(amount, token, payMethod);
   }
 
-  Future<bool> submitWithdraw(int amount, String token, BankDTO payInfo) async {}
-  Future<bool> submitXchange(int amount, String token) async {}
+  Future<bool> submitWithdraw(int amount, String token, BankDTO payInfo) async {
+    return await transactionService.submitWithdraw(amount, token, payInfo);
+  }
+
+  Future<bool> submitExchange(int amount, String token) async {
+    return await transactionService.submitExchange(amount, token);
+  }
 
   Future<bool> register(String token, int itemId) async {
     return transactionService.register(token, itemId);

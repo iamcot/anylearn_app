@@ -57,7 +57,8 @@ class TransactionDTO extends Equatable {
             content: json['content'],
             createdDate: json['created_at'],
             payMethod: json['pay_method'],
-            bankInfo: json['pay_info'].length == 0 ? null : BankDTO.fromJson(json['pay_info']),
+            bankInfo:
+                json['pay_info'] == null || json['pay_info'].length == 0 ? null : BankDTO.fromJson(json['pay_info']),
             status: json['status'],
             orderId: json['order_id'],
             type: json['type'],
