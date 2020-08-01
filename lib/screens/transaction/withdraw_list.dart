@@ -1,3 +1,5 @@
+import 'package:anylearn/widgets/bank_info.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -31,7 +33,54 @@ class WithdrawList extends StatelessWidget {
                   e.status > 0
                       ? TextSpan(text: "Đã xác nhận", style: TextStyle(color: Colors.green))
                       : (TextSpan(text: "Chưa xác nhận", style: TextStyle(color: Colors.grey), children: [
-                          TextSpan(text: "\nThông tin ngân hàng", style: TextStyle(color: Colors.blue)),
+                          TextSpan(
+                              text: "\nThông tin ngân hàng",
+                              style: TextStyle(color: Colors.blue),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return SimpleDialog(
+                                          title: Text("Tiền sẽ được chuyển khoản về ngân hàng sau:",
+                                              style: TextStyle(fontSize: 12.0)),
+                                          children: [
+                                            ListTile(
+                                              title: Text("Ngân hàng"),
+                                              subtitle: Text(e.bankInfo.bankName),
+                                            ),
+                                            ListTile(
+                                              title: Text("Chi nhánh"),
+                                              subtitle: Text(e.bankInfo.bankBranch),
+                                            ),
+                                            ListTile(
+                                              title: Text("Số tài khoản"),
+                                              subtitle: Text(e.bankInfo.bankNo),
+                                            ),
+                                            ListTile(
+                                              title: Text("Người  thụ hưởng"),
+                                              subtitle: Text(e.bankInfo.accountName),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: RaisedButton(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10.0),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                color: Colors.blue,
+                                                child: Text(
+                                                  "OK",
+                                                  style: TextStyle(color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                }),
                         ])),
                 ),
                 trailing: Text(

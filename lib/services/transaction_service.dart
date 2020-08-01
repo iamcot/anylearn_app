@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
@@ -22,12 +24,12 @@ class TransactionService extends BaseService {
     return json['result'];
   }
 
-  Future<bool> submitWithdraw(int amount, String token, BankDTO payInfo) async {
+  Future<bool> submitWithdraw(String amount, String token, BankDTO payInfo) async {
     final url = buildUrl(appConfig: config, endPoint: "/transaction/withdraw", token: token);
     print(url);
     final json = await post(httpClient, url, {
-      'amount': amount.toString(),
-      'pay_method': payInfo,
+      'amount': amount,
+      'pay_info': jsonEncode(payInfo).toString(),
     });
     return json['result'];
   }

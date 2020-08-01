@@ -30,7 +30,7 @@ class TransactionRepository {
     return await transactionService.submitDeposit(amount, token, payMethod);
   }
 
-  Future<bool> submitWithdraw(int amount, String token, BankDTO payInfo) async {
+  Future<bool> submitWithdraw(String amount, String token, BankDTO payInfo) async {
     return await transactionService.submitWithdraw(amount, token, payInfo);
   }
 

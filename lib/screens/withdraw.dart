@@ -65,7 +65,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
           child: BlocListener<TransactionBloc, TransactionState>(
             listener: (BuildContext context, TransactionState state) {
               if (state is TransactionWithdrawSaveSuccessState) {
-                _transBloc..add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_WITHDRAW, token: user.token));
+                BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
                 Scaffold.of(context).showSnackBar(new SnackBar(
                   content: Text("Gửi lệnh rút tiền thành công. Vui lòng chờ chúng tôi xác nhận."),
                   duration: Duration(seconds: 2),
@@ -221,7 +221,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                           // );
 
                                           _transBloc.add(SaveWithdrawEvent(
-                                              amount: int.parse(_amountInput.text),
+                                              amount: _amountInput.text,
                                               token: user.token,
                                               bankInfo: BankDTO(
                                                   bankName: _bankName.text,

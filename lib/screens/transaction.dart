@@ -71,7 +71,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                           IconButton(
                               icon: Icon(Icons.refresh),
                               onPressed: () {
-                                _transBloc.add(LoadTransactionHistoryEvent(token: _user.token));
+                                _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
                               })
                         ],
                         bottom: PreferredSize(
@@ -100,8 +100,10 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   recognizer: TapGestureRecognizer()
-                                                    ..onTap = () {
-                                                      Navigator.of(context).pushNamed("/deposit");
+                                                    ..onTap = () async {
+                                                      await Navigator.of(context).pushNamed("/deposit");
+                                                      _authBloc = BlocProvider.of<AuthBloc>(context)
+                                                        ..add(AuthCheckEvent());
                                                     }),
                                             ),
                                           ]),
@@ -140,8 +142,10 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   recognizer: TapGestureRecognizer()
-                                                    ..onTap = () {
-                                                      Navigator.of(context).pushNamed("/withdraw");
+                                                    ..onTap = () async {
+                                                      await Navigator.of(context).pushNamed("/withdraw");
+                                                      _authBloc = BlocProvider.of<AuthBloc>(context)
+                                                        ..add(AuthCheckEvent());
                                                     }),
                                             ),
                                           ]),
@@ -175,8 +179,11 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                         child: TabBarView(
                           controller: _tabController,
                           children: [
-                            TransactionList(transactions: data[MyConst.WALLET_M]),
-                            TransactionList(transactions: data[MyConst.WALLET_C]),
+                            TransactionList(
+                              transactions: data[MyConst.WALLET_M],
+                              tab: "wallet_m",
+                            ),
+                            TransactionList(transactions: data[MyConst.WALLET_C], tab: "wallet_c"),
                           ],
                         ),
                       ),

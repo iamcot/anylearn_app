@@ -7,13 +7,7 @@ class BankDTO extends Equatable {
   final String accountName;
   final String content;
 
-  BankDTO({
-    this.bankName,
-    this.bankNo,
-    this.bankBranch,
-    this.accountName,
-    this.content
-  });
+  BankDTO({this.bankName, this.bankNo, this.bankBranch, this.accountName, this.content});
 
   @override
   List<Object> get props => [bankName, bankNo, bankBranch, accountName, content];
@@ -28,5 +22,15 @@ class BankDTO extends Equatable {
             accountName: json['account_name'],
             content: json['content'],
           );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'bank_name': bankName,
+      'bank_no': bankNo,
+      'bank_branch': bankBranch,
+      'account_name': accountName,
+      'content': content
+    };
   }
 }

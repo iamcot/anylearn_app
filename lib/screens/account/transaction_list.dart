@@ -6,8 +6,9 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<TransactionDTO> transactions;
+  final String tab;
 
-  const TransactionList({Key key, this.transactions}) : super(key: key);
+  const TransactionList({Key key, this.transactions, this.tab}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +42,10 @@ class TransactionList extends StatelessWidget {
                               ]),
                         ),
                         trailing: Text(
-                          monneyF.format(transactions[itemIndex].amount),
+                          monneyF.format(usedAmount(transactions[itemIndex])),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: transactions[itemIndex].amount > 0 ? Colors.green : Colors.red,
+                            color: usedAmount(transactions[itemIndex]) > 0 ? Colors.green : Colors.red,
                           ),
                         ),
                       );
@@ -82,5 +83,12 @@ class TransactionList extends StatelessWidget {
       case MyConst.TRANS_STATUS_CANCEL:
         return TextSpan(text: "Bị từ chối", style: TextStyle(color: Colors.red));
     }
+  }
+
+  int usedAmount(TransactionDTO trans) {
+    if (trans.type == MyConst.TRANS_TYPE_EXCHANGE && tab == "wallet_c") {
+      return trans.refAmount;
+    }
+    return trans.amount;
   }
 }

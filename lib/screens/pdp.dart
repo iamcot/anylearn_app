@@ -30,7 +30,12 @@ class _PDPScreen extends State<PDPScreen> {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
     final transRepo = RepositoryProvider.of<TransactionRepository>(context);
     pdpBloc = PdpBloc(pageRepository: pageRepo, transactionRepository: transRepo);
-    final itemId = ModalRoute.of(context).settings.arguments;
+    int itemId;
+    try {
+      itemId = int.parse(ModalRoute.of(context).settings.arguments);
+    } catch (e) {
+      itemId = ModalRoute.of(context).settings.arguments;
+    }
     pdpBloc..add(LoadPDPEvent(id: itemId));
   }
 

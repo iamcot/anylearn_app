@@ -47,8 +47,8 @@ class SaveDepositEvent extends TransactionEvent {
 }
 
 class SaveWithdrawEvent extends TransactionEvent {
-  final String token;
-  final int amount;
+  final token;
+  final amount;
   final BankDTO bankInfo;
 
   SaveWithdrawEvent({@required this.token, @required this.amount, this.bankInfo});

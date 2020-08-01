@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'bank_dto.dart';
@@ -58,7 +59,7 @@ class TransactionDTO extends Equatable {
             createdDate: json['created_at'],
             payMethod: json['pay_method'],
             bankInfo:
-                json['pay_info'] == null || json['pay_info'].length == 0 ? null : BankDTO.fromJson(json['pay_info']),
+                json['pay_info'] == null || json['pay_info'].length == 0 ? null : BankDTO.fromJson(jsonDecode(json['pay_info'])),
             status: json['status'],
             orderId: json['order_id'],
             type: json['type'],
