@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:anylearn/dto/contract.dart';
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
@@ -42,4 +45,40 @@ class AuthLoggedOutEvent extends AuthEvent {
 
   @override
   String toString() => 'AuthLoggedOutEvent';
+}
+
+class AuthContractSaveEvent extends AuthEvent {
+  final String token;
+  final ContractDTO contract;
+  const AuthContractSaveEvent({@required this.token, this.contract});
+
+  @override
+  List<Object> get props => [token, contract];
+
+  @override
+  String toString() => 'AuthContractSaveEvent {contract: $contract}';
+}
+
+class AuthContractLoadEvent extends AuthEvent {
+  final String token;
+  const AuthContractLoadEvent({@required this.token});
+
+  @override
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'AuthContractLoadEvent';
+}
+
+class AuthContractSignEvent extends AuthEvent {
+  final String token;
+  final File file;
+
+  const AuthContractSignEvent({@required this.token, this.file});
+
+  @override
+  List<Object> get props => [token, file];
+
+  @override
+  String toString() => 'AuthContractSignEvent';
 }

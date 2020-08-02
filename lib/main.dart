@@ -20,7 +20,7 @@ import 'themes/default.dart';
 bool newNotification = false;
 String notifToken;
 void main() async {
-  final env = "dev";
+  final env = "prod";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
   // BlocSupervisor.delegate = SimpleBlocDelegate();

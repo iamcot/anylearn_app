@@ -42,9 +42,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await userRepository.deleteToken();
         await userRepository.logout(event.token);
         yield AuthFailState();
-      } 
+      }
     } catch (error) {
       yield AuthFailState(error: error.toString());
+    }
+
+    if (event is AuthContractSaveEvent) {
+      try {
+        userRepository.saveContract(event.token, event.contract);
+        yield AuthContractSuccessState();
+      } catch (error) {
+        yield AuthContractFailState(error: error.toString());
+      }
+    }
+    if (event is AuthContractLoadEvent) {
+      try {
+        final contract = await userRepository.loadContract(event.token);
+        yield AuthContractLoadSuccessState(contract: contract);
+      } catch (error) {
+        yield AuthContractLoadFailState(error: error.toString());
+      }
+    }
+    if (event is AuthContractSignEvent) {
+      try {
+        yield AuthContractSigningState();
+        final image = await userRepository.signContract(event.token, event.file);
+        yield AuthContractSignedSuccessState(image: image);
+      } catch (error) {
+        yield AuthContractSignedFailState(error: error.toString());
+      }
     }
   }
 }

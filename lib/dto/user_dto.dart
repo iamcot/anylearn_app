@@ -32,6 +32,8 @@ class UserDTO extends Equatable {
   String refLink;
   String fullContent;
   final List<UserDocDTO> docs;
+  String dobPlace;
+  int isSigned;
 
   UserDTO({
     this.id,
@@ -63,6 +65,8 @@ class UserDTO extends Equatable {
     this.refLink,
     this.fullContent,
     this.docs,
+    this.isSigned,
+    this.dobPlace,
   });
 
   @override
@@ -95,6 +99,8 @@ class UserDTO extends Equatable {
         refLink,
         fullContent,
         docs,
+        isSigned,
+        dobPlace,
       ];
 
   @override
@@ -129,6 +135,8 @@ class UserDTO extends Equatable {
             refLink: json['reflink'],
             fullContent: json['full_content'],
             docs: json['docs'] == null ? null : List<UserDocDTO>.from(json['docs']?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList(),
+            isSigned: json['is_signed'],
+            dobPlace: json['dob_place'],
           )
         : null;
   }

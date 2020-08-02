@@ -9,7 +9,6 @@ class LoadingWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: CircularProgressIndicator(
-        backgroundColor: color,
       ),
     );
   }

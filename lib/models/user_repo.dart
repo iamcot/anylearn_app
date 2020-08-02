@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/contract.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -116,5 +117,17 @@ class UserRepository {
 
   Future<void> logout(String token) async {
     return userService.logout(token);
+  }
+
+  Future<bool> saveContract(String token, ContractDTO contract) async {
+    return await userService.saveContract(token, contract);
+  }
+
+  Future<ContractDTO> loadContract(String token) async {
+    return await userService.loadContract(token);
+  }
+
+  Future<String> signContract(String token, File file) async {
+    return await userService.signContract(token, file);
   }
 }

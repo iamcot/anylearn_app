@@ -32,46 +32,6 @@ class _AccountBody extends State<AccountBody> {
         SliverToBoxAdapter(
           child: Column(children: <Widget>[
             AccountNormalMenu(
-              title: "Thông tin cá nhân",
-              route: "/account/edit",
-              leadingIcon: Icons.account_box,
-              trailing: Icon(Icons.edit),
-            ),
-            AccountNormalMenu(
-              title: "Mã giới thiệu",
-              leadingIcon: MdiIcons.qrcode,
-              trailing: Icon(Icons.share),
-              subContent: Text(widget.user.refcode + " (chạm để chia sẻ)"),
-              routeFunction: () => _tabToCopy(widget.user.refLink),
-            ),
-            widget.user.role == MyConst.ROLE_MEMBER
-                ? SizedBox(height: 0)
-                : AccountNormalMenu(
-                    title: "Cập nhật chứng chỉ",
-                    route: "/account/docs",
-                    routeParam: widget.user.token,
-                    leadingIcon: MdiIcons.certificate,
-                    trailing: Icon(
-                      Icons.chevron_right,
-                    ),
-                  ),
-            widget.user.role == MyConst.ROLE_MEMBER
-                ? SizedBox(height: 0)
-                : AccountNormalMenu(
-                    title: "Khóa học của tôi",
-                    route: "/course/list",
-                    leadingIcon: MdiIcons.viewList,
-                    trailing: Icon(
-                      Icons.chevron_right,
-                    ),
-                  ),
-            AccountNormalMenu(
-              title: "Lịch học của tôi",
-              route: "/account/calendar",
-              leadingIcon: MdiIcons.calendarAccount,
-              trailing: Icon(Icons.chevron_right),
-            ),
-            AccountNormalMenu(
                 title: "Giao dịch của tôi",
                 route: "/transaction",
                 leadingIcon: MdiIcons.wallet,
@@ -101,6 +61,23 @@ class _AccountBody extends State<AccountBody> {
                         )
                       ]),
                 )),
+            widget.user.role == MyConst.ROLE_MEMBER
+                ? SizedBox(height: 0)
+                : AccountNormalMenu(
+                    title: "Khóa học của tôi",
+                    route: "/course/list",
+                    leadingIcon: MdiIcons.viewList,
+                    trailing: Icon(
+                      Icons.chevron_right,
+                    ),
+                  ),
+            AccountNormalMenu(
+              title: "Lịch học của tôi",
+              route: "/account/calendar",
+              leadingIcon: MdiIcons.calendarAccount,
+              trailing: Icon(Icons.chevron_right),
+            ),
+
             AccountNormalMenu(
               title: "Danh sách bạn bè",
               route: "/account/friends",
@@ -113,6 +90,54 @@ class _AccountBody extends State<AccountBody> {
                     Icon(Icons.chevron_right),
                   ])),
             ),
+            AccountNormalMenu(
+              title: "Thông tin cá nhân",
+              route: "/account/edit",
+              leadingIcon: Icons.account_box,
+              trailing: Icon(Icons.edit),
+            ),
+            AccountNormalMenu(
+              title: "Mã giới thiệu",
+              leadingIcon: MdiIcons.qrcode,
+              trailing: Icon(Icons.share),
+              subContent: Text(widget.user.refcode + " (chạm để chia sẻ)"),
+              routeFunction: () => _tabToCopy(widget.user.refLink),
+            ),
+            widget.user.role == MyConst.ROLE_TEACHER
+                ? AccountNormalMenu(
+                    title: "Hợp đồng giảng viên",
+                    route: "/contract/teacher",
+                    routeParam: widget.user.token,
+                    leadingIcon: MdiIcons.fileCertificateOutline,
+                    trailing: Icon(
+                      Icons.chevron_right,
+                    ),
+                  )
+                : SizedBox(height: 0),
+            widget.user.role == MyConst.ROLE_SCHOOL
+                ? AccountNormalMenu(
+                    title: "Hợp đồng trường học",
+                    route: "/contract/school",
+                    routeParam: widget.user.token,
+                    leadingIcon: MdiIcons.fileCertificateOutline,
+                    trailing: Icon(
+                      Icons.chevron_right,
+                    ),
+                  )
+                : SizedBox(height: 0),
+            widget.user.role == MyConst.ROLE_MEMBER
+                ? SizedBox(height: 0)
+                : AccountNormalMenu(
+                    title: "Cập nhật chứng chỉ",
+                    route: "/account/docs",
+                    routeParam: widget.user.token,
+                    leadingIcon: MdiIcons.certificate,
+                    trailing: Icon(
+                      Icons.chevron_right,
+                    ),
+                  ),
+            // Navigator.of(context).popUntil(ModalRoute.withName("/"));
+
             AccountNormalMenu(
               title: "Hướng dẫn sử dụng",
               route: "/guide",
@@ -129,12 +154,6 @@ class _AccountBody extends State<AccountBody> {
                     trailing: Icon(Icons.chevron_right),
                   )
                 : SizedBox(height: 0),
-            // AccountNormalMenu(
-            //   title: "Gửi phản hồi về ứng dụng",
-            //   route: "/account/contact",
-            //   leadingIcon: MdiIcons.comment,
-            //   trailing: Icon(Icons.arrow_right),
-            // ),
             AccountNormalMenu(
               title: "Thông tin về anyLEARN.vn",
               route: "/guide",
@@ -151,7 +170,6 @@ class _AccountBody extends State<AccountBody> {
             AccountNormalMenu(
               title: "Đăng xuất",
               routeFunction: () {
-                // Navigator.of(context).popUntil(ModalRoute.withName("/"));
                 widget.authBloc.add(AuthLoggedOutEvent(token: widget.user.token));
               },
               leadingIcon: null,

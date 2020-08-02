@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:anylearn/dto/contract.dart';
 import 'package:anylearn/dto/notification_dto.dart';
 import 'package:anylearn/main.dart';
 import 'package:http/http.dart' as http;
@@ -177,5 +178,25 @@ class UserService extends BaseService {
       "friends": isALL ? "ALL" : jsonEncode(friends),
     });
     return json['result'];
+  }
+
+  Future<bool> saveContract(String token, ContractDTO contract) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/contract", token: token);
+    final json = await post(httpClient, url, {
+      "contract": jsonEncode(contract),
+    });
+    return json['result'];
+  }
+
+  Future<ContractDTO> loadContract(String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/contract", token: token);
+    final json = await get(httpClient, url);
+    return json == null ? null : ContractDTO.fromJson(json);
+  }
+
+  Future<String> signContract(String token, File file) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/contract/sign", token: token);
+    final jsonStr = await postImage(url, file);
+    return jsonStr;
   }
 }
