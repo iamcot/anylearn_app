@@ -11,6 +11,7 @@ import '../dto/contract.dart';
 import '../dto/user_dto.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/loading_widget.dart';
+import 'draw.dart';
 
 class ContractSignScreen extends StatefulWidget {
   @override
@@ -91,16 +92,34 @@ class _ContractSignScreen extends State<ContractSignScreen> {
                                           );
                                   }),
                             ),
-                            GradientButton(
-                              function: () async {
-                                final File image = await ImagePicker.pickImage(
-                                  source: ImageSource.camera,
-                                );
-                                if (image != null) {
-                                  _authBloc..add(AuthContractSignEvent(token: _user.token, file: image));
-                                }
-                              },
-                              title: "CHỤP ẢNH & KÝ",
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                GradientButton(
+                                  function: () async {
+                                    final File image = await ImagePicker.pickImage(
+                                      source: ImageSource.camera,
+                                    );
+                                    if (image != null) {
+                                      _authBloc..add(AuthContractSignEvent(token: _user.token, file: image));
+                                    }
+                                  },
+                                  title: "CHỤP ẢNH & KÝ",
+                                ),
+                                SizedBox(width: 15),
+                                GradientButton(
+                                  function: () async {
+                                    final File image = await Navigator.of(context)
+                                        .push(MaterialPageRoute(builder: (context) => new DrawScreen()));
+                                    if (image != null) {
+                                      _authBloc..add(AuthContractSignEvent(token: _user.token, file: image));
+                                    }
+                                  },
+                                  color: Colors.green,
+                                  colorSub: Colors.greenAccent,
+                                  title: "VẼ & KÝ",
+                                )
+                              ],
                             )
                           ]),
                           Divider(),

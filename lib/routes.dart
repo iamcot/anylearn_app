@@ -1,4 +1,3 @@
-import 'package:anylearn/screens/contract_sign.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
@@ -14,12 +13,14 @@ import 'screens/account_profile.dart';
 import 'screens/ask.dart';
 import 'screens/ask_cat.dart';
 import 'screens/contract_school.dart';
+import 'screens/contract_sign.dart';
 import 'screens/contract_teacher.dart';
 import 'screens/course_form.dart';
 import 'screens/course_list.dart';
 import 'screens/course_registered.dart';
 import 'screens/deposit.dart';
 import 'screens/developing.dart';
+import 'screens/draw.dart';
 import 'screens/event.dart';
 import 'screens/exchange.dart';
 import 'screens/foundation.dart';
@@ -73,4 +74,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/contract/teacher": (BuildContext context) => ContractTeacherScreen(),
   "/contract/school": (BuildContext context) => ContractSchoolScreen(),
   "/contract/sign": (BuildContext context) => ContractSignScreen(),
+  "/draw": (BuildContext context) => DrawScreen(),
 };
