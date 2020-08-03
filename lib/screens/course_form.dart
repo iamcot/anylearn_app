@@ -71,6 +71,9 @@ class _CourseFormScreen extends State<CourseFormScreen> {
           if (state.user.updateDoc == 0) {
             Navigator.of(context).popAndPushNamed("/account/docs", arguments: state.user.token);
           }
+          if (state.user.isSigned < MyConst.CONTRACT_SIGNED) {
+            Navigator.of(context).popAndPushNamed("/contract/" + state.user.role);
+          }
           _user = state.user;
           if (editId != null && editId > 0) {
             _courseBloc..add(LoadCourseEvent(id: editId, token: _user.token));

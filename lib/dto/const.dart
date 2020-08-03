@@ -39,4 +39,10 @@ class MyConst {
 
   static const PAYMENT_ATM = 'atm';
   static const PAYMENT_VOUCHER = 'voucher';
+
+  static const CONTRACT_NEW = 1;
+  static const CONTRACT_SIGNED = 10;
+  static const CONTRACT_APPROVED = 99;
+  static const CONTRACT_DELETED = 0;
+
 }
