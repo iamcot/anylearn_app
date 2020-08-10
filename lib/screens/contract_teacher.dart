@@ -6,6 +6,7 @@ import 'package:validators/validators.dart' as validator;
 
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_blocs.dart';
+import '../dto/const.dart';
 import '../dto/contract.dart';
 import '../dto/user_dto.dart';
 import '../widgets/gradient_button.dart';
@@ -42,7 +43,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
           bloc: BlocProvider.of<AuthBloc>(context),
           listener: (context, state) {
             if (state is AuthContractSuccessState) {
-              _authBloc..add(AuthCheckEvent());
+              _user.isSigned = MyConst.CONTRACT_NEW;
               Scaffold.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(

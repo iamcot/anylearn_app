@@ -48,6 +48,8 @@ class FeatureIcon extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               featureData.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 10.0, color: Colors.grey[800]),
             ),
           ),

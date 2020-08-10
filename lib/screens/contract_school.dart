@@ -5,16 +5,17 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:validators/validators.dart' as validator;
 
 import '../blocs/auth/auth_blocs.dart';
+import '../dto/const.dart';
 import '../dto/contract.dart';
 import '../dto/user_dto.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/loading_widget.dart';
 
-
 class ContractSchoolScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ContractSchoolScreen();
 }
+
 class _ContractSchoolScreen extends State<ContractSchoolScreen> {
   UserDTO _user;
   AuthBloc _authBloc;
@@ -38,14 +39,13 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
         centerTitle: false,
       ),
       body: BlocListener(
-          bloc: BlocProvider.of<AuthBloc>(context),
+          bloc: _authBloc,
           listener: (context, state) {
             if (state is AuthContractSuccessState) {
-              _authBloc..add(AuthCheckEvent());
+              _user.isSigned = MyConst.CONTRACT_NEW;
               Scaffold.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
-                  duration: Duration(seconds: 8),
                   content: Text(
                       "Hợp đông mới đã được tạo, Vui lòng thực hiện bước tiếp theo để ký hợp đồng. Mức hoa hồng mới nếu có sẽ được cập nhật khi chúng tôi duyệt hợp đồng."),
                 ));
@@ -187,7 +187,6 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
                                     ),
-                                    
                                     TextFormField(
                                       onSaved: (value) {
                                         setState(() {
