@@ -65,5 +65,25 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
       yield CourseFailState(error: error.toString());
       print(trace.toString());
     }
+    if (event is ReviewSubmitEvent) {
+      try {
+        yield ReviewSubmitingState();
+        final result = await itemRepository.saveRating(event.itemId, event.rating, event.comment, event.token);
+        yield ReviewSubmitSuccessState(result: result);
+      } catch (e) {
+        print(e);
+        yield ReviewSubmitFailState();
+      }
+    }
+    if (event is ReviewLoadEvent) {
+      try {
+        yield ReviewLoadingState();
+        final data = await itemRepository.loadItemReviews(event.itemId);
+        yield ReviewLoadSuccessState(data: data);
+      } catch (e) {
+        print(e);
+        yield CourseFailState(error: e.toString());
+      }
+    }
   }
 }

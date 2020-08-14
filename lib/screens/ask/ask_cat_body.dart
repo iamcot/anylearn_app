@@ -1,18 +1,48 @@
 import 'package:flutter/material.dart';
 
-import '../../dto/ask_dto.dart';
+import '../../blocs/article/article_bloc.dart';
+import '../../blocs/article/article_blocs.dart';
+import '../../dto/article_dto.dart';
 import 'ask_list.dart';
 
 class AskCatBody extends StatelessWidget {
-  final List<AskDTO> data;
-  const AskCatBody({Key key, this.data}) : super(key: key);
+  final ArticlePagingDTO data;
+  final type;
+  final ArticleBloc articleBloc;
+  const AskCatBody({Key key, this.data, this.articleBloc, this.type}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(child: Container(child: Image.asset("assets/banners/ask_banner.jpg"))),
-        AskList(data: data),
+        AskList(data: data.data),
+        SliverToBoxAdapter(
+          child: Container(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              data.currentPage > 1
+                  ? FlatButton.icon(
+                      onPressed: () async {
+                        articleBloc..add(ArticleTypeEvent(type: type, page: (data.currentPage - 1)));
+                      },
+                      icon: Icon(Icons.chevron_left),
+                      label: Text("TRANG TRƯỚC", style: TextStyle(color: Colors.blue),),
+                    )
+                  : SizedBox(height: 0),
+              data.lastPage > data.currentPage
+                  ? FlatButton.icon(
+                      onPressed: () async {
+                        articleBloc..add(ArticleTypeEvent(type: type, page: (data.currentPage + 1)));
+                      },
+                      icon: Icon(Icons.chevron_right),
+                      label: Text("TRANG SAU", style: TextStyle(color: Colors.blue),),
+                    )
+                  : SizedBox(height: 0),
+            ],
+          )),
+        )
       ],
     );
   }

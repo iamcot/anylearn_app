@@ -21,22 +21,17 @@ class PdpBloc extends Bloc<PdpEvent, PdpState> {
         if (event.id == null) {
           yield PdpFailState(error: "Truy vấn không hợp lệ");
         }
-        final data = await pageRepository.dataPDP(event.id);
+        final data = await pageRepository.dataPDP(event.id, event.token);
         if (data != null) {
           yield PdpSuccessState(data: data);
         } else {
           yield PdpFailState(error: "Error 404 - Trang không tồn tại.");
         }
       }
-      if (event is PdpFavoriteAddEvent) {
-        final data = await pageRepository.dataPDP(event.itemId);
-        data.isFavorite = true; //TODO mock
-        yield PdpFavoriteAddState(data: data);
-      }
-      if (event is PdpFavoriteRemoveEvent) {
-        final data = await pageRepository.dataPDP(event.itemId);
-        data.isFavorite = false; //TODO mock
-        yield PdpFavoriteRemoveState(data: data);
+      if (event is PdpFavoriteTouchEvent) {
+        yield PdpFavoriteTouchingState();
+        final rs = await pageRepository.touchFav(event.itemId, event.token);
+        yield PdpFavoriteTouchSuccessState(isFav: rs);
       }
       if (event is PdpFriendLoadEvent) {
         final friends = await pageRepository.allFriends(event.token);

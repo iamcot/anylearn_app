@@ -6,6 +6,9 @@ class TimeAgo extends StatelessWidget {
   const TimeAgo({Key key, this.time}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    if (time == null) {
+      return SizedBox(height: 0);
+    }
     String str;
     DateTime now = DateTime.now();
     if (now.difference(time).inHours <= 1) {

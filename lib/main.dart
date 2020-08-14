@@ -1,3 +1,4 @@
+import 'package:anylearn/blocs/article/article_bloc.dart';
 import 'package:anylearn/blocs/notif/notif_blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +51,7 @@ void main() async {
           BlocProvider<CourseBloc>(create: (context) => CourseBloc(itemRepository: itemRepo, userRepository: userRepo)),
           BlocProvider<SearchBloc>(create: (context) => SearchBloc(pageRepository: pageRepo)),
           BlocProvider<NotifBloc>(create: (context) => NotifBloc(userRepository: userRepo)),
+          BlocProvider<ArticleBloc>(create: (context) => ArticleBloc(pageRepository: pageRepo)),
         ], child: MyApp())),
   );
 }

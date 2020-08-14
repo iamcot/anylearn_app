@@ -24,19 +24,9 @@ class HomeBody extends StatelessWidget {
         new HomeAppBar(user: user),
         SliverToBoxAdapter(child: SearchBox()),
         // new FeatureList(features: homeData.featuresIcons),
-        new HomeBanner(
-          imgList: homeData.banners,
-        ),
-        new HotUsers(
-          hotItems: homeData.hotItems,
-        ),
-        new WeekCourseHeader(),
-        new WeekCourses(
-          monthCourses: homeData.monthCourses,
-        ),
         SliverToBoxAdapter(
           child: Container(
-            padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+            padding: EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 15.0),
             child: BlocBuilder<HomeBloc, HomeState>(
               bloc: BlocProvider.of<HomeBloc>(context),
               builder: (context, state) {
@@ -64,6 +54,16 @@ class HomeBody extends StatelessWidget {
               },
             ),
           ),
+        ),
+        new HomeBanner(
+          imgList: homeData.banners,
+        ),
+        new HotUsers(
+          hotItems: homeData.hotItems,
+        ),
+        new WeekCourseHeader(),
+        new WeekCourses(
+          monthCourses: homeData.monthCourses,
         ),
       ],
     );

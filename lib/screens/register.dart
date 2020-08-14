@@ -1,4 +1,3 @@
-import 'package:anylearn/dto/login_callback.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,7 @@ import '../blocs/register/register_blocs.dart';
 import '../customs/custom_radio.dart';
 import '../customs/register_curved_paint.dart';
 import '../dto/const.dart';
+import '../dto/login_callback.dart';
 import '../dto/user_dto.dart';
 import '../models/user_repo.dart';
 

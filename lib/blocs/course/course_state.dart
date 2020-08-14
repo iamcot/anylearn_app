@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/item_user_action.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -76,3 +77,33 @@ class RegisteredUsersSuccessState extends CourseState {
   @override
   String toString() => 'RegisteredUsersSuccessState {}';
 }
+
+class ReviewSubmitingState extends CourseState {}
+
+class ReviewSubmitFailState extends CourseState {}
+
+class ReviewSubmitSuccessState extends CourseState {
+  final bool result;
+
+  ReviewSubmitSuccessState({this.result});
+
+  @override
+  List<Object> get props => [result];
+
+  @override
+  String toString() => 'ReviewSubmitSuccessState {result: $result}';
+}
+
+class ReviewLoadSuccessState extends CourseState {
+  final List<ItemUserAction> data;
+
+  ReviewLoadSuccessState({this.data});
+
+  @override
+  List<Object> get props => [data];
+
+  @override
+  String toString() => 'ReviewLoadSuccessState';
+}
+
+class ReviewLoadingState extends CourseState {}

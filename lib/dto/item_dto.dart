@@ -19,7 +19,6 @@ class ItemDTO extends Equatable {
   final int numCart;
   final int numShare;
   final int numFavorite;
-  bool isFavorite;
   String location;
   final int status;
   final int userStatus;
@@ -92,7 +91,7 @@ class ItemDTO extends Equatable {
             priceOrg: json['org_price'],
             shortContent: json['short_content'],
             content: json['content'],
-            rating: json['rating'],
+            rating: json['rating'] == null ? null : double.parse(json['rating'].toString()),
             dateStart: json['date_start'],
             dateEnd: json['date_end'],
             timeStart: json['time_start'],

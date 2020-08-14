@@ -1,10 +1,11 @@
 import 'dart:io';
 
-import '../dto/user_courses_dto.dart';
 import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
 import '../dto/item_dto.dart';
+import '../dto/item_user_action.dart';
+import '../dto/user_courses_dto.dart';
 import '../services/item_services.dart';
 
 class ItemRepository {
@@ -34,5 +35,13 @@ class ItemRepository {
 
   Future<bool> changeUserStatus(int itemId, int newStatus, String token) async {
     return await itemService.changeUserStatus(itemId, newStatus, token);
+  }
+
+  Future<bool> saveRating(int itemId, int rating, String comment, String token) async {
+    return await itemService.saveRating(itemId, rating, comment, token);
+  }
+
+  Future<List<ItemUserAction>> loadItemReviews(int itemId) async {
+    return await itemService.loadItemReviews(itemId);
   }
 }

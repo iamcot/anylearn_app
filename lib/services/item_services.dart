@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../app_config.dart';
 import '../customs/rest_exception.dart';
 import '../dto/item_dto.dart';
+import '../dto/item_user_action.dart';
 import '../dto/items_dto.dart';
 import '../dto/pdp_dto.dart';
 import '../dto/user_courses_dto.dart';
@@ -66,8 +67,8 @@ class ItemService extends BaseService {
     return ItemsDTO.fromJson(json);
   }
 
-  Future<PdpDTO> getPDPData(int itemId) async {
-    final url = buildUrl(appConfig: config, endPoint: "/pdp/$itemId");
+  Future<PdpDTO> getPDPData(int itemId, String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/pdp/$itemId", token: token);
     final json = await get(httpClient, url);
     return PdpDTO.fromJson(json);
   }
@@ -82,5 +83,28 @@ class ItemService extends BaseService {
     final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/user-status/$newStatus", token: token);
     final rs = await get(httpClient, url);
     return rs['result'];
+  }
+
+  Future<bool> touchFav(int itemId, String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/touch-fav", token: token);
+    final json = await get(httpClient, url);
+    return json['is_fav'];
+  }
+
+  Future<bool> saveRating(int itemId, int rating, String comment, String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/save-rating", token: token);
+    final json = await post(httpClient, url, {
+      'rating': rating.toString(),
+      'comment': comment,
+    });
+    return json['result'];
+  }
+
+  Future<List<ItemUserAction>> loadItemReviews(int itemId) async {
+    final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/reviews");
+    final json = await get(httpClient, url);
+    return json == null
+        ? null
+        : List<ItemUserAction>.from(json?.map((e) => e == null ? null : ItemUserAction.fromJson(e))).toList();
   }
 }

@@ -26,6 +26,7 @@ class PdpDTO extends Equatable {
             hotItems: HotItemsDTO.fromJson(json['hotItems']),
             commission: json['commission'],
             numSchedule: json['num_schedule'],
+            isFavorite: json['is_fav']
           );
   }
 }

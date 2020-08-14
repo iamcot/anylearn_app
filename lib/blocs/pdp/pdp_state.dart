@@ -21,18 +21,13 @@ class PdpSuccessState extends PdpState {
   List<Object> get props => [data];
 }
 
-class PdpFavoriteAddState extends PdpState {
-  final PdpDTO data;
-  PdpFavoriteAddState({@required this.data}) : assert(data != null);
-  @override
-  List<Object> get props => [data];
-}
+class PdpFavoriteTouchingState extends PdpState {}
 
-class PdpFavoriteRemoveState extends PdpState {
-  final PdpDTO data;
-  PdpFavoriteRemoveState({@required this.data}) : assert(data != null);
+class PdpFavoriteTouchSuccessState extends PdpState {
+  final bool isFav;
+  PdpFavoriteTouchSuccessState({@required this.isFav}) : assert(isFav != null);
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [isFav];
 }
 
 class PdpRegisteringState extends PdpState {}

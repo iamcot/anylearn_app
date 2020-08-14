@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class EventDTO extends Equatable {
   final int id;
+  final int itemId;
   final String title;
   final String content;
   final String author;
@@ -13,9 +14,11 @@ class EventDTO extends Equatable {
   final String route;
   final int userJoined;
   final int authorStatus;
+  final int userRating;
 
   EventDTO({
     this.id,
+    this.itemId,
     this.content,
     this.author,
     this.date,
@@ -27,11 +30,13 @@ class EventDTO extends Equatable {
     this.route,
     this.userJoined,
     this.authorStatus,
+    this.userRating,
   });
 
   factory EventDTO.fromJson(Map<String, dynamic> json) {
     return EventDTO(
       id: json['id'],
+      itemId: json['item_id'],
       title: json['title'],
       time: json['time'],
       timeEnd: json['time_end'],
@@ -42,9 +47,10 @@ class EventDTO extends Equatable {
       userJoined: json['user_joined'],
       location: json['location'],
       authorStatus: json['author_status'],
+      userRating: json['user_rating'] == null ? 0 : int.parse(json['user_rating']),
     );
   }
 
   @override
-  List<Object> get props => [id, title, date, time, image, author, content, userJoined, location, authorStatus];
+  List<Object> get props => [id, title, date, time, image, author, content, userJoined, location, authorStatus, itemId];
 }

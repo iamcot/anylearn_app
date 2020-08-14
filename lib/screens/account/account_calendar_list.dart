@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math' as math;
 
-import 'package:anylearn/dto/const.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,16 +8,19 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../blocs/account/account_blocs.dart';
+import '../../dto/const.dart';
 import '../../dto/event_dto.dart';
 import '../../dto/user_dto.dart';
 import '../../widgets/calendar_box.dart';
+import '../rating_input.dart';
 
 class AccountCalendarList extends StatefulWidget {
   final List<EventDTO> events;
   final isOpen;
   final UserDTO user;
+  final AccountBloc accountBloc;
 
-  const AccountCalendarList({Key key, this.events, this.isOpen, this.user}) : super(key: key);
+  const AccountCalendarList({Key key, this.events, this.isOpen, this.user, this.accountBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AccountCalendarList();
@@ -63,7 +65,8 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                             text: DateFormat("dd/MM").format(DateTime.parse(widget.events[itemIndex].date))),
                         title: Text(widget.events[itemIndex].title),
                         subtitle: Text.rich(TextSpan(
-                          text: widget.events[itemIndex].content == null ? "" : widget.events[itemIndex].content + "\n",
+                          text:
+                              widget.events[itemIndex].location == null ? "" : widget.events[itemIndex].location + "\n",
                           children: [
                             TextSpan(text: widget.events[itemIndex].time),
                             TextSpan(
@@ -75,7 +78,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                             ? Text("Lớp đã hủy")
                             : _buildTrailing(widget.events[itemIndex]),
                         onLongPress: () {
-                          Navigator.of(context).pushNamed("/pdp", arguments: widget.events[itemIndex].id);
+                          Navigator.of(context).pushNamed("/pdp", arguments: widget.events[itemIndex].itemId);
                         },
                       );
                     }
@@ -129,7 +132,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                     color: Colors.blue,
                     onPressed: () {
                       BlocProvider.of<AccountBloc>(context)
-                        ..add(AccJoinCourseEvent(token: widget.user.token, itemId: event.id));
+                        ..add(AccJoinCourseEvent(token: widget.user.token, itemId: event.itemId, scheduleId: event.id));
                     },
                     child: Text(
                       "Xác nhận",
@@ -256,11 +259,35 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                   title: Text("Xác nhận tham gia"),
                   onTap: () {
                     BlocProvider.of<AccountBloc>(context)
-                      ..add(AccJoinCourseEvent(token: widget.user.token, itemId: eventDTO.id));
+                      ..add(AccJoinCourseEvent(
+                          token: widget.user.token, itemId: eventDTO.itemId, scheduleId: eventDTO.id));
                     Navigator.of(context).pop();
                   },
                 )
               : Text(""),
+          !hasConfirm ? Divider() : SizedBox(height: 0),
+          !hasConfirm
+              ? ListTile(
+                  trailing: eventDTO.userRating > 0
+                      ? Text("LÀM LẠI", style: TextStyle(color: Colors.blue))
+                      : Icon(Icons.chevron_right),
+                  title:
+                      Text(eventDTO.userRating > 0 ? "Bạn đã đánh giá ${eventDTO.userRating}*" : "Đánh giá khóa học"),
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    final sentReview = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                      return RatingInputScreen(
+                          user: widget.user,
+                          itemId: eventDTO.itemId,
+                          itemTitle: eventDTO.title,
+                          lastRating: eventDTO.userRating);
+                    }));
+                    if (sentReview) {
+                      widget.accountBloc..add(AccLoadMyCalendarEvent(token: widget.user.token));
+                    }
+                  },
+                )
+              : SizedBox(height: 0),
         ],
       ),
     );

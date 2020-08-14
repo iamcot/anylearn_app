@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/ask_content.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
@@ -43,6 +44,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/teacher": (BuildContext context) => TeacherScreen(),
   "/event": (BuildContext context) => EventScreen(),
   "/ask": (BuildContext context) => AskScreen(),
+  "/article": (BuildContext context) => AskArticleScreen(),
   "/ask/cat": (BuildContext context) => AskCatScreen(),
   "/account": (BuildContext context) => AccountScreen(),
   "/account/friends": (BuildContext context) => AccountFriendsScreen(),

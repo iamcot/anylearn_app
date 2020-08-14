@@ -45,4 +45,6 @@ class MyConst {
   static const CONTRACT_APPROVED = 99;
   static const CONTRACT_DELETED = 0;
 
+  static const ASK_TYPE_READ = 'read';
+  static const ASK_TYPE_VIDEO = 'video';
 }

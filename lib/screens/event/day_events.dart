@@ -45,7 +45,7 @@ class DayEvents extends StatelessWidget {
               ) : Text(""),
             ]),
             onTap: () {
-              Navigator.of(context).pushNamed("/pdp", arguments: eventToday.id);
+              Navigator.of(context).pushNamed("/pdp", arguments: eventToday.itemId);
             },
           ),
         ),

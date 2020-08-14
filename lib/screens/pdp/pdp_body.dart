@@ -1,10 +1,12 @@
 import 'package:anylearn/dto/login_callback.dart';
+import 'package:anylearn/screens/item_rating.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../../blocs/pdp/pdp_blocs.dart';
 import '../../customs/custom_cached_image.dart';
@@ -34,7 +36,6 @@ class _PdpBody extends State<PdpBody> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double imageHeight = width - 30 - 50;
-    bool isFavorite = widget.data.isFavorite;
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(
@@ -71,7 +72,12 @@ class _PdpBody extends State<PdpBody> {
                                     ? Padding(
                                         padding: EdgeInsets.only(left: 10.0),
                                         child: InkWell(
-                                          onTap: null,
+                                          onTap: () {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(builder: (BuildContext context) {
+                                              return ItemRatingScreen(itemId: widget.data.item.id);
+                                            }));
+                                          },
                                           child: Text("XEM ĐÁNH GIÁ", style: TextStyle(color: Colors.blue)),
                                         ),
                                       )
@@ -127,7 +133,7 @@ class _PdpBody extends State<PdpBody> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        widget.data.item.numCart != null
+                        widget.data.item.numCart != null && widget.data.item.numCart > 0
                             ? ItemFavorStatusItem(
                                 text: widget.data.item.numCart.toString(),
                                 icon: Icons.add_shopping_cart,
@@ -137,7 +143,7 @@ class _PdpBody extends State<PdpBody> {
                             ? ItemFavorStatusItem(
                                 text: widget.data.item.numShare.toString(), icon: Icons.share, color: Colors.blue)
                             : SizedBox(height: 0),
-                        widget.data.item.numFavorite != null
+                        widget.data.item.numFavorite != null && widget.data.item.numFavorite > 0
                             ? ItemFavorStatusItem(
                                 text: widget.data.item.numFavorite.toString(), icon: Icons.favorite, color: Colors.red)
                             : SizedBox(height: 0),
@@ -186,75 +192,53 @@ class _PdpBody extends State<PdpBody> {
                             children: [Icon(Icons.add_shopping_cart), Text(" Đăng ký học")]),
                       ),
                     ),
+                    BlocListener(
+                      bloc: widget.pdpBloc,
+                      listener: (BuildContext context, state) {
+                        if (state is PdpFavoriteTouchSuccessState) {
+                          toast(
+                              state.isFav ? "Đã đánh dấu ưa thích khóa học này." : "Đã bỏ đánh dấu ưa thích khóa học.");
+                          widget.data.isFavorite = state.isFav;
+                        }
+                      },
+                      child: BlocBuilder<PdpBloc, PdpState>(
+                        bloc: BlocProvider.of<PdpBloc>(context),
+                        builder: (context, state) {
+                          return IconButton(
+                            onPressed: () {
+                              if (widget.user != null) {
+                                BlocProvider.of<PdpBloc>(context)
+                                  ..add(PdpFavoriteTouchEvent(itemId: widget.data.item.id, token: widget.user.token));
+                              } else {
+                                Navigator.of(context).pushNamed('/login',
+                                    arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                              }
+                            },
+                            icon: Icon(widget.data.isFavorite == true ? Icons.favorite : Icons.favorite_border,
+                                color: Colors.red),
+                          );
+                        },
+                      ),
+                    ),
                     IconButton(
-                        icon: Icon(Icons.share),
-                        color: Colors.blue,
-                        onPressed: () {
-                          widget.user != null
-                              ? showDialog(
-                                  context: context,
-                                  builder: (context) => PdpShareDialog(
-                                    itemId: widget.data.item.id,
-                                    user: widget.user,
-                                    pdpBloc: widget.pdpBloc,
-                                  ),
-                                )
-                              : Navigator.of(context).pushNamed('/login',
-                                  arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                        })
+                      icon: Icon(Icons.share),
+                      color: Colors.blue,
+                      onPressed: () {
+                        widget.user != null
+                            ? showDialog(
+                                context: context,
+                                builder: (context) => PdpShareDialog(
+                                  itemId: widget.data.item.id,
+                                  user: widget.user,
+                                  pdpBloc: widget.pdpBloc,
+                                ),
+                              )
+                            : Navigator.of(context).pushNamed('/login',
+                                arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                      },
+                    ),
                   ],
                 ),
-                // ButtonBar(
-                //   alignment: MainAxisAlignment.center,
-                //   buttonMinWidth: (width - 30) / 4,
-                //   children: [
-                //     // BlocBuilder<PdpBloc, PdpState>(
-                //     //   bloc: BlocProvider.of<PdpBloc>(context),
-                //     //   builder: (context, state) {
-                //     //     if (state is PdpFavoriteAddState) {
-                //     //       isFavorite = state.data.isFavorite;
-                //     //     }
-                //     //     if (state is PdpFavoriteRemoveState) {
-                //     //       isFavorite = state.data.isFavorite;
-                //     //     }
-                //     //     return RaisedButton(
-                //     //       shape: RoundedRectangleBorder(
-                //     //           borderRadius: BorderRadius.circular(18.0),
-                //     //           side: BorderSide(width: 1.0, color: Colors.red)),
-                //     //       color: Colors.white,
-                //     //       onPressed: () {
-                //     //         if (widget.user != null) {
-                //     //           BlocProvider.of<PdpBloc>(context)
-                //     //             ..add(isFavorite == true
-                //     //                 ? PdpFavoriteRemoveEvent(itemId: widget.data.item.id, userId: widget.user.id)
-                //     //                 : PdpFavoriteAddEvent(itemId: widget.data.item.id, userId: widget.user.id));
-                //     //         } else {
-                //     //           Navigator.of(context).pushNamed('/login', arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                //     //         }
-                //     //       },
-                //     //       child: Icon(isFavorite == true ? Icons.favorite : Icons.favorite_border, color: Colors.red),
-                //     //     );
-                //     //   },
-                //     // ),
-
-                //     RaisedButton(
-                //       shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(18.0), side: BorderSide(width: 1.0, color: Colors.blue)),
-                //       color: Colors.white,
-                //       onPressed: () {
-                //         widget.user != null
-                //             ? showDialog(
-                //                 context: context,
-                //                 builder: (context) => PdpShareDialog(itemId: widget.data.item.id),
-                //               )
-                //             : Navigator.of(context).pushNamed('/login',
-                //                 arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                //       },
-                //       child: Icon(Icons.share, color: Colors.blue),
-                //     ),
-                //   ],
-                //   // ),
-                // ),
               ],
             ),
           ),

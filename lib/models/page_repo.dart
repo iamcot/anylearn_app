@@ -1,16 +1,17 @@
 import 'dart:io';
 
-import 'package:anylearn/dto/item_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:http/http.dart' as http;
 
+import '../dto/article_dto.dart';
 import '../dto/const.dart';
 import '../dto/doc_dto.dart';
 import '../dto/event_dto.dart';
 import '../dto/home_dto.dart';
+import '../dto/item_dto.dart';
 import '../dto/items_dto.dart';
 import '../dto/pdp_dto.dart';
 import '../dto/quote_dto.dart';
+import '../dto/user_dto.dart';
 import '../dto/users_dto.dart';
 import '../services/config_services.dart';
 import '../services/item_services.dart';
@@ -35,8 +36,12 @@ class PageRepository {
     // transactionService = TransactionService(config: config, httpClient: httpClient);
   }
 
-  Future<PdpDTO> dataPDP(int itemId) async {
-    return await itemService.getPDPData(itemId);
+  Future<PdpDTO> dataPDP(int itemId, String token) async {
+    return await itemService.getPDPData(itemId, token);
+  }
+
+  Future<bool> touchFav(int itemId, String token) async {
+    return await itemService.touchFav(itemId, token);
   }
 
   Future<UsersDTO> dataTeachersPage(int page, int pageSize) async {
@@ -93,5 +98,17 @@ class PageRepository {
 
   Future<bool> shareFriends(String token, int id, List<int> friends, bool isALL) async {
     return await userService.shareFriends(token, id, friends, isALL);
+  }
+
+  Future<ArticleHomeDTO> articleIndexPage() async {
+    return await configService.articleIndexPage();
+  }
+
+  Future<ArticlePagingDTO> articleTypePage(String type, int page) async {
+    return await configService.articleTypePage(type, page);
+  }
+
+  Future<ArticleDTO> article(int id) async {
+    return await configService.article(id);
   }
 }

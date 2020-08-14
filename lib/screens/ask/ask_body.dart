@@ -1,10 +1,12 @@
-import 'package:anylearn/dto/ask_dto.dart';
-import 'package:anylearn/screens/ask/ask_header.dart';
-import 'package:anylearn/screens/ask/ask_list.dart';
+import 'package:anylearn/dto/const.dart';
 import 'package:flutter/material.dart';
 
+import '../../dto/article_dto.dart';
+import 'ask_header.dart';
+import 'ask_list.dart';
+
 class AskBody extends StatelessWidget {
-  final Map<String, List<AskDTO>> data;
+  final ArticleHomeDTO data;
 
   const AskBody({Key key, this.data}) : super(key: key);
 
@@ -15,25 +17,26 @@ class AskBody extends StatelessWidget {
         SliverToBoxAdapter(child: Container(child: Image.asset("assets/banners/ask_banner.jpg"))),
         SliverToBoxAdapter(
           child: AskHeader(
-            title: "Xem và Học".toUpperCase(),
-            route: "/ask/cat",
+            title: "Xem để Học".toUpperCase(),
+            type: MyConst.ASK_TYPE_VIDEO,
           ),
         ),
-        AskList(data: data["watch"]),
+
+        AskList(data: data.videos),
         SliverToBoxAdapter(
           child: AskHeader(
-            title: "Đọc và Học".toUpperCase(),
-            route: "/ask/cat",
+            title: "Đọc để Học".toUpperCase(),
+            type: MyConst.ASK_TYPE_READ,
           ),
         ),
-        AskList(data: data["read"]),
-        SliverToBoxAdapter(
-          child: AskHeader(
-            title: "Hỏi và Học".toUpperCase(),
-            route: "/ask/cat",
-          ),
-        ),
-        AskList(data: data["forum"]),
+
+        AskList(data: data.reads),
+        // SliverToBoxAdapter(
+        //   child: AskHeader(
+        //     title: "Hỏi và Học".toUpperCase(),
+        //     route: "/ask/cat",
+        //   ),
+        // ),
       ],
     );
   }

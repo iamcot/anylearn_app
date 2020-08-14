@@ -1,83 +1,73 @@
-import 'dart:io';
 import 'dart:math' as math;
 
-import 'package:anylearn/dto/ask_dto.dart';
+import 'package:anylearn/widgets/youtube_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../../dto/article_dto.dart';
 
 class AskList extends StatelessWidget {
-  final List<AskDTO> data;
+  final List<ArticleDTO> data;
 
   const AskList({Key key, this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SliverList(
-      delegate: SliverChildBuilderDelegate((context, index) {
-        final itemIndex = index ~/ 2;
-        if (index.isEven) {
-          return ListTile(
-            leading: Icon(
-              _buildTypeIcon(data[itemIndex].type),
-              size: 32.0,
-            ),
-            title: Text(data[itemIndex].title),
-            subtitle: Text(data[itemIndex].shortContent),
-            trailing: Icon(Icons.arrow_right),
-            onTap: ()  {
-               _actionWithRoute(data[itemIndex].type, data[itemIndex].route);
-            },
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          final itemIndex = index ~/ 2;
+          if (index.isEven) {
+            return ListTile(
+              leading: _buildTypeIcon(data[itemIndex]),
+              title: Text(data[itemIndex].title),
+              subtitle: Text(data[itemIndex].shortContent == null ? "" : data[itemIndex].shortContent),
+              trailing: Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pushNamed("/article", arguments: data[itemIndex].id);
+              },
+            );
+          }
+          return Divider(
+            height: 0.0,
           );
-        }
-        return Divider(
-          height: 0.0,
-        );
-      }, semanticIndexCallback: (Widget widget, int localIndex) {
-        if (localIndex.isEven) {
-          return localIndex ~/ 2;
-        }
-        return null;
-      }, childCount: math.max(0, data.length * 2 - 1),
+        },
+        semanticIndexCallback: (Widget widget, int localIndex) {
+          if (localIndex.isEven) {
+            return localIndex ~/ 2;
+          }
+          return null;
+        },
+        childCount: math.max(0, data.length * 2 - 1),
       ),
     );
   }
 
-  IconData _buildTypeIcon(String type) {
-    switch (type) {
-      case "watch":
-        return Icons.video_library;
+  Widget _buildTypeIcon(ArticleDTO _data) {
+    if (_data.image != null) {
+      return CachedNetworkImage(imageUrl: _data.image);
+    }
+    switch (_data.type) {
+      case "video":
+        return YoutubeImage(link: _data.video);
         break;
       case "read":
-        return Icons.chrome_reader_mode;
+        return Icon(
+          Icons.chrome_reader_mode,
+          size: 32.0,
+        );
         break;
       case "forum":
-        return Icons.question_answer;
+        return Icon(
+          Icons.question_answer,
+          size: 32.0,
+        );
         break;
       default:
-        return MdiIcons.cube;
+        return Icon(
+          MdiIcons.cube,
+          size: 32.0,
+        );
     }
-  }
-
-  Future<void> _actionWithRoute(String type, String route) async {
-    if (type == "watch" || type == "read") {
-      if (Platform.isIOS) {
-        if (await canLaunch(route)) {
-          await launch(route, forceSafariVC: false);
-        } else {
-          if (await canLaunch(route)) {
-            await launch(route);
-          } else {
-            throw 'Could not launch';
-          }
-        }
-      } else {
-        if (await canLaunch(route)) {
-          await launch(route);
-        } else {
-          throw 'Could not launch';
-        }
-      }
-    }
-    return;
   }
 }

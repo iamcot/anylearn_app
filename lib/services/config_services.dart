@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/article_dto.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -88,5 +89,23 @@ class ConfigServices extends BaseService {
     return json == null || json.length == 0
         ? null
         : List<ItemDTO>.from(json?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList();
+  }
+
+  Future<ArticleHomeDTO> articleIndexPage() async {
+    final url = buildUrl(appConfig: config, endPoint: "/article");
+    final json = await get(httpClient, url);
+    return ArticleHomeDTO.fromJson(json);
+  }
+
+  Future<ArticlePagingDTO> articleTypePage(String type, int page) async {
+    final url = buildUrl(appConfig: config, endPoint: "/article/cat/$type", query: "page=$page");
+    final json = await get(httpClient, url);
+    return ArticlePagingDTO.fromJson(json);
+  }
+
+  Future<ArticleDTO> article(int id) async {
+    final url = buildUrl(appConfig: config, endPoint: "/article/$id");
+    final json = await get(httpClient, url);
+    return ArticleDTO.fromJson(json);
   }
 }

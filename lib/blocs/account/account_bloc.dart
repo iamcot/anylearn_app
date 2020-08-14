@@ -51,8 +51,8 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         final calendar = await userRepository.myCalendar(event.token);
         yield AccMyCalendarSuccessState(calendar: calendar);
       } else if (event is AccJoinCourseEvent) {
-        final result = await userRepository.joinCourse(event.token, event.itemId);
-        yield AccJoinSuccessState(result: result);
+        await userRepository.joinCourse(event.token, event.scheduleId);
+        yield AccJoinSuccessState(itemId: event.itemId);
         this..add(AccLoadMyCalendarEvent(token: event.token));
       } else if (event is AccProfileEvent) {
         yield AccProfileLoadingState();

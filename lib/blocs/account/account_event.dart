@@ -75,11 +75,12 @@ class AccLoadMyCalendarEvent extends AccountEvent {
 
 class AccJoinCourseEvent extends AccountEvent {
   final String token;
+  final int scheduleId;
   final int itemId;
 
-  AccJoinCourseEvent({this.token, this.itemId});
+  AccJoinCourseEvent({this.token, this.itemId, this.scheduleId});
   @override
-  List<Object> get props => [token, itemId];
+  List<Object> get props => [token, itemId, scheduleId];
   @override
   String toString() => 'AccJoinCourseEvent $itemId';
 }

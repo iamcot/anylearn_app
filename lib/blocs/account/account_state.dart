@@ -95,15 +95,15 @@ class AccMyCalendarSuccessState extends AccountState {
 }
 
 class AccJoinSuccessState extends AccountState {
-  final int result;
+  final int itemId;
 
-  AccJoinSuccessState({this.result});
-
-  @override
-  List<Object> get props => [result];
+  AccJoinSuccessState({this.itemId});
 
   @override
-  String toString() => 'AccJoinSuccessState $result';
+  List<Object> get props => [itemId];
+
+  @override
+  String toString() => 'AccJoinSuccessState $itemId';
 }
 
 class AccProfileLoadingState extends AccountState {}
@@ -140,6 +140,7 @@ class AccLoadDocsSuccessState extends AccountState {
   @override
   String toString() => 'AccLoadDocsSuccessState';
 }
+
 class AccAddDocLoadingState extends AccountState {}
 
 class AccAddDocSuccessState extends AccountState {

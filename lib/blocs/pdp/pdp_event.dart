@@ -7,40 +7,28 @@ abstract class PdpEvent extends Equatable {
 
 class LoadPDPEvent extends PdpEvent {
   final int id;
+  final String token;
 
-  LoadPDPEvent({@required this.id});
+  LoadPDPEvent({@required this.id, this.token});
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [id, token];
 
   @override
   String toString() => 'LoadPDPEvent  { id: $id}';
 }
 
-class PdpFavoriteAddEvent extends PdpEvent {
+class PdpFavoriteTouchEvent extends PdpEvent {
   final int itemId;
-  final int userId;
+  final String token;
 
-  PdpFavoriteAddEvent({@required this.itemId, @required this.userId});
-
-  @override
-  List<Object> get props => [itemId, userId];
+  PdpFavoriteTouchEvent({@required this.itemId, @required this.token});
 
   @override
-  String toString() => 'PdpFavoriteAddEvent  { id: $itemId, user: $userId}';
-}
-
-class PdpFavoriteRemoveEvent extends PdpEvent {
-  final int itemId;
-  final int userId;
-
-  PdpFavoriteRemoveEvent({@required this.itemId, @required this.userId});
+  List<Object> get props => [itemId, token];
 
   @override
-  List<Object> get props => [itemId, userId];
-
-  @override
-  String toString() => 'PdpFavoriteAddEvent  { id: $itemId, user: $userId}';
+  String toString() => 'PdpFavoriteTouchEvent  { id: $itemId}';
 }
 
 class PdpRegisterEvent extends PdpEvent {

@@ -134,9 +134,12 @@ class UserDTO extends Equatable {
             numFriends: json['num_friends'],
             refLink: json['reflink'],
             fullContent: json['full_content'],
-            docs: json['docs'] == null ? null : List<UserDocDTO>.from(json['docs']?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList(),
+            docs: json['docs'] == null
+                ? null
+                : List<UserDocDTO>.from(json['docs']?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList(),
             isSigned: json['is_signed'],
             dobPlace: json['dob_place'],
+            rating: json['rating'] == null ? null : double.parse(json['rating'].toString()),
           )
         : null;
   }
