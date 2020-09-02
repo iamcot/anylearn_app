@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 
 class YoutubeImage extends StatelessWidget {
   final link;
+  final fit;
 
-  const YoutubeImage({Key key, this.link}) : super(key: key);
+  const YoutubeImage({Key key, this.link, this.fit}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final image = _videoThumbURL(link);
-    return CachedNetworkImage(imageUrl: image);
+    return CachedNetworkImage(imageUrl: image, fit: fit ?? BoxFit.contain,);
   }
 
   String _videoThumbURL(String yt) {

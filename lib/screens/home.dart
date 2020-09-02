@@ -59,11 +59,17 @@ class _HomeScreen extends State<HomeScreen> {
               child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
                 if (state is HomeSuccessState) {
                   homeData = state.data;
-                  _homeBloc.add(LoadQuoteEvent());
+                  _homeBloc.add(LoadQuoteEvent(url: homeData.config.quoteUrl));
                 }
                 return homeData != null
                     ? RefreshIndicator(
-                        child: CustomFeedback(user: user, child: HomeBody(user: user, homeData: homeData)),
+                        child: CustomFeedback(
+                            user: user,
+                            child: HomeBody(
+                              user: user,
+                              homeData: homeData,
+                              homeBloc: _homeBloc,
+                            )),
                         onRefresh: _reloadPage,
                       )
                     : LoadingScreen();

@@ -22,9 +22,10 @@ class WeekCourseHeader extends StatelessWidget {
                     Navigator.of(context).pushNamed("/event");
                   },
                   child: Text(
-                    "Khóa học khác",
+                    "KHÓA HỌC KHÁC",
                     style: TextStyle(
                       color: Colors.blue,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

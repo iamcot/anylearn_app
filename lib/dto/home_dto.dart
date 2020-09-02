@@ -1,3 +1,5 @@
+import 'package:anylearn/dto/article_dto.dart';
+import 'package:anylearn/dto/home_config_dto.dart';
 import 'package:anylearn/dto/hot_users_dto.dart';
 import 'package:equatable/equatable.dart';
 
@@ -9,11 +11,13 @@ class HomeDTO extends Equatable {
   List<HotUsersDTO> hotItems;
   List<String> banners;
   List<ItemDTO> monthCourses;
+  final HomeConfigDTO config;
+  final List<ArticleDTO> articles;
 
-  HomeDTO({this.banners, this.featuresIcons, this.hotItems, this.monthCourses});
+  HomeDTO({this.banners, this.featuresIcons, this.hotItems, this.monthCourses, this.config, this.articles});
 
   @override
-  List<Object> get props => [featuresIcons, hotItems, banners, monthCourses];
+  List<Object> get props => [featuresIcons, hotItems, banners, monthCourses, config, articles];
 
   static HomeDTO fromJson(dynamic json) {
     return json == null
@@ -24,6 +28,11 @@ class HomeDTO extends Equatable {
                 .toList(),
             monthCourses:
                 List<ItemDTO>.from(json['month_courses']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
+            config: json['articles'] == null ? null : HomeConfigDTO.fromJson(json['configs']),
+            articles: json['articles'] == null
+                ? null
+                : List<ArticleDTO>.from(json['articles']?.map((e) => e == null ? null : ArticleDTO.fromJson(e)))
+                    .toList(),
           );
   }
 }

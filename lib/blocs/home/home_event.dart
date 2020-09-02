@@ -18,6 +18,9 @@ class LoadHomeEvent extends HomeEvent {
 }
 
 class LoadQuoteEvent extends HomeEvent {
+  final url;
+
+  LoadQuoteEvent({this.url});
   @override
   List<Object> get props => [];
   @override
@@ -32,4 +35,14 @@ class LoadGuideEvent extends HomeEvent {
   List<Object> get props => [];
   @override
   String toString() => 'LoadGuideEvent';
+}
+
+class UpdatePopupVersionEvent extends HomeEvent {
+  final int version;
+
+  UpdatePopupVersionEvent({this.version});
+  @override
+  List<Object> get props => [version];
+  @override
+  String toString() => 'UpdatePopupVersionEvent: $version';
 }

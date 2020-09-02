@@ -8,9 +8,9 @@ class QuoteService extends BaseService {
 
   QuoteService({this.httpClient});
 
-  Future<QuoteDTO> getQuote() async {
-    final url = 'https://quote-garden.herokuapp.com/quotes/random';
-    final json = await get(httpClient, url);
+  Future<QuoteDTO> getQuote(String url) async {
+    final _url = url ?? 'https://quote-garden.herokuapp.com/quotes/random';
+    final json = await get(httpClient, _url);
     return QuoteDTO.fromJson(json);
   }
 }

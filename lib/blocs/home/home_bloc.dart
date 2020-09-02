@@ -20,6 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final data = await pageRepository.dataHome(
             event.user != null ? event.user.role : MyConst.ROLE_GUEST, event.user != null ? event.user.id : null);
         if (data != null) {
+          data.config.ignorePopupVersion = await pageRepository.getPopupVersion();
           yield HomeSuccessState(data: data);
         } else {
           yield HomeFailState(error: "Không có config cho trang");
@@ -27,7 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
       if (event is LoadQuoteEvent) {
         yield QuoteLoadingState();
-        final quote = await pageRepository.getQuote();
+        final quote = await pageRepository.getQuote(event.url);
         if (quote == null) {
           yield QuoteFailState();
         } else {
@@ -48,6 +49,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
       } catch (error) {
         yield GuideFailState(error: error.toString());
+      }
+    }
+
+    if (event is UpdatePopupVersionEvent) {
+      try {
+        await pageRepository.savePopupVersion(event.version);
+        yield UpdatePopupSuccessState();
+      } catch (e) {
+        print(e.toString());
       }
     }
   }

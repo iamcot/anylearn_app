@@ -12,7 +12,7 @@ class PdpShareDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleDialog(children: <Widget>[
       ListTile(
-          title: Text("Chia sẻ tới bạn bè trong hệ thống"),
+          title: Text("Chia sẻ tới bạn bè trong cộng đồng"),
           onTap: () {
             Navigator.of(context).pop();
             Navigator.of(context).push(MaterialPageRoute(

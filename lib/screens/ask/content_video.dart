@@ -20,10 +20,7 @@ class _ContentVideo extends State<ContentVideo> {
   void initState() {
     _controller = YoutubePlayerController(
         initialVideoId: YoutubePlayer.convertUrlToId(widget.data.video),
-        flags: YoutubePlayerFlags(
-          autoPlay: false,
-          mute: true,
-        ));
+        flags: YoutubePlayerFlags());
     super.initState();
   }
 
@@ -50,7 +47,7 @@ class _ContentVideo extends State<ContentVideo> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Padding(
+           widget.data.shortContent == null ? SizedBox(height: 0) : Padding(
             padding: EdgeInsets.only(top: 15.0),
             child: Text(
               widget.data.shortContent,

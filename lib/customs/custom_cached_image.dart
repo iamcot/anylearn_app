@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class CustomCachedImage extends StatelessWidget {
   final String url;
+  final fit;
 
-  const CustomCachedImage({Key key, this.url}) : super(key: key);
+  const CustomCachedImage({Key key, this.url, this.fit}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
@@ -13,7 +14,7 @@ class CustomCachedImage extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: imageProvider,
-            fit: BoxFit.cover,
+            fit: fit ?? BoxFit.cover,
           ),
         ),
       ),

@@ -1,15 +1,19 @@
-import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 
+import '../customs/custom_cached_image.dart';
 import '../customs/custom_carousel.dart';
 import '../dto/hot_users_dto.dart';
 
 class HotUsers extends StatelessWidget {
   final List<HotUsersDTO> hotItems;
 
-  const HotUsers({Key key, this.hotItems}) : super(key: key);
+  HotUsers({Key key, this.hotItems}) : super(key: key);
+  double width;
+
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    width = width * 2 / 3 - 10;
     return SliverToBoxAdapter(
       child: Container(child: Column(children: _buildList(context))),
     );
@@ -47,8 +51,12 @@ class HotUsers extends StatelessWidget {
                             Navigator.of(context).pushNamed(hotList.route);
                           },
                           child: Text(
-                            "Tất cả",
-                            style: TextStyle(color: Colors.blue),
+                            "TẤT CẢ",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -56,7 +64,12 @@ class HotUsers extends StatelessWidget {
                   ],
                 ),
               ),
-              CustomCarousel(items: hotList.list, builderFunction: _itemSlider, height: 140.0),
+              CustomCarousel(
+                items: hotList.list,
+                builderFunction: _itemSlider,
+                height: width * 3 / 4,
+                width: width,
+              ),
             ]),
           ),
         )
@@ -64,35 +77,42 @@ class HotUsers extends StatelessWidget {
   }
 
   Widget _itemSlider(BuildContext context, dynamic item, double cardHeight) {
-    double width = MediaQuery.of(context).size.width;
-    width = width * 2 / 5 - 10;
+    // double width = MediaQuery.of(context).size.width;
+    // width = width * 2 / 3 - 10;
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed("/items/" + item.role, arguments: item.id);
       },
       child: Card(
+        elevation: 0,
         child: Container(
           alignment: Alignment.topLeft,
           width: width,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                height: cardHeight * 3 / 5,
-                width: double.infinity,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(7.0), topRight: Radius.circular(7.0)),
-                  child: item.image != null && item.image.isNotEmpty
-                      ? CustomCachedImage(url: item.banner ?? item.image)
-                      : Icon(Icons.broken_image),
+              Expanded(
+                child: Container(
+                  // height: cardHeight * 3 / 4,
+                  width: double.infinity,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: item.image != null && item.image.isNotEmpty
+                        ? CustomCachedImage(
+                            url: item.banner ?? item.image,
+                            fit: item.banner != null ? BoxFit.cover : BoxFit.fitHeight,
+                          )
+                        : Icon(Icons.broken_image),
+                  ),
                 ),
               ),
               Container(
-                alignment: Alignment.topLeft,
-                padding: EdgeInsets.all(15.0),
+                height: 38,
+                padding: EdgeInsets.all(8),
                 child: Text(
                   item.name ?? "",
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ],

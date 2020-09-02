@@ -63,3 +63,5 @@ class GuideLoadSuccessState extends HomeState {
   @override
   String toString() => 'GuideLoadSuccessState';
 }
+
+class UpdatePopupSuccessState extends HomeState {}

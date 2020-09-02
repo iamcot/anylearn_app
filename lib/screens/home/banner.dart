@@ -5,17 +5,20 @@ import '../../customs/custom_cached_image.dart';
 
 class HomeBanner extends StatelessWidget {
   final List<String> imgList;
+  final double ratio;
 
-  const HomeBanner({Key key, this.imgList}) : super(key: key);
+  const HomeBanner({Key key, this.imgList, this.ratio}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width - 80;
+    final height = width * ratio;
     return SliverToBoxAdapter(
       child: Container(
         child: CarouselSlider(
           options: CarouselOptions(
             enlargeCenterPage: true,
-            height: 150.0,
+            height: height,
             autoPlay: true,
             autoPlayInterval: Duration(seconds: 3),
           ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dto/article_dto.dart';
 import '../dto/const.dart';
@@ -68,8 +69,8 @@ class PageRepository {
     return homeConfig;
   }
 
-  Future<QuoteDTO> getQuote() async {
-    return await quoteService.getQuote();
+  Future<QuoteDTO> getQuote(String url) async {
+    return await quoteService.getQuote(url);
   }
 
   Future<Map<DateTime, List<EventDTO>>> monthEvent(DateTime month) async {
@@ -110,5 +111,17 @@ class PageRepository {
 
   Future<ArticleDTO> article(int id) async {
     return await configService.article(id);
+  }
+
+  Future<int> getPopupVersion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int popupVersion = prefs.getInt('home_popup') ?? 0;
+    print("popupVersion: $popupVersion");
+    return popupVersion;
+  }
+
+  Future<void> savePopupVersion(int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('home_popup', value);
   }
 }
