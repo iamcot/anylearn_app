@@ -46,6 +46,7 @@ class UserService extends BaseService {
 
   Future<UserDTO> getInfoLess(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/user-less", token: token);
+    print(url);
     final json = await get(httpClient, url);
     return UserDTO.fromJson(json);
   }

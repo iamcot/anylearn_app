@@ -168,6 +168,19 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   ),
                                 ),
                                 TextFormField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (value != "") {
+                                        _itemDTO.priceOrg = int.parse(value);
+                                      }
+                                    });
+                                  },
+                                  initialValue: _itemDTO.priceOrg != null ? _itemDTO.priceOrg.toString() : "",
+                                  decoration: InputDecoration(
+                                    labelText: "Học phí gốc",
+                                  ),
+                                ),
+                                TextFormField(
                                   validator: (String value) {
                                     if (value == "") {
                                       return "Chưa nhập học phí khóa học";
@@ -185,19 +198,6 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   },
                                   decoration: InputDecoration(
                                     labelText: "Học phí",
-                                  ),
-                                ),
-                                TextFormField(
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if (value != "") {
-                                        _itemDTO.priceOrg = int.parse(value);
-                                      }
-                                    });
-                                  },
-                                  initialValue: _itemDTO.priceOrg != null ? _itemDTO.priceOrg.toString() : "",
-                                  decoration: InputDecoration(
-                                    labelText: "Học phí gốc",
                                   ),
                                 ),
                                 TextFormField(
@@ -279,7 +279,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   value: _itemDTO.content ?? "",
                                   key: keyEditor,
                                   height: 400,
-                                  showBottomToolbar: false,
+                                  showBottomToolbar: true,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),

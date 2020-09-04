@@ -34,6 +34,7 @@ class UserDTO extends Equatable {
   final List<UserDocDTO> docs;
   String dobPlace;
   int isSigned;
+  final bool enableIosTrans;
 
   UserDTO({
     this.id,
@@ -67,6 +68,7 @@ class UserDTO extends Equatable {
     this.docs,
     this.isSigned,
     this.dobPlace,
+    this.enableIosTrans,
   });
 
   @override
@@ -101,6 +103,7 @@ class UserDTO extends Equatable {
         docs,
         isSigned,
         dobPlace,
+        enableIosTrans
       ];
 
   @override
@@ -140,6 +143,7 @@ class UserDTO extends Equatable {
             isSigned: json['is_signed'],
             dobPlace: json['dob_place'],
             rating: json['rating'] == null ? null : double.parse(json['rating'].toString()),
+            enableIosTrans: json['ios_transaction'] == null ? false : (json['ios_transaction'] == 1),
           )
         : null;
   }

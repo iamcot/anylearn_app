@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:anylearn/dto/login_callback.dart';
 import 'package:anylearn/screens/item_rating.dart';
 import 'package:expandable/expandable.dart';
@@ -153,45 +155,48 @@ class _PdpBody extends State<PdpBody> {
                 ),
                 Row(
                   children: <Widget>[
-                    Expanded(
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            side: BorderSide(width: 1.0, color: Colors.green)),
-                        onPressed: () {
-                          widget.user != null
-                              ? showDialog(
-                                  context: context,
-                                  builder: (context) => DateTime.now().isAfter(
-                                          DateTime.parse(widget.data.item.dateStart + " " + widget.data.item.timeStart))
-                                      ? AlertDialog(
-                                          content: Container(child: Text("Đã quá hạn đăng ký khóa học này.")),
-                                          actions: [
-                                            RaisedButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text("ĐÃ HIỂU"),
-                                              color: Colors.blue,
-                                            ),
-                                          ],
-                                        )
-                                      : CourseConfirm(
-                                          pdpBloc: widget.pdpBloc,
-                                          user: widget.user,
-                                          pdpDTO: widget.data,
-                                        ),
-                                )
-                              : Navigator.of(context).pushNamed('/login',
-                                  arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                        },
-                        color: Colors.green,
-                        textColor: Colors.white,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [Icon(Icons.add_shopping_cart), Text(" Đăng ký học")]),
-                      ),
-                    ),
+                    (Platform.isIOS && widget.user != null && !widget.user.enableIosTrans)
+                        ? Expanded(
+                            child: Text("VUI LÒNG ĐĂNG KÝ TẠI TRUNG TÂM"),)
+                        : Expanded(
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  side: BorderSide(width: 1.0, color: Colors.green)),
+                              onPressed: () {
+                                widget.user != null
+                                    ? showDialog(
+                                        context: context,
+                                        builder: (context) => DateTime.now().isAfter(DateTime.parse(
+                                                widget.data.item.dateStart + " " + widget.data.item.timeStart))
+                                            ? AlertDialog(
+                                                content: Container(child: Text("Đã quá hạn đăng ký khóa học này.")),
+                                                actions: [
+                                                  RaisedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: Text("ĐÃ HIỂU"),
+                                                    color: Colors.blue,
+                                                  ),
+                                                ],
+                                              )
+                                            : CourseConfirm(
+                                                pdpBloc: widget.pdpBloc,
+                                                user: widget.user,
+                                                pdpDTO: widget.data,
+                                              ),
+                                      )
+                                    : Navigator.of(context).pushNamed('/login',
+                                        arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                              },
+                              color: Colors.green,
+                              textColor: Colors.white,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [Icon(Icons.add_shopping_cart), Text(" Đăng ký học")]),
+                            ),
+                          ),
                     BlocListener(
                       bloc: widget.pdpBloc,
                       listener: (BuildContext context, state) {

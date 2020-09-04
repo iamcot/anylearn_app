@@ -296,7 +296,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   value: _user.fullContent ?? "",
                                   key: keyEditor,
                                   height: 400,
-                                  showBottomToolbar: false,
+                                  showBottomToolbar: true,
                                 ),
                               ),
                               Container(

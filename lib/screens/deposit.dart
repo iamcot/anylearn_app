@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -107,246 +109,253 @@ class _DepositScreen extends State<DepositScreen> {
                   ? LoadingWidget()
                   : CustomFeedback(
                       user: user,
-                      child: Form(
-                        key: _formKey,
-                        child: Container(
-                            padding: EdgeInsets.all(8.0),
-                            child: ListView(
-                              children: <Widget>[
-                                Card(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(children: [
-                                      Expanded(
-                                        child: Text.rich(
-                                          TextSpan(
-                                            text: "SỐ DƯ: ",
-                                            style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
-                                            children: [
-                                              TextSpan(
-                                                  text: _moneyFormat.format(user.walletM),
-                                                  style: TextStyle(
-                                                      color: Colors.green,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 16.0)),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Text.rich(
-                                        TextSpan(
-                                            text: "GIAO DỊCH",
-                                            style: TextStyle(color: Colors.blue),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                Navigator.of(context).pushNamed("/transaction");
-                                              }),
-                                      ),
-                                    ]),
-                                  ),
-                                ),
-                                Card(
-                                  child: Container(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                                        TextFormField(
-                                          controller: _amountInput,
-                                          style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _suggestText = _buildSuggestText(value, config);
-                                            });
-                                          },
-                                          validator: (String value) {
-                                            if (value.isEmpty && _paymentSelect != "voucher") {
-                                              return "Bạn chưa nhập số tiền muốn nạp";
-                                            }
-                                            _formKey.currentState.save();
-                                            return null;
-                                          },
-                                          decoration: InputDecoration(
-                                              hintText: "Nhập số tiền cần nạp",
-                                              hintStyle: TextStyle(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                              icon: Text(
-                                                "VND",
-                                                style: TextStyle(fontWeight: FontWeight.bold),
-                                              )),
-                                        ),
-                                        Padding(
+                      child: (Platform.isIOS && user != null && !user.enableIosTrans)
+                          ? Container(
+                              height: 200,
+                              width: double.infinity,
+                              padding: EdgeInsets.all(15),
+                              child: Text("CHỨC NĂNG KHÔNG HỖ TRỢ"),
+                            )
+                          : Form(
+                              key: _formKey,
+                              child: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: ListView(
+                                    children: <Widget>[
+                                      Card(
+                                        child: Container(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            _suggestText,
-                                            style: TextStyle(fontSize: 12.0),
-                                          ),
-                                        ),
-                                      ])),
-                                ),
-                                _buildSuggestInputs(context, config),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    "Phương thức thanh toán".toUpperCase(),
-                                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
-                                  ),
-                                ),
-                                RadioListTile(
-                                  dense: true,
-                                  title: Text(
-                                    "Tôi có Voucher",
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  subtitle: Column(children: [
-                                    Text("Nhập mã voucher và nhấn nút Nạp để nhận ưu đãi của bạn"),
-                                    _paymentSelect != MyConst.PAYMENT_VOUCHER
-                                        ? SizedBox(height: 0)
-                                        : Container(
-                                            child: TextFormField(
-                                              controller: voucherController,
-                                              decoration: InputDecoration(
-                                                hintText: "Nhập voucher của bạn",
+                                          child: Row(children: [
+                                            Expanded(
+                                              child: Text.rich(
+                                                TextSpan(
+                                                  text: "SỐ DƯ: ",
+                                                  style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+                                                  children: [
+                                                    TextSpan(
+                                                        text: _moneyFormat.format(user.walletM),
+                                                        style: TextStyle(
+                                                            color: Colors.green,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 16.0)),
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          )
-                                  ]),
-                                  value: MyConst.PAYMENT_VOUCHER,
-                                  groupValue: _paymentSelect,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _paymentSelect = MyConst.PAYMENT_VOUCHER;
-                                    });
-                                  },
-                                ),
-                                Divider(),
-                                RadioListTile(
-                                  dense: true,
-                                  title: Text(
-                                    "Chuyển khoản ngân hàng",
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  subtitle: Text(
-                                      "Thông tin chuyển khoản sẽ được gửi tới quý khách hàng ngay khi xác nhận nạp tiền."),
-                                  value: MyConst.PAYMENT_ATM,
-                                  groupValue: _paymentSelect,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _paymentSelect = MyConst.PAYMENT_ATM;
-                                    });
-                                  },
-                                ),
-                                Divider(),
-                                RadioListTile(
-                                  dense: true,
-                                  title: Text.rich(TextSpan(
-                                      text: "Đổi điểm.",
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                      children: [
-                                        TextSpan(
-                                            text: " Bạn đang có: ",
-                                            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal)),
-                                        TextSpan(
-                                            text: _moneyFormat.format(user.walletC),
-                                            style: TextStyle(color: Colors.orange)),
-                                        TextSpan(
-                                            text: " điểm",
-                                            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal)),
-                                      ])),
-                                  subtitle: Text("Bạn sẽ được chuyển sang trang đổi điểm."),
-                                  value: "walletc",
-                                  groupValue: _paymentSelect,
-                                  onChanged: (value) {
-                                    Navigator.of(context).pushNamed("/exchange");
-                                  },
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 15.0),
-                                  decoration: BoxDecoration(
-                                    gradient:
-                                        LinearGradient(colors: [Colors.blue, Colors.lightBlueAccent, Colors.blue]),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  height: 40.0,
-                                  child: FlatButton(
-                                      onPressed: () {
-                                        if (_formKey.currentState.validate()) {
-                                          _formKey.currentState.save();
-                                          if (_paymentSelect == MyConst.PAYMENT_VOUCHER) {
-                                            _transBloc
-                                              ..add(SaveDepositEvent(
-                                                  token: user.token,
-                                                  amount: voucherController.text,
-                                                  payment: _paymentSelect));
-                                          } else {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return AlertDialog(
-                                                    content: Text(
-                                                        "Bạn đang gửi lệnh nạp ${_moneyFormat.format(int.parse(_amountInput.text))} vào Tài khoản tiền."),
-                                                    actions: <Widget>[
-                                                      FlatButton(
-                                                          onPressed: () {
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                          child: Text("Nhập lại")),
-                                                      RaisedButton(
-                                                        color: Colors.blue,
-                                                        onPressed: () {
-                                                          _transBloc
-                                                            ..add(SaveDepositEvent(
-                                                                token: user.token,
-                                                                amount: _amountInput.text,
-                                                                payment: _paymentSelect));
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                        child: Text("Nạp tiền"),
-                                                      )
-                                                    ],
-                                                  );
-                                                });
-                                          }
-                                        }
-                                      },
-                                      child: Text(
-                                        "NẠP TIỀN",
-                                        style: TextStyle(fontSize: 16.0, color: Colors.white),
-                                      )),
-                                ),
-                                Divider(
-                                  thickness: 0,
-                                  height: 20.0,
-                                  color: Colors.transparent,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    "Lịch sử nạp tiền gần đây".toUpperCase(),
-                                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
-                                  ),
-                                ),
-                                new DepositList(
-                                  list: config.lastTransactions,
-                                  configBank: config.depositBank,
-                                  phone: user.phone,
-                                ),
-                                config.lastTransactions.length > 0
-                                    ? Center(
-                                        child: Text.rich(
-                                          TextSpan(
-                                              text: "TOÀN BỘ GIAO DỊCH",
-                                              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                                              recognizer: TapGestureRecognizer()
-                                                ..onTap = () {
-                                                  Navigator.of(context).pushNamed("/transaction");
-                                                }),
+                                            Text.rich(
+                                              TextSpan(
+                                                  text: "GIAO DỊCH",
+                                                  style: TextStyle(color: Colors.blue),
+                                                  recognizer: TapGestureRecognizer()
+                                                    ..onTap = () {
+                                                      Navigator.of(context).pushNamed("/transaction");
+                                                    }),
+                                            ),
+                                          ]),
                                         ),
-                                      )
-                                    : SizedBox(height: 0)
-                              ],
-                            )),
-                      ),
+                                      ),
+                                      Card(
+                                        child: Container(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                                              TextFormField(
+                                                controller: _amountInput,
+                                                style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    _suggestText = _buildSuggestText(value, config);
+                                                  });
+                                                },
+                                                validator: (String value) {
+                                                  if (value.isEmpty && _paymentSelect != "voucher") {
+                                                    return "Bạn chưa nhập số tiền muốn nạp";
+                                                  }
+                                                  _formKey.currentState.save();
+                                                  return null;
+                                                },
+                                                decoration: InputDecoration(
+                                                    hintText: "Nhập số tiền cần nạp",
+                                                    hintStyle: TextStyle(
+                                                      fontSize: 20.0,
+                                                      fontWeight: FontWeight.normal,
+                                                    ),
+                                                    icon: Text(
+                                                      "VND",
+                                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                                    )),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  _suggestText,
+                                                  style: TextStyle(fontSize: 12.0),
+                                                ),
+                                              ),
+                                            ])),
+                                      ),
+                                      _buildSuggestInputs(context, config),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Phương thức thanh toán".toUpperCase(),
+                                          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+                                        ),
+                                      ),
+                                      RadioListTile(
+                                        dense: true,
+                                        title: Text(
+                                          "Tôi có Voucher",
+                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: Column(children: [
+                                          Text("Nhập mã voucher và nhấn nút Nạp để nhận ưu đãi của bạn"),
+                                          _paymentSelect != MyConst.PAYMENT_VOUCHER
+                                              ? SizedBox(height: 0)
+                                              : Container(
+                                                  child: TextFormField(
+                                                    controller: voucherController,
+                                                    decoration: InputDecoration(
+                                                      hintText: "Nhập voucher của bạn",
+                                                    ),
+                                                  ),
+                                                )
+                                        ]),
+                                        value: MyConst.PAYMENT_VOUCHER,
+                                        groupValue: _paymentSelect,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _paymentSelect = MyConst.PAYMENT_VOUCHER;
+                                          });
+                                        },
+                                      ),
+                                      Divider(),
+                                      RadioListTile(
+                                        dense: true,
+                                        title: Text(
+                                          "Chuyển khoản ngân hàng",
+                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: Text(
+                                            "Thông tin chuyển khoản sẽ được gửi tới quý khách hàng ngay khi xác nhận nạp tiền."),
+                                        value: MyConst.PAYMENT_ATM,
+                                        groupValue: _paymentSelect,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _paymentSelect = MyConst.PAYMENT_ATM;
+                                          });
+                                        },
+                                      ),
+                                      Divider(),
+                                      RadioListTile(
+                                        dense: true,
+                                        title: Text.rich(TextSpan(
+                                            text: "Đổi điểm.",
+                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            children: [
+                                              TextSpan(
+                                                  text: " Bạn đang có: ",
+                                                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal)),
+                                              TextSpan(
+                                                  text: _moneyFormat.format(user.walletC),
+                                                  style: TextStyle(color: Colors.orange)),
+                                              TextSpan(
+                                                  text: " điểm",
+                                                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal)),
+                                            ])),
+                                        subtitle: Text("Bạn sẽ được chuyển sang trang đổi điểm."),
+                                        value: "walletc",
+                                        groupValue: _paymentSelect,
+                                        onChanged: (value) {
+                                          Navigator.of(context).pushNamed("/exchange");
+                                        },
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 15.0),
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                              colors: [Colors.blue, Colors.lightBlueAccent, Colors.blue]),
+                                          borderRadius: BorderRadius.circular(10.0),
+                                        ),
+                                        height: 40.0,
+                                        child: FlatButton(
+                                            onPressed: () {
+                                              if (_formKey.currentState.validate()) {
+                                                _formKey.currentState.save();
+                                                if (_paymentSelect == MyConst.PAYMENT_VOUCHER) {
+                                                  _transBloc
+                                                    ..add(SaveDepositEvent(
+                                                        token: user.token,
+                                                        amount: voucherController.text,
+                                                        payment: _paymentSelect));
+                                                } else {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          content: Text(
+                                                              "Bạn đang gửi lệnh nạp ${_moneyFormat.format(int.parse(_amountInput.text))} vào Tài khoản tiền."),
+                                                          actions: <Widget>[
+                                                            FlatButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                child: Text("Nhập lại")),
+                                                            RaisedButton(
+                                                              color: Colors.blue,
+                                                              onPressed: () {
+                                                                _transBloc
+                                                                  ..add(SaveDepositEvent(
+                                                                      token: user.token,
+                                                                      amount: _amountInput.text,
+                                                                      payment: _paymentSelect));
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              child: Text("Nạp tiền"),
+                                                            )
+                                                          ],
+                                                        );
+                                                      });
+                                                }
+                                              }
+                                            },
+                                            child: Text(
+                                              "NẠP TIỀN",
+                                              style: TextStyle(fontSize: 16.0, color: Colors.white),
+                                            )),
+                                      ),
+                                      Divider(
+                                        thickness: 0,
+                                        height: 20.0,
+                                        color: Colors.transparent,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Lịch sử nạp tiền gần đây".toUpperCase(),
+                                          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+                                        ),
+                                      ),
+                                      new DepositList(
+                                        list: config.lastTransactions,
+                                        configBank: config.depositBank,
+                                        phone: user.phone,
+                                      ),
+                                      config.lastTransactions.length > 0
+                                          ? Center(
+                                              child: Text.rich(
+                                                TextSpan(
+                                                    text: "TOÀN BỘ GIAO DỊCH",
+                                                    style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                                                    recognizer: TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        Navigator.of(context).pushNamed("/transaction");
+                                                      }),
+                                              ),
+                                            )
+                                          : SizedBox(height: 0)
+                                    ],
+                                  )),
+                            ),
                     );
               // );
             }),
