@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -31,36 +32,38 @@ class _AccountBody extends State<AccountBody> {
         AccountAppBarWithImage(user: widget.user),
         SliverToBoxAdapter(
           child: Column(children: <Widget>[
-            AccountNormalMenu(
-                title: "Giao dịch của tôi",
-                route: "/transaction",
-                leadingIcon: MdiIcons.wallet,
-                trailing: Icon(Icons.chevron_right),
-                subContent: Text.rich(
-                  TextSpan(
-                      text: "TK tiền: " + moneyFormat.format(widget.user.walletM),
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 12.0,
-                        fontFeatures: [FontFeature.tabularFigures()],
-                      ),
-                      children: [
-                        TextSpan(
-                          text: " | ",
+            (Platform.isIOS && !widget.user.enableIosTrans)
+                ? SizedBox(height: 0)
+                : AccountNormalMenu(
+                    title: "Giao dịch của tôi",
+                    route: "/transaction",
+                    leadingIcon: MdiIcons.wallet,
+                    trailing: Icon(Icons.chevron_right),
+                    subContent: Text.rich(
+                      TextSpan(
+                          text: "TK tiền: " + moneyFormat.format(widget.user.walletM),
                           style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                        TextSpan(
-                          text: "TK điểm: " + moneyFormat.format(widget.user.walletC),
-                          style: TextStyle(
-                            color: Colors.orange,
+                            color: Colors.blue,
                             fontSize: 12.0,
                             fontFeatures: [FontFeature.tabularFigures()],
                           ),
-                        )
-                      ]),
-                )),
+                          children: [
+                            TextSpan(
+                              text: " | ",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "TK điểm: " + moneyFormat.format(widget.user.walletC),
+                              style: TextStyle(
+                                color: Colors.orange,
+                                fontSize: 12.0,
+                                fontFeatures: [FontFeature.tabularFigures()],
+                              ),
+                            )
+                          ]),
+                    )),
             widget.user.role == MyConst.ROLE_MEMBER
                 ? SizedBox(height: 0)
                 : AccountNormalMenu(
