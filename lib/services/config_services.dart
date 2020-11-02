@@ -108,4 +108,10 @@ class ConfigServices extends BaseService {
     final json = await get(httpClient, url);
     return ArticleDTO.fromJson(json);
   }
+
+  Future<List<String>> searchTags() async {
+    final url = buildUrl(appConfig: config, endPoint: "/search-tags");
+    final json = await get(httpClient, url);
+    return json == null ? [] : List<String>.from(json);
+  }
 }

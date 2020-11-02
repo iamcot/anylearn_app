@@ -35,3 +35,12 @@ class SearchFailState extends SearchState {
   @override
   String toString() => '{error: $error}';
 }
+
+class SearchTagsLoadingState extends SearchState {}
+
+class SearchTagsSuccessState extends SearchState {
+  final List<String> tags;
+  SearchTagsSuccessState({@required this.tags});
+  @override
+  List<Object> get props => [tags];
+}

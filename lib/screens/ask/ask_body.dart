@@ -1,4 +1,5 @@
 import 'package:anylearn/dto/const.dart';
+import 'package:anylearn/screens/ask/ask_forum_list.dart';
 import 'package:flutter/material.dart';
 
 import '../../dto/article_dto.dart';
@@ -17,11 +18,17 @@ class AskBody extends StatelessWidget {
         SliverToBoxAdapter(child: Container(child: Image.asset("assets/banners/ask_banner.jpg"))),
         SliverToBoxAdapter(
           child: AskHeader(
+            title: "Hỏi và Học".toUpperCase(),
+            route: "/ask/forum",
+          ),
+        ),
+        AskForumList(data: data.asks),
+        SliverToBoxAdapter(
+          child: AskHeader(
             title: "Xem để Học".toUpperCase(),
             type: MyConst.ASK_TYPE_VIDEO,
           ),
         ),
-
         AskList(data: data.videos),
         SliverToBoxAdapter(
           child: AskHeader(
@@ -29,14 +36,7 @@ class AskBody extends StatelessWidget {
             type: MyConst.ASK_TYPE_READ,
           ),
         ),
-
         AskList(data: data.reads),
-        // SliverToBoxAdapter(
-        //   child: AskHeader(
-        //     title: "Hỏi và Học".toUpperCase(),
-        //     route: "/ask/cat",
-        //   ),
-        // ),
       ],
     );
   }

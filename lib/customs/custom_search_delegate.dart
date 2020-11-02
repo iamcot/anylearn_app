@@ -1,9 +1,9 @@
-import 'package:anylearn/blocs/search/search_blocs.dart';
-import 'package:anylearn/dto/item_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/search/search_blocs.dart';
+import '../dto/item_dto.dart';
+import '../dto/user_dto.dart';
 import 'custom_cached_image.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
@@ -64,10 +64,13 @@ class CustomSearchDelegate extends SearchDelegate {
                       itemBuilder: (context, index) {
                         return ListTile(
                           leading: Container(
-                            height: 50,
-                            width: 50,
-                            child: users[index].image == null ? Icon(Icons.broken_image) : CustomCachedImage(url: users[index].image,)
-                          ),
+                              height: 50,
+                              width: 50,
+                              child: users[index].image == null
+                                  ? Icon(Icons.broken_image)
+                                  : CustomCachedImage(
+                                      url: users[index].image,
+                                    )),
                           title: Text(users[index].name),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
@@ -90,12 +93,16 @@ class CustomSearchDelegate extends SearchDelegate {
                       itemBuilder: (context, index) {
                         return ListTile(
                           leading: Container(
-                            height: 50,
-                            width: 50,
-                            child: items[index].image == null ? Icon(Icons.broken_image) : CustomCachedImage(url: items[index].image,)
-                          ),
+                              height: 50,
+                              width: 50,
+                              child: items[index].image == null
+                                  ? Icon(Icons.broken_image)
+                                  : CustomCachedImage(
+                                      url: items[index].image,
+                                    )),
                           title: Text(items[index].title),
-                          subtitle: Text((items[index].authorType == "school" ? "Trung tâm: " : "Giảng viên: ") + items[index].authorName),
+                          subtitle: Text((items[index].authorType == "school" ? "Trung tâm: " : "Giảng viên: ") +
+                              items[index].authorName),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
                             Navigator.of(context).pushNamed("/pdp", arguments: items[index].id);
@@ -115,6 +122,34 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Column();
+    return BlocBuilder<SearchBloc, SearchState>(
+        bloc: BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent()),
+        builder: (context, state) {
+          if (state is SearchTagsSuccessState) {
+            return Container(
+              child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(
+                        "#${state.tags[index]}",
+                        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Icon(Icons.chevron_right),
+                      onTap: () {
+                        showSearch(
+                            context: context,
+                            query: "#${state.tags[index]}",
+                            delegate: CustomSearchDelegate(screen: "product"));
+                      },
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return Divider();
+                  },
+                  itemCount: state.tags.length),
+            );
+          }
+          return CircularProgressIndicator();
+        });
   }
 }

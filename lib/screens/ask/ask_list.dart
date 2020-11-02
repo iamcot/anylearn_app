@@ -46,15 +46,6 @@ class AskList extends StatelessWidget {
                 ),
               ),
             );
-            // return ListTile(
-            //   leading: _buildTypeIcon(data[itemIndex]),
-            //   title: Text(data[itemIndex].title),
-            //   subtitle: Text(data[itemIndex].shortContent == null ? "" : data[itemIndex].shortContent),
-            //   trailing: Icon(Icons.arrow_right),
-            //   onTap: () {
-            //     Navigator.of(context).pushNamed("/article", arguments: data[itemIndex].id);
-            //   },
-            // );
           }
           return Divider(
             height: 0.0,

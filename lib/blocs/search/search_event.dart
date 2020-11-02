@@ -16,7 +16,6 @@ class SearchUserEvent extends SearchEvent {
   String toString() => 'SaveSearchEvent {screen: $screen, query: $query}';
 }
 
-
 class SearchItemEvent extends SearchEvent {
   final String screen;
   final String query;
@@ -27,4 +26,12 @@ class SearchItemEvent extends SearchEvent {
 
   @override
   String toString() => 'SaveSearchEvent {screen: $screen, query: $query}';
+}
+
+class SearchTagsEvent extends SearchEvent {
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'SearchTagsEvent {}';
 }

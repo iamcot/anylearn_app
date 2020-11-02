@@ -3,30 +3,35 @@ import 'package:flutter/material.dart';
 class TimeAgo extends StatelessWidget {
   final DateTime time;
 
-  const TimeAgo({Key key, this.time}) : super(key: key);
+  TimeAgo({Key key, this.time}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     if (time == null) {
       return SizedBox(height: 0);
     }
+    return Text(buildTime(time), style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic));
+  }
+
+  String buildTime(DateTime _time) {
     String str;
     DateTime now = DateTime.now();
-    if (now.difference(time).inHours <= 1) {
-      str = now.difference(time).inMinutes.toString() + " phút trước";
-    } else if (now.difference(time).inHours < 24) {
-      str = now.difference(time).inHours.toString() + " giờ trước";
-    } else if (now.difference(time).inDays < 7) {
-      str = _vnWeekday(time.weekday) + " lúc " + time.hour.toString() + ":" + time.minute.toString();
+    if (now.difference(_time).inHours <= 1) {
+      str = now.difference(_time).inMinutes.toString() + " phút trước";
+    } else if (now.difference(_time).inHours < 24) {
+      str = now.difference(_time).inHours.toString() + " giờ trước";
+    } else if (now.difference(_time).inDays < 7) {
+      str = _vnWeekday(_time.weekday) + " lúc " + _time.hour.toString() + ":" + _time.minute.toString();
     } else {
-      str = time.day.toString() +
+      str = _time.day.toString() +
           " Th" +
-          time.month.toString() +
+          _time.month.toString() +
           " lúc " +
-          time.hour.toString() +
+          _time.hour.toString() +
           ":" +
-          time.minute.toString();
+          _time.minute.toString();
     }
-    return Text(str, style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic));
+    return str;
   }
 
   String _vnWeekday(int day) {

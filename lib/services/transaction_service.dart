@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../app_config.dart';
 import '../dto/bank_dto.dart';
 import '../dto/const.dart';
+import '../dto/foundation_dto.dart';
 import '../dto/transaction_dto.dart';
 import 'base_service.dart';
 
@@ -63,10 +64,10 @@ class TransactionService extends BaseService {
     return json['result'];
   }
 
-  Future<int> foundation() async {
+  Future<FoundationDTO> foundation() async {
     final url = buildUrl(appConfig: config, endPoint: "/foundation");
     print(url);
     final json = await get(httpClient, url);
-    return json['value'];
+    return FoundationDTO.fromJson(json);
   }
 }

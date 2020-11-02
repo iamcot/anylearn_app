@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+import '../../dto/foundation_dto.dart';
 import '../../dto/transaction_config_dto.dart';
 import '../../dto/transaction_dto.dart';
 
@@ -44,7 +45,7 @@ class TransactionWithdrawSaveSuccessState extends TransactionState {
 class FoundationLoadingState extends TransactionState {}
 
 class FoundationSuccessState extends TransactionState {
-  final int value;
+  final FoundationDTO value;
 
   FoundationSuccessState({this.value});
   @override

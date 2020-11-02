@@ -1,3 +1,5 @@
+import 'package:anylearn/dto/ask_dto.dart';
+
 class ArticleDTO {
   final id;
   final title;
@@ -80,8 +82,9 @@ class ArticlePagingDTO {
 class ArticleHomeDTO {
   final List<ArticleDTO> reads;
   final List<ArticleDTO> videos;
+  final List<AskDTO> asks;
 
-  ArticleHomeDTO({this.reads, this.videos});
+  ArticleHomeDTO({this.reads, this.videos, this.asks});
 
   static ArticleHomeDTO fromJson(dynamic json) {
     return json == null
@@ -99,6 +102,13 @@ class ArticleHomeDTO {
                 : List<ArticleDTO>.from(
                     json['videos']?.map(
                       (e) => e == null ? null : ArticleDTO.fromJson(e),
+                    ),
+                  ),
+            asks: json['asks'] == null
+                ? null
+                : List<AskDTO>.from(
+                    json['asks']?.map(
+                      (e) => e == null ? null : AskDTO.fromJson(e),
                     ),
                   ),
           );

@@ -15,6 +15,7 @@ class EventDTO extends Equatable {
   final int userJoined;
   final int authorStatus;
   final int userRating;
+  final bool nolimitTime;
 
   EventDTO({
     this.id,
@@ -31,6 +32,7 @@ class EventDTO extends Equatable {
     this.userJoined,
     this.authorStatus,
     this.userRating,
+    this.nolimitTime,
   });
 
   factory EventDTO.fromJson(Map<String, dynamic> json) {
@@ -48,6 +50,7 @@ class EventDTO extends Equatable {
       location: json['location'],
       authorStatus: json['author_status'],
       userRating: json['user_rating'] == null ? 0 : int.parse(json['user_rating']),
+      nolimitTime: json['nolimit_time'] == null ? false : (json['nolimit_time'] == "1" ? true : false),
     );
   }
 

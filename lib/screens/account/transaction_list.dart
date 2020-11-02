@@ -32,7 +32,9 @@ class TransactionList extends StatelessWidget {
                               text: (transactions[itemIndex].orderId != null && transactions[itemIndex].orderId > 0
                                       ? "#" + transactions[itemIndex].orderId.toString() + " - "
                                       : "") +
-                                  dateF.format(DateTime.parse(transactions[itemIndex].createdDate)),
+                                  (transactions[itemIndex].createdDate == null
+                                      ? ""
+                                      : dateF.format(DateTime.parse(transactions[itemIndex].createdDate))),
                               style: TextStyle(
                                 fontWeight: FontWeight.w300,
                               ),

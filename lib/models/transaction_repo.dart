@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
 import '../dto/bank_dto.dart';
+import '../dto/foundation_dto.dart';
 import '../dto/transaction_config_dto.dart';
 import '../dto/transaction_dto.dart';
 import '../services/config_services.dart';
@@ -42,7 +43,7 @@ class TransactionRepository {
     return transactionService.register(token, itemId);
   }
 
-  Future<int> foundation() async {
+  Future<FoundationDTO> foundation() async {
     return transactionService.foundation();
   }
 }

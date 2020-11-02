@@ -28,6 +28,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
           yield TransactionHistorySuccessState(history: data);
         }
       } else if (event is LoadFoundationEvent) {
+        yield FoundationLoadingState();
         final value = await transactionRepository.foundation();
         yield FoundationSuccessState(value: value);
       }

@@ -125,8 +125,10 @@ class _PdpBody extends State<PdpBody> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 10.0),
-                            child: (Platform.isIOS && !widget.data.enableIosTrans) ? SizedBox(height: 0) : PriceBox(
-                                price: widget.data.item.price, orgPrice: widget.data.item.priceOrg, fontSize: 18.0),
+                            child: (Platform.isIOS && !widget.data.enableIosTrans)
+                                ? SizedBox(height: 0)
+                                : PriceBox(
+                                    price: widget.data.item.price, orgPrice: widget.data.item.priceOrg, fontSize: 18.0),
                           ),
                         ],
                       ),
@@ -135,7 +137,8 @@ class _PdpBody extends State<PdpBody> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        (Platform.isIOS && widget.data.enableIosTrans) && (widget.data.item.numCart != null && widget.data.item.numCart > 0)
+                        (Platform.isIOS && widget.data.enableIosTrans) &&
+                                (widget.data.item.numCart != null && widget.data.item.numCart > 0)
                             ? ItemFavorStatusItem(
                                 text: widget.data.item.numCart.toString(),
                                 icon: Icons.add_shopping_cart,
@@ -168,8 +171,9 @@ class _PdpBody extends State<PdpBody> {
                                 widget.user != null
                                     ? showDialog(
                                         context: context,
-                                        builder: (context) => DateTime.now().isAfter(DateTime.parse(
-                                                widget.data.item.dateStart + " " + widget.data.item.timeStart))
+                                        builder: (context) => (!widget.data.item.nolimitTime &&
+                                                DateTime.now().isAfter(DateTime.parse(
+                                                    widget.data.item.dateStart + " " + widget.data.item.timeStart)))
                                             ? AlertDialog(
                                                 content: Container(child: Text("Đã quá hạn đăng ký khóa học này.")),
                                                 actions: [
@@ -224,11 +228,17 @@ class _PdpBody extends State<PdpBody> {
                                     }
                                   },
                                   color: widget.data.isFavorite == true ? Colors.red : Colors.white,
-                                  child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [Icon(widget.data.isFavorite == true ? Icons.favorite : Icons.favorite_border, color: widget.data.isFavorite != true ? Colors.red : Colors.white,), Text(" Quan tâm", style: TextStyle(
-                                        color: widget.data.isFavorite != true ? Colors.red : Colors.white
-                                      ),)]),
+                                  child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                    Icon(
+                                      widget.data.isFavorite == true ? Icons.favorite : Icons.favorite_border,
+                                      color: widget.data.isFavorite != true ? Colors.red : Colors.white,
+                                    ),
+                                    Text(
+                                      " Quan tâm",
+                                      style:
+                                          TextStyle(color: widget.data.isFavorite != true ? Colors.red : Colors.white),
+                                    )
+                                  ]),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       side: BorderSide(width: 1.0, color: Colors.red)),

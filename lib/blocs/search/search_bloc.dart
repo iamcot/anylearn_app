@@ -22,6 +22,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         final result = await pageRepository.searchItem(event.screen, event.query);
         yield SearchItemSuccessState(items: result);
       }
+      if (event is SearchTagsEvent) {
+        yield SearchTagsLoadingState();
+        final tags = await pageRepository.searchTags();
+        yield SearchTagsSuccessState(tags: tags);
+      }
     } catch (error, trace) {
       yield SearchFailState(error: error.toString());
       print(trace);

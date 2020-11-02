@@ -1,4 +1,3 @@
-import 'package:anylearn/screens/ask_content.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
@@ -13,6 +12,9 @@ import 'screens/account_password.dart';
 import 'screens/account_profile.dart';
 import 'screens/ask.dart';
 import 'screens/ask_cat.dart';
+import 'screens/ask_content.dart';
+import 'screens/ask_forum.dart';
+import 'screens/ask_forum_thread.dart';
 import 'screens/contract_school.dart';
 import 'screens/contract_sign.dart';
 import 'screens/contract_teacher.dart';
@@ -46,6 +48,8 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/ask": (BuildContext context) => AskScreen(),
   "/article": (BuildContext context) => AskArticleScreen(),
   "/ask/cat": (BuildContext context) => AskCatScreen(),
+  "/ask/forum": (BuildContext context) => AskForumScreen(),
+  "/ask/forum/thread": (BuildContext context) => AskForumThreadScreen(),
   "/account": (BuildContext context) => AccountScreen(),
   "/account/friends": (BuildContext context) => AccountFriendsScreen(),
   "/account/calendar": (BuildContext context) => AccountCalendarScreen(),

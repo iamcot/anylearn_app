@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dto/article_dto.dart';
+import '../dto/ask_paging_dto.dart';
+import '../dto/ask_thread_dto.dart';
 import '../dto/const.dart';
 import '../dto/doc_dto.dart';
 import '../dto/event_dto.dart';
@@ -14,6 +16,7 @@ import '../dto/pdp_dto.dart';
 import '../dto/quote_dto.dart';
 import '../dto/user_dto.dart';
 import '../dto/users_dto.dart';
+import '../services/ask_service.dart';
 import '../services/config_services.dart';
 import '../services/item_services.dart';
 import '../services/quote_service.dart';
@@ -25,6 +28,7 @@ class PageRepository {
   QuoteService quoteService;
   ItemService itemService;
   ConfigServices configService;
+  AskService askService;
   // TransactionService transactionService;
   final config;
   final httpClient = http.Client();
@@ -34,6 +38,7 @@ class PageRepository {
     userService = UserService(config: config, httpClient: this.httpClient);
     configService = ConfigServices(config: config, httpClient: this.httpClient);
     itemService = ItemService(config: config, httpClient: this.httpClient);
+    askService = AskService(config: config, httpClient: this.httpClient);
     // transactionService = TransactionService(config: config, httpClient: httpClient);
   }
 
@@ -123,5 +128,29 @@ class PageRepository {
   Future<void> savePopupVersion(int value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('home_popup', value);
+  }
+
+  Future<AskPagingDTO> getAskList() async {
+    return await askService.getList();
+  }
+
+  Future<AskThreadDTO> getAskThread(int askId, String token) async {
+    return await askService.getThread(askId, token);
+  }
+
+  Future<bool> createAsk(int askId, String title, String content, UserDTO userDTO, String type) async {
+    return await askService.create(askId, title, content, userDTO, type);
+  }
+
+  Future<bool> askSelectAnswer(int askId, String token) async {
+    return await askService.selectAnswer(askId, token);
+  }
+
+  Future<bool> askVote(int askId, String type, String token) async {
+    return await askService.vote(askId, type, token);
+  }
+
+  Future<List<String>> searchTags() async {
+    return await configService.searchTags();
   }
 }

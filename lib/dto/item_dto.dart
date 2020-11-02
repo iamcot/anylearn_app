@@ -24,6 +24,7 @@ class ItemDTO extends Equatable {
   final int userStatus;
   final String authorName;
   final String authorType;
+  final bool nolimitTime;
 
   ItemDTO({
     this.id,
@@ -49,6 +50,7 @@ class ItemDTO extends Equatable {
     this.userStatus,
     this.authorName,
     this.authorType,
+    this.nolimitTime,
   });
 
   @override
@@ -74,6 +76,7 @@ class ItemDTO extends Equatable {
         userStatus,
         authorName,
         authorType,
+        nolimitTime,
       ];
 
   @override
@@ -104,6 +107,7 @@ class ItemDTO extends Equatable {
             userStatus: json['user_status'],
             authorName: json['author'] ?? null,
             authorType: json['author_type'] ?? null,
+            nolimitTime: json['nolimit_time'] == "1" ? true : false,
           );
   }
 }

@@ -141,11 +141,19 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
           },
         );
       } else {
-        return Text("Đã tham gia");
+        return RaisedButton(
+            onPressed: () {
+              _dialogJoin(event, false);
+            },
+            color: Colors.blue,
+            child: Text(
+              "Đánh giá",
+              style: TextStyle(fontSize: 12, color: Colors.white),
+            ));
       }
     } else {
       final today = DateFormat("yyyy-MM-dd").format(DateTime.now());
-      if (today == event.date) {
+      if (today == event.date || event.nolimitTime) {
         if (event.userJoined == null) {
           Duration diffInSeconds = DateTime.parse(event.date + " " + event.time).difference(DateTime.now());
           if (!diffInSeconds.isNegative) {
@@ -221,6 +229,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
   }
 
   void _dialogJoin(EventDTO eventDTO, bool hasConfirm) {
+    print(eventDTO.userRating);
     showDialog(
       context: context,
       child: SimpleDialog(

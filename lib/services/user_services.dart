@@ -106,6 +106,7 @@ class UserService extends BaseService {
 
   Future<AccountCalendarDTO> myCalendar(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/mycalendar", token: token);
+    print(url);
     final json = await get(httpClient, url);
     return AccountCalendarDTO.fromJson(json);
   }

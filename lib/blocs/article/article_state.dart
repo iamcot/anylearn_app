@@ -1,3 +1,5 @@
+import 'package:anylearn/dto/ask_paging_dto.dart';
+import 'package:anylearn/dto/ask_thread_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -46,3 +48,55 @@ class ArticleFailState extends ArticleState {
   @override
   String toString() => '{error: $error}';
 }
+
+class AskIndexLoadingState extends ArticleState {}
+
+class AskIndexSuccessState extends ArticleState {
+  final AskPagingDTO data;
+  const AskIndexSuccessState({@required this.data});
+  @override
+  List<Object> get props => [data];
+  @override
+  String toString() => '{AskIndexSuccessState}';
+}
+
+class AskFailState extends ArticleState {
+  final String error;
+  const AskFailState({@required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}
+
+class AskThreadLoadingState extends ArticleState {}
+
+class AskThreadSuccessState extends ArticleState {
+  final AskThreadDTO data;
+  const AskThreadSuccessState({@required this.data});
+  @override
+  List<Object> get props => [data];
+  @override
+  String toString() => '{AskThreadSuccessState}';
+}
+
+class AskCreateLoadingState extends ArticleState {}
+
+class AskCreateSuccessState extends ArticleState {}
+
+class AskCreateFailState extends ArticleState {
+  final String error;
+  const AskCreateFailState({@required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}
+
+class AskSelectLoadingState extends ArticleState {}
+
+class AskSelectSuccessState extends ArticleState {}
+
+class AskVoteLoadingState extends ArticleState {}
+
+class AskVoteSuccessState extends ArticleState {}

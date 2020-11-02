@@ -47,4 +47,12 @@ class MyConst {
 
   static const ASK_TYPE_READ = 'read';
   static const ASK_TYPE_VIDEO = 'video';
+  static const ASK_TYPE_FORUM = 'forum';
+
+  static const ASK_COMMENT = 'comment';
+  static const ASK_ANSWER = 'answer';
+  static const ASK_QUESTION = 'question';
+
+  static const ASK_VOTE_LIKE = 'like';
+  static const ASK_VOTE_DISLIKE = 'dislike';
 }
