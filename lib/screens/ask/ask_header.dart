@@ -18,7 +18,7 @@ class AskHeader extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(title, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
+            child: Text(title, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
           ),
           InkWell(
             child: Text("XEM THÊM", style: TextStyle(color: Colors.blue, fontSize: 12.0)),

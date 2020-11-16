@@ -49,12 +49,12 @@ class _AskForumScreen extends State<AskForumScreen> {
           actions: [
             SearchIcon(screen: "ask"),
             IconButton(
-                icon: Icon(Icons.add_box),
+                icon: Icon(Icons.add),
                 onPressed: () async {
                   if (_user == null) {
                     Navigator.of(context).pushNamed("/login");
                   } else {
-                    bool result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                    final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                       return AskFormScreen(
                         user: _user,
                         askBloc: _articleBloc,
@@ -62,7 +62,7 @@ class _AskForumScreen extends State<AskForumScreen> {
                         type: MyConst.ASK_QUESTION,
                       );
                     }));
-                    if (result) {
+                    if (result == true) {
                       _articleBloc = BlocProvider.of<ArticleBloc>(context)..add(AskIndexEvent());
                     }
                   }

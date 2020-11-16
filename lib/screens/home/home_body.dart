@@ -164,7 +164,7 @@ class _HomeBody extends State<HomeBody> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      "Xem và Đọc",
+                      "Học và Hỏi",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),

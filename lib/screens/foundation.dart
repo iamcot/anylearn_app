@@ -1,4 +1,3 @@
-import 'package:anylearn/screens/ask/ask_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -7,8 +6,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '../blocs/transaction/transaction_blocs.dart';
 import '../dto/foundation_dto.dart';
 import '../models/transaction_repo.dart';
-import '../widgets/loading_widget.dart';
 import 'account/transaction_list.dart';
+import 'ask/ask_list.dart';
+import 'loading.dart';
 
 class FoundationScreen extends StatefulWidget {
   @override
@@ -25,8 +25,6 @@ class _FoundationScreen extends State<FoundationScreen> with TickerProviderState
   void didChangeDependencies() {
     final transRepo = RepositoryProvider.of<TransactionRepository>(context);
     _transBloc = TransactionBloc(transactionRepository: transRepo);
-    _tabController =
-        new TabController(vsync: this, length: 2, initialIndex: ModalRoute.of(context).settings.arguments ?? 0);
 
     super.didChangeDependencies();
   }
@@ -42,10 +40,16 @@ class _FoundationScreen extends State<FoundationScreen> with TickerProviderState
           create: (BuildContext context) => _transBloc..add(LoadFoundationEvent()),
           child: BlocBuilder<TransactionBloc, TransactionState>(builder: (context, state) {
             if (state is FoundationLoadingState) {
-              return Center(child: CircularProgressIndicator());
+              return LoadingScreen();
             }
             if (state is FoundationSuccessState) {
               data = state.value;
+              if (_tabController == null) {
+                _tabController = new TabController(
+                    vsync: this,
+                    length: data.enableIosTrans ? 2 : 1,
+                    initialIndex: ModalRoute.of(context).settings.arguments ?? 0);
+              }
 
               return Scaffold(
                 appBar: AppBar(
@@ -70,23 +74,23 @@ class _FoundationScreen extends State<FoundationScreen> with TickerProviderState
                               children: [
                                 Icon(
                                   MdiIcons.handHeart,
-                                  color: Colors.pink[200],
+                                  color: Colors.pinkAccent,
                                   size: 30,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Text(
                                     formatMoney.format(data.value),
-                                    style:
-                                        TextStyle(color: Colors.pink[200], fontWeight: FontWeight.bold, fontSize: 30.0),
+                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30.0),
                                   ),
                                 ),
                               ],
                             )),
-                        TabBar(controller: _tabController, tabs: [
-                          Tab(child: Text("Đóng góp")),
-                          Tab(child: Text("Điểm tin")),
-                        ]),
+                        TabBar(
+                            controller: _tabController,
+                            tabs: data.enableIosTrans
+                                ? [Tab(child: Text("Đóng góp")), Tab(child: Text("Điểm tin"))]
+                                : [Tab(child: Text("Điểm tin"))]),
                       ],
                     ),
                     preferredSize: Size.fromHeight(100.0),
@@ -94,17 +98,21 @@ class _FoundationScreen extends State<FoundationScreen> with TickerProviderState
                 ),
                 body: TabBarView(
                   controller: _tabController,
-                  children: [
-                    TransactionList(
-                      transactions: data.history,
-                      tab: "wallet_c",
-                    ),
-                    CustomScrollView(slivers: <Widget>[AskList(data: data.news)]),
-                  ],
+                  children: data.enableIosTrans
+                      ? [
+                          TransactionList(
+                            transactions: data.history,
+                            tab: "wallet_c",
+                          ),
+                          CustomScrollView(slivers: <Widget>[AskList(data: data.news)]),
+                        ]
+                      : [
+                          CustomScrollView(slivers: <Widget>[AskList(data: data.news)]),
+                        ],
                 ),
               );
             }
-            return LoadingWidget();
+            return LoadingScreen();
           })),
     );
   }
