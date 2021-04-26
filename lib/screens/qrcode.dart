@@ -1,5 +1,5 @@
 import 'package:anylearn/widgets/loading_widget.dart';
-import 'package:barcode_scan/barcode_scan.dart';
+// import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -85,14 +85,14 @@ class _QrCodeScreen extends State<QrCodeScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    MaterialButton(
-                                      color: Colors.green,
-                                      onPressed: () => _scan(context),
-                                      child: Text(
-                                        "QUÉT QR",
-                                        style: TextStyle(fontSize: 18.0, color: Colors.white),
-                                      ),
-                                    ),
+                                    // MaterialButton(
+                                    //   color: Colors.green,
+                                    //   onPressed: () => _scan(context),
+                                    //   child: Text(
+                                    //     "QUÉT QR",
+                                    //     style: TextStyle(fontSize: 18.0, color: Colors.white),
+                                    //   ),
+                                    // ),
                                     MaterialButton(
                                       onPressed: () {
                                         Share.share(user.refLink);
@@ -115,14 +115,14 @@ class _QrCodeScreen extends State<QrCodeScreen> {
     );
   }
 
-  Future _scan(context) async {
-    var result = await BarcodeScanner.scan(
-        options: ScanOptions(
-            restrictFormat: [
-          BarcodeFormat.qr,
-        ],
-            android: AndroidOptions(
-              useAutoFocus: true,
-            )));
-  }
+  // Future _scan(context) async {
+  //   var result = await BarcodeScanner.scan(
+  //       options: ScanOptions(
+  //           restrictFormat: [
+  //         BarcodeFormat.qr,
+  //       ],
+  //           android: AndroidOptions(
+  //             useAutoFocus: true,
+  //           )));
+  // }
 }

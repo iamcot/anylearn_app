@@ -322,7 +322,7 @@ class _PdpBody extends State<PdpBody> {
                     ),
                   ],
                 ))),
-        HotItems(hotItems: [widget.data.hotItems]),
+        SliverToBoxAdapter(child: HotItems(hotItems: [widget.data.hotItems])),
       ],
     );
   }

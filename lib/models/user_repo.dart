@@ -37,6 +37,14 @@ class UserRepository {
     return await userService.login(phone, password);
   }
 
+  Future<UserDTO> loginFacebook({@required Map<String, dynamic> data}) async {
+    return await userService.loginFacebook(data);
+  }
+
+  Future<UserDTO> loginApple({@required Map<String, dynamic> data}) async {
+    return await userService.loginApple(data);
+  }
+
   Future<void> deleteToken() async {
     await storage.delete(key: MyConst.AUTH_TOKEN);
     return;
@@ -83,8 +91,8 @@ class UserRepository {
     return await userService.myCalendar(token);
   }
 
-  Future<int> joinCourse(String token, int itemId) async {
-    return userService.joinCourse(token, itemId);
+  Future<int> joinCourse(String token, int itemId, int childId) async {
+    return userService.joinCourse(token, itemId, childId);
   }
 
   Future<List<UserDTO>> registeredUsers(String token, int itemId) async {
@@ -129,5 +137,13 @@ class UserRepository {
 
   Future<String> signContract(String token, File file) async {
     return await userService.signContract(token, file);
+  }
+
+  Future<bool> saveChildren(String token, int id, String name) async {
+    return await userService.saveChildren(token, id, name);
+  }
+
+  Future<List<UserDTO>> getChildren(String token) async {
+    return await userService.getChildren(token);
   }
 }

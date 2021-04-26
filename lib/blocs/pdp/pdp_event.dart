@@ -34,14 +34,16 @@ class PdpFavoriteTouchEvent extends PdpEvent {
 class PdpRegisterEvent extends PdpEvent {
   final int itemId;
   final String token;
+  final String voucher;
+  final int childUser;
 
-  PdpRegisterEvent({@required this.itemId, @required this.token});
+  PdpRegisterEvent({@required this.itemId, @required this.token, this.voucher, this.childUser});
 
   @override
-  List<Object> get props => [itemId, token];
+  List<Object> get props => [itemId, token, voucher];
 
   @override
-  String toString() => 'PdpRegisterEvent  { id: $itemId}';
+  String toString() => 'PdpRegisterEvent  { id: $itemId, voucher: $voucher}';
 }
 
 class PdpFriendLoadEvent extends PdpEvent {

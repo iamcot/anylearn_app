@@ -76,7 +76,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                     minLines: 5,
                     maxLines: 8,
                   ),
-                  widget.type == MyConst.ASK_COMMENT
+                  (widget.type == MyConst.ASK_COMMENT || widget.type == MyConst.ASK_QUESTION)
                       ? SizedBox(
                           height: 0,
                         )
@@ -97,7 +97,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                           }
                           return GradientButton(
                             height: 48,
-                            title: "Lưu " + _buildText(widget.type),
+                            title: "Gửi " + _buildText(widget.type),
                             function: () {
                               _submit();
                             },
@@ -127,11 +127,11 @@ class _AskFormScreen extends State<AskFormScreen> {
   String _buildText(String type) {
     switch (type) {
       case MyConst.ASK_QUESTION:
-        return "Câu hỏi";
+        return "câu hỏi";
       case MyConst.ASK_ANSWER:
-        return "Trả lời";
+        return "trả lời";
       case MyConst.ASK_COMMENT:
-        return "Bình luận";
+        return "bình luận";
     }
   }
 }

@@ -143,6 +143,9 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                             if (user.walletC < keep || int.parse(value) > max) {
                                               return "Bạn được rút tối đa $max điểm";
                                             }
+                                            if (int.tryParse(value) < 0) {
+                                              return "Số tiền không đúng";
+                                            }
                                             _formKey.currentState.save();
                                             return null;
                                           },

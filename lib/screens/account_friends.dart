@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:anylearn/dto/const.dart';
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
@@ -88,25 +89,25 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                       TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
                             ),
                           ),
-                          SliverToBoxAdapter(
-                            child: Container(
-                                padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                                decoration: BoxDecoration(
-                                    // color: Colors.grey[100],
-                                    ),
-                                child: Row(children: [
-                                  Icon(
-                                    Icons.info,
-                                    color: Colors.grey,
-                                    size: 12.0,
-                                  ),
-                                  Expanded(
-                                    child: Text("Chạm để xem bạn bè liên kết. Giữ để xem thông tin cá nhân.",
-                                        style: TextStyle(
-                                            fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
-                                  ),
-                                ])),
-                          ),
+                          // SliverToBoxAdapter(
+                          //   child: Container(
+                          //       padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                          //       decoration: BoxDecoration(
+                          //           // color: Colors.grey[100],
+                          //           ),
+                          //       child: Row(children: [
+                          //         Icon(
+                          //           Icons.info,
+                          //           color: Colors.grey,
+                          //           size: 12.0,
+                          //         ),
+                          //         Expanded(
+                          //           child: Text("Chạm để xem bạn bè liên kết. Giữ để xem thông tin cá nhân.",
+                          //               style: TextStyle(
+                          //                   fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
+                          //         ),
+                          //       ])),
+                          // ),
                           _data.friends != null && _data.friends.length > 0
                               ? SliverList(
                                   delegate: SliverChildBuilderDelegate(
@@ -141,37 +142,50 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                                 Text(_data.friends[itemIndex].numFriends.toString() + " bạn "),
                                                 Icon(Icons.chevron_right),
                                               ])),
+                                          // onTap: () {
+                                          //   if (param.level < 1) {
+                                          //     Navigator.of(context).pushNamed("/account/friends",
+                                          //         arguments: FriendParamsDTO(
+                                          //             userId: _data.friends[itemIndex].id, level: param.level + 1));
+                                          //   } else {
+                                          //     showDialog(
+                                          //         context: context,
+                                          //         child: AlertDialog(
+                                          //           content: Text(
+                                          //               "Bạn không thể xem thêm bạn bè, đây là nhánh liên kết cuối của bạn, hãy chia sẻ MÃ GIỚI THIỆU để có thêm nhiều bạn cùng học hơn!!!"),
+                                          //           actions: <Widget>[
+                                          //             FlatButton(
+                                          //                 onPressed: () {
+                                          //                   Navigator.of(context).pop();
+                                          //                 },
+                                          //                 child: Text("Đã hiểu")),
+                                          //             RaisedButton(
+                                          //               shape: RoundedRectangleBorder(
+                                          //                 borderRadius: BorderRadius.circular(10.0),
+                                          //               ),
+                                          //               color: Colors.blue,
+                                          //               onPressed: () {
+                                          //                 Navigator.of(context).pop();
+                                          //                 Navigator.of(context).pushNamed("/qrcode",
+                                          //                     arguments: _data.friends[itemIndex].id);
+                                          //               },
+                                          //               child: Text("GIỚI THIỆU BẠN BÈ"),
+                                          //             )
+                                          //           ],
+                                          //         ));
+                                          //   }
+                                          // },
                                           onTap: () {
-                                            if (param.level < 3) {
-                                              Navigator.of(context).pushNamed("/account/friends",
-                                                  arguments: FriendParamsDTO(
-                                                      userId: _data.friends[itemIndex].id, level: param.level + 1));
+                                            if (_data.friends[itemIndex].role == MyConst.ROLE_SCHOOL) {
+                                              Navigator.of(context)
+                                                  .pushNamed("/items/school", arguments: _data.friends[itemIndex].id);
+                                            } else if (_data.friends[itemIndex].role == MyConst.ROLE_TEACHER) {
+                                              Navigator.of(context)
+                                                  .pushNamed("/items/teacher", arguments: _data.friends[itemIndex].id);
                                             } else {
-                                              showDialog(
-                                                  context: context,
-                                                  child: AlertDialog(
-                                                    content: Text(
-                                                        "Bạn không thể xem thêm bạn bè, đây là nhánh liên kết cuối của bạn, hãy chia sẻ MÃ GIỚI THIỆU để có thêm nhiều bạn cùng học hơn!!!"),
-                                                    actions: <Widget>[
-                                                      RaisedButton(
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(10.0),
-                                                        ),
-                                                        color: Colors.blue,
-                                                        onPressed: () {
-                                                          Navigator.of(context).pop();
-                                                          Navigator.of(context).pushNamed("/qrcode",
-                                                              arguments: _data.friends[itemIndex].id);
-                                                        },
-                                                        child: Text("GIỚI THIỆU BẠN BÈ"),
-                                                      )
-                                                    ],
-                                                  ));
+                                              Navigator.of(context)
+                                                  .pushNamed("/profile", arguments: _data.friends[itemIndex].id);
                                             }
-                                          },
-                                          onLongPress: () {
-                                            Navigator.of(context)
-                                                .pushNamed("/profile", arguments: _data.friends[itemIndex].id);
                                           },
                                         );
                                       }
@@ -198,7 +212,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                               style: TextStyle(fontSize: 16.0),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                    text: " CHIA SẼ MÃ GIỚI THIỆU",
+                                                    text: " CHIA SẺ MÃ GIỚI THIỆU",
                                                     style: TextStyle(color: Colors.blue),
                                                     recognizer: TapGestureRecognizer()
                                                       ..onTap = () {

@@ -65,79 +65,79 @@ class _CustomFeedback extends State<CustomFeedback> {
                             onPressed: () async {
                               showDialog(
                                   context: context,
-                                  child: SimpleDialog(
-                                    titlePadding: EdgeInsets.all(10),
-                                    title: Text(
-                                      "anyLEARN luôn hoàn thiện từng ngày để phục vụ bạn tốt hơn, hãy nhắn cho chúng tôi 1 thông tin phản hồi về trải nghiệm của bạn!",
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                    contentPadding: EdgeInsets.all(10),
-                                    children: <Widget>[
-                                      Form(
-                                        key: _formKey,
-                                        child: TextFormField(
-                                          validator: (String value) {
-                                            if (value.length < 3) {
-                                              return "Bạn chưa nhập phản hồi nè.";
-                                            }
-                                            _formKey.currentState.save();
-                                            return null;
-                                          },
-                                          maxLines: 8,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              content = value;
-                                            });
-                                          },
-                                          initialValue: "",
-                                          decoration: InputDecoration(
-                                              alignLabelWithHint: true,
-                                              labelText: "Để lại ý kiến đóng góp của bạn vào đây..",
-                                              labelStyle: TextStyle(fontSize: 14)),
+                                  builder: (context) => SimpleDialog(
+                                        titlePadding: EdgeInsets.all(10),
+                                        title: Text(
+                                          "anyLEARN luôn hoàn thiện từng ngày để phục vụ bạn tốt hơn, hãy nhắn cho chúng tôi 1 thông tin phản hồi về trải nghiệm của bạn!",
+                                          style: TextStyle(fontSize: 12),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 8, bottom: 8),
-                                        child: Row(children: [
-                                          Icon(
-                                            Icons.info,
-                                            color: Colors.blue,
+                                        contentPadding: EdgeInsets.all(10),
+                                        children: <Widget>[
+                                          Form(
+                                            key: _formKey,
+                                            child: TextFormField(
+                                              validator: (String value) {
+                                                if (value.length < 3) {
+                                                  return "Bạn chưa nhập phản hồi nè.";
+                                                }
+                                                _formKey.currentState.save();
+                                                return null;
+                                              },
+                                              maxLines: 8,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  content = value;
+                                                });
+                                              },
+                                              initialValue: "",
+                                              decoration: InputDecoration(
+                                                  alignLabelWithHint: true,
+                                                  labelText: "Để lại ý kiến đóng góp của bạn vào đây..",
+                                                  labelStyle: TextStyle(fontSize: 14)),
+                                            ),
                                           ),
-                                          // Image.file(await takeScreenShot()),
-                                          Expanded(
-                                              child: Text(
-                                            "Để hiểu rõ hơn ý kiến của bạn, chúng tôi xin phép được gửi kèm ảnh chụp màn hình ứng dụng của bạn.",
-                                            style: TextStyle(fontSize: 12, color: Colors.black87),
-                                          )),
-                                        ]),
-                                      ),
-                                      RaisedButton(
-                                        // padding: EdgeInsets.all(10),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            side: BorderSide(color: Colors.blueAccent)),
-                                        onPressed: () async {
-                                          if (_formKey.currentState.validate()) {
-                                            _formKey.currentState.save();
-                                            Navigator.of(context).pop();
-                                            Future.delayed(const Duration(seconds: 5));
-                                            final file = await takeScreenShot();
-                                            feedbackBloc
-                                              ..add(SaveFeedbackEvent(
-                                                file: file,
-                                                token: widget.user.token,
-                                                content: content,
-                                              ));
-                                          }
-                                        },
-                                        color: Colors.blue,
-                                        child: Text(
-                                          "Gửi phản hồi",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      )
-                                    ],
-                                  ));
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                                            child: Row(children: [
+                                              Icon(
+                                                Icons.info,
+                                                color: Colors.blue,
+                                              ),
+                                              // Image.file(await takeScreenShot()),
+                                              Expanded(
+                                                  child: Text(
+                                                "Để hiểu rõ hơn ý kiến của bạn, chúng tôi xin phép được chụp màn hình ứng dụng của bạn.",
+                                                style: TextStyle(fontSize: 12, color: Colors.black87),
+                                              )),
+                                            ]),
+                                          ),
+                                          RaisedButton(
+                                            // padding: EdgeInsets.all(10),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10.0),
+                                                side: BorderSide(color: Colors.blueAccent)),
+                                            onPressed: () async {
+                                              if (_formKey.currentState.validate()) {
+                                                _formKey.currentState.save();
+                                                Navigator.of(context).pop();
+                                                Future.delayed(const Duration(seconds: 5));
+                                                final file = await takeScreenShot();
+                                                feedbackBloc
+                                                  ..add(SaveFeedbackEvent(
+                                                    file: file,
+                                                    token: widget.user.token,
+                                                    content: content,
+                                                  ));
+                                              }
+                                            },
+                                            color: Colors.blue,
+                                            child: Text(
+                                              "Gửi phản hồi",
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+                                          )
+                                        ],
+                                      ));
                             },
                             child: Icon(Icons.add_comment))),
               ],

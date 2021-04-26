@@ -92,6 +92,16 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                 ),
                               ),
                         Divider(),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: FlatButton.icon(
+                              onPressed: () {
+                                Navigator.of(context).pushNamed("/account/docs", arguments: _user.token);
+                              },
+                              icon: Icon(MdiIcons.certificate),
+                              label: Text("Cập nhật chứng chỉ")),
+                        ),
+                        Divider(),
                         GradientButton(
                           title: "TẠO HỢP ĐỒNG MỚI",
                           height: 40.0,
@@ -119,13 +129,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value.length < 3 || double.tryParse(value) == null) {
-                                          return "Mức hoa hồng phải là một con số phập phân, ví dụ 0.2";
+                                          return "Là một con số phập phân, ví dụ 0.2";
                                         }
                                         _formKey.currentState.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Mức hoa hồng",
+                                        labelText: "Phần trăm doanh thu của đối tác (số thập phân)",
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),

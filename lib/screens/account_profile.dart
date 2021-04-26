@@ -1,3 +1,5 @@
+import 'package:anylearn/dto/hot_items_dto.dart';
+import 'package:anylearn/widgets/hot_items.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,14 +28,24 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     super.didChangeDependencies();
     final _userRepo = RepositoryProvider.of<UserRepository>(context);
     int userId = ModalRoute.of(context).settings.arguments;
-    _accountBloc = AccountBloc(userRepository: _userRepo)..add(AccProfileEvent(userId: userId));
+    if (userId == null) {
+      Navigator.of(context).pop();
+    } else {
+      _accountBloc = AccountBloc(userRepository: _userRepo)..add(AccProfileEvent(userId: userId));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          actions: [
+            IconButton(icon: Icon(Icons.menu), onPressed: () {
+              Navigator.of(context).pushNamed("/account");
+            })
+          ],
+        ),
         body: BlocProvider<AccountBloc>(create: (context) {
           return _accountBloc;
         }, child: BlocBuilder<AccountBloc, AccountState>(builder: (context, state) {
@@ -113,14 +125,58 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                 child:
                     user.docs == null || user.docs.length == 0 ? SizedBox(height: 0) : UserDocList(userDocs: user.docs),
               ),
-              Divider(
-                thickness: 10,
-              ),
               user.fullContent == null
                   ? SizedBox(height: 0)
-                  : Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Html(data: user.fullContent),
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Divider(
+                          thickness: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Html(data: user.fullContent),
+                        ),
+                      ],
+                    ),
+              (user.registered == null || user.registered.length ==0)
+                  ? SizedBox(height: 0)
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Divider(
+                        //   thickness: 10,
+                        // ),
+                        HotItems(
+                          hotItems: [HotItemsDTO(title: "Các khoá học đã đăng ký", list: user.registered)],
+                        ),
+                      ],
+                    ),
+              (user.faved == null || user.faved.length == 0)
+                  ? SizedBox(height: 0)
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Divider(
+                        //   thickness: 10,
+                        // ),
+                        HotItems(
+                          hotItems: [HotItemsDTO(title: "Các khoá học đang quan tâm", list: user.faved)],
+                        ),
+                      ],
+                    ),
+              (user.rated == null || user.rated.length == 0)
+                  ? SizedBox(height: 0)
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Divider(
+                        //   thickness: 10,
+                        // ),
+                        HotItems(
+                          hotItems: [HotItemsDTO(title: "Các khoá học đã đánh giá", list: user.rated)],
+                        ),
+                      ],
                     ),
             ]);
           }

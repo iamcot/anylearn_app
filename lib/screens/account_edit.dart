@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html_editor/html_editor.dart';
+// import 'package:flutter_html_editor/html_editor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:validators/validators.dart' as validator;
@@ -24,7 +24,8 @@ class AccountEditScreen extends StatefulWidget {
 }
 
 class _AccountEditScreen extends State<AccountEditScreen> {
-  GlobalKey<HtmlEditorState> keyEditor = GlobalKey<HtmlEditorState>();
+  // GlobalKey<HtmlEditorState> keyEditor = GlobalKey<HtmlEditorState>();
+  // GlobalKey<HtmlEditorState> keyEditor = GlobalKey();
   final _formKey = GlobalKey<FormState>();
   UserDTO _user;
   File _image;
@@ -63,7 +64,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    _user.fullContent = await keyEditor.currentState.getText();
+                    _user.fullContent = "";//await keyEditor.currentState.getText();
                     accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
                   }
                 })
@@ -286,19 +287,21 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   ),
                                 ),
                               ),
-                              Padding(padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15),
-                              child: Text("Thông tin giới thiệu"),
-                              ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15),
-                                child: HtmlEditor(
-                                  // hint: "Thông tin giới thiệu",
-                                  value: _user.fullContent ?? "",
-                                  key: keyEditor,
-                                  height: 400,
-                                  showBottomToolbar: true,
-                                ),
+                                child: Text("Thông tin giới thiệu"),
                               ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 15),
+                              //   child: HtmlEditor(
+                              //     // hint: "Thông tin giới thiệu",
+                              //     value: _user.fullContent ?? "",
+                              //     key: keyEditor,
+                              //     height: 400,
+                              //     showBottomToolbar: true,
+                              //   ),
+                            
+                              // ),
                               Container(
                                 height: 48.0,
                                 margin: const EdgeInsets.all(15.0),
@@ -307,7 +310,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   color: Colors.blue,
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
-                                      _user.fullContent = await keyEditor.currentState.getText();
+                                      _user.fullContent = "";//await keyEditor.currentState.getText();
                                       _formKey.currentState.save();
                                       accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
                                     }
@@ -352,6 +355,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
     final File image = await ImagePicker.pickImage(
       source: fromCamera ? ImageSource.camera : ImageSource.gallery,
     );
+
     if (image != null) {
       accountBloc..add(AccChangeAvatarEvent(token: _user.token, file: image));
     }

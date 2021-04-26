@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/item_dto.dart';
 import 'package:equatable/equatable.dart';
 
 import 'user_doc_dto.dart';
@@ -35,6 +36,10 @@ class UserDTO extends Equatable {
   String dobPlace;
   int isSigned;
   final bool enableIosTrans;
+  final List<ItemDTO> registered;
+  final List<ItemDTO> faved;
+  final List<ItemDTO> rated;
+  final List<UserDTO> children;
 
   UserDTO({
     this.id,
@@ -69,6 +74,10 @@ class UserDTO extends Equatable {
     this.isSigned,
     this.dobPlace,
     this.enableIosTrans,
+    this.registered,
+    this.faved,
+    this.rated,
+    this.children,
   });
 
   @override
@@ -103,7 +112,11 @@ class UserDTO extends Equatable {
         docs,
         isSigned,
         dobPlace,
-        enableIosTrans
+        enableIosTrans,
+        registered,
+        faved,
+        rated,
+        children,
       ];
 
   @override
@@ -144,6 +157,18 @@ class UserDTO extends Equatable {
             dobPlace: json['dob_place'],
             rating: json['rating'] == null ? null : double.parse(json['rating'].toString()),
             enableIosTrans: json['ios_transaction'] == null ? false : (json['ios_transaction'] == 1),
+            registered: json['registered'] == null
+                ? null
+                : List<ItemDTO>.from(json['registered']?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList(),
+            faved: json['faved'] == null
+                ? null
+                : List<ItemDTO>.from(json['faved']?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList(),
+            rated: json['rated'] == null
+                ? null
+                : List<ItemDTO>.from(json['rated']?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList(),
+            children: json['children'] == null
+                ? null
+                : List<UserDTO>.from(json['children']?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList(),
           )
         : null;
   }

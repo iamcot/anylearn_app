@@ -57,8 +57,12 @@ class TransactionService extends BaseService {
     };
   }
 
-  Future<bool> register(String token, int itemId) async {
-    final url = buildUrl(appConfig: config, endPoint: "/transaction/register/$itemId", token: token);
+  Future<bool> register(String token, int itemId, String voucher, int childUser) async {
+    final url = buildUrl(
+        appConfig: config,
+        endPoint: "/transaction/register/$itemId",
+        token: token,
+        query: "voucher=$voucher&child=$childUser");
     print(url);
     final json = await get(httpClient, url);
     return json['result'];

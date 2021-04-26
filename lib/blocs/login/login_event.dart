@@ -18,3 +18,31 @@ class LoginButtonPressedEvent extends LoginEvent {
   String toString() => 'LoginButtonPressed { phone: $phone, password: $password}';
   
 }
+
+
+class LoginFacebookEvent extends LoginEvent {
+  final Map<String, dynamic> data;
+
+  LoginFacebookEvent({@required this.data});
+
+  @override
+  List<Object> get props => [data];
+
+  @override 
+  String toString() => 'LoginFacebookEvent { data: $data}';
+  
+}
+
+
+class LoginAppleEvent extends LoginEvent {
+  final Map<String, dynamic> data;
+
+  LoginAppleEvent({@required this.data});
+
+  @override
+  List<Object> get props => [data];
+
+  @override 
+  String toString() => 'LoginAppleEvent { data: $data}';
+  
+}

@@ -94,6 +94,13 @@ class _AccountBody extends State<AccountBody> {
                   ])),
             ),
             AccountNormalMenu(
+              title: "Quản lý tài khoản phụ",
+              route: "/account/children",
+              routeParam: widget.user,
+              leadingIcon: MdiIcons.accountChild,
+              trailing: Icon(Icons.chevron_right_sharp),
+            ),
+            AccountNormalMenu(
               title: "Thông tin cá nhân",
               route: "/account/edit",
               leadingIcon: Icons.account_box,

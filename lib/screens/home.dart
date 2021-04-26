@@ -40,9 +40,8 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _willExit,
-      child: Scaffold(
-        body: BlocBuilder<AuthBloc, AuthState>(
+        onWillPop: _willExit,
+        child: BlocBuilder<AuthBloc, AuthState>(
           bloc: _authBloc,
           builder: (context, state) {
             if (state is AuthSuccessState) {
@@ -62,26 +61,27 @@ class _HomeScreen extends State<HomeScreen> {
                   _homeBloc.add(LoadQuoteEvent(url: homeData.config.quoteUrl));
                 }
                 return homeData != null
-                    ? RefreshIndicator(
-                        child: CustomFeedback(
-                            user: user,
-                            child: HomeBody(
+                    ? Scaffold(
+                        body: RefreshIndicator(
+                          child: CustomFeedback(
                               user: user,
-                              homeData: homeData,
-                              homeBloc: _homeBloc,
-                            )),
-                        onRefresh: _reloadPage,
+                              child: HomeBody(
+                                user: user,
+                                homeData: homeData,
+                                homeBloc: _homeBloc,
+                              )),
+                          onRefresh: _reloadPage,
+                        ),
+                        bottomNavigationBar: BottomNav(
+                          index: BottomNav.HOME_INDEX,
+                          user: user,
+                        ),
                       )
                     : LoadingScreen();
               }),
             );
           },
-        ),
-        bottomNavigationBar: BottomNav(
-          index: BottomNav.HOME_INDEX,
-        ),
-      ),
-    );
+        ));
   }
 
   Future<void> _reloadPage() async {

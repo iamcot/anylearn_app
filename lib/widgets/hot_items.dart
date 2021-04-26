@@ -10,9 +10,7 @@ class HotItems extends StatelessWidget {
   const HotItems({Key key, this.hotItems}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Container(child: Column(children: _buildList(context))),
-    );
+    return Container(child: Column(children: _buildList(context)));
   }
 
   List<Widget> _buildList(BuildContext context) {
@@ -22,7 +20,7 @@ class HotItems extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 20.0),
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(
+                top: BorderSide(
                   width: 15.0,
                   color: Colors.grey[100],
                 ),
@@ -39,20 +37,24 @@ class HotItems extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(hotList.route);
-                          },
-                          child: Text(
-                            "Tất cả",
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                        ),
-                      ),
-                    )
+                    hotList.route == null
+                        ? SizedBox(
+                            height: 0,
+                          )
+                        : Expanded(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(hotList.route);
+                                },
+                                child: Text(
+                                  "Tất cả",
+                                  style: TextStyle(color: Colors.blue),
+                                ),
+                              ),
+                            ),
+                          )
                   ],
                 ),
               ),

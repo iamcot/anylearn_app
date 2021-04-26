@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/account/account_children.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
@@ -58,6 +59,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/account/edit": (BuildContext context) => AccountEditScreen(),
   "/account/password": (BuildContext context) => AccountPasswordScreen(),
   "/account/contact": (BuildContext context) => AccountContactScreen(),
+  "/account/children": (BuildContext context) => AccountChildrenScreen(),
   "/deposit": (BuildContext context) => DepositScreen(),
   "/withdraw": (BuildContext context) => WithdrawScreen(),
   "/exchange": (BuildContext context) => ExchangeScreen(),

@@ -31,6 +31,20 @@ class UserService extends BaseService {
     return UserDTO.fromJson(json);
   }
 
+  Future<UserDTO> loginFacebook(Map<String, dynamic> data) async {
+    final url = buildUrl(appConfig: config, endPoint: "/login/facebook");
+    data['notify_token'] = notifToken;
+    final json = await post(httpClient, url, data);
+    return UserDTO.fromJson(json);
+  }
+
+  Future<UserDTO> loginApple(Map<String, dynamic> data) async {
+    final url = buildUrl(appConfig: config, endPoint: "/login/apple");
+    data['notify_token'] = notifToken;
+    final json = await post(httpClient, url, data);
+    return UserDTO.fromJson(json);
+  }
+
   Future<void> logout(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/logout", token: token);
     print(url);
@@ -76,7 +90,6 @@ class UserService extends BaseService {
 
   Future<bool> updatePassword(String oldPassword, String newPassword) async {
     await Future.delayed(Duration(seconds: 1));
-    //TODO Implement
     return true;
   }
 
@@ -111,8 +124,8 @@ class UserService extends BaseService {
     return AccountCalendarDTO.fromJson(json);
   }
 
-  Future<int> joinCourse(String token, int itemId) async {
-    final url = buildUrl(appConfig: config, endPoint: "/user/join/$itemId", token: token);
+  Future<int> joinCourse(String token, int itemId, int childId) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/join/$itemId", token: token, query: "child=$childId");
     final json = await get(httpClient, url);
     return json['result'];
   }
@@ -200,5 +213,20 @@ class UserService extends BaseService {
     final url = buildUrl(appConfig: config, endPoint: "/user/contract/sign", token: token);
     final jsonStr = await postImage(url, file);
     return jsonStr;
+  }
+
+  Future<bool> saveChildren(String token, int id, String name) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/children", token: token);
+    final json = await post(httpClient, url, {
+      "id": id.toString(),
+      "name": name,
+    });
+    return json['result'];
+  }
+
+  Future<List<UserDTO>> getChildren(String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/children", token: token);
+    final json = await get(httpClient, url);
+    return List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
   }
 }

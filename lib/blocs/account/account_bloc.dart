@@ -51,7 +51,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         final calendar = await userRepository.myCalendar(event.token);
         yield AccMyCalendarSuccessState(calendar: calendar);
       } else if (event is AccJoinCourseEvent) {
-        await userRepository.joinCourse(event.token, event.scheduleId);
+        await userRepository.joinCourse(event.token, event.scheduleId, event.childId);
         yield AccJoinSuccessState(itemId: event.itemId);
         this..add(AccLoadMyCalendarEvent(token: event.token));
       } else if (event is AccProfileEvent) {
@@ -71,6 +71,20 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       }
     } catch (error) {
       yield AccountFailState(error: error.toString());
+    }
+
+    try {
+      if (event is AccSaveChildrenEvent) {
+        yield AccSaveChildrenLoadingState();
+        await userRepository.saveChildren(event.token, event.id, event.name);
+        yield AccSaveChildrenSuccessState();
+      } else if (event is AccLoadChildrenEvent) {
+        yield AccChildrenLoadingState();
+        final children = await userRepository.getChildren(event.token);
+        yield AccChildrenSuccessState(children: children);
+      }
+    } catch (error) {
+      yield AccChildrenFailState(error: error.toString());
     }
   }
 }

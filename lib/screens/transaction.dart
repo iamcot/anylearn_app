@@ -133,21 +133,21 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                                 style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
                                               ),
                                             ),
-                                            Text.rich(
-                                              TextSpan(
-                                                  text: "RÚT ĐIỂM",
-                                                  style: TextStyle(
-                                                    fontSize: 12.0,
-                                                    color: Colors.orange,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  recognizer: TapGestureRecognizer()
-                                                    ..onTap = () async {
-                                                      await Navigator.of(context).pushNamed("/withdraw");
-                                                      _authBloc = BlocProvider.of<AuthBloc>(context)
-                                                        ..add(AuthCheckEvent());
-                                                    }),
-                                            ),
+                                            // Text.rich(
+                                            //   TextSpan(
+                                            //       text: "RÚT ĐIỂM",
+                                            //       style: TextStyle(
+                                            //         fontSize: 12.0,
+                                            //         color: Colors.orange,
+                                            //         fontWeight: FontWeight.bold,
+                                            //       ),
+                                            //       recognizer: TapGestureRecognizer()
+                                            //         ..onTap = () async {
+                                            //           await Navigator.of(context).pushNamed("/withdraw");
+                                            //           _authBloc = BlocProvider.of<AuthBloc>(context)
+                                            //             ..add(AuthCheckEvent());
+                                            //         }),
+                                            // ),
                                           ]),
                                           padding: EdgeInsets.all(10.0),
                                           decoration:

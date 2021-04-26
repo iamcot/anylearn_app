@@ -77,12 +77,13 @@ class AccJoinCourseEvent extends AccountEvent {
   final String token;
   final int scheduleId;
   final int itemId;
+  final int childId;
 
-  AccJoinCourseEvent({this.token, this.itemId, this.scheduleId});
+  AccJoinCourseEvent({this.token, this.itemId, this.scheduleId, this.childId});
   @override
-  List<Object> get props => [token, itemId, scheduleId];
+  List<Object> get props => [token, itemId, scheduleId, childId];
   @override
-  String toString() => 'AccJoinCourseEvent $itemId';
+  String toString() => 'AccJoinCourseEvent $itemId $childId';
 }
 
 class AccProfileEvent extends AccountEvent {
@@ -125,4 +126,26 @@ class AccRemoveDocEvent extends AccountEvent {
   List<Object> get props => [token, fileId];
   @override
   String toString() => 'AccRemoveDocEvent $fileId';
+}
+
+class AccSaveChildrenEvent extends AccountEvent {
+  final String token;
+  final String name;
+  final int id;
+
+  AccSaveChildrenEvent({this.token, this.id, this.name});
+  @override
+  List<Object> get props => [token, id, name];
+  @override
+  String toString() => 'AccSaveChildrenEvent $id, $name';
+}
+
+class AccLoadChildrenEvent extends AccountEvent {
+  final String token;
+
+  AccLoadChildrenEvent({this.token});
+  @override
+  List<Object> get props => [token];
+  @override
+  String toString() => 'AccLoadChildrenEvent';
 }

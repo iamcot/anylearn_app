@@ -16,6 +16,8 @@ class EventDTO extends Equatable {
   final int authorStatus;
   final int userRating;
   final bool nolimitTime;
+  final int childId;
+  final String childName;
 
   EventDTO({
     this.id,
@@ -33,6 +35,8 @@ class EventDTO extends Equatable {
     this.authorStatus,
     this.userRating,
     this.nolimitTime,
+    this.childId,
+    this.childName,
   });
 
   factory EventDTO.fromJson(Map<String, dynamic> json) {
@@ -49,11 +53,27 @@ class EventDTO extends Equatable {
       userJoined: json['user_joined'],
       location: json['location'],
       authorStatus: json['author_status'],
+      childId: json['child_id'],
+      childName: json['child_name'],
       userRating: json['user_rating'] == null ? 0 : int.parse(json['user_rating']),
       nolimitTime: json['nolimit_time'] == null ? false : (json['nolimit_time'] == "1" ? true : false),
     );
   }
 
   @override
-  List<Object> get props => [id, title, date, time, image, author, content, userJoined, location, authorStatus, itemId];
+  List<Object> get props => [
+        id,
+        title,
+        date,
+        time,
+        image,
+        author,
+        content,
+        userJoined,
+        location,
+        authorStatus,
+        itemId,
+        childId,
+        childName,
+      ];
 }

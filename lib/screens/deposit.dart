@@ -170,6 +170,9 @@ class _DepositScreen extends State<DepositScreen> {
                                                   if (value.isEmpty && _paymentSelect != "voucher") {
                                                     return "Bạn chưa nhập số tiền muốn nạp";
                                                   }
+                                                  if (int.tryParse(value) < 0) {
+                                                    return "Số tiền không đúng";
+                                                  }
                                                   _formKey.currentState.save();
                                                   return null;
                                                 },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_blocs.dart';
@@ -65,10 +66,12 @@ class _PDPScreen extends State<PDPScreen> {
                     Navigator.of(context).popUntil(ModalRoute.withName("/"));
                   }
                   if (state is PdpRegisterFailState) {
-                    Scaffold.of(context).showSnackBar(new SnackBar(
-                      duration: Duration(seconds: 5),
-                      content: Text(state.error),
-                    ));
+                    // toast(state.error);
+                    Scaffold.of(context)
+                      ..removeCurrentSnackBar()
+                      ..showSnackBar(new SnackBar(
+                        content: Text(state.error),
+                      ));
                   }
                   if (state is PdpRegisterSuccessState) {
                     BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());

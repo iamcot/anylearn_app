@@ -12,20 +12,21 @@ class ArticleDTO {
   final content;
   final view;
   final createdAt;
+  final related;
 
-  ArticleDTO({
-    this.id,
-    this.title,
-    this.userName,
-    this.categoryName,
-    this.type,
-    this.image,
-    this.video,
-    this.shortContent,
-    this.content,
-    this.view,
-    this.createdAt,
-  });
+  ArticleDTO(
+      {this.id,
+      this.title,
+      this.userName,
+      this.categoryName,
+      this.type,
+      this.image,
+      this.video,
+      this.shortContent,
+      this.content,
+      this.view,
+      this.createdAt,
+      this.related});
 
   static ArticleDTO fromJson(dynamic json) {
     return json == null
@@ -41,7 +42,12 @@ class ArticleDTO {
             shortContent: json['short_content'],
             content: json['content'],
             view: json['view'],
-            createdAt: json['created_at'] == null ? null : DateTime.tryParse(json['created_at']));
+            createdAt: json['created_at'] == null ? null : DateTime.tryParse(json['created_at']),
+            related: json['related'] == null
+                ? null
+                : List<ArticleDTO>.from(json['related']?.map((v) => v == null ? null : ArticleDTO.fromJson(v)))
+                    .toList(),
+          );
   }
 }
 

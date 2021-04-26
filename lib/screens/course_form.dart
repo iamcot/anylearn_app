@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html_editor/html_editor.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 // import 'package:html_editor/html_editor.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,7 +22,7 @@ class CourseFormScreen extends StatefulWidget {
 }
 
 class _CourseFormScreen extends State<CourseFormScreen> {
-  GlobalKey<HtmlEditorState> keyEditor = GlobalKey();
+  // GlobalKey<HtmlEditorState> keyEditor = GlobalKey();
   final _formKey = GlobalKey<FormState>();
   final dateMask = new MaskedTextController(mask: '0000-00-00');
   final timeStartMask = new MaskedTextController(mask: '00:00');
@@ -90,7 +89,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    _itemDTO.content = await keyEditor.currentState.getText();
+                    _itemDTO.content = "";// await keyEditor.currentState.getText();
                     _courseBloc..add(SaveCourseEvent(item: _itemDTO, token: _user.token));
                   }
                 })
@@ -133,13 +132,13 @@ class _CourseFormScreen extends State<CourseFormScreen> {
               return (editId == null || (editId > 0 && _itemDTO.id != null))
                   ? CustomFeedback(
                       user: _user,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Form(
-                            key: _formKey,
-                            child: ListView(
-                              children: [
-                                _itemDTO == null || _itemDTO.id == null
+                      child: Form(
+                          key: _formKey,
+                          child: ListView(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                child: _itemDTO == null || _itemDTO.id == null
                                     ? Container(
                                         child: Text(
                                         "Sẽ cập nhật được ảnh đại diện khóa học sau khi tạo thành công",
@@ -149,7 +148,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                         ),
                                       ))
                                     : _imageBox(width / 2),
-                                TextFormField(
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15, right: 15),
+                                child: TextFormField(
                                   validator: (String value) {
                                     if (value.length < 3) {
                                       return "Cần nhập tên khóa học tối thiểu 3 kí tự";
@@ -167,7 +169,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     labelText: "Tên khóa học",
                                   ),
                                 ),
-                                TextFormField(
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15, right: 15),
+                                child: TextFormField(
                                   onChanged: (value) {
                                     setState(() {
                                       if (value != "") {
@@ -180,7 +185,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     labelText: "Học phí gốc",
                                   ),
                                 ),
-                                TextFormField(
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15, right: 15),
+                                child: TextFormField(
                                   validator: (String value) {
                                     if (value == "") {
                                       return "Chưa nhập học phí khóa học";
@@ -200,7 +208,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     labelText: "Học phí",
                                   ),
                                 ),
-                                TextFormField(
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15, right: 15),
+                                child: TextFormField(
                                   validator: (String value) {
                                     if (value == "") {
                                       return "Chưa nhập ngày diễn ra";
@@ -218,7 +229,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     labelText: "Ngày diễn ra (yyyy-MM-dd)",
                                   ),
                                 ),
-                                TextFormField(
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15, right: 15),
+                                child: TextFormField(
                                   onChanged: (value) {
                                     setState(() {
                                       _itemDTO.timeStart = value;
@@ -236,7 +250,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     labelText: "Giờ bắt đầu (HH:mm)",
                                   ),
                                 ),
-                                TextFormField(
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15, right: 15),
+                                child: TextFormField(
                                   onChanged: (value) {
                                     setState(() {
                                       _itemDTO.timeEnd = value;
@@ -247,7 +264,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     labelText: "Giờ kết thúc",
                                   ),
                                 ),
-                                TextFormField(
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15, right: 15),
+                                child: TextFormField(
                                   onChanged: (value) {
                                     setState(() {
                                       _itemDTO.location = value;
@@ -258,7 +278,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     labelText: "Địa điểm/Room online",
                                   ),
                                 ),
-                                TextFormField(
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 15, right: 15),
+                                child: TextFormField(
                                   maxLines: 3,
                                   onChanged: (value) {
                                     setState(() {
@@ -270,30 +293,34 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     labelText: "Giới thiệu ngắn",
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Text("Nội dung khóa học"),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 15, right: 15, top: 10),
+                                child: Text("Nội dung khóa học"),
+                              ),
+                              // Container(
+                              //   padding: EdgeInsets.all(15),
+                              //   child: HtmlEditor(
+                              //     // hint: "Nội dung khóa học",
+                              //     value: _itemDTO.content ?? "",
+                              //     key: keyEditor,
+                              //     height: 400,
+                              //     showBottomToolbar: true,
+                              //   ),
+                               
+                              // ),
+                              Padding(
+                                padding: EdgeInsets.all(15),
+                                child: GradientButton(
+                                  height: 48,
+                                  title: "Lưu khóa học",
+                                  function: () {
+                                    _submit();
+                                  },
                                 ),
-                                HtmlEditor(
-                                  // hint: "Nội dung khóa học",
-                                  value: _itemDTO.content ?? "",
-                                  key: keyEditor,
-                                  height: 400,
-                                  showBottomToolbar: true,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                                  child: GradientButton(
-                                    height: 48,
-                                    title: "Lưu khóa học",
-                                    function: () {
-                                      _submit();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
+                              ),
+                            ],
+                          )),
                     )
                   : LoadingWidget();
             },
@@ -306,7 +333,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   void _submit() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      _itemDTO.content = await keyEditor.currentState.getText();
+      _itemDTO.content = "";//await keyEditor.currentState.getText();
       _courseBloc.add(SaveCourseEvent(item: _itemDTO, token: _user.token));
     }
   }

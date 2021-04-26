@@ -17,6 +17,7 @@ class HomeBanner extends StatelessWidget {
       child: Container(
         child: CarouselSlider(
           options: CarouselOptions(
+            initialPage: 0,
             enlargeCenterPage: true,
             height: height,
             autoPlay: true,

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../dto/user_dto.dart';
 
 class BottomNav extends StatelessWidget {
   static const SCHOOL_INDEX = 0;
   static const TEACHER_INDEX = 1;
   static const HOME_INDEX = 2;
-  static const EVENT_INDEX = 3;
-  static const ASK_INDEX = 4;
+  static const EVENT_INDEX = 4;
+  static const ASK_INDEX = 3;
 
   final int index;
-  final List<String> tabs = ["/school", "/teacher", "/", "/event", "/ask"];
+  final List<String> tabs = ["/school", "/teacher", "/", "/ask", "/account/calendar"];
+  final UserDTO user;
 
-  BottomNav({this.index});
+  BottomNav({this.index, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -23,26 +27,31 @@ class BottomNav extends StatelessWidget {
         unselectedFontSize: 10.0,
         currentIndex: this.index,
         onTap: (i) => _navigate(context, i),
-        items:  <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
             icon: Icon(Icons.school),
-            title: Text("Trường học"),
+            label: "Trường học",
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.supervised_user_circle),
-            title: Text("Chuyên gia"),
+            label: "Chuyên gia",
           ),
           BottomNavigationBarItem(
-            icon: Image.asset("assets/icons/home.png", fit: BoxFit.cover, width: 20.0, height: 20.0,) ,
-            title: Text("Trang chủ"),
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.event),
-            title: Text("Lịch/Sự kiện"),
+            icon: Image.asset(
+              "assets/icons/home.png",
+              fit: BoxFit.cover,
+              width: 20.0,
+              height: 20.0,
+            ),
+            label: "Trang chủ",
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.question_answer),
-            title: Text("Học & Hỏi"),
+            label: "Học & Hỏi",
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(MdiIcons.calendarAccount),
+            label: "Lịch học",
           ),
         ]);
   }
@@ -53,9 +62,13 @@ class BottomNav extends StatelessWidget {
     }
     if (index == HOME_INDEX) {
       return Navigator.of(context).popUntil(ModalRoute.withName("/"));
+    } else if (index == EVENT_INDEX) {
+      print(user.id);
+      Navigator.of(context).pushNamed("/account/calendar");
+    } else {
+      Navigator.of(context).canPop()
+          ? Navigator.of(context).popAndPushNamed(this.tabs[index])
+          : Navigator.of(context).pushNamed(this.tabs[index]);
     }
-    Navigator.of(context).canPop()
-        ? Navigator.of(context).popAndPushNamed(this.tabs[index])
-        : Navigator.of(context).pushNamed(this.tabs[index]);
   }
 }

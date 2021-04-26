@@ -166,3 +166,35 @@ class AccRemoveDocSuccessState extends AccountState {
   @override
   String toString() => 'AccRemoveDocSuccessState';
 }
+
+class AccSaveChildrenLoadingState extends AccountState {
+  @override
+  String toString() => 'AccSaveChildrenLoading';
+}
+
+class AccSaveChildrenSuccessState extends AccountState {
+  @override
+  String toString() => 'AccSaveChildrenSuccessState';
+}
+
+class AccChildrenLoadingState extends AccountState {
+  @override
+  String toString() => 'AccChildrenLoadingState';
+}
+
+class AccChildrenSuccessState extends AccountState {
+  final List<UserDTO> children;
+
+  AccChildrenSuccessState({this.children});
+  @override
+  String toString() => 'AccChildrenSuccessState';
+}
+
+class AccChildrenFailState extends AccountState {
+  final String error;
+  const AccChildrenFailState({@required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}

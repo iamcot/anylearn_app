@@ -39,8 +39,8 @@ class TransactionRepository {
     return await transactionService.submitExchange(amount, token);
   }
 
-  Future<bool> register(String token, int itemId) async {
-    return transactionService.register(token, itemId);
+  Future<bool> register(String token, int itemId, String voucher, int childUser) async {
+    return transactionService.register(token, itemId, voucher, childUser);
   }
 
   Future<FoundationDTO> foundation() async {

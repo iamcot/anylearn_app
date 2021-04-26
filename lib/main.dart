@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:anylearn/blocs/article/article_bloc.dart';
 import 'package:anylearn/blocs/notif/notif_blocs.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ import 'themes/default.dart';
 bool newNotification = false;
 String notifToken;
 void main() async {
-  final env = "prod";
+  // final env = "prod";
+  final env = "dev";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -29,6 +31,7 @@ void main() async {
   final pageRepo = PageRepository(config: config);
   final transRepo = TransactionRepository(config: config);
   final itemRepo = ItemRepository(config: config);
+  await Firebase.initializeApp();
 
   return runApp(
     MultiRepositoryProvider(
@@ -75,10 +78,6 @@ class _MyApp extends State<MyApp> {
         }).init(context);
     return OverlaySupport(
       child: MaterialApp(
-        builder: (BuildContext context, Widget child) => MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-          child: child,
-        ),
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         title: 'anyLearn',

@@ -25,3 +25,35 @@ class LoginFailState extends LoginState {
   @override
   String toString() => '{error: $error}';
 }
+
+class LoginFacebookInProgressState extends LoginState {}
+
+class LoginFacebookSuccessState extends LoginState {}
+
+class LoginFacebookFailState extends LoginState {
+  final String error;
+
+  const LoginFacebookFailState({@required this.error});
+
+  @override
+  List<Object> get props => [error];
+
+  @override
+  String toString() => '{error: $error}';
+}
+
+class LoginAppleInProgressState extends LoginState {}
+
+class LoginAppleSuccessState extends LoginState {}
+
+class LoginAppleFailState extends LoginState {
+  final String error;
+
+  const LoginAppleFailState({@required this.error});
+
+  @override
+  List<Object> get props => [error];
+
+  @override
+  String toString() => '{error: $error}';
+}

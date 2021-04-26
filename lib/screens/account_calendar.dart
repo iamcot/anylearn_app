@@ -86,21 +86,22 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                 // Scaffold.of(context).showSnackBar(new SnackBar(content: Text("Xác nhận thành công")));
                 showDialog(
                     context: context,
-                    child: AlertDialog(
-                      title: Text("Mời đánh giá khóa học."),
-                      content: Text("Chúc mừng bạn vừa hoàn thành buổi học. Vui lòng để lại đánh giá của bạn nhé."),
-                      actions: [
-                        FlatButton(
-                            onPressed: () async {
-                              Navigator.of(context).pop();
-                              final sentReview = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                                return RatingInputScreen(
-                                    user: _user, itemId: state.itemId, itemTitle: "", lastRating: 0);
-                              }));
-                            },
-                            child: Text("ĐÁNH GIÁ"))
-                      ],
-                    ));
+                    builder: (context) => AlertDialog(
+                          title: Text("Mời đánh giá khóa học."),
+                          content: Text("Chúc mừng bạn vừa hoàn thành buổi học. Vui lòng để lại đánh giá của bạn nhé."),
+                          actions: [
+                            FlatButton(
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                  final sentReview =
+                                      await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                                    return RatingInputScreen(
+                                        user: _user, itemId: state.itemId, itemTitle: "", lastRating: 0);
+                                  }));
+                                },
+                                child: Text("ĐÁNH GIÁ"))
+                          ],
+                        ));
               }
               if (state is AccountFailState) {
                 Scaffold.of(context).showSnackBar(new SnackBar(content: Text(state.error)));

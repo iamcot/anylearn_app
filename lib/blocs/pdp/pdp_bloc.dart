@@ -53,7 +53,7 @@ class PdpBloc extends Bloc<PdpEvent, PdpState> {
 
     if (event is PdpRegisterEvent) {
       try {
-        final data = await transactionRepository.register(event.token, event.itemId);
+        final data = await transactionRepository.register(event.token, event.itemId, event.voucher, event.childUser);
         if (data) {
           yield PdpRegisterSuccessState(result: data);
         } else {

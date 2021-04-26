@@ -34,9 +34,9 @@ class _AccountIcon extends State<AccountIcon> {
           onPressed: () {
             // Navigator.of(context).pushNamed("/account");
             if (widget.user != null) {
-              Navigator.of(context).pushNamed("/account");
+              Navigator.of(context).pushNamed("/profile", arguments: widget.user.id);
             } else {
-              Navigator.of(context).pushNamed("/login", arguments: LoginCallback(routeName: "/account"));
+              Navigator.of(context).pushNamed("/login", arguments: LoginCallback(routeName: "/profile"));
             }
           }),
     );

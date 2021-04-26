@@ -103,16 +103,16 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                               onTap: () {
                                                 showDialog(
                                                     context: context,
-                                                    child: SimpleDialog(
-                                                      children: <Widget>[
-                                                        CustomCachedImage(url: e.data),
-                                                        FlatButton(
-                                                            onPressed: () {
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                            child: Text("Đóng"))
-                                                      ],
-                                                    ));
+                                                    builder: (context) => SimpleDialog(
+                                                          children: <Widget>[
+                                                            CustomCachedImage(url: e.data),
+                                                            FlatButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                child: Text("Đóng"))
+                                                          ],
+                                                        ));
                                               },
                                               title: CustomCachedImage(url: e.data),
                                               trailing: IconButton(
@@ -120,7 +120,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                   onPressed: () {
                                                     showDialog(
                                                       context: context,
-                                                      child: AlertDialog(
+                                                      builder: (context) => AlertDialog(
                                                           content: Text("Bạn có muốn xóa file này"),
                                                           actions: [
                                                             FlatButton(

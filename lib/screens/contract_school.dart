@@ -20,6 +20,8 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
   UserDTO _user;
   AuthBloc _authBloc;
   bool openedForm = false;
+  bool _agreedToc = false;
+
   ContractDTO _contract = ContractDTO();
   final _formKey = GlobalKey<FormState>();
   final dateMask = new MaskedTextController(mask: '0000-00-00');
@@ -90,6 +92,16 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                 ),
                               ),
                         Divider(),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: FlatButton.icon(
+                              onPressed: () {
+                                Navigator.of(context).pushNamed("/account/docs", arguments: _user.token);
+                              },
+                              icon: Icon(MdiIcons.certificate),
+                              label: Text("Cập nhật chứng chỉ")),
+                        ),
+                        Divider(),
                         GradientButton(
                           title: "TẠO HỢP ĐỒNG MỚI",
                           height: 40.0,
@@ -117,13 +129,13 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       },
                                       validator: (value) {
                                         if (value.length < 3 || double.tryParse(value) == null) {
-                                          return "Mức hoa hồng phải là một con số phập phân, ví dụ 0.2";
+                                          return "Là một con số phập phân, ví dụ 0.2";
                                         }
                                         _formKey.currentState.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Mức hoa hồng",
+                                        labelText: "Phần trăm doanh thu của đối tác (số thập phân)",
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -339,6 +351,41 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
                                     ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15.0, top: 0),
+                                      child: CheckboxListTile(
+                                        dense: true,
+                                        controlAffinity: ListTileControlAffinity.leading,
+                                        value: _agreedToc,
+                                        onChanged: (value) => setState(() {
+                                          // if (!_agreedToc) {
+                                          //   showDialog(
+                                          //       context: context,
+                                          //       child: AlertDialog(
+                                          //         scrollable: true,
+                                          //         title: Text("Điều khoản sử dụng"),
+                                          //         content: Html(
+                                          //           data: _toc,
+                                          //           shrinkWrap: true,
+                                          //         ),
+                                          //         actions: <Widget>[
+                                          //           FlatButton(
+                                          //             onPressed: () => Navigator.pop(context),
+                                          //             child: Text("Đã đọc và đồng ý".toUpperCase()),
+                                          //           )
+                                          //         ],
+                                          //       ));
+                                          // }
+                                          _agreedToc = value;
+                                        }),
+                                        title: Text.rich(TextSpan(text: "Tôi đồng ý với ", children: [
+                                          TextSpan(
+                                            text: "Điều khoản sử dụng",
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ])),
+                                      ),
+                                    ),
                                     Container(
                                         padding: EdgeInsets.only(top: 15, bottom: 30),
                                         width: double.infinity,
@@ -348,6 +395,27 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                           height: 40,
                                           title: "LƯU HỢP ĐỒNG MỚI",
                                           function: () {
+                                            if (!_agreedToc) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => AlertDialog(
+                                                  contentPadding: EdgeInsets.all(5),
+                                                  scrollable: true,
+                                                  title: Text(
+                                                    "Chưa đồng ý điều khoản sử dụng.",
+                                                    style: TextStyle(fontSize: 14),
+                                                  ),
+                                                  content: Text(
+                                                      "Bạn vui lòng tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
+                                                  actions: <Widget>[
+                                                    FlatButton(
+                                                      onPressed: () => Navigator.pop(context),
+                                                      child: Text("Tôi sẽ đọc".toUpperCase()),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            }
                                             if (_formKey.currentState.validate()) {
                                               _formKey.currentState.save();
                                               _authBloc

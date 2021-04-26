@@ -34,5 +34,30 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
 
+    if (event is LoginFacebookEvent) {
+      yield LoginFacebookInProgressState();
+
+      try {
+        final user = await userRepository.loginFacebook(data: event.data);
+        yield LoginFacebookSuccessState();
+        authBloc..add(AuthLoggedInEvent(user: user));
+        yield LoginSuccessState();
+      } catch (error) {
+        yield LoginFacebookFailState(error: error.toString());
+      }
+    }
+
+    if (event is LoginAppleEvent) {
+      yield LoginAppleInProgressState();
+
+      try {
+        final user = await userRepository.loginApple(data: event.data);
+        yield LoginAppleSuccessState();
+        authBloc..add(AuthLoggedInEvent(user: user));
+        yield LoginSuccessState();
+      } catch (error) {
+        yield LoginAppleFailState(error: error.toString());
+      }
+    }
   }
 }

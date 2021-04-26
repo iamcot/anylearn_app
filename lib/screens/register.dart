@@ -274,7 +274,6 @@ class _RegisterScreen extends State<RegisterScreen> {
                       obscureText: true,
                     ),
                   ),
-                  
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0, top: 0),
                     child: CheckboxListTile(
@@ -285,20 +284,20 @@ class _RegisterScreen extends State<RegisterScreen> {
                         if (!_agreedToc) {
                           showDialog(
                               context: context,
-                              child: AlertDialog(
-                                scrollable: true,
-                                title: Text("Điều khoản sử dụng"),
-                                content: Html(
-                                  data: _toc,
-                                  shrinkWrap: true,
-                                ),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: Text("Đã đọc và đồng ý".toUpperCase()),
-                                  )
-                                ],
-                              ));
+                              builder: (context) => AlertDialog(
+                                    scrollable: true,
+                                    title: Text("Điều khoản sử dụng"),
+                                    content: Html(
+                                      data: _toc,
+                                      shrinkWrap: true,
+                                    ),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("Đã đọc và đồng ý".toUpperCase()),
+                                      )
+                                    ],
+                                  ));
                         }
                         _agreedToc = value;
                       }),
@@ -366,7 +365,7 @@ class _RegisterScreen extends State<RegisterScreen> {
     if (!_agreedToc) {
       showDialog(
         context: context,
-        child: AlertDialog(
+        builder: (context) => AlertDialog(
           contentPadding: EdgeInsets.all(0),
           scrollable: true,
           title: Text(

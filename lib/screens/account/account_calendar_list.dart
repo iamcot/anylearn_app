@@ -68,6 +68,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                           text:
                               widget.events[itemIndex].location == null ? "" : widget.events[itemIndex].location + "\n",
                           children: [
+                            TextSpan(text: widget.events[itemIndex].childName != null ? "[" + widget.events[itemIndex].childName + "]" : ""),
                             TextSpan(text: widget.events[itemIndex].time),
                             TextSpan(
                                 text: widget.events[itemIndex].userJoined == null ? "" : "\nĐã xác nhận",
@@ -132,7 +133,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                     color: Colors.blue,
                     onPressed: () {
                       BlocProvider.of<AccountBloc>(context)
-                        ..add(AccJoinCourseEvent(token: widget.user.token, itemId: event.itemId, scheduleId: event.id));
+                        ..add(AccJoinCourseEvent(token: widget.user.token, itemId: event.itemId, scheduleId: event.id, childId: event.childId));
                     },
                     child: Text(
                       "Xác nhận",
@@ -232,7 +233,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
     print(eventDTO.userRating);
     showDialog(
       context: context,
-      child: SimpleDialog(
+      builder: (context) => SimpleDialog(
         children: <Widget>[
           ListTile(
             title: Text("Vào lớp học"),
@@ -269,7 +270,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                   onTap: () {
                     BlocProvider.of<AccountBloc>(context)
                       ..add(AccJoinCourseEvent(
-                          token: widget.user.token, itemId: eventDTO.itemId, scheduleId: eventDTO.id));
+                          token: widget.user.token, itemId: eventDTO.itemId, scheduleId: eventDTO.id, childId: eventDTO.childId));
                     Navigator.of(context).pop();
                   },
                 )
