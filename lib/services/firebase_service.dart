@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../dto/notification_dto.dart';
@@ -23,15 +24,22 @@ class FirebaseService {
   }
   bool _initialized = false;
 
-  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-    await Firebase.initializeApp();
-    print('Handling a background message ${message.messageId}');
-  }
+  static final AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    'This channel is used for important notifications.', // description
+    importance: Importance.high,
+  );
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   Future init(BuildContext context) async {
     if (!_initialized) {
       await Firebase.initializeApp();
-      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+      // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(channel);
       await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
         alert: true,
         badge: true,
@@ -39,54 +47,52 @@ class FirebaseService {
       );
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        RemoteNotification notif = message.notification;
+        Map<String, dynamic> msg = message.data;
+        final notifObj = NotificationDTO.fromNewFirebase(message);
+        showOverlayNotification((context) {
+          return SlideDismissible(
+            enable: true,
+            key: ValueKey(key),
+            child: Material(
+              color: Colors.transparent,
+              child: SafeArea(
+                  bottom: false,
+                  top: true,
+                  child: Container(
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.grey[400],
+                        )),
+                    child: ListTile(
+                      title: Text(notifObj.content),
+                      onTap: () {
+                        OverlaySupportEntry.of(context).dismiss();
+                        _navigate(notifObj);
+                      },
+                      trailing: Builder(builder: (context) {
+                        return IconButton(
+                            onPressed: () {
+                              OverlaySupportEntry.of(context).dismiss();
+                            },
+                            icon: Icon(Icons.close));
+                      }),
+                    ),
+                  )),
+            ),
+          );
+        }, duration: Duration.zero);
       });
 
       FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
         print("onLaunch: $message");
-        final notifObj = NotificationDTO.fromFireBase(message);
+        final notifObj = NotificationDTO.fromNewFirebase(message);
         _navigate(notifObj);
       });
 
-      // _firebaseMessaging.configure(
-      //   onMessage: (Map<String, dynamic> message) async {
-      //     final notifObj = NotificationDTO.fromFireBase(message);
-      //     print("onMessage: $message");
-      //     showOverlayNotification((context) {
-      //       return SlideDismissible(
-      //         enable: true,
-      //         key: ValueKey(key),
-      //         child: Material(
-      //           color: Colors.transparent,
-      //           child: SafeArea(
-      //               bottom: false,
-      //               top: true,
-      //               child: Container(
-      //                 margin: EdgeInsets.all(8),
-      //                 decoration: BoxDecoration(
-      //                     borderRadius: BorderRadius.all(Radius.circular(10)),
-      //                     color: Colors.white,
-      //                     border: Border.all(
-      //                       color: Colors.grey[400],
-      //                     )),
-      //                 child: ListTile(
-      //                   title: Text(notifObj.content),
-      //                   onTap: () {
-      //                     OverlaySupportEntry.of(context).dismiss();
-      //                     _navigate(notifObj);
-      //                   },
-      //                   trailing: Builder(builder: (context) {
-      //                     return IconButton(
-      //                         onPressed: () {
-      //                           OverlaySupportEntry.of(context).dismiss();
-      //                         },
-      //                         icon: Icon(Icons.close));
-      //                   }),
-      //                 ),
-      //               )),
-      //         ),
-      //       );
-      //     }, duration: Duration.zero);
+      
 
       //     func();
       //     // setState(() {
@@ -107,7 +113,7 @@ class FirebaseService {
 
       _firebaseMessaging.getToken().then((String token) {
         assert(token != null);
-        print(token);
+        print("notif token: $token");
         notifToken = token;
       });
       _initialized = true;

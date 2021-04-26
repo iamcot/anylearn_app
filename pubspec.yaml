@@ -48,6 +48,7 @@ dependencies:
   # flutter_html_editor: ^1.0.0
   # flutter_summernote: ^0.2.2
   path_provider: ^2.0.1
+  flutter_local_notifications: ^5.0.0+1
   firebase_messaging: ^9.1.2
   overlay_support: ^1.2.1
   cached_network_image: ^3.0.0

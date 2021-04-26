@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:anylearn/blocs/article/article_bloc.dart';
 import 'package:anylearn/blocs/notif/notif_blocs.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -21,9 +22,14 @@ import 'themes/default.dart';
 
 bool newNotification = false;
 String notifToken;
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    await Firebase.initializeApp();
+    print('Handling a background message ${message.messageId}');
+  }
 void main() async {
-  // final env = "prod";
-  final env = "dev";
+  final env = "prod";
+  // final env = "dev";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -32,6 +38,7 @@ void main() async {
   final transRepo = TransactionRepository(config: config);
   final itemRepo = ItemRepository(config: config);
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   return runApp(
     MultiRepositoryProvider(

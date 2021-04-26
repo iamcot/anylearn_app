@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class NotificationDTO extends Equatable {
   final int id;
@@ -64,6 +65,15 @@ class NotificationDTO extends Equatable {
         extraContent: json['data']['args'] != null ? json['data']['args'] : null,
       );
     }
+  }
+
+  static NotificationDTO fromNewFirebase(RemoteMessage message) {
+    return NotificationDTO(
+      title: message.notification.title,
+      content: message.notification.body,
+      route: message.data['screen'] != null ? message.data['screen'] : null,
+      extraContent: message.data['args'] != null ? message.data['args'] : null,
+    );
   }
 }
 

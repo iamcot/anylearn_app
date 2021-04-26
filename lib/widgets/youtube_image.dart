@@ -14,7 +14,7 @@ class YoutubeImage extends StatelessWidget {
 
   String _videoThumbURL(String yt) {
     String id = _getVideoIdFromUrl(yt);
-    return "http://img.youtube.com/vi/$id/0.jpg";
+    return "https://img.youtube.com/vi/$id/0.jpg";
   }
 
   String _getVideoIdFromUrl(String url) {
