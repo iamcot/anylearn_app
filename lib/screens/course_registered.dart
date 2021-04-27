@@ -1,10 +1,10 @@
 import 'package:anylearn/customs/custom_cached_image.dart';
+import 'package:anylearn/dto/class_registered_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/course/course_blocs.dart';
 import '../dto/course_registered_params_dto.dart';
-import '../dto/user_dto.dart';
 import '../widgets/loading_widget.dart';
 
 class CourseRegisteredScreen extends StatefulWidget {
@@ -14,7 +14,7 @@ class CourseRegisteredScreen extends StatefulWidget {
 
 class _CourseRegisteredScreen extends State<CourseRegisteredScreen> {
   CourseBloc _courseBloc;
-  List<UserDTO> users;
+  List<ClassRegisteredUserDTO> users;
 
   @override
   void didChangeDependencies() {
@@ -53,7 +53,8 @@ class _CourseRegisteredScreen extends State<CourseRegisteredScreen> {
                             leading: users[index].image == null
                                 ? Icon(Icons.account_circle)
                                 : Container(width: 50, child: CustomCachedImage(url: users[index].image)),
-                            title: Text(users[index].name),
+                            title: Text(users[index].name +
+                                (users[index].name != users[index].child ? " [" + users[index].child + "]" : "")),
                             subtitle: Text(users[index].phone),
                           );
                         },

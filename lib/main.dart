@@ -28,8 +28,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     print('Handling a background message ${message.messageId}');
   }
 void main() async {
-  final env = "prod";
-  // final env = "dev";
+  // final env = "prod";
+  final env = "dev";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
   BlocSupervisor.delegate = SimpleBlocDelegate();

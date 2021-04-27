@@ -1,12 +1,13 @@
 import 'dart:io';
 
-import 'package:anylearn/dto/contract.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../dto/account_calendar_dto.dart';
+import '../dto/class_registered_user.dart';
 import '../dto/const.dart';
+import '../dto/contract.dart';
 import '../dto/friends_dto.dart';
 import '../dto/notification_dto.dart';
 import '../dto/user_doc_dto.dart';
@@ -95,7 +96,7 @@ class UserRepository {
     return userService.joinCourse(token, itemId, childId);
   }
 
-  Future<List<UserDTO>> registeredUsers(String token, int itemId) async {
+  Future<List<ClassRegisteredUserDTO>> registeredUsers(String token, int itemId) async {
     return userService.registeredUsers(token, itemId);
   }
 

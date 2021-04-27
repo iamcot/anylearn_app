@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/class_registered_user.dart';
 import 'package:anylearn/dto/item_user_action.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class CourseFailState extends CourseState {
 }
 
 class RegisteredUsersSuccessState extends CourseState {
-  final List<UserDTO> users;
+  final List<ClassRegisteredUserDTO> users;
 
   RegisteredUsersSuccessState({this.users});
 

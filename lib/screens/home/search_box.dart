@@ -13,7 +13,7 @@ class SearchBox extends StatelessWidget {
       child: TextFormField(
         controller: searchController,
         onTap: () {
-          showSearch(context: context, delegate: CustomSearchDelegate(screen: ""));
+          showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
         },
         onFieldSubmitted: (value) {
           showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: value);
@@ -33,6 +33,7 @@ class SearchBox extends StatelessWidget {
           hintText: "Hôm nay bạn muốn học gì ?",
           hintStyle: TextStyle(color: Colors.grey),
           suffixIcon: Icon(Icons.search),
+             
           // onPressed: () {
           //   showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
           // },

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/notif/notif_blocs.dart';
@@ -65,8 +67,14 @@ class _NotificationScreen extends State<NotificationScreen> {
                                 color: _notif.data[index].read == null ? Colors.blue[50] : Colors.white,
                                 child: ListTile(
                                   onTap: () {
-                                    _notifBloc..add(NotifReadEvent(token: _user.token, id: _notif.data[index].id));
-                                    if (_notif.data[index].route != null) {
+                                    if (_notif.data[index].extraContent == "copy") {
+                                      Clipboard.setData(new ClipboardData(text: _notif.data[index].route));
+                                      toast("Đã copy vào bộ nhớ");
+                                      _notifBloc
+                                        ..add(NotifReadEvent(token: _user.token, id: _notif.data[index].id))
+                                        ..add(NotifLoadEvent(token: _user.token));
+                                    } else if (_notif.data[index].route != null) {
+                                      _notifBloc..add(NotifReadEvent(token: _user.token, id: _notif.data[index].id));
                                       Navigator.of(context).pushNamed(_notif.data[index].route,
                                           arguments: _notif.data[index].extraContent);
                                     }

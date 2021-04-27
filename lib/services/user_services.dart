@@ -1,17 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:anylearn/dto/contract.dart';
-import 'package:anylearn/dto/notification_dto.dart';
-import 'package:anylearn/main.dart';
 import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
 import '../dto/account_calendar_dto.dart';
+import '../dto/class_registered_user.dart';
+import '../dto/contract.dart';
 import '../dto/friends_dto.dart';
+import '../dto/notification_dto.dart';
 import '../dto/user_doc_dto.dart';
 import '../dto/user_dto.dart';
 import '../dto/users_dto.dart';
+import '../main.dart';
 import 'base_service.dart';
 
 class UserService extends BaseService {
@@ -130,10 +131,12 @@ class UserService extends BaseService {
     return json['result'];
   }
 
-  Future<List<UserDTO>> registeredUsers(String token, int itemId) async {
+  Future<List<ClassRegisteredUserDTO>> registeredUsers(String token, int itemId) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/course-registered-users/$itemId", token: token);
+    print(url);
     final json = await get(httpClient, url);
-    return List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
+    return List<ClassRegisteredUserDTO>.from(json?.map((e) => e == null ? null : ClassRegisteredUserDTO.fromJson(e)))
+        .toList();
   }
 
   Future<UserDTO> getProfile(int userId) async {

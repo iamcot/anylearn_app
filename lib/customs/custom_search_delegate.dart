@@ -30,8 +30,14 @@ class CustomSearchDelegate extends SearchDelegate {
         icon: Icon(Icons.clear),
         onPressed: () {
           query = '';
+          showSuggestions(context);
         },
       ),
+      IconButton(
+          icon: Icon(Icons.search),
+          onPressed: () {
+            showResults(context);
+          })
     ];
   }
 
@@ -122,34 +128,34 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return BlocBuilder<SearchBloc, SearchState>(
-        bloc: BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent()),
-        builder: (context, state) {
-          if (state is SearchTagsSuccessState) {
-            return Container(
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(
-                        "#${state.tags[index]}",
-                        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                      ),
-                      trailing: Icon(Icons.chevron_right),
-                      onTap: () {
-                        showSearch(
-                            context: context,
-                            query: "#${state.tags[index]}",
-                            delegate: CustomSearchDelegate(screen: "product"));
+    return (screen == "teacher" || screen == "school")
+        ? Text("")
+        : BlocBuilder<SearchBloc, SearchState>(
+            bloc: BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent()),
+            builder: (context, state) {
+              if (state is SearchTagsSuccessState) {
+                return Container(
+                  child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            "@${state.tags[index]}",
+                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                          ),
+                          trailing: Icon(Icons.chevron_right),
+                          onTap: () {
+                            query = "@${state.tags[index]}";
+                            showResults(context);
+                          },
+                        );
                       },
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return Divider();
-                  },
-                  itemCount: state.tags.length),
-            );
-          }
-          return CircularProgressIndicator();
-        });
+                      separatorBuilder: (context, index) {
+                        return Divider();
+                      },
+                      itemCount: state.tags.length),
+                );
+              }
+              return CircularProgressIndicator();
+            });
   }
 }

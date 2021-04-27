@@ -92,8 +92,6 @@ class FirebaseService {
         _navigate(notifObj);
       });
 
-      
-
       //     func();
       //     // setState(() {
       //     //   newNotification = true;
@@ -121,7 +119,9 @@ class FirebaseService {
   }
 
   void _navigate(NotificationDTO notifObj) {
-    if (notifObj.route != null) {
+    if (notifObj.extraContent == "copy") {
+      navigatorKey.currentState.pushNamed("/notification");
+    } else if (notifObj.route != null) {
       navigatorKey.currentState.pushNamed(notifObj.route, arguments: notifObj.extraContent ?? null);
     }
   }

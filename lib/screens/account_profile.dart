@@ -41,9 +41,11 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            IconButton(icon: Icon(Icons.menu), onPressed: () {
-              Navigator.of(context).pushNamed("/account");
-            })
+            IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/account");
+                })
           ],
         ),
         body: BlocProvider<AccountBloc>(create: (context) {
@@ -125,21 +127,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                 child:
                     user.docs == null || user.docs.length == 0 ? SizedBox(height: 0) : UserDocList(userDocs: user.docs),
               ),
-              user.fullContent == null
-                  ? SizedBox(height: 0)
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Divider(
-                          thickness: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Html(data: user.fullContent),
-                        ),
-                      ],
-                    ),
-              (user.registered == null || user.registered.length ==0)
+              (user.registered == null || user.registered.length == 0)
                   ? SizedBox(height: 0)
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,6 +163,20 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                         // ),
                         HotItems(
                           hotItems: [HotItemsDTO(title: "Các khoá học đã đánh giá", list: user.rated)],
+                        ),
+                      ],
+                    ),
+              user.fullContent == null
+                  ? SizedBox(height: 0)
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Divider(
+                          thickness: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Html(data: user.fullContent),
                         ),
                       ],
                     ),

@@ -289,7 +289,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15),
-                                child: Text("Thông tin giới thiệu"),
+                                child: Text("Thông tin giới thiệu vui lòng cập nhật từ website"),
                               ),
                               // Padding(
                               //   padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 15),
