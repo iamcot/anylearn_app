@@ -1,7 +1,7 @@
-import 'package:anylearn/screens/account/account_children.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
+import 'screens/account/account_children.dart';
 import 'screens/account_about.dart';
 import 'screens/account_calendar.dart';
 import 'screens/account_contact.dart';
@@ -42,7 +42,7 @@ import 'screens/transaction.dart';
 import 'screens/withdraw.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
-  // "/": (BuildContext context) => HomeScreen(),
+  // "/home": (BuildContext context) => HomeScreen(),
   "/school": (BuildContext context) => SchoolScreen(),
   "/teacher": (BuildContext context) => TeacherScreen(),
   "/event": (BuildContext context) => EventScreen(),

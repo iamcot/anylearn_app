@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+import 'package:intro_slider/intro_slider.dart';
+import 'package:intro_slider/slide_object.dart';
+
+class IntroScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => IntroScreenState();
+}
+
+class IntroScreenState extends State<IntroScreen> {
+  List<Slide> slides = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    slides.add(
+      new Slide(
+        backgroundImage: "assets/images/intro1.jpg",
+        backgroundOpacity: 0,
+      ),
+    );
+    slides.add(
+      new Slide(
+        backgroundOpacity: 0,
+        backgroundImage: "assets/images/intro2.jpg",
+      ),
+    );
+    slides.add(
+      new Slide(
+        backgroundImage: "assets/images/intro3.jpg",
+        backgroundOpacity: 0,
+      ),
+    );
+  }
+
+  void onDonePress() {
+    Navigator.of(context).pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new IntroSlider(
+      slides: this.slides,
+      onDonePress: this.onDonePress,
+      onSkipPress: this.onDonePress,
+      renderNextBtn: Text(
+        "TIẾP",
+        style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+      ),
+      renderSkipBtn: Text(
+        "BỎ QUA",
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      ),
+      renderDoneBtn: Text(
+        "BẮT ĐẦU",
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}

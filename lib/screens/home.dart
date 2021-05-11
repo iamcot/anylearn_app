@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/home/home_blocs.dart';
@@ -9,6 +10,7 @@ import '../dto/quote_dto.dart';
 import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
 import '../widgets/bottom_nav.dart';
+import '../widgets/intro.dart';
 import 'home/exit_confirm.dart';
 import 'home/home_body.dart';
 import 'loading.dart';
@@ -29,12 +31,24 @@ class _HomeScreen extends State<HomeScreen> {
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
     _homeBloc = HomeBloc(pageRepository: pageRepo);
+    checkFirstSeen();
   }
 
   UserDTO user;
   HomeDTO homeData;
   Future<bool> _willExit() async {
     return await showDialog(context: context, builder: (context) => new ExitConfirm());
+  }
+
+  Future checkFirstSeen() async {
+    int version = 4;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int _seen = (prefs.getInt('intro_seen') ?? version);
+
+    if (_seen <= version) {
+      await prefs.setInt('intro_seen', version + 1);
+      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new IntroScreen()));
+    }
   }
 
   @override

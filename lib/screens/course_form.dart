@@ -32,6 +32,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   ItemDTO _itemDTO;
   int editId;
   UserDTO _user;
+  final ImagePicker _imagePicker = ImagePicker();
 
   @override
   void didChangeDependencies() {
@@ -89,7 +90,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    _itemDTO.content = "";// await keyEditor.currentState.getText();
+                    _itemDTO.content = ""; // await keyEditor.currentState.getText();
                     _courseBloc..add(SaveCourseEvent(item: _itemDTO, token: _user.token));
                   }
                 })
@@ -307,7 +308,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               //     height: 400,
                               //     showBottomToolbar: true,
                               //   ),
-                               
+
                               // ),
                               Padding(
                                 padding: EdgeInsets.all(15),
@@ -333,7 +334,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   void _submit() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      _itemDTO.content = "";//await keyEditor.currentState.getText();
+      _itemDTO.content = ""; //await keyEditor.currentState.getText();
       _courseBloc.add(SaveCourseEvent(item: _itemDTO, token: _user.token));
     }
   }
@@ -370,11 +371,11 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   }
 
   Future _getImage() async {
-    final File image = await ImagePicker.pickImage(
+    final PickedFile image = await _imagePicker.getImage(
       source: ImageSource.gallery,
     );
     if (image != null) {
-      _courseBloc.add(CourseUploadImageEvent(token: _user.token, image: image, itemId: _itemDTO.id));
+      _courseBloc.add(CourseUploadImageEvent(token: _user.token, image: File(image.path), itemId: _itemDTO.id));
     }
   }
 }

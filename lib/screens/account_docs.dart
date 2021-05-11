@@ -19,6 +19,7 @@ class AccountDocsScreen extends StatefulWidget {
 class _AccountDocsScreen extends State<AccountDocsScreen> {
   AccountBloc accountBloc;
   List<UserDocDTO> userDocs;
+  final ImagePicker _imagePicker = ImagePicker();
 
   @override
   void didChangeDependencies() {
@@ -72,11 +73,11 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                   ),
                                   color: Colors.blue,
                                   onPressed: () async {
-                                    final File image = await ImagePicker.pickImage(
+                                    final PickedFile image = await _imagePicker.getImage(
                                       source: ImageSource.camera,
                                     );
                                     if (image != null) {
-                                      accountBloc..add(AccAddDocEvent(token: token, file: image));
+                                      accountBloc..add(AccAddDocEvent(token: token, file: File(image.path)));
                                     }
                                   },
                                   child: (state is AccAddDocLoadingState)

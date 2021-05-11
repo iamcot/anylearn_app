@@ -31,6 +31,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
   File _image;
   AccountBloc accountBloc;
   AuthBloc _authBloc;
+  final ImagePicker _imagePicker = ImagePicker();
 
   @override
   void didChangeDependencies() {
@@ -343,21 +344,21 @@ class _AccountEditScreen extends State<AccountEditScreen> {
   }
 
   Future _getBanner() async {
-    final File image = await ImagePicker.pickImage(
+    final PickedFile image = await _imagePicker.getImage(
       source: ImageSource.gallery,
     );
     if (image != null) {
-      accountBloc..add(AccChangeBannerEvent(token: _user.token, file: image));
+      accountBloc..add(AccChangeBannerEvent(token: _user.token, file: File(image.path)));
     }
   }
 
   Future _getAvatar({bool fromCamera: false}) async {
-    final File image = await ImagePicker.pickImage(
+    final PickedFile image = await _imagePicker.getImage(
       source: fromCamera ? ImageSource.camera : ImageSource.gallery,
     );
 
     if (image != null) {
-      accountBloc..add(AccChangeAvatarEvent(token: _user.token, file: image));
+      accountBloc..add(AccChangeAvatarEvent(token: _user.token, file: File(image.path)));
     }
   }
 

@@ -17,6 +17,7 @@
         android:label="anyLEARN"
         android:icon="@mipmap/launcher_icon"
         android:allowBackup="false"
+        android:requestLegacyExternalStorage="true"
         android:fullBackupContent="false">
         <activity
             android:name=".MainActivity"

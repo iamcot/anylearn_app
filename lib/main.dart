@@ -1,15 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:anylearn/blocs/article/article_bloc.dart';
-import 'package:anylearn/blocs/notif/notif_blocs.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'app_config.dart';
+import 'blocs/article/article_bloc.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'blocs/auth/auth_blocs.dart';
 import 'blocs/course/course_blocs.dart';
+import 'blocs/notif/notif_blocs.dart';
 import 'blocs/search/search_blocs.dart';
 import 'models/item_repo.dart';
 import 'models/page_repo.dart';
@@ -24,12 +24,13 @@ bool newNotification = false;
 String notifToken;
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-    await Firebase.initializeApp();
-    print('Handling a background message ${message.messageId}');
-  }
+  await Firebase.initializeApp();
+  print('Handling a background message ${message.messageId}');
+}
+
 void main() async {
-  // final env = "prod";
-  final env = "dev";
+  final env = "prod";
+  // final env = "dev";
   WidgetsFlutterBinding.ensureInitialized();
   final config = await AppConfig.forEnv(env);
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -91,10 +92,43 @@ class _MyApp extends State<MyApp> {
         theme: appTheme(),
         routes: routes,
         home: HomeScreen(),
+        // home: HomeScreen(),
       ),
     );
   }
 }
+
+// class Splash extends StatefulWidget {
+//   @override
+//   SplashState createState() => new SplashState();
+// }
+
+// class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
+//   Future checkFirstSeen() async {
+//     int version = 2;
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     int _seen = (prefs.getInt('intro_seen') ?? version);
+
+//     if (_seen > version) {
+//       Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new HomeScreen()));
+//     } else {
+//       await prefs.setInt('intro_seen', version + 1);
+//       Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new IntroScreen()));
+//     }
+//   }
+
+//   @override
+//   void afterFirstLayout(BuildContext context) => checkFirstSeen();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return new Scaffold(
+//       body: new Center(
+//         child: CircularProgressIndicator(),
+//       ),
+//     );
+//   }
+// }
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override

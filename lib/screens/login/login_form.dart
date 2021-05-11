@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:anylearn/dto/login_callback.dart';
-import 'package:device_info/device_info.dart';
+// import 'package:device_info/device_info.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,36 +35,36 @@ class _LoginForm extends State<LoginForm> {
   bool _checking = false;
   AccessToken _accessToken;
 
-  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-  Map<String, dynamic> _deviceData = <String, dynamic>{};
+  // static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  // Map<String, dynamic> _deviceData = <String, dynamic>{};
 
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   initPlatformState();
+  // }
 
-  Future<void> initPlatformState() async {
-    Map<String, dynamic> deviceData = <String, dynamic>{};
+  // Future<void> initPlatformState() async {
+  //   Map<String, dynamic> deviceData = <String, dynamic>{};
 
-    try {
-      if (Platform.isAndroid) {
-      } else if (Platform.isIOS) {
-        deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
-        print(deviceData);
-      }
-    } on PlatformException {
-      deviceData = <String, dynamic>{
-        'Error:': 'Failed to get platform version.'
-      };
-    }
+  //   try {
+  //     if (Platform.isAndroid) {
+  //     } else if (Platform.isIOS) {
+  //       deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
+  //       print(deviceData);
+  //     }
+  //   } on PlatformException {
+  //     deviceData = <String, dynamic>{
+  //       'Error:': 'Failed to get platform version.'
+  //     };
+  //   }
 
-    if (!mounted) return;
+  //   if (!mounted) return;
 
-    setState(() {
-      _deviceData = deviceData;
-    });
-  }
+  //   setState(() {
+  //     _deviceData = deviceData;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +225,8 @@ class _LoginForm extends State<LoginForm> {
                             ),
                     ),
                   ),
-                  (Platform.isIOS && double.parse(_deviceData["systemVersion"]) > 12.0)
+                  // (Platform.isIOS && double.parse(_deviceData["systemVersion"]) > 12.0)
+                  (Platform.isIOS)
                       ? Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(colors: [Colors.grey, Colors.grey[400], Colors.grey]),
@@ -324,6 +325,7 @@ class _LoginForm extends State<LoginForm> {
       print(loginResult);
       if (loginResult.status == LoginStatus.success) {
         final userData = await FacebookAuth.instance.getUserData();
+        print(userData['picture']);
         Map<String, String> loginData = {
           "name": userData['name'],
           "email": userData['email'],
@@ -352,20 +354,20 @@ class _LoginForm extends State<LoginForm> {
     }
   }
 
-  Map<String, dynamic> _readIosDeviceInfo(IosDeviceInfo data) {
-    return <String, dynamic>{
-      'name': data.name,
-      'systemName': data.systemName,
-      'systemVersion': data.systemVersion,
-      'model': data.model,
-      'localizedModel': data.localizedModel,
-      'identifierForVendor': data.identifierForVendor,
-      'isPhysicalDevice': data.isPhysicalDevice,
-      'utsname.sysname:': data.utsname.sysname,
-      'utsname.nodename:': data.utsname.nodename,
-      'utsname.release:': data.utsname.release,
-      'utsname.version:': data.utsname.version,
-      'utsname.machine:': data.utsname.machine,
-    };
-  }
+  // Map<String, dynamic> _readIosDeviceInfo(IosDeviceInfo data) {
+  //   return <String, dynamic>{
+  //     'name': data.name,
+  //     'systemName': data.systemName,
+  //     'systemVersion': data.systemVersion,
+  //     'model': data.model,
+  //     'localizedModel': data.localizedModel,
+  //     'identifierForVendor': data.identifierForVendor,
+  //     'isPhysicalDevice': data.isPhysicalDevice,
+  //     'utsname.sysname:': data.utsname.sysname,
+  //     'utsname.nodename:': data.utsname.nodename,
+  //     'utsname.release:': data.utsname.release,
+  //     'utsname.version:': data.utsname.version,
+  //     'utsname.machine:': data.utsname.machine,
+  //   };
+  // }
 }
