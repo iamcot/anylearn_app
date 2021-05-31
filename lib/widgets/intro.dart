@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/home/home_body.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
@@ -35,6 +36,9 @@ class IntroScreenState extends State<IntroScreen> {
   }
 
   void onDonePress() {
+    setState(() {
+      canShowPopup = true;
+    });
     Navigator.of(context).pop();
   }
 

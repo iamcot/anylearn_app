@@ -125,15 +125,14 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
     if (!widget.isOpen) {
       if (event.userJoined == null) {
         return BlocBuilder<AccountBloc, AccountState>(
-          bloc: BlocProvider.of<AccountBloc>(context),
+          bloc: widget.accountBloc,
           builder: (context, state) {
             return event.userJoined != null && event.userJoined > 0
                 ? Text("Đã tham gia")
                 : RaisedButton(
                     color: Colors.blue,
                     onPressed: () {
-                      BlocProvider.of<AccountBloc>(context)
-                        ..add(AccJoinCourseEvent(token: widget.user.token, itemId: event.itemId, scheduleId: event.id, childId: event.childId));
+                      widget.accountBloc..add(AccJoinCourseEvent(token: widget.user.token, itemId: event.itemId, scheduleId: event.id, childId: event.childId));
                     },
                     child: Text(
                       "Xác nhận",
@@ -188,7 +187,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                 });
           } else {
             return BlocBuilder<AccountBloc, AccountState>(
-              bloc: BlocProvider.of<AccountBloc>(context),
+              bloc: widget.accountBloc,
               builder: (context, state) {
                 return event.userJoined != null && event.userJoined > 0
                     ? RaisedButton(
@@ -268,8 +267,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
               ? ListTile(
                   title: Text("Xác nhận tham gia"),
                   onTap: () {
-                    BlocProvider.of<AccountBloc>(context)
-                      ..add(AccJoinCourseEvent(
+                    widget.accountBloc..add(AccJoinCourseEvent(
                           token: widget.user.token, itemId: eventDTO.itemId, scheduleId: eventDTO.id, childId: eventDTO.childId));
                     Navigator.of(context).pop();
                   },

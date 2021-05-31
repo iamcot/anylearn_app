@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/home/home_blocs.dart';
-import '../../customs/custom_cached_image.dart';
 import '../../dto/home_dto.dart';
 import '../../dto/user_dto.dart';
 import '../../widgets/hot_users.dart';
@@ -14,6 +13,8 @@ import 'home_articles.dart';
 import 'search_box.dart';
 import 'week_courses.dart';
 import 'week_courses_header.dart';
+
+bool canShowPopup = true;
 
 class HomeBody extends StatefulWidget {
   final UserDTO user;
@@ -32,7 +33,7 @@ class _HomeBody extends State<HomeBody> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.homeData.config.ignorePopupVersion != widget.homeData.config.popup.version &&
-          widget.homeData.config.popup.image != null) {
+          widget.homeData.config.popup.image != null && canShowPopup) {
         final width = MediaQuery.of(context).size.width;
         final height = width;
         await showDialog<String>(

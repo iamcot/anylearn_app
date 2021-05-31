@@ -41,12 +41,15 @@ class _HomeScreen extends State<HomeScreen> {
   }
 
   Future checkFirstSeen() async {
-    int version = 4;
+    int version = 6;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int _seen = (prefs.getInt('intro_seen') ?? version);
 
     if (_seen <= version) {
       await prefs.setInt('intro_seen', version + 1);
+      setState(() {
+        canShowPopup = false;
+      });
       Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new IntroScreen()));
     }
   }
