@@ -1,3 +1,5 @@
+import 'package:anylearn/dto/login_callback.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -11,7 +13,7 @@ class BottomNav extends StatelessWidget {
   static const ASK_INDEX = 3;
 
   final int index;
-  final List<String> tabs = ["/school", "/teacher", "/", "/ask", "/account/calendar"];
+  final List<String> tabs = ["/school", "/teacher", "/", "/ask", "/profile"];
   final UserDTO user;
 
   BottomNav({this.index, this.user});
@@ -49,9 +51,20 @@ class BottomNav extends StatelessWidget {
             icon: Icon(Icons.question_answer),
             label: "Học & Hỏi",
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(MdiIcons.calendarAccount),
-            label: "Lịch học",
+          BottomNavigationBarItem(
+            icon: user == null || user.image == null
+                ? Icon(
+                    Icons.account_circle,
+                  )
+                : CircleAvatar(
+                    radius: 14,
+                    backgroundColor: Colors.white,
+                    child: CircleAvatar(
+                      radius: 12,
+                      backgroundImage: CachedNetworkImageProvider(user.image),
+                    ),
+                  ),
+            label: "Tôi",
           ),
         ]);
   }
@@ -63,8 +76,11 @@ class BottomNav extends StatelessWidget {
     if (index == HOME_INDEX) {
       return Navigator.of(context).popUntil(ModalRoute.withName("/"));
     } else if (index == EVENT_INDEX) {
-      print(user.id);
-      Navigator.of(context).pushNamed("/account/calendar");
+      if (user != null) {
+        Navigator.of(context).pushNamed("/profile", arguments: user.id);
+      } else {
+        Navigator.of(context).pushNamed("/login", arguments: LoginCallback(routeName: "/profile"));
+      }
     } else {
       Navigator.of(context).canPop()
           ? Navigator.of(context).popAndPushNamed(this.tabs[index])

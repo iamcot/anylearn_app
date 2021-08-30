@@ -18,26 +18,14 @@ class _AccountIcon extends State<AccountIcon> {
     return Container(
       padding: EdgeInsets.only(right: 10.0),
       child: IconButton(
-          icon: widget.user == null || widget.user.image == null
-              ? Icon(
-                  Icons.account_circle,
-                  size: 32.0,
-                )
-              : CircleAvatar(
-                  radius: 16,
-                  backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    radius: 15,
-                    backgroundImage: CachedNetworkImageProvider(widget.user.image),
-                  ),
-                ),
+          icon: Icon(Icons.menu),
           onPressed: () {
-            // Navigator.of(context).pushNamed("/account");
-            if (widget.user != null) {
-              Navigator.of(context).pushNamed("/profile", arguments: widget.user.id);
-            } else {
-              Navigator.of(context).pushNamed("/login", arguments: LoginCallback(routeName: "/profile"));
-            }
+            Navigator.of(context).pushNamed("/account");
+            // if (widget.user != null) {
+            //   Navigator.of(context).pushNamed("/profile", arguments: widget.user.id);
+            // } else {
+            //   Navigator.of(context).pushNamed("/login", arguments: LoginCallback(routeName: "/profile"));
+            // }
           }),
     );
   }

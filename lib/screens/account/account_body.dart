@@ -39,30 +39,14 @@ class _AccountBody extends State<AccountBody> {
                     route: "/transaction",
                     leadingIcon: MdiIcons.wallet,
                     trailing: Icon(Icons.chevron_right),
-                    subContent: Text.rich(
-                      TextSpan(
-                          text: "TK tiền: " + moneyFormat.format(widget.user.walletM),
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 12.0,
-                            fontFeatures: [FontFeature.tabularFigures()],
-                          ),
-                          children: [
-                            TextSpan(
-                              text: " | ",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            TextSpan(
-                              text: "TK điểm: " + moneyFormat.format(widget.user.walletC),
-                              style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 12.0,
-                                fontFeatures: [FontFeature.tabularFigures()],
-                              ),
-                            )
-                          ]),
+                    subContent:
+                        Text(
+                      "anyPoint: " + moneyFormat.format(widget.user.walletC),
+                      style: TextStyle(
+                        color: Colors.orange,
+                        fontSize: 12.0,
+                        fontFeatures: [FontFeature.tabularFigures()],
+                      ),
                     )),
             widget.user.role == MyConst.ROLE_MEMBER
                 ? SizedBox(height: 0)

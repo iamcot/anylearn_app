@@ -79,6 +79,48 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                             children: <Widget>[
                               Row(
                                 children: <Widget>[
+                                  // Expanded(
+                                  //     child: Card(
+                                  //   child: Column(
+                                  //     children: <Widget>[
+                                  //       Container(
+                                  //         child: Row(children: [
+                                  //           Expanded(
+                                  //             child: Text(
+                                  //               "Tài khoản tiền",
+                                  //               style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                                  //             ),
+                                  //           ),
+                                  //           Text.rich(
+                                  //             TextSpan(
+                                  //                 text: "NẠP TIỀN",
+                                  //                 style: TextStyle(
+                                  //                   fontSize: 12.0,
+                                  //                   color: Colors.blue,
+                                  //                   fontWeight: FontWeight.bold,
+                                  //                 ),
+                                  //                 recognizer: TapGestureRecognizer()
+                                  //                   ..onTap = () async {
+                                  //                     await Navigator.of(context).pushNamed("/deposit");
+                                  //                     _authBloc = BlocProvider.of<AuthBloc>(context)
+                                  //                       ..add(AuthCheckEvent());
+                                  //                   }),
+                                  //           ),
+                                  //         ]),
+                                  //         padding: EdgeInsets.all(10.0),
+                                  //         decoration:
+                                  //             const BoxDecoration(border: Border(bottom: BorderSide(width: 0.1))),
+                                  //       ),
+                                  //       Container(
+                                  //           padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                  //           child: Text(
+                                  //             monneyF.format(_user.walletM),
+                                  //             style: TextStyle(
+                                  //                 color: Colors.blue, fontWeight: FontWeight.w200, fontSize: 30.0),
+                                  //           )),
+                                  //     ],
+                                  //   ),
+                                  // )),
                                   Expanded(
                                       child: Card(
                                     child: Column(
@@ -87,49 +129,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                           child: Row(children: [
                                             Expanded(
                                               child: Text(
-                                                "Tài khoản tiền",
-                                                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
-                                              ),
-                                            ),
-                                            Text.rich(
-                                              TextSpan(
-                                                  text: "NẠP TIỀN",
-                                                  style: TextStyle(
-                                                    fontSize: 12.0,
-                                                    color: Colors.blue,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  recognizer: TapGestureRecognizer()
-                                                    ..onTap = () async {
-                                                      await Navigator.of(context).pushNamed("/deposit");
-                                                      _authBloc = BlocProvider.of<AuthBloc>(context)
-                                                        ..add(AuthCheckEvent());
-                                                    }),
-                                            ),
-                                          ]),
-                                          padding: EdgeInsets.all(10.0),
-                                          decoration:
-                                              const BoxDecoration(border: Border(bottom: BorderSide(width: 0.1))),
-                                        ),
-                                        Container(
-                                            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                                            child: Text(
-                                              monneyF.format(_user.walletM),
-                                              style: TextStyle(
-                                                  color: Colors.blue, fontWeight: FontWeight.w200, fontSize: 30.0),
-                                            )),
-                                      ],
-                                    ),
-                                  )),
-                                  Expanded(
-                                      child: Card(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                          child: Row(children: [
-                                            Expanded(
-                                              child: Text(
-                                                "Tài khoản điểm",
+                                                "anyPoint",
                                                 style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
                                               ),
                                             ),
@@ -158,7 +158,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                             child: Text(
                                               monneyF.format(_user.walletC),
                                               style: TextStyle(
-                                                  color: Colors.orange, fontWeight: FontWeight.w200, fontSize: 30.0),
+                                                  color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 30.0),
                                             )),
                                       ],
                                     ),
@@ -166,8 +166,8 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                 ],
                               ),
                               TabBar(controller: _tabController, tabs: [
-                                Tab(child: Text("Tài khoản tiền")),
-                                Tab(child: Text("Tài khoản điểm")),
+                                Tab(child: Text("Lịch sử thanh toán")),
+                                Tab(child: Text("Lịch sử anyPoint")),
                               ]),
                             ],
                           ),

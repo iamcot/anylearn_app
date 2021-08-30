@@ -1,3 +1,5 @@
+import 'package:anylearn/screens/home/home_article_tabs.dart';
+import 'package:anylearn/screens/home/home_classes.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +35,9 @@ class _HomeBody extends State<HomeBody> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.homeData.config.ignorePopupVersion != widget.homeData.config.popup.version &&
-          widget.homeData.config.popup.image != null && canShowPopup) {
+          widget.homeData.config.popup.image != null &&
+          widget.homeData.config.popup.image != "" &&
+          canShowPopup) {
         final width = MediaQuery.of(context).size.width;
         final height = width;
         await showDialog<String>(
@@ -85,12 +89,11 @@ class _HomeBody extends State<HomeBody> {
                           controlAffinity: ListTileControlAffinity.leading,
                         );
                       })),
-                      FlatButton(
-                        child: new Text("OK"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      )
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("OK"))
                     ],
                   )
                 ],
@@ -145,56 +148,61 @@ class _HomeBody extends State<HomeBody> {
         new HotUsers(
           hotItems: widget.homeData.hotItems,
         ),
-        new WeekCourseHeader(),
-        new WeekCourses(
-          monthCourses: widget.homeData.monthCourses,
+
+        new HomeClasses(
+          blocks: widget.homeData.homeClasses,
         ),
-        SliverToBoxAdapter(
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 15.0,
-                  color: Colors.grey[100],
-                ),
-              ),
-            ),
-            child: Container(
-              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      "Học và Hỏi",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed("/ask");
-                        },
-                        child: Text(
-                          "XEM THÊM",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-        HomeArticles(
+
+        new HomeArticleTabs(
           articles: widget.homeData.articles,
+          videos: widget.homeData.videos,
         ),
+        // SliverToBoxAdapter(
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       border: Border(
+        //         top: BorderSide(
+        //           width: 15.0,
+        //           color: Colors.grey[100],
+        //         ),
+        //       ),
+        //     ),
+        //     child: Container(
+        //       padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+        //       child: Row(
+        //         children: <Widget>[
+        //           Expanded(
+        //             child: Text(
+        //               "Học và Hỏi",
+        //               style: TextStyle(fontWeight: FontWeight.bold),
+        //             ),
+        //           ),
+        //           Expanded(
+        //             child: Align(
+        //               alignment: Alignment.centerRight,
+        //               child: InkWell(
+        //                 onTap: () {
+        //                   Navigator.of(context).pushNamed("/ask");
+        //                 },
+        //                 child: Text(
+        //                   "XEM THÊM",
+        //                   style: TextStyle(
+        //                     color: Colors.blue,
+        //                     fontSize: 12,
+        //                     fontWeight: FontWeight.bold,
+        //                   ),
+        //                 ),
+        //               ),
+        //             ),
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // HomeArticles(
+        //   articles: widget.homeData.articles,
+        // ),
       ],
     );
   }
