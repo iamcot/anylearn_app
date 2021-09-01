@@ -23,7 +23,8 @@ import 'themes/default.dart';
 bool newNotification = false;
 String notifToken;
 // final env = "prod";
-final env = "dev";
+final env = "staging";
+// final env = "dev";
 AppConfig config;
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
