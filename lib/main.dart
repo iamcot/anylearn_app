@@ -22,6 +22,9 @@ import 'themes/default.dart';
 
 bool newNotification = false;
 String notifToken;
+// final env = "prod";
+final env = "dev";
+AppConfig config;
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -29,10 +32,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
-  // final env = "prod";
-  final env = "dev";
   WidgetsFlutterBinding.ensureInitialized();
-  final config = await AppConfig.forEnv(env);
+  config = await AppConfig.forEnv(env);
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepo = UserRepository(config: config);
   final pageRepo = PageRepository(config: config);

@@ -259,7 +259,7 @@ packages:
     source: hosted
     version: "1.3.0"
   flutter_inappwebview:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_inappwebview
       url: "https://pub.dartlang.org"
@@ -848,7 +848,7 @@ packages:
     source: hosted
     version: "0.1.0+3"
   webview_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter
       url: "https://pub.dartlang.org"

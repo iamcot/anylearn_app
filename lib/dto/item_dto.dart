@@ -25,6 +25,7 @@ class ItemDTO extends Equatable {
   final String authorName;
   final String authorType;
   final bool nolimitTime;
+  final List<ItemDTO> openings;
 
   ItemDTO({
     this.id,
@@ -51,6 +52,7 @@ class ItemDTO extends Equatable {
     this.authorName,
     this.authorType,
     this.nolimitTime,
+    this.openings,
   });
 
   @override
@@ -77,6 +79,7 @@ class ItemDTO extends Equatable {
         authorName,
         authorType,
         nolimitTime,
+        openings,
       ];
 
   @override
@@ -108,6 +111,9 @@ class ItemDTO extends Equatable {
             authorName: json['author'] ?? null,
             authorType: json['author_type'] ?? null,
             nolimitTime: json['nolimit_time'] == "1" ? true : false,
+            openings: json['openings'] == null
+                ? null
+                : List<ItemDTO>.from(json['openings']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
           );
   }
 }

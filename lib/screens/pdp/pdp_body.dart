@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:anylearn/screens/webview.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/html_parser.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -314,6 +316,12 @@ class _PdpBody extends State<PdpBody> {
                             Html(
                               data: widget.data.item.content ?? "",
                               shrinkWrap: true,
+                              onLinkTap: (String url) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => WebviewScreen(
+                                          url: url,
+                                        )));
+                              },
                             ),
                             ExpandableButton(child: Text("THU GỌN", style: TextStyle(color: Colors.blue))),
                           ]),

@@ -1,11 +1,11 @@
-import 'package:anylearn/widgets/foundation_icon.dart';
+import 'package:anylearn/main.dart';
+import 'package:anylearn/screens/webview.dart';
 import 'package:flutter/material.dart';
 
 import '../../dto/user_dto.dart';
 import '../../widgets/account_icon.dart';
-import '../../widgets/add_course_icon.dart';
+import '../../widgets/foundation_icon.dart';
 import '../../widgets/notification_icon.dart';
-import '../../widgets/search_icon.dart';
 import 'home_top_icons.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -27,6 +27,17 @@ class HomeAppBar extends StatelessWidget {
       actions: <Widget>[
         // AddCourseIcon(),
         // SearchIcon(),
+        user == null
+            ? Text("")
+            : IconButton(
+                icon: Icon(Icons.shopping_cart),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => WebviewScreen(
+                            url: config.webUrl + "cart",
+                            token: user.token,
+                          )));
+                }),
         FoundationIcon(),
         NotificationIcon(
           user: user,

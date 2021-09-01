@@ -61,6 +61,8 @@ dependencies:
   # device_info: ^2.0.0
   intro_slider: ^2.4.1
   after_layout: ^1.1.0
+  webview_flutter: ^1.0.7
+  flutter_inappwebview: ^5.3.2
 
 
 dev_dependencies:

@@ -6,7 +6,9 @@ import '../../blocs/auth/auth_blocs.dart';
 import '../../blocs/pdp/pdp_blocs.dart';
 import '../../dto/pdp_dto.dart';
 import '../../dto/user_dto.dart';
+import '../../main.dart';
 import '../../widgets/gradient_button.dart';
+import '../webview.dart';
 
 class CourseConfirm extends StatefulWidget {
   final PdpDTO pdpDTO;
@@ -99,14 +101,14 @@ class _CourseConfirm extends State<CourseConfirm> {
                       )),
                 ],
               )),
-              Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Text.rich(TextSpan(text: "Số dư tài khoản: ", children: [
-                  TextSpan(
-                      text: _moneyFormat.format(widget.user.walletM),
-                      style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
-                ])),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 15),
+              //   child: Text.rich(TextSpan(text: "Số dư tài khoản: ", children: [
+              //     TextSpan(
+              //         text: _moneyFormat.format(widget.user.walletM),
+              //         style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+              //   ])),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: Text.rich(TextSpan(text: "Bạn sẽ nhận được ", children: [
@@ -114,7 +116,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                     text: _moneyFormat.format(widget.pdpDTO.commission),
                     style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
                   ),
-                  TextSpan(text: " điểm thưởng cho giao dịch này.")
+                  TextSpan(text: " anyPoint cho giao dịch này.")
                 ])),
               ),
               !hasVoucher
@@ -191,29 +193,32 @@ class _CourseConfirm extends State<CourseConfirm> {
                       )),
               Container(
                 // padding: const EdgeInsets.only(top: 15),
-                child: (widget.user.walletM >= widget.pdpDTO.item.price || hasVoucher)
-                    ? GradientButton(
-                        function: () {
-                          widget.pdpBloc
-                            ..add(PdpRegisterEvent(
-                                token: widget.user.token,
-                                itemId: widget.pdpDTO.item.id,
-                                voucher: voucherController.text,
-                                childUser: dropdownValue != "0" && childRegister ? int.parse(dropdownValue) : 0));
-                          Navigator.of(context).pop();
-                        },
-                        title: "XÁC NHẬN",
-                      )
-                    : GradientButton(
-                        function: () {
-                          // pdpBloc..add(PdpRegisterEvent(token: user.token, itemId: pdpDTO.item.id));
-                          Navigator.of(context).pushNamed("/deposit");
-                        },
-                        title: "ĐẾN NẠP TIỀN",
-                      ),
+                child: GradientButton(
+                  function: () {
+                    _add2Cart(context, widget.user.token, widget.pdpDTO.item.id, voucherController.text,
+                        (dropdownValue != "0" && childRegister ? int.parse(dropdownValue) : 0));
+                    // widget.pdpBloc
+                    //   ..add(PdpRegisterEvent(
+                    //       token: widget.user.token,
+                    //       itemId: widget.pdpDTO.item.id,
+                    //       voucher: voucherController.text,
+                    //       childUser: dropdownValue != "0" && childRegister ? int.parse(dropdownValue) : 0));
+                  },
+                  title: "XÁC NHẬN",
+                ),
               ),
             ],
           );
+  }
+
+  void _add2Cart(BuildContext context, String token, int itemId, String voucher, int childId) {
+    String url = config.webUrl + "add2cart?class=$itemId&voucher=$voucher&child=$childId";
+    Navigator.of(context).pop();
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => WebviewScreen(
+              url: url,
+              token: token,
+            )));
   }
 
   Widget _buildChildrenSelector(BuildContext context, List<UserDTO> children) {

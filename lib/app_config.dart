@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 
 class AppConfig {
   final String apiUrl;
+  final String webUrl;
   final String tokenParam;
 
   AppConfig({
     this.apiUrl,
     this.tokenParam,
+    this.webUrl,
   });
 
   static Future<AppConfig> forEnv(String env) async {
@@ -18,6 +20,7 @@ class AppConfig {
     return AppConfig(
       apiUrl: json['apiUrl'],
       tokenParam: json['tokenParam'],
+      webUrl: json['webUrl'],
     );
   }
 }
