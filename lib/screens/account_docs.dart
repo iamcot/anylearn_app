@@ -43,9 +43,11 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
           bloc: accountBloc,
           listener: (context, state) {
             if (state is AccountFailState) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: Text(state.error.toString()),
-              ));
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text(state.error.toString()),
+                ));
             }
           },
           child: BlocBuilder<AccountBloc, AccountState>(

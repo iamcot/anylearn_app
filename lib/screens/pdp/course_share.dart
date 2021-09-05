@@ -64,7 +64,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
           bloc: widget.pdpBloc,
           listener: (BuildContext context, PdpState state) {
             if (state is PdpShareSuccessState) {
-              Scaffold.of(context)
+              ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
                   content: Text("Đã gửi lời mời tới các bạn."),
@@ -74,7 +74,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
             }
             if (state is PdpShareFailState) {
               // toast(state.error, duration: Duration(seconds: 3));
-              Scaffold.of(context)
+              ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
                   content: Text(state.error),

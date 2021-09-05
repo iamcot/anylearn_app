@@ -60,9 +60,9 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                 BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
                 _amountInput.clear();
                 _ammountMInput.clear();
-                Scaffold.of(context)
+                ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
-                  ..showSnackBar(new SnackBar(
+                  ..showSnackBar(SnackBar(
                     content: Text("Gửi lệnh đổi điểm thành công"),
                     duration: Duration(seconds: 2),
                   )).closed.then((value) {
@@ -70,10 +70,12 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                   });
               }
               if (state is TransactionSaveFailState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text(state.error + "| Có lỗi khi lưu, vui lòng thử lại"),
-                  duration: Duration(seconds: 2),
-                ));
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                    content: Text(state.error + "| Có lỗi khi lưu, vui lòng thử lại"),
+                    duration: Duration(seconds: 2),
+                  ));
               }
             },
             child: BlocBuilder<TransactionBloc, TransactionState>(

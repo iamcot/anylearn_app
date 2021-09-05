@@ -34,18 +34,18 @@ class _AskFormScreen extends State<AskFormScreen> {
         bloc: widget.askBloc,
         listener: (context, state) {
           if (state is AskCreateSuccessState) {
-            Scaffold.of(context)
+            ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
-              ..showSnackBar(new SnackBar(
+              ..showSnackBar(SnackBar(
                 content: Text("Đã gửi thành công."),
               )).closed.then((value) {
                 Navigator.of(context).pop(true);
               });
           }
           if (state is AskCreateFailState) {
-            Scaffold.of(context)
+            ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
-              ..showSnackBar(new SnackBar(
+              ..showSnackBar(SnackBar(
                 content: Text(state.error.toString()),
               ));
           }
@@ -91,9 +91,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                         bloc: widget.askBloc,
                         builder: (context, state) {
                           if (state is AskCreateLoadingState) {
-                            return Container(
-                              width: 50.0,
-                              child: CircularProgressIndicator());
+                            return Container(width: 50.0, child: CircularProgressIndicator());
                           }
                           return GradientButton(
                             height: 48,

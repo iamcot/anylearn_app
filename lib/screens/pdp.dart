@@ -67,19 +67,21 @@ class _PDPScreen extends State<PDPScreen> {
                   }
                   if (state is PdpRegisterFailState) {
                     // toast(state.error);
-                    Scaffold.of(context)
-                      ..removeCurrentSnackBar()
-                      ..showSnackBar(new SnackBar(
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
                         content: Text(state.error),
                       ));
                   }
                   if (state is PdpRegisterSuccessState) {
                     BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
-                    Scaffold.of(context).showSnackBar(new SnackBar(
-                      duration: Duration(seconds: 5),
-                      content: Text(
-                          "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất."),
-                    ));
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        duration: Duration(seconds: 5),
+                        content: Text(
+                            "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất."),
+                      ));
                   }
                 },
                 child: BlocBuilder<PdpBloc, PdpState>(

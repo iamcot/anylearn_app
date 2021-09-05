@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:anylearn/main.dart';
+import 'package:anylearn/screens/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -39,8 +41,7 @@ class _AccountBody extends State<AccountBody> {
                     route: "/transaction",
                     leadingIcon: MdiIcons.wallet,
                     trailing: Icon(Icons.chevron_right),
-                    subContent:
-                        Text(
+                    subContent: Text(
                       "anyPoint: " + moneyFormat.format(widget.user.walletC),
                       style: TextStyle(
                         color: Colors.orange,
@@ -155,12 +156,24 @@ class _AccountBody extends State<AccountBody> {
               leadingIcon: MdiIcons.information,
               trailing: Icon(Icons.chevron_right),
             ),
-            // AccountNormalMenu(
-            //   title: "Đổi mật khẩu",
-            //   route: "/account/password",
-            //   leadingIcon: MdiIcons.lock,
-            //   trailing: Icon(Icons.arrow_right),
-            // ),
+            AccountNormalMenu(
+              title: "Đổi mật khẩu",
+              route: "/account/password",
+              routeParam: widget.user.token,
+              leadingIcon: MdiIcons.lock,
+              trailing: Icon(Icons.arrow_right),
+            ),
+            AccountNormalMenu(
+              title: "Trung Tâm Hỗ Trợ",
+              routeFunction: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => WebviewScreen(
+                          url: config.webUrl + "helpcenter",
+                        )));
+              },
+              leadingIcon: MdiIcons.helpCircle,
+              trailing: Icon(Icons.chevron_right),
+            ),
             AccountNormalMenu(
               title: "Đăng xuất",
               routeFunction: () {

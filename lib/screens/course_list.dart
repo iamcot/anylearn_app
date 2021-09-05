@@ -65,7 +65,9 @@ class _AccountCalendarScreen extends State<CourseListScreen> with TickerProvider
             bloc: _courseBloc,
             listener: (context, state) {
               if (state is CourseFailState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
+                 ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
                   content: Text(state.error.toString()),
                 ));
               }

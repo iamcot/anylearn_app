@@ -73,19 +73,23 @@ class _LoginForm extends State<LoginForm> {
       bloc: widget.loginBloc,
       listener: (context, state) {
         if (state is LoginFailState) {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text(
-              '${state.error}',
-              maxLines: 2,
-            ),
-            backgroundColor: Colors.red,
-          ));
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+              content: Text(
+                '${state.error}',
+                maxLines: 2,
+              ),
+              backgroundColor: Colors.red,
+            ));
         }
         if (state is LoginFacebookSuccessState) {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text("Đăng nhập thành công."),
-            backgroundColor: Colors.green,
-          ));
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+              content: Text("Đăng nhập thành công."),
+              backgroundColor: Colors.green,
+            ));
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
@@ -117,7 +121,7 @@ class _LoginForm extends State<LoginForm> {
                     child: TextFormField(
                       controller: _phoneController,
                       validator: (String value) {
-                        if (!validator.isNumeric(value)) {
+                        if (value.isEmpty) {
                           return "Số điện thoại không hợp lệ";
                         }
                         _formKey.currentState.save();
@@ -273,8 +277,8 @@ class _LoginForm extends State<LoginForm> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       BlocProvider.of<LoginBloc>(context).add(LoginButtonPressedEvent(
-        phone: _phoneController.text,
-        password: _passwordController.text,
+        phone: _phoneController.text.trim(),
+        password: _passwordController.text.trim(),
       ));
     }
   }

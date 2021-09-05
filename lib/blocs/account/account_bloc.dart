@@ -86,5 +86,15 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     } catch (error) {
       yield AccChildrenFailState(error: error.toString());
     }
+
+    try {
+      if (event is AccChangePassEvent) {
+        yield AccChangePassInProgressState();
+        final result = await userRepository.changePass(event.token, event.newPass, event.oldPass);
+        yield AccChangePassSuccessState();
+      }
+    } catch (error) {
+      yield AccChangePassFailState(error: error.toString());
+    }
   }
 }

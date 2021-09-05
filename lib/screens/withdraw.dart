@@ -66,16 +66,20 @@ class _WithdrawScreen extends State<WithdrawScreen> {
             listener: (BuildContext context, TransactionState state) {
               if (state is TransactionWithdrawSaveSuccessState) {
                 BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Gửi lệnh rút tiền thành công. Vui lòng chờ chúng tôi xác nhận."),
-                  duration: Duration(seconds: 2),
-                ));
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                    content: Text("Gửi lệnh rút tiền thành công. Vui lòng chờ chúng tôi xác nhận."),
+                    duration: Duration(seconds: 2),
+                  ));
               }
               if (state is TransactionSaveFailState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Có lỗi khi lưu, vui lòng thử lại"),
-                  duration: Duration(seconds: 2),
-                ));
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                    content: Text("Có lỗi khi lưu, vui lòng thử lại"),
+                    duration: Duration(seconds: 2),
+                  ));
               }
             },
             child: BlocBuilder<TransactionBloc, TransactionState>(

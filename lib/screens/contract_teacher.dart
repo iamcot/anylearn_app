@@ -25,6 +25,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
   final _formKey = GlobalKey<FormState>();
   final dateMask = new MaskedTextController(mask: '0000-00-00');
   final dobMask = new MaskedTextController(mask: '0000-00-00');
+  bool _agreedToc = false;
 
   @override
   void didChangeDependencies() {
@@ -43,8 +44,11 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
           bloc: BlocProvider.of<AuthBloc>(context),
           listener: (context, state) {
             if (state is AuthContractSuccessState) {
-              _user.isSigned = MyConst.CONTRACT_NEW;
-              Scaffold.of(context)
+              setState(() {
+                _user.isSigned = MyConst.CONTRACT_SIGNED;
+                openedForm = false;
+              });
+              ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
                   duration: Duration(seconds: 8),
@@ -53,7 +57,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                 ));
             }
             if (state is AuthContractFailState) {
-              Scaffold.of(context)
+              ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(content: Text(state.error)));
             }
@@ -353,6 +357,24 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
                                     ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15.0, top: 0),
+                                      child: CheckboxListTile(
+                                        dense: true,
+                                        controlAffinity: ListTileControlAffinity.leading,
+                                        value: _agreedToc,
+                                        onChanged: (value) => setState(() {
+                                          _agreedToc = value;
+                                        }),
+                                        title: Text.rich(
+                                            TextSpan(text: "Tôi xác nhận ký hợp đồng và đồng ý với ", children: [
+                                          TextSpan(
+                                            text: "Điều khoản sử dụng",
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ])),
+                                      ),
+                                    ),
                                     Container(
                                         padding: EdgeInsets.only(top: 15, bottom: 30),
                                         width: double.infinity,
@@ -366,9 +388,6 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                               _formKey.currentState.save();
                                               _authBloc
                                                 ..add(AuthContractSaveEvent(token: _user.token, contract: _contract));
-                                              setState(() {
-                                                openedForm = false;
-                                              });
                                             }
                                           },
                                         )),

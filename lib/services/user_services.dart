@@ -89,9 +89,13 @@ class UserService extends BaseService {
     return json["result"];
   }
 
-  Future<bool> updatePassword(String oldPassword, String newPassword) async {
-    await Future.delayed(Duration(seconds: 1));
-    return true;
+  Future<bool> changePass(String token, String newPassword, String oldPassword) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/changepass", token: token);
+    final json = await post(httpClient, url, {
+      "newpass": newPassword,
+      "oldpass": oldPassword,
+    });
+    return json["result"];
   }
 
   Future<UserDTO> register(String phone, String name, String password, String refcode, String role) async {
@@ -191,7 +195,6 @@ class UserService extends BaseService {
 
   Future<bool> shareFriends(String token, int id, List<int> friends, bool isALL) async {
     final url = buildUrl(appConfig: config, endPoint: "/item/$id/share", token: token);
-    print(url);
     final json = await post(httpClient, url, {
       "friends": isALL ? "ALL" : jsonEncode(friends),
     });

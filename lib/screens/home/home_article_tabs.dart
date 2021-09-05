@@ -33,7 +33,7 @@ class _HomeArticleTabs extends State<HomeArticleTabs> with TickerProviderStateMi
         child: DefaultTabController(
       length: 2,
       child: Container(
-        height: max(widget.articles.length * 120.0, widget.videos.length * 120.0),
+        height: max(widget.articles.length * 130.0, widget.videos.length * 130.0),
         child: Column(
           children: [
             TabBar(

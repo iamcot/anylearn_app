@@ -45,7 +45,9 @@ class _CustomFeedback extends State<CustomFeedback> {
         child: BlocListener<FeedbackBloc, FeedbackState>(
           listener: (context, state) {
             if (state is FeedbackSuccessState) {
-              Scaffold.of(context).showSnackBar(new SnackBar(content: Text("Cảm ơn bạn đã góp ý cho chúng tôi.")));
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(content: Text("Cảm ơn bạn đã góp ý cho chúng tôi.")));
             }
           },
           child: Container(

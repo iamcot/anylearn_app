@@ -1,12 +1,10 @@
 import 'dart:io';
 
-import 'package:anylearn/screens/webview.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/html_parser.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -21,6 +19,7 @@ import '../../widgets/price_box.dart';
 import '../../widgets/rating.dart';
 import '../../widgets/text2lines.dart';
 import '../item_rating.dart';
+import '../webview.dart';
 import 'course_confirm.dart';
 import 'share_dialog.dart';
 

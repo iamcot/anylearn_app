@@ -50,9 +50,9 @@ class _LoginScreen extends State<LoginScreen> {
           }
 
           if (!noticeShow && callback != null && callback.message != null) {
-            Scaffold.of(context)
-              ..removeCurrentSnackBar()
-              ..showSnackBar(new SnackBar(
+             ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
                 content: Text(callback.message),
               ));
             noticeShow = true;

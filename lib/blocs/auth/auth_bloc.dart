@@ -46,31 +46,32 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (error) {
       yield AuthFailState(error: error.toString());
     }
-
-    if (event is AuthContractSaveEvent) {
-      try {
-        userRepository.saveContract(event.token, event.contract);
-        yield AuthContractSuccessState();
-      } catch (error) {
-        yield AuthContractFailState(error: error.toString());
+    try {
+      if (event is AuthContractSaveEvent) {
+        final result = await userRepository.saveContract(event.token, event.contract);
+        if (result) {
+          yield AuthContractSuccessState();
+        }
       }
+    } catch (error) {
+      yield AuthContractFailState(error: error.toString());
     }
-    if (event is AuthContractLoadEvent) {
-      try {
+    try {
+      if (event is AuthContractLoadEvent) {
         final contract = await userRepository.loadContract(event.token);
         yield AuthContractLoadSuccessState(contract: contract);
-      } catch (error) {
-        yield AuthContractLoadFailState(error: error.toString());
       }
+    } catch (error) {
+      yield AuthContractLoadFailState(error: error.toString());
     }
-    if (event is AuthContractSignEvent) {
-      try {
+    try {
+      if (event is AuthContractSignEvent) {
         yield AuthContractSigningState();
         final image = await userRepository.signContract(event.token, event.file);
         yield AuthContractSignedSuccessState(image: image);
-      } catch (error) {
-        yield AuthContractSignedFailState(error: error.toString());
       }
+    } catch (error) {
+      yield AuthContractSignedFailState(error: error.toString());
     }
   }
 }

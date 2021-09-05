@@ -104,7 +104,9 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                         ));
               }
               if (state is AccountFailState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(content: Text(state.error)));
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(content: Text(state.error)));
               }
             },
             child: BlocBuilder<AccountBloc, AccountState>(

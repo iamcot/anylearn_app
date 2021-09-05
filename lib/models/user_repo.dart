@@ -76,6 +76,10 @@ class UserRepository {
     return await userService.updateInfo(user);
   }
 
+  Future<bool> changePass(String token, String newPass, String oldPass) async {
+    return await userService.changePass(token, newPass, oldPass);
+  }
+
   Future<FriendsDTO> friends(int userId, String token) async {
     return await userService.friends(token, userId);
   }

@@ -71,7 +71,9 @@ class _RegisterScreen extends State<RegisterScreen> {
           bloc: _loginBloc,
           listener: (context, state) {
             if (state is RegisterFailState) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
+               ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
                 content: Text(state.error),
               ));
             }
@@ -142,7 +144,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       initialValue: _user.refcode,
                       onSaved: (value) {
                         setState(() {
-                          _user.refcode = value;
+                          _user.refcode = value.trim();
                         });
                       },
                       focusNode: _focusRef,
@@ -164,7 +166,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       initialValue: _user.name,
                       onSaved: (value) {
                         setState(() {
-                          _user.name = value;
+                          _user.name = value.trim();
                         });
                       },
                       validator: (String value) {
@@ -193,11 +195,11 @@ class _RegisterScreen extends State<RegisterScreen> {
                       initialValue: _user.phone,
                       onSaved: (value) {
                         setState(() {
-                          _user.phone = value;
+                          _user.phone = value.trim();
                         });
                       },
                       validator: (String value) {
-                        if (!validator.isNumeric(value)) {
+                        if (value.length < 10) {
                           return "Số điện thoại không hợp lệ";
                         }
                         _formKey.currentState.save();
@@ -221,7 +223,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     child: TextFormField(
                       onSaved: (value) {
                         setState(() {
-                          _user.password = value;
+                          _user.password = value.trim();
                         });
                       },
                       validator: (String value) {

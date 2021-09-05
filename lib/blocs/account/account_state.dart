@@ -198,3 +198,27 @@ class AccChildrenFailState extends AccountState {
   @override
   String toString() => '{error: $error}';
 }
+
+class AccChangePassInProgressState extends AccountState {
+  final String newPass;
+  final String oldPass;
+  final String token;
+
+  AccChangePassInProgressState({this.token, this.newPass, this.oldPass});
+  @override
+  String toString() => 'AccChangePassInProgressState';
+}
+
+class AccChangePassSuccessState extends AccountState {
+  @override
+  String toString() => 'AccChangePassSuccessState';
+}
+
+class AccChangePassFailState extends AccountState {
+  final String error;
+  const AccChangePassFailState({@required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}

@@ -1,3 +1,4 @@
+import 'package:anylearn/blocs/account/account_blocs.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,8 @@ import 'themes/default.dart';
 bool newNotification = false;
 String notifToken;
 // final env = "prod";
-final env = "staging";
-// final env = "dev";
+// final env = "staging";
+final env = "dev";
 AppConfig config;
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -61,6 +62,7 @@ void main() async {
         ],
         child: MultiBlocProvider(providers: [
           BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
+          BlocProvider<AccountBloc>(create: (context) => AccountBloc(userRepository: userRepo)),
           BlocProvider<CourseBloc>(create: (context) => CourseBloc(itemRepository: itemRepo, userRepository: userRepo)),
           BlocProvider<SearchBloc>(create: (context) => SearchBloc(pageRepository: pageRepo)),
           BlocProvider<NotifBloc>(create: (context) => NotifBloc(userRepository: userRepo)),

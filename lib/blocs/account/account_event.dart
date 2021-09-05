@@ -149,3 +149,15 @@ class AccLoadChildrenEvent extends AccountEvent {
   @override
   String toString() => 'AccLoadChildrenEvent';
 }
+
+class AccChangePassEvent extends AccountEvent {
+  final String newPass;
+  final String oldPass;
+  final String token;
+
+  AccChangePassEvent({this.newPass, this.oldPass, this.token});
+  @override
+  List<Object> get props => [token, newPass, oldPass];
+  @override
+  String toString() => 'AccChangePassEvent';
+}

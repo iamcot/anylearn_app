@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,14 +68,20 @@ class _NotificationScreen extends State<NotificationScreen> {
                                 color: _notif.data[index].read == null ? Colors.blue[50] : Colors.white,
                                 child: ListTile(
                                   onTap: () {
+                                    _notifBloc..add(NotifReadEvent(token: _user.token, id: _notif.data[index].id));
                                     if (_notif.data[index].extraContent == "copy") {
                                       Clipboard.setData(new ClipboardData(text: _notif.data[index].route));
                                       toast("Đã copy vào bộ nhớ");
-                                      _notifBloc
-                                        ..add(NotifReadEvent(token: _user.token, id: _notif.data[index].id))
-                                        ..add(NotifLoadEvent(token: _user.token));
+                                      _notifBloc..add(NotifLoadEvent(token: _user.token));
+                                    } else if (_notif.data[index].extraContent == "url" &&
+                                        _notif.data[index].route != null) {
+                                      _notifBloc..add(NotifLoadEvent(token: _user.token));
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => WebviewScreen(
+                                                url: _notif.data[index].route,
+                                              )));
                                     } else if (_notif.data[index].route != null) {
-                                      _notifBloc..add(NotifReadEvent(token: _user.token, id: _notif.data[index].id));
+                                      _notifBloc..add(NotifLoadEvent(token: _user.token));
                                       Navigator.of(context).pushNamed(_notif.data[index].route,
                                           arguments: _notif.data[index].extraContent);
                                     }

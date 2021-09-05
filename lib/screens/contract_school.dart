@@ -44,18 +44,21 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
           bloc: _authBloc,
           listener: (context, state) {
             if (state is AuthContractSuccessState) {
-              _user.isSigned = MyConst.CONTRACT_NEW;
-              Scaffold.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(
+              setState(() {
+                _user.isSigned = MyConst.CONTRACT_SIGNED;
+                openedForm = false;
+              });
+               ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
                   content: Text(
-                      "Hợp đông mới đã được tạo, Vui lòng thực hiện bước tiếp theo để ký hợp đồng. Mức hoa hồng mới nếu có sẽ được cập nhật khi chúng tôi duyệt hợp đồng."),
+                      "Hợp đông mới đã được tạo. Mức hoa hồng mới nếu có sẽ được cập nhật khi chúng tôi duyệt hợp đồng."),
                 ));
             }
             if (state is AuthContractFailState) {
-              Scaffold.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(content: Text(state.error)));
+               ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(content: Text(state.error)));
             }
           },
           child: BlocBuilder(
@@ -175,7 +178,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       controller: dateMask,
                                       decoration: InputDecoration(
                                         hintText: "yyyy-mm-dd",
-                                        labelText: "Ngày cấp DKKD",
+                                        labelText: "Ngày cấp DKKD (yyyy-mm-dd)",
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -378,7 +381,8 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                           // }
                                           _agreedToc = value;
                                         }),
-                                        title: Text.rich(TextSpan(text: "Tôi đồng ý với ", children: [
+                                        title: Text.rich(
+                                            TextSpan(text: "Tôi xác nhận ký hợp đồng và đồng ý với ", children: [
                                           TextSpan(
                                             text: "Điều khoản sử dụng",
                                             style: TextStyle(color: Colors.red),
@@ -420,9 +424,6 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                               _formKey.currentState.save();
                                               _authBloc
                                                 ..add(AuthContractSaveEvent(token: _user.token, contract: _contract));
-                                              setState(() {
-                                                openedForm = false;
-                                              });
                                             }
                                           },
                                         )),

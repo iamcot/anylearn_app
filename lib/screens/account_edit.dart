@@ -65,7 +65,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    _user.fullContent = "";//await keyEditor.currentState.getText();
+                    _user.fullContent = ""; //await keyEditor.currentState.getText();
                     accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
                   }
                 })
@@ -77,33 +77,38 @@ class _AccountEditScreen extends State<AccountEditScreen> {
             bloc: accountBloc,
             listener: (context, state) {
               if (state is AccountFailState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text(state.error),
-                ));
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                    content: Text(state.error),
+                  ));
               }
               if (state is UploadAvatarSuccessState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Cập nhật avatar thành công."),
-                ));
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                    content: Text("Cập nhật avatar thành công."),
+                  ));
                 _authBloc..add(AuthCheckEvent());
               }
               if (state is UploadBannerSuccessState) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: Text("Cập nhật banner thành công."),
-                ));
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                    content: Text("Cập nhật banner thành công."),
+                  ));
                 _authBloc..add(AuthCheckEvent());
               }
               if (state is AccEditSaveSuccessState) {
                 _authBloc..add(AuthCheckEvent());
-                Scaffold.of(context)
-                    .showSnackBar(new SnackBar(
-                      duration: Duration(seconds: 1),
-                      content: Text("Cập nhật thông tin thành công."),
-                    ))
-                    .closed
-                    .then((value) {
-                  Navigator.of(context).pop();
-                });
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                    duration: Duration(seconds: 1),
+                    content: Text("Cập nhật thông tin thành công."),
+                  )).closed.then((value) {
+                    Navigator.of(context).pop();
+                  });
               }
             },
             child: BlocBuilder<AccountBloc, AccountState>(
@@ -301,7 +306,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               //     height: 400,
                               //     showBottomToolbar: true,
                               //   ),
-                            
+
                               // ),
                               Container(
                                 height: 48.0,
@@ -311,7 +316,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   color: Colors.blue,
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
-                                      _user.fullContent = "";//await keyEditor.currentState.getText();
+                                      _user.fullContent = ""; //await keyEditor.currentState.getText();
                                       _formKey.currentState.save();
                                       accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
                                     }

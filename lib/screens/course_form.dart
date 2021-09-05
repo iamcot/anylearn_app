@@ -100,14 +100,18 @@ class _CourseFormScreen extends State<CourseFormScreen> {
           bloc: _courseBloc,
           listener: (context, state) {
             if (state is CourseFailState) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: Text(state.error.toString()),
-              ));
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text(state.error.toString()),
+                ));
             }
             if (state is CourseSaveSuccessState) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: Text("Lưu khóa học thành công."),
-              ));
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text("Lưu khóa học thành công."),
+                ));
               _itemDTO = new ItemDTO(
                 type: MyConst.ITEM_COURSE,
               );
@@ -115,9 +119,11 @@ class _CourseFormScreen extends State<CourseFormScreen> {
               Navigator.of(context).pushNamed("/course/list");
             }
             if (state is UploadImageSuccessState) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: Text("Cập nhật hình ảnh thành công."),
-              ));
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text("Cập nhật hình ảnh thành công."),
+                ));
               _itemDTO.image = state.url;
             }
           },
