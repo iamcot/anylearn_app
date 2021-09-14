@@ -142,7 +142,7 @@ class _HomeBody extends State<HomeBody> {
           ),
         ),
         new HomeBanner(
-          imgList: widget.homeData.banners,
+          banners: widget.homeData.homeBanner,
           ratio: widget.homeData.config.bannerRatio ?? 0.5625,
         ),
         new HotUsers(

@@ -138,7 +138,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Phần trăm doanh thu của đối tác (số thập phân)",
+                                        labelText: "Phần trăm doanh thu của ${_user.name} (số thập phân)",
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),

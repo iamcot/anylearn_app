@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
@@ -43,6 +44,12 @@ class _AccountHelpCenterScreen extends State<AccountHelpCenterScreen> {
                   Html(
                     data: guide.content,
                     shrinkWrap: true,
+                    onLinkTap: (String url) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => WebviewScreen(
+                                url: url,
+                              )));
+                    },
                   ),
                   Divider(),
                   Container(

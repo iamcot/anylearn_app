@@ -40,6 +40,7 @@ class UserDTO extends Equatable {
   final List<ItemDTO> faved;
   final List<ItemDTO> rated;
   final List<UserDTO> children;
+  final int cartcount;
 
   UserDTO({
     this.id,
@@ -78,6 +79,7 @@ class UserDTO extends Equatable {
     this.faved,
     this.rated,
     this.children,
+    this.cartcount,
   });
 
   @override
@@ -117,6 +119,7 @@ class UserDTO extends Equatable {
         faved,
         rated,
         children,
+        cartcount,
       ];
 
   @override
@@ -150,6 +153,7 @@ class UserDTO extends Equatable {
             numFriends: json['num_friends'],
             refLink: json['reflink'],
             fullContent: json['full_content'],
+            cartcount: json['cartcount'] == null ? 0 : json['cartcount'],
             docs: json['docs'] == null
                 ? null
                 : List<UserDocDTO>.from(json['docs']?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList(),

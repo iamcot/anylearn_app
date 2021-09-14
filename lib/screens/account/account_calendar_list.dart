@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
@@ -5,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../blocs/account/account_blocs.dart';
@@ -68,7 +70,10 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                           text:
                               widget.events[itemIndex].location == null ? "" : widget.events[itemIndex].location + "\n",
                           children: [
-                            TextSpan(text: widget.events[itemIndex].childName != null ? "[" + widget.events[itemIndex].childName + "]" : ""),
+                            TextSpan(
+                                text: widget.events[itemIndex].childName != null
+                                    ? "[" + widget.events[itemIndex].childName + "]"
+                                    : ""),
                             TextSpan(text: widget.events[itemIndex].time),
                             TextSpan(
                                 text: widget.events[itemIndex].userJoined == null ? "" : "\nĐã xác nhận",
@@ -132,7 +137,12 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                 : RaisedButton(
                     color: Colors.blue,
                     onPressed: () {
-                      widget.accountBloc..add(AccJoinCourseEvent(token: widget.user.token, itemId: event.itemId, scheduleId: event.id, childId: event.childId));
+                      widget.accountBloc
+                        ..add(AccJoinCourseEvent(
+                            token: widget.user.token,
+                            itemId: event.itemId,
+                            scheduleId: event.id,
+                            childId: event.childId));
                     },
                     child: Text(
                       "Xác nhận",
@@ -229,19 +239,37 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
   }
 
   void _dialogJoin(EventDTO eventDTO, bool hasConfirm) {
-    print(eventDTO.userRating);
+    String route = "";
+    String routeInfo = "";
+    if (eventDTO.itemSubtype == MyConst.ITEM_SUBTYPE_ONLINE) {
+      OnlineScheduleInfoDTO onlineScheduleInfoDTO =
+          OnlineScheduleInfoDTO.fromJson(jsonDecode(eventDTO.scheduleContent));
+
+      if (onlineScheduleInfoDTO.url != null) {
+        route = onlineScheduleInfoDTO.url;
+        routeInfo = onlineScheduleInfoDTO.info;
+      } else if (eventDTO.location != null) {
+        route = eventDTO.location;
+      } else {
+        routeInfo = "Vui lòng chờ cập nhật thông tin lớp học.";
+      }
+    } else {
+      routeInfo = eventDTO.scheduleContent;
+    }
     showDialog(
       context: context,
       builder: (context) => SimpleDialog(
         children: <Widget>[
           ListTile(
             title: Text("Vào lớp học"),
-            subtitle: Text(eventDTO.location != null ? eventDTO.location : "Vui lòng chờ cập nhập lớp học"),
+            subtitle: route.isEmpty
+                ? Text(routeInfo)
+                : Text.rich(TextSpan(text: route, children: [
+                    TextSpan(text: routeInfo == null ? "" : "\n" + routeInfo),
+                  ])),
             onTap: () async {
               Navigator.of(context).pop();
-
-              if (eventDTO.location != null) {
-                final route = eventDTO.location;
+              if (route != null) {
                 if (Platform.isIOS) {
                   if (await canLaunch(route)) {
                     await launch(route, forceSafariVC: false);
@@ -249,6 +277,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                     if (await canLaunch(route)) {
                       await launch(route);
                     } else {
+                      toast("Đường dẫn lớp học không đúng, vui lòng kiểm tra lại với người phụ trách.");
                       throw 'Could not launch';
                     }
                   }
@@ -267,8 +296,12 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
               ? ListTile(
                   title: Text("Xác nhận tham gia"),
                   onTap: () {
-                    widget.accountBloc..add(AccJoinCourseEvent(
-                          token: widget.user.token, itemId: eventDTO.itemId, scheduleId: eventDTO.id, childId: eventDTO.childId));
+                    widget.accountBloc
+                      ..add(AccJoinCourseEvent(
+                          token: widget.user.token,
+                          itemId: eventDTO.itemId,
+                          scheduleId: eventDTO.id,
+                          childId: eventDTO.childId));
                     Navigator.of(context).pop();
                   },
                 )

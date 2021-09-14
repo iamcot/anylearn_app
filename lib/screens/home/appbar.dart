@@ -1,17 +1,24 @@
-import 'package:anylearn/main.dart';
-import 'package:anylearn/screens/webview.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 import '../../dto/user_dto.dart';
+import '../../main.dart';
 import '../../widgets/account_icon.dart';
 import '../../widgets/foundation_icon.dart';
 import '../../widgets/notification_icon.dart';
+import '../webview.dart';
 import 'home_top_icons.dart';
 
-class HomeAppBar extends StatelessWidget {
+class HomeAppBar extends StatefulWidget {
   final UserDTO user;
 
   const HomeAppBar({Key key, this.user}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _HomeAppBar();
+}
+
+class _HomeAppBar extends State<HomeAppBar> {
   @override
   Widget build(BuildContext context) {
     double statusHeight = MediaQuery.of(context).padding.top; //iOS = 44 & Android = 22
@@ -27,23 +34,33 @@ class HomeAppBar extends StatelessWidget {
       actions: <Widget>[
         // AddCourseIcon(),
         // SearchIcon(),
-        user == null
+        widget.user == null
             ? Text("")
-            : IconButton(
-                icon: Icon(Icons.shopping_cart),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => WebviewScreen(
-                            url: config.webUrl + "cart",
-                            token: user.token,
-                          )));
-                }),
+            : Container(
+                child: Badge(
+                  position: BadgePosition.topEnd(top: 5, end: 5),
+                  showBadge: widget.user.cartcount > 0,
+                  badgeContent: Text(
+                    widget.user.cartcount.toString(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  child: IconButton(
+                      icon: Icon(Icons.shopping_cart),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => WebviewScreen(
+                                  url: config.webUrl + "cart",
+                                  token: widget.user.token,
+                                )));
+                      }),
+                ),
+              ),
         FoundationIcon(),
         NotificationIcon(
-          user: user,
+          user: widget.user,
         ),
         AccountIcon(
-          user: user,
+          user: widget.user,
         ),
       ],
       flexibleSpace: LayoutBuilder(
@@ -55,7 +72,7 @@ class HomeAppBar extends StatelessWidget {
                 child: Container(
                     margin: EdgeInsets.fromLTRB(30.0, 90.0, 30.0, 5.0),
                     child: HomeTopIcons(
-                      user: user,
+                      user: widget.user,
                     )),
                 decoration: new BoxDecoration(
                   image: DecorationImage(

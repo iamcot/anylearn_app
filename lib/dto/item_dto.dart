@@ -4,6 +4,7 @@ class ItemDTO extends Equatable {
   final int id;
   String image;
   String type;
+  String subtype;
   String title;
   int price;
   int priceOrg;
@@ -32,6 +33,7 @@ class ItemDTO extends Equatable {
     this.image,
     this.title,
     this.type,
+    this.subtype,
     this.price,
     this.priceOrg,
     this.shortContent,
@@ -80,7 +82,9 @@ class ItemDTO extends Equatable {
         authorType,
         nolimitTime,
         openings,
+        subtype,
       ];
+
 
   @override
   String toString() => 'ItemDTO {title: $title, type: $type}';
@@ -92,6 +96,7 @@ class ItemDTO extends Equatable {
             title: json['title'],
             id: json['id'],
             type: json['type'],
+            subtype: json['subtype'],
             image: json['image'],
             price: json['price'],
             priceOrg: json['org_price'],

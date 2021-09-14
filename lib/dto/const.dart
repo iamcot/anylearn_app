@@ -17,6 +17,9 @@ class MyConst {
   static const ITEM_CLASS = "class";
   static const ITEM_PRODUCT = "product";
 
+  static const ITEM_SUBTYPE_ONLINE = 'online';
+  static const ITEM_SUBTYPE_OFFLINE = 'offline';
+
   static const ITEM_USER_STATUS_INACTIVE = 0;
   static const ITEM_USER_STATUS_ACTIVE = 1;
   static const ITEM_USER_STATUS_DONE = 99;

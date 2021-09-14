@@ -15,6 +15,7 @@ class HomeDTO extends Equatable {
   final List<ArticleDTO> articles;
   final List<ArticleDTO> videos;
   final homeClasses;
+  final List<HomeBannerDTO> homeBanner;
 
   HomeDTO({
     this.banners,
@@ -25,16 +26,18 @@ class HomeDTO extends Equatable {
     this.articles,
     this.videos,
     this.homeClasses,
+    this.homeBanner,
   });
 
   @override
-  List<Object> get props => [featuresIcons, hotItems, banners, monthCourses, config, articles, homeClasses, videos];
+  List<Object> get props => [featuresIcons, hotItems, banners, monthCourses, config, articles, homeClasses, videos, homeBanner];
 
   static HomeDTO fromJson(dynamic json) {
     return json == null
         ? null
         : HomeDTO(
             banners: List<String>.from(json['banners']),
+            homeBanner: json['new_banners'] == null ? null : List<HomeBannerDTO>.from(json['new_banners']?.map((v) => v == null ? null : HomeBannerDTO.fromJson(v))).toList(),
             hotItems: List<HotUsersDTO>.from(json['hot_items']?.map((v) => v == null ? null : HotUsersDTO.fromJson(v)))
                 .toList(),
             monthCourses:
@@ -70,6 +73,27 @@ class HomeClassesDTO extends Equatable {
         : HomeClassesDTO(
             title: json['title'],
             classes: List<ItemDTO>.from(json['classes']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
+          );
+  }
+}
+
+class HomeBannerDTO extends Equatable {
+  final String file;
+  final String route;
+  final String arg;
+
+  HomeBannerDTO({this.file, this.route, this.arg});
+
+  @override
+  List<Object> get props => [file, route, arg];
+
+  static HomeBannerDTO fromJson(dynamic json) {
+    return json == null
+        ? null
+        : HomeBannerDTO(
+            file: json['file'],
+            route: json['route'],
+            arg: json['arg'],
           );
   }
 }

@@ -65,6 +65,7 @@ class _HomeArticleTabs extends State<HomeArticleTabs> with TickerProviderStateMi
                                   width: 80,
                                   child: _articleImg(item),
                                 ),
+                                trailing: Icon(Icons.chevron_right),
                                 title: Text(
                                   item.title,
                                   maxLines: 2,

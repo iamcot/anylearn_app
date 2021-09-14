@@ -1,17 +1,12 @@
-import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../dto/contract.dart';
 import '../dto/user_dto.dart';
-import '../widgets/gradient_button.dart';
 import '../widgets/loading_widget.dart';
-import 'draw.dart';
 
 class ContractSignScreen extends StatefulWidget {
   @override
@@ -49,7 +44,6 @@ class _ContractSignScreen extends State<ContractSignScreen> {
             builder: (context, state) {
               if (state is AuthContractLoadSuccessState) {
                 _contract = state.contract;
-                print(_contract.template);
               }
               return _contract == null
                   ? LoadingWidget()

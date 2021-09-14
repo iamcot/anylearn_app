@@ -1,4 +1,5 @@
 import 'package:anylearn/dto/hot_items_dto.dart';
+import 'package:anylearn/screens/webview.dart';
 import 'package:anylearn/widgets/hot_items.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -176,7 +177,16 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(15),
-                          child: Html(data: user.fullContent),
+                          child: Html(
+                            data: user.fullContent,
+                            shrinkWrap: true,
+                            onLinkTap: (String url) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => WebviewScreen(
+                                        url: url,
+                                      )));
+                            },
+                          ),
                         ),
                       ],
                     ),

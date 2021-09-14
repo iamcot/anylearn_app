@@ -3,8 +3,10 @@ import 'package:equatable/equatable.dart';
 class EventDTO extends Equatable {
   final int id;
   final int itemId;
+  final String itemSubtype;
   final String title;
   final String content;
+  final String scheduleContent;
   final String author;
   final String date;
   final String time;
@@ -29,6 +31,7 @@ class EventDTO extends Equatable {
     this.time,
     this.timeEnd,
     this.location,
+    this.scheduleContent,
     this.image,
     this.route,
     this.userJoined,
@@ -37,6 +40,7 @@ class EventDTO extends Equatable {
     this.nolimitTime,
     this.childId,
     this.childName,
+    this.itemSubtype,
   });
 
   factory EventDTO.fromJson(Map<String, dynamic> json) {
@@ -44,6 +48,7 @@ class EventDTO extends Equatable {
       id: json['id'],
       itemId: json['item_id'],
       title: json['title'],
+      itemSubtype: json['item_subtype'],
       time: json['time'],
       timeEnd: json['time_end'],
       image: json['image'],
@@ -53,6 +58,7 @@ class EventDTO extends Equatable {
       userJoined: json['user_joined'],
       location: json['location'],
       authorStatus: json['author_status'],
+      scheduleContent: json['schedule_content'],
       childId: json['child_id'],
       childName: json['child_name'],
       userRating: json['user_rating'] == null ? 0 : int.parse(json['user_rating']),
@@ -75,5 +81,22 @@ class EventDTO extends Equatable {
         itemId,
         childId,
         childName,
+        scheduleContent,
       ];
+}
+
+class OnlineScheduleInfoDTO extends Equatable {
+  final String url;
+  final String info;
+
+  OnlineScheduleInfoDTO({this.url, this.info});
+  @override
+  List<Object> get props => throw UnimplementedError();
+
+  factory OnlineScheduleInfoDTO.fromJson(Map<String, dynamic> json) {
+    return OnlineScheduleInfoDTO(
+      url: json['url'],
+      info: json['info'],
+    );
+  }
 }
