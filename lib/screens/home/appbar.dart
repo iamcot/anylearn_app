@@ -34,7 +34,7 @@ class _HomeAppBar extends State<HomeAppBar> {
       actions: <Widget>[
         // AddCourseIcon(),
         // SearchIcon(),
-        widget.user == null
+        widget.user == null || !widget.user.enableIosTrans
             ? Text("")
             : Container(
                 child: Badge(

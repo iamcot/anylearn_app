@@ -67,12 +67,12 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                             text: DateFormat("dd/MM").format(DateTime.parse(widget.events[itemIndex].date))),
                         title: Text(widget.events[itemIndex].title),
                         subtitle: Text.rich(TextSpan(
-                          text:
-                              widget.events[itemIndex].location == null ? "" : widget.events[itemIndex].location + "\n",
+                          text: (widget.events[itemIndex].itemSubtype == MyConst.ITEM_SUBTYPE_OFFLINE 
+                          && widget.events[itemIndex].scheduleContent != widget.events[itemIndex].title) ? widget.events[itemIndex].scheduleContent : "",
                           children: [
                             TextSpan(
                                 text: widget.events[itemIndex].childName != null
-                                    ? "[" + widget.events[itemIndex].childName + "]"
+                                    ? "[" + widget.events[itemIndex].childName + "] "
                                     : ""),
                             TextSpan(text: widget.events[itemIndex].time),
                             TextSpan(
@@ -241,11 +241,13 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
   void _dialogJoin(EventDTO eventDTO, bool hasConfirm) {
     String route = "";
     String routeInfo = "";
+    OnlineScheduleInfoDTO onlineScheduleInfoDTO;
     if (eventDTO.itemSubtype == MyConst.ITEM_SUBTYPE_ONLINE) {
-      OnlineScheduleInfoDTO onlineScheduleInfoDTO =
-          OnlineScheduleInfoDTO.fromJson(jsonDecode(eventDTO.scheduleContent));
+      try {
+        onlineScheduleInfoDTO = OnlineScheduleInfoDTO.fromJson(jsonDecode(eventDTO.scheduleContent));
+      } catch (e) {}
 
-      if (onlineScheduleInfoDTO.url != null) {
+      if (onlineScheduleInfoDTO != null) {
         route = onlineScheduleInfoDTO.url;
         routeInfo = onlineScheduleInfoDTO.info;
       } else if (eventDTO.location != null) {
@@ -260,37 +262,37 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
       context: context,
       builder: (context) => SimpleDialog(
         children: <Widget>[
-          ListTile(
-            title: Text("Vào lớp học"),
-            subtitle: route.isEmpty
-                ? Text(routeInfo)
-                : Text.rich(TextSpan(text: route, children: [
-                    TextSpan(text: routeInfo == null ? "" : "\n" + routeInfo),
+          eventDTO.itemSubtype != MyConst.ITEM_SUBTYPE_ONLINE
+              ? Container()
+              : ListTile(
+                  title: Text("Vào lớp học"),
+                  subtitle: Text.rich(TextSpan(text: route, children: [
+                    routeInfo.isEmpty ? TextSpan(text: "") : TextSpan(text: "\n" + routeInfo),
                   ])),
-            onTap: () async {
-              Navigator.of(context).pop();
-              if (route != null) {
-                if (Platform.isIOS) {
-                  if (await canLaunch(route)) {
-                    await launch(route, forceSafariVC: false);
-                  } else {
-                    if (await canLaunch(route)) {
-                      await launch(route);
-                    } else {
-                      toast("Đường dẫn lớp học không đúng, vui lòng kiểm tra lại với người phụ trách.");
-                      throw 'Could not launch';
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    if (route != null) {
+                      if (Platform.isIOS) {
+                        if (await canLaunch(route)) {
+                          await launch(route, forceSafariVC: false);
+                        } else {
+                          if (await canLaunch(route)) {
+                            await launch(route);
+                          } else {
+                            toast("Đường dẫn lớp học không đúng, vui lòng kiểm tra lại với người phụ trách.");
+                            throw 'Could not launch';
+                          }
+                        }
+                      } else {
+                        if (await canLaunch(route)) {
+                          await launch(route);
+                        } else {
+                          throw 'Could not launch';
+                        }
+                      }
                     }
-                  }
-                } else {
-                  if (await canLaunch(route)) {
-                    await launch(route);
-                  } else {
-                    throw 'Could not launch';
-                  }
-                }
-              }
-            },
-          ),
+                  },
+                ),
           hasConfirm ? Divider() : SizedBox(height: 0),
           hasConfirm
               ? ListTile(

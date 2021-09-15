@@ -55,7 +55,7 @@ class _CourseRegisteredScreen extends State<CourseRegisteredScreen> {
                                 : Container(width: 50, child: CustomCachedImage(url: users[index].image)),
                             title: Text(users[index].name +
                                 (users[index].name != users[index].child ? " [" + users[index].child + "]" : "")),
-                            subtitle: Text(users[index].phone),
+                          //  subtitle: Text(users[index].phone),
                           );
                         },
                         separatorBuilder: (context, index) => Divider(),

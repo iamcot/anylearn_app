@@ -21,7 +21,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: hasBack ?? true,
       titleSpacing: 0.0,
       actions: <Widget>[
-        user == null
+        user == null  || !user.enableIosTrans
             ? Text("")
             : IconButton(
                 icon: Icon(Icons.shopping_cart),

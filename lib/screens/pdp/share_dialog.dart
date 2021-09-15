@@ -1,13 +1,14 @@
+import 'package:anylearn/dto/item_dto.dart';
 import 'package:anylearn/screens/pdp/course_share.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
 class PdpShareDialog extends StatelessWidget {
-  final itemId;
+  final ItemDTO item;
   final user;
   final pdpBloc;
 
-  const PdpShareDialog({Key key, this.itemId, this.user, this.pdpBloc}) : super(key: key);
+  const PdpShareDialog({Key key, this.item, this.user, this.pdpBloc}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(children: <Widget>[
@@ -19,15 +20,15 @@ class PdpShareDialog extends StatelessWidget {
                 builder: (context) => CourseShareScreen(
                       user: user,
                       pdpBloc: pdpBloc,
-                      pdpId: itemId,
+                      pdpId: item.id,
                     )));
           }),
-      // Divider(),
-      // ListTile(
-      //     title: Text("Chia sẻ ra mạng xã hội"),
-      //     onTap: () {
-      //       Share.share("Khóa học hay trên anyLEARN bạn có biết chưa https://anylearn.vn/course/" + itemId.toString());
-      //     }),
+      Divider(),
+      ListTile(
+          title: Text("Chia sẻ ra mạng xã hội"),
+          onTap: () {
+            Share.share(item.url);
+          }),
     ]);
   }
 }

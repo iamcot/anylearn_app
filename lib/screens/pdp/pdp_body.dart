@@ -269,10 +269,10 @@ class _PdpBody extends State<PdpBody> {
                             ? showDialog(
                                 context: context,
                                 builder: (context) => PdpShareDialog(
-                                  itemId: widget.data.item.id,
+                                  item: widget.data.item,
                                   user: widget.user,
                                   pdpBloc: widget.pdpBloc,
-                                ),
+                              ),
                               )
                             : Navigator.of(context).pushNamed('/login',
                                 arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));

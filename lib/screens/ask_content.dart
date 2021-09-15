@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:validators/validators.dart';
 
 import '../blocs/article/article_bloc.dart';
 import '../blocs/article/article_blocs.dart';
@@ -21,8 +22,12 @@ class _AskArticleScreen extends State<AskArticleScreen> {
 
   @override
   void didChangeDependencies() {
-    id = ModalRoute.of(context).settings.arguments;
-    print(id);
+    try {
+      id = int.parse(ModalRoute.of(context).settings.arguments);
+    } catch (e) {
+      id = ModalRoute.of(context).settings.arguments;
+    }
+
     _articleBloc = BlocProvider.of<ArticleBloc>(context)..add(ArticlePageEvent(id: id));
     super.didChangeDependencies();
   }
