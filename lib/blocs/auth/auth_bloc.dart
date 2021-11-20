@@ -9,7 +9,7 @@ import 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserRepository userRepository;
 
-  AuthBloc({@required this.userRepository}) : assert(userRepository != null);
+  AuthBloc({@required this.userRepository}) : assert(userRepository != null), super(null);
 
   @override
   AuthState get initialState => AuthInitState();
@@ -58,8 +58,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
     try {
       if (event is AuthContractLoadEvent) {
-        final contract = await userRepository.loadContract(event.token);
+        yield AuthContractInProgressState();
+        final contract = await userRepository.loadContract(event.token, event.contractId);
         yield AuthContractLoadSuccessState(contract: contract);
+      }
+    } catch (error) {
+      yield AuthContractLoadFailState(error: error.toString());
+    }
+     try {
+      if (event is AuthContractLoadForSignEvent) {
+        yield AuthContractInProgressState();
+        final contract = await userRepository.loadContract(event.token, event.contractId);
+        yield AuthContractLoadForSignSuccessState(contract: contract);
       }
     } catch (error) {
       yield AuthContractLoadFailState(error: error.toString());
@@ -67,8 +77,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       if (event is AuthContractSignEvent) {
         yield AuthContractSigningState();
-        final image = await userRepository.signContract(event.token, event.file);
-        yield AuthContractSignedSuccessState(image: image);
+        await userRepository.signContract(event.token, event.contractId);
+        yield AuthContractSignedSuccessState();
       }
     } catch (error) {
       yield AuthContractSignedFailState(error: error.toString());

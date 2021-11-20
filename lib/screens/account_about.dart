@@ -40,7 +40,7 @@ class _AccountAboutScreen extends State<AccountAboutScreen> {
           Html(
             data: guide.content,
             shrinkWrap: true,
-            onLinkTap: (String url) {
+            onLinkTap: (String url, _, __, ___) {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => WebviewScreen(
                         url: url,

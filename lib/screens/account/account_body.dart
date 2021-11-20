@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:anylearn/main.dart';
-import 'package:anylearn/screens/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -13,6 +11,8 @@ import '../../blocs/auth/auth_event.dart';
 import '../../dto/const.dart';
 import '../../dto/friend_params_dto.dart';
 import '../../dto/user_dto.dart';
+import '../../main.dart';
+import '../webview.dart';
 import 'app_bar_with_image.dart';
 import 'normal_menu.dart';
 
@@ -41,14 +41,15 @@ class _AccountBody extends State<AccountBody> {
                     route: "/transaction",
                     leadingIcon: MdiIcons.wallet,
                     trailing: Icon(Icons.chevron_right),
-                    subContent: Text(
-                      "anyPoint: " + moneyFormat.format(widget.user.walletC),
-                      style: TextStyle(
-                        color: Colors.orange,
-                        fontSize: 12.0,
-                        fontFeatures: [FontFeature.tabularFigures()],
-                      ),
-                    )),
+                    // subContent: Text(
+                    //   "anyPoint: " + moneyFormat.format(widget.user.walletC),
+                    //   style: TextStyle(
+                    //     color: Colors.orange,
+                    //     fontSize: 12.0,
+                    //     fontFeatures: [FontFeature.tabularFigures()],
+                    //   ),
+                    // ),
+                  ),
             widget.user.role == MyConst.ROLE_MEMBER
                 ? SizedBox(height: 0)
                 : AccountNormalMenu(

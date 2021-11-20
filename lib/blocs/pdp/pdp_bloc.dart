@@ -8,7 +8,7 @@ import 'pdp_state.dart';
 class PdpBloc extends Bloc<PdpEvent, PdpState> {
   final PageRepository pageRepository;
   final TransactionRepository transactionRepository;
-  PdpBloc({this.pageRepository, this.transactionRepository});
+  PdpBloc({this.pageRepository, this.transactionRepository}) : super(null);
 
   @override
   PdpState get initialState => PdpInitState();

@@ -7,7 +7,7 @@ import 'article_blocs.dart';
 
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   final PageRepository pageRepository;
-  ArticleBloc({this.pageRepository});
+  ArticleBloc({this.pageRepository}) : super(null);
 
   @override
   ArticleState get initialState => ArticleInitState();

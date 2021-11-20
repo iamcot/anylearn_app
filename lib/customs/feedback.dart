@@ -64,6 +64,7 @@ class _CustomFeedback extends State<CustomFeedback> {
                         padding: EdgeInsets.all(8),
                         margin: EdgeInsets.only(bottom: 20),
                         child: FloatingActionButton(
+                            heroTag: "feedbackBtn",
                             onPressed: () async {
                               showDialog(
                                   context: context,

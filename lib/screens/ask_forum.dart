@@ -8,8 +8,10 @@ import '../blocs/auth/auth_blocs.dart';
 import '../dto/ask_paging_dto.dart';
 import '../dto/const.dart';
 import '../dto/user_dto.dart';
+import '../main.dart';
 import '../themes/role_color.dart';
 import '../widgets/bottom_nav.dart';
+import '../widgets/fab_home.dart';
 import '../widgets/loading_widget.dart';
 import '../widgets/search_icon.dart';
 import '../widgets/time_ago.dart';
@@ -129,8 +131,11 @@ class _AskForumScreen extends State<AskForumScreen> {
                       );
               }),
         ),
+        floatingActionButton: FloatingActionButtonHome(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         bottomNavigationBar: BottomNav(
-          index: BottomNav.ASK_INDEX,
+          route: BottomNav.ASK_INDEX,
+          user: user,
         ),
       ),
     );

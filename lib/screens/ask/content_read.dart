@@ -33,7 +33,7 @@ class ContentRead extends StatelessWidget {
         Html(
           data: data.content,
           shrinkWrap: true,
-          onLinkTap: (String url) {
+         onLinkTap: (String url, _, __, ___) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => WebviewScreen(
                       url: url,

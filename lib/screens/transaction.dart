@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -58,9 +57,6 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
               if (state is TransactionHistorySuccessState) {
                 data = state.history;
               }
-              // if (state is TransactionHistoryLoadingState) {
-              //   return LoadingScreen();
-              // }
               return data == null
                   ? LoadingScreen()
                   : Scaffold(
@@ -75,103 +71,65 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                               })
                         ],
                         bottom: PreferredSize(
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  // Expanded(
-                                  //     child: Card(
-                                  //   child: Column(
-                                  //     children: <Widget>[
-                                  //       Container(
-                                  //         child: Row(children: [
-                                  //           Expanded(
-                                  //             child: Text(
-                                  //               "Tài khoản tiền",
-                                  //               style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
-                                  //             ),
-                                  //           ),
-                                  //           Text.rich(
-                                  //             TextSpan(
-                                  //                 text: "NẠP TIỀN",
-                                  //                 style: TextStyle(
-                                  //                   fontSize: 12.0,
-                                  //                   color: Colors.blue,
-                                  //                   fontWeight: FontWeight.bold,
-                                  //                 ),
-                                  //                 recognizer: TapGestureRecognizer()
-                                  //                   ..onTap = () async {
-                                  //                     await Navigator.of(context).pushNamed("/deposit");
-                                  //                     _authBloc = BlocProvider.of<AuthBloc>(context)
-                                  //                       ..add(AuthCheckEvent());
-                                  //                   }),
-                                  //           ),
-                                  //         ]),
-                                  //         padding: EdgeInsets.all(10.0),
-                                  //         decoration:
-                                  //             const BoxDecoration(border: Border(bottom: BorderSide(width: 0.1))),
-                                  //       ),
-                                  //       Container(
-                                  //           padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                                  //           child: Text(
-                                  //             monneyF.format(_user.walletM),
-                                  //             style: TextStyle(
-                                  //                 color: Colors.blue, fontWeight: FontWeight.w200, fontSize: 30.0),
-                                  //           )),
-                                  //     ],
-                                  //   ),
-                                  // )),
-                                  Expanded(
-                                      child: Card(
-                                    child: Column(
+                          child: _user.disableAnypoint
+                              ? Container()
+                              : Column(
+                                  children: <Widget>[
+                                    Row(
                                       children: <Widget>[
-                                        Container(
-                                          child: Row(children: [
-                                            Expanded(
-                                              child: Text(
-                                                "anyPoint",
-                                                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                                        Expanded(
+                                            child: Card(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Container(
+                                                child: Row(children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      "anyPoint",
+                                                      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  // Text.rich(
+                                                  //   TextSpan(
+                                                  //       text: "RÚT ĐIỂM",
+                                                  //       style: TextStyle(
+                                                  //         fontSize: 12.0,
+                                                  //         color: Colors.orange,
+                                                  //         fontWeight: FontWeight.bold,
+                                                  //       ),
+                                                  //       recognizer: TapGestureRecognizer()
+                                                  //         ..onTap = () async {
+                                                  //           await Navigator.of(context).pushNamed("/withdraw");
+                                                  //           _authBloc = BlocProvider.of<AuthBloc>(context)
+                                                  //             ..add(AuthCheckEvent());
+                                                  //         }),
+                                                  // ),
+                                                ]),
+                                                padding: EdgeInsets.all(10.0),
+                                                decoration:
+                                                    const BoxDecoration(border: Border(bottom: BorderSide(width: 0.1))),
                                               ),
-                                            ),
-                                            // Text.rich(
-                                            //   TextSpan(
-                                            //       text: "RÚT ĐIỂM",
-                                            //       style: TextStyle(
-                                            //         fontSize: 12.0,
-                                            //         color: Colors.orange,
-                                            //         fontWeight: FontWeight.bold,
-                                            //       ),
-                                            //       recognizer: TapGestureRecognizer()
-                                            //         ..onTap = () async {
-                                            //           await Navigator.of(context).pushNamed("/withdraw");
-                                            //           _authBloc = BlocProvider.of<AuthBloc>(context)
-                                            //             ..add(AuthCheckEvent());
-                                            //         }),
-                                            // ),
-                                          ]),
-                                          padding: EdgeInsets.all(10.0),
-                                          decoration:
-                                              const BoxDecoration(border: Border(bottom: BorderSide(width: 0.1))),
-                                        ),
-                                        Container(
-                                            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                                            child: Text(
-                                              monneyF.format(_user.walletC),
-                                              style: TextStyle(
-                                                  color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 30.0),
-                                            )),
+                                              Container(
+                                                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                                  child: Text(
+                                                    monneyF.format(_user.walletC),
+                                                    style: TextStyle(
+                                                        color: Colors.orange,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 30.0),
+                                                  )),
+                                            ],
+                                          ),
+                                        )),
                                       ],
                                     ),
-                                  )),
-                                ],
-                              ),
-                              TabBar(controller: _tabController, tabs: [
-                                Tab(child: Text("Lịch sử thanh toán")),
-                                Tab(child: Text("Lịch sử anyPoint")),
-                              ]),
-                            ],
-                          ),
-                          preferredSize: Size.fromHeight(150.0),
+                                    TabBar(controller: _tabController, tabs: [
+                                      Tab(child: Text("Lịch sử thanh toán")),
+                                      Tab(child: Text("Lịch sử anyPoint")),
+                                    ]),
+                                  ],
+                                ),
+                          preferredSize: _user.disableAnypoint ? Size.fromHeight(0) : Size.fromHeight(150.0),
                         ),
                       ),
                       body: CustomFeedback(
@@ -183,7 +141,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                               transactions: data[MyConst.WALLET_M],
                               tab: "wallet_m",
                             ),
-                            TransactionList(transactions: data[MyConst.WALLET_C], tab: "wallet_c"),
+                            _user.disableAnypoint ? Container() : TransactionList(transactions: data[MyConst.WALLET_C], tab: "wallet_c"),
                           ],
                         ),
                       ),

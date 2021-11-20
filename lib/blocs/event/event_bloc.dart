@@ -6,7 +6,7 @@ import 'event_state.dart';
 
 class EventBloc extends Bloc<EventEvent, EventState> {
   final PageRepository pageRepository;
-  EventBloc({this.pageRepository});
+  EventBloc({this.pageRepository}) : super(null);
 
   @override
   EventState get initialState => EventInitState();

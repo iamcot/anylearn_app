@@ -61,7 +61,20 @@ class AuthContractSaveEvent extends AuthEvent {
 
 class AuthContractLoadEvent extends AuthEvent {
   final String token;
-  const AuthContractLoadEvent({@required this.token});
+  final int contractId;
+  const AuthContractLoadEvent({@required this.token, this.contractId});
+
+  @override
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'AuthContractLoadEvent';
+}
+
+class AuthContractLoadForSignEvent extends AuthEvent {
+  final String token;
+  final int contractId;
+  const AuthContractLoadForSignEvent({@required this.token, this.contractId});
 
   @override
   List<Object> get props => [token];
@@ -72,12 +85,12 @@ class AuthContractLoadEvent extends AuthEvent {
 
 class AuthContractSignEvent extends AuthEvent {
   final String token;
-  final File file;
+  final int contractId;
 
-  const AuthContractSignEvent({@required this.token, this.file});
+  const AuthContractSignEvent({@required this.token, this.contractId});
 
   @override
-  List<Object> get props => [token, file];
+  List<Object> get props => [token, contractId];
 
   @override
   String toString() => 'AuthContractSignEvent';

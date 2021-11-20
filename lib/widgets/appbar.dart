@@ -18,12 +18,15 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.white,
       automaticallyImplyLeading: hasBack ?? true,
-      titleSpacing: 0.0,
+      titleSpacing: 10.0,
+      foregroundColor: Colors.grey,
       actions: <Widget>[
-        user == null  || !user.enableIosTrans
+        user == null || !user.enableIosTrans
             ? Text("")
             : IconButton(
+                color: Colors.grey[500],
                 icon: Icon(Icons.shopping_cart),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -32,12 +35,12 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
                             token: user.token,
                           )));
                 }),
-        screen != "notification"
+        (screen != "notification" && screen != "home")
             ? SearchIcon(
                 screen: screen,
               )
             : Text(""),
-        screen != "account" && screen != "notification" ? NotificationIcon() : Container(child: null),
+        NotificationIcon(user: user,),
         screen != "account" && screen != "notification"
             ? new AccountIcon(
                 user: user ?? null,
@@ -45,10 +48,16 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             : Text(""),
       ],
       centerTitle: false,
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 14.0),
-      ),
+      title: title != ""
+          ? Text(
+              title,
+              style: TextStyle(fontSize: 14.0),
+            )
+          : Image.asset(
+              "assets/images/logo-full.png",
+              fit: BoxFit.cover,
+              height: 32.0,
+            ),
     );
   }
 

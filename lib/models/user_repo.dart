@@ -136,12 +136,12 @@ class UserRepository {
     return await userService.saveContract(token, contract);
   }
 
-  Future<ContractDTO> loadContract(String token) async {
-    return await userService.loadContract(token);
+  Future<ContractDTO> loadContract(String token, int contractId) async {
+    return await userService.loadContract(token, contractId);
   }
 
-  Future<String> signContract(String token, File file) async {
-    return await userService.signContract(token, file);
+  Future<bool> signContract(String token, int contractId) async {
+    return await userService.signContract(token, contractId);
   }
 
   Future<bool> saveChildren(String token, int id, String name) async {

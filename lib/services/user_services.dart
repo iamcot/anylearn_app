@@ -209,16 +209,16 @@ class UserService extends BaseService {
     return json['result'];
   }
 
-  Future<ContractDTO> loadContract(String token) async {
-    final url = buildUrl(appConfig: config, endPoint: "/user/contract", token: token);
+  Future<ContractDTO> loadContract(String token, int contractId) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/contract/$contractId", token: token);
     final json = await get(httpClient, url);
     return json == null ? null : ContractDTO.fromJson(json);
   }
 
-  Future<String> signContract(String token, File file) async {
-    final url = buildUrl(appConfig: config, endPoint: "/user/contract/sign", token: token);
-    final jsonStr = await postImage(url, file);
-    return jsonStr;
+  Future<bool> signContract(String token, int contractId) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/contract/sign/$contractId", token: token);
+    final json = await get(httpClient, url);
+    return json['result'];
   }
 
   Future<bool> saveChildren(String token, int id, String name) async {

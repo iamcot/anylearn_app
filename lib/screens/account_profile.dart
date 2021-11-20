@@ -1,6 +1,4 @@
-import 'package:anylearn/dto/hot_items_dto.dart';
-import 'package:anylearn/screens/webview.dart';
-import 'package:anylearn/widgets/hot_items.dart';
+import 'package:anylearn/widgets/bottom_nav.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,10 +8,14 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '../blocs/account/account_blocs.dart';
 import '../customs/custom_cached_image.dart';
 import '../dto/const.dart';
+import '../dto/hot_items_dto.dart';
 import '../dto/user_dto.dart';
 import '../models/user_repo.dart';
+import '../widgets/fab_home.dart';
+import '../widgets/hot_items.dart';
 import '../widgets/loading_widget.dart';
 import 'account/user_doc_list.dart';
+import 'webview.dart';
 
 class AccountProfileScreen extends StatefulWidget {
   @override
@@ -26,7 +28,6 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
     final _userRepo = RepositoryProvider.of<UserRepository>(context);
     int userId = ModalRoute.of(context).settings.arguments;
     if (userId == null) {
@@ -34,24 +35,31 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     } else {
       _accountBloc = AccountBloc(userRepository: _userRepo)..add(AccProfileEvent(userId: userId));
     }
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  Navigator.of(context).pushNamed("/account");
-                })
-          ],
-        ),
-        body: BlocProvider<AccountBloc>(create: (context) {
-          return _accountBloc;
-        }, child: BlocBuilder<AccountBloc, AccountState>(builder: (context, state) {
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                Navigator.of(context).pushNamed("/account");
+              })
+        ],
+      ),
+      floatingActionButton: FloatingActionButtonHome(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+      bottomNavigationBar: BottomNav(
+        route: BottomNav.PROFILE_INDEX,
+        user: user,
+      ),
+      body: BlocBuilder<AccountBloc, AccountState>(
+        bloc: _accountBloc,
+        builder: (context, state) {
           if (state is AccProfileSuccessState) {
             user = state.user;
             return ListView(children: [
@@ -180,7 +188,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           child: Html(
                             data: user.fullContent,
                             shrinkWrap: true,
-                            onLinkTap: (String url) {
+                            onLinkTap: (String url, _, __, ___) {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => WebviewScreen(
                                         url: url,
@@ -193,7 +201,9 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
             ]);
           }
           return LoadingWidget();
-        })));
+        },
+      ),
+    );
   }
 
   Widget _imageBox(double size) {

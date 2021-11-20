@@ -99,9 +99,6 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
                 );
               }),
             ),
-            bottomNavigationBar: BottomNav(
-              index: BottomNav.EVENT_INDEX,
-            ),
           );
         });
   }

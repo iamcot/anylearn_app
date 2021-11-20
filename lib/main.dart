@@ -1,4 +1,6 @@
 import 'package:anylearn/blocs/account/account_blocs.dart';
+import 'package:anylearn/dto/notification_dto.dart';
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +20,15 @@ import 'models/transaction_repo.dart';
 import 'models/user_repo.dart';
 import 'routes.dart';
 import 'screens/home.dart';
-import 'services/firebase_service.dart';
 import 'themes/default.dart';
 
 bool newNotification = false;
 String notifToken;
-final env = "prod";
+// final env = "prod";
 // final env = "staging";
-// final env = "dev";
+final env = "dev";
 AppConfig config;
+UserDTO user;
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -36,7 +38,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   config = await AppConfig.forEnv(env);
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+  // BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepo = UserRepository(config: config);
   final pageRepo = PageRepository(config: config);
   final transRepo = TransactionRepository(config: config);
@@ -78,16 +80,44 @@ class MyApp extends StatefulWidget {
 
 class _MyApp extends State<MyApp> {
   final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage message) {
+      if (message != null) {
+        print('A new getInitialMessage event was published!');
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('A new onMessage event was published!');
+      final notifObj = NotificationDTO.fromFireBase(message.notification);
+      showSimpleNotification(
+          Card(
+            child: Container(
+              padding: EdgeInsets.all(15),
+              child: Text(
+                notifObj.content,
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+          background: Colors.transparent);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+    });
+    FirebaseMessaging.instance.getToken().then((token) {
+      assert(token != null);
+      print(token);
+      notifToken = token;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    FirebaseService(
-        key: widget.key,
-        navigatorKey: navigatorKey,
-        func: () {
-          setState(() {
-            newNotification = true;
-          });
-        }).init(context);
     return OverlaySupport(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -134,22 +164,22 @@ class _MyApp extends State<MyApp> {
 //   }
 // }
 
-class SimpleBlocDelegate extends BlocDelegate {
-  @override
-  void onEvent(Bloc bloc, Object event) {
-    print(event);
-    super.onEvent(bloc, event);
-  }
+// class SimpleBlocDelegate extends BlocDelegate {
+//   @override
+//   void onEvent(Bloc bloc, Object event) {
+//     print(event);
+//     super.onEvent(bloc, event);
+//   }
 
-  @override
-  void onTransition(Bloc bloc, Transition transition) {
-    print(transition);
-    super.onTransition(bloc, transition);
-  }
+//   @override
+//   void onTransition(Bloc bloc, Transition transition) {
+//     print(transition);
+//     super.onTransition(bloc, transition);
+//   }
 
-  @override
-  void onError(Bloc bloc, Object error, StackTrace stackTrace) {
-    print(error);
-    super.onError(bloc, error, stackTrace);
-  }
-}
+//   @override
+//   void onError(Bloc bloc, Object error, StackTrace stackTrace) {
+//     print(error);
+//     super.onError(bloc, error, stackTrace);
+//   }
+// }

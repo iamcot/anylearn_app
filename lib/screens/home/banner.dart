@@ -39,6 +39,7 @@ class _HomeBanner extends State<HomeBanner> {
     final height = width * widget.ratio;
     return SliverToBoxAdapter(
       child: Container(
+        margin: EdgeInsets.only(top:15.0),
         child: CarouselSlider(
           options: CarouselOptions(
             initialPage: 0,

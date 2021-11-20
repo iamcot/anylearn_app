@@ -5,7 +5,7 @@ import 'transaction_blocs.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   final TransactionRepository transactionRepository;
-  TransactionBloc({this.transactionRepository});
+  TransactionBloc({this.transactionRepository}) : super(null);
 
   @override
   TransactionState get initialState => TransactionInitState();

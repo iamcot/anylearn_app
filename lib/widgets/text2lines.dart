@@ -4,13 +4,14 @@ class Text2Lines extends StatelessWidget {
   final String text;
   final double fontSize;
   final FontWeight fontWeight;
+  final alignment;
 
-  const Text2Lines({Key key, this.text, this.fontSize = 14.0, this.fontWeight = FontWeight.normal}) : super(key: key);
+  const Text2Lines({Key key, this.text, this.fontSize = 14.0, this.fontWeight = FontWeight.normal, this.alignment = Alignment.topLeft}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.topLeft,
+      alignment: alignment,
       child: Text(
         text,
         softWrap: true,

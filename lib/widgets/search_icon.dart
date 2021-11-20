@@ -10,6 +10,7 @@ class SearchIcon extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(right: 0.0),
       child: IconButton(
+        color: Colors.grey[500],
         icon: Icon(
           Icons.search,
           size: 24.0,

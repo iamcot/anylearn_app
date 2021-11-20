@@ -7,9 +7,11 @@ import '../blocs/home/home_blocs.dart';
 import '../customs/feedback.dart';
 import '../dto/home_dto.dart';
 import '../dto/quote_dto.dart';
-import '../dto/user_dto.dart';
+import '../main.dart';
 import '../models/page_repo.dart';
+import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
+import '../widgets/fab_home.dart';
 import '../widgets/intro.dart';
 import 'home/exit_confirm.dart';
 import 'home/home_body.dart';
@@ -34,7 +36,6 @@ class _HomeScreen extends State<HomeScreen> {
     checkFirstSeen();
   }
 
-  UserDTO user;
   HomeDTO homeData;
   Future<bool> _willExit() async {
     return await showDialog(context: context, builder: (context) => new ExitConfirm());
@@ -79,6 +80,12 @@ class _HomeScreen extends State<HomeScreen> {
                 }
                 return homeData != null
                     ? Scaffold(
+                        appBar: BaseAppBar(
+                          screen: "home",
+                          user: user,
+                          hasBack: false,
+                          title: "",
+                        ),
                         body: RefreshIndicator(
                           child: CustomFeedback(
                               user: user,
@@ -89,8 +96,12 @@ class _HomeScreen extends State<HomeScreen> {
                               )),
                           onRefresh: _reloadPage,
                         ),
+                        floatingActionButton: FloatingActionButtonHome(
+                          isHome: true,
+                        ),
+                        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
                         bottomNavigationBar: BottomNav(
-                          index: BottomNav.HOME_INDEX,
+                          route: BottomNav.HOME_INDEX,
                           user: user,
                         ),
                       )

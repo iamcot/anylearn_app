@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 class CustomCachedImage extends StatelessWidget {
   final String url;
   final fit;
+  final borderRadius;
 
-  const CustomCachedImage({Key key, this.url, this.fit}) : super(key: key);
+  CustomCachedImage({Key key, this.url, this.fit, this.borderRadius}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: url,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderRadius ?? 0),
           image: DecorationImage(
             image: imageProvider,
             fit: fit ?? BoxFit.cover,

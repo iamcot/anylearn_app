@@ -1,5 +1,3 @@
-import 'package:anylearn/dto/login_callback.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../dto/user_dto.dart';
@@ -18,6 +16,7 @@ class _AccountIcon extends State<AccountIcon> {
     return Container(
       padding: EdgeInsets.only(right: 10.0),
       child: IconButton(
+         color: Colors.grey[500],
           icon: Icon(Icons.menu),
           onPressed: () {
             Navigator.of(context).pushNamed("/account");

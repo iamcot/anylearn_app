@@ -7,7 +7,7 @@ import 'account_state.dart';
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final UserRepository userRepository;
-  AccountBloc({this.userRepository});
+  AccountBloc({this.userRepository}) : super(null);
 
   @override
   AccountState get initialState => AccountInitState();

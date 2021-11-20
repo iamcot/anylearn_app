@@ -1,12 +1,14 @@
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/article/article_blocs.dart';
 import '../dto/article_dto.dart';
+import '../dto/const.dart';
+import '../main.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
+import '../widgets/fab_home.dart';
+import '../widgets/loading_widget.dart';
 import 'ask/ask_cat_body.dart';
 
 class AskCatScreen extends StatefulWidget {
@@ -57,8 +59,11 @@ class _AskCatScreen extends State<AskCatScreen> {
                     );
             }),
       ),
+      floatingActionButton: FloatingActionButtonHome(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
-        index: BottomNav.ASK_INDEX,
+        route: BottomNav.ASK_INDEX,
+        user: user,
       ),
     );
   }

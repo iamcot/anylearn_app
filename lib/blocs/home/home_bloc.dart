@@ -7,7 +7,7 @@ import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final PageRepository pageRepository;
-  HomeBloc({this.pageRepository});
+  HomeBloc({this.pageRepository}) : super(null);
 
   @override
   HomeState get initialState => HomeInitState();

@@ -1,55 +1,52 @@
-import 'package:anylearn/dto/article_dto.dart';
-import 'package:anylearn/dto/home_config_dto.dart';
-import 'package:anylearn/dto/hot_users_dto.dart';
 import 'package:equatable/equatable.dart';
 
+import 'article_dto.dart';
 import 'feature_data_dto.dart';
+import 'home_config_dto.dart';
 import 'item_dto.dart';
 
 class HomeDTO extends Equatable {
   List<FeatureDataDTO> featuresIcons;
-  List<HotUsersDTO> hotItems;
-  List<String> banners;
-  List<ItemDTO> monthCourses;
   final HomeConfigDTO config;
   final List<ArticleDTO> articles;
-  final List<ArticleDTO> videos;
-  final homeClasses;
+  final List<ArticleDTO> promotions;
+  final List<ArticleDTO> events;
+  final List<HomeClassesDTO> homeClasses;
   final List<HomeBannerDTO> homeBanner;
 
   HomeDTO({
-    this.banners,
     this.featuresIcons,
-    this.hotItems,
-    this.monthCourses,
     this.config,
     this.articles,
-    this.videos,
     this.homeClasses,
     this.homeBanner,
+    this.promotions,
+    this.events,
   });
 
   @override
-  List<Object> get props => [featuresIcons, hotItems, banners, monthCourses, config, articles, homeClasses, videos, homeBanner];
+  List<Object> get props => [featuresIcons, config, articles, homeClasses, homeBanner, promotions, events];
 
   static HomeDTO fromJson(dynamic json) {
     return json == null
         ? null
         : HomeDTO(
-            banners: List<String>.from(json['banners']),
-            homeBanner: json['new_banners'] == null ? null : List<HomeBannerDTO>.from(json['new_banners']?.map((v) => v == null ? null : HomeBannerDTO.fromJson(v))).toList(),
-            hotItems: List<HotUsersDTO>.from(json['hot_items']?.map((v) => v == null ? null : HotUsersDTO.fromJson(v)))
-                .toList(),
-            monthCourses:
-                List<ItemDTO>.from(json['month_courses']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
+            homeBanner: json['new_banners'] == null
+                ? null
+                : List<HomeBannerDTO>.from(
+                    json['new_banners']?.map((v) => v == null ? null : HomeBannerDTO.fromJson(v))).toList(),
             config: json['articles'] == null ? null : HomeConfigDTO.fromJson(json['configs']),
             articles: json['articles'] == null
                 ? null
                 : List<ArticleDTO>.from(json['articles']?.map((e) => e == null ? null : ArticleDTO.fromJson(e)))
                     .toList(),
-            videos: json['videos'] == null
+            promotions: json['promotions'] == null
                 ? null
-                : List<ArticleDTO>.from(json['videos']?.map((e) => e == null ? null : ArticleDTO.fromJson(e))).toList(),
+                : List<ArticleDTO>.from(json['promotions']?.map((e) => e == null ? null : ArticleDTO.fromJson(e)))
+                    .toList(),
+            events: json['events'] == null
+                ? null
+                : List<ArticleDTO>.from(json['events']?.map((e) => e == null ? null : ArticleDTO.fromJson(e))).toList(),
             homeClasses: json['home_classes'] == null
                 ? null
                 : List<HomeClassesDTO>.from(

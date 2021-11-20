@@ -7,7 +7,7 @@ import 'notif_blocs.dart';
 class NotifBloc extends Bloc<NotifEvent, NotifState> {
   final UserRepository userRepository;
 
-  NotifBloc({@required this.userRepository}) : assert(userRepository != null);
+  NotifBloc({@required this.userRepository}) : assert(userRepository != null), super(null);
 
   @override
   NotifState get initialState => NotifInitState();

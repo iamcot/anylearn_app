@@ -23,6 +23,7 @@ class _NotificationIcon extends State<NotificationIcon> {
               badgeContent: Text("!"),
               showBadge: newNotification,
               child: IconButton(
+                color: Colors.grey[500],
                 padding: EdgeInsets.all(0.0),
                 icon: Icon(
                   Icons.notifications,

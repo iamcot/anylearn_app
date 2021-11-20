@@ -36,6 +36,7 @@ class UserDTO extends Equatable {
   String dobPlace;
   int isSigned;
   final bool enableIosTrans;
+  final bool disableAnypoint;
   final List<ItemDTO> registered;
   final List<ItemDTO> faved;
   final List<ItemDTO> rated;
@@ -75,6 +76,7 @@ class UserDTO extends Equatable {
     this.isSigned,
     this.dobPlace,
     this.enableIosTrans,
+    this.disableAnypoint,
     this.registered,
     this.faved,
     this.rated,
@@ -115,6 +117,7 @@ class UserDTO extends Equatable {
         isSigned,
         dobPlace,
         enableIosTrans,
+        disableAnypoint,
         registered,
         faved,
         rated,
@@ -161,6 +164,7 @@ class UserDTO extends Equatable {
             dobPlace: json['dob_place'],
             rating: json['rating'] == null ? null : double.parse(json['rating'].toString()),
             enableIosTrans: json['ios_transaction'] == null ? false : (json['ios_transaction'] == 1),
+            disableAnypoint: json['disable_anypoint'] == null ? false : (json['disable_anypoint'] == 1),
             registered: json['registered'] == null
                 ? null
                 : List<ItemDTO>.from(json['registered']?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList(),

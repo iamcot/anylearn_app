@@ -5,7 +5,7 @@ import 'search_blocs.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final PageRepository pageRepository;
-  SearchBloc({this.pageRepository});
+  SearchBloc({this.pageRepository}) : super(null);
 
   @override
   SearchState get initialState => SearchInitState();

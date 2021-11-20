@@ -41,6 +41,7 @@ class AuthFailState extends AuthState {
 class AuthTokenFailState extends AuthState {}
 
 class AuthInProgressState extends AuthState {}
+class AuthContractInProgressState extends AuthState {}
 
 // class AuthContractSavingState extends AuthState {}
 class AuthContractSuccessState extends AuthState {}
@@ -58,6 +59,15 @@ class AuthContractLoadSuccessState extends AuthState {
   final ContractDTO contract;
 
   AuthContractLoadSuccessState({this.contract});
+
+  @override
+  List<Object> get props => [contract];
+}
+
+class AuthContractLoadForSignSuccessState extends AuthState {
+  final ContractDTO contract;
+
+  AuthContractLoadForSignSuccessState({this.contract});
 
   @override
   List<Object> get props => [contract];

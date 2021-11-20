@@ -5,7 +5,7 @@ import 'feedback_blocs.dart';
 
 class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
   final PageRepository pageRepository;
-  FeedbackBloc({this.pageRepository});
+  FeedbackBloc({this.pageRepository}) : super(null);
 
   @override
   FeedbackState get initialState => FeedbackInitState();

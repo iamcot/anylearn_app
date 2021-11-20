@@ -6,7 +6,7 @@ import '../../models/page_repo.dart';
 
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
   final PageRepository pageRepository;
-  UsersBloc({this.pageRepository});
+  UsersBloc({this.pageRepository}) : super(null);
 
   @override
   UsersState get initialState => UsersInitState();

@@ -7,7 +7,6 @@ import '../../blocs/pdp/pdp_blocs.dart';
 import '../../dto/pdp_dto.dart';
 import '../../dto/user_dto.dart';
 import '../../main.dart';
-import '../../widgets/gradient_button.dart';
 import '../webview.dart';
 
 class CourseConfirm extends StatefulWidget {
@@ -35,12 +34,11 @@ class _CourseConfirm extends State<CourseConfirm> {
         ? AlertDialog(
             content: Text("Bạn không thể đăng ký khóa học của chính bạn."),
             actions: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
                 child: Text("Đã hiểu"),
-                color: Colors.blue,
               )
             ],
           )
@@ -109,18 +107,20 @@ class _CourseConfirm extends State<CourseConfirm> {
               //         style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
               //   ])),
               // ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Text.rich(TextSpan(text: "Bạn sẽ nhận được ", children: [
-                  TextSpan(
-                    text: _moneyFormat.format(widget.pdpDTO.commission),
-                    style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: " anyPoint cho giao dịch này.")
-                ])),
-              ),
+              widget.pdpDTO.disableAnypoint
+                  ? Container()
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Text.rich(TextSpan(text: "Bạn sẽ nhận được ", children: [
+                        TextSpan(
+                          text: _moneyFormat.format(widget.pdpDTO.commission),
+                          style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: " anyPoint cho giao dịch này.")
+                      ])),
+                    ),
               !hasVoucher
-                  ? FlatButton(
+                  ? TextButton(
                       onPressed: () {
                         setState(() {
                           hasVoucher = true;
@@ -181,7 +181,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                             });
                           })
                     ])
-                  : FlatButton(
+                  : TextButton(
                       onPressed: () {
                         setState(() {
                           childRegister = true;
@@ -193,18 +193,17 @@ class _CourseConfirm extends State<CourseConfirm> {
                       )),
               Container(
                 // padding: const EdgeInsets.only(top: 15),
-                child: GradientButton(
-                  function: () {
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.green[600]),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ))),
+                  onPressed: () {
                     _add2Cart(context, widget.user.token, widget.pdpDTO.item.id, voucherController.text,
                         (dropdownValue != "0" && childRegister ? int.parse(dropdownValue) : 0));
-                    // widget.pdpBloc
-                    //   ..add(PdpRegisterEvent(
-                    //       token: widget.user.token,
-                    //       itemId: widget.pdpDTO.item.id,
-                    //       voucher: voucherController.text,
-                    //       childUser: dropdownValue != "0" && childRegister ? int.parse(dropdownValue) : 0));
                   },
-                  title: "XÁC NHẬN",
+                  child: Text("XÁC NHẬN"),
                 ),
               ),
             ],

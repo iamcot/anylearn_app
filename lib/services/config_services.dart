@@ -21,7 +21,7 @@ class ConfigServices extends BaseService {
   ConfigServices({this.config, this.httpClient});
 
   Future<HomeDTO> homeLayout(String role) async {
-    final url = buildUrl(appConfig: config, endPoint: "/config/home/$role");
+    final url = buildUrl(appConfig: config, endPoint: "/config/homev2/$role");
     final json = await get(httpClient, url);
     return HomeDTO.fromJson(json);
   }

@@ -1,11 +1,12 @@
+import 'package:anylearn/screens/contract_sign.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:validators/validators.dart' as validator;
 
 import '../blocs/auth/auth_blocs.dart';
-import '../dto/const.dart';
 import '../dto/contract.dart';
 import '../dto/user_dto.dart';
 import '../widgets/gradient_button.dart';
@@ -19,10 +20,10 @@ class ContractSchoolScreen extends StatefulWidget {
 class _ContractSchoolScreen extends State<ContractSchoolScreen> {
   UserDTO _user;
   AuthBloc _authBloc;
-  bool openedForm = false;
-  bool _agreedToc = false;
-
   ContractDTO _contract = ContractDTO();
+  bool openedForm = false;
+  bool _agreedToc = true;
+
   final _formKey = GlobalKey<FormState>();
   final dateMask = new MaskedTextController(mask: '0000-00-00');
   final dobMask = new MaskedTextController(mask: '0000-00-00');
@@ -45,20 +46,20 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
           listener: (context, state) {
             if (state is AuthContractSuccessState) {
               setState(() {
-                _user.isSigned = MyConst.CONTRACT_SIGNED;
                 openedForm = false;
+                // _authBloc..add(AuthContractLoadEvent(token: _user.token, contractId: 0));
               });
-               ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(
-                  content: Text(
-                      "Hợp đông mới đã được tạo. Mức hoa hồng mới nếu có sẽ được cập nhật khi chúng tôi duyệt hợp đồng."),
+              _authBloc..add(AuthContractLoadEvent(token: _user.token, contractId: 0));
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text("Hợp đông mới đã được tạo. Vui lòng xem lại và thực hiện kí hợp đồng để xác nhận."),
                 ));
             }
             if (state is AuthContractFailState) {
-               ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text(state.error)));
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(content: Text(state.error)));
             }
           },
           child: BlocBuilder(
@@ -66,65 +67,82 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
             builder: (context, state) {
               if (state is AuthSuccessState) {
                 _user = state.user;
-                _contract.commission = _user.commissionRate.toString();
+                _authBloc..add(AuthContractLoadEvent(token: _user.token, contractId: 0));
+              }
+
+              if (state is AuthContractLoadSuccessState) {
+                _contract = state.contract;
               }
               return _user == null
                   ? LoadingWidget()
                   : Container(
                       padding: EdgeInsets.all(15),
                       child: ListView(children: [
-                        _user.isSigned == 0
-                            ? Container(
-                                child: Text("BẠN CHƯA KÝ HỢP ĐỒNG VỚI CHÚNG TÔI."),
-                              )
-                            : Container(
-                                child: ListTile(
-                                  leading: Icon(MdiIcons.fileCertificateOutline),
-                                  title: Text(
-                                    "Bạn đã có một hợp đồng",
-                                    style: TextStyle(),
-                                  ),
-                                  subtitle: _signedStatus(_user.isSigned),
-                                  trailing: Text(
-                                    _user.isSigned == 1 ? "KÝ HĐ" : "XEM HĐ",
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                  ),
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed("/contract/sign");
-                                  },
-                                ),
-                              ),
-                        Divider(),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: FlatButton.icon(
-                              onPressed: () {
-                                Navigator.of(context).pushNamed("/account/docs", arguments: _user.token);
-                              },
-                              icon: Icon(MdiIcons.certificate),
-                              label: Text("Cập nhật chứng chỉ")),
+                        ListTile(
+                          leading: Icon(MdiIcons.fileCertificateOutline),
+                          title: Text("Trạng thái hợp đồng của tài khoản"),
+                          subtitle:
+                              _user.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC") : _signedStatus(_user.isSigned),
+                          trailing: _user.isSigned == 99 ? Icon(Icons.search) : Text(""),
+                          onTap: () {
+                            if (_user.isSigned == 99) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ContractSignScreen(user: _user, contractId: -1)));
+                            }
+                          },
                         ),
-                        Divider(),
+                        _contract != null && (_contract.status == 1 || _contract.status == 10)
+                            ? ListTile(
+                                shape: Border(
+                                  top: BorderSide(color: Colors.grey[300]),
+                                ),
+                                leading: Icon(Icons.edit_notifications_outlined),
+                                title: Text("Đang có hợp đồng chờ xử lí"),
+                                subtitle: _signedStatus(_contract.status),
+                                trailing: _contract.status == 1 ? Text("KÝ") : Text("XEM"),
+                                onTap: () async {
+                                  bool result = await Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ContractSignScreen(user: _user, contractId: _contract.id)));
+                                  if (result) {
+                                    _authBloc..add(AuthCheckEvent());
+                                  }
+                                },
+                              )
+                            : Text(""),
+                        ListTile(
+                          shape: Border(
+                            top: BorderSide(color: Colors.grey[300]),
+                          ),
+                          leading: Icon(MdiIcons.certificate),
+                          trailing: Icon(Icons.chevron_right),
+                          title: Text("Cập nhật chứng chỉ"),
+                          onTap: () {
+                            Navigator.of(context).pushNamed("/account/docs", arguments: _user.token);
+                          },
+                        ),
                         GradientButton(
                           title: "TẠO HỢP ĐỒNG MỚI",
                           height: 40.0,
                           function: () {
                             setState(() {
                               openedForm = true;
+                              if (_contract == null) {
+                                _contract = new ContractDTO();
+                              }
+                              _contract.commission = _user.commissionRate.toString();
+                              dateMask.text = _contract.certDate ?? "";
                             });
                           },
                         ),
                         openedForm == false
-                            ? SizedBox(
-                                height: 0,
-                              )
+                            ? Container()
                             : Form(
                                 key: _formKey,
                                 child: Column(
                                   children: <Widget>[
                                     Divider(),
                                     TextFormField(
-                                      initialValue: _user.commissionRate.toString(),
+                                      initialValue: _contract.commission,
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.commission = value;
@@ -144,6 +162,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.certId ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.certId = value;
@@ -184,6 +203,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.tax ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.tax = value;
@@ -203,6 +223,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.ref ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.ref = value;
@@ -222,6 +243,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.refTitle ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.refTitle = value;
@@ -241,6 +263,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.address ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.address = value;
@@ -260,6 +283,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.email ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.email = value;
@@ -279,6 +303,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.bankName ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.bankName = value;
@@ -298,6 +323,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.bankBranch ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.bankBranch = value;
@@ -317,6 +343,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.bankNo ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.bankNo = value;
@@ -336,6 +363,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                       ),
                                     ),
                                     TextFormField(
+                                      initialValue: _contract.bankAccount ?? "",
                                       onSaved: (value) {
                                         setState(() {
                                           _contract.bankAccount = value;
@@ -381,8 +409,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                           // }
                                           _agreedToc = value;
                                         }),
-                                        title: Text.rich(
-                                            TextSpan(text: "Tôi xác nhận ký hợp đồng và đồng ý với ", children: [
+                                        title: Text.rich(TextSpan(text: "Tôi đồng ý với ", children: [
                                           TextSpan(
                                             text: "Điều khoản sử dụng",
                                             style: TextStyle(color: Colors.red),
@@ -440,11 +467,11 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
   Widget _signedStatus(int status) {
     switch (status) {
       case 1:
-        return Text("MỚI TẠO", style: TextStyle(color: Colors.blue));
+        return Text("MỚI TẠO / CHỜ BẠN KÝ", style: TextStyle(color: Colors.blue));
       case 10:
-        return Text("BẠN ĐÃ KÝ", style: TextStyle(color: Colors.blue));
+        return Text("BẠN ĐÃ KÝ / CHỜ CÔNG TY", style: TextStyle(color: Colors.blue));
       case 99:
-        return Text("CÔNG TY ĐÃ DUYỆT", style: TextStyle(color: Colors.blue));
+        return Text("CÔNG TY ĐÃ DUYỆT / HOÀN TẤT", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold));
       case 0:
         return Text("ĐÃ BỊ HỦY", style: TextStyle(color: Colors.blue));
       default:

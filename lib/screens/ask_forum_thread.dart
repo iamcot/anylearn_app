@@ -10,8 +10,10 @@ import '../dto/ask_dto.dart';
 import '../dto/ask_thread_dto.dart';
 import '../dto/const.dart';
 import '../dto/user_dto.dart';
+import '../main.dart';
 import '../themes/role_color.dart';
 import '../widgets/bottom_nav.dart';
+import '../widgets/fab_home.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/loading_widget.dart';
 import '../widgets/time_ago.dart';
@@ -82,8 +84,11 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                 }),
           ),
         ),
+        floatingActionButton: FloatingActionButtonHome(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         bottomNavigationBar: BottomNav(
-          index: BottomNav.ASK_INDEX,
+          route: BottomNav.ASK_INDEX,
+          user: user,
         ),
       ),
     );
@@ -209,97 +214,95 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                     ),
                   ),
                   Container(
-                    child: Row(
-                        children: [
-                          Expanded(
-                            child: FlatButton.icon(
-                              padding: EdgeInsets.all(0),
-                              icon: Icon(
-                                Icons.thumb_up,
-                                color: ans.myVote == MyConst.ASK_VOTE_LIKE ? Colors.blue : Colors.grey[600],
-                              ),
-                              onPressed: () async {
-                                if (_user == null) {
-                                  Navigator.of(context).pushNamed("/login");
-                                } else {
-                                  if (ans.myVote != MyConst.ASK_VOTE_LIKE) {
-                                    _articleBloc
-                                      ..add(
-                                          AskVoteEvent(askId: ans.id, type: MyConst.ASK_VOTE_LIKE, token: _user.token));
-                                  }
-                                }
-                              },
-                              label: Text(ans.like.toString()),
-                            ),
+                    child: Row(children: [
+                      Expanded(
+                        child: FlatButton.icon(
+                          padding: EdgeInsets.all(0),
+                          icon: Icon(
+                            Icons.thumb_up,
+                            color: ans.myVote == MyConst.ASK_VOTE_LIKE ? Colors.blue : Colors.grey[600],
                           ),
-                          Expanded(
-                            child: FlatButton.icon(
+                          onPressed: () async {
+                            if (_user == null) {
+                              Navigator.of(context).pushNamed("/login");
+                            } else {
+                              if (ans.myVote != MyConst.ASK_VOTE_LIKE) {
+                                _articleBloc
+                                  ..add(AskVoteEvent(askId: ans.id, type: MyConst.ASK_VOTE_LIKE, token: _user.token));
+                              }
+                            }
+                          },
+                          label: Text(ans.like.toString()),
+                        ),
+                      ),
+                      Expanded(
+                        child: FlatButton.icon(
+                            padding: EdgeInsets.all(0),
+                            onPressed: () async {
+                              if (_user == null) {
+                                Navigator.of(context).pushNamed("/login");
+                              } else {
+                                if (ans.myVote != MyConst.ASK_VOTE_DISLIKE) {
+                                  _articleBloc
+                                    ..add(AskVoteEvent(
+                                        askId: ans.id, type: MyConst.ASK_VOTE_DISLIKE, token: _user.token));
+                                }
+                              }
+                            },
+                            label: Text(ans.unlike.toString()),
+                            icon: Icon(
+                              Icons.thumb_down,
+                              color: ans.myVote == MyConst.ASK_VOTE_DISLIKE ? Colors.red : Colors.grey[600],
+                            )),
+                      ),
+                      Expanded(
+                        child: FlatButton.icon(
+                          padding: EdgeInsets.all(0),
+                          onPressed: () async {
+                            if (_user == null) {
+                              Navigator.of(context).pushNamed("/login");
+                            } else {
+                              bool result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                                return AskFormScreen(
+                                  user: _user,
+                                  askBloc: _articleBloc,
+                                  askId: ans.id,
+                                  type: MyConst.ASK_COMMENT,
+                                );
+                              }));
+                              if (result != null && result) {
+                                _articleBloc = BlocProvider.of<ArticleBloc>(context)
+                                  ..add(AskThreadEvent(askId: askId, token: _user.token));
+                              }
+                            }
+                          },
+                          label: Text(ans.comments.length.toString()),
+                          icon: Icon(Icons.insert_comment, color: Colors.grey[600]),
+                        ),
+                      ),
+                      (_user != null && data != null && data.question.userId == _user.id)
+                          ? Expanded(
+                              child: FlatButton(
                                 padding: EdgeInsets.all(0),
                                 onPressed: () async {
                                   if (_user == null) {
                                     Navigator.of(context).pushNamed("/login");
                                   } else {
-                                    if (ans.myVote != MyConst.ASK_VOTE_DISLIKE) {
-                                      _articleBloc
-                                        ..add(AskVoteEvent(
-                                            askId: ans.id, type: MyConst.ASK_VOTE_DISLIKE, token: _user.token));
-                                    }
+                                    _articleBloc..add(AskSelectEvent(askId: ans.id, token: _user.token));
                                   }
                                 },
-                                label: Text(ans.unlike.toString()),
-                                icon: Icon(
-                                  Icons.thumb_down,
-                                  color: ans.myVote == MyConst.ASK_VOTE_DISLIKE ? Colors.red : Colors.grey[600],
-                                )),
-                          ),
-                          Expanded(
-                            child: FlatButton.icon(
-                              padding: EdgeInsets.all(0),
-                              onPressed: () async {
-                                if (_user == null) {
-                                  Navigator.of(context).pushNamed("/login");
-                                } else {
-                                  bool result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                                    return AskFormScreen(
-                                      user: _user,
-                                      askBloc: _articleBloc,
-                                      askId: ans.id,
-                                      type: MyConst.ASK_COMMENT,
-                                    );
-                                  }));
-                                  if (result != null && result) {
-                                    _articleBloc = BlocProvider.of<ArticleBloc>(context)
-                                      ..add(AskThreadEvent(askId: askId, token: _user.token));
-                                  }
-                                }
-                              },
-                              label: Text(ans.comments.length.toString()),
-                              icon: Icon(Icons.insert_comment, color: Colors.grey[600]),
+                                child: ans.selectedAnswer
+                                    ? Icon(Icons.check_circle_outline, color: Colors.green)
+                                    : Text(
+                                        "Chọn",
+                                        style: TextStyle(color: Colors.grey[600]),
+                                      ),
+                              ),
+                            )
+                          : SizedBox(
+                              height: 0,
                             ),
-                          ),
-                          (_user != null && data != null && data.question.userId == _user.id)
-                              ? Expanded(
-                                  child: FlatButton(
-                                    padding: EdgeInsets.all(0),
-                                    onPressed: () async {
-                                      if (_user == null) {
-                                        Navigator.of(context).pushNamed("/login");
-                                      } else {
-                                        _articleBloc..add(AskSelectEvent(askId: ans.id, token: _user.token));
-                                      }
-                                    },
-                                    child: ans.selectedAnswer
-                                        ? Icon(Icons.check_circle_outline, color: Colors.green)
-                                        : Text(
-                                            "Chọn",
-                                            style: TextStyle(color: Colors.grey[600]),
-                                          ),
-                                  ),
-                                )
-                              : SizedBox(
-                                  height: 0,
-                                ),
-                        ]),
+                    ]),
                   ),
                 ],
               ),

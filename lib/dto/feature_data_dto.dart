@@ -8,6 +8,7 @@ class FeatureDataDTO {
   final String iconImage;
   final String iconBg;
   final Color iconColor;
+  final Color bg;
 
-  FeatureDataDTO({this.icon, this.title, this.route, this.iconImage, this.iconBg, this.iconColor, this.routeParam});
+  FeatureDataDTO({this.icon, this.title, this.route, this.iconImage, this.iconBg, this.iconColor, this.routeParam, this.bg});
 }
