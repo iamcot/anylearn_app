@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/home_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,24 @@ class ItemsTeacherSuccessState extends ItemsState {
 class ItemsLoadFailState extends ItemsState {
   final String error;
   const ItemsLoadFailState({@required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}
+
+class CategoryLoadingState extends ItemsState {}
+
+class CategorySuccessState extends ItemsState {
+  final List<CategoryPagingDTO> data;
+  CategorySuccessState({@required this.data}) : assert(data != null);
+  @override
+  List<Object> get props => [data];
+}
+
+class CategoryFailState extends ItemsState {
+  final String error;
+  const CategoryFailState({@required this.error});
   @override
   List<Object> get props => [error];
   @override

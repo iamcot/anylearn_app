@@ -11,7 +11,6 @@ import '../customs/feedback.dart';
 import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
-import '../widgets/bottom_nav.dart';
 import 'event/day_events.dart';
 
 class EventScreen extends StatefulWidget {
@@ -168,7 +167,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
           return children;
         },
       ),
-      onDaySelected: (date, events) {
+      onDaySelected: (date, events, _){
         _onDaySelected(date, events);
         _animationController.forward(from: 0.0);
       },

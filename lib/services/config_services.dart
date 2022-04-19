@@ -26,6 +26,12 @@ class ConfigServices extends BaseService {
     return HomeDTO.fromJson(json);
   }
 
+  Future<List<CategoryPagingDTO>> category(int catId, page, pageSize) async {
+    final url = buildUrl(appConfig: config, endPoint: "/config/category/$catId");
+    final json = await get(httpClient, url);
+    return List<CategoryPagingDTO>.from(json?.map((e) => CategoryPagingDTO.fromJson(e))).toList();
+  }
+
   Future<TransactionConfigDTO> transactionConfigs(String type, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/config/transaction/$type", token: token);
     print(url);

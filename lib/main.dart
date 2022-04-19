@@ -24,9 +24,9 @@ import 'themes/default.dart';
 
 bool newNotification = false;
 String notifToken;
-// final env = "prod";
+final env = "prod";
 // final env = "staging";
-final env = "dev";
+// final env = "dev";
 AppConfig config;
 UserDTO user;
 
@@ -92,7 +92,7 @@ class _MyApp extends State<MyApp> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('A new onMessage event was published!');
-      final notifObj = NotificationDTO.fromFireBase(message.notification);
+      final notifObj = NotificationDTO.fromFireBase(message);
       showSimpleNotification(
           Card(
             child: Container(

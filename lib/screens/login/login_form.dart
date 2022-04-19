@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:anylearn/dto/login_callback.dart';
 // import 'package:device_info/device_info.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:validators/validators.dart' as validator;
 
 import '../../blocs/login/login_blocs.dart';
 import '../../customs/register_curved_paint.dart';
+import '../../dto/login_callback.dart';
 
 class LoginForm extends StatefulWidget {
   final LoginCallback callback;
@@ -340,17 +339,6 @@ class _LoginForm extends State<LoginForm> {
       }
     } catch (e) {
       print(e.message);
-      switch (e.errorCode) {
-        case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
-          print("You have a previous login operation in progress");
-          break;
-        case FacebookAuthErrorCode.CANCELLED:
-          print("login cancelled");
-          break;
-        case FacebookAuthErrorCode.FAILED:
-          print("login failed");
-          break;
-      }
     } finally {
       setState(() {
         _checking = false;

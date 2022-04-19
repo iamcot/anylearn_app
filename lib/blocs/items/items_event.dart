@@ -32,3 +32,17 @@ class ItemsTeacherLoadEvent extends ItemsEvent {
   @override
   String toString() => 'ItemsTeacherLoadEvent  { page: $page, pageSize: $pageSize}';
 }
+
+class CategoryLoadEvent extends ItemsEvent {
+  final int id;
+  final int page;
+  final int pageSize;
+
+  CategoryLoadEvent({@required this.id, this.page = 1, this.pageSize = 9999});
+
+  @override
+  List<Object> get props => [id, page, pageSize];
+
+  @override
+  String toString() => 'CategoryLoadEvent  { page: $page, pageSize: $pageSize}';
+}

@@ -4,6 +4,7 @@ import 'article_dto.dart';
 import 'feature_data_dto.dart';
 import 'home_config_dto.dart';
 import 'item_dto.dart';
+import 'items_paging_dto.dart';
 
 class HomeDTO extends Equatable {
   List<FeatureDataDTO> featuresIcons;
@@ -13,6 +14,7 @@ class HomeDTO extends Equatable {
   final List<ArticleDTO> events;
   final List<HomeClassesDTO> homeClasses;
   final List<HomeBannerDTO> homeBanner;
+  final List<CategoryDTO> categories;
 
   HomeDTO({
     this.featuresIcons,
@@ -22,10 +24,11 @@ class HomeDTO extends Equatable {
     this.homeBanner,
     this.promotions,
     this.events,
+    this.categories,
   });
 
   @override
-  List<Object> get props => [featuresIcons, config, articles, homeClasses, homeBanner, promotions, events];
+  List<Object> get props => [featuresIcons, config, articles, homeClasses, homeBanner, promotions, events, categories];
 
   static HomeDTO fromJson(dynamic json) {
     return json == null
@@ -51,7 +54,9 @@ class HomeDTO extends Equatable {
                 ? null
                 : List<HomeClassesDTO>.from(
                     json['home_classes']?.map((v) => v == null ? null : HomeClassesDTO.fromJson(v))).toList(),
-          );
+            categories:
+                List<CategoryDTO>.from(json['categories']?.map((v) => v == null ? null : CategoryDTO.fromJson(v)))
+                    .toList());
   }
 }
 
@@ -91,6 +96,56 @@ class HomeBannerDTO extends Equatable {
             file: json['file'],
             route: json['route'],
             arg: json['arg'],
+          );
+  }
+}
+
+class CategoryDTO extends Equatable {
+  final String title;
+  final id;
+  final List<ItemDTO> items;
+
+  CategoryDTO({this.title, this.id, this.items});
+
+  @override
+  List<Object> get props => [
+        id,
+        title,
+        items,
+      ];
+
+  static CategoryDTO fromJson(dynamic json) {
+    return json == null
+        ? null
+        : CategoryDTO(
+            id: json['id'],
+            title: json['title'],
+            items: List<ItemDTO>.from(json['items']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
+          );
+  }
+}
+
+class CategoryPagingDTO extends Equatable {
+  final String title;
+  final id;
+  final ItemsPagingDTO items;
+
+  CategoryPagingDTO({this.title, this.id, this.items});
+
+  @override
+  List<Object> get props => [
+        id,
+        title,
+        items,
+      ];
+
+  static CategoryPagingDTO fromJson(dynamic json) {
+    return json == null
+        ? null
+        : CategoryPagingDTO(
+            id: json['id'],
+            title: json['title'],
+            items: ItemsPagingDTO.fromJson(json['items']),
           );
   }
 }

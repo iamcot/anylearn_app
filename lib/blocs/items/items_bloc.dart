@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/home_dto.dart';
 import 'package:bloc/bloc.dart';
 
 import '../../models/page_repo.dart';
@@ -14,25 +15,35 @@ class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
   @override
   Stream<ItemsState> mapEventToState(ItemsEvent event) async* {
     try {
-      yield ItemsLoadingState();
       var data;
       if (event is ItemsSchoolLoadEvent) {
+        yield ItemsLoadingState();
         data = await pageRepository.dataSchoolPage(event.id, event.page, event.pageSize);
         if (data != null) {
           yield ItemsSchoolSuccessState(data: data);
         }
       } else if (event is ItemsTeacherLoadEvent) {
+        yield ItemsLoadingState();
         data = await pageRepository.dataTeacherPage(event.id, event.page, event.pageSize);
         if (data != null) {
           yield ItemsTeacherSuccessState(data: data);
         }
       }
-      if (data == null) {
-        yield ItemsLoadFailState(error: "Không có thông tin bạn đang tìm kiếm.");
-      }
+      // if (data == null) {
+      //   yield ItemsLoadFailState(error: "Không có thông tin bạn đang tìm kiếm.");
+      // }
     } catch (error, trace) {
       yield ItemsLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
       print(trace);
+    }
+    try {
+      if (event is CategoryLoadEvent) {
+        yield CategoryLoadingState();
+        final List<CategoryPagingDTO> cats = await pageRepository.category(event.id, event.page, event.pageSize);
+      }
+    } catch (error, trace) {
+      yield CategoryFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
+      print(error);
     }
   }
 }

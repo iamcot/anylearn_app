@@ -19,7 +19,7 @@ class SearchBox extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(bottom: 10.0),
             child: Text.rich(TextSpan(
-                text: "Nền tảng tìm kiếm Trường học và Chuyên gia hàng đầu, Khóa học Offline và Online",
+                text: "Tìm kiếm Trường học và Chuyên gia hàng đầu\n Khóa học Offline và Online",
               ), textAlign: TextAlign.center, style: TextStyle(color: Colors.grey[600]),),
           ),
           Container(

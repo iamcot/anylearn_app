@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -49,22 +47,22 @@ class NotificationDTO extends Equatable {
             type: json['type']);
   }
 
-  static NotificationDTO fromFireBase(dynamic json) {
-    if (Platform.isIOS) {
-      return NotificationDTO(
-        title: json['aps']['alert']['title'],
-        content: json['aps']['alert']['body'],
-        route: json['screen'] != null ? json['screen'] : null,
-        extraContent: json['args'] != null ? json['args'] : null,
-      );
-    } else {
-      return NotificationDTO(
-        title: json['notification']['title'],
-        content: json['notification']['body'],
-        route: json['data']['screen'] != null ? json['data']['screen'] : null,
-        extraContent: json['data']['args'] != null ? json['data']['args'] : null,
-      );
-    }
+  static NotificationDTO fromFireBase(RemoteMessage message) {
+    // if (Platform.isIOS) {
+    return NotificationDTO(
+      title: message.notification.title,
+      content: message.notification.body,
+      route: message.data.containsKey("screen") ? message.data['screen'] : null,
+      extraContent: message.data.containsKey("args") ? message.data['args'] : null,
+    );
+    // } else {
+    //   return NotificationDTO(
+    //     title: message.notification.title,
+    //     content: message.notification.body,
+    //     route: message.data['screen'] != null ? message.data['screen'] : null,
+    //     extraContent: message.data['args'] != null ? message.data['args'] : null,
+    //   );
+    // }
   }
 
   static NotificationDTO fromNewFirebase(RemoteMessage message) {

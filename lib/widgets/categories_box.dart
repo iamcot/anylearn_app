@@ -9,11 +9,12 @@ class CategoriesBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
+      alignment: Alignment.centerLeft,
+      child: Wrap(
         children: categories.length == 0
             ? []
             : List<Widget>.from(categories?.map((e) => Container(
-                  margin: EdgeInsets.only(right: 5),
+                  margin: EdgeInsets.only(right: 5, bottom: 5),
                   padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
