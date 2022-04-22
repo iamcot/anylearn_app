@@ -1,25 +1,25 @@
 import 'package:equatable/equatable.dart';
 
 class EventDTO extends Equatable {
-  final int id;
-  final int itemId;
-  final String itemSubtype;
-  final String title;
-  final String content;
-  final String scheduleContent;
-  final String author;
-  final String date;
-  final String time;
-  final String timeEnd;
-  final String location;
-  final String image;
-  final String route;
-  final int userJoined;
-  final int authorStatus;
-  final int userRating;
-  final bool nolimitTime;
-  final int childId;
-  final String childName;
+  final id;
+  final itemId;
+  final itemSubtype;
+  final title;
+  final content;
+  final scheduleContent;
+  final author;
+  final date;
+  final time;
+  final timeEnd;
+  final location;
+  final image;
+  final route;
+  final userJoined;
+  final authorStatus;
+  final userRating;
+  final nolimitTime;
+  final childId;
+  final childName;
 
   EventDTO({
     this.id,
@@ -86,8 +86,8 @@ class EventDTO extends Equatable {
 }
 
 class OnlineScheduleInfoDTO extends Equatable {
-  final String url;
-  final String info;
+  final url;
+  final info;
 
   OnlineScheduleInfoDTO({this.url, this.info});
   @override

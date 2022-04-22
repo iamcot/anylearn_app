@@ -1,9 +1,9 @@
+import 'package:anylearn/main.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:validators/validators.dart' as validator;
 
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/register/register_blocs.dart';
@@ -25,7 +25,7 @@ class _RegisterScreen extends State<RegisterScreen> {
   UserDTO _user = new UserDTO(
     role: MyConst.ROLE_MEMBER,
   );
-  String confirmPassword;
+  late String confirmPassword;
   bool _agreedToc = false;
 
   final FocusNode _focusRef = FocusNode();
@@ -33,18 +33,24 @@ class _RegisterScreen extends State<RegisterScreen> {
   final FocusNode _focusPhone = FocusNode();
   final FocusNode _focusPass = FocusNode();
   final FocusNode _focusRePass = FocusNode();
-  LoginCallback callback;
+  LoginCallback? callback;
 
-  RegisterBloc _loginBloc;
-  AuthBloc _authBloc;
+  late RegisterBloc _loginBloc;
+  late AuthBloc _authBloc;
   @override
   void didChangeDependencies() {
+    if (user.token != "") {
+      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+      return;
+    }
     super.didChangeDependencies();
     final userRepository = RepositoryProvider.of<UserRepository>(context);
-    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+    _authBloc = BlocProvider.of<AuthBloc>(context);
     _loginBloc = RegisterBloc(userRepository: userRepository)..add(RegisterFormLoadEvent());
-    if (ModalRoute.of(context).settings.arguments != null) {
-      callback = ModalRoute.of(context).settings.arguments;
+    if (ModalRoute.of(context)?.settings.arguments != null) {
+      callback =  ModalRoute.of(context)?.settings.arguments as LoginCallback;
+    } else {
+      callback = LoginCallback();
     }
   }
 
@@ -84,8 +90,8 @@ class _RegisterScreen extends State<RegisterScreen> {
               Navigator.of(context).pushNamed("/login",
                   arguments: LoginCallback(
                     message: "Đăng ký thành công, vui lòng đăng nhập lại.",
-                    routeName: callback != null && callback.routeName != null ? callback.routeName : null,
-                    routeArgs: callback != null && callback.routeArgs != null ? callback.routeArgs : null,
+                    routeName: callback!.routeName,
+                    routeArgs: callback!.routeArgs,
                   ));
             }
           },
@@ -144,7 +150,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       initialValue: _user.refcode,
                       onSaved: (value) {
                         setState(() {
-                          _user.refcode = value.trim();
+                          _user.refcode = value!.trim();
                         });
                       },
                       focusNode: _focusRef,
@@ -166,14 +172,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                       initialValue: _user.name,
                       onSaved: (value) {
                         setState(() {
-                          _user.name = value.trim();
+                          _user.name = value!.trim();
                         });
                       },
-                      validator: (String value) {
-                        if (value.length < 6) {
+                      validator: (value) {
+                        if (value!.length < 6) {
                           return "Tên của bạn cần lớn hơn 6 kí tự";
                         }
-                        _formKey.currentState.save();
+                        _formKey.currentState?.save();
                         return null;
                       },
                       focusNode: _focusName,
@@ -195,14 +201,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                       initialValue: _user.phone,
                       onSaved: (value) {
                         setState(() {
-                          _user.phone = value.trim();
+                          _user.phone = value!.trim();
                         });
                       },
-                      validator: (String value) {
-                        if (value.length < 10) {
+                      validator: (value) {
+                        if (value!.length < 10) {
                           return "Số điện thoại không hợp lệ";
                         }
-                        _formKey.currentState.save();
+                        _formKey.currentState?.save();
                         return null;
                       },
                       focusNode: _focusPhone,
@@ -223,14 +229,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                     child: TextFormField(
                       onSaved: (value) {
                         setState(() {
-                          _user.password = value.trim();
+                          _user.password = value!.trim();
                         });
                       },
-                      validator: (String value) {
-                        if (value.length < 8) {
+                      validator: (value) {
+                        if (value!.length < 8) {
                           return "Mật khẩu ít nhất 8 kí tự";
                         }
-                        _formKey.currentState.save();
+                        _formKey.currentState?.save();
                         return null;
                       },
                       focusNode: _focusPass,
@@ -252,7 +258,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     child: TextFormField(
                       onSaved: (value) {
                         setState(() {
-                          confirmPassword = value;
+                          confirmPassword = value!;
                         });
                       },
                       focusNode: _focusRePass,
@@ -260,11 +266,11 @@ class _RegisterScreen extends State<RegisterScreen> {
                       onFieldSubmitted: (term) {
                         _focusRePass.unfocus();
                       },
-                      validator: (String value) {
+                      validator: (value) {
                         if (value != _user.password) {
                           return "Xác nhận mât khẩu không đúng";
                         }
-                        _formKey.currentState.save();
+                        _formKey.currentState?.save();
                         return null;
                       },
                       decoration: InputDecoration(
@@ -284,24 +290,24 @@ class _RegisterScreen extends State<RegisterScreen> {
                       value: _agreedToc,
                       onChanged: (value) => setState(() {
                         if (!_agreedToc) {
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    scrollable: true,
-                                    title: Text("Điều khoản sử dụng"),
-                                    content: Html(
-                                      data: _toc,
-                                      shrinkWrap: true,
-                                    ),
-                                    actions: <Widget>[
-                                      FlatButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text("Đã đọc và đồng ý".toUpperCase()),
-                                      )
-                                    ],
-                                  ));
+                          // showDialog(
+                          //     context: context,
+                          //     builder: (context) => AlertDialog(
+                          //           scrollable: true,
+                          //           title: Text("Điều khoản sử dụng"),
+                          //           content: Html(
+                          //             data: _toc,
+                          //             shrinkWrap: true,
+                          //           ),
+                          //           actions: <Widget>[
+                          //             TextButton(
+                          //               onPressed: () => Navigator.pop(context),
+                          //               child: Text("Đã đọc và đồng ý".toUpperCase()),
+                          //             )
+                          //           ],
+                          //         ));
                         }
-                        _agreedToc = value;
+                        _agreedToc = value!;
                       }),
                       title: Text.rich(TextSpan(text: "Tôi đồng ý với ", children: [
                         TextSpan(
@@ -318,7 +324,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     ),
                     height: 40.0,
                     margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 15.0),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {
                         _submitForm(context);
                       },
@@ -376,7 +382,7 @@ class _RegisterScreen extends State<RegisterScreen> {
           ),
           content: Text("Bạn vui lòng đọc và tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.pop(context),
               child: Text("Tôi sẽ đọc".toUpperCase()),
             )
@@ -384,8 +390,8 @@ class _RegisterScreen extends State<RegisterScreen> {
         ),
       );
     }
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       _loginBloc.add(RegisterButtonPressedEvent(userInput: _user));
     }
   }

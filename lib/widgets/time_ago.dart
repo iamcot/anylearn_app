@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TimeAgo extends StatelessWidget {
   final DateTime time;
 
-  TimeAgo({Key key, this.time}) : super(key: key);
+  TimeAgo({required this.time});
 
   @override
   Widget build(BuildContext context) {

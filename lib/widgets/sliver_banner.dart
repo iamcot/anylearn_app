@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class SliverBanner extends StatelessWidget {
   final String banner;
 
-  const SliverBanner({Key key, this.banner}) : super(key: key);
+  const SliverBanner({required this.banner});
 
   @override
   Widget build(BuildContext context) {

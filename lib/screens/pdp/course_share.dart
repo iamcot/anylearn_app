@@ -8,17 +8,17 @@ import '../../dto/user_dto.dart';
 import '../../widgets/loading_widget.dart';
 
 class CourseShareScreen extends StatefulWidget {
-  final UserDTO user;
+  final user;
   final pdpId;
-  final PdpBloc pdpBloc;
+  final pdpBloc;
 
-  const CourseShareScreen({Key key, this.user, this.pdpBloc, this.pdpId}) : super(key: key);
+  const CourseShareScreen({key, this.user, this.pdpBloc, this.pdpId}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _CourseShareScreen();
 }
 
 class _CourseShareScreen extends State<CourseShareScreen> {
-  List<UserDTO> _friends;
+  List<UserDTO>? _friends;
   Map<int, bool> selected = {};
   bool checkAll = false;
 
@@ -32,7 +32,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
           bottom: PreferredSize(
             child: FlatButton(
                 onPressed: () {
-                  widget.pdpBloc..add(PdpFriendShareEvent(token: widget.user.token, itemId: widget.pdpId, isALL: true));
+                  widget.pdpBloc..add(PdpFriendShareEvent(token: widget.user.token, itemId: widget.pdpId, isALL: true, friendIds: []));
                 },
                 child: Text(
                   "GỬI TẤT CẢ",
@@ -86,8 +86,8 @@ class _CourseShareScreen extends State<CourseShareScreen> {
             builder: (context, state) {
               if (state is PdpShareFriendListSuccessState) {
                 _friends = state.friends;
-                for (var i = 0; i < _friends.length; i++) {
-                  selected[_friends[i].id] = false;
+                for (var i = 0; i < _friends!.length; i++) {
+                  selected[_friends![i].id] = false;
                 }
               }
 
@@ -98,27 +98,27 @@ class _CourseShareScreen extends State<CourseShareScreen> {
                         builder: (BuildContext context, void Function(void Function()) setState) {
                           return ListView.separated(
                             itemBuilder: (context, index) => CheckboxListTile(
-                              title: Text(_friends[index].name),
+                              title: Text(_friends![index].name),
                               controlAffinity: ListTileControlAffinity.trailing,
-                              value: selected[_friends[index].id],
+                              value: selected[_friends![index].id],
                               secondary: Container(
                                 width: 50,
                                 height: 50,
-                                child: _friends[index].image == null
+                                child: _friends![index].image == ""
                                     ? Icon(
                                         Icons.account_circle,
                                         size: 32,
                                       )
-                                    : CachedNetworkImage(imageUrl: _friends[index].image),
+                                    : CachedNetworkImage(imageUrl: _friends![index].image),
                               ),
-                              onChanged: (bool value) {
+                              onChanged: (value) {
                                 setState(() {
-                                  selected[_friends[index].id] = value;
+                                  selected[_friends![index].id] = value!;
                                 });
                               },
                             ),
                             separatorBuilder: (context, index) => Divider(),
-                            itemCount: _friends.length,
+                            itemCount: _friends!.length,
                           );
                         },
                       ),

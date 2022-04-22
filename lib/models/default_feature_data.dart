@@ -5,7 +5,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '../dto/const.dart';
 import '../dto/feature_data_dto.dart';
 
-List<FeatureDataDTO> defaultHomeFeatures(String role, int userId) {
+List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
   Map<String, List<FeatureDataDTO>> configs = {
     MyConst.ROLE_MEMBER: [
       FeatureDataDTO(icon: MdiIcons.qrcode, title: "Mã Giới thiệu", route: "/qrcode", iconBg: "red", bg: Colors.blue[300]),
@@ -48,5 +48,5 @@ List<FeatureDataDTO> defaultHomeFeatures(String role, int userId) {
       // FeatureDataDTO(icon: MdiIcons.handHeart, title: "Quỹ học bổng", route: "/foundation", iconBg: "pink"),
     ],
   };
-  return configs[role] ?? configs[MyConst.ROLE_MEMBER];
+  return role != "" ? configs[role] : configs[MyConst.ROLE_MEMBER];
 }

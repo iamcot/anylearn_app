@@ -6,7 +6,7 @@ class Text2Lines extends StatelessWidget {
   final FontWeight fontWeight;
   final alignment;
 
-  const Text2Lines({Key key, this.text, this.fontSize = 14.0, this.fontWeight = FontWeight.normal, this.alignment = Alignment.topLeft}) : super(key: key);
+  const Text2Lines({required this.text, this.fontSize = 14.0, this.fontWeight = FontWeight.normal, this.alignment = Alignment.topLeft});
 
   @override
   Widget build(BuildContext context) {

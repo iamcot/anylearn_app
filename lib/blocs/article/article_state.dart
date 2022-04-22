@@ -17,7 +17,7 @@ class ArticleIndexLoadingState extends ArticleState {}
 
 class ArticleIndexSuccessState extends ArticleState {
   final ArticleHomeDTO result;
-  ArticleIndexSuccessState({@required this.result}) : assert(result != null);
+  ArticleIndexSuccessState({required this.result}) : assert(result != null);
   @override
   List<Object> get props => [result];
 }
@@ -26,7 +26,7 @@ class ArticleTypeLoadingState extends ArticleState {}
 
 class ArticleTypeSuccessState extends ArticleState {
   final ArticlePagingDTO result;
-  ArticleTypeSuccessState({@required this.result}) : assert(result != null);
+  ArticleTypeSuccessState({required this.result}) : assert(result != null);
   @override
   List<Object> get props => [result];
 }
@@ -35,14 +35,14 @@ class ArticlePageLoadingState extends ArticleState {}
 
 class ArticlePageSuccessState extends ArticleState {
   final ArticleDTO result;
-  ArticlePageSuccessState({@required this.result}) : assert(result != null);
+  ArticlePageSuccessState({required this.result}) : assert(result != null);
   @override
   List<Object> get props => [result];
 }
 
 class ArticleFailState extends ArticleState {
   final String error;
-  const ArticleFailState({@required this.error});
+  const ArticleFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -53,7 +53,7 @@ class AskIndexLoadingState extends ArticleState {}
 
 class AskIndexSuccessState extends ArticleState {
   final AskPagingDTO data;
-  const AskIndexSuccessState({@required this.data});
+  const AskIndexSuccessState({required this.data});
   @override
   List<Object> get props => [data];
   @override
@@ -62,7 +62,7 @@ class AskIndexSuccessState extends ArticleState {
 
 class AskFailState extends ArticleState {
   final String error;
-  const AskFailState({@required this.error});
+  const AskFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -73,7 +73,7 @@ class AskThreadLoadingState extends ArticleState {}
 
 class AskThreadSuccessState extends ArticleState {
   final AskThreadDTO data;
-  const AskThreadSuccessState({@required this.data});
+  const AskThreadSuccessState({required this.data});
   @override
   List<Object> get props => [data];
   @override
@@ -86,7 +86,7 @@ class AskCreateSuccessState extends ArticleState {}
 
 class AskCreateFailState extends ArticleState {
   final String error;
-  const AskCreateFailState({@required this.error});
+  const AskCreateFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override

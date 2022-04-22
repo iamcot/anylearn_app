@@ -6,9 +6,9 @@ import 'package:intl/intl.dart';
 import '../../dto/transaction_dto.dart';
 
 class WithdrawList extends StatelessWidget {
-  final List<TransactionDTO> list;
+  final list;
 
-  const WithdrawList({Key key, this.list}) : super(key: key);
+  const WithdrawList({key, this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

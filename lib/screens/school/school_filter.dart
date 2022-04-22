@@ -34,9 +34,9 @@ class _SchooFilter extends State<SchoolFilter> {
               underline: Container(
                 color: Colors.transparent,
               ),
-              onChanged: (String newValue) {
+              onChanged: (newValue) {
                 setState(() {
-                  dropdownValue = newValue;
+                  dropdownValue = newValue!;
                 });
               },
               items: _buildList(options),

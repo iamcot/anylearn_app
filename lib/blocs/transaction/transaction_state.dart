@@ -17,7 +17,7 @@ class TransactionLoadingState extends TransactionState {}
 
 class TransactionConfigSuccessState extends TransactionState {
   final TransactionConfigDTO configs;
-  const TransactionConfigSuccessState({this.configs});
+  const TransactionConfigSuccessState({required this.configs});
   @override
   List<Object> get props => [configs];
 }
@@ -27,7 +27,7 @@ class TransactionHistoryLoadingState extends TransactionState {}
 class TransactionHistorySuccessState extends TransactionState {
   final Map<String, List<TransactionDTO>> history;
 
-  TransactionHistorySuccessState({this.history});
+  TransactionHistorySuccessState({required this.history});
   @override
   List<Object> get props => [history];
 }
@@ -35,11 +35,9 @@ class TransactionHistorySuccessState extends TransactionState {
 class TransactionWithdrawSavingState extends TransactionState {}
 
 class TransactionWithdrawSaveSuccessState extends TransactionState {
-  final TransactionConfigDTO configs;
-
-  TransactionWithdrawSaveSuccessState({this.configs});
+  TransactionWithdrawSaveSuccessState();
   @override
-  List<Object> get props => [configs];
+  List<Object> get props => [];
 }
 
 class FoundationLoadingState extends TransactionState {}
@@ -47,7 +45,7 @@ class FoundationLoadingState extends TransactionState {}
 class FoundationSuccessState extends TransactionState {
   final FoundationDTO value;
 
-  FoundationSuccessState({this.value});
+  FoundationSuccessState({required this.value});
   @override
   List<Object> get props => [value];
 }
@@ -65,16 +63,14 @@ class TransactionDepositeSaveSuccessState extends TransactionState {
 class TransactionExchangeSavingState extends TransactionState {}
 
 class TransactionExchangeSaveSuccessState extends TransactionState {
-  final TransactionConfigDTO configs;
-
-  TransactionExchangeSaveSuccessState({this.configs});
+  TransactionExchangeSaveSuccessState();
   @override
-  List<Object> get props => [configs];
+  List<Object> get props => [];
 }
 
 class TransactionSaveFailState extends TransactionState {
   final String error;
-  const TransactionSaveFailState({@required this.error});
+  const TransactionSaveFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -83,7 +79,7 @@ class TransactionSaveFailState extends TransactionState {
 
 class TransactionFailState extends TransactionState {
   final String error;
-  const TransactionFailState({@required this.error});
+  const TransactionFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class HomeQuote extends StatelessWidget {
   final QuoteDTO quote;
 
-  const HomeQuote({Key key, this.quote}) : super(key: key);
+  const HomeQuote({key, required this.quote}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

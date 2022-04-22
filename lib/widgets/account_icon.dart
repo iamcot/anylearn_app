@@ -4,7 +4,7 @@ import '../dto/user_dto.dart';
 
 class AccountIcon extends StatefulWidget {
   final UserDTO user;
-  const AccountIcon({Key key, this.user}) : super(key: key);
+  const AccountIcon({required this.user});
 
   @override
   State<StatefulWidget> createState() => _AccountIcon();

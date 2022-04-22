@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class NotifEvent extends Equatable {
   const NotifEvent();
@@ -10,7 +9,7 @@ abstract class NotifEvent extends Equatable {
 
 class NotifLoadEvent extends NotifEvent {
   final String token;
-  NotifLoadEvent({@required this.token});
+  NotifLoadEvent({required this.token});
 
   @override
   List<Object> get props => [token];
@@ -23,7 +22,7 @@ class NotifLoadEvent extends NotifEvent {
 class NotifReadEvent extends NotifEvent {
   final String token;
   final int id;
-  const NotifReadEvent({@required this.token, this.id, });
+  const NotifReadEvent({required this.token, required this.id, });
 
   @override
   List<Object> get props => [token, id];

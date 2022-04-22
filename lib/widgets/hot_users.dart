@@ -7,8 +7,8 @@ import '../dto/hot_users_dto.dart';
 class HotUsers extends StatelessWidget {
   final List<HotUsersDTO> hotItems;
 
-  HotUsers({Key key, this.hotItems}) : super(key: key);
-  double width;
+  HotUsers({required this.hotItems});
+  late double width;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class HotUsers extends StatelessWidget {
               border: Border(
                 bottom: BorderSide(
                   width: 15.0,
-                  color: Colors.grey[100],
+                  color: (Colors.grey[100])!,
                 ),
               ),
             ),

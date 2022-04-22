@@ -7,8 +7,8 @@ import '../customs/custom_carousel.dart';
 class Promotions extends StatelessWidget {
   final List<ArticleDTO> hotItems;
 
-  Promotions({Key key, this.hotItems}) : super(key: key);
-  double width;
+  Promotions({required this.hotItems});
+  late double width;
 
   @override
   Widget build(BuildContext context) {

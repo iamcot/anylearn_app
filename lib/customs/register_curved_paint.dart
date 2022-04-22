@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomCurvedPaint extends CustomPainter {
   Color colorOne = Colors.blue;
-  Color colorThree = Colors.blue[100];
+  Color colorThree = (Colors.blue[100])!;
 
   @override
   void paint(Canvas canvas, Size size) {

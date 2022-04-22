@@ -1,13 +1,13 @@
-import 'package:anylearn/dto/friends_dto.dart';
 import 'package:bloc/bloc.dart';
 
+import '../../dto/friends_dto.dart';
 import '../../models/user_repo.dart';
 import 'account_blocs.dart';
 import 'account_state.dart';
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final UserRepository userRepository;
-  AccountBloc({this.userRepository}) : super(null);
+  AccountBloc({required this.userRepository}) : super(AccountInitState()) ;
 
   @override
   AccountState get initialState => AccountInitState();
@@ -21,7 +21,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         yield UploadAvatarInprogressState();
 
         String url = await userRepository.uploadAvatar(event.file, event.token);
-        if (url != null && url.isNotEmpty) {
+        if (url != "") {
           yield UploadAvatarSuccessState(url: url);
         } else {
           yield AccountFailState(error: "Up ảnh không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
@@ -29,7 +29,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       } else if (event is AccChangeBannerEvent) {
         yield UploadBannerInprogressState();
         String url = await userRepository.uploadBanner(event.file, event.token);
-        if (url != null && url.isNotEmpty) {
+        if (url != "") {
           yield UploadBannerSuccessState(url: url);
         } else {
           yield AccountFailState(error: "Up banner không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
@@ -89,7 +89,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
     try {
       if (event is AccChangePassEvent) {
-        yield AccChangePassInProgressState();
+        yield AccChangePassInProgressState(token: event.token, newPass: event.newPass, oldPass: event.oldPass);
         final result = await userRepository.changePass(event.token, event.newPass, event.oldPass);
         yield AccChangePassSuccessState();
       }

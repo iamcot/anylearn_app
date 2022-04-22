@@ -8,7 +8,7 @@ import 'course_state.dart';
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
   final ItemRepository itemRepository;
   final UserRepository userRepository;
-  CourseBloc({this.userRepository, this.itemRepository}) : super(null);
+  CourseBloc({required this.userRepository,required this.itemRepository}) : super(CourseInitState());
 
   @override
   CourseState get initialState => CourseInitState();

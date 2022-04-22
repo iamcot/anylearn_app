@@ -30,7 +30,7 @@ class PdpBody extends StatefulWidget {
   final UserDTO user;
   final PdpBloc pdpBloc;
 
-  const PdpBody({Key key, this.data, this.user, this.pdpBloc}) : super(key: key);
+  const PdpBody({key, required this.data, required this.user, required this.pdpBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PdpBody();
@@ -46,7 +46,7 @@ class _PdpBody extends State<PdpBody> {
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: Container(
-              decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 5.0, color: Colors.grey[200]))),
+              decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 5.0, color: (Colors.grey[200])!))),
               alignment: Alignment.topLeft,
               padding: EdgeInsets.all(15.0),
               child: Column(
@@ -188,12 +188,12 @@ class _PdpBody extends State<PdpBody> {
                             : Expanded(
                                 child: ElevatedButton(
                                   style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.green[600]),
+                                      backgroundColor: MaterialStateProperty.all<Color>((Colors.green[600])!),
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(18),
                                       ))),
                                   onPressed: () {
-                                    widget.user != null
+                                    widget.user.token != ""
                                         ? showDialog(
                                             context: context,
                                             builder: (context) => (!widget.data.item.nolimitTime &&
@@ -242,7 +242,7 @@ class _PdpBody extends State<PdpBody> {
                                   ? Expanded(
                                       child: ElevatedButton(
                                       onPressed: () {
-                                        if (widget.user != null) {
+                                        if (widget.user.token != "") {
                                           BlocProvider.of<PdpBloc>(context)
                                             ..add(PdpFavoriteTouchEvent(
                                                 itemId: widget.data.item.id, token: widget.user.token));
@@ -274,7 +274,7 @@ class _PdpBody extends State<PdpBody> {
                                     ))
                                   : IconButton(
                                       onPressed: () {
-                                        if (widget.user != null) {
+                                        if (widget.user.token != "") {
                                           BlocProvider.of<PdpBloc>(context)
                                             ..add(PdpFavoriteTouchEvent(
                                                 itemId: widget.data.item.id, token: widget.user.token));
@@ -295,7 +295,7 @@ class _PdpBody extends State<PdpBody> {
                           icon: Icon(Icons.share),
                           color: Colors.blue,
                           onPressed: () {
-                            widget.user != null
+                            widget.user.token != ""
                                 ? showDialog(
                                     context: context,
                                     builder: (context) => PdpShareDialog(
@@ -364,10 +364,10 @@ class _PdpBody extends State<PdpBody> {
                                     Html(
                                       data: widget.data.item.content ?? "",
                                       shrinkWrap: true,
-                                      onLinkTap: (String url, _, __, ___) {
+                                      onLinkTap: (url, _, __, ___) {
                                         Navigator.of(context).push(MaterialPageRoute(
                                             builder: (context) => WebviewScreen(
-                                                  url: url,
+                                                  url: url!,
                                                 )));
                                       },
                                     ),

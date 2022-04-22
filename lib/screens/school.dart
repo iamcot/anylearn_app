@@ -17,7 +17,7 @@ class SchoolScreen extends StatefulWidget {
 }
 
 class _SchoolScreen extends State<SchoolScreen> {
-  UsersBloc usersBloc;
+  late UsersBloc usersBloc;
   @override
   void didChangeDependencies() {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);

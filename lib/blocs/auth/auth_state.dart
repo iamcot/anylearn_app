@@ -14,7 +14,7 @@ class AuthInitState extends AuthState {}
 class AuthSuccessState extends AuthState {
   final UserDTO user;
 
-  AuthSuccessState({@required this.user}) : assert(user != null);
+  AuthSuccessState({required this.user});
 
   @override
   List<Object> get props => [user];
@@ -23,7 +23,7 @@ class AuthSuccessState extends AuthState {
 class AuthSubpageSuccessState extends AuthState {
   final UserDTO user;
 
-  AuthSubpageSuccessState({@required this.user}) : assert(user != null);
+  AuthSubpageSuccessState({required this.user});
 
   @override
   List<Object> get props => [user];
@@ -32,7 +32,7 @@ class AuthSubpageSuccessState extends AuthState {
 class AuthFailState extends AuthState {
   final String error;
 
-  AuthFailState({this.error});
+  AuthFailState({required this.error});
 
   @override
   List<Object> get props => [error];
@@ -49,7 +49,7 @@ class AuthContractSuccessState extends AuthState {}
 class AuthContractFailState extends AuthState {
   final String error;
 
-  AuthContractFailState({this.error});
+  AuthContractFailState({required this.error});
 
   @override
   List<Object> get props => [error];
@@ -58,7 +58,7 @@ class AuthContractFailState extends AuthState {
 class AuthContractLoadSuccessState extends AuthState {
   final ContractDTO contract;
 
-  AuthContractLoadSuccessState({this.contract});
+  AuthContractLoadSuccessState({required this.contract});
 
   @override
   List<Object> get props => [contract];
@@ -67,7 +67,7 @@ class AuthContractLoadSuccessState extends AuthState {
 class AuthContractLoadForSignSuccessState extends AuthState {
   final ContractDTO contract;
 
-  AuthContractLoadForSignSuccessState({this.contract});
+  AuthContractLoadForSignSuccessState({required this.contract});
 
   @override
   List<Object> get props => [contract];
@@ -76,7 +76,7 @@ class AuthContractLoadForSignSuccessState extends AuthState {
 class AuthContractLoadFailState extends AuthState {
   final String error;
 
-  AuthContractLoadFailState({this.error});
+  AuthContractLoadFailState({required this.error});
 
   @override
   List<Object> get props => [error];
@@ -87,7 +87,7 @@ class AuthContractSigningState extends AuthState {}
 class AuthContractSignedSuccessState extends AuthState {
   final String image;
 
-  AuthContractSignedSuccessState({this.image});
+  AuthContractSignedSuccessState({required this.image});
 
   @override
   List<Object> get props => [image];
@@ -96,7 +96,7 @@ class AuthContractSignedSuccessState extends AuthState {
 class AuthContractSignedFailState extends AuthState {
   final String error;
 
-  AuthContractSignedFailState({this.error});
+  AuthContractSignedFailState({required this.error});
 
   @override
   List<Object> get props => [error];

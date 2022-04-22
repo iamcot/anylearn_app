@@ -13,11 +13,11 @@ class AccountPasswordScreen extends StatefulWidget {
 
 class _AccountPasswordScreen extends State<AccountPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  String oldPassword;
-  String newPassword;
-  String confirmPassword;
-  AccountBloc _accountBloc;
-  AuthBloc _authBloc;
+  late String oldPassword;
+  late String newPassword;
+  late String confirmPassword;
+  late AccountBloc _accountBloc;
+  late AuthBloc _authBloc;
   bool loading = false;
 
   @override
@@ -30,7 +30,7 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final token = ModalRoute.of(context).settings.arguments;
+    final token = ModalRoute.of(context)!.settings.arguments.toString();
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -81,14 +81,14 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                 child: TextFormField(
                   onSaved: (value) {
                     setState(() {
-                      oldPassword = value.trim();
+                      oldPassword = value!.trim();
                     });
                   },
-                  validator: (String value) {
-                    if (value.isEmpty) {
+                  validator: (value) {
+                    if (value == "") {
                       return "Mật khẩu cũ là bắt buộc";
                     }
-                    _formKey.currentState.save();
+                    _formKey.currentState!.save();
                     return null;
                   },
                   decoration: InputDecoration(
@@ -103,14 +103,14 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                 child: TextFormField(
                   onSaved: (value) {
                     setState(() {
-                      newPassword = value.trim();
+                      newPassword = value!.trim();
                     });
                   },
-                  validator: (String value) {
-                    if (value.length < 8) {
+                  validator: (value) {
+                    if (value!.length < 8) {
                       return "Mật khẩu ít nhất 8 kí tự";
                     }
-                    _formKey.currentState.save();
+                    _formKey.currentState!.save();
                     return null;
                   },
                   decoration: InputDecoration(
@@ -125,14 +125,14 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                 child: TextFormField(
                   onSaved: (value) {
                     setState(() {
-                      confirmPassword = value.trim();
+                      confirmPassword = value!.trim();
                     });
                   },
-                  validator: (String value) {
+                  validator: (value) {
                     if (value != newPassword) {
                       return "Xác nhận mât khẩu không đúng";
                     }
-                    _formKey.currentState.save();
+                    _formKey.currentState!.save();
                     return null;
                   },
                   decoration: InputDecoration(
@@ -151,8 +151,8 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                         color: Colors.blue,
                         onPressed: () {
-                          if (_formKey.currentState.validate() && !loading) {
-                            _formKey.currentState.save();
+                          if (_formKey.currentState!.validate() && !loading) {
+                            _formKey.currentState!.save();
                             _accountBloc
                               ..add(AccChangePassEvent(
                                 token: token,

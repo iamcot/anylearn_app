@@ -5,7 +5,7 @@ class YoutubeImage extends StatelessWidget {
   final link;
   final fit;
 
-  const YoutubeImage({Key key, this.link, this.fit}) : super(key: key);
+  const YoutubeImage({this.link, this.fit});
   @override
   Widget build(BuildContext context) {
     final image = _videoThumbURL(link);
@@ -29,20 +29,20 @@ class YoutubeImage extends StatelessWidget {
     // For matching https://www.youtube.com/v/<VIDEOID>
     RegExp regExp5 = new RegExp(r"\/v\/([^#\&\?]{11})", caseSensitive: false, multiLine: false);
 
-    String matchedString;
+    String matchedString = "";
 
     if (regExp1.hasMatch(url)) {
-      matchedString = regExp1.firstMatch(url).group(0);
+      matchedString = regExp1.firstMatch(url)!.group(0)!;
     } else if (regExp2.hasMatch(url)) {
-      matchedString = regExp2.firstMatch(url).group(0);
+      matchedString = regExp2.firstMatch(url)!.group(0)!;
     } else if (regExp3.hasMatch(url)) {
-      matchedString = regExp3.firstMatch(url).group(0);
+      matchedString = regExp3.firstMatch(url)!.group(0)!;
     } else if (regExp4.hasMatch(url)) {
-      matchedString = regExp4.firstMatch(url).group(0);
+      matchedString = regExp4.firstMatch(url)!.group(0)!;
     } else if (regExp5.hasMatch(url)) {
-      matchedString = regExp5.firstMatch(url).group(0);
+      matchedString = regExp5.firstMatch(url)!.group(0)!;
     }
 
-    return matchedString != null ? matchedString.substring(matchedString.length - 11) : null;
+    return matchedString.substring(matchedString.length - 11);
   }
 }

@@ -12,7 +12,7 @@ import '../../widgets/time_ago.dart';
 class ContentRead extends StatelessWidget {
   final ArticleDTO data;
 
-  const ContentRead({Key key, this.data}) : super(key: key);
+  const ContentRead({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -33,10 +33,10 @@ class ContentRead extends StatelessWidget {
         Html(
           data: data.content,
           shrinkWrap: true,
-         onLinkTap: (String url, _, __, ___) {
+         onLinkTap: (url, _, __, ___) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => WebviewScreen(
-                      url: url,
+                      url: url!,
                     )));
           },
         ),

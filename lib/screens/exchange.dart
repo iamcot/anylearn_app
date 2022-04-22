@@ -22,10 +22,10 @@ class _ExchangeScreen extends State<ExchangeScreen> {
   final _amountInput = TextEditingController();
   final _ammountMInput = TextEditingController();
   final _moneyFormat = NumberFormat("###,###,###", "vi_VN");
-  TransactionBloc _transBloc;
-  UserDTO user;
-  TransactionConfigDTO config;
-  int max;
+  late TransactionBloc _transBloc;
+  late UserDTO user;
+  late TransactionConfigDTO config;
+  late int max;
 
   @override
   void didChangeDependencies() {
@@ -135,14 +135,14 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                             _ammountMInput.text = (int.parse(value) * config.rate).toString();
                                           });
                                         },
-                                        validator: (String value) {
-                                          if (value.isEmpty) {
+                                        validator: (value) {
+                                          if (value == "") {
                                             return "Bạn chưa nhập số điểm muốn rút";
                                           }
-                                          if (int.parse(value) > max) {
+                                          if (int.parse(value.toString()) > max) {
                                             return "Bạn được rút tối đa $max điểm";
                                           }
-                                          _formKey.currentState.save();
+                                          _formKey.currentState?.save();
                                           return null;
                                         },
                                         decoration: InputDecoration(
@@ -185,8 +185,8 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                   height: 40.0,
                                   child: FlatButton(
                                       onPressed: () {
-                                        if (_formKey.currentState.validate()) {
-                                          _formKey.currentState.save();
+                                        if (_formKey.currentState!.validate()) {
+                                          _formKey.currentState?.save();
                                           // showDialog(
                                           //   context: context,
                                           //   builder: (context) {

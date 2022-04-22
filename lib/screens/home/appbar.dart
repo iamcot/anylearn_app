@@ -12,7 +12,7 @@ import 'home_top_icons.dart';
 class HomeAppBar extends StatefulWidget {
   final UserDTO user;
 
-  const HomeAppBar({Key key, this.user}) : super(key: key);
+  const HomeAppBar({key, required this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomeAppBar();

@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class NotificationDTO extends Equatable {
-  final int id;
-  final String title;
-  final String content;
-  final String read;
-  final String route;
-  final DateTime createdAt;
-  final String extraContent;
-  final String type;
+  final id;
+  final title;
+  final content;
+  final read;
+  final route;
+  final createdAt;
+  final extraContent;
+  final type;
 
   NotificationDTO({
     this.id,
@@ -34,8 +34,8 @@ class NotificationDTO extends Equatable {
       ];
 
   static NotificationDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? NotificationDTO()
         : NotificationDTO(
             id: json['id'],
             title: json['title'],
@@ -50,8 +50,8 @@ class NotificationDTO extends Equatable {
   static NotificationDTO fromFireBase(RemoteMessage message) {
     // if (Platform.isIOS) {
     return NotificationDTO(
-      title: message.notification.title,
-      content: message.notification.body,
+      title: message.notification?.title,
+      content: message.notification?.body,
       route: message.data.containsKey("screen") ? message.data['screen'] : null,
       extraContent: message.data.containsKey("args") ? message.data['args'] : null,
     );
@@ -67,8 +67,8 @@ class NotificationDTO extends Equatable {
 
   static NotificationDTO fromNewFirebase(RemoteMessage message) {
     return NotificationDTO(
-      title: message.notification.title,
-      content: message.notification.body,
+      title: message.notification?.title,
+      content: message.notification?.body,
       route: message.data['screen'] != null ? message.data['screen'] : null,
       extraContent: message.data['args'] != null ? message.data['args'] : null,
     );
@@ -77,7 +77,7 @@ class NotificationDTO extends Equatable {
 
 class NotificationPagingDTO extends Equatable {
   final currentPage;
-  final List<NotificationDTO> data;
+  final data;
   final from;
   final lastPage;
   final perPage;
@@ -90,8 +90,8 @@ class NotificationPagingDTO extends Equatable {
   List<Object> get props => [currentPage, data, from, lastPage, perPage, to, total];
 
   static NotificationPagingDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? NotificationPagingDTO()
         : NotificationPagingDTO(
             currentPage: json['current_page'],
             data: List<NotificationDTO>.from(json['data']?.map((v) => v == null ? null : NotificationDTO.fromJson(v)))

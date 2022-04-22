@@ -4,13 +4,12 @@ import '../customs/custom_scroll_physical.dart';
 
 class CustomCarousel extends StatelessWidget {
   CustomCarousel({
-    Key key,
-    @required this.items,
-    @required this.builderFunction,
-    @required this.height,
+    required this.items,
+    required this.builderFunction,
+    required this.height,
     this.dividerIndent = 10,
     this.width,
-  }) : super(key: key);
+  });
 
   final List<dynamic> items;
   final double dividerIndent;
@@ -20,17 +19,19 @@ class CustomCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _width = width;
-    if (_width == null) {
+    double _width = 0.0;
+    if (width == null) {
       _width = MediaQuery.of(context).size.width;
       _width = _width * 2 / 3 - 10 + this.dividerIndent;
+    } else {
+      _width = width;
     }
 
     return Container(
       alignment: Alignment.topCenter,
       height: height,
       child: ListView.separated(
-          physics: CustomScrollPhysics(itemDimension: 100),
+          // physics: CustomScrollPhysics(itemDimension: 100),
           primary: false,
           separatorBuilder: (context, index) => Divider(
                 indent: dividerIndent,

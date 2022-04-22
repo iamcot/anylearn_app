@@ -5,21 +5,20 @@ import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../dto/contract.dart';
-import '../dto/user_dto.dart';
 import '../widgets/loading_widget.dart';
 
 class ContractSignScreen extends StatefulWidget {
-  final UserDTO user;
-  final int contractId;
+  final user;
+  final contractId;
 
-  const ContractSignScreen({Key key, this.user, this.contractId}) : super(key: key);
+  const ContractSignScreen({key, this.user, this.contractId}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _ContractSignScreen();
 }
 
 class _ContractSignScreen extends State<ContractSignScreen> {
-  AuthBloc _authBloc;
-  ContractDTO _contract;
+  late AuthBloc _authBloc;
+  ContractDTO? _contract;
 
   @override
   void initState() {
@@ -60,14 +59,14 @@ class _ContractSignScreen extends State<ContractSignScreen> {
                   ? LoadingWidget()
                   : ListView(
                       children: [
-                        _contract.status == 1
+                        _contract!.status == 1
                             ? Container(
                                 padding: EdgeInsets.all(15),
                                 child: ElevatedButton(
                                     style: ButtonStyle(
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))),
-                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.green[600]),
+                                      backgroundColor: MaterialStateProperty.all<Color>((Colors.green[600])!),
                                     ),
                                     onPressed: () {
                                       _authBloc
@@ -78,17 +77,17 @@ class _ContractSignScreen extends State<ContractSignScreen> {
                               )
                             : Container(),
                         Html(
-                          data: _contract.template,
+                          data: _contract!.template,
                           shrinkWrap: true,
                         ),
-                        _contract.status == 1
+                        _contract!.status == 1
                             ? Container(
                                 padding: EdgeInsets.all(15),
                                 child: ElevatedButton(
                                     style: ButtonStyle(
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))),
-                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.green[600]),
+                                      backgroundColor: MaterialStateProperty.all<Color>((Colors.green[600])!),
                                     ),
                                     onPressed: () {
                                       _authBloc

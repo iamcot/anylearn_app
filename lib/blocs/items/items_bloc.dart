@@ -7,7 +7,7 @@ import 'items_state.dart';
 
 class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
   final PageRepository pageRepository;
-  ItemsBloc({this.pageRepository}) : super(null);
+  ItemsBloc({required this.pageRepository}) : super(ItemsInitState());
 
   @override
   ItemsState get initialState => ItemsInitState();

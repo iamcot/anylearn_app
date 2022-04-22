@@ -1,8 +1,7 @@
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 import '../../dto/pdp_dto.dart';
+import '../../dto/user_dto.dart';
 
 abstract class PdpState extends Equatable {
   const PdpState();
@@ -16,7 +15,7 @@ class PdpLoadingState extends PdpState {}
 
 class PdpSuccessState extends PdpState {
   final PdpDTO data;
-  PdpSuccessState({@required this.data}) : assert(data != null);
+  PdpSuccessState({required this.data}) : assert(data != null);
   @override
   List<Object> get props => [data];
 }
@@ -25,7 +24,7 @@ class PdpFavoriteTouchingState extends PdpState {}
 
 class PdpFavoriteTouchSuccessState extends PdpState {
   final bool isFav;
-  PdpFavoriteTouchSuccessState({@required this.isFav}) : assert(isFav != null);
+  PdpFavoriteTouchSuccessState({required this.isFav}) : assert(isFav != null);
   @override
   List<Object> get props => [isFav];
 }
@@ -34,14 +33,14 @@ class PdpRegisteringState extends PdpState {}
 
 class PdpRegisterSuccessState extends PdpState {
   final bool result;
-  PdpRegisterSuccessState({this.result});
+  PdpRegisterSuccessState({required this.result});
   @override
   List<Object> get props => [result];
 }
 
 class PdpRegisterFailState extends PdpState {
   final String error;
-  const PdpRegisterFailState({@required this.error});
+  const PdpRegisterFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -52,7 +51,7 @@ class PdpSharingState extends PdpState {}
 
 class PdpShareFailState extends PdpState {
   final String error;
-  const PdpShareFailState({@required this.error});
+  const PdpShareFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -66,7 +65,7 @@ class PdpShareFriendListingState extends PdpState {}
 class PdpShareFriendListSuccessState extends PdpState {
   final List<UserDTO> friends;
 
-  PdpShareFriendListSuccessState({this.friends});
+  PdpShareFriendListSuccessState({required this.friends});
 
   @override
   List<Object> get props => [friends];
@@ -74,7 +73,7 @@ class PdpShareFriendListSuccessState extends PdpState {
 
 class PdpFailState extends PdpState {
   final String error;
-  const PdpFailState({@required this.error});
+  const PdpFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override

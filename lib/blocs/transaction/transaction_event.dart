@@ -11,7 +11,7 @@ class LoadTransactionPageEvent extends TransactionEvent {
   final String type;
   final String token;
 
-  LoadTransactionPageEvent({@required this.type, @required this.token});
+  LoadTransactionPageEvent({required this.type, required this.token});
 
   @override
   List<Object> get props => [type, token];
@@ -23,7 +23,7 @@ class LoadTransactionPageEvent extends TransactionEvent {
 class LoadTransactionHistoryEvent extends TransactionEvent {
   final String token;
 
-  LoadTransactionHistoryEvent({@required this.token});
+  LoadTransactionHistoryEvent({required this.token});
 
   @override
   List<Object> get props => [token];
@@ -37,7 +37,7 @@ class SaveDepositEvent extends TransactionEvent {
   final String amount;
   final String payment;
 
-  SaveDepositEvent({@required this.token, @required this.amount, this.payment});
+  SaveDepositEvent({required this.token, required this.amount, this.payment = ""});
 
   @override
   List<Object> get props => [token, amount, payment];
@@ -51,7 +51,7 @@ class SaveWithdrawEvent extends TransactionEvent {
   final amount;
   final BankDTO bankInfo;
 
-  SaveWithdrawEvent({@required this.token, @required this.amount, this.bankInfo});
+  SaveWithdrawEvent({required this.token, required this.amount, required this.bankInfo});
 
   @override
   List<Object> get props => [token, amount, bankInfo];
@@ -64,7 +64,7 @@ class SaveExchangeEvent extends TransactionEvent {
   final String token;
   final int amount;
 
-  SaveExchangeEvent({@required this.token, @required this.amount});
+  SaveExchangeEvent({required this.token, required this.amount});
 
   @override
   List<Object> get props => [token, amount];

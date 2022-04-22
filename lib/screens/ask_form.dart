@@ -7,10 +7,10 @@ import '../dto/user_dto.dart';
 import '../widgets/gradient_button.dart';
 
 class AskFormScreen extends StatefulWidget {
-  final UserDTO user;
-  final int askId;
-  final ArticleBloc askBloc;
-  final String type;
+  final user;
+  final askId;
+  final askBloc;
+  final type;
 
   AskFormScreen({this.user, this.askId, this.askBloc, this.type});
 
@@ -110,8 +110,8 @@ class _AskFormScreen extends State<AskFormScreen> {
   }
 
   void _submit() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       widget.askBloc.add(AskCreateEvent(
         askId: widget.askId,
         title: widget.type == MyConst.ASK_QUESTION ? _titleController.text : "",
@@ -131,5 +131,6 @@ class _AskFormScreen extends State<AskFormScreen> {
       case MyConst.ASK_COMMENT:
         return "bình luận";
     }
+    return "";
   }
 }

@@ -5,9 +5,9 @@ import '../../customs/custom_search_delegate.dart';
 
 class SearchBox extends StatelessWidget {
   final searchController = TextEditingController();
-  final UserDTO user;
+  final user;
 
-  SearchBox({Key key, this.user}) : super(key: key);
+  SearchBox({key, this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

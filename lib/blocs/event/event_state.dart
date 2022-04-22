@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 import '../../dto/event_dto.dart';
 
@@ -16,14 +15,14 @@ class EventLoadingState extends EventState {}
 
 class EventSuccessState extends EventState {
   final Map<DateTime, List<EventDTO>> data;
-  EventSuccessState({@required this.data}) : assert(data != null);
+  EventSuccessState({required this.data});
   @override
   List<Object> get props => [data];
 }
 
 class EventFailState extends EventState {
   final String error;
-  const EventFailState({@required this.error});
+  const EventFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override

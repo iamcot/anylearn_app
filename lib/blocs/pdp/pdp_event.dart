@@ -9,7 +9,7 @@ class LoadPDPEvent extends PdpEvent {
   final int id;
   final String token;
 
-  LoadPDPEvent({@required this.id, this.token});
+  LoadPDPEvent({required this.id, this.token = ""});
 
   @override
   List<Object> get props => [id, token];
@@ -22,7 +22,7 @@ class PdpFavoriteTouchEvent extends PdpEvent {
   final int itemId;
   final String token;
 
-  PdpFavoriteTouchEvent({@required this.itemId, @required this.token});
+  PdpFavoriteTouchEvent({required this.itemId, required this.token});
 
   @override
   List<Object> get props => [itemId, token];
@@ -37,7 +37,7 @@ class PdpRegisterEvent extends PdpEvent {
   final String voucher;
   final int childUser;
 
-  PdpRegisterEvent({@required this.itemId, @required this.token, this.voucher, this.childUser});
+  PdpRegisterEvent({required this.itemId, required this.token, this.voucher = "", this.childUser = 0 });
 
   @override
   List<Object> get props => [itemId, token, voucher];
@@ -49,7 +49,7 @@ class PdpRegisterEvent extends PdpEvent {
 class PdpFriendLoadEvent extends PdpEvent {
   final String token;
 
-  PdpFriendLoadEvent({@required this.token});
+  PdpFriendLoadEvent({required this.token});
 
   @override
   List<Object> get props => [token];
@@ -64,7 +64,7 @@ class PdpFriendShareEvent extends PdpEvent {
   final List<int> friendIds;
   final bool isALL;
 
-  PdpFriendShareEvent({this.token, this.itemId, this.friendIds, this.isALL});
+  PdpFriendShareEvent({required this.token, required this.itemId, required this.friendIds, this.isALL = false});
 
   @override
   List<Object> get props => [token, itemId, friendIds, isALL];

@@ -1,8 +1,9 @@
+import 'package:anylearn/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:validators/validators.dart' as validator;
 
 import '../blocs/auth/auth_blocs.dart';
@@ -18,9 +19,8 @@ class ContractTeacherScreen extends StatefulWidget {
 }
 
 class _ContractTeacherScreen extends State<ContractTeacherScreen> {
-  UserDTO _user;
-  AuthBloc _authBloc;
-  ContractDTO _contract = ContractDTO();
+  late AuthBloc _authBloc;
+  ContractDTO? _contract;
   bool openedForm = false;
   bool _agreedToc = true;
 
@@ -49,7 +49,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                 openedForm = false;
                 // _authBloc..add(AuthContractLoadEvent(token: _user.token, contractId: 0));
               });
-              _authBloc..add(AuthContractLoadEvent(token: _user.token, contractId: 0));
+              _authBloc..add(AuthContractLoadEvent(token: user.token, contractId: 0));
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
@@ -61,19 +61,24 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(content: Text(state.error)));
             }
+            if (state is AuthContractLoadFailState) {
+              toast(state.error);
+            }
           },
           child: BlocBuilder(
             bloc: BlocProvider.of<AuthBloc>(context),
             builder: (context, state) {
               if (state is AuthSuccessState) {
-                _user = state.user;
-                _authBloc..add(AuthContractLoadEvent(token: _user.token, contractId: 0));
+                user = state.user;
+                _authBloc..add(AuthContractLoadEvent(token: user.token, contractId: 0));
               }
 
               if (state is AuthContractLoadSuccessState) {
                 _contract = state.contract;
+                print(_contract);
               }
-              return _user == null
+
+              return user.token == ""
                   ? LoadingWidget()
                   : Container(
                       padding: EdgeInsets.all(15),
@@ -82,27 +87,27 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                           leading: Icon(MdiIcons.fileCertificateOutline),
                           title: Text("Trạng thái hợp đồng của tài khoản"),
                           subtitle:
-                              _user.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC") : _signedStatus(_user.isSigned),
-                          trailing: _user.isSigned == 99 ? Icon(Icons.search) : Text(""),
+                              user.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC") : _signedStatus(user.isSigned),
+                          trailing: user.isSigned == 99 ? Icon(Icons.search) : Text(""),
                           onTap: () {
-                            if (_user.isSigned == 99) {
+                            if (user.isSigned == 99) {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ContractSignScreen(user: _user, contractId: -1)));
+                                  builder: (context) => ContractSignScreen(user: user, contractId: -1)));
                             }
                           },
                         ),
-                        _contract != null && (_contract.status == 1 || _contract.status == 10)
+                        _contract != null && (_contract!.status == 1 || _contract!.status == 10)
                             ? ListTile(
                                 shape: Border(
-                                  top: BorderSide(color: Colors.grey[300]),
+                                  top: BorderSide(color: (Colors.grey[300])!),
                                 ),
                                 leading: Icon(Icons.edit_notifications_outlined),
                                 title: Text("Đang có hợp đồng chờ xử lí"),
-                                subtitle: _signedStatus(_contract.status),
-                                trailing: _contract.status == 1 ? Text("KÝ") : Text("XEM"),
+                                subtitle: _signedStatus(_contract!.status),
+                                trailing: _contract!.status == 1 ? Text("KÝ") : Text("XEM"),
                                 onTap: () async {
                                   bool result = await Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => ContractSignScreen(user: _user, contractId: _contract.id)));
+                                      builder: (context) => ContractSignScreen(user: user, contractId: _contract!.id)));
                                   if (result) {
                                     _authBloc..add(AuthCheckEvent());
                                   }
@@ -111,13 +116,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                             : Text(""),
                         ListTile(
                           shape: Border(
-                            top: BorderSide(color: Colors.grey[300]),
+                            top: BorderSide(color: (Colors.grey[300])!),
                           ),
                           leading: Icon(MdiIcons.certificate),
                           trailing: Icon(Icons.chevron_right),
                           title: Text("Cập nhật chứng chỉ"),
                           onTap: () {
-                            Navigator.of(context).pushNamed("/account/docs", arguments: _user.token);
+                            Navigator.of(context).pushNamed("/account/docs", arguments: user.token);
                           },
                         ),
                         GradientButton(
@@ -129,9 +134,9 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                               if (_contract == null) {
                                 _contract = new ContractDTO();
                               }
-                              _contract.commission = _user.commissionRate.toString();
-                              dateMask.text = _contract.certDate ?? "";
-                              dobMask.text = _contract.dob ?? "";
+                              _contract!.commission = user.commissionRate.toString();
+                              dateMask.text = _contract!.certDate;
+                              dobMask.text = _contract!.dob;
                             });
                           },
                         ),
@@ -143,17 +148,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                   children: <Widget>[
                                     Divider(),
                                     TextFormField(
-                                      initialValue: _user.commissionRate.toString(),
+                                      initialValue: user.commissionRate.toString(),
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.commission = value;
+                                          _contract!.commission = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (value.length < 3 || double.tryParse(value) == null) {
+                                        if (value!.length < 3 || double.tryParse(value) == null) {
                                           return "Là một con số phập phân, ví dụ 0.2";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -163,17 +168,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       ),
                                     ),
                                     TextFormField(
-                                      initialValue: _contract.certId,
+                                      initialValue: _contract!.certId,
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.certId = value;
+                                          _contract!.certId = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (value.length < 9) {
+                                        if (value!.length < 9) {
                                           return "CMND không hợp lệ";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -185,14 +190,14 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                     TextFormField(
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.certDate = value;
+                                          _contract!.certDate = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (DateTime.tryParse(value) == null) {
+                                        if (DateTime.tryParse(value!) == null) {
                                           return "Ngày không hợp lệ, nhập năm-tháng-ngày(yyyy-mm-dd)";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       controller: dateMask,
@@ -204,17 +209,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       ),
                                     ),
                                     TextFormField(
-                                      initialValue: _contract.certPlace,
+                                      initialValue: _contract!.certPlace,
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.certPlace = value;
+                                          _contract!.certPlace = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (value.length < 3) {
+                                        if (value!.length < 3) {
                                           return "Nơi cấp CMND không hợp lệ";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -226,14 +231,14 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                     TextFormField(
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.dob = value;
+                                          _contract!.dob = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (DateTime.tryParse(value) == null) {
+                                        if (DateTime.tryParse(value!) == null) {
                                           return "Ngày không hợp lệ, nhập năm-tháng-ngày(yyyy-mm-dd)";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       controller: dobMask,
@@ -245,17 +250,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       ),
                                     ),
                                     TextFormField(
-                                      initialValue: _contract.dob,
+                                      initialValue: _contract!.dob,
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.dobPlace = value;
+                                          _contract!.dobPlace = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (value.length < 3) {
+                                        if (value!.length < 3) {
                                           return "Nơi sinh";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -265,17 +270,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       ),
                                     ),
                                     TextFormField(
-                                      initialValue: _contract.address,
+                                      initialValue: _contract!.address,
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.address = value;
+                                          _contract!.address = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (value.length < 3) {
+                                        if (value!.length < 3) {
                                           return "Địa chỉ không hợp lệ";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -285,17 +290,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       ),
                                     ),
                                     TextFormField(
-                                      initialValue: _contract.email,
+                                      initialValue: _contract!.email,
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.email = value;
+                                          _contract!.email = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (!validator.isEmail(value)) {
+                                        if (!validator.isEmail(value!)) {
                                           return "Email không hợp lệ";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -305,17 +310,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       ),
                                     ),
                                     TextFormField(
-                                      initialValue: _contract.bankName,
+                                      initialValue: _contract!.bankName,
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.bankName = value;
+                                          _contract!.bankName = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (value.length < 3) {
+                                        if (value!.length < 3) {
                                           return "Vui lòng nhập";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -325,17 +330,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       ),
                                     ),
                                     TextFormField(
-                                      initialValue: _contract.bankBranch,
+                                      initialValue: _contract!.bankBranch,
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.bankBranch = value;
+                                          _contract!.bankBranch = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (value.length < 3) {
+                                        if (value!.length < 3) {
                                           return "Vui lòng nhập";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -345,17 +350,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       ),
                                     ),
                                     TextFormField(
-                                      initialValue: _contract.bankNo,
+                                      initialValue: _contract!.bankNo,
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.bankNo = value;
+                                          _contract!.bankNo = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (value.length < 3) {
+                                        if (value!.length < 3) {
                                           return "Vui lòng nhập";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -363,17 +368,17 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       ),
                                     ),
                                     TextFormField(
-                                      initialValue: _contract.bankAccount,
+                                      initialValue: _contract!.bankAccount,
                                       onSaved: (value) {
                                         setState(() {
-                                          _contract.bankAccount = value;
+                                          _contract!.bankAccount = value!;
                                         });
                                       },
                                       validator: (value) {
-                                        if (value.length < 3) {
+                                        if (value!.length < 3) {
                                           return "Vui lòng nhập";
                                         }
-                                        _formKey.currentState.save();
+                                        _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
@@ -405,7 +410,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                           //         ],
                                           //       ));
                                           // }
-                                          _agreedToc = value;
+                                          _agreedToc = value!;
                                         }),
                                         title: Text.rich(TextSpan(text: "Tôi đồng ý với ", children: [
                                           TextSpan(
@@ -437,7 +442,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                                   content: Text(
                                                       "Bạn vui lòng tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
                                                   actions: <Widget>[
-                                                    FlatButton(
+                                                    TextButton(
                                                       onPressed: () => Navigator.pop(context),
                                                       child: Text("Tôi sẽ đọc".toUpperCase()),
                                                     )
@@ -445,10 +450,10 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                                 ),
                                               );
                                             }
-                                            if (_formKey.currentState.validate()) {
-                                              _formKey.currentState.save();
+                                            if (_formKey.currentState!.validate()) {
+                                              _formKey.currentState!.save();
                                               _authBloc
-                                                ..add(AuthContractSaveEvent(token: _user.token, contract: _contract));
+                                                ..add(AuthContractSaveEvent(token: user.token, contract: _contract!));
                                             }
                                           },
                                         )),

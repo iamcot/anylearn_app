@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FloatingActionButtonHome extends StatelessWidget {
   final isHome;
 
-  const FloatingActionButtonHome({Key key, this.isHome}) : super(key: key);
+  const FloatingActionButtonHome({this.isHome = false});
 
   @override
   Widget build(BuildContext context) {

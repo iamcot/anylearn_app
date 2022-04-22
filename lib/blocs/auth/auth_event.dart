@@ -14,7 +14,7 @@ abstract class AuthEvent extends Equatable {
 
 class AuthCheckEvent extends AuthEvent {
   bool isFull = false;
-  AuthCheckEvent({this.isFull});
+  AuthCheckEvent({this.isFull = false});
 
   @override
   List<Object> get props => [isFull];
@@ -27,7 +27,7 @@ class AuthSubpageCheckEvent extends AuthEvent {}
 
 class AuthLoggedInEvent extends AuthEvent {
   final UserDTO user;
-  const AuthLoggedInEvent({@required this.user});
+  const AuthLoggedInEvent({required this.user});
 
   @override
   List<Object> get props => [user];
@@ -38,7 +38,7 @@ class AuthLoggedInEvent extends AuthEvent {
 
 class AuthLoggedOutEvent extends AuthEvent {
   final String token;
-  const AuthLoggedOutEvent({@required this.token});
+  const AuthLoggedOutEvent({required this.token});
 
   @override
   List<Object> get props => [token];
@@ -50,7 +50,7 @@ class AuthLoggedOutEvent extends AuthEvent {
 class AuthContractSaveEvent extends AuthEvent {
   final String token;
   final ContractDTO contract;
-  const AuthContractSaveEvent({@required this.token, this.contract});
+  const AuthContractSaveEvent({required this.token,required  this.contract});
 
   @override
   List<Object> get props => [token, contract];
@@ -62,7 +62,7 @@ class AuthContractSaveEvent extends AuthEvent {
 class AuthContractLoadEvent extends AuthEvent {
   final String token;
   final int contractId;
-  const AuthContractLoadEvent({@required this.token, this.contractId});
+  const AuthContractLoadEvent({required this.token, required  this.contractId});
 
   @override
   List<Object> get props => [token];
@@ -74,7 +74,7 @@ class AuthContractLoadEvent extends AuthEvent {
 class AuthContractLoadForSignEvent extends AuthEvent {
   final String token;
   final int contractId;
-  const AuthContractLoadForSignEvent({@required this.token, this.contractId});
+  const AuthContractLoadForSignEvent({required this.token,required  this.contractId});
 
   @override
   List<Object> get props => [token];
@@ -87,7 +87,7 @@ class AuthContractSignEvent extends AuthEvent {
   final String token;
   final int contractId;
 
-  const AuthContractSignEvent({@required this.token, this.contractId});
+  const AuthContractSignEvent({required this.token, required this.contractId});
 
   @override
   List<Object> get props => [token, contractId];

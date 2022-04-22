@@ -5,7 +5,7 @@ class ItemFavorStatusItem extends StatelessWidget {
   final Color color;
   final IconData icon;
 
-  const ItemFavorStatusItem({Key key, this.text, this.color, this.icon}) : super(key: key);
+  const ItemFavorStatusItem({required this.text, required this.color, required this.icon});
 
   @override
   Widget build(BuildContext context) {

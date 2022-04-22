@@ -22,24 +22,24 @@ class AccountCalendarList extends StatefulWidget {
   final UserDTO user;
   final AccountBloc accountBloc;
 
-  const AccountCalendarList({Key key, this.events, this.isOpen, this.user, this.accountBloc}) : super(key: key);
+  const AccountCalendarList({key, required this.events, this.isOpen, required this.user, required this.accountBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AccountCalendarList();
 }
 
 class _AccountCalendarList extends State<AccountCalendarList> with TickerProviderStateMixin {
-  List<AnimationController> controllers;
+  late List<AnimationController> controllers;
 
   String timerString(AnimationController controller) {
-    Duration duration = controller.duration * controller.value;
+    Duration duration = controller.duration! * controller.value;
     return '${(duration.inHours).toString().padLeft(2, '0')}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
   @override
   void initState() {
     super.initState();
-    controllers = new List();
+    controllers = List.empty();
   }
 
   @override
@@ -241,16 +241,16 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
   void _dialogJoin(EventDTO eventDTO, bool hasConfirm) {
     String route = "";
     String routeInfo = "";
-    OnlineScheduleInfoDTO onlineScheduleInfoDTO;
+    OnlineScheduleInfoDTO onlineScheduleInfoDTO = OnlineScheduleInfoDTO();
     if (eventDTO.itemSubtype == MyConst.ITEM_SUBTYPE_ONLINE) {
       try {
         onlineScheduleInfoDTO = OnlineScheduleInfoDTO.fromJson(jsonDecode(eventDTO.scheduleContent));
       } catch (e) {}
 
-      if (onlineScheduleInfoDTO != null) {
+      if (onlineScheduleInfoDTO.url != "") {
         route = onlineScheduleInfoDTO.url;
         routeInfo = onlineScheduleInfoDTO.info;
-      } else if (eventDTO.location != null) {
+      } else if (eventDTO.location != "") {
         route = eventDTO.location;
       } else {
         routeInfo = "Vui lòng chờ cập nhật thông tin lớp học.";
@@ -271,7 +271,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                   ])),
                   onTap: () async {
                     Navigator.of(context).pop();
-                    if (route != null) {
+                    if (route != "") {
                       if (Platform.isIOS) {
                         if (await canLaunch(route)) {
                           await launch(route, forceSafariVC: false);

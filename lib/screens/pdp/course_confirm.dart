@@ -3,18 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../blocs/auth/auth_blocs.dart';
-import '../../blocs/pdp/pdp_blocs.dart';
-import '../../dto/pdp_dto.dart';
 import '../../dto/user_dto.dart';
 import '../../main.dart';
 import '../webview.dart';
 
 class CourseConfirm extends StatefulWidget {
-  final PdpDTO pdpDTO;
-  final UserDTO user;
-  final PdpBloc pdpBloc;
+  final pdpDTO;
+  final user;
+  final pdpBloc;
 
-  const CourseConfirm({Key key, this.pdpDTO, this.user, this.pdpBloc}) : super(key: key);
+  const CourseConfirm({key, this.pdpDTO, this.user, this.pdpBloc}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _CourseConfirm();
 }
@@ -29,7 +27,7 @@ class _CourseConfirm extends State<CourseConfirm> {
   final NumberFormat _moneyFormat = NumberFormat("###,###,###", 'vi_VN');
 
   @override
-  Widget build(Object context) {
+  Widget build(BuildContext context) {
     return widget.user.id == widget.pdpDTO.author.id
         ? AlertDialog(
             content: Text("Bạn không thể đăng ký khóa học của chính bạn."),
@@ -143,7 +141,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                               contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.blue[200], width: 3),
+                                borderSide: BorderSide(color: (Colors.blue[200])!, width: 3),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -195,7 +193,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                 // padding: const EdgeInsets.only(top: 15),
                 child: ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.green[600]),
+                      backgroundColor: MaterialStateProperty.all<Color>((Colors.green[600])!),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ))),
@@ -235,9 +233,9 @@ class _CourseConfirm extends State<CourseConfirm> {
       underline: Container(
         color: Colors.transparent,
       ),
-      onChanged: (String newValue) {
+      onChanged: (newValue) {
         setState(() {
-          dropdownValue = newValue;
+          dropdownValue = newValue!;
         });
       },
       items: _buildList(),

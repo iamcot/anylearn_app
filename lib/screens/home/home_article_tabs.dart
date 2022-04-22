@@ -11,19 +11,23 @@ class HomeArticleTabs extends StatefulWidget {
   final List<ArticleDTO> articles;
   final List<ArticleDTO> videos;
 
-  const HomeArticleTabs({Key key, this.articles, this.videos}) : super(key: key);
+  const HomeArticleTabs({key, required this.articles, required this.videos}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _HomeArticleTabs();
 }
 
 class _HomeArticleTabs extends State<HomeArticleTabs> with TickerProviderStateMixin {
-  TabController _tabController;
-  Map<String, List<ArticleDTO>> data;
+  late TabController _tabController;
+  late Map<String, List<ArticleDTO>> data;
 
   @override
   void didChangeDependencies() {
+    int initTab = 0;
+    try {
+      initTab = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
+    }catch (e) {}
     _tabController =
-        new TabController(vsync: this, length: 2, initialIndex: ModalRoute.of(context).settings.arguments ?? 0);
+        new TabController(vsync: this, length: 2, initialIndex: initTab);
     super.didChangeDependencies();
   }
 

@@ -16,16 +16,15 @@ class AskArticleScreen extends StatefulWidget {
 }
 
 class _AskArticleScreen extends State<AskArticleScreen> {
-  ArticleDTO data;
-  ArticleBloc _articleBloc;
-  int id;
+  ArticleDTO? data;
+  late ArticleBloc _articleBloc;
+  late int id;
 
   @override
   void didChangeDependencies() {
     try {
-      id = int.parse(ModalRoute.of(context).settings.arguments);
+      id = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
     } catch (e) {
-      id = ModalRoute.of(context).settings.arguments;
     }
 
     _articleBloc = BlocProvider.of<ArticleBloc>(context)..add(ArticlePageEvent(id: id));
@@ -47,13 +46,13 @@ class _AskArticleScreen extends State<AskArticleScreen> {
             builder: (context, state) {
               if (state is ArticlePageSuccessState) {
                 data = state.result;
-                if (data.type == MyConst.ASK_TYPE_VIDEO && data.video != null) {}
+                if (data!.type == MyConst.ASK_TYPE_VIDEO && data!.video != null) {}
               }
               return data == null
                   ? LoadingWidget()
                   : Container(
                       padding: EdgeInsets.all(15),
-                      child: data.type == MyConst.ASK_TYPE_VIDEO ? ContentVideo(data: data) : ContentRead(data: data),
+                      child: data!.type == MyConst.ASK_TYPE_VIDEO ? ContentVideo(data: data!) : ContentRead(data: data!),
                     );
             }),
       ),

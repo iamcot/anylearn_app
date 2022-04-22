@@ -16,7 +16,7 @@ import '../models/page_repo.dart';
 class CustomFeedback extends StatefulWidget {
   final Widget child;
   final UserDTO user;
-  const CustomFeedback({Key key, this.child, this.user}) : super(key: key);
+  const CustomFeedback({required this.child, required this.user});
 
   @override
   State<StatefulWidget> createState() => _CustomFeedback();
@@ -26,8 +26,8 @@ class _CustomFeedback extends State<CustomFeedback> {
   final disableFeedback = false;
   final _formKey = new GlobalKey<FormState>();
   GlobalKey previewContainer = new GlobalKey();
-  FeedbackBloc feedbackBloc;
-  String content;
+  late FeedbackBloc feedbackBloc;
+  String content = "";
 
   @override
   void didChangeDependencies() {
@@ -79,11 +79,11 @@ class _CustomFeedback extends State<CustomFeedback> {
                                           Form(
                                             key: _formKey,
                                             child: TextFormField(
-                                              validator: (String value) {
-                                                if (value.length < 3) {
+                                              validator: (value) {
+                                                if (value!.length < 3) {
                                                   return "Bạn chưa nhập phản hồi nè.";
                                                 }
-                                                _formKey.currentState.save();
+                                                _formKey.currentState?.save();
                                                 return null;
                                               },
                                               maxLines: 8,
@@ -120,8 +120,8 @@ class _CustomFeedback extends State<CustomFeedback> {
                                                 borderRadius: BorderRadius.circular(10.0),
                                                 side: BorderSide(color: Colors.blueAccent)),
                                             onPressed: () async {
-                                              if (_formKey.currentState.validate()) {
-                                                _formKey.currentState.save();
+                                              if (_formKey.currentState!.validate()) {
+                                                _formKey.currentState?.save();
                                                 Navigator.of(context).pop();
                                                 Future.delayed(const Duration(seconds: 5));
                                                 final file = await takeScreenShot();
@@ -153,15 +153,16 @@ class _CustomFeedback extends State<CustomFeedback> {
 
   Future<File> takeScreenShot() async {
     try {
-      RenderRepaintBoundary boundary = previewContainer.currentContext.findRenderObject();
-      ui.Image image = await boundary.toImage(pixelRatio: 2.0);
-      final directory = (await getApplicationDocumentsDirectory()).path;
-      ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List pngBytes = byteData.buffer.asUint8List();
-      File file = new File("$directory/screenshot.png");
-      await file.writeAsBytes(pngBytes);
-      return file;
+      // RenderRepaintBoundary boundary = previewContainer?.currentContext.findRenderObject();
+      // ui.Image image = await boundary.toImage(pixelRatio: 2.0);
+      // final directory = (await getApplicationDocumentsDirectory()).path;
+      // ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      // Uint8List pngBytes = byteData.buffer.asUint8List();
+      // File file = new File("$directory/screenshot.png");
+      // await file.writeAsBytes(pngBytes);
+      // return file;
     } catch (e) {}
-    return null;
+    //@TODO fix file
+    return new File("");
   }
 }

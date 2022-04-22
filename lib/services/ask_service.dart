@@ -10,7 +10,7 @@ class AskService extends BaseService {
   final http.Client httpClient;
   final AppConfig config;
 
-  AskService({this.httpClient, this.config});
+  AskService({required this.httpClient,required this.config});
 
   Future<AskPagingDTO> getList() async {
     final url = buildUrl(appConfig: config, endPoint: "/ask/list");

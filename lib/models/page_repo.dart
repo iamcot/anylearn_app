@@ -24,11 +24,11 @@ import '../services/user_services.dart';
 import 'default_feature_data.dart';
 
 class PageRepository {
-  UserService userService;
-  QuoteService quoteService;
-  ItemService itemService;
-  ConfigServices configService;
-  AskService askService;
+  late UserService userService;
+  late QuoteService quoteService;
+  late ItemService itemService;
+  late ConfigServices configService;
+  late AskService askService;
   // TransactionService transactionService;
   final config;
   final httpClient = http.Client();
@@ -72,8 +72,8 @@ class PageRepository {
 
   Future<HomeDTO> dataHome(String role, int userId) async {
     HomeDTO homeConfig = await configService.homeLayout(role);
-    if (homeConfig.featuresIcons == null) {
-      homeConfig.featuresIcons = defaultHomeFeatures(role, userId);
+    if (homeConfig.featuresIcons.length == 0) {
+      homeConfig.featuresIcons = defaultHomeFeatures(role, userId)!;
     }
     return homeConfig;
   }

@@ -11,13 +11,12 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../blocs/login/login_blocs.dart';
 import '../../customs/register_curved_paint.dart';
-import '../../dto/login_callback.dart';
 
 class LoginForm extends StatefulWidget {
-  final LoginCallback callback;
+  final callback;
   final LoginBloc loginBloc;
 
-  const LoginForm({Key key, this.callback, this.loginBloc}) : super(key: key);
+  const LoginForm({key, required this.callback, required this.loginBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _LoginForm();
@@ -32,7 +31,7 @@ class _LoginForm extends State<LoginForm> {
   final _passwordController = TextEditingController();
 
   bool _checking = false;
-  AccessToken _accessToken;
+  late AccessToken _accessToken;
 
   // static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   // Map<String, dynamic> _deviceData = <String, dynamic>{};
@@ -119,11 +118,11 @@ class _LoginForm extends State<LoginForm> {
                     padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 20.0),
                     child: TextFormField(
                       controller: _phoneController,
-                      validator: (String value) {
-                        if (value.isEmpty) {
+                      validator: (value) {
+                        if (value == "") {
                           return "Số điện thoại không hợp lệ";
                         }
-                        _formKey.currentState.save();
+                        _formKey.currentState!.save();
                         return null;
                       },
                       focusNode: _phoneNode,
@@ -142,11 +141,11 @@ class _LoginForm extends State<LoginForm> {
                     padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                     child: TextFormField(
                       controller: _passwordController,
-                      validator: (String value) {
-                        if (value.isEmpty) {
+                      validator: (value) {
+                        if (value == "") {
                           return "Vui lòng nhập mật khẩu";
                         }
-                        _formKey.currentState.save();
+                        _formKey.currentState!.save();
                         return null;
                       },
                       focusNode: _passwordNode,
@@ -232,7 +231,7 @@ class _LoginForm extends State<LoginForm> {
                   (Platform.isIOS)
                       ? Container(
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colors.grey, Colors.grey[400], Colors.grey]),
+                            gradient: LinearGradient(colors: [Colors.grey, (Colors.grey[400])!, Colors.grey]),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           height: 48.0,
@@ -273,8 +272,8 @@ class _LoginForm extends State<LoginForm> {
   }
 
   void _submitForm(BuildContext context) {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       BlocProvider.of<LoginBloc>(context).add(LoginButtonPressedEvent(
         phone: _phoneController.text.trim(),
         password: _passwordController.text.trim(),
@@ -302,15 +301,15 @@ class _LoginForm extends State<LoginForm> {
       print(credential);
       if (credential != null) {
         Map<String, String> loginData = {
-          "name": credential.givenName + " " + credential.familyName,
+          "name": credential.givenName! + " " + credential.familyName!,
           "email": credential.email ?? "",
           "picture": "",
-          "id": credential.userIdentifier
+          "id": credential.userIdentifier!
         };
         widget.loginBloc..add(LoginAppleEvent(data: loginData));
       }
     } catch (e) {
-      print(e.message);
+      print(e);
     } finally {
       setState(() {
         _checking = false;
@@ -338,7 +337,7 @@ class _LoginForm extends State<LoginForm> {
         widget.loginBloc..add(LoginFacebookEvent(data: loginData));
       }
     } catch (e) {
-      print(e.message);
+      print(e);
     } finally {
       setState(() {
         _checking = false;

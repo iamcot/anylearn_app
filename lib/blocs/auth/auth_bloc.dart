@@ -1,3 +1,4 @@
+import 'package:anylearn/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ import 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserRepository userRepository;
 
-  AuthBloc({@required this.userRepository}) : assert(userRepository != null), super(null);
+  AuthBloc({required this.userRepository}) : super(AuthInitState());
 
   @override
   AuthState get initialState => AuthInitState();
@@ -19,16 +20,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       if (event is AuthCheckEvent) {
         yield AuthInProgressState();
-        final String token = await userRepository.getToken();
-        if (token == null) {
-          yield AuthFailState();
+        final String? token = await userRepository.getToken();
+        if (token == "") {
+          yield AuthFailState(error: "No token");
         } else {
-          bool isFull = event.isFull ?? false;
-          UserDTO userDTO = await userRepository.getUser(token, isFull);
-          if (userDTO == null) {
+          bool isFull = event.isFull;
+          UserDTO userDTO = await userRepository.getUser(token!, isFull);
+          if (userDTO.id <= 0) {
             await userRepository.deleteToken();
             yield AuthTokenFailState();
-            yield AuthFailState();
+            yield AuthFailState(error: "Cannot get user info");
           } else {
             yield AuthSuccessState(user: userDTO);
           }
@@ -41,7 +42,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthInProgressState();
         await userRepository.deleteToken();
         await userRepository.logout(event.token);
-        yield AuthFailState();
+        
+        yield AuthFailState(error: "Loggout");
       }
     } catch (error) {
       yield AuthFailState(error: error.toString());
@@ -60,6 +62,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event is AuthContractLoadEvent) {
         yield AuthContractInProgressState();
         final contract = await userRepository.loadContract(event.token, event.contractId);
+        print(contract);
         yield AuthContractLoadSuccessState(contract: contract);
       }
     } catch (error) {
@@ -78,7 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event is AuthContractSignEvent) {
         yield AuthContractSigningState();
         await userRepository.signContract(event.token, event.contractId);
-        yield AuthContractSignedSuccessState();
+        yield AuthContractSignedSuccessState(image: "");
       }
     } catch (error) {
       yield AuthContractSignedFailState(error: error.toString());

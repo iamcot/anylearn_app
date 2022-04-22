@@ -15,7 +15,7 @@ class CourseList extends StatelessWidget {
   final List<ItemDTO> list;
   final shortDayFormat = DateFormat("dd/MM");
 
-  CourseList({Key key, this.list, this.hasMenu, this.courseBloc, this.user}) : super(key: key);
+  CourseList({key, required this.list, required this.hasMenu, required this.courseBloc, required this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return list.length > 0
@@ -175,5 +175,6 @@ class CourseList extends StatelessWidget {
               });
         }
     }
+    return SizedBox();
   }
 }

@@ -19,7 +19,7 @@ class UserService extends BaseService {
   final http.Client httpClient;
   final AppConfig config;
 
-  UserService({this.config, this.httpClient});
+  UserService({required this.config, required this.httpClient});
 
   Future<UserDTO> login(String phone, String password) async {
     final url = buildUrl(
@@ -84,7 +84,7 @@ class UserService extends BaseService {
       "email": user.email,
       "address": user.address,
       "country": user.country,
-      "full_content": user.fullContent ?? "",
+      "full_content": user.fullContent,
     });
     return json["result"];
   }
@@ -152,32 +152,26 @@ class UserService extends BaseService {
   Future<List<UserDocDTO>> getDocs(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/get-docs", token: token);
     final json = await get(httpClient, url);
-    return json == null
-        ? null
-        : List<UserDocDTO>.from(json?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList();
+    return List<UserDocDTO>.from(json?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList();
   }
 
   Future<List<UserDocDTO>> addDoc(String token, File file) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/add-doc", token: token);
     final jsonStr = await postImage(url, file);
     final rs = json.decode(jsonStr);
-    return rs == null
-        ? null
-        : List<UserDocDTO>.from(rs?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList();
+    return List<UserDocDTO>.from(rs?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList();
   }
 
   Future<List<UserDocDTO>> removeDoc(String token, int fileId) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/remove-doc/$fileId", token: token);
     final json = await get(httpClient, url);
-    return json == null
-        ? null
-        : List<UserDocDTO>.from(json?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList();
+    return List<UserDocDTO>.from(json?.map((e) => e == null ? null : UserDocDTO.fromJson(e))).toList();
   }
 
   Future<NotificationPagingDTO> notification(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/notification", token: token);
     final json = await get(httpClient, url);
-    return json == null ? null : NotificationPagingDTO.fromJson(json);
+    return NotificationPagingDTO.fromJson(json);
   }
 
   Future<void> notifRead(String token, int id) async {
@@ -212,7 +206,9 @@ class UserService extends BaseService {
   Future<ContractDTO> loadContract(String token, int contractId) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/contract/$contractId", token: token);
     final json = await get(httpClient, url);
-    return json == null ? null : ContractDTO.fromJson(json);
+    final contract = ContractDTO.fromJson(json);
+    print(contract);
+    return contract;
   }
 
   Future<bool> signContract(String token, int contractId) async {

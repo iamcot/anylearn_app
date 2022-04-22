@@ -1,7 +1,7 @@
 class GuideDTO {
-  final String title;
-  final String content;
-  final String lastUpdate;
+  final title;
+  final content;
+  final lastUpdate;
 
   GuideDTO({this.title, this.content, this.lastUpdate});
 }

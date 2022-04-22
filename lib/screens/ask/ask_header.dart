@@ -6,7 +6,7 @@ class AskHeader extends StatelessWidget {
   final String type;
   final String route;
 
-  const AskHeader({Key key, this.title, this.type, this.route}) : super(key: key);
+  const AskHeader({key, required this.title, this.type = "", this.route = ""}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class QuoteDTO extends Equatable {
-  final String id;
-  final String text;
-  final String author;
+  final id;
+  final text;
+  final author;
 
   QuoteDTO({this.id, this.text, this.author});
 

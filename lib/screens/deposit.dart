@@ -29,11 +29,11 @@ class _DepositScreen extends State<DepositScreen> {
   final voucherController = TextEditingController();
 
   String _suggestText = "Nhập số tiền cần nhập hoặc chọn nhanh từ danh sách phía dưới";
-  TransactionBloc _transBloc;
-  AuthBloc _authBloc;
-  TransactionConfigDTO config;
+  late TransactionBloc _transBloc;
+  late AuthBloc _authBloc;
+  late TransactionConfigDTO config;
   var _paymentSelect = "atm";
-  UserDTO user;
+  late UserDTO user;
 
   @override
   void didChangeDependencies() {
@@ -166,14 +166,14 @@ class _DepositScreen extends State<DepositScreen> {
                                                     _suggestText = _buildSuggestText(value, config);
                                                   });
                                                 },
-                                                validator: (String value) {
-                                                  if (value.isEmpty && _paymentSelect != "voucher") {
+                                                validator: (value) {
+                                                  if (value == "" && _paymentSelect != "voucher") {
                                                     return "Bạn chưa nhập số tiền muốn nạp";
                                                   }
-                                                  if (int.tryParse(value) < 0) {
+                                                  if (int.tryParse(value!)! < 0) {
                                                     return "Số tiền không đúng";
                                                   }
-                                                  _formKey.currentState.save();
+                                                  _formKey.currentState?.save();
                                                   return null;
                                                 },
                                                 decoration: InputDecoration(
@@ -282,8 +282,8 @@ class _DepositScreen extends State<DepositScreen> {
                                         height: 40.0,
                                         child: FlatButton(
                                             onPressed: () {
-                                              if (_formKey.currentState.validate()) {
-                                                _formKey.currentState.save();
+                                              if (_formKey.currentState!.validate()) {
+                                                _formKey.currentState!.save();
                                                 if (_paymentSelect == MyConst.PAYMENT_VOUCHER) {
                                                   _transBloc
                                                     ..add(SaveDepositEvent(

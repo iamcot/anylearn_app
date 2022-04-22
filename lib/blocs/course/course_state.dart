@@ -1,11 +1,9 @@
-import 'package:anylearn/dto/class_registered_user.dart';
-import 'package:anylearn/dto/item_user_action.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
+import '../../dto/class_registered_user.dart';
 import '../../dto/item_dto.dart';
+import '../../dto/item_user_action.dart';
 import '../../dto/user_courses_dto.dart';
-import '../../dto/user_dto.dart';
 
 abstract class CourseState extends Equatable {
   const CourseState();
@@ -19,7 +17,7 @@ class CourseLoadingState extends CourseState {}
 
 class CourseLoadSuccess extends CourseState {
   final ItemDTO item;
-  const CourseLoadSuccess({@required this.item});
+  const CourseLoadSuccess({required this.item});
   @override
   List<Object> get props => [item];
   @override
@@ -35,7 +33,7 @@ class CourseListLoadingState extends CourseState {}
 class CourseListSuccessState extends CourseState {
   final UserCoursesDTO data;
 
-  CourseListSuccessState({this.data});
+  CourseListSuccessState({required this.data});
 
   @override
   List<Object> get props => [data];
@@ -47,7 +45,7 @@ class UploadImageInprogressState extends CourseState {}
 
 class UploadImageSuccessState extends CourseState {
   final String url;
-  const UploadImageSuccessState({@required this.url});
+  const UploadImageSuccessState({required this.url});
   @override
   List<Object> get props => [url];
   @override
@@ -60,7 +58,7 @@ class CourseUserStatusSuccessState extends CourseState {}
 
 class CourseFailState extends CourseState {
   final String error;
-  const CourseFailState({@required this.error});
+  const CourseFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -70,7 +68,7 @@ class CourseFailState extends CourseState {
 class RegisteredUsersSuccessState extends CourseState {
   final List<ClassRegisteredUserDTO> users;
 
-  RegisteredUsersSuccessState({this.users});
+  RegisteredUsersSuccessState({required this.users});
 
   @override
   List<Object> get props => [users];
@@ -86,7 +84,7 @@ class ReviewSubmitFailState extends CourseState {}
 class ReviewSubmitSuccessState extends CourseState {
   final bool result;
 
-  ReviewSubmitSuccessState({this.result});
+  ReviewSubmitSuccessState({required this.result});
 
   @override
   List<Object> get props => [result];
@@ -98,7 +96,7 @@ class ReviewSubmitSuccessState extends CourseState {
 class ReviewLoadSuccessState extends CourseState {
   final List<ItemUserAction> data;
 
-  ReviewLoadSuccessState({this.data});
+  ReviewLoadSuccessState({required this.data});
 
   @override
   List<Object> get props => [data];

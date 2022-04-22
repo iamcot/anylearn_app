@@ -1,9 +1,9 @@
 import 'ask_dto.dart';
 
 class AskThreadDTO {
-  final AskDTO question;
-  final List<AskDTO> comments;
-  final List<AskDTO> answers;
+  final question;
+  final comments;
+  final answers;
 
   AskThreadDTO({
     this.question,
@@ -12,8 +12,8 @@ class AskThreadDTO {
   });
 
   static AskThreadDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? AskThreadDTO()
         : AskThreadDTO(
             question: AskDTO.fromJson(json['question']),
             comments: List<AskDTO>.from(json['comments']?.map((v) => v == null ? null : AskDTO.fromJson(v))).toList(),

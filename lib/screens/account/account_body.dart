@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share/share.dart';
 
 import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/auth/auth_event.dart';
@@ -20,7 +18,7 @@ class AccountBody extends StatefulWidget {
   final UserDTO user;
   final AuthBloc authBloc;
 
-  const AccountBody({Key key, this.user, this.authBloc}) : super(key: key);
+  const AccountBody({key, required this.user, required this.authBloc}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _AccountBody();
 }
@@ -180,7 +178,6 @@ class _AccountBody extends State<AccountBody> {
               routeFunction: () {
                 widget.authBloc.add(AuthLoggedOutEvent(token: widget.user.token));
               },
-              leadingIcon: null,
               trailing: Icon(
                 MdiIcons.logout,
                 color: Colors.red,
@@ -195,6 +192,6 @@ class _AccountBody extends State<AccountBody> {
 
   void _tabToCopy(String text) {
     // Clipboard.setData(new ClipboardData(text: text));
-    Share.share(text);
+    // Share.share(text);
   }
 }

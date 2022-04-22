@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class GotoProfileBar extends StatelessWidget {
   final int userId;
 
-  const GotoProfileBar({Key key, this.userId}) : super(key: key);
+  const GotoProfileBar({required this.userId});
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
           decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey[200]))
+            border: Border(bottom: BorderSide(color: (Colors.grey[200])!))
           ),
           child: ListTile(
             title: Text("Thông tin giới thiệu", style: TextStyle(

@@ -6,7 +6,7 @@ class RatingBox extends StatelessWidget {
   final double fontSize;
   final String alignment;
 
-  RatingBox({Key key, this.score, this.fontSize = 14.0, this.alignment: "center"}) : super(key: key);
+  RatingBox({required this.score, this.fontSize = 14.0, this.alignment: "center"});
   @override
   Widget build(BuildContext context) {
     return Container(

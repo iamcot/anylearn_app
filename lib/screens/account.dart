@@ -5,7 +5,7 @@ import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
 import '../blocs/auth/auth_state.dart';
 import '../customs/feedback.dart';
-import '../dto/user_dto.dart';
+import '../main.dart';
 import '../widgets/loading_widget.dart';
 import 'account/account_body.dart';
 
@@ -15,8 +15,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreen extends State<AccountScreen> {
-  UserDTO user;
-  AuthBloc _authBloc;
+  late AuthBloc _authBloc;
 
   @override
   void didChangeDependencies() {
@@ -40,7 +39,7 @@ class _AccountScreen extends State<AccountScreen> {
             user = state.user;
           }
           return Scaffold(
-            body: user != null
+            body: user.token != ""
                 ? CustomFeedback(
                     user: user,
                     child: AccountBody(

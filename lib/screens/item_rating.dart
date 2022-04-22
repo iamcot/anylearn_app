@@ -11,14 +11,14 @@ import 'package:intl/intl.dart';
 class ItemRatingScreen extends StatefulWidget {
   final int itemId;
 
-  const ItemRatingScreen({Key key, this.itemId}) : super(key: key);
+  const ItemRatingScreen({required this.itemId});
   @override
   State<StatefulWidget> createState() => _ItemRatingScreen();
 }
 
 class _ItemRatingScreen extends State<ItemRatingScreen> {
-  CourseBloc _courseBloc;
-  List<ItemUserAction> data;
+  late CourseBloc _courseBloc;
+  List<ItemUserAction> data = [];
   @override
   void didChangeDependencies() {
     _courseBloc = BlocProvider.of<CourseBloc>(context)..add(ReviewLoadEvent(itemId: widget.itemId));

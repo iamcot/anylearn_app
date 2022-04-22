@@ -11,10 +11,10 @@ description: anyLEARN - Unlimited learning
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.7.1+29
+version: 1.8.0
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -23,46 +23,49 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  carousel_slider: ^3.0.0 
+  carousel_slider: ^4.0.0 
   flutter_launcher_icons: ^0.9.0
-  table_calendar: ^2.2.3
-  material_design_icons_flutter: ^4.0.5245
-  intl: ^0.16.1
-  flutter_html: ^2.1.5
-  expandable: ^4.1.4
+  table_calendar: ^3.0.5
+  material_design_icons_flutter: ^5.0.6595
+  intl: ^0.17.0
+  flutter_html: ^2.2.1
+  expandable: ^5.0.1
   url_launcher: ^6.0.3
-  qr_flutter: ^3.2.0
+  qr_flutter: ^4.0.0
   # barcode_scan: ^3.0.1
-  share: ^0.6.4+2
-  validators: ^2.0.0+1
-  image_picker: ^0.7.4
+  # share_plus: ^4.0.4
+  validators: ^3.0.0
+  image_picker: ^0.8.5
   http: ^0.13.1
   bloc: ^7.2.1
   flutter_bloc: ^7.3.3
-  equatable: ^1.1.1
+  equatable: ^2.0.3
   meta: ^1.1.8
-  flutter_secure_storage: ^3.3.3
-  flutter_masked_text: ^0.8.0
-  mime: ^0.9.6+3
+  flutter_secure_storage: ^5.0.2
+  flutter_masked_text2: ^0.9.1
+  mime: ^1.0.1
   # html_editor: ^1.0.1
   # flutter_html_editor: ^1.0.0
   # flutter_summernote: ^0.2.2
   path_provider: ^2.0.1
   #flutter_local_notifications: ^5.0.0+1
-  firebase_messaging: ^11.2.8
+  firebase_messaging: ^11.2.7
   overlay_support: ^1.2.1
   cached_network_image: ^3.0.0
   photo_view: ^0.13.0
   flutter_svg: ^0.23.0+1
   youtube_player_flutter: ^8.0.0
   shared_preferences: ^2.0.5
-  flutter_facebook_auth: ^4.1.1
-  sign_in_with_apple: ^3.0.0
+  flutter_facebook_auth: ^4.3.0
+  sign_in_with_apple: ^3.3.0
   # device_info: ^2.0.0
   intro_slider: ^3.0.2
   after_layout: ^1.1.0
-  webview_flutter: ^2.3.0
+  webview_flutter: ^2.0.4
   badges: ^2.0.1
+  vin_decoder: ^0.2.1-nullsafety
+  simple_gesture_detector: ^0.2.0
+
 
 
 dev_dependencies:

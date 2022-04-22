@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class FeedbackState extends Equatable {
   const FeedbackState();
@@ -13,14 +12,14 @@ class FeedbackSavingState extends FeedbackState {}
 
 class FeedbackSuccessState extends FeedbackState {
   final bool result;
-  FeedbackSuccessState({@required this.result}) : assert(result != null);
+  FeedbackSuccessState({required this.result});
   @override
   List<Object> get props => [result];
 }
 
 class FeedbackFailState extends FeedbackState {
   final String error;
-  const FeedbackFailState({@required this.error});
+  const FeedbackFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override

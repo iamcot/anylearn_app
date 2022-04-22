@@ -6,7 +6,7 @@ class FeatureIcon extends StatelessWidget {
   final FeatureDataDTO featureData;
   final double iconSize;
 
-  const FeatureIcon({Key key, this.iconSize: 40.0, this.featureData}) : super(key: key);
+  const FeatureIcon({key, this.iconSize: 40.0, required this.featureData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

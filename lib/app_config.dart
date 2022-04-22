@@ -8,13 +8,12 @@ class AppConfig {
   final String tokenParam;
 
   AppConfig({
-    this.apiUrl,
-    this.tokenParam,
-    this.webUrl,
+    required this.apiUrl,
+    required this.tokenParam,
+    required this.webUrl,
   });
 
   static Future<AppConfig> forEnv(String env) async {
-    env = env ?? 'dev';
     final content = await rootBundle.loadString('assets/config/$env.json');
     final json = jsonDecode(content);
     return AppConfig(

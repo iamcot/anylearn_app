@@ -13,7 +13,7 @@ class TransactionService extends BaseService {
   final http.Client httpClient;
   final AppConfig config;
 
-  TransactionService({this.config, this.httpClient});
+  TransactionService({required this.config,required this.httpClient});
 
   Future<bool> submitDeposit(String amount, String token, String payMethod) async {
     final url = buildUrl(appConfig: config, endPoint: "/transaction/deposit", token: token);

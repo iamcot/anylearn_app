@@ -1,3 +1,4 @@
+import 'package:anylearn/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -19,27 +20,25 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
-  CalendarController _calendarController;
-  AnimationController _animationController;
-  EventBloc _eventBloc;
-  AuthBloc _authBloc;
-  UserDTO _user;
+  late AnimationController _animationController;
+  late EventBloc _eventBloc;
 
-  Map<DateTime, List> _events;
-  List _selectedEvents;
+  late Map<DateTime, List> _events;
+  List? _selectedEvents;
 
   @override
   void didChangeDependencies() {
+    if (user.token == "") {
+      Navigator.of(context).popAndPushNamed("/login");
+    }
     final PageRepository pageRepository = RepositoryProvider.of<PageRepository>(context);
-    _eventBloc = EventBloc(pageRepository: pageRepository)..add(LoadEventEvent(month: DateTime.now()));
-    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+    _eventBloc = EventBloc(pageRepository: pageRepository);//..add(LoadEventEvent(month: DateTime.now()));
     super.didChangeDependencies();
   }
 
   @override
   void initState() {
     super.initState();
-    _calendarController = CalendarController();
     _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 400));
     _animationController.forward();
   }
@@ -47,7 +46,6 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
-    _calendarController.dispose();
     super.dispose();
   }
 
@@ -58,56 +56,49 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
   }
 
   void _onVisibleDaysChanged(DateTime first, DateTime last, CalendarFormat format) {
-    _selectedEvents = null;
-    _events = null;
+    _selectedEvents!.clear();
+    _events.clear();
     _eventBloc..add(LoadEventEvent(month: first));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-        bloc: _authBloc,
-        builder: (context, state) {
-          if (state is AuthSuccessState) {
-            _user = state.user;
+    return Scaffold(
+      appBar: BaseAppBar(
+        title: "Lịch đào tạo & Sự kiện",
+        user: user,
+      ),
+      body: BlocProvider<EventBloc>(
+        create: (context) => _eventBloc,
+        child: BlocBuilder<EventBloc, EventState>(builder: (context, state) {
+          if (state is EventSuccessState) {
+            _events = state.data;
+            _selectedEvents = (_selectedEvents!.length > 0
+                ? _selectedEvents
+                : _events[DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()))])!;
           }
-
-          return Scaffold(
-            appBar: BaseAppBar(
-              title: "Lịch đào tạo & Sự kiện",
-              user: _user ?? null,
-            ),
-            body: BlocProvider<EventBloc>(
-              create: (context) => _eventBloc,
-              child: BlocBuilder<EventBloc, EventState>(builder: (context, state) {
-                if (state is EventSuccessState) {
-                  _events = state.data;
-                  _selectedEvents =
-                      _selectedEvents ?? _events[DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()))];
-                }
-                return CustomFeedback(
-                  user: _user,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      _buildTableCalendarWithBuilders(),
-                      Expanded(child: _buildEventList()),
-                    ],
-                  ),
-                );
-              }),
+          return CustomFeedback(
+            user: user,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildTableCalendarWithBuilders(),
+                // Expanded(child: _buildEventList()),
+              ],
             ),
           );
-        });
+        }),
+      ),
+    );
   }
 
   Widget _buildTableCalendarWithBuilders() {
     return TableCalendar(
-      calendarController: _calendarController,
-      events: _events,
-      initialCalendarFormat: CalendarFormat.month,
-      formatAnimation: FormatAnimation.slide,
+      firstDay: DateTime.utc(2022, 01, 01),
+      lastDay: DateTime.utc(2022, 12, 31),
+      focusedDay: DateTime.now(),
+      // events: _events,
       startingDayOfWeek: StartingDayOfWeek.monday,
       availableGestures: AvailableGestures.all,
       availableCalendarFormats: const {
@@ -116,62 +107,13 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
       },
       calendarStyle: CalendarStyle(
         outsideDaysVisible: false,
-        weekendStyle: TextStyle().copyWith(color: Colors.blue[800]),
-        holidayStyle: TextStyle().copyWith(color: Colors.blue[800]),
       ),
       daysOfWeekStyle: DaysOfWeekStyle(
         weekendStyle: TextStyle().copyWith(color: Colors.blue[600]),
       ),
       headerStyle: HeaderStyle(
-        centerHeaderTitle: true,
         formatButtonVisible: false,
       ),
-      builders: CalendarBuilders(
-        selectedDayBuilder: (context, date, _) {
-          return FadeTransition(
-            opacity: Tween(begin: 0.0, end: 1.0).animate(_animationController),
-            child: Container(
-              margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-              color: Colors.green[300],
-              width: 100,
-              height: 100,
-              child: Text(
-                '${date.day}',
-                style: TextStyle().copyWith(fontSize: 16.0),
-              ),
-            ),
-          );
-        },
-        todayDayBuilder: (context, date, _) {
-          return Container(
-            margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-            width: 100,
-            height: 100,
-            child: Text(
-              '${date.day}',
-              style: TextStyle().copyWith(fontSize: 16.0),
-            ),
-          );
-        },
-        markersBuilder: (context, date, events, holidays) {
-          final children = <Widget>[];
-
-          if (events.isNotEmpty) {
-            children.add(
-              Positioned(right: 1, bottom: 1, child: _buildEventsMarker(date, events)),
-            );
-          }
-
-          return children;
-        },
-      ),
-      onDaySelected: (date, events, _){
-        _onDaySelected(date, events);
-        _animationController.forward(from: 0.0);
-      },
-      onVisibleDaysChanged: _onVisibleDaysChanged,
     );
   }
 
@@ -180,9 +122,6 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        color: _calendarController.isSelected(date)
-            ? Colors.red[500]
-            : _calendarController.isToday(date) ? Colors.red[500] : Colors.blue[400],
       ),
       width: 16.0,
       height: 16.0,
@@ -202,7 +141,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
     return ListView(
       children: _selectedEvents == null
           ? []
-          : _selectedEvents
+          : _selectedEvents!
               .map((event) => DayEvents(
                     eventToday: event,
                   ))

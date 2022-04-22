@@ -6,24 +6,24 @@ import 'item_dto.dart';
 import 'user_dto.dart';
 
 class PdpDTO extends Equatable {
-  final UserDTO author;
-  final ItemDTO item;
-  final int numSchedule;
-  final HotItemsDTO hotItems;
+  final author;
+  final item;
+  final numSchedule;
+  final hotItems;
   bool isFavorite;
-  final int commission;
-  final bool disableAnypoint;
-  final bool enableIosTrans;
-  final List<CategoryDTO> categories;
+  final commission;
+  final disableAnypoint;
+  final enableIosTrans;
+  final categories;
 
-  PdpDTO({this.categories, this.author, this.item, this.hotItems, this.isFavorite, this.commission, this.numSchedule, this.enableIosTrans, this.disableAnypoint});
+  PdpDTO({this.categories, this.author, this.item, this.hotItems, this.isFavorite = false, this.commission, this.numSchedule, this.enableIosTrans, this.disableAnypoint});
 
   @override
   List<Object> get props => [author, item, hotItems, isFavorite, commission, numSchedule, enableIosTrans, disableAnypoint, categories];
 
   static PdpDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? PdpDTO()
         : PdpDTO(
             item: ItemDTO.fromJson(json['item']),
             author: UserDTO.fromJson(json['author']),

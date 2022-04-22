@@ -8,8 +8,8 @@ import '../../dto/home_dto.dart';
 class HomeCategory extends StatelessWidget {
   final List<CategoryDTO> categories;
 
-  HomeCategory({Key key, this.categories}) : super(key: key);
-  double width;
+  HomeCategory({key, required this.categories}) : super(key: key);
+  late double width;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class HomeCategory extends StatelessWidget {
                         height: imageWH,
                         margin: EdgeInsets.only(right: 5),
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey[200]), borderRadius: BorderRadius.circular(5)),
+                            border: Border.all(color: (Colors.grey[200])!), borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           // borderRadius: BorderRadius.circular(8.0),

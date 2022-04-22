@@ -20,10 +20,10 @@ class AskScreen extends StatefulWidget {
 }
 
 class _AskScreen extends State<AskScreen> {
-  ArticleHomeDTO data;
-  UserDTO _user;
-  AuthBloc _authBloc;
-  ArticleBloc _articleBloc;
+  ArticleHomeDTO? data;
+  late UserDTO _user;
+  late AuthBloc _authBloc;
+  late ArticleBloc _articleBloc;
 
   @override
   void didChangeDependencies() {
@@ -46,6 +46,7 @@ class _AskScreen extends State<AskScreen> {
         return Scaffold(
           appBar: BaseAppBar(
             title: "Học & Hỏi",
+            user: _user,
           ),
           body: RefreshIndicator(
             onRefresh: () async {
@@ -60,7 +61,7 @@ class _AskScreen extends State<AskScreen> {
                   return data == null
                       ? LoadingWidget()
                       : AskBody(
-                          data: data,
+                          data: data!,
                           user: _user,
                           articleBloc: _articleBloc,
                         );

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class NotificationIcon extends StatefulWidget {
   final UserDTO user;
 
-  const NotificationIcon({Key key, this.user}) : super(key: key);
+  const NotificationIcon({required this.user});
 
   @override
   State<StatefulWidget> createState() => _NotificationIcon();

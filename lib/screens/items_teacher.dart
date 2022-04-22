@@ -16,14 +16,14 @@ class ItemsTeacherScreen extends StatefulWidget {
 }
 
 class _ItemsTeacherScreen extends State<ItemsTeacherScreen> {
-  ItemsBloc itemsBloc;
+  late ItemsBloc itemsBloc;
 
   @override
   void didChangeDependencies() {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
     itemsBloc = ItemsBloc(pageRepository: pageRepo);
-    final userId = ModalRoute.of(context).settings.arguments;
-    itemsBloc..add(ItemsTeacherLoadEvent(id: userId));
+    final userId = ModalRoute.of(context)?.settings.arguments;
+    itemsBloc..add(ItemsTeacherLoadEvent(id: int.parse(userId.toString())));
     super.didChangeDependencies();
   }
 
@@ -44,6 +44,7 @@ class _ItemsTeacherScreen extends State<ItemsTeacherScreen> {
                 appBar: BaseAppBar(
                   user: user,
                   title: state.data.user.name,
+                  screen: "",
                 ),
                 body: ItemsBody(
                   itemsDTO: state.data,

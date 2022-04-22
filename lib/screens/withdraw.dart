@@ -29,11 +29,11 @@ class _WithdrawScreen extends State<WithdrawScreen> {
   final _bankAccount = TextEditingController();
   final _moneyFormat = NumberFormat("###,###,###", "vi_VN");
 
-  TransactionBloc _transBloc;
-  UserDTO user;
-  TransactionConfigDTO config;
-  int keep;
-  int max;
+  late TransactionBloc _transBloc;
+  late UserDTO user;
+  late TransactionConfigDTO config;
+  late int keep;
+  late int max;
 
   @override
   void didChangeDependencies() {
@@ -140,17 +140,17 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                               _ammountMInput.text = (int.parse(value) * config.rate).toString();
                                             });
                                           },
-                                          validator: (String value) {
-                                            if (value.isEmpty) {
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
                                               return "Bạn chưa nhập số điểm muốn rút";
                                             }
                                             if (user.walletC < keep || int.parse(value) > max) {
                                               return "Bạn được rút tối đa $max điểm";
                                             }
-                                            if (int.tryParse(value) < 0) {
+                                            if (int.tryParse(value)! < 0) {
                                               return "Số tiền không đúng";
                                             }
-                                            _formKey.currentState.save();
+                                            _formKey.currentState?.save();
                                             return null;
                                           },
                                           decoration: InputDecoration(
@@ -216,8 +216,8 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                   height: 40.0,
                                   child: FlatButton(
                                       onPressed: () {
-                                        if (_formKey.currentState.validate()) {
-                                          _formKey.currentState.save();
+                                        if (_formKey.currentState!.validate()) {
+                                          _formKey.currentState!.save();
                                           // showDialog(
                                           //   context: context,
                                           //   builder: (context) {

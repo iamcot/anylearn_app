@@ -44,10 +44,10 @@ class _AccountHelpCenterScreen extends State<AccountHelpCenterScreen> {
                   Html(
                     data: guide.content,
                     shrinkWrap: true,
-                    onLinkTap: (String url, _, __, ___) {
+                    onLinkTap: (url, _, __, ___) {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => WebviewScreen(
-                                url: url,
+                                url: url!,
                               )));
                     },
                   ),

@@ -9,7 +9,7 @@ abstract class HomeEvent extends Equatable {
 class LoadHomeEvent extends HomeEvent {
   final UserDTO user;
 
-  LoadHomeEvent({this.user});
+  LoadHomeEvent({required this.user});
   @override
   List<Object> get props => [user];
 
@@ -30,7 +30,7 @@ class LoadQuoteEvent extends HomeEvent {
 class LoadGuideEvent extends HomeEvent {
   final String path;
 
-  LoadGuideEvent({this.path});
+  LoadGuideEvent({required this.path});
   @override
   List<Object> get props => [];
   @override
@@ -40,7 +40,7 @@ class LoadGuideEvent extends HomeEvent {
 class UpdatePopupVersionEvent extends HomeEvent {
   final int version;
 
-  UpdatePopupVersionEvent({this.version});
+  UpdatePopupVersionEvent({required this.version});
   @override
   List<Object> get props => [version];
   @override

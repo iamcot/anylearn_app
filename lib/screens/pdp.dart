@@ -21,9 +21,9 @@ class PDPScreen extends StatefulWidget {
 }
 
 class _PDPScreen extends State<PDPScreen> {
-  PdpBloc pdpBloc;
-  PdpDTO data;
-  int itemId;
+  late PdpBloc pdpBloc;
+  PdpDTO? data;
+  late int itemId;
 
   @override
   void didChangeDependencies() {
@@ -32,9 +32,9 @@ class _PDPScreen extends State<PDPScreen> {
     final transRepo = RepositoryProvider.of<TransactionRepository>(context);
     pdpBloc = PdpBloc(pageRepository: pageRepo, transactionRepository: transRepo);
     try {
-      itemId = int.parse(ModalRoute.of(context).settings.arguments);
+      itemId = int.parse((ModalRoute.of(context)?.settings.arguments.toString())!);
     } catch (e) {
-      itemId = ModalRoute.of(context).settings.arguments;
+      itemId = 0;
     }
   }
 
@@ -42,16 +42,17 @@ class _PDPScreen extends State<PDPScreen> {
   Widget build(BuildContext context) {
     return BlocProvider<PdpBloc>(
       create: (context) {
-        return pdpBloc..add(LoadPDPEvent(id: itemId, token: user == null ? "" : user.token));
+        return pdpBloc..add(LoadPDPEvent(id: itemId, token: user.token));
       },
       child: Scaffold(
         appBar: BaseAppBar(
           title: "",
           user: user,
+          screen: "",
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            pdpBloc..add(LoadPDPEvent(id: itemId, token: user == null ? "" : user.token));
+            pdpBloc..add(LoadPDPEvent(id: itemId, token: user.token));
           },
           child: BlocListener<PdpBloc, PdpState>(
             listener: (context, state) {
@@ -83,14 +84,14 @@ class _PDPScreen extends State<PDPScreen> {
                   data = state.data;
                 }
                 if (state is PdpFavoriteTouchSuccessState) {
-                  data.isFavorite = state.isFav;
+                  data!.isFavorite = state.isFav;
                 }
                 return data != null
                     ? CustomFeedback(
                         user: user,
                         child: PdpBody(
                           pdpBloc: pdpBloc,
-                          data: data,
+                          data: data!,
                           user: user,
                         ),
                       )
@@ -107,7 +108,7 @@ class _PDPScreen extends State<PDPScreen> {
             return BottomNav(
                 user: user,
                 route:
-                    data != null && data.author.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX);
+                    data != null && data!.author.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX);
           },
         ),
       ),

@@ -17,7 +17,7 @@ class AccountInitState extends AccountState {}
 class AccInitPageSuccess extends AccountState {
   final UserDTO user;
 
-  AccInitPageSuccess({this.user});
+  AccInitPageSuccess({required this.user});
   @override
   List<Object> get props => [user];
 
@@ -30,7 +30,7 @@ class UploadAvatarInprogressState extends AccountState {}
 class UploadAvatarSuccessState extends AccountState {
   final String url;
 
-  UploadAvatarSuccessState({this.url});
+  UploadAvatarSuccessState({required this.url});
 
   @override
   List<Object> get props => [url];
@@ -44,7 +44,7 @@ class UploadBannerInprogressState extends AccountState {}
 class UploadBannerSuccessState extends AccountState {
   final String url;
 
-  UploadBannerSuccessState({this.url});
+  UploadBannerSuccessState({required this.url});
 
   @override
   List<Object> get props => [url];
@@ -58,7 +58,7 @@ class AccEditSavingState extends AccountState {}
 class AccEditSaveSuccessState extends AccountState {
   final bool result;
 
-  AccEditSaveSuccessState({this.result});
+  AccEditSaveSuccessState({required this.result});
 
   @override
   List<Object> get props => [result];
@@ -71,7 +71,7 @@ class AccFriendsLoadingState extends AccountState {}
 
 class AccFriendsLoadSuccessState extends AccountState {
   final FriendsDTO friends;
-  AccFriendsLoadSuccessState({this.friends});
+  AccFriendsLoadSuccessState({required this.friends});
 
   @override
   List<Object> get props => [friends];
@@ -85,7 +85,7 @@ class AccMyCalendarLoadingState extends AccountState {}
 class AccMyCalendarSuccessState extends AccountState {
   final AccountCalendarDTO calendar;
 
-  AccMyCalendarSuccessState({this.calendar});
+  AccMyCalendarSuccessState({required this.calendar});
 
   @override
   List<Object> get props => [calendar];
@@ -97,7 +97,7 @@ class AccMyCalendarSuccessState extends AccountState {
 class AccJoinSuccessState extends AccountState {
   final int itemId;
 
-  AccJoinSuccessState({this.itemId});
+  AccJoinSuccessState({required this.itemId});
 
   @override
   List<Object> get props => [itemId];
@@ -111,7 +111,7 @@ class AccProfileLoadingState extends AccountState {}
 class AccProfileSuccessState extends AccountState {
   final UserDTO user;
 
-  AccProfileSuccessState({this.user});
+  AccProfileSuccessState({required this.user});
 
   @override
   List<Object> get props => [user];
@@ -122,7 +122,7 @@ class AccProfileSuccessState extends AccountState {
 
 class AccountFailState extends AccountState {
   final String error;
-  const AccountFailState({@required this.error});
+  const AccountFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -132,7 +132,7 @@ class AccountFailState extends AccountState {
 class AccLoadDocsSuccessState extends AccountState {
   final List<UserDocDTO> userDocs;
 
-  AccLoadDocsSuccessState({this.userDocs});
+  AccLoadDocsSuccessState({required this.userDocs});
 
   @override
   List<Object> get props => [userDocs];
@@ -146,7 +146,7 @@ class AccAddDocLoadingState extends AccountState {}
 class AccAddDocSuccessState extends AccountState {
   final List<UserDocDTO> userDocs;
 
-  AccAddDocSuccessState({this.userDocs});
+  AccAddDocSuccessState({required this.userDocs});
 
   @override
   List<Object> get props => [userDocs];
@@ -158,7 +158,7 @@ class AccAddDocSuccessState extends AccountState {
 class AccRemoveDocSuccessState extends AccountState {
   final List<UserDocDTO> userDocs;
 
-  AccRemoveDocSuccessState({this.userDocs});
+  AccRemoveDocSuccessState({required this.userDocs});
 
   @override
   List<Object> get props => [userDocs];
@@ -185,14 +185,14 @@ class AccChildrenLoadingState extends AccountState {
 class AccChildrenSuccessState extends AccountState {
   final List<UserDTO> children;
 
-  AccChildrenSuccessState({this.children});
+  AccChildrenSuccessState({required this.children});
   @override
   String toString() => 'AccChildrenSuccessState';
 }
 
 class AccChildrenFailState extends AccountState {
   final String error;
-  const AccChildrenFailState({@required this.error});
+  const AccChildrenFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -204,7 +204,7 @@ class AccChangePassInProgressState extends AccountState {
   final String oldPass;
   final String token;
 
-  AccChangePassInProgressState({this.token, this.newPass, this.oldPass});
+  AccChangePassInProgressState({required this.token, required this.newPass, required this.oldPass});
   @override
   String toString() => 'AccChangePassInProgressState';
 }
@@ -216,7 +216,7 @@ class AccChangePassSuccessState extends AccountState {
 
 class AccChangePassFailState extends AccountState {
   final String error;
-  const AccChangePassFailState({@required this.error});
+  const AccChangePassFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override

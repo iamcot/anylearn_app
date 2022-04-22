@@ -11,7 +11,7 @@ abstract class AccountEvent extends Equatable {
 class AccInitPageEvent extends AccountEvent {
   final UserDTO user;
 
-  AccInitPageEvent({this.user});
+  AccInitPageEvent({required this.user});
 
   @override
   List<Object> get props => [user];
@@ -23,7 +23,7 @@ class AccChangeAvatarEvent extends AccountEvent {
   final File file;
   final String token;
 
-  AccChangeAvatarEvent({this.token, this.file});
+  AccChangeAvatarEvent({required this.token, required this.file});
   @override
   List<Object> get props => [token, file];
   @override
@@ -34,7 +34,7 @@ class AccChangeBannerEvent extends AccountEvent {
   final File file;
   final String token;
 
-  AccChangeBannerEvent({this.token, this.file});
+  AccChangeBannerEvent({required this.token, required this.file});
   @override
   List<Object> get props => [token, file];
   @override
@@ -45,7 +45,7 @@ class AccEditSubmitEvent extends AccountEvent {
   final UserDTO user;
   final String token;
 
-  AccEditSubmitEvent({this.user, this.token});
+  AccEditSubmitEvent({required this.user, required this.token});
   @override
   List<Object> get props => [user, token];
   @override
@@ -56,7 +56,7 @@ class AccLoadFriendsEvent extends AccountEvent {
   final int userId;
   final String token;
 
-  AccLoadFriendsEvent({this.userId, this.token});
+  AccLoadFriendsEvent({required this.userId, required this.token});
   @override
   List<Object> get props => [userId, token];
   @override
@@ -66,7 +66,7 @@ class AccLoadFriendsEvent extends AccountEvent {
 class AccLoadMyCalendarEvent extends AccountEvent {
   final String token;
 
-  AccLoadMyCalendarEvent({this.token});
+  AccLoadMyCalendarEvent({required this.token});
   @override
   List<Object> get props => [token];
   @override
@@ -79,7 +79,7 @@ class AccJoinCourseEvent extends AccountEvent {
   final int itemId;
   final int childId;
 
-  AccJoinCourseEvent({this.token, this.itemId, this.scheduleId, this.childId});
+  AccJoinCourseEvent({required this.token, required this.itemId, required this.scheduleId, required this.childId});
   @override
   List<Object> get props => [token, itemId, scheduleId, childId];
   @override
@@ -89,7 +89,7 @@ class AccJoinCourseEvent extends AccountEvent {
 class AccProfileEvent extends AccountEvent {
   final int userId;
 
-  AccProfileEvent({this.userId});
+  AccProfileEvent({required this.userId});
   @override
   List<Object> get props => [userId];
   @override
@@ -99,7 +99,7 @@ class AccProfileEvent extends AccountEvent {
 class AccLoadDocsEvent extends AccountEvent {
   final String token;
 
-  AccLoadDocsEvent({this.token});
+  AccLoadDocsEvent({required this.token});
   @override
   List<Object> get props => [token];
   @override
@@ -110,7 +110,7 @@ class AccAddDocEvent extends AccountEvent {
   final String token;
   final File file;
 
-  AccAddDocEvent({this.token, this.file});
+  AccAddDocEvent({required this.token, required this.file});
   @override
   List<Object> get props => [token, file];
   @override
@@ -121,7 +121,7 @@ class AccRemoveDocEvent extends AccountEvent {
   final String token;
   final int fileId;
 
-  AccRemoveDocEvent({this.token, this.fileId});
+  AccRemoveDocEvent({required this.token, required this.fileId});
   @override
   List<Object> get props => [token, fileId];
   @override
@@ -133,7 +133,7 @@ class AccSaveChildrenEvent extends AccountEvent {
   final String name;
   final int id;
 
-  AccSaveChildrenEvent({this.token, this.id, this.name});
+  AccSaveChildrenEvent({required this.token, required this.id, required this.name});
   @override
   List<Object> get props => [token, id, name];
   @override
@@ -143,7 +143,7 @@ class AccSaveChildrenEvent extends AccountEvent {
 class AccLoadChildrenEvent extends AccountEvent {
   final String token;
 
-  AccLoadChildrenEvent({this.token});
+  AccLoadChildrenEvent({required this.token});
   @override
   List<Object> get props => [token];
   @override
@@ -155,7 +155,7 @@ class AccChangePassEvent extends AccountEvent {
   final String oldPass;
   final String token;
 
-  AccChangePassEvent({this.newPass, this.oldPass, this.token});
+  AccChangePassEvent({required this.newPass, required this.oldPass, required this.token});
   @override
   List<Object> get props => [token, newPass, oldPass];
   @override

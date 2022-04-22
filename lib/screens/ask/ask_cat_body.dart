@@ -9,7 +9,7 @@ class AskCatBody extends StatelessWidget {
   final ArticlePagingDTO data;
   final type;
   final ArticleBloc articleBloc;
-  const AskCatBody({Key key, this.data, this.articleBloc, this.type}) : super(key: key);
+  const AskCatBody({key, required this.data,required this.articleBloc, this.type}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

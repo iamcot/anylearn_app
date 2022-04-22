@@ -7,7 +7,7 @@ import '../../widgets/sliver_banner.dart';
 import 'teacher_filter.dart';
 
 class TeacherBody extends StatelessWidget {
-  final UsersDTO teachers;
+  final teachers;
 
   TeacherBody({this.teachers});
   @override
@@ -38,11 +38,11 @@ class TeacherBody extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border(
                       right: BorderSide(
-                        color: Colors.grey[100],
+                        color: (Colors.grey[100])!,
                         width: 1.0,
                       ),
                       bottom: BorderSide(
-                        color: Colors.grey[100],
+                        color: (Colors.grey[100])!,
                         width: 1.0,
                       ),
                     ),

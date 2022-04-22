@@ -34,9 +34,9 @@ class _ItemsFilter extends State<ItemsFilter> {
               underline: Container(
                 color: Colors.transparent,
               ),
-              onChanged: (String newValue) {
+              onChanged: (newValue) {
                 setState(() {
-                  dropdownValue = newValue;
+                  dropdownValue = newValue!;
                 });
               },
               items: _buildList(options),

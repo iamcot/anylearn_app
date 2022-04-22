@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class UserDocDTO extends Equatable {
-  final int id;
-  final int userId;
-  final String type;
-  final String ext;
-  final String data;
+  final id;
+  final userId;
+  final type;
+  final ext;
+  final data;
 
   UserDocDTO({this.id, this.userId, this.type, this.ext, this.data});
 
@@ -13,7 +13,7 @@ class UserDocDTO extends Equatable {
   List<Object> get props => [id, userId, type, ext, data];
 
   static UserDocDTO fromJson(dynamic json) {
-    return json == null ? null : UserDocDTO(
+    return json == "" ? UserDocDTO() : UserDocDTO(
       id: json['id'],
       userId: json['user_id'],
       type: json['type'],

@@ -6,10 +6,10 @@ import 'base_service.dart';
 class QuoteService extends BaseService {
   final http.Client httpClient;
 
-  QuoteService({this.httpClient});
+  QuoteService({required this.httpClient});
 
   Future<QuoteDTO> getQuote(String url) async {
-    final _url = url ?? 'https://quote-garden.herokuapp.com/quotes/random';
+    final _url = url;
     final json = await get(httpClient, _url);
     return QuoteDTO.fromJson(json);
   }

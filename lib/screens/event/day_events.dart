@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class DayEvents extends StatelessWidget {
   final EventDTO eventToday;
 
-  const DayEvents({Key key, this.eventToday}) : super(key: key);
+  const DayEvents({key, required this.eventToday}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -1,6 +1,6 @@
 class CategoryDTO {
-  final int id;
-  final String title;
+  final id;
+  final title;
 
   CategoryDTO({
     this.id,
@@ -8,8 +8,8 @@ class CategoryDTO {
   });
 
   static CategoryDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? CategoryDTO()
         : CategoryDTO(
             id: json['id'],
             title: json['title'],

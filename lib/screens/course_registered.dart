@@ -13,13 +13,13 @@ class CourseRegisteredScreen extends StatefulWidget {
 }
 
 class _CourseRegisteredScreen extends State<CourseRegisteredScreen> {
-  CourseBloc _courseBloc;
-  List<ClassRegisteredUserDTO> users;
+  late CourseBloc _courseBloc;
+  List<ClassRegisteredUserDTO>? users;
 
   @override
   void didChangeDependencies() {
-    final CourseRegisteredPramsDTO params = ModalRoute.of(context).settings.arguments;
-    if (params == null) {
+    final CourseRegisteredPramsDTO params = ModalRoute.of(context)!.settings.arguments as CourseRegisteredPramsDTO;
+    if (params.itemId <= 0) {
       Navigator.of(context).pop();
     }
     _courseBloc = BlocProvider.of<CourseBloc>(context)
@@ -50,16 +50,16 @@ class _CourseRegisteredScreen extends State<CourseRegisteredScreen> {
                     : ListView.separated(
                         itemBuilder: (context, index) {
                           return ListTile(
-                            leading: users[index].image == null
+                            leading: users![index].image == ""
                                 ? Icon(Icons.account_circle)
-                                : Container(width: 50, child: CustomCachedImage(url: users[index].image)),
-                            title: Text(users[index].name +
-                                (users[index].name != users[index].child ? " [" + users[index].child + "]" : "")),
+                                : Container(width: 50, child: CustomCachedImage(url: users![index].image)),
+                            title: Text(users![index].name +
+                                (users![index].name != users![index].child ? " [" + users![index].child + "]" : "")),
                           //  subtitle: Text(users[index].phone),
                           );
                         },
                         separatorBuilder: (context, index) => Divider(),
-                        itemCount: users.length);
+                        itemCount: users!.length);
               }),
         ),
       ),

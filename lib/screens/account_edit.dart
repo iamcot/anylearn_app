@@ -24,13 +24,11 @@ class AccountEditScreen extends StatefulWidget {
 }
 
 class _AccountEditScreen extends State<AccountEditScreen> {
-  // GlobalKey<HtmlEditorState> keyEditor = GlobalKey<HtmlEditorState>();
-  // GlobalKey<HtmlEditorState> keyEditor = GlobalKey();
   final _formKey = GlobalKey<FormState>();
-  UserDTO _user;
-  File _image;
-  AccountBloc accountBloc;
-  AuthBloc _authBloc;
+  UserDTO _user = UserDTO();
+  late File _image;
+  late AccountBloc accountBloc;
+  late AuthBloc _authBloc;
   final ImagePicker _imagePicker = ImagePicker();
 
   @override
@@ -52,6 +50,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
           Navigator.of(context).popUntil(ModalRoute.withName("/"));
         }
         if (state is AuthSuccessState) {
+          print(state.user);
           accountBloc..add(AccInitPageEvent(user: state.user));
         }
       },
@@ -63,8 +62,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
             IconButton(
                 icon: Icon(Icons.save),
                 onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
                     _user.fullContent = ""; //await keyEditor.currentState.getText();
                     accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
                   }
@@ -117,7 +116,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                 if (state is AccInitPageSuccess) {
                   _user = state.user;
                 }
-                return _user != null
+                return _user.token != ""
                     ? CustomFeedback(
                         user: _user,
                         child: Form(
@@ -147,14 +146,14 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.name,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.name = value;
+                                      _user.name = value!;
                                     });
                                   },
-                                  validator: (String value) {
-                                    if (value.length < 3) {
+                                  validator: (value) {
+                                    if (value!.length < 3) {
                                       return "Tên của bạn cần lớn hơn 3 kí tự";
                                     }
-                                    _formKey.currentState.save();
+                                    _formKey.currentState!.save();
                                     return null;
                                   },
                                   decoration: InputDecoration(
@@ -167,16 +166,16 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                                 child: TextFormField(
                                   initialValue: _user.refcode,
-                                  validator: (String value) {
-                                    if (value.length < 6) {
+                                  validator: (value) {
+                                    if (value!.length < 6) {
                                       return "Mã giới thiệu cần lớn hơn 6 kí tự";
                                     }
-                                    _formKey.currentState.save();
+                                    _formKey.currentState!.save();
                                     return null;
                                   },
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.refcode = value;
+                                      _user.refcode = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -191,7 +190,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.title,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.title = value;
+                                      _user.title = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -207,14 +206,14 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.phone,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.phone = value;
+                                      _user.phone = value!;
                                     });
                                   },
-                                  validator: (String value) {
-                                    if (!validator.isNumeric(value)) {
+                                  validator: (value) {
+                                    if (!validator.isNumeric(value!)) {
                                       return "Số điện thoại không đúng";
                                     }
-                                    _formKey.currentState.save();
+                                    _formKey.currentState!.save();
                                     return null;
                                   },
                                   keyboardType: TextInputType.phone,
@@ -230,14 +229,14 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.email,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.email = value;
+                                      _user.email = value!;
                                     });
                                   },
-                                  validator: (String value) {
-                                    if (!validator.isEmail(value)) {
+                                  validator: (value) {
+                                    if (!validator.isEmail(value!)) {
                                       return "Email không đúng";
                                     }
-                                    _formKey.currentState.save();
+                                    _formKey.currentState!.save();
                                     return null;
                                   },
                                   keyboardType: TextInputType.emailAddress,
@@ -253,7 +252,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.address,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.address = value;
+                                      _user.address = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -268,7 +267,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.country,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.country = value;
+                                      _user.country = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -284,7 +283,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.introduce,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.introduce = value;
+                                      _user.introduce = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -315,9 +314,9 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                                   color: Colors.blue,
                                   onPressed: () async {
-                                    if (_formKey.currentState.validate()) {
+                                    if (_formKey.currentState!.validate()) {
                                       _user.fullContent = ""; //await keyEditor.currentState.getText();
-                                      _formKey.currentState.save();
+                                      _formKey.currentState!.save();
                                       accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
                                     }
                                   },
@@ -349,7 +348,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
   }
 
   Future _getBanner() async {
-    final PickedFile image = await _imagePicker.getImage(
+    final PickedFile? image = await _imagePicker.getImage(
       source: ImageSource.gallery,
     );
     if (image != null) {
@@ -358,7 +357,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
   }
 
   Future _getAvatar({bool fromCamera: false}) async {
-    final PickedFile image = await _imagePicker.getImage(
+    final PickedFile? image = await _imagePicker.getImage(
       source: fromCamera ? ImageSource.camera : ImageSource.gallery,
     );
 

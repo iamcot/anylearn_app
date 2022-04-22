@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class SearchIcon extends StatelessWidget {
   final screen;
 
-  const SearchIcon({Key key, this.screen}) : super(key: key);
+  const SearchIcon({required this.screen});
   @override
   Widget build(BuildContext context) {
     return Container(

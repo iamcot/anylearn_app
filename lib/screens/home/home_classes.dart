@@ -11,8 +11,8 @@ import '../../widgets/rating.dart';
 class HomeClasses extends StatelessWidget {
   final List<HomeClassesDTO> blocks;
 
-  HomeClasses({Key key, this.blocks}) : super(key: key);
-  double width;
+  HomeClasses({key, required this.blocks}) : super(key: key);
+  late double width;
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ class WeekCourses extends StatelessWidget {
   final List<ItemDTO> monthCourses;
   final DateFormat _formatDate = DateFormat("dd/MM");
 
-  WeekCourses({Key key, this.monthCourses}) : super(key: key);
+  WeekCourses({key, required this.monthCourses}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SliverList(

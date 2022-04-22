@@ -1,9 +1,9 @@
 class HomeConfigDTO {
-  final String quoteUrl;
-  final double bannerRatio;
-  final String catType;
-  final PopupDTO popup;
-  int ignorePopupVersion;
+  final quoteUrl;
+  final bannerRatio;
+  final catType;
+  final popup;
+  late int ignorePopupVersion;
 
   HomeConfigDTO({this.quoteUrl, this.bannerRatio, this.catType, this.popup});
 
@@ -23,13 +23,13 @@ class PopupDTO {
   final image;
   final route;
   final args;
-  final int version;
+  final version;
 
   PopupDTO({this.image, this.route, this.args, this.version});
 
   static PopupDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? PopupDTO()
         : PopupDTO(
             image: json['image'],
             route: json['route'],

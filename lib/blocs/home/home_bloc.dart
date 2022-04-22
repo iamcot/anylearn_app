@@ -7,7 +7,7 @@ import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final PageRepository pageRepository;
-  HomeBloc({this.pageRepository}) : super(null);
+  HomeBloc({required this.pageRepository}) : super(HomeInitState());
 
   @override
   HomeState get initialState => HomeInitState();
@@ -17,14 +17,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       if (event is LoadHomeEvent) {
         yield HomeLoadingState();
-        final data = await pageRepository.dataHome(
-            event.user != null ? event.user.role : MyConst.ROLE_GUEST, event.user != null ? event.user.id : null);
-        if (data != null) {
-          data.config.ignorePopupVersion = await pageRepository.getPopupVersion();
-          yield HomeSuccessState(data: data);
-        } else {
-          yield HomeFailState(error: "Không có config cho trang");
-        }
+        final data =
+            await pageRepository.dataHome(event.user.role != "" ? event.user.role : MyConst.ROLE_GUEST, event.user.id);
+        data.config.ignorePopupVersion = await pageRepository.getPopupVersion();
+        yield HomeSuccessState(data: data);
       }
       if (event is LoadQuoteEvent) {
         yield QuoteLoadingState();

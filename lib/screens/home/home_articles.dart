@@ -10,7 +10,7 @@ import '../../widgets/youtube_image.dart';
 class HomeArticles extends StatelessWidget {
   final List<ArticleDTO> articles;
 
-  const HomeArticles({Key key, this.articles}) : super(key: key);
+  const HomeArticles({key, required this.articles}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

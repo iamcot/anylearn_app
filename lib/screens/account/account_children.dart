@@ -14,12 +14,12 @@ class AccountChildrenScreen extends StatefulWidget {
 class _AccountChildrenScreen extends State<AccountChildrenScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
-  UserDTO user;
-  AccountBloc _accountBloc;
+  late UserDTO user;
+  late AccountBloc _accountBloc;
 
   @override
   void didChangeDependencies() {
-    user = ModalRoute.of(context).settings.arguments;
+    user = ModalRoute.of(context)!.settings.arguments as UserDTO;
     final userRepo = RepositoryProvider.of<UserRepository>(context);
     _accountBloc = AccountBloc(userRepository: userRepo);
     _accountBloc..add(AccLoadChildrenEvent(token: user.token));

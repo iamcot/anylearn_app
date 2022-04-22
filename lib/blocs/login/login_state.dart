@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 abstract class LoginState extends Equatable {
   const LoginState();
@@ -17,7 +16,7 @@ class LoginSuccessState extends LoginState {}
 class LoginFailState extends LoginState {
   final String error;
 
-  const LoginFailState({@required this.error});
+  const LoginFailState({required this.error});
 
   @override
   List<Object> get props => [error];
@@ -33,7 +32,7 @@ class LoginFacebookSuccessState extends LoginState {}
 class LoginFacebookFailState extends LoginState {
   final String error;
 
-  const LoginFacebookFailState({@required this.error});
+  const LoginFacebookFailState({required this.error});
 
   @override
   List<Object> get props => [error];
@@ -49,7 +48,7 @@ class LoginAppleSuccessState extends LoginState {}
 class LoginAppleFailState extends LoginState {
   final String error;
 
-  const LoginAppleFailState({@required this.error});
+  const LoginAppleFailState({required this.error});
 
   @override
   List<Object> get props => [error];

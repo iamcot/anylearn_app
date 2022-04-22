@@ -20,7 +20,7 @@ class QuoteLoadingState extends HomeState {}
 class QuoteSuccessState extends HomeState {
   final QuoteDTO quote;
 
-  QuoteSuccessState({this.quote});
+  QuoteSuccessState({required this.quote});
   @override
   List<Object> get props => [quote];
 }
@@ -29,14 +29,14 @@ class QuoteFailState extends HomeState {}
 
 class HomeSuccessState extends HomeState {
   final HomeDTO data;
-  HomeSuccessState({@required this.data}) : assert(data != null);
+  HomeSuccessState({required this.data}) : assert(data != null);
   @override
   List<Object> get props => [data];
 }
 
 class HomeFailState extends HomeState {
   final String error;
-  const HomeFailState({@required this.error});
+  const HomeFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -47,7 +47,7 @@ class GuideLoadingState extends HomeState {}
 
 class GuideFailState extends HomeState {
   final String error;
-  const GuideFailState({@required this.error});
+  const GuideFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override
@@ -57,7 +57,7 @@ class GuideFailState extends HomeState {
 class GuideLoadSuccessState extends HomeState {
   final DocDTO doc;
 
-  GuideLoadSuccessState({this.doc});
+  GuideLoadSuccessState({required this.doc});
   @override
   List<Object> get props => [doc];
   @override

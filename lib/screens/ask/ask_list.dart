@@ -11,7 +11,7 @@ import '../../widgets/youtube_image.dart';
 class AskList extends StatelessWidget {
   final List<ArticleDTO> data;
 
-  const AskList({Key key, this.data}) : super(key: key);
+  const AskList({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

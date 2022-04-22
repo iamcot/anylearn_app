@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class ClassRegisteredUserDTO extends Equatable {
-  final int id;
+  final id;
   String name;
   String phone;
   String image;
@@ -9,10 +9,10 @@ class ClassRegisteredUserDTO extends Equatable {
 
   ClassRegisteredUserDTO({
     this.id,
-    this.name,
-    this.phone,
-    this.image,
-    this.child,
+    this.name = "",
+    this.phone = "",
+    this.image = "",
+    this.child = "",
   });
 
   @override
@@ -28,14 +28,14 @@ class ClassRegisteredUserDTO extends Equatable {
   String toString() => 'UserDTO {id: $id, name: $name, phone: $phone}';
 
   static ClassRegisteredUserDTO fromJson(dynamic json) {
-    return json != null
-        ? ClassRegisteredUserDTO(
+    return json == ""
+        ? ClassRegisteredUserDTO()
+        : ClassRegisteredUserDTO(
             id: json['id'],
             name: json['name'],
             phone: json['phone'],
             image: json['image'],
             child: json['child'],
-          )
-        : null;
+          );
   }
 }

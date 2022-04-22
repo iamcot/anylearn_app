@@ -19,7 +19,7 @@ class _TeacherFilter extends State<TeacherFilter> {
     return SliverToBoxAdapter(
       child: Container(
         alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey[200]))),
+        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: (Colors.grey[200])!))),
         // padding: EdgeInsets.only(left: 15.0),
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: DropdownButton<String>(
@@ -33,9 +33,9 @@ class _TeacherFilter extends State<TeacherFilter> {
           underline: Container(
             color: Colors.transparent,
           ),
-          onChanged: (String newValue) {
+          onChanged: (newValue) {
             setState(() {
-              dropdownValue = newValue;
+              dropdownValue = newValue!;
             });
           },
           items: _buildList(options),

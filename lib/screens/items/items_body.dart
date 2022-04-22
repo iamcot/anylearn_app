@@ -9,7 +9,7 @@ import '../teacher/teacher_filter.dart';
 class ItemsBody extends StatefulWidget {
   final ItemsDTO itemsDTO;
 
-  const ItemsBody({Key key, this.itemsDTO}) : super(key: key);
+  const ItemsBody({key, required this.itemsDTO}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ItemsBody();

@@ -8,7 +8,7 @@ import 'register_state.dart';
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final UserRepository userRepository;
 
-  RegisterBloc({@required this.userRepository}) : assert(userRepository != null), super(null);
+  RegisterBloc({required this.userRepository}) :  super(RegisterInitState());
 
   @override
   RegisterState get initialState => RegisterInitState();

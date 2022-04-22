@@ -1,18 +1,18 @@
 class AskDTO {
   final id;
-  final String title;
-  final String type;
-  final String content;
-  final int userId;
-  final String username;
-  final String userImage;
-  final DateTime createdAt;
-  final bool selectedAnswer;
+  final title;
+  final type;
+  final content;
+  final userId;
+  final username;
+  final userImage;
+  final createdAt;
+  final selectedAnswer;
   final like;
   final unlike;
-  final List<AskDTO> comments;
-  final String userRole;
-  final String myVote;
+  final comments;
+  final userRole;
+  final myVote;
 
   AskDTO({
     this.id,
@@ -32,8 +32,8 @@ class AskDTO {
   });
 
   static AskDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? AskDTO()
         : AskDTO(
             id: json['id'],
             title: json['title'] ?? "",

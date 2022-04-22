@@ -17,8 +17,8 @@ class AccountDocsScreen extends StatefulWidget {
 }
 
 class _AccountDocsScreen extends State<AccountDocsScreen> {
-  AccountBloc accountBloc;
-  List<UserDocDTO> userDocs;
+  late AccountBloc accountBloc;
+  List<UserDocDTO>? userDocs;
   final ImagePicker _imagePicker = ImagePicker();
 
   @override
@@ -30,7 +30,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final token = ModalRoute.of(context).settings.arguments;
+    final token = ModalRoute.of(context)!.settings.arguments.toString();
     accountBloc..add(AccLoadDocsEvent(token: token));
     return Scaffold(
       appBar: AppBar(
@@ -75,7 +75,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                   ),
                                   color: Colors.blue,
                                   onPressed: () async {
-                                    final PickedFile image = await _imagePicker.getImage(
+                                    final PickedFile? image = await _imagePicker.getImage(
                                       source: ImageSource.camera,
                                     );
                                     if (image != null) {
@@ -94,58 +94,55 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                               ),
                               Divider(thickness: 10),
                             ] +
-                            (userDocs == null
+                            (userDocs!.length == 0
                                 ? []
-                                : userDocs
-                                    .map((e) => e == null
-                                        ? null
-                                        : Container(
-                                            height: 200,
-                                            padding: EdgeInsets.only(bottom: 5),
-                                            child: ListTile(
-                                              onTap: () {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context) => SimpleDialog(
-                                                          children: <Widget>[
-                                                            CustomCachedImage(url: e.data),
-                                                            FlatButton(
-                                                                onPressed: () {
-                                                                  Navigator.of(context).pop();
-                                                                },
-                                                                child: Text("Đóng"))
-                                                          ],
-                                                        ));
-                                              },
-                                              title: CustomCachedImage(url: e.data),
-                                              trailing: IconButton(
-                                                  icon: Icon(Icons.delete),
-                                                  onPressed: () {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) => AlertDialog(
-                                                          content: Text("Bạn có muốn xóa file này"),
-                                                          actions: [
-                                                            FlatButton(
+                                : userDocs!
+                                    .map((e) => Container(
+                                          height: 200,
+                                          padding: EdgeInsets.only(bottom: 5),
+                                          child: ListTile(
+                                            onTap: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) => SimpleDialog(
+                                                        children: <Widget>[
+                                                          CustomCachedImage(url: e.data),
+                                                          TextButton(
                                                               onPressed: () {
                                                                 Navigator.of(context).pop();
                                                               },
-                                                              child: Text("Bỏ qua"),
-                                                            ),
-                                                            RaisedButton(
-                                                                onPressed: () {
-                                                                  accountBloc
-                                                                    ..add(
-                                                                        AccRemoveDocEvent(token: token, fileId: e.id));
-                                                                  Navigator.of(context).pop();
-                                                                },
-                                                                color: Colors.red,
-                                                                child: Text("Xóa"))
-                                                          ]),
-                                                    );
-                                                  }),
-                                            ),
-                                          ))
+                                                              child: Text("Đóng"))
+                                                        ],
+                                                      ));
+                                            },
+                                            title: CustomCachedImage(url: e.data),
+                                            trailing: IconButton(
+                                                icon: Icon(Icons.delete),
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) => AlertDialog(
+                                                        content: Text("Bạn có muốn xóa file này"),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            child: Text("Bỏ qua"),
+                                                          ),
+                                                          RaisedButton(
+                                                              onPressed: () {
+                                                                accountBloc
+                                                                  ..add(AccRemoveDocEvent(token: token, fileId: e.id));
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              color: Colors.red,
+                                                              child: Text("Xóa"))
+                                                        ]),
+                                                  );
+                                                }),
+                                          ),
+                                        ))
                                     .toList()),
                       ),
                     );

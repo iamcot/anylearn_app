@@ -9,7 +9,7 @@ class LoginButtonPressedEvent extends LoginEvent {
   final String phone;
   final String password;
 
-  LoginButtonPressedEvent({@required this.phone, @required this.password});
+  LoginButtonPressedEvent({required this.phone, required this.password});
 
   @override
   List<Object> get props => [phone, password];
@@ -23,7 +23,7 @@ class LoginButtonPressedEvent extends LoginEvent {
 class LoginFacebookEvent extends LoginEvent {
   final Map<String, dynamic> data;
 
-  LoginFacebookEvent({@required this.data});
+  LoginFacebookEvent({required this.data});
 
   @override
   List<Object> get props => [data];
@@ -37,7 +37,7 @@ class LoginFacebookEvent extends LoginEvent {
 class LoginAppleEvent extends LoginEvent {
   final Map<String, dynamic> data;
 
-  LoginAppleEvent({@required this.data});
+  LoginAppleEvent({required this.data});
 
   @override
   List<Object> get props => [data];

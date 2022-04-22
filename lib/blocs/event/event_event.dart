@@ -7,7 +7,7 @@ abstract class EventEvent extends Equatable {
 class LoadEventEvent extends EventEvent {
   final DateTime month;
 
-  LoadEventEvent({this.month});
+  LoadEventEvent({required this.month});
   @override
   List<Object> get props => [month];
 

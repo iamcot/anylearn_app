@@ -13,17 +13,17 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool hasBack;
   final UserDTO user;
 
-  const BaseAppBar({this.title, this.screen, this.hasBack, this.user});
+  const BaseAppBar({required this.title, this.screen = "", this.hasBack = true, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
-      automaticallyImplyLeading: hasBack ?? true,
+      automaticallyImplyLeading: hasBack,
       titleSpacing: 10.0,
       foregroundColor: Colors.grey,
       actions: <Widget>[
-        user == null || !user.enableIosTrans
+        user.id == 0 || !user.enableIosTrans
             ? Text("")
             : IconButton(
                 color: Colors.grey[500],
@@ -43,7 +43,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
         NotificationIcon(user: user,),
         screen != "account" && screen != "notification"
             ? new AccountIcon(
-                user: user ?? null,
+                user: user,
               )
             : Text(""),
       ],

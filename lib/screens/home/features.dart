@@ -6,7 +6,7 @@ import 'feature_icon2.dart';
 class FeatureList extends StatelessWidget {
   final List<FeatureDataDTO> features;
 
-  const FeatureList({Key key, this.features}) : super(key: key);
+  const FeatureList({key, required this.features}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 2;

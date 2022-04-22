@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 class AccountNormalMenu extends StatelessWidget {
   final String title;
-  final String route;
-  final IconData leadingIcon;
-  final Widget trailing;
-  final Widget subContent;
-  final VoidCallback routeFunction;
-  final String routeFunctionMsg;
-  final Color leadingColor;
-  final Color trailingColor;
-  final Color titleColor;
-  final dynamic routeParam;
+  final route;
+  final leadingIcon;
+  final trailing;
+  final subContent;
+  final routeFunction;
+  final routeFunctionMsg;
+  final leadingColor;
+  final trailingColor;
+  final titleColor;
+  final routeParam;
 
   const AccountNormalMenu(
-      {Key key,
-      this.title,
+      {key,
+      required this.title,
       this.route,
       this.routeParam,
       this.leadingIcon,

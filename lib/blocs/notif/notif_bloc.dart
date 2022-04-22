@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 
 import '../../models/user_repo.dart';
 import 'notif_blocs.dart';
@@ -7,7 +6,7 @@ import 'notif_blocs.dart';
 class NotifBloc extends Bloc<NotifEvent, NotifState> {
   final UserRepository userRepository;
 
-  NotifBloc({@required this.userRepository}) : assert(userRepository != null), super(null);
+  NotifBloc({required this.userRepository}) : super(NotifInitState());
 
   @override
   NotifState get initialState => NotifInitState();

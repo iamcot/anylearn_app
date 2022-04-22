@@ -8,7 +8,7 @@ class TransactionList extends StatelessWidget {
   final List<TransactionDTO> transactions;
   final String tab;
 
-  const TransactionList({Key key, this.transactions, this.tab}) : super(key: key);
+  const TransactionList({key, required this.transactions, required this.tab}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +85,7 @@ class TransactionList extends StatelessWidget {
       case MyConst.TRANS_STATUS_CANCEL:
         return TextSpan(text: "Bị từ chối", style: TextStyle(color: Colors.red));
     }
+    return TextSpan(text: "");
   }
 
   int usedAmount(TransactionDTO trans) {

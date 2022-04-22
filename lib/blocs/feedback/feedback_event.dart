@@ -11,7 +11,7 @@ class SaveFeedbackEvent extends FeedbackEvent {
   final String content;
   final File file;
 
-  SaveFeedbackEvent({this.token, this.content, this.file});
+  SaveFeedbackEvent({required this.token, required this.content, required this.file});
   @override
   List<Object> get props => [token, content, file];
 

@@ -7,7 +7,7 @@ import '../dto/hot_items_dto.dart';
 class HotItems extends StatelessWidget {
   final List<HotItemsDTO> hotItems;
 
-  const HotItems({Key key, this.hotItems}) : super(key: key);
+  const HotItems({required this.hotItems});
   @override
   Widget build(BuildContext context) {
     return Container(child: Column(children: _buildList(context)));
@@ -22,7 +22,7 @@ class HotItems extends StatelessWidget {
               border: Border(
                 top: BorderSide(
                   width: 15.0,
-                  color: Colors.grey[100],
+                  color: (Colors.grey[100])!,
                 ),
               ),
             ),
@@ -37,7 +37,7 @@ class HotItems extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    hotList.route == null
+                    hotList.route == ""
                         ? SizedBox(
                             height: 0,
                           )

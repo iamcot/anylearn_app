@@ -4,16 +4,16 @@ import 'bank_dto.dart';
 import 'transaction_dto.dart';
 
 class TransactionConfigDTO extends Equatable {
-  final List<int> suggests;
-  final int suggestInputColumn;
-  final List<String> payments;
-  final int vipFee;
-  final int vipDays;
-  final List<TransactionDTO> lastTransactions;
-  final BankDTO depositBank;
-  final int rate;
-  final int pendingM;
-  final int pendingC;
+  final suggests;
+  final suggestInputColumn;
+  final payments;
+  final vipFee;
+  final vipDays;
+  final lastTransactions;
+  final depositBank;
+  final rate;
+  final pendingM;
+  final pendingC;
 
   TransactionConfigDTO({
     this.suggests,
@@ -43,8 +43,8 @@ class TransactionConfigDTO extends Equatable {
       ];
 
   static TransactionConfigDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? TransactionConfigDTO()
         : TransactionConfigDTO(
             suggests: List<int>.from(json['suggest']?.map((e) => e == null ? null : e)).toList(),
             vipFee: json['vip_fee'],

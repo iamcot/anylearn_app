@@ -8,6 +8,6 @@ class AccountTransactionDTO {
   final double currentAmount;
   final List<TransactionDTO> transactions;
 
-  AccountTransactionDTO({this.wallet, this.currentAmount, this.transactions});
+  AccountTransactionDTO({required this.wallet, required this.currentAmount, required this.transactions});
 
 }

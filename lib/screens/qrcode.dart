@@ -1,9 +1,9 @@
+import 'package:anylearn/dto/login_callback.dart';
 import 'package:anylearn/widgets/loading_widget.dart';
 // import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:share/share.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
@@ -17,8 +17,8 @@ class QrCodeScreen extends StatefulWidget {
 }
 
 class _QrCodeScreen extends State<QrCodeScreen> {
-  UserDTO user;
-  AuthBloc _authBloc;
+  UserDTO? user;
+  late AuthBloc _authBloc;
 
   @override
   void didChangeDependencies() {
@@ -38,7 +38,7 @@ class _QrCodeScreen extends State<QrCodeScreen> {
       bloc: _authBloc,
       listener: (context, state) {
         if (state is AuthFailState) {
-          Navigator.of(context).popAndPushNamed("/login");
+          Navigator.of(context).popAndPushNamed("/login", arguments: LoginCallback(routeName: "/qrcode"));
         }
       },
       child: BlocBuilder(
@@ -51,10 +51,10 @@ class _QrCodeScreen extends State<QrCodeScreen> {
               ? LoadingWidget()
               : Scaffold(
                   appBar: AppBar(
-                    title: Text(user.name),
+                    title: Text(user!.name),
                   ),
                   body: CustomFeedback(
-                    user: user,
+                    user: user!,
                     child: Container(
                       alignment: Alignment.center,
                       padding: EdgeInsets.only(top: qrPadding, bottom: 10.0),
@@ -62,7 +62,7 @@ class _QrCodeScreen extends State<QrCodeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           QrImage(
-                            data: user.refLink,
+                            data: user!.refLink,
                             version: QrVersions.auto,
                             size: qrWidth,
                             gapless: true,
@@ -95,7 +95,7 @@ class _QrCodeScreen extends State<QrCodeScreen> {
                                     // ),
                                     MaterialButton(
                                       onPressed: () {
-                                        Share.share(user.refLink);
+                                        // Share.share(user.refLink);
                                       },
                                       child: Text(
                                         "CHIA SẺ MÃ",

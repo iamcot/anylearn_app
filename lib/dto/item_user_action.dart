@@ -1,12 +1,12 @@
 class ItemUserAction {
-  final int id;
-  final int itemId;
-  final int userId;
-  final String userName;
-  final String userImage;
-  final String value;
-  final String extraValue;
-  final DateTime createdAt;
+  final id;
+  final itemId;
+  final userId;
+  final userName;
+  final userImage;
+  final value;
+  final extraValue;
+  final createdAt;
 
   ItemUserAction({
     this.id,
@@ -20,8 +20,8 @@ class ItemUserAction {
   });
 
   static ItemUserAction fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? ItemUserAction()
         : ItemUserAction(
             id: json['id'],
             itemId: json['item_id'],

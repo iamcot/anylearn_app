@@ -64,7 +64,7 @@ class AskCreateEvent extends ArticleEvent {
   final String type;
   final UserDTO user;
 
-  AskCreateEvent({this.content, this.title, this.type, this.user, this.askId});
+  AskCreateEvent({required this.content, required this.title, required this.type, required this.user, this.askId});
 
   @override
   List<Object> get props => [askId, content, title, type, user];
@@ -77,7 +77,7 @@ class AskSelectEvent extends ArticleEvent {
   final askId;
   final String token;
 
-  AskSelectEvent({this.askId, this.token});
+  AskSelectEvent({this.askId, required this.token});
 
   @override
   List<Object> get props => [askId, token];
@@ -91,7 +91,7 @@ class AskVoteEvent extends ArticleEvent {
   final String type;
   final String token;
 
-  AskVoteEvent({this.askId, this.type, this.token});
+  AskVoteEvent({this.askId, required this.type, required this.token});
 
   @override
   List<Object> get props => [askId, token, type];

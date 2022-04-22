@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class BankForm extends StatelessWidget {
-  final GlobalKey<FormState> formKey;
-  final TextEditingController bankName;
-  final TextEditingController bankBranch;
-  final TextEditingController bankNo;
-  final TextEditingController bankAccount;
+  final formKey;
+  final bankName;
+  final bankBranch;
+  final bankNo;
+  final bankAccount;
 
-  const BankForm({Key key, this.formKey, this.bankName, this.bankBranch, this.bankNo, this.bankAccount})
+  const BankForm({key, this.formKey, this.bankName, this.bankBranch, this.bankNo, this.bankAccount})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class BankForm extends StatelessWidget {
           TextFormField(
             controller: bankName,
             validator: (value) {
-              if (value.isEmpty) {
+              if (value == "") {
                 return "Bạn cần nhập tên ngân hàng";
               }
               formKey.currentState.save();
@@ -31,7 +31,7 @@ class BankForm extends StatelessWidget {
           TextFormField(
             controller: bankBranch,
              validator: (value) {
-              if (value.isEmpty) {
+              if (value == "") {
                 return "Bạn cần nhập chi nhánh ngân hàng";
               }
               formKey.currentState.save();
@@ -45,7 +45,7 @@ class BankForm extends StatelessWidget {
           TextFormField(
             controller: bankNo,
              validator: (value) {
-              if (value.isEmpty) {
+              if (value == "") {
                 return "Bạn cần nhập Số tài khoản";
               }
               formKey.currentState.save();
@@ -59,7 +59,7 @@ class BankForm extends StatelessWidget {
           TextFormField(
             controller: bankAccount,
              validator: (value) {
-              if (value.isEmpty) {
+              if (value == "") {
                 return "Bạn cần nhập Họ tên chủ tài khoản";
               }
               formKey.currentState.save();

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 import '../../dto/user_dto.dart';
 
@@ -15,7 +14,7 @@ class RegisterFormLoadEvent extends RegisterEvent {
 class RegisterButtonPressedEvent extends RegisterEvent {
   final UserDTO userInput;
 
-  RegisterButtonPressedEvent({@required this.userInput});
+  RegisterButtonPressedEvent({required this.userInput});
 
   @override
   List<Object> get props => [userInput];

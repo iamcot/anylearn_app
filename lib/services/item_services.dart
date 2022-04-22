@@ -15,7 +15,7 @@ class ItemService extends BaseService {
   final http.Client httpClient;
   final AppConfig config;
 
-  ItemService({this.config, this.httpClient});
+  ItemService({required this.config, required this.httpClient});
 
   Future<bool> saveItem(ItemDTO item, String token) async {
     if (item == null) {
@@ -28,17 +28,17 @@ class ItemService extends BaseService {
     );
     final json = await post(httpClient, url, {
       "id": item.id != null ? item.id.toString() : "",
-      "type": item.type ?? "",
-      "title": item.title ?? "",
-      "price": item.price != null ? item.price.toString() : "",
-      "org_price": item.priceOrg != null ? item.priceOrg.toString() : "",
+      "type": item.type,
+      "title": item.title,
+      "price": item.price != 0 ? item.price.toString() : "",
+      "org_price": item.priceOrg != 0 ? item.priceOrg.toString() : "",
       "date_start": item.dateStart,
-      "date_end": item.dateEnd ?? "",
+      "date_end": item.dateEnd,
       "time_start": item.timeStart,
-      "time_end": item.timeEnd ?? "",
-      "location": item.location ?? "",
-      "short_content": item.shortContent ?? "",
-      "content": item.content ?? "",
+      "time_end": item.timeEnd,
+      "location": item.location,
+      "short_content": item.shortContent,
+      "content": item.content,
     });
     return json['result'];
   }
@@ -104,8 +104,6 @@ class ItemService extends BaseService {
   Future<List<ItemUserAction>> loadItemReviews(int itemId) async {
     final url = buildUrl(appConfig: config, endPoint: "/item/$itemId/reviews");
     final json = await get(httpClient, url);
-    return json == null
-        ? null
-        : List<ItemUserAction>.from(json?.map((e) => e == null ? null : ItemUserAction.fromJson(e))).toList();
+    return List<ItemUserAction>.from(json?.map((e) => e == null ? null : ItemUserAction.fromJson(e))).toList();
   }
 }

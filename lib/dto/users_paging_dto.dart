@@ -4,14 +4,14 @@ import 'user_dto.dart';
 
 class UsersPagingDTO extends Equatable {
   final currentPage;
-  final List<UserDTO> data;
+  final data;
   final from;
   final lastPage;
   final perPage;
   final to;
-  final total;
+  final int total;
 
-  UsersPagingDTO({this.currentPage, this.data, this.from, this.lastPage, this.perPage, this.to, this.total});
+  UsersPagingDTO({this.currentPage, this.data, this.from, this.lastPage, this.perPage, this.to, this.total = 0});
 
   @override
   List<Object> get props => [currentPage, data, from, lastPage, perPage, to, total];
@@ -22,11 +22,11 @@ class UsersPagingDTO extends Equatable {
   }
 
   static UsersPagingDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? UsersPagingDTO()
         : UsersPagingDTO(
             currentPage: json['current_page'],
-            data: List<UserDTO>.from(json['data']?.map((v) => v == null ? null : UserDTO.fromJson(v))).toList(),
+            data: json['data'] == null ? [] : List<UserDTO>.from(json['data']?.map((v) => v == null ? null : UserDTO.fromJson(v))).toList(),
             // from: json['from'],
             // to: json['to'],
             perPage: json['per_page'],

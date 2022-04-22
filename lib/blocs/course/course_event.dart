@@ -12,7 +12,7 @@ class LoadCourseEvent extends CourseEvent {
   final int id;
   final String token;
 
-  LoadCourseEvent({this.id, this.token});
+  LoadCourseEvent({required this.id,required  this.token});
   @override
   List<Object> get props => [id, token];
 
@@ -24,7 +24,7 @@ class SaveCourseEvent extends CourseEvent {
   final ItemDTO item;
   final String token;
 
-  SaveCourseEvent({this.item, this.token});
+  SaveCourseEvent({required this.item,required  this.token});
   @override
   List<Object> get props => [item, token];
 
@@ -35,7 +35,7 @@ class SaveCourseEvent extends CourseEvent {
 class ListCourseEvent extends CourseEvent {
   final String token;
 
-  ListCourseEvent({this.token});
+  ListCourseEvent({required this.token});
   @override
   List<Object> get props => [token];
 
@@ -48,7 +48,7 @@ class CourseUploadImageEvent extends CourseEvent {
   final String token;
   final int itemId;
 
-  CourseUploadImageEvent({this.token, this.image, this.itemId});
+  CourseUploadImageEvent({required this.token,required  this.image,required  this.itemId});
 
   @override
   List<Object> get props => [token, image, itemId];
@@ -62,7 +62,7 @@ class CourseChangeUserStatusEvent extends CourseEvent {
   final int itemId;
   final int newStatus;
 
-  CourseChangeUserStatusEvent({this.token, this.newStatus, this.itemId});
+  CourseChangeUserStatusEvent({required this.token,required  this.newStatus,required  this.itemId});
 
   @override
   List<Object> get props => [token, newStatus, itemId];
@@ -75,7 +75,7 @@ class RegisteredUsersEvent extends CourseEvent {
   final String token;
   final int itemId;
 
-  RegisteredUsersEvent({this.token, this.itemId});
+  RegisteredUsersEvent({required this.token,required  this.itemId});
   @override
   List<Object> get props => [token, itemId];
   @override
@@ -88,7 +88,7 @@ class ReviewSubmitEvent extends CourseEvent {
   final int rating;
   final String comment;
 
-  ReviewSubmitEvent({this.token, this.itemId, this.rating, this.comment});
+  ReviewSubmitEvent({required this.token,required  this.itemId,required  this.rating,required  this.comment});
   @override
   List<Object> get props => [token, itemId, rating, comment];
   @override
@@ -98,7 +98,7 @@ class ReviewSubmitEvent extends CourseEvent {
 class ReviewLoadEvent extends CourseEvent {
   final int itemId;
 
-  ReviewLoadEvent({this.itemId});
+  ReviewLoadEvent({required this.itemId});
   @override
   List<Object> get props => [itemId];
   @override

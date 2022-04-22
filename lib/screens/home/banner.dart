@@ -12,7 +12,7 @@ class HomeBanner extends StatefulWidget {
   final List<HomeBannerDTO> banners;
   final double ratio;
 
-  const HomeBanner({Key key, this.banners, this.ratio}) : super(key: key);
+  const HomeBanner({key, required this.banners, required this.ratio}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomeBanner();
@@ -27,7 +27,7 @@ class _HomeBanner extends State<HomeBanner> {
         _controllers.putIfAbsent(
             banner.arg,
             () => YoutubePlayerController(
-                initialVideoId: YoutubePlayer.convertUrlToId(banner.arg), flags: YoutubePlayerFlags()));
+                initialVideoId: YoutubePlayer.convertUrlToId(banner.arg)!, flags: YoutubePlayerFlags()));
       }
     });
     super.initState();
@@ -74,7 +74,7 @@ class _HomeBanner extends State<HomeBanner> {
     if (banner.route == "video") {
       return YoutubePlayerBuilder(
         player: YoutubePlayer(
-          controller: _controllers[banner.arg],
+          controller: _controllers[banner.arg]!,
         ),
         builder: (context, player) => Container(
           child: player,
@@ -85,7 +85,8 @@ class _HomeBanner extends State<HomeBanner> {
         child: CustomCachedImage(url: banner.file),
         onTap: () {
           if (banner.route.isNotEmpty) {
-            return Navigator.of(context).pushNamed(banner.route, arguments: banner.arg);
+            Navigator.of(context).pushNamed(banner.route, arguments: banner.arg);
+            return;
           }
         },
       );

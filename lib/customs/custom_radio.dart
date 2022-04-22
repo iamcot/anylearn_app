@@ -7,7 +7,7 @@ class CustomRadio extends StatelessWidget {
   final String label;
   final VoidCallback func;
 
-  const CustomRadio({Key key, this.groupValue, this.value, this.func, this.label}) : super(key: key);
+  const CustomRadio({required this.groupValue, required this.value, required this.func, required this.label});
 
   @override
   Widget build(BuildContext context) {

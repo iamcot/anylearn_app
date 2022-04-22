@@ -7,8 +7,7 @@ class PriceBox extends StatelessWidget {
   final double fontSize;
   final bool showOrgPrice;
 
-  const PriceBox({Key key, this.orgPrice = 0, this.price, this.fontSize = 16.0, this.showOrgPrice = false})
-      : super(key: key);
+  const PriceBox({this.orgPrice = 0, this.price = 0, this.fontSize = 16.0, this.showOrgPrice = false});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class PriceBox extends StatelessWidget {
     var of = new NumberFormat("-##%");
     return Row(
       children: <Widget>[
-        orgPrice != null && orgPrice > price
+        orgPrice > price
             ? Container(
                 padding: EdgeInsets.all(3.0),
                 margin: EdgeInsets.only(right: 3),
@@ -27,7 +26,7 @@ class PriceBox extends StatelessWidget {
                 ),
               )
             : Text(""),
-        (!showOrgPrice || orgPrice == null || orgPrice <= price)
+        (!showOrgPrice || orgPrice <= price)
             ? Container()
             : Container(
                 margin: EdgeInsets.only(right: 3),

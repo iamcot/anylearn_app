@@ -9,9 +9,9 @@ import '../../widgets/sliver_banner.dart';
 import 'school_filter.dart';
 
 class SchoolBody extends StatelessWidget {
-  final UsersDTO schoolsData;
+  final schoolsData;
 
-  const SchoolBody({Key key, this.schoolsData}) : super(key: key);
+  const SchoolBody({key, this.schoolsData}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

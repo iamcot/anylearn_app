@@ -13,13 +13,13 @@ class GuideScreen extends StatefulWidget {
 }
 
 class _GuideScreen extends State<GuideScreen> {
-  HomeBloc _homeBloc;
+  late HomeBloc _homeBloc;
 
   @override
   void didChangeDependencies() {
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
     _homeBloc = HomeBloc(pageRepository: pageRepo);
-    final path = ModalRoute.of(context).settings.arguments;
+    String path = ModalRoute.of(context)!.settings.arguments.toString();
     if (path == null) {
       Navigator.of(context).pop();
     }

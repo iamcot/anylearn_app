@@ -6,7 +6,7 @@ class BankInfo extends StatelessWidget {
   final BankDTO bankDTO;
   final String phone;
 
-  const BankInfo({Key key, this.bankDTO, this.phone}) : super(key: key);
+  const BankInfo({required this.bankDTO,required this.phone});
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(

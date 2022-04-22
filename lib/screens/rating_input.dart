@@ -13,14 +13,14 @@ class RatingInputScreen extends StatefulWidget {
   final itemTitle;
   final lastRating;
 
-  const RatingInputScreen({Key key, this.user, this.itemId, this.itemTitle, this.lastRating}) : super(key: key);
+  const RatingInputScreen({required this.user, this.itemId, this.itemTitle, this.lastRating});
 
   @override
   State<StatefulWidget> createState() => _RatingInputScreen();
 }
 
 class _RatingInputScreen extends State<RatingInputScreen> {
-  CourseBloc _courseBloc;
+  late CourseBloc _courseBloc;
   int score = 5;
   final max = 5;
   int current = 1;

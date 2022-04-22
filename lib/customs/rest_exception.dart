@@ -9,7 +9,7 @@ class RestException implements Exception {
 }
 
 class FetchDataException extends RestException {
-  FetchDataException([String message]) : super(message, "Có lỗi xảy ra");
+  FetchDataException([message]) : super(message, "Có lỗi xảy ra");
 }
 
 class BadRequestException extends RestException {

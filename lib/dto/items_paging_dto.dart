@@ -4,7 +4,7 @@ import 'item_dto.dart';
 
 class ItemsPagingDTO extends Equatable {
   final currentPage;
-  final List<ItemDTO> data;
+  final data;
   final from;
   final lastPage;
   final perPage;
@@ -22,8 +22,8 @@ class ItemsPagingDTO extends Equatable {
   }
 
   static ItemsPagingDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? ItemsPagingDTO()
         : ItemsPagingDTO(
             currentPage: json['current_page'],
             data: List<ItemDTO>.from(json['data']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),

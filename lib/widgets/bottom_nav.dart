@@ -14,7 +14,7 @@ class BottomNav extends StatelessWidget {
 
   final UserDTO user;
 
-  BottomNav({this.route, this.user});
+  BottomNav({required this.route,required this.user});
 
   @override
   Widget build(BuildContext context) {

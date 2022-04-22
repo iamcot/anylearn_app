@@ -29,8 +29,8 @@ class ArticleDTO {
       this.related});
 
   static ArticleDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? ArticleDTO()
         : ArticleDTO(
             id: json['id'],
             title: json['title'],
@@ -60,7 +60,7 @@ class ArticlePagingDTO {
   final to;
   final total;
 
-  ArticlePagingDTO({this.currentPage, this.data, this.from, this.lastPage, this.perPage, this.to, this.total});
+  ArticlePagingDTO({this.currentPage, required this.data, this.from, this.lastPage, this.perPage, this.to, this.total});
 
   @override
   List<Object> get props => [currentPage, data, from, lastPage, perPage, to, total];
@@ -71,8 +71,8 @@ class ArticlePagingDTO {
   }
 
   static ArticlePagingDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? ArticlePagingDTO(data: [])
         : ArticlePagingDTO(
             currentPage: json['current_page'],
             data: List<ArticleDTO>.from(json['data']?.map((v) => v == null ? null : ArticleDTO.fromJson(v))).toList(),
@@ -90,29 +90,23 @@ class ArticleHomeDTO {
   final List<ArticleDTO> videos;
   final List<AskDTO> asks;
 
-  ArticleHomeDTO({this.reads, this.videos, this.asks});
+  ArticleHomeDTO({required this.reads, required this.videos,required  this.asks});
 
   static ArticleHomeDTO fromJson(dynamic json) {
-    return json == null
-        ? null
+    return json == ""
+        ? ArticleHomeDTO(reads: [], videos: [], asks: [])
         : ArticleHomeDTO(
-            reads: json['reads'] == null
-                ? null
-                : List<ArticleDTO>.from(
+            reads: List<ArticleDTO>.from(
                     json['reads']?.map(
                       (e) => e == null ? null : ArticleDTO.fromJson(e),
                     ),
                   ),
-            videos: json['videos'] == null
-                ? null
-                : List<ArticleDTO>.from(
+            videos: List<ArticleDTO>.from(
                     json['videos']?.map(
                       (e) => e == null ? null : ArticleDTO.fromJson(e),
                     ),
                   ),
-            asks: json['asks'] == null
-                ? null
-                : List<AskDTO>.from(
+            asks:  List<AskDTO>.from(
                     json['asks']?.map(
                       (e) => e == null ? null : AskDTO.fromJson(e),
                     ),

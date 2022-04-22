@@ -9,7 +9,7 @@ import '../screens/webview.dart';
 class UserQuickProfile extends StatelessWidget {
   final UserDTO user;
 
-  const UserQuickProfile({Key key, this.user}) : super(key: key);
+  const UserQuickProfile({required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class UserQuickProfile extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   padding: EdgeInsets.all(15),
                   child: Text(
-                    user.introduce ?? "",
+                    user.introduce,
                     style: TextStyle(fontSize: 14, color: Colors.grey[500]),
                     textAlign: TextAlign.justify,
                   ),
@@ -81,12 +81,12 @@ class UserQuickProfile extends StatelessWidget {
                               ),
                               expanded: Column(children: [
                                 Html(
-                                  data: user.fullContent ?? "",
+                                  data: user.fullContent,
                                   shrinkWrap: true,
-                                  onLinkTap: (String url, _, __, ___) {
+                                  onLinkTap: (url, _, __, ___) {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => WebviewScreen(
-                                              url: url,
+                                              url: url!,
                                             )));
                                   },
                                 ),

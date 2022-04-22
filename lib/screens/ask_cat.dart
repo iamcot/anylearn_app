@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,15 +15,15 @@ import 'ask/ask_cat_body.dart';
 class AskCatScreen extends StatefulWidget {
   final type;
 
-  const AskCatScreen({Key key, this.type}) : super(key: key);
+  const AskCatScreen({key, this.type}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _AskCatScreen();
 }
 
 class _AskCatScreen extends State<AskCatScreen> {
-  ArticlePagingDTO data;
+  ArticlePagingDTO? data;
 
-  ArticleBloc _articleBloc;
+  late ArticleBloc _articleBloc;
   int page = 1;
 
   @override
@@ -35,7 +36,8 @@ class _AskCatScreen extends State<AskCatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(
-        title: widget.type == MyConst.ASK_TYPE_READ ? "Đọc để học" : "Xem để học",
+        title: widget.type == MyConst.ASK_TYPE_READ ? "Đọc để học" : "Xem để học", 
+        user: user,
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -54,7 +56,7 @@ class _AskCatScreen extends State<AskCatScreen> {
                   ? LoadingWidget()
                   : AskCatBody(
                       articleBloc: _articleBloc,
-                      data: data,
+                      data: data!,
                       type: widget.type,
                     );
             }),

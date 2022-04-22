@@ -64,7 +64,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/withdraw": (BuildContext context) => WithdrawScreen(),
   "/exchange": (BuildContext context) => ExchangeScreen(),
   "/transaction": (BuildContext context) => TransactionScreen(),
-  "/developing": (BuildContext context) => DevelopingScreen(),
+  // "/developing": (BuildContext context) => DevelopingScreen(),
   "/notification": (BuildContext context) => NotificationScreen(),
   "/items/teacher": (BuildContext context) => ItemsTeacherScreen(),
   "/items/school": (BuildContext context) => ItemsSchoolScreen(),
@@ -82,5 +82,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/contract/teacher": (BuildContext context) => ContractTeacherScreen(),
   "/contract/school": (BuildContext context) => ContractSchoolScreen(),
   "/contract/sign": (BuildContext context) => ContractSignScreen(),
-  "/draw": (BuildContext context) => DrawScreen(),
+  // "/draw": (BuildContext context) => DrawScreen(),
 };

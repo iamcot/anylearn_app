@@ -7,11 +7,11 @@ import '../../dto/transaction_dto.dart';
 import '../../widgets/bank_info.dart';
 
 class DepositList extends StatefulWidget {
-  final List<TransactionDTO> list;
-  final BankDTO configBank;
-  final String phone;
+  final list;
+  final configBank;
+  final phone;
 
-  const DepositList({Key key, this.list, this.configBank, this.phone}) : super(key: key);
+  const DepositList({key, this.list, this.configBank, this.phone}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DepositList();

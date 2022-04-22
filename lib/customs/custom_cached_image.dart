@@ -6,7 +6,7 @@ class CustomCachedImage extends StatelessWidget {
   final fit;
   final borderRadius;
 
-  CustomCachedImage({Key key, this.url, this.fit, this.borderRadius}) : super(key: key);
+  CustomCachedImage({required this.url, this.fit, this.borderRadius});
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(

@@ -4,18 +4,18 @@ import 'package:photo_view/photo_view_gallery.dart';
 
 class ImageViewScreen extends StatefulWidget {
   ImageViewScreen({
-    this.loadingBuilder,
-    this.backgroundDecoration,
+    required this.loadingBuilder,
+    required this.backgroundDecoration,
     this.minScale,
     this.maxScale,
-    this.initialIndex,
-    this.imageText,
-    @required this.galleryItems,
+    required this.initialIndex,
+    required this.imageText,
+    required this.galleryItems,
     this.scrollDirection = Axis.horizontal,
   }) : pageController = PageController(initialPage: initialIndex);
 
   final LoadingBuilder loadingBuilder;
-  final Decoration backgroundDecoration;
+  final BoxDecoration backgroundDecoration;
   final dynamic minScale;
   final dynamic maxScale;
   final int initialIndex;
@@ -31,7 +31,7 @@ class ImageViewScreen extends StatefulWidget {
 }
 
 class _ImageViewScreen extends State<ImageViewScreen> {
-  int currentIndex;
+  int currentIndex = 0;
 
   @override
   void initState() {

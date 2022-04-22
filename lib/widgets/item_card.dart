@@ -9,7 +9,7 @@ class ItemCard extends StatelessWidget {
   final ItemDTO item;
   final double width;
 
-  const ItemCard({Key key, this.item, this.width}) : super(key: key);
+  const ItemCard({required this.item, required this.width});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -76,7 +76,7 @@ class ItemCard extends StatelessWidget {
                   },
                   child: Text("CHI TIẾT"),
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.green[600]),
+                      backgroundColor: MaterialStateProperty.all<Color>((Colors.green[600])!),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ))),

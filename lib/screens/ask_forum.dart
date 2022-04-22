@@ -23,10 +23,10 @@ class AskForumScreen extends StatefulWidget {
 }
 
 class _AskForumScreen extends State<AskForumScreen> {
-  AskPagingDTO data;
-  ArticleBloc _articleBloc;
-  UserDTO _user;
-  AuthBloc _authBloc;
+  late AskPagingDTO data;
+  late ArticleBloc _articleBloc;
+  late UserDTO _user;
+  late AuthBloc _authBloc;
 
   @override
   void didChangeDependencies() {

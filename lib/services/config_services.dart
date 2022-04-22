@@ -18,7 +18,7 @@ class ConfigServices extends BaseService {
   final AppConfig config;
   final DateFormat _month = DateFormat("yyyy-MM");
 
-  ConfigServices({this.config, this.httpClient});
+  ConfigServices({required this.config,required this.httpClient});
 
   Future<HomeDTO> homeLayout(String role) async {
     final url = buildUrl(appConfig: config, endPoint: "/config/homev2/$role");
@@ -48,19 +48,15 @@ class ConfigServices extends BaseService {
   Future<Map<DateTime, List<EventDTO>>> monthEvent(DateTime month) async {
     final url = buildUrl(appConfig: config, endPoint: "/event/${_month.format(month)}");
     final json = await get(httpClient, url);
-    return json == null || json.length == 0
-        ? null
-        : Map<DateTime, List<EventDTO>>.from(
+    return Map<DateTime, List<EventDTO>>.from(
             json?.map(
               (k, v) => new MapEntry(
                 DateTime.parse(k),
                 v == null
                     ? null
-                    : (v as List)
-                        ?.map(
+                    : (v as List).map(
                           (e) => e == null ? null : EventDTO.fromJson(e),
-                        )
-                        ?.toList(),
+                        ).toList(),
               ),
             ),
           );
@@ -73,28 +69,24 @@ class ConfigServices extends BaseService {
       token: token,
     );
     final json = await postImageHasContent(url, file, {
-      "content": content ?? "",
+      "content": content,
     });
 
     return json == null ? false : json['result'];
   }
 
   Future<List<UserDTO>> searchUser(String screen, String query) async {
-    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=user&s=${screen ?? ""}&q=$query");
+    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=user&s=${screen}&q=$query");
     print(url);
     final json = await get(httpClient, url);
-    return json == null || json.length == 0
-        ? null
-        : List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
+    return List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
   }
 
   Future<List<ItemDTO>> searchItem(String screen, String query) async {
-    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=item&s=${screen ?? ""}&q=$query");
+    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=item&s=${screen}&q=$query");
     print(url);
     final json = await get(httpClient, url);
-    return json == null || json.length == 0
-        ? null
-        : List<ItemDTO>.from(json?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList();
+    return List<ItemDTO>.from(json?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList();
   }
 
   Future<ArticleHomeDTO> articleIndexPage() async {

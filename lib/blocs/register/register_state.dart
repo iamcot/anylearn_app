@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 abstract class RegisterState extends Equatable {
   const RegisterState();
@@ -15,7 +14,7 @@ class RegisterLoadingTocState extends RegisterState {}
 class RegisterTocSuccessState extends RegisterState {
   final String toc;
 
-  const RegisterTocSuccessState({@required this.toc});
+  const RegisterTocSuccessState({required this.toc});
 
   @override
   List<Object> get props => [toc];
@@ -31,7 +30,7 @@ class RegisterSuccessState extends RegisterState {}
 class RegisterFailState extends RegisterState {
   final String error;
 
-  const RegisterFailState({@required this.error});
+  const RegisterFailState({required this.error});
 
   @override
   List<Object> get props => [error];

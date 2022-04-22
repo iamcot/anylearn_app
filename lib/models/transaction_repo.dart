@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 
-import '../app_config.dart';
 import '../dto/bank_dto.dart';
 import '../dto/foundation_dto.dart';
 import '../dto/transaction_config_dto.dart';
@@ -9,9 +8,9 @@ import '../services/config_services.dart';
 import '../services/transaction_service.dart';
 
 class TransactionRepository {
-  final AppConfig config;
-  ConfigServices configService;
-  TransactionService transactionService;
+  final config;
+  late ConfigServices configService;
+  late TransactionService transactionService;
   final httpClient = http.Client();
 
   TransactionRepository({this.config}) {

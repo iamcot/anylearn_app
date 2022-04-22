@@ -10,7 +10,7 @@ import '../../widgets/time_ago.dart';
 class AskForumList extends StatelessWidget {
   final List<AskDTO> data;
 
-  const AskForumList({Key key, this.data}) : super(key: key);
+  const AskForumList({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return data.length == 0

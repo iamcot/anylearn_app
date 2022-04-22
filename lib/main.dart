@@ -23,12 +23,12 @@ import 'screens/home.dart';
 import 'themes/default.dart';
 
 bool newNotification = false;
-String notifToken;
+late String notifToken;
 final env = "prod";
 // final env = "staging";
 // final env = "dev";
-AppConfig config;
-UserDTO user;
+late AppConfig config;
+UserDTO user = UserDTO(id: 0);
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -84,11 +84,7 @@ class _MyApp extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage message) {
-      if (message != null) {
-        print('A new getInitialMessage event was published!');
-      }
-    });
+    FirebaseMessaging.instance.getInitialMessage();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('A new onMessage event was published!');
@@ -112,7 +108,7 @@ class _MyApp extends State<MyApp> {
     FirebaseMessaging.instance.getToken().then((token) {
       assert(token != null);
       print(token);
-      notifToken = token;
+      notifToken = token!;
     });
   }
 

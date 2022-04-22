@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,8 +15,8 @@ import '../services/config_services.dart';
 import '../services/user_services.dart';
 
 class UserRepository {
-  UserService userService;
-  ConfigServices configServices;
+  late UserService userService;
+  late ConfigServices configServices;
   final storage = new FlutterSecureStorage();
   final config;
   final httpClient = http.Client();
@@ -34,15 +33,15 @@ class UserRepository {
     return await userService.getInfoLess(token);
   }
 
-  Future<UserDTO> authenticated({@required String phone, @required String password}) async {
+  Future<UserDTO> authenticated({required String phone, required String password}) async {
     return await userService.login(phone, password);
   }
 
-  Future<UserDTO> loginFacebook({@required Map<String, dynamic> data}) async {
+  Future<UserDTO> loginFacebook({required Map<String, dynamic> data}) async {
     return await userService.loginFacebook(data);
   }
 
-  Future<UserDTO> loginApple({@required Map<String, dynamic> data}) async {
+  Future<UserDTO> loginApple({required Map<String, dynamic> data}) async {
     return await userService.loginApple(data);
   }
 
@@ -56,7 +55,7 @@ class UserRepository {
     return;
   }
 
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     return await storage.read(key: MyConst.AUTH_TOKEN);
   }
 

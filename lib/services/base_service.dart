@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import '../customs/rest_exception.dart';
 
 class BaseService {
-  String buildUrl({AppConfig appConfig, String endPoint, String token: "", String query: ""}) {
+  String buildUrl({required AppConfig appConfig, required String endPoint, String token: "", String query: ""}) {
     return appConfig.apiUrl +
         endPoint +
         (token.isNotEmpty ? "?${appConfig.tokenParam}=$token" : "") +

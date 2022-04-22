@@ -17,14 +17,20 @@ class FoundationScreen extends StatefulWidget {
 
 class _FoundationScreen extends State<FoundationScreen> with TickerProviderStateMixin {
   final formatMoney = NumberFormat("###,###,###", "vi_VN");
-  TransactionBloc _transBloc;
-  FoundationDTO data;
-  TabController _tabController;
+  late TransactionBloc _transBloc;
+  late FoundationDTO data;
+  late TabController _tabController;
+  late int initTab;
 
   @override
   void didChangeDependencies() {
     final transRepo = RepositoryProvider.of<TransactionRepository>(context);
     _transBloc = TransactionBloc(transactionRepository: transRepo);
+    try {
+      initTab = int.parse((ModalRoute.of(context)?.settings.arguments.toString())!);
+    } catch (e) {
+      initTab = 0;
+    }
 
     super.didChangeDependencies();
   }
@@ -32,6 +38,7 @@ class _FoundationScreen extends State<FoundationScreen> with TickerProviderState
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
     return RefreshIndicator(
       onRefresh: () async {
         _transBloc..add(LoadFoundationEvent());
@@ -45,10 +52,8 @@ class _FoundationScreen extends State<FoundationScreen> with TickerProviderState
             if (state is FoundationSuccessState) {
               data = state.value;
               if (_tabController == null) {
-                _tabController = new TabController(
-                    vsync: this,
-                    length: data.enableIosTrans ? 2 : 1,
-                    initialIndex: ModalRoute.of(context).settings.arguments ?? 0);
+                _tabController =
+                    new TabController(vsync: this, length: data.enableIosTrans ? 2 : 1, initialIndex: initTab);
               }
 
               return Scaffold(

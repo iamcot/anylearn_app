@@ -1,9 +1,8 @@
-import 'package:anylearn/blocs/auth/auth_blocs.dart';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 
 import '../../models/user_repo.dart';
 import '../auth/auth_bloc.dart';
+import '../auth/auth_blocs.dart';
 import '../auth/auth_event.dart';
 import 'login_event.dart';
 import 'login_state.dart';
@@ -12,9 +11,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
   final AuthBloc authBloc;
 
-  LoginBloc({@required this.userRepository, @required this.authBloc})
-      : assert(userRepository != null),
-        assert(authBloc != null), super(null);
+  LoginBloc({required this.userRepository, required this.authBloc}) : super(LoginInitState());
 
   @override
   LoginState get initialState => LoginInitState();

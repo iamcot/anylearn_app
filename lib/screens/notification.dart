@@ -18,10 +18,10 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreen extends State<NotificationScreen> {
-  AuthBloc _authBloc;
-  NotifBloc _notifBloc;
-  UserDTO _user;
-  NotificationPagingDTO _notif;
+  late AuthBloc _authBloc;
+  late NotifBloc _notifBloc;
+  late UserDTO _user;
+  late NotificationPagingDTO _notif;
 
   @override
   void didChangeDependencies() {

@@ -9,19 +9,19 @@ import '../../widgets/youtube_image.dart';
 
 class ContentVideo extends StatefulWidget {
   final ArticleDTO data;
-  const ContentVideo({Key key, this.data}) : super(key: key);
+  const ContentVideo({key, required this.data}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ContentVideo();
 }
 
 class _ContentVideo extends State<ContentVideo> {
-  YoutubePlayerController _controller;
+  late YoutubePlayerController _controller;
 
   @override
   void initState() {
     _controller = YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId(widget.data.video), flags: YoutubePlayerFlags());
+        initialVideoId: YoutubePlayer.convertUrlToId(widget.data.video)!, flags: YoutubePlayerFlags());
     super.initState();
   }
 

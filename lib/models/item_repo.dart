@@ -2,18 +2,17 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import '../app_config.dart';
 import '../dto/item_dto.dart';
 import '../dto/item_user_action.dart';
 import '../dto/user_courses_dto.dart';
 import '../services/item_services.dart';
 
 class ItemRepository {
-  ItemService itemService;
-  final AppConfig config;
+  late ItemService itemService;
+  final config;
   final httpClient = http.Client();
 
-  ItemRepository({this.config}) {
+  ItemRepository({required this.config}) {
     itemService = new ItemService(httpClient: httpClient, config: config);
   }
 

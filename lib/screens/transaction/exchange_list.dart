@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import '../../dto/transaction_dto.dart';
 
 class ExchangeList extends StatelessWidget {
-  final List<TransactionDTO> list;
+  final list;
 
-  const ExchangeList({Key key, this.list}) : super(key: key);
+  const ExchangeList({key, this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

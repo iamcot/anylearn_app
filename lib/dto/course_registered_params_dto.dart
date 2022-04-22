@@ -1,6 +1,6 @@
 class CourseRegisteredPramsDTO {
-  final String token;
-  final int itemId;
+  final token;
+  final itemId;
 
   CourseRegisteredPramsDTO({this.token, this.itemId});
 }

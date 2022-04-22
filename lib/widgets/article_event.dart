@@ -10,8 +10,8 @@ class HomeArticleEvent extends StatelessWidget {
   final List<ArticleDTO> hotItems;
   final String title;
 
-  HomeArticleEvent({Key key, this.hotItems, this.title}) : super(key: key);
-  double width;
+  HomeArticleEvent({required this.hotItems, required this.title});
+  late double width;
 
   @override
   Widget build(BuildContext context) {

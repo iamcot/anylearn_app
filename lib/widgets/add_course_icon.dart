@@ -7,7 +7,7 @@ import '../dto/user_dto.dart';
 class AddCourseIcon extends StatelessWidget {
   final UserDTO user;
 
-  const AddCourseIcon({Key key, this.user}) : super(key: key);
+  const AddCourseIcon({required Key key, required this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(

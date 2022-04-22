@@ -22,7 +22,7 @@ class HomeBody extends StatefulWidget {
   final HomeDTO homeData;
   final HomeBloc homeBloc;
 
-  HomeBody({Key key, this.user, this.homeData, this.homeBloc}) : super(key: key);
+  HomeBody({key, required this.user, required this.homeData, required this.homeBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomeBody();
@@ -35,7 +35,10 @@ class _HomeBody extends State<HomeBody> {
   void initState() {
     super.initState();
     int classLength = widget.homeData.homeClasses.length;
-    if (classLength <= 1) {
+    if (classLength == 0) {
+      homeClasses = [];
+    }
+    else if (classLength <= 1) {
       homeClasses = widget.homeData.homeClasses;
     } else {
       widget.homeData.homeClasses.asMap().forEach((key, value) {
@@ -46,7 +49,7 @@ class _HomeBody extends State<HomeBody> {
         }
       });
     }
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
       if (widget.homeData.config.ignorePopupVersion != widget.homeData.config.popup.version &&
           widget.homeData.config.popup.image != null &&
           widget.homeData.config.popup.image != "" &&
@@ -85,9 +88,9 @@ class _HomeBody extends State<HomeBody> {
                       Expanded(child: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
                         return CheckboxListTile(
                           value: showPopupChecked,
-                          onChanged: (bool value) {
+                          onChanged: (value) {
                             setState(() {
-                              if (value) {
+                              if (value!) {
                                 widget.homeBloc
                                   ..add(UpdatePopupVersionEvent(version: widget.homeData.config.popup.version));
                               } else {
