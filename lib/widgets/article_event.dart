@@ -18,7 +18,7 @@ class HomeArticleEvent extends StatelessWidget {
     width = MediaQuery.of(context).size.width;
     width = this.hotItems.length == 1 ? (width - 30) : (width * 2 / 3 - 10);
     return SliverToBoxAdapter(
-      child: hotItems == null || hotItems.length == 0
+      child: hotItems.length == 0
           ? Container()
           : Container(
               margin: EdgeInsets.only(bottom: 20, top: 15),
@@ -26,7 +26,7 @@ class HomeArticleEvent extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(left: 15, bottom: 15),
                   child: Text(
-                    this.title,
+                    this.title.toUpperCase(),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

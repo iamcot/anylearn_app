@@ -151,13 +151,14 @@ class _HomeBody extends State<HomeBody> {
           ),
           new Promotions(
             hotItems: widget.homeData.promotions,
+            title: widget.homeData.promotionsTitle,
           ),
           new HomeClasses(
             blocks: homeClasses,
           ),
           new HomeArticleEvent(
             hotItems: widget.homeData.events,
-            title: "CÁC SỰ KIỆN SẮP XẢY RA",
+            title: widget.homeData.eventsTitle,
           ),
           new HomeClasses(
             blocks: homeClasses2,

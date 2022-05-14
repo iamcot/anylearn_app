@@ -6,8 +6,9 @@ import '../customs/custom_carousel.dart';
 
 class Promotions extends StatelessWidget {
   final List<ArticleDTO> hotItems;
+  final String title;
 
-  Promotions({required this.hotItems});
+  Promotions({required this.hotItems, required this.title});
   late double width;
 
   @override
@@ -16,14 +17,14 @@ class Promotions extends StatelessWidget {
     width = this.hotItems.length == 1 ? (width - 30) : (width * 2 / 3 - 10);
     final height = this.hotItems.length == 1 ? (width * 2 / 3) : (width * 3 / 4);
     return SliverToBoxAdapter(
-      child: hotItems == null || hotItems.length == 0
+      child: hotItems.length == 0
           ? Container()
           : Container(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
                 padding: EdgeInsets.only(left: 15, bottom: 15),
                 child: Text(
-                  "CÁC KHOÁ HỌC ƯU ĐÃI",
+                  title.toUpperCase(),
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -42,7 +43,7 @@ class Promotions extends StatelessWidget {
     // width = width * 2 / 3 - 10;
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed("/items/" + item.role, arguments: item.id);
+        Navigator.of(context).pushNamed("/article", arguments: item.id);
       },
       child: Card(
         elevation: 0,

@@ -15,6 +15,8 @@ class HomeDTO extends Equatable {
   final homeClasses;
   final homeBanner;
   final categories;
+  final promotionsTitle;
+  final eventsTitle;
 
   HomeDTO({
     required this.featuresIcons,
@@ -25,6 +27,8 @@ class HomeDTO extends Equatable {
     this.promotions,
     this.events,
     this.categories,
+    this.promotionsTitle,
+    this.eventsTitle,
   });
 
   @override
@@ -34,6 +38,8 @@ class HomeDTO extends Equatable {
     return json == ""
         ? HomeDTO(featuresIcons: [], homeClasses: [])
         : HomeDTO(
+            promotionsTitle: json['promotions_title'] ?? "Ưu đãi nổi bật",
+            eventsTitle: json['events_title'] ?? "Sự kiện nổi bật",
             featuresIcons: [],
             homeBanner: json['new_banners'] == null
                 ? []
@@ -55,8 +61,9 @@ class HomeDTO extends Equatable {
                 ? []
                 : List<HomeClassesDTO>.from(
                     json['home_classes']?.map((v) => v == null ? null : HomeClassesDTO.fromJson(v))).toList(),
-            categories: json['home_classes'] == null ? [] :
-                List<CategoryDTO>.from(json['categories']?.map((v) => v == null ? null : CategoryDTO.fromJson(v)))
+            categories: json['home_classes'] == null
+                ? []
+                : List<CategoryDTO>.from(json['categories']?.map((v) => v == null ? null : CategoryDTO.fromJson(v)))
                     .toList());
   }
 }

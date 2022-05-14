@@ -26,7 +26,7 @@ class HomeCategory extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    "CÁC CHUYÊN MỤC",
+                    "CÁC LĨNH VỰC HỌC TẬP",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

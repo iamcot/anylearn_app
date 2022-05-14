@@ -34,6 +34,7 @@ class SearchBox extends StatelessWidget {
             ),
             margin: const EdgeInsets.only(right: 20.0, left: 20.0),
             child: TextFormField(
+              autofocus: false,
               controller: searchController,
               onTap: () {
                 showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
