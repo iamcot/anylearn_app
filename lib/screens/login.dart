@@ -27,7 +27,6 @@ class _LoginScreen extends State<LoginScreen> {
 
     if (ModalRoute.of(context)?.settings.arguments != null) {
       callback = ModalRoute.of(context)?.settings.arguments as LoginCallback;
-      print(callback);
     }
     Future.delayed(Duration.zero, () {
       if (user.token != "") {

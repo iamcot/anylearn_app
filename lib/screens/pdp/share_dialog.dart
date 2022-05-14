@@ -1,6 +1,7 @@
 import 'package:anylearn/dto/item_dto.dart';
 import 'package:anylearn/screens/pdp/course_share.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PdpShareDialog extends StatelessWidget {
   final item;
@@ -26,7 +27,7 @@ class PdpShareDialog extends StatelessWidget {
       ListTile(
           title: Text("Chia sẻ ra mạng xã hội"),
           onTap: () {
-            // Share.share(item.url);
+            Share.share(item.url);
           }),
     ]);
   }

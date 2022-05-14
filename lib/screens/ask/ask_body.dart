@@ -14,66 +14,65 @@ class AskBody extends StatelessWidget {
   final UserDTO user;
   final ArticleBloc articleBloc;
 
-  const AskBody({key, required this.data, required this.user,required this.articleBloc}) : super(key: key);
+  const AskBody({key, required this.data, required this.user, required this.articleBloc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-        // SliverToBoxAdapter(child: Container(child: Image.asset("assets/banners/ask_banner.jpg"))),
-
-        // SliverToBoxAdapter(
-        //   child: Container(
-        //     height: 80,
-        //     padding: EdgeInsets.all(15),
-        //     child: TextFormField(
-        //       onTap: () async {
-        //         if (user == null) {
-        //           Navigator.of(context).pushNamed("/login");
-        //         } else {
-        //           final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        //             return AskFormScreen(
-        //               user: user,
-        //               askBloc: articleBloc,
-        //               askId: 0,
-        //               type: MyConst.ASK_QUESTION,
-        //             );
-        //           }));
-        //           if (result == true) {
-        //             // _articleBloc = BlocProvider.of<ArticleBloc>(context)..add(AskIndexEvent());
-        //           }
-        //         }
-        //       },
-        //       decoration: InputDecoration(
-        //         filled: true,
-        //         fillColor: Colors.white,
-        //         contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
-        //         focusedBorder: OutlineInputBorder(
-        //           borderRadius: BorderRadius.circular(10),
-        //           borderSide: BorderSide(color: (Colors.blue[200])!, width: 3),
-        //         ),
-        //         enabledBorder: OutlineInputBorder(
-        //           borderRadius: BorderRadius.circular(10),
-        //           borderSide: BorderSide(color: Colors.grey, width: 1.0),
-        //         ),
-        //         hintText: "Bạn đang muốn hỏi điều gì ?",
-        //         hintStyle: TextStyle(color: Colors.grey),
-        //         suffixIcon: Icon(Icons.question_answer),
-        //         // onPressed: () {
-        //         //   showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
-        //         // },
-        //         // ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // SliverToBoxAdapter(
-        //   child: AskHeader(
-        //     title: "Hỏi để Học".toUpperCase(),
-        //     route: "/ask/forum",
-        //   ),
-        // ),
-        // AskForumList(data: data.asks),
+        SliverToBoxAdapter(child: Container(child: Image.asset("assets/banners/ask_banner.jpg"))),
+        SliverToBoxAdapter(
+          child: Container(
+            height: 80,
+            padding: EdgeInsets.all(15),
+            child: TextFormField(
+              onTap: () async {
+                if (user.token == "") {
+                  Navigator.of(context).pushNamed("/login");
+                } else {
+                  final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                    return AskFormScreen(
+                      user: user,
+                      askBloc: articleBloc,
+                      askId: 0,
+                      type: MyConst.ASK_QUESTION,
+                    );
+                  }));
+                  if (result == true) {
+                    articleBloc..add(AskIndexEvent());
+                  }
+                }
+              },
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: (Colors.blue[200])!, width: 3),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                ),
+                hintText: "Bạn đang muốn hỏi điều gì ?",
+                hintStyle: TextStyle(color: Colors.grey),
+                suffixIcon: Icon(Icons.question_answer),
+                // onPressed: () {
+                //   showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
+                // },
+                // ),
+              ),
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: AskHeader(
+            title: "Hỏi để Học".toUpperCase(),
+            route: "/ask/forum",
+          ),
+        ),
+        AskForumList(data: data.asks),
         SliverToBoxAdapter(
           child: AskHeader(
             title: "Xem để Học".toUpperCase(),

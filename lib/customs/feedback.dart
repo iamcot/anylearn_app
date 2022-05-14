@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../blocs/feedback/feedback_blocs.dart';
 import '../dto/user_dto.dart';
+import '../main.dart';
 import '../models/page_repo.dart';
 
 class CustomFeedback extends StatefulWidget {
@@ -56,7 +54,7 @@ class _CustomFeedback extends State<CustomFeedback> {
               alignment: Alignment.bottomRight,
               children: <Widget>[
                 widget.child,
-                disableFeedback || widget.user == null
+                disableFeedback || widget.user.token == ""
                     ? SizedBox(
                         height: 0,
                       )
@@ -123,7 +121,7 @@ class _CustomFeedback extends State<CustomFeedback> {
                                               if (_formKey.currentState!.validate()) {
                                                 _formKey.currentState?.save();
                                                 Navigator.of(context).pop();
-                                                Future.delayed(const Duration(seconds: 5));
+                                                Future.delayed(const Duration(seconds: 3));
                                                 final file = await takeScreenShot();
                                                 feedbackBloc
                                                   ..add(SaveFeedbackEvent(
@@ -152,17 +150,22 @@ class _CustomFeedback extends State<CustomFeedback> {
   }
 
   Future<File> takeScreenShot() async {
-    try {
-      // RenderRepaintBoundary boundary = previewContainer?.currentContext.findRenderObject();
-      // ui.Image image = await boundary.toImage(pixelRatio: 2.0);
-      // final directory = (await getApplicationDocumentsDirectory()).path;
-      // ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      // Uint8List pngBytes = byteData.buffer.asUint8List();
-      // File file = new File("$directory/screenshot.png");
-      // await file.writeAsBytes(pngBytes);
-      // return file;
-    } catch (e) {}
-    //@TODO fix file
+    // RenderRepaintBoundary boundary = previewContainer!.currentContext.findRenderObject();
+    // ui.Image image = await boundary.toImage(pixelRatio: 2.0);
+    // final directory = (await getApplicationDocumentsDirectory()).path;
+    // ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    // Uint8List pngBytes = byteData.buffer.asUint8List();
+
+    // screenshotController.capture(delay: Duration(seconds: 1)).then((image) async {
+    //   final directory = (await getApplicationDocumentsDirectory()).path;
+    //   File file = File("$directory/screenshot.png");
+    //   Uint8List pngBytes = image!.buffer.asUint8List();
+    //   await file.writeAsBytes(pngBytes);
+    //   return file;
+    // }).catchError((onError) {
+    //   print(onError);
+    // });
+    //@TODO Fix screenshot
     return new File("");
   }
 }

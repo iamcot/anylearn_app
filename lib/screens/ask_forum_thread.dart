@@ -9,7 +9,6 @@ import '../blocs/auth/auth_blocs.dart';
 import '../dto/ask_dto.dart';
 import '../dto/ask_thread_dto.dart';
 import '../dto/const.dart';
-import '../dto/user_dto.dart';
 import '../main.dart';
 import '../themes/role_color.dart';
 import '../widgets/bottom_nav.dart';
@@ -41,44 +40,44 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Hỏi để học"),
-        ),
-        body: RefreshIndicator(
-          onRefresh: () async {
-            _articleBloc..add(AskThreadEvent(askId: askId, token: user.token));
+      appBar: AppBar(
+        title: Text("Hỏi để học"),
+      ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          _articleBloc..add(AskThreadEvent(askId: askId, token: user.token));
+        },
+        child: BlocListener<ArticleBloc, ArticleState>(
+          bloc: _articleBloc,
+          listener: (context, state) {
+            if (state is AskVoteSuccessState) {
+              _articleBloc..add(AskThreadEvent(askId: askId, token: user.token));
+            }
+            if (state is AskSelectSuccessState) {
+              _articleBloc..add(AskThreadEvent(askId: askId, token: user.token));
+            }
           },
-          child: BlocListener<ArticleBloc, ArticleState>(
-            bloc: _articleBloc,
-            listener: (context, state) {
-              if (state is AskVoteSuccessState) {
-                _articleBloc..add(AskThreadEvent(askId: askId, token: user.token));
-              }
-              if (state is AskSelectSuccessState) {
-                _articleBloc..add(AskThreadEvent(askId: askId, token: user.token));
-              }
-            },
-            child: BlocBuilder(
-                bloc: _articleBloc,
-                builder: (context, state) {
-                  if (state is AskThreadSuccessState) {
-                    data = state.data;
-                  }
-                  return data == null
-                      ? LoadingWidget()
-                      : Container(
-                          child: ListView(
-                              children: [_questionBox(data!.question)] + [_answerInput()] + _answersBox(data!.answers)));
-                }),
-          ),
+          child: BlocBuilder(
+              bloc: _articleBloc,
+              builder: (context, state) {
+                if (state is AskThreadSuccessState) {
+                  data = state.data;
+                }
+                return data == null
+                    ? LoadingWidget()
+                    : Container(
+                        child: ListView(
+                            children: [_questionBox(data!.question), _answerInput()] + _answersBox(data!.answers)));
+              }),
         ),
-        floatingActionButton: FloatingActionButtonHome(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-        bottomNavigationBar: BottomNav(
-          route: BottomNav.ASK_INDEX,
-          user: user,
-        ),
-      );
+      ),
+      floatingActionButton: FloatingActionButtonHome(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+      bottomNavigationBar: BottomNav(
+        route: BottomNav.ASK_INDEX,
+        user: user,
+      ),
+    );
   }
 
   Widget _questionBox(AskDTO question) {
@@ -231,8 +230,8 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                               } else {
                                 if (ans.myVote != MyConst.ASK_VOTE_DISLIKE) {
                                   _articleBloc
-                                    ..add(AskVoteEvent(
-                                        askId: ans.id, type: MyConst.ASK_VOTE_DISLIKE, token: user.token));
+                                    ..add(
+                                        AskVoteEvent(askId: ans.id, type: MyConst.ASK_VOTE_DISLIKE, token: user.token));
                                 }
                               }
                             },
@@ -269,8 +268,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                       ),
                       (data != null && data!.question.userId == user.id)
                           ? Expanded(
-                              child: FlatButton(
-                                padding: EdgeInsets.all(0),
+                              child: TextButton(
                                 onPressed: () async {
                                   if (user.token == "") {
                                     Navigator.of(context).pushNamed("/login");
@@ -305,7 +303,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
             padding: EdgeInsets.only(left: 50.0, right: 10.0),
             // child: Expanded(
             child: Column(
-              children: ans.comments.map((comment) {
+              children: ans.comments.map<Widget>((comment) {
                 return Card(
                   child: Container(
                       padding: EdgeInsets.only(left: 10),
@@ -368,7 +366,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                       type: MyConst.ASK_ANSWER,
                     );
                   }));
-                  if (result != null && result) {
+                  if (result) {
                     _articleBloc = BlocProvider.of<ArticleBloc>(context)
                       ..add(AskThreadEvent(askId: askId, token: user.token));
                   }

@@ -22,14 +22,14 @@ class ItemCard extends StatelessWidget {
           Container(
             height: width,
             alignment: Alignment.center,
-            child: item.image != null && item.image.isNotEmpty
+            child: item.image != "" 
                 ? ClipRRect(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
                     ),
                     // borderRadius: BorderRadius.circular(8.0),
-                    child: item.image != null ? CustomCachedImage(url: item.image) : Icon(Icons.broken_image),
+                    child: item.image != "" ? CustomCachedImage(url: item.image) : Icon(Icons.broken_image),
                   )
                 : SizedBox(
                     height: width,
@@ -74,9 +74,9 @@ class ItemCard extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pushNamed("/pdp", arguments: item.id);
                   },
-                  child: Text("CHI TIẾT"),
+                  child: Text("CHI TIẾT", style: TextStyle(color: Colors.green),),
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>((Colors.green[600])!),
+                      backgroundColor: MaterialStateProperty.all<Color>((Colors.white)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ))),

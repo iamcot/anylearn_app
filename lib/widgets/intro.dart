@@ -17,7 +17,7 @@ class IntroScreenState extends State<IntroScreen> {
 
     slides.add(
       new Slide(
-        backgroundImage: "assets/images/intro1.jpg",
+        backgroundImage: "assets/images/intro3.jpg",
         backgroundOpacity: 0,
       ),
     );
@@ -29,7 +29,7 @@ class IntroScreenState extends State<IntroScreen> {
     );
     slides.add(
       new Slide(
-        backgroundImage: "assets/images/intro3.jpg",
+        backgroundImage: "assets/images/intro1.jpg",
         backgroundOpacity: 0,
       ),
     );

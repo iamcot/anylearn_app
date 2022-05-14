@@ -68,7 +68,10 @@ class ConfigServices extends BaseService {
       endPoint: "/config/feedback",
       token: token,
     );
-    final json = await postImageHasContent(url, file, {
+    // final json = await postImageHasContent(url, file, {
+    //   "content": content,
+    // });
+    final json = await post(httpClient, url, {
       "content": content,
     });
 

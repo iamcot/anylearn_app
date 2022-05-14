@@ -19,8 +19,8 @@ class _FoundationScreen extends State<FoundationScreen> with TickerProviderState
   final formatMoney = NumberFormat("###,###,###", "vi_VN");
   late TransactionBloc _transBloc;
   late FoundationDTO data;
-  late TabController _tabController;
-  late int initTab;
+  TabController? _tabController;
+  int initTab = 0;
 
   @override
   void didChangeDependencies() {

@@ -1,3 +1,4 @@
+import 'package:anylearn/main.dart';
 import 'package:anylearn/widgets/bottom_nav.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -24,17 +25,28 @@ class AccountProfileScreen extends StatefulWidget {
 
 class _AccountProfileScreen extends State<AccountProfileScreen> {
   late AccountBloc _accountBloc;
-  UserDTO? user;
 
   @override
   void didChangeDependencies() {
     final _userRepo = RepositoryProvider.of<UserRepository>(context);
-    int userId = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
-    if (userId == 0) {
-      Navigator.of(context).pop();
-    } else {
-      _accountBloc = AccountBloc(userRepository: _userRepo)..add(AccProfileEvent(userId: userId));
+    _accountBloc = AccountBloc(userRepository: _userRepo);
+    int userId = 0;
+    try {
+      userId = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
+    } catch (e) {
+      if (user.id > 0) {
+        userId = user.id;
+      }
     }
+
+    if (userId == 0) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) async {
+        Navigator.of(context).pop();
+      });
+    } else {
+      _accountBloc..add(AccProfileEvent(userId: userId));
+    }
+
     super.didChangeDependencies();
   }
 

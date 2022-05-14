@@ -23,13 +23,13 @@ class AskHeader extends StatelessWidget {
           InkWell(
             child: Text("XEM THÊM", style: TextStyle(color: Colors.blue, fontSize: 12.0)),
             onTap: () {
-              if (type != null) {
+              if (type != "") {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                   return AskCatScreen(
                     type: type,
                   );
                 }));
-              } else if (route != null) {
+              } else if (route != "") {
                 Navigator.of(context).pushNamed(route);
               }
             },

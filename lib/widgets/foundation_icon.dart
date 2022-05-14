@@ -10,6 +10,7 @@ class FoundationIcon extends StatelessWidget {
         icon: Icon(
           MdiIcons.piggyBank,
           size: 24.0,
+          color: Colors.grey,
         ),
         onPressed: () {
           Navigator.of(context).pushNamed('/foundation');

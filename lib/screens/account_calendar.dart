@@ -128,8 +128,10 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                               itemBuilder: (context, index) {
                                 return ListTile(
                                   leading: CalendarBox(
-                                      fontSize: 12,
-                                      text: DateFormat("dd/MM").format(DateTime.parse(calendars!.fav[index].date))),
+                                    fontSize: 12,
+                                    text: DateFormat("dd/MM").format(DateTime.parse(calendars!.fav[index].date)),
+                                    image: calendars!.fav[index].image,
+                                  ),
                                   title: Text(
                                     calendars!.fav[index].title,
                                   ),

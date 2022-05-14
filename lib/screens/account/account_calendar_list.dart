@@ -22,7 +22,8 @@ class AccountCalendarList extends StatefulWidget {
   final UserDTO user;
   final AccountBloc accountBloc;
 
-  const AccountCalendarList({key, required this.events, this.isOpen, required this.user, required this.accountBloc}) : super(key: key);
+  const AccountCalendarList({key, required this.events, this.isOpen, required this.user, required this.accountBloc})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AccountCalendarList();
@@ -63,12 +64,16 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                     if (index.isEven) {
                       return ListTile(
                         leading: CalendarBox(
-                            fontSize: 12,
-                            text: DateFormat("dd/MM").format(DateTime.parse(widget.events[itemIndex].date))),
+                          fontSize: 12,
+                          text: DateFormat("dd/MM").format(DateTime.parse(widget.events[itemIndex].date)),
+                          image: widget.events[itemIndex].image,
+                        ),
                         title: Text(widget.events[itemIndex].title),
                         subtitle: Text.rich(TextSpan(
-                          text: (widget.events[itemIndex].itemSubtype == MyConst.ITEM_SUBTYPE_OFFLINE 
-                          && widget.events[itemIndex].scheduleContent != widget.events[itemIndex].title) ? widget.events[itemIndex].scheduleContent : "",
+                          text: (widget.events[itemIndex].itemSubtype == MyConst.ITEM_SUBTYPE_OFFLINE &&
+                                  widget.events[itemIndex].scheduleContent != widget.events[itemIndex].title)
+                              ? widget.events[itemIndex].scheduleContent
+                              : "",
                           children: [
                             TextSpan(
                                 text: widget.events[itemIndex].childName != null

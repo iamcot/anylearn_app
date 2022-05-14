@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:screenshot/screenshot.dart';
 
 import 'app_config.dart';
 import 'blocs/article/article_bloc.dart';

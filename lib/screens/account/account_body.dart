@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/auth/auth_event.dart';
@@ -95,7 +96,7 @@ class _AccountBody extends State<AccountBody> {
               leadingIcon: MdiIcons.qrcode,
               trailing: Icon(Icons.share),
               subContent: Text(widget.user.refcode + " (chạm để chia sẻ)"),
-              routeFunction: () => _tabToCopy(widget.user.refLink),
+              routeFunction: () => Share.share(widget.user.refLink),
             ),
             widget.user.role == MyConst.ROLE_TEACHER
                 ? AccountNormalMenu(

@@ -3,9 +3,7 @@ import 'dart:io';
 // import 'package:device_info/device_info.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -31,7 +29,7 @@ class _LoginForm extends State<LoginForm> {
   final _passwordController = TextEditingController();
 
   bool _checking = false;
-  late AccessToken _accessToken;
+  // late AccessToken _accessToken;
 
   // static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   // Map<String, dynamic> _deviceData = <String, dynamic>{};
@@ -200,33 +198,33 @@ class _LoginForm extends State<LoginForm> {
                       ]),
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [Colors.blue, Colors.lightBlueAccent, Colors.blue]),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    height: 48.0,
-                    margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
-                    child: FlatButton.icon(
-                      icon: Icon(
-                        MdiIcons.facebook,
-                        color: Colors.white,
-                      ),
-                      onPressed: state is! LoginInProgressState
-                          ? () async {
-                              await _loginFacebook();
-                            }
-                          : () {},
-                      label: state is! LoginInProgressState
-                          ? Text(
-                              "Đăng nhập bằng Facebook",
-                              style: TextStyle(fontSize: 16.0, color: Colors.white),
-                            )
-                          : CircularProgressIndicator(
-                              valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                    ),
-                  ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     gradient: LinearGradient(colors: [Colors.blue, Colors.lightBlueAccent, Colors.blue]),
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //   ),
+                  //   height: 48.0,
+                  //   margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
+                  //   child: FlatButton.icon(
+                  //     icon: Icon(
+                  //       MdiIcons.facebook,
+                  //       color: Colors.white,
+                  //     ),
+                  //     onPressed: state is! LoginInProgressState
+                  //         ? () async {
+                  //             await _loginFacebook();
+                  //           }
+                  //         : () {},
+                  //     label: state is! LoginInProgressState
+                  //         ? Text(
+                  //             "Đăng nhập bằng Facebook",
+                  //             style: TextStyle(fontSize: 16.0, color: Colors.white),
+                  //           )
+                  //         : CircularProgressIndicator(
+                  //             valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                  //           ),
+                  //   ),
+                  // ),
                   // (Platform.isIOS && double.parse(_deviceData["systemVersion"]) > 12.0)
                   (Platform.isIOS)
                       ? Container(
@@ -317,33 +315,33 @@ class _LoginForm extends State<LoginForm> {
     }
   }
 
-  Future<void> _loginFacebook() async {
-    try {
-      setState(() {
-        _checking = true;
-      });
-      final LoginResult loginResult = await FacebookAuth.instance.login();
+  // Future<void> _loginFacebook() async {
+  //   try {
+  //     setState(() {
+  //       _checking = true;
+  //     });
+  //     final LoginResult loginResult = await FacebookAuth.instance.login();
 
-      print(loginResult);
-      if (loginResult.status == LoginStatus.success) {
-        final userData = await FacebookAuth.instance.getUserData();
-        print(userData['picture']);
-        Map<String, String> loginData = {
-          "name": userData['name'],
-          "email": userData['email'],
-          "picture": userData["picture"]["data"]["url"],
-          "id": userData["id"]
-        };
-        widget.loginBloc..add(LoginFacebookEvent(data: loginData));
-      }
-    } catch (e) {
-      print(e);
-    } finally {
-      setState(() {
-        _checking = false;
-      });
-    }
-  }
+  //     print(loginResult);
+  //     if (loginResult.status == LoginStatus.success) {
+  //       final userData = await FacebookAuth.instance.getUserData();
+  //       print(userData['picture']);
+  //       Map<String, String> loginData = {
+  //         "name": userData['name'],
+  //         "email": userData['email'],
+  //         "picture": userData["picture"]["data"]["url"],
+  //         "id": userData["id"]
+  //       };
+  //       widget.loginBloc..add(LoginFacebookEvent(data: loginData));
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   } finally {
+  //     setState(() {
+  //       _checking = false;
+  //     });
+  //   }
+  // }
 
   // Map<String, dynamic> _readIosDeviceInfo(IosDeviceInfo data) {
   //   return <String, dynamic>{

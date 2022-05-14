@@ -40,7 +40,7 @@ class BottomNav extends StatelessWidget {
               icon: Icon(Icons.supervised_user_circle, color: route == TEACHER_INDEX ? Colors.green[600] : Colors.grey[500],)),
           IconButton(
               onPressed: () {
-                if (user != null) {
+                if (user.token != "") {
                   Navigator.of(context).canPop()
                       ? Navigator.of(context).popAndPushNamed("/profile", arguments: user.id)
                       : Navigator.of(context).pushNamed("/profile", arguments: user.id);

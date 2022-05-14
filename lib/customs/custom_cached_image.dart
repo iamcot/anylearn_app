@@ -5,8 +5,9 @@ class CustomCachedImage extends StatelessWidget {
   final String url;
   final fit;
   final borderRadius;
+  Widget? errorFallback;
 
-  CustomCachedImage({required this.url, this.fit, this.borderRadius});
+  CustomCachedImage({required this.url, this.fit, this.borderRadius, this.errorFallback});
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
@@ -24,7 +25,7 @@ class CustomCachedImage extends StatelessWidget {
         alignment: Alignment.center,
         child: CircularProgressIndicator(),
       ),
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      errorWidget: (context, url, error) => errorFallback ?? Icon(Icons.error),
     );
   }
 }

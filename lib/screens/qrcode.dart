@@ -4,6 +4,7 @@ import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
@@ -95,7 +96,7 @@ class _QrCodeScreen extends State<QrCodeScreen> {
                                     // ),
                                     MaterialButton(
                                       onPressed: () {
-                                        // Share.share(user.refLink);
+                                         Share.share(user!.refLink);
                                       },
                                       child: Text(
                                         "CHIA SẺ MÃ",
