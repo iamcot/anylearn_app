@@ -1,5 +1,10 @@
+import 'package:anylearn/main.dart';
+import 'package:anylearn/screens/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../../blocs/account/account_blocs.dart';
@@ -14,6 +19,9 @@ class AccountChildrenScreen extends StatefulWidget {
 class _AccountChildrenScreen extends State<AccountChildrenScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
+  // final _dobController = TextEditingController();
+  final _dobController = new MaskedTextController(mask: '0000-00-00');
+  DateFormat f = DateFormat("yyyy-MM-dd");
   late UserDTO user;
   late AccountBloc _accountBloc;
 
@@ -39,7 +47,7 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _formEdit(context, 0, "");
+                _formEdit(context, 0, "", "");
               }),
         ],
       ),
@@ -52,7 +60,7 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                   title: Text(state.children[index].name),
                   trailing: Icon(Icons.edit),
                   onTap: () {
-                    _formEdit(context, state.children[index].id, state.children[index].name);
+                    _formEdit(context, state.children[index].id, state.children[index].name, state.children[index].dob);
                   },
                 ),
                 separatorBuilder: (context, index) => Divider(),
@@ -66,8 +74,9 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
     );
   }
 
-  void _formEdit(BuildContext context, int id, String name) {
+  void _formEdit(BuildContext context, int id, String name, String dob) {
     _titleController.text = name;
+    _dobController.text = dob;
     showDialog(
         context: context,
         builder: (context) => SimpleDialog(
@@ -86,6 +95,25 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                               labelText: "Tên thành viên",
                             ),
                           ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 20),
+                          child: TextFormField(
+                            onTap: () {
+                              DatePicker.showDatePicker(
+                                context,
+                                onConfirm: (time) {
+                                  _dobController.text = f.format(time);
+                                },
+                                maxTime: DateTime.now(),
+                                currentTime: _dobController.text == "" ? DateTime.now() : DateTime.parse(_dobController.text),
+                              );
+                            },
+                            controller: _dobController,
+                            decoration: InputDecoration(
+                              labelText: "Ngày tháng năm sinh (YYYY-mm-dd)",
+                            ),
+                          ),
                         )
                       ],
                     )),
@@ -96,16 +124,19 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                         toast("Lưu thành công!");
                         _accountBloc..add(AccLoadChildrenEvent(token: user.token));
                         Navigator.of(context).pop();
+                        if (user.inRegisterClassId > 0) {
+                          _add2Cart(context, user.token, user.inRegisterClassId, state.id);
+                        }
                       } else if (state is AccChildrenFailState) {
                         toast(state.error);
                       }
                     },
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
-                        _accountBloc..add(AccSaveChildrenEvent(id: id, name: _titleController.text, token: user.token));
+                        _accountBloc
+                          ..add(AccSaveChildrenEvent(
+                              id: id, name: _titleController.text, dob: _dobController.text, token: user.token));
                       },
-                      color: Colors.blue,
-                      textColor: Colors.white,
                       child: BlocBuilder(
                         bloc: _accountBloc,
                         builder: (context, state) {
@@ -123,5 +154,14 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                     )),
               ],
             ));
+  }
+
+  void _add2Cart(BuildContext context, String token, int itemId, int childId) {
+    String url = config.webUrl + "add2cart?class=$itemId&child=$childId";
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => WebviewScreen(
+              url: url,
+              token: token,
+            )));
   }
 }

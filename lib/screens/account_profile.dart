@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/main.dart';
 import 'package:anylearn/widgets/bottom_nav.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,7 +11,6 @@ import '../blocs/account/account_blocs.dart';
 import '../customs/custom_cached_image.dart';
 import '../dto/const.dart';
 import '../dto/hot_items_dto.dart';
-import '../dto/user_dto.dart';
 import '../models/user_repo.dart';
 import '../widgets/fab_home.dart';
 import '../widgets/hot_items.dart';
@@ -25,6 +25,7 @@ class AccountProfileScreen extends StatefulWidget {
 
 class _AccountProfileScreen extends State<AccountProfileScreen> {
   late AccountBloc _accountBloc;
+  UserDTO? userProfile;
 
   @override
   void didChangeDependencies() {
@@ -57,22 +58,16 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
       bloc: _accountBloc,
       builder: (context, state) {
         if (state is AccProfileSuccessState) {
-          user = state.user;
+          userProfile = state.user;
           return Scaffold(
             appBar: AppBar(
               actions: [
-                // IconButton(
-                //     icon: Icon(Icons.menu),
-                //     onPressed: () {
-                //       Navigator.of(context).pushNamed("/account");
-                //     })
               ],
             ),
             floatingActionButton: FloatingActionButtonHome(),
             floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
             bottomNavigationBar: BottomNav(
               route: BottomNav.PROFILE_INDEX,
-              user: user,
             ),
             body: ListView(
               children: [
@@ -83,23 +78,23 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                   ],
                 ),
                 Text(
-                  user.name,
+                  userProfile!.name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
                 ),
-                user.role != MyConst.ROLE_SCHOOL
+                userProfile!.role != MyConst.ROLE_SCHOOL
                     ? Text(
-                        user.title,
+                        userProfile!.title,
                         textAlign: TextAlign.center,
                         style: TextStyle(),
                       )
                     : SizedBox(height: 0),
                 Container(
                   padding: EdgeInsets.all(15),
-                  child: Text(user.introduce,
+                  child: Text(userProfile!.introduce,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontStyle: FontStyle.italic,
@@ -107,7 +102,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                         color: Colors.blue,
                       )),
                 ),
-                user.role == MyConst.ROLE_SCHOOL && user.title != ""
+                userProfile!.role == MyConst.ROLE_SCHOOL && userProfile!.title != ""
                     ?
                     // Container(
                     //     padding: EdgeInsets.only(left: 15, right: 15),
@@ -116,20 +111,20 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                         dense: true,
                         contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
                         leading: Icon(MdiIcons.shieldAccount),
-                        title: Text("Người đại diện: " + user.title),
+                        title: Text("Người đại diện: " + userProfile!.title),
                         isThreeLine: false,
                       )
                     : SizedBox(height: 0),
-                user.address != ""
+                userProfile!.address != ""
                     ? ListTile(
                         dense: true,
                         contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
                         leading: Icon(MdiIcons.mapMarker),
-                        title: Text(user.address),
+                        title: Text(userProfile!.address),
                         isThreeLine: false,
                       )
                     : SizedBox(height: 0),
-                user.docs == null || user.docs.length == 0
+                userProfile!.docs == null || userProfile!.docs.length == 0
                     ? SizedBox(height: 0)
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,11 +141,11 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                       ),
                 Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: user.docs == null || user.docs.length == 0
+                  child: userProfile!.docs == null || userProfile!.docs.length == 0
                       ? SizedBox(height: 0)
-                      : UserDocList(userDocs: user.docs),
+                      : UserDocList(userDocs: userProfile!.docs),
                 ),
-                (user.registered == null || user.registered.length == 0)
+                (userProfile!.registered == null || userProfile!.registered.length == 0)
                     ? SizedBox(height: 0)
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,11 +154,11 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           //   thickness: 10,
                           // ),
                           HotItems(
-                            hotItems: [HotItemsDTO(title: "Các khoá học đã đăng ký", list: user.registered)],
+                            hotItems: [HotItemsDTO(title: "Các khoá học đã đăng ký", list: userProfile!.registered)],
                           ),
                         ],
                       ),
-                (user.faved == null || user.faved.length == 0)
+                (userProfile!.faved == null || userProfile!.faved.length == 0)
                     ? SizedBox(height: 0)
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,11 +167,11 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           //   thickness: 10,
                           // ),
                           HotItems(
-                            hotItems: [HotItemsDTO(title: "Các khoá học đang quan tâm", list: user.faved)],
+                            hotItems: [HotItemsDTO(title: "Các khoá học đang quan tâm", list: userProfile!.faved)],
                           ),
                         ],
                       ),
-                (user.rated == null || user.rated.length == 0)
+                (userProfile!.rated == null || userProfile!.rated.length == 0)
                     ? SizedBox(height: 0)
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,11 +180,11 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           //   thickness: 10,
                           // ),
                           HotItems(
-                            hotItems: [HotItemsDTO(title: "Các khoá học đã đánh giá", list: user.rated)],
+                            hotItems: [HotItemsDTO(title: "Các khoá học đã đánh giá", list: userProfile!.rated)],
                           ),
                         ],
                       ),
-                user.fullContent == ""
+                userProfile!.fullContent == ""
                     ? SizedBox(height: 0)
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,7 +195,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           Padding(
                             padding: const EdgeInsets.all(15),
                             child: Html(
-                              data: user.fullContent,
+                              data: userProfile!.fullContent,
                               shrinkWrap: true,
                               onLinkTap: (url, _, __, ___) {
                                 Navigator.of(context).push(MaterialPageRoute(
@@ -230,8 +225,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
           child: CircleAvatar(
             backgroundColor: Colors.white,
             radius: size / 2,
-            child: (user.image != "")
-                ? CircleAvatar(radius: size / 2 - 2.0, backgroundImage: CachedNetworkImageProvider(user.image))
+            child: (userProfile!.image != "")
+                ? CircleAvatar(radius: size / 2 - 2.0, backgroundImage: CachedNetworkImageProvider(userProfile!.image))
                 : Icon(
                     Icons.account_circle,
                     size: size,
@@ -249,7 +244,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
       width: double.infinity,
       alignment: Alignment.bottomRight,
       color: Colors.grey[200],
-      child: user.banner != "" ? CustomCachedImage(url: user.banner) : SizedBox(height: size),
+      child: userProfile!.banner != "" ? CustomCachedImage(url: userProfile!.banner) : SizedBox(height: size),
     );
   }
 }

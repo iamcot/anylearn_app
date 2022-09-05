@@ -1,14 +1,10 @@
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/main.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+
+import '../main.dart';
 // import 'package:overlay_support/overlay_support.dart';
 
 class NotificationIcon extends StatefulWidget {
-  final UserDTO user;
-
-  const NotificationIcon({required this.user});
-
   @override
   State<StatefulWidget> createState() => _NotificationIcon();
 }
@@ -17,7 +13,7 @@ class _NotificationIcon extends State<NotificationIcon> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: widget.user != null
+      child: user.token != ""
           ? Badge(
               position: BadgePosition.topEnd(top: 5, end: 5),
               badgeContent: Text("!"),

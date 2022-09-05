@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:anylearn/main.dart';
 import 'package:anylearn/widgets/categories_box.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
@@ -27,10 +28,9 @@ import 'share_dialog.dart';
 
 class PdpBody extends StatefulWidget {
   final PdpDTO data;
-  final UserDTO user;
   final PdpBloc pdpBloc;
 
-  const PdpBody({key, required this.data, required this.user, required this.pdpBloc}) : super(key: key);
+  const PdpBody({key, required this.data, required this.pdpBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PdpBody();
@@ -193,7 +193,7 @@ class _PdpBody extends State<PdpBody> {
                                         borderRadius: BorderRadius.circular(18),
                                       ))),
                                   onPressed: () {
-                                    widget.user.token != ""
+                                    user.token != ""
                                         ? showDialog(
                                             context: context,
                                             builder: (context) => (!widget.data.item.nolimitTime &&
@@ -212,7 +212,6 @@ class _PdpBody extends State<PdpBody> {
                                                   )
                                                 : CourseConfirm(
                                                     pdpBloc: widget.pdpBloc,
-                                                    user: widget.user,
                                                     pdpDTO: widget.data,
                                                   ),
                                           )
@@ -242,10 +241,10 @@ class _PdpBody extends State<PdpBody> {
                                   ? Expanded(
                                       child: ElevatedButton(
                                       onPressed: () {
-                                        if (widget.user.token != "") {
+                                        if (user.token != "") {
                                           BlocProvider.of<PdpBloc>(context)
                                             ..add(PdpFavoriteTouchEvent(
-                                                itemId: widget.data.item.id, token: widget.user.token));
+                                                itemId: widget.data.item.id, token: user.token));
                                         } else {
                                           Navigator.of(context).pushNamed('/login',
                                               arguments:
@@ -274,10 +273,10 @@ class _PdpBody extends State<PdpBody> {
                                     ))
                                   : IconButton(
                                       onPressed: () {
-                                        if (widget.user.token != "") {
+                                        if (user.token != "") {
                                           BlocProvider.of<PdpBloc>(context)
                                             ..add(PdpFavoriteTouchEvent(
-                                                itemId: widget.data.item.id, token: widget.user.token));
+                                                itemId: widget.data.item.id, token: user.token));
                                         } else {
                                           Navigator.of(context).pushNamed('/login',
                                               arguments:
@@ -295,12 +294,12 @@ class _PdpBody extends State<PdpBody> {
                           icon: Icon(Icons.share),
                           color: Colors.blue,
                           onPressed: () {
-                            widget.user.token != ""
+                            user.token != ""
                                 ? showDialog(
                                     context: context,
                                     builder: (context) => PdpShareDialog(
                                       item: widget.data.item,
-                                      user: widget.user,
+                                      user: user,
                                       pdpBloc: widget.pdpBloc,
                                     ),
                                   )

@@ -53,7 +53,6 @@ class _ItemsTeacherScreen extends State<ItemsTeacherScreen> {
                 floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
                 bottomNavigationBar: BottomNav(
                   route: BottomNav.TEACHER_INDEX,
-                  user: user,
                 ),
               );
             }

@@ -1,5 +1,5 @@
+import 'package:anylearn/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -18,7 +18,7 @@ class ContractSchoolScreen extends StatefulWidget {
 }
 
 class _ContractSchoolScreen extends State<ContractSchoolScreen> {
-  late UserDTO _user;
+  UserDTO? _user;
   late AuthBloc _authBloc;
   ContractDTO _contract = ContractDTO();
   bool openedForm = false;
@@ -49,7 +49,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                 openedForm = false;
                 // _authBloc..add(AuthContractLoadEvent(token: _user.token, contractId: 0));
               });
-              _authBloc..add(AuthContractLoadEvent(token: _user.token, contractId: 0));
+              _authBloc..add(AuthContractLoadEvent(token: user.token, contractId: 0));
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
@@ -67,7 +67,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
             builder: (context, state) {
               if (state is AuthSuccessState) {
                 _user = state.user;
-                _authBloc..add(AuthContractLoadEvent(token: _user.token, contractId: 0));
+                _authBloc..add(AuthContractLoadEvent(token: _user!.token, contractId: 0));
               }
 
               if (state is AuthContractLoadSuccessState) {
@@ -82,16 +82,16 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                           leading: Icon(MdiIcons.fileCertificateOutline),
                           title: Text("Trạng thái hợp đồng của tài khoản"),
                           subtitle:
-                              _user.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC") : _signedStatus(_user.isSigned),
-                          trailing: _user.isSigned == 99 ? Icon(Icons.search) : Text(""),
+                              _user!.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC") : _signedStatus(_user!.isSigned),
+                          trailing: _user!.isSigned == 99 ? Icon(Icons.search) : Text(""),
                           onTap: () {
-                            if (_user.isSigned == 99) {
+                            if (_user!.isSigned == 99) {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ContractSignScreen(user: _user, contractId: -1)));
                             }
                           },
                         ),
-                        _contract != null && (_contract.status == 1 || _contract.status == 10)
+                        (_contract.status == 1 || _contract.status == 10)
                             ? ListTile(
                                 shape: Border(
                                   top: BorderSide(color: (Colors.grey[300])!),
@@ -117,7 +117,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                           trailing: Icon(Icons.chevron_right),
                           title: Text("Cập nhật chứng chỉ"),
                           onTap: () {
-                            Navigator.of(context).pushNamed("/account/docs", arguments: _user.token);
+                            Navigator.of(context).pushNamed("/account/docs", arguments: _user!.token);
                           },
                         ),
                         GradientButton(
@@ -129,7 +129,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                               if (_contract == null) {
                                 _contract = new ContractDTO();
                               }
-                              _contract.commission = _user.commissionRate.toString();
+                              _contract.commission = _user!.commissionRate.toString();
                               dateMask.text = _contract.certDate;
                             });
                           },
@@ -156,7 +156,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Phần trăm doanh thu của ${_user.name} (số thập phân)",
+                                        labelText: "Phần trăm doanh thu của ${_user!.name} (số thập phân)",
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -450,7 +450,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                             if (_formKey.currentState!.validate()) {
                                               _formKey.currentState?.save();
                                               _authBloc
-                                                ..add(AuthContractSaveEvent(token: _user.token, contract: _contract));
+                                                ..add(AuthContractSaveEvent(token: _user!.token, contract: _contract));
                                             }
                                           },
                                         )),

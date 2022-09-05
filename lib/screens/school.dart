@@ -53,7 +53,6 @@ class _SchoolScreen extends State<SchoolScreen> {
       floatingActionButton: FloatingActionButtonHome(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
-        user: user,
         route: BottomNav.SCHOOL_INDEX,
       ),
     );

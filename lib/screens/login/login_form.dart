@@ -198,6 +198,14 @@ class _LoginForm extends State<LoginForm> {
                       ]),
                     ),
                   ),
+                  Container(
+                    child: TextButton(
+                      child: Text("Quên mật khẩu"),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed("/resetPassword");
+                      },
+                    ),
+                  ),
                   // Container(
                   //   decoration: BoxDecoration(
                   //     gradient: LinearGradient(colors: [Colors.blue, Colors.lightBlueAccent, Colors.blue]),

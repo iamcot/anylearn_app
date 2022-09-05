@@ -9,10 +9,9 @@ import '../webview.dart';
 
 class CourseConfirm extends StatefulWidget {
   final pdpDTO;
-  final user;
   final pdpBloc;
 
-  const CourseConfirm({key, this.pdpDTO, this.user, this.pdpBloc}) : super(key: key);
+  const CourseConfirm({key, this.pdpDTO, this.pdpBloc}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _CourseConfirm();
 }
@@ -28,7 +27,7 @@ class _CourseConfirm extends State<CourseConfirm> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.user.id == widget.pdpDTO.author.id
+    return user.id == widget.pdpDTO.author.id
         ? AlertDialog(
             content: Text("Bạn không thể đăng ký khóa học của chính bạn."),
             actions: <Widget>[
@@ -101,7 +100,7 @@ class _CourseConfirm extends State<CourseConfirm> {
               //   padding: const EdgeInsets.only(top: 15),
               //   child: Text.rich(TextSpan(text: "Số dư tài khoản: ", children: [
               //     TextSpan(
-              //         text: _moneyFormat.format(widget.user.walletM),
+              //         text: _moneyFormat.format(user.walletM),
               //         style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
               //   ])),
               // ),
@@ -163,12 +162,13 @@ class _CourseConfirm extends State<CourseConfirm> {
                     ),
               childRegister
                   ? Row(children: [
-                      Expanded(child: _buildChildrenSelector(context, widget.user.children)),
+                      Expanded(child: _buildChildrenSelector(context, user.children!)),
                       IconButton(
                           icon: Icon(Icons.add),
                           onPressed: () async {
-                            await Navigator.of(context).pushNamed("/account/children", arguments: widget.user);
+                            user.inRegisterClassId = widget.pdpDTO.item.id;
                             Navigator.of(context).pop();
+                            Navigator.of(context).pushNamed("/account/children", arguments: user);
                             BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
                           }),
                       IconButton(
@@ -198,7 +198,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         borderRadius: BorderRadius.circular(18),
                       ))),
                   onPressed: () {
-                    _add2Cart(context, widget.user.token, widget.pdpDTO.item.id, voucherController.text,
+                    _add2Cart(context, user.token, widget.pdpDTO.item.id, voucherController.text,
                         (dropdownValue != "0" && childRegister ? int.parse(dropdownValue) : 0));
                   },
                   child: Text("XÁC NHẬN"),

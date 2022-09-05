@@ -173,6 +173,9 @@ class AccSaveChildrenLoadingState extends AccountState {
 }
 
 class AccSaveChildrenSuccessState extends AccountState {
+  final id;
+
+  AccSaveChildrenSuccessState({this.id});
   @override
   String toString() => 'AccSaveChildrenSuccessState';
 }

@@ -1,7 +1,6 @@
 import 'package:anylearn/dto/login_callback.dart';
+import 'package:anylearn/main.dart';
 import 'package:flutter/material.dart';
-
-import '../dto/user_dto.dart';
 
 class BottomNav extends StatelessWidget {
   static const HOME_INDEX = "/";
@@ -12,9 +11,7 @@ class BottomNav extends StatelessWidget {
 
   final String route;
 
-  final UserDTO user;
-
-  BottomNav({required this.route,required this.user});
+  BottomNav({required this.route});
 
   @override
   Widget build(BuildContext context) {

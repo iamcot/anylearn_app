@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../blocs/feedback/feedback_blocs.dart';
 import '../dto/user_dto.dart';
@@ -54,7 +52,7 @@ class _CustomFeedback extends State<CustomFeedback> {
               alignment: Alignment.bottomRight,
               children: <Widget>[
                 widget.child,
-                disableFeedback || widget.user.token == ""
+                disableFeedback || user.token == ""
                     ? SizedBox(
                         height: 0,
                       )
@@ -126,7 +124,7 @@ class _CustomFeedback extends State<CustomFeedback> {
                                                 feedbackBloc
                                                   ..add(SaveFeedbackEvent(
                                                     file: file,
-                                                    token: widget.user.token,
+                                                    token: user.token,
                                                     content: content,
                                                   ));
                                               }

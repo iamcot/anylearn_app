@@ -143,11 +143,19 @@ class UserRepository {
     return await userService.signContract(token, contractId);
   }
 
-  Future<bool> saveChildren(String token, int id, String name) async {
-    return await userService.saveChildren(token, id, name);
+  Future<int> saveChildren(String token, int id, String name, String dob) async {
+    return await userService.saveChildren(token, id, name, dob);
   }
 
   Future<List<UserDTO>> getChildren(String token) async {
     return await userService.getChildren(token);
+  }
+
+  Future<bool> sentOtp(String phone) async {
+    return await userService.sentOtp(phone);
+  }
+
+  Future<bool> resetOtp(String phone, String otp, String password, String passwordConfirm) async {
+    return await userService.resetOtp(phone, otp, password, passwordConfirm);
   }
 }

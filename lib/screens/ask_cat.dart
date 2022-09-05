@@ -1,4 +1,3 @@
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -65,7 +64,6 @@ class _AskCatScreen extends State<AskCatScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
         route: BottomNav.ASK_INDEX,
-        user: user,
       ),
     );
   }

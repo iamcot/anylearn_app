@@ -101,3 +101,20 @@ class AuthContractSignedFailState extends AuthState {
   @override
   List<Object> get props => [error];
 }
+
+class AuthPassOtpLoadingState extends AuthState {}
+
+class AuthPassOtpSuccessState extends AuthState {}
+
+class AuthPassResetLoadingState extends AuthState {}
+
+class AuthPassResetSuccessState extends AuthState {}
+
+class AuthPassOtpFailState extends AuthState {
+  final String error;
+
+  AuthPassOtpFailState({required this.error});
+
+  @override
+  List<Object> get props => [error];
+}

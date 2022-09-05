@@ -18,7 +18,6 @@ class PdpShareDialog extends StatelessWidget {
             Navigator.of(context).pop();
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => CourseShareScreen(
-                      user: user,
                       pdpBloc: pdpBloc,
                       pdpId: item.id,
                     )));

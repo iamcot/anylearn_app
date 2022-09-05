@@ -45,7 +45,6 @@ class _AskForumScreen extends State<AskForumScreen> {
                   } else {
                     final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                       return AskFormScreen(
-                        user: user,
                         askBloc: _articleBloc,
                         askId: 0,
                         type: MyConst.ASK_QUESTION,
@@ -122,7 +121,6 @@ class _AskForumScreen extends State<AskForumScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         bottomNavigationBar: BottomNav(
           route: BottomNav.ASK_INDEX,
-          user: user,
         ),
   
     );

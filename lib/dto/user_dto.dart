@@ -40,8 +40,9 @@ class UserDTO extends Equatable {
   final registered;
   final faved;
   final rated;
-  final children;
+  List<UserDTO>? children;
   final cartcount;
+  int inRegisterClassId;
 
   UserDTO({
     this.id,
@@ -80,8 +81,9 @@ class UserDTO extends Equatable {
     this.registered = "",
     this.faved = "",
     this.rated = "",
-    this.children = "",
+    this.children,
     this.cartcount = 0,
+    this.inRegisterClassId = 0,
   });
 
   @override
@@ -121,8 +123,8 @@ class UserDTO extends Equatable {
         registered,
         faved,
         rated,
-        children,
         cartcount,
+        inRegisterClassId,
       ];
 
   @override

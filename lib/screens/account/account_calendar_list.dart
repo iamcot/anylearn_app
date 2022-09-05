@@ -12,18 +12,16 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../blocs/account/account_blocs.dart';
 import '../../dto/const.dart';
 import '../../dto/event_dto.dart';
-import '../../dto/user_dto.dart';
+import '../../main.dart';
 import '../../widgets/calendar_box.dart';
 import '../rating_input.dart';
 
 class AccountCalendarList extends StatefulWidget {
   final List<EventDTO> events;
   final isOpen;
-  final UserDTO user;
   final AccountBloc accountBloc;
 
-  const AccountCalendarList({key, required this.events, this.isOpen, required this.user, required this.accountBloc})
-      : super(key: key);
+  const AccountCalendarList({key, required this.events, this.isOpen, required this.accountBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AccountCalendarList();
@@ -40,7 +38,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
   @override
   void initState() {
     super.initState();
-    controllers = List.empty();
+    controllers = List.empty(growable: true);
   }
 
   @override
@@ -98,9 +96,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                     );
                   },
                   semanticIndexCallback: (Widget widget, int localIndex) {
-                    if (localIndex.isEven) {
-                      return localIndex ~/ 2;
-                    }
+                    if (localIndex.isEven) {}
                     return null;
                   },
                   childCount: math.max(0, widget.events.length * 2 - 1),
@@ -139,15 +135,11 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
           builder: (context, state) {
             return event.userJoined != null && event.userJoined > 0
                 ? Text("Đã tham gia")
-                : RaisedButton(
-                    color: Colors.blue,
+                : ElevatedButton(
                     onPressed: () {
                       widget.accountBloc
                         ..add(AccJoinCourseEvent(
-                            token: widget.user.token,
-                            itemId: event.itemId,
-                            scheduleId: event.id,
-                            childId: event.childId));
+                            token: user.token, itemId: event.itemId, scheduleId: event.id, childId: event.childId));
                     },
                     child: Text(
                       "Xác nhận",
@@ -171,7 +163,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
       if (today == event.date || event.nolimitTime) {
         if (event.userJoined == null) {
           Duration diffInSeconds = DateTime.parse(event.date + " " + event.time).difference(DateTime.now());
-          if (!diffInSeconds.isNegative) {
+          if (!diffInSeconds.isNegative && diffInSeconds < Duration(hours: 24)) {
             AnimationController controller = AnimationController(
               vsync: this,
               duration: diffInSeconds,
@@ -200,6 +192,8 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                             style: TextStyle(fontSize: 12, color: Colors.white),
                           ));
                 });
+          } else if (diffInSeconds >= Duration(hours: 24)) {
+             return Text("Chưa diễn ra");;
           } else {
             return BlocBuilder<AccountBloc, AccountState>(
               bloc: widget.accountBloc,
@@ -305,7 +299,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                   onTap: () {
                     widget.accountBloc
                       ..add(AccJoinCourseEvent(
-                          token: widget.user.token,
+                          token: user.token,
                           itemId: eventDTO.itemId,
                           scheduleId: eventDTO.id,
                           childId: eventDTO.childId));
@@ -325,13 +319,13 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                     Navigator.of(context).pop();
                     final sentReview = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                       return RatingInputScreen(
-                          user: widget.user,
+                          user: user,
                           itemId: eventDTO.itemId,
                           itemTitle: eventDTO.title,
                           lastRating: eventDTO.userRating);
                     }));
                     if (sentReview) {
-                      widget.accountBloc..add(AccLoadMyCalendarEvent(token: widget.user.token));
+                      widget.accountBloc..add(AccLoadMyCalendarEvent(token: user.token));
                     }
                   },
                 )

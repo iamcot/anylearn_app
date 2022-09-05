@@ -1,18 +1,17 @@
+import 'package:anylearn/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/article/article_blocs.dart';
 import '../dto/const.dart';
-import '../dto/user_dto.dart';
 import '../widgets/gradient_button.dart';
 
 class AskFormScreen extends StatefulWidget {
-  final user;
   final askId;
   final askBloc;
   final type;
 
-  AskFormScreen({this.user, this.askId, this.askBloc, this.type});
+  AskFormScreen({this.askId, this.askBloc, this.type});
 
   @override
   State<StatefulWidget> createState() => _AskFormScreen();
@@ -116,7 +115,7 @@ class _AskFormScreen extends State<AskFormScreen> {
         askId: widget.askId,
         title: widget.type == MyConst.ASK_QUESTION ? _titleController.text : "",
         type: widget.type,
-        user: widget.user,
+        user: user,
         content: _contentController.text,
       ));
     }

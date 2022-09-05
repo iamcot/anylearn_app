@@ -1,3 +1,4 @@
+import 'package:anylearn/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,11 +9,10 @@ import '../../dto/user_dto.dart';
 import '../../widgets/loading_widget.dart';
 
 class CourseShareScreen extends StatefulWidget {
-  final user;
   final pdpId;
   final pdpBloc;
 
-  const CourseShareScreen({key, this.user, this.pdpBloc, this.pdpId}) : super(key: key);
+  const CourseShareScreen({key, this.pdpBloc, this.pdpId}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _CourseShareScreen();
 }
@@ -32,7 +32,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
           bottom: PreferredSize(
             child: FlatButton(
                 onPressed: () {
-                  widget.pdpBloc..add(PdpFriendShareEvent(token: widget.user.token, itemId: widget.pdpId, isALL: true, friendIds: []));
+                  widget.pdpBloc..add(PdpFriendShareEvent(token: user.token, itemId: widget.pdpId, isALL: true, friendIds: []));
                 },
                 child: Text(
                   "GỬI TẤT CẢ",
@@ -54,7 +54,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
                 });
                 widget.pdpBloc
                   ..add(PdpFriendShareEvent(
-                      token: widget.user.token, itemId: widget.pdpId, friendIds: ids, isALL: false));
+                      token: user.token, itemId: widget.pdpId, friendIds: ids, isALL: false));
               },
               label: Text("GỬI"),
             )
@@ -82,7 +82,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
             }
           },
           child: BlocBuilder<PdpBloc, PdpState>(
-            bloc: widget.pdpBloc..add(PdpFriendLoadEvent(token: widget.user.token)),
+            bloc: widget.pdpBloc..add(PdpFriendLoadEvent(token: user.token)),
             builder: (context, state) {
               if (state is PdpShareFriendListSuccessState) {
                 _friends = state.friends;

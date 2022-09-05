@@ -1,11 +1,12 @@
-import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/course/course_blocs.dart';
 import '../dto/user_dto.dart';
+import '../main.dart';
 import '../widgets/gradient_button.dart';
+import '../widgets/loading_widget.dart';
 
 class RatingInputScreen extends StatefulWidget {
   final UserDTO user;
@@ -105,7 +106,7 @@ class _RatingInputScreen extends State<RatingInputScreen> {
                     function: () {
                       _courseBloc
                         ..add(ReviewSubmitEvent(
-                            token: widget.user.token,
+                            token: user.token,
                             itemId: widget.itemId,
                             rating: score,
                             comment: _commentInput.text));

@@ -105,7 +105,6 @@ class _HomeScreen extends State<HomeScreen> {
                         floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
                         bottomNavigationBar: BottomNav(
                           route: BottomNav.HOME_INDEX,
-                          user: user,
                         ),
                       );
               }),

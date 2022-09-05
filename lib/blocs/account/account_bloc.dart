@@ -76,8 +76,8 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     try {
       if (event is AccSaveChildrenEvent) {
         yield AccSaveChildrenLoadingState();
-        await userRepository.saveChildren(event.token, event.id, event.name);
-        yield AccSaveChildrenSuccessState();
+        final newChildId = await userRepository.saveChildren(event.token, event.id, event.name, event.dob);
+        yield AccSaveChildrenSuccessState(id: newChildId);
       } else if (event is AccLoadChildrenEvent) {
         yield AccChildrenLoadingState();
         final children = await userRepository.getChildren(event.token);

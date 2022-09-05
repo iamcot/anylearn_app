@@ -111,7 +111,6 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                           accountBloc: _accountBloc,
                           events: calendars!.done,
                           isOpen: false,
-                          user: user,
                         )
                       : LoadingWidget(),
                   calendars != null
@@ -119,7 +118,6 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                           accountBloc: _accountBloc,
                           events: calendars!.open,
                           isOpen: true,
-                          user: user,
                         )
                       : LoadingWidget(),
                   calendars != null

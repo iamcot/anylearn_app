@@ -32,7 +32,6 @@ class AskBody extends StatelessWidget {
                 } else {
                   final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                     return AskFormScreen(
-                      user: user,
                       askBloc: articleBloc,
                       askId: 0,
                       type: MyConst.ASK_QUESTION,

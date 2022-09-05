@@ -6,7 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:screenshot/screenshot.dart';
 
 import 'app_config.dart';
 import 'blocs/article/article_bloc.dart';
@@ -24,12 +23,12 @@ import 'screens/home.dart';
 import 'themes/default.dart';
 
 bool newNotification = false;
-late String notifToken;
+String notifToken = "";
 final env = "prod";
 // final env = "staging";
 // final env = "dev";
 late AppConfig config;
-UserDTO user = UserDTO(id: 0);
+UserDTO user = UserDTO(id: 0, token: "");
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();

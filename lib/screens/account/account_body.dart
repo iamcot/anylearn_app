@@ -9,17 +9,15 @@ import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/auth/auth_event.dart';
 import '../../dto/const.dart';
 import '../../dto/friend_params_dto.dart';
-import '../../dto/user_dto.dart';
 import '../../main.dart';
 import '../webview.dart';
 import 'app_bar_with_image.dart';
 import 'normal_menu.dart';
 
 class AccountBody extends StatefulWidget {
-  final UserDTO user;
   final AuthBloc authBloc;
 
-  const AccountBody({key, required this.user, required this.authBloc}) : super(key: key);
+  const AccountBody({key, required this.authBloc}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _AccountBody();
 }
@@ -30,10 +28,10 @@ class _AccountBody extends State<AccountBody> {
     var moneyFormat = new NumberFormat("###,###,###", "vi_VN");
     return CustomScrollView(
       slivers: <Widget>[
-        AccountAppBarWithImage(user: widget.user),
+        AccountAppBarWithImage(user: user),
         SliverToBoxAdapter(
           child: Column(children: <Widget>[
-            (Platform.isIOS && !widget.user.enableIosTrans)
+            (Platform.isIOS && !user.enableIosTrans)
                 ? SizedBox(height: 0)
                 : AccountNormalMenu(
                     title: "Giao dịch của tôi",
@@ -41,7 +39,7 @@ class _AccountBody extends State<AccountBody> {
                     leadingIcon: MdiIcons.wallet,
                     trailing: Icon(Icons.chevron_right),
                     // subContent: Text(
-                    //   "anyPoint: " + moneyFormat.format(widget.user.walletC),
+                    //   "anyPoint: " + moneyFormat.format(user.walletC),
                     //   style: TextStyle(
                     //     color: Colors.orange,
                     //     fontSize: 12.0,
@@ -49,7 +47,7 @@ class _AccountBody extends State<AccountBody> {
                     //   ),
                     // ),
                   ),
-            widget.user.role == MyConst.ROLE_MEMBER
+            user.role == MyConst.ROLE_MEMBER
                 ? SizedBox(height: 0)
                 : AccountNormalMenu(
                     title: "Khóa học của tôi",
@@ -69,19 +67,19 @@ class _AccountBody extends State<AccountBody> {
             AccountNormalMenu(
               title: "Danh sách bạn bè",
               route: "/account/friends",
-              routeParam: FriendParamsDTO(userId: widget.user.id, level: 1),
+              routeParam: FriendParamsDTO(userId: user.id, level: 1),
               leadingIcon: MdiIcons.accountGroup,
               trailing: SizedBox(
                   width: 80.0,
                   child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Text(widget.user.numFriends.toString() + " bạn "),
+                    Text(user.numFriends.toString() + " bạn "),
                     Icon(Icons.chevron_right),
                   ])),
             ),
             AccountNormalMenu(
               title: "Quản lý tài khoản phụ",
               route: "/account/children",
-              routeParam: widget.user,
+              routeParam: user,
               leadingIcon: MdiIcons.accountChild,
               trailing: Icon(Icons.chevron_right_sharp),
             ),
@@ -95,37 +93,37 @@ class _AccountBody extends State<AccountBody> {
               title: "Mã giới thiệu",
               leadingIcon: MdiIcons.qrcode,
               trailing: Icon(Icons.share),
-              subContent: Text(widget.user.refcode + " (chạm để chia sẻ)"),
-              routeFunction: () => Share.share(widget.user.refLink),
+              subContent: Text(user.refcode + " (chạm để chia sẻ)"),
+              routeFunction: () => Share.share(user.refLink),
             ),
-            widget.user.role == MyConst.ROLE_TEACHER
+            user.role == MyConst.ROLE_TEACHER
                 ? AccountNormalMenu(
                     title: "Hợp đồng giảng viên",
                     route: "/contract/teacher",
-                    routeParam: widget.user.token,
+                    routeParam: user.token,
                     leadingIcon: MdiIcons.fileCertificateOutline,
                     trailing: Icon(
                       Icons.chevron_right,
                     ),
                   )
                 : SizedBox(height: 0),
-            widget.user.role == MyConst.ROLE_SCHOOL
+            user.role == MyConst.ROLE_SCHOOL
                 ? AccountNormalMenu(
                     title: "Hợp đồng trường học",
                     route: "/contract/school",
-                    routeParam: widget.user.token,
+                    routeParam: user.token,
                     leadingIcon: MdiIcons.fileCertificateOutline,
                     trailing: Icon(
                       Icons.chevron_right,
                     ),
                   )
                 : SizedBox(height: 0),
-            widget.user.role == MyConst.ROLE_MEMBER
+            user.role == MyConst.ROLE_MEMBER
                 ? SizedBox(height: 0)
                 : AccountNormalMenu(
                     title: "Cập nhật chứng chỉ",
                     route: "/account/docs",
-                    routeParam: widget.user.token,
+                    routeParam: user.token,
                     leadingIcon: MdiIcons.certificate,
                     trailing: Icon(
                       Icons.chevron_right,
@@ -136,15 +134,15 @@ class _AccountBody extends State<AccountBody> {
             AccountNormalMenu(
               title: "Hướng dẫn sử dụng",
               route: "/guide",
-              routeParam: "guide_" + widget.user.role,
+              routeParam: "guide_" + user.role,
               leadingIcon: MdiIcons.televisionGuide,
               trailing: Icon(Icons.chevron_right),
             ),
-            widget.user.role == MyConst.ROLE_SCHOOL || widget.user.role == MyConst.ROLE_TEACHER
+            user.role == MyConst.ROLE_SCHOOL || user.role == MyConst.ROLE_TEACHER
                 ? AccountNormalMenu(
                     title: "Chính sách",
                     route: "/guide",
-                    routeParam: "guide_toc_" + widget.user.role,
+                    routeParam: "guide_toc_" + user.role,
                     leadingIcon: MdiIcons.notebookOutline,
                     trailing: Icon(Icons.chevron_right),
                   )
@@ -159,7 +157,7 @@ class _AccountBody extends State<AccountBody> {
             AccountNormalMenu(
               title: "Đổi mật khẩu",
               route: "/account/password",
-              routeParam: widget.user.token,
+              routeParam: user.token,
               leadingIcon: MdiIcons.lock,
               trailing: Icon(Icons.arrow_right),
             ),
@@ -177,7 +175,7 @@ class _AccountBody extends State<AccountBody> {
             AccountNormalMenu(
               title: "Đăng xuất",
               routeFunction: () {
-                widget.authBloc.add(AuthLoggedOutEvent(token: widget.user.token));
+                widget.authBloc.add(AuthLoggedOutEvent(token: user.token));
               },
               trailing: Icon(
                 MdiIcons.logout,

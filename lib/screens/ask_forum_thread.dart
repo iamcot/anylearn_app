@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/article/article_bloc.dart';
 import '../blocs/article/article_blocs.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_blocs.dart';
@@ -75,7 +74,6 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
         route: BottomNav.ASK_INDEX,
-        user: user,
       ),
     );
   }
@@ -250,13 +248,12 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                             } else {
                               bool result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                                 return AskFormScreen(
-                                  user: user,
                                   askBloc: _articleBloc,
                                   askId: ans.id,
                                   type: MyConst.ASK_COMMENT,
                                 );
                               }));
-                              if (result != null && result) {
+                              if (result) {
                                 _articleBloc = BlocProvider.of<ArticleBloc>(context)
                                   ..add(AskThreadEvent(askId: askId, token: user.token));
                               }
@@ -360,7 +357,6 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                 } else {
                   bool result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                     return AskFormScreen(
-                      user: user,
                       askBloc: _articleBloc,
                       askId: data!.question.id,
                       type: MyConst.ASK_ANSWER,

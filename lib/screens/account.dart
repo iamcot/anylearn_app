@@ -43,7 +43,6 @@ class _AccountScreen extends State<AccountScreen> {
                 ? CustomFeedback(
                     user: user,
                     child: AccountBody(
-                      user: user,
                       authBloc: _authBloc,
                     ),
                   )

@@ -59,7 +59,6 @@ class _AskScreen extends State<AskScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
         route: BottomNav.ASK_INDEX,
-        user: user,
       ),
     );
   }

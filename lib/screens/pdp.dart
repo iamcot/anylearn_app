@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_blocs.dart';
 import '../blocs/pdp/pdp_blocs.dart';
 import '../customs/feedback.dart';
@@ -92,7 +91,6 @@ class _PDPScreen extends State<PDPScreen> {
                         child: PdpBody(
                           pdpBloc: pdpBloc,
                           data: data!,
-                          user: user,
                         ),
                       )
                     : LoadingScreen();
@@ -106,7 +104,6 @@ class _PDPScreen extends State<PDPScreen> {
           bloc: pdpBloc,
           builder: (context, state) {
             return BottomNav(
-                user: user,
                 route:
                     data != null && data!.author.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX);
           },

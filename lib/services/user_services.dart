@@ -217,11 +217,12 @@ class UserService extends BaseService {
     return json['result'];
   }
 
-  Future<bool> saveChildren(String token, int id, String name) async {
-    final url = buildUrl(appConfig: config, endPoint: "/user/children", token: token);
+  Future<int> saveChildren(String token, int id, String name, String dob) async {
+    final url = buildUrl(appConfig: config, endPoint: "/user/childrenv2", token: token);
     final json = await post(httpClient, url, {
       "id": id.toString(),
       "name": name,
+      "dob": dob,
     });
     return json['result'];
   }
@@ -230,5 +231,22 @@ class UserService extends BaseService {
     final url = buildUrl(appConfig: config, endPoint: "/user/children", token: token);
     final json = await get(httpClient, url);
     return List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
+  }
+
+  Future<bool> sentOtp(String phone) async {
+    final url = buildUrl(appConfig: config, endPoint: "/password/otp", query: buildQuery({"phone": phone}));
+    final json = await get(httpClient, url);
+    return json['result'];
+  }
+
+  Future<bool> resetOtp(String phone, String otp, String password, String passwordConfirm) async {
+    final url = buildUrl(appConfig: config, endPoint: "/password/reset");
+    final json = await post(httpClient, url, {
+      "phone": phone,
+      "otp": otp,
+      "password": password,
+      "password_confirmation": passwordConfirm,
+    });
+    return json['result'];
   }
 }

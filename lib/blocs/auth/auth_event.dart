@@ -95,3 +95,28 @@ class AuthContractSignEvent extends AuthEvent {
   @override
   String toString() => 'AuthContractSignEvent';
 }
+
+class AuthPassOtpEvent extends AuthEvent {
+  final String phone;
+  const AuthPassOtpEvent({required this.phone });
+
+  @override
+  List<Object> get props => [phone];
+
+  @override
+  String toString() => 'AuthPassOtpEvent phone: $phone';
+}
+
+class AuthPassResetEvent extends AuthEvent {
+  final String otp;
+  final String phone;
+  final String password;
+  final String confirmPassword;
+  const AuthPassResetEvent({required this.phone, required this.otp, required this.password, required this.confirmPassword});
+
+  @override
+  List<Object> get props => [phone];
+
+  @override
+  String toString() => 'AuthPassResetEvent phone: $phone';
+}

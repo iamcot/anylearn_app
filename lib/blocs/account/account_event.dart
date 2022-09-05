@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../dto/user_dto.dart';
 
@@ -132,12 +133,13 @@ class AccSaveChildrenEvent extends AccountEvent {
   final String token;
   final String name;
   final int id;
+  final String dob;
 
-  AccSaveChildrenEvent({required this.token, required this.id, required this.name});
+  AccSaveChildrenEvent({required this.token, required this.id, required this.name, required this.dob});
   @override
-  List<Object> get props => [token, id, name];
+  List<Object> get props => [token, id, name, dob];
   @override
-  String toString() => 'AccSaveChildrenEvent $id, $name';
+  String toString() => 'AccSaveChildrenEvent $id, $name, $dob';
 }
 
 class AccLoadChildrenEvent extends AccountEvent {

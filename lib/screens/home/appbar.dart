@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
-import '../../dto/user_dto.dart';
 import '../../main.dart';
 import '../../widgets/account_icon.dart';
 import '../../widgets/foundation_icon.dart';
@@ -10,10 +9,6 @@ import '../webview.dart';
 import 'home_top_icons.dart';
 
 class HomeAppBar extends StatefulWidget {
-  final UserDTO user;
-
-  const HomeAppBar({key, required this.user}) : super(key: key);
-
   @override
   State<StatefulWidget> createState() => _HomeAppBar();
 }
@@ -34,14 +29,14 @@ class _HomeAppBar extends State<HomeAppBar> {
       actions: <Widget>[
         // AddCourseIcon(),
         // SearchIcon(),
-        widget.user.token == "" || !widget.user.enableIosTrans
+        user.token == "" || !user.enableIosTrans
             ? Text("")
             : Container(
                 child: Badge(
                   position: BadgePosition.topEnd(top: 5, end: 5),
-                  showBadge: widget.user.cartcount > 0,
+                  showBadge: user.cartcount > 0,
                   badgeContent: Text(
-                    widget.user.cartcount.toString(),
+                    user.cartcount.toString(),
                     style: TextStyle(color: Colors.white),
                   ),
                   child: IconButton(
@@ -50,17 +45,16 @@ class _HomeAppBar extends State<HomeAppBar> {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => WebviewScreen(
                                   url: config.webUrl + "cart",
-                                  token: widget.user.token,
+                                  token: user.token,
                                 )));
                       }),
                 ),
               ),
         FoundationIcon(),
         NotificationIcon(
-          user: widget.user,
         ),
         AccountIcon(
-          user: widget.user,
+          user: user,
         ),
       ],
       flexibleSpace: LayoutBuilder(
@@ -72,7 +66,7 @@ class _HomeAppBar extends State<HomeAppBar> {
                 child: Container(
                     margin: EdgeInsets.fromLTRB(30.0, 90.0, 30.0, 5.0),
                     child: HomeTopIcons(
-                      user: widget.user,
+                      user: user,
                     )),
                 decoration: new BoxDecoration(
                   image: DecorationImage(

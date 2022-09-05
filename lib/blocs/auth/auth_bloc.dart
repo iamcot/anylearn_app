@@ -1,6 +1,4 @@
-import 'package:anylearn/main.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 
 import '../../dto/user_dto.dart';
 import '../../models/user_repo.dart';
@@ -42,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthInProgressState();
         await userRepository.deleteToken();
         await userRepository.logout(event.token);
-        
+
         yield AuthFailState(error: "Loggout");
       }
     } catch (error) {
@@ -68,7 +66,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (error) {
       yield AuthContractLoadFailState(error: error.toString());
     }
-     try {
+    try {
       if (event is AuthContractLoadForSignEvent) {
         yield AuthContractInProgressState();
         final contract = await userRepository.loadContract(event.token, event.contractId);
@@ -85,6 +83,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } catch (error) {
       yield AuthContractSignedFailState(error: error.toString());
+    }
+    try {
+      if (event is AuthPassOtpEvent) {
+        yield AuthPassOtpLoadingState();
+        await userRepository.sentOtp(event.phone);
+        yield AuthPassOtpSuccessState();
+      }
+      if (event is AuthPassResetEvent) {
+        yield AuthPassResetLoadingState();
+        await userRepository.resetOtp(event.phone, event.otp, event.password, event.confirmPassword);
+        yield AuthPassResetSuccessState();
+      }
+    } catch (error) {
+      yield AuthPassOtpFailState(error: error.toString());
     }
   }
 }
