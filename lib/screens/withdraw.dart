@@ -214,7 +214,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   height: 40.0,
-                                  child: FlatButton(
+                                  child: TextButton(
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
                                           _formKey.currentState!.save();

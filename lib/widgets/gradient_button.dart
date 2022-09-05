@@ -17,7 +17,7 @@ class GradientButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       height: height,
-      child: FlatButton(
+      child: TextButton(
           onPressed: () {
             function();
           },

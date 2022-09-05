@@ -166,7 +166,7 @@ class _LoginForm extends State<LoginForm> {
                     ),
                     height: 48.0,
                     margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: state is! LoginInProgressState
                           ? () {
                               // FocusScope.of(context).requestFocus(new FocusNode());
@@ -242,7 +242,7 @@ class _LoginForm extends State<LoginForm> {
                           ),
                           height: 48.0,
                           margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
-                          child: FlatButton.icon(
+                          child: TextButton.icon(
                             icon: Icon(
                               MdiIcons.apple,
                               color: Colors.white,

@@ -66,7 +66,7 @@ class TransactionList extends StatelessWidget {
                 ),
               )
             : SliverToBoxAdapter(
-                child: FlatButton(
+                child: TextButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed("/event");
                     },

@@ -147,9 +147,10 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                 margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
                 child: loading
                     ? LoadingWidget()
-                    : RaisedButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-                        color: Colors.blue,
+                    : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                        ),
                         onPressed: () {
                           if (_formKey.currentState!.validate() && !loading) {
                             _formKey.currentState!.save();
