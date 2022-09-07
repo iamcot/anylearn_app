@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:anylearn/main.dart';
-import 'package:anylearn/widgets/categories_box.dart';
+import '../../main.dart';
+import '../../widgets/categories_box.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
