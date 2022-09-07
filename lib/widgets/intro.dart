@@ -33,6 +33,18 @@ class IntroScreenState extends State<IntroScreen> {
         backgroundOpacity: 0,
       ),
     );
+    slides.add(new Slide(
+      backgroundImage: "assets/images/FlyerT.jpg",
+      backgroundOpacity: 0,
+      foregroundImageFit: BoxFit.contain,
+    ));
+    slides.add(
+      new Slide(
+        backgroundImage: "assets/images/FlyerS.jpg",
+        backgroundOpacity: 0,
+        foregroundImageFit: BoxFit.contain,
+      ),
+    );
   }
 
   void onDonePress() {
@@ -44,21 +56,26 @@ class IntroScreenState extends State<IntroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new IntroSlider(
-      slides: this.slides,
-      onDonePress: this.onDonePress,
-      onSkipPress: this.onDonePress,
-      renderNextBtn: Text(
-        "TIẾP",
-        style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-      ),
-      renderSkipBtn: Text(
-        "BỎ QUA",
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-      ),
-      renderDoneBtn: Text(
-        "BẮT ĐẦU",
-        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+    return Container(
+      color: Colors.white,
+      width: double.infinity,
+      height: double.infinity,
+      child: new IntroSlider(
+        slides: this.slides,
+        onDonePress: this.onDonePress,
+        onSkipPress: this.onDonePress,
+        renderNextBtn: Text(
+          "TIẾP",
+          style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+        ),
+        renderSkipBtn: Text(
+          "BỎ QUA",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        renderDoneBtn: Text(
+          "BẮT ĐẦU",
+          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

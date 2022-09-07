@@ -39,21 +39,23 @@ class _HomeScreen extends State<HomeScreen> {
 
   HomeDTO? homeData;
   Future<bool> _willExit() async {
-    return await showDialog(context: context, builder: (context) => new ExitConfirm());
+    return await showDialog(
+        context: context, builder: (context) => new ExitConfirm());
   }
 
   Future checkFirstSeen() async {
-    int version = 7;
+    int version = 9;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int _seen = (prefs.getInt('intro_seen') ?? version);
 
-    if (_seen <= version) {
+    // if (_seen <= version) {
       await prefs.setInt('intro_seen', version + 1);
       setState(() {
         canShowPopup = false;
       });
-      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new IntroScreen()));
-    }
+      Navigator.of(context)
+          .push(new MaterialPageRoute(builder: (context) => new IntroScreen()));
+    // }
   }
 
   @override
@@ -74,11 +76,14 @@ class _HomeScreen extends State<HomeScreen> {
             }
 
             return BlocProvider<HomeBloc>(
-              create: (context) => _homeBloc, //..add(LoadHomeEvent(role: _role)),
-              child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+              create: (context) =>
+                  _homeBloc, //..add(LoadHomeEvent(role: _role)),
+              child:
+                  BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
                 if (state is HomeSuccessState) {
                   homeData = state.data;
-                  _homeBloc..add(LoadQuoteEvent(url: homeData?.config.quoteUrl));
+                  _homeBloc
+                    ..add(LoadQuoteEvent(url: homeData?.config.quoteUrl));
                 }
                 return homeData == null
                     ? LoadingScreen()
@@ -102,7 +107,8 @@ class _HomeScreen extends State<HomeScreen> {
                         floatingActionButton: FloatingActionButtonHome(
                           isHome: true,
                         ),
-                        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+                        floatingActionButtonLocation:
+                            FloatingActionButtonLocation.startDocked,
                         bottomNavigationBar: BottomNav(
                           route: BottomNav.HOME_INDEX,
                         ),

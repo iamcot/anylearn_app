@@ -23,10 +23,10 @@ import 'screens/home.dart';
 import 'themes/default.dart';
 
 bool newNotification = false;
-String notifToken = "";
-final env = "prod";
+late String notifToken;
+// final env = "prod";
 // final env = "staging";
-// final env = "dev";
+final env = "dev";
 late AppConfig config;
 UserDTO user = UserDTO(id: 0, token: "");
 
@@ -63,12 +63,19 @@ void main() async {
           ),
         ],
         child: MultiBlocProvider(providers: [
-          BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
-          BlocProvider<AccountBloc>(create: (context) => AccountBloc(userRepository: userRepo)),
-          BlocProvider<CourseBloc>(create: (context) => CourseBloc(itemRepository: itemRepo, userRepository: userRepo)),
-          BlocProvider<SearchBloc>(create: (context) => SearchBloc(pageRepository: pageRepo)),
-          BlocProvider<NotifBloc>(create: (context) => NotifBloc(userRepository: userRepo)),
-          BlocProvider<ArticleBloc>(create: (context) => ArticleBloc(pageRepository: pageRepo)),
+          BlocProvider<AuthBloc>(
+              create: (context) => AuthBloc(userRepository: userRepo)),
+          BlocProvider<AccountBloc>(
+              create: (context) => AccountBloc(userRepository: userRepo)),
+          BlocProvider<CourseBloc>(
+              create: (context) => CourseBloc(
+                  itemRepository: itemRepo, userRepository: userRepo)),
+          BlocProvider<SearchBloc>(
+              create: (context) => SearchBloc(pageRepository: pageRepo)),
+          BlocProvider<NotifBloc>(
+              create: (context) => NotifBloc(userRepository: userRepo)),
+          BlocProvider<ArticleBloc>(
+              create: (context) => ArticleBloc(pageRepository: pageRepo)),
         ], child: MyApp())),
   );
 }
@@ -79,7 +86,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
-  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey =
+      new GlobalKey<NavigatorState>();
 
   @override
   void initState() {
