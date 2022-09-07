@@ -168,7 +168,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                           onPressed: () async {
                             user.inRegisterClassId = widget.pdpDTO.item.id;
                             Navigator.of(context).pop();
-                            Navigator.of(context).pushNamed("/account/children", arguments: user);
+                            await Navigator.of(context).pushNamed("/account/children", arguments: user);
                             BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
                           }),
                       IconButton(

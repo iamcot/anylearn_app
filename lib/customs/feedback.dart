@@ -110,11 +110,8 @@ class _CustomFeedback extends State<CustomFeedback> {
                                               )),
                                             ]),
                                           ),
-                                          RaisedButton(
+                                          ElevatedButton(
                                             // padding: EdgeInsets.all(10),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(10.0),
-                                                side: BorderSide(color: Colors.blueAccent)),
                                             onPressed: () async {
                                               if (_formKey.currentState!.validate()) {
                                                 _formKey.currentState?.save();
@@ -129,7 +126,6 @@ class _CustomFeedback extends State<CustomFeedback> {
                                                   ));
                                               }
                                             },
-                                            color: Colors.blue,
                                             child: Text(
                                               "Gửi phản hồi",
                                               style: TextStyle(color: Colors.white),

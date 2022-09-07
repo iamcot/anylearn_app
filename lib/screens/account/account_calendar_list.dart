@@ -148,11 +148,11 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
           },
         );
       } else {
-        return RaisedButton(
+        return ElevatedButton(
             onPressed: () {
               _dialogJoin(event, false);
             },
-            color: Colors.blue,
+            // color: Colors.blue,
             child: Text(
               "Đánh giá",
               style: TextStyle(fontSize: 12, color: Colors.white),
@@ -174,7 +174,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                 animation: controller,
                 builder: (context, child) {
                   return controller.isAnimating
-                      ? RaisedButton(
+                      ? ElevatedButton(
                           onPressed: () {
                             _dialogJoin(event, false);
                           },
@@ -182,8 +182,8 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                             timerString(controller),
                             style: TextStyle(fontSize: 12),
                           ))
-                      : RaisedButton(
-                          color: Colors.blue,
+                      : ElevatedButton(
+                          // color: Colors.blue,
                           onPressed: () {
                             _dialogJoin(event, true);
                           },
@@ -199,17 +199,17 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
               bloc: widget.accountBloc,
               builder: (context, state) {
                 return event.userJoined != null && event.userJoined > 0
-                    ? RaisedButton(
+                    ? ElevatedButton(
                         onPressed: () {
                           _dialogJoin(event, false);
                         },
-                        color: Colors.blue,
+                        // color: Colors.blue,
                         child: Text(
                           "Vào lớp",
                           style: TextStyle(fontSize: 12, color: Colors.white),
                         ))
-                    : RaisedButton(
-                        color: Colors.blue,
+                    : ElevatedButton(
+                        // color: Colors.blue,
                         onPressed: () {
                           _dialogJoin(event, true);
                         },
@@ -221,11 +221,11 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
             );
           }
         } else {
-          return RaisedButton(
+          return ElevatedButton(
               onPressed: () {
                 _dialogJoin(event, false);
               },
-              color: Colors.blue,
+              // color: Colors.blue,
               child: Text(
                 "Vào lớp",
                 style: TextStyle(fontSize: 12, color: Colors.white),

@@ -1,19 +1,16 @@
-import 'package:anylearn/main.dart';
-import 'package:anylearn/screens/rating_input.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../blocs/account/account_blocs.dart';
-import '../blocs/auth/auth_bloc.dart';
-import '../blocs/auth/auth_blocs.dart';
 import '../dto/account_calendar_dto.dart';
-import '../dto/user_dto.dart';
+import '../main.dart';
 import '../models/user_repo.dart';
 import '../widgets/calendar_box.dart';
 import '../widgets/loading_widget.dart';
 import 'account/account_calendar_list.dart';
+import 'rating_input.dart';
 
 class AccountCalendarScreen extends StatefulWidget {
   @override
@@ -79,10 +76,10 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                         title: Text("Mời đánh giá khóa học."),
                         content: Text("Chúc mừng bạn vừa hoàn thành buổi học. Vui lòng để lại đánh giá của bạn nhé."),
                         actions: [
-                          FlatButton(
+                          TextButton(
                               onPressed: () async {
                                 Navigator.of(context).pop();
-                                final sentReview =
+                                // final sentReview =
                                     await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                                   return RatingInputScreen(
                                       user: user, itemId: state.itemId, itemTitle: "", lastRating: 0);
