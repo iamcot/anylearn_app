@@ -1,4 +1,3 @@
-import 'package:anylearn/screens/home/home_category.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,7 @@ import '../../widgets/loading_widget.dart';
 import '../../widgets/promotions.dart';
 import 'banner.dart';
 import 'features.dart';
+import 'home_category.dart';
 import 'home_classes.dart';
 import 'quote.dart';
 import 'search_box.dart';

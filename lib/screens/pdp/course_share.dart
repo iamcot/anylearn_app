@@ -30,9 +30,10 @@ class _CourseShareScreen extends State<CourseShareScreen> {
           title: Text("Chia sẻ khóa học"),
           centerTitle: false,
           bottom: PreferredSize(
-            child: FlatButton(
+            child: TextButton(
                 onPressed: () {
-                  widget.pdpBloc..add(PdpFriendShareEvent(token: user.token, itemId: widget.pdpId, isALL: true, friendIds: []));
+                  widget.pdpBloc
+                    ..add(PdpFriendShareEvent(token: user.token, itemId: widget.pdpId, isALL: true, friendIds: []));
                 },
                 child: Text(
                   "GỬI TẤT CẢ",
@@ -41,9 +42,10 @@ class _CourseShareScreen extends State<CourseShareScreen> {
             preferredSize: Size.fromHeight(40),
           ),
           actions: <Widget>[
-            RaisedButton.icon(
-              color: Colors.blue,
-              textColor: Colors.white,
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+              ),
               icon: Icon(Icons.send),
               onPressed: () {
                 List<int> ids = [];
@@ -53,8 +55,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
                   }
                 });
                 widget.pdpBloc
-                  ..add(PdpFriendShareEvent(
-                      token: user.token, itemId: widget.pdpId, friendIds: ids, isALL: false));
+                  ..add(PdpFriendShareEvent(token: user.token, itemId: widget.pdpId, friendIds: ids, isALL: false));
               },
               label: Text("GỬI"),
             )

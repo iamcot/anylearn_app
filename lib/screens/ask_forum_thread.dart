@@ -200,8 +200,10 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                   Container(
                     child: Row(children: [
                       Expanded(
-                        child: FlatButton.icon(
-                          padding: EdgeInsets.all(0),
+                        child: TextButton.icon(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                          ),
                           icon: Icon(
                             Icons.thumb_up,
                             color: ans.myVote == MyConst.ASK_VOTE_LIKE ? Colors.blue : Colors.grey[600],
@@ -220,8 +222,10 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                         ),
                       ),
                       Expanded(
-                        child: FlatButton.icon(
-                            padding: EdgeInsets.all(0),
+                        child: TextButton.icon(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.all(0),
+                            ),
                             onPressed: () async {
                               if (user.token == "") {
                                 Navigator.of(context).pushNamed("/login");
@@ -240,8 +244,10 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                             )),
                       ),
                       Expanded(
-                        child: FlatButton.icon(
-                          padding: EdgeInsets.all(0),
+                        child: TextButton.icon(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                          ),
                           onPressed: () async {
                             if (user.token == "") {
                               Navigator.of(context).pushNamed("/login");

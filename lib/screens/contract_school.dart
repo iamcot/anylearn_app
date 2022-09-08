@@ -439,7 +439,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                                   content: Text(
                                                       "Bạn vui lòng tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
                                                   actions: <Widget>[
-                                                    FlatButton(
+                                                    TextButton(
                                                       onPressed: () => Navigator.pop(context),
                                                       child: Text("Tôi sẽ đọc".toUpperCase()),
                                                     )

@@ -310,9 +310,10 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                               Container(
                                 height: 48.0,
                                 margin: const EdgeInsets.all(15.0),
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-                                  color: Colors.blue,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                  ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
                                       _user.fullContent = ""; //await keyEditor.currentState.getText();
