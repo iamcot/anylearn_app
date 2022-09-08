@@ -41,6 +41,7 @@ class AuthFailState extends AuthState {
 class AuthTokenFailState extends AuthState {}
 
 class AuthInProgressState extends AuthState {}
+
 class AuthContractInProgressState extends AuthState {}
 
 // class AuthContractSavingState extends AuthState {}
@@ -108,12 +109,26 @@ class AuthPassOtpSuccessState extends AuthState {}
 
 class AuthPassResetLoadingState extends AuthState {}
 
+class AuthPhoneResetLoadingState extends AuthState {}
+
 class AuthPassResetSuccessState extends AuthState {}
+
+class AuthPhoneResetSuccessState extends AuthState {}
+class AuthCheckPhoneOTPResetSuccessState extends AuthState {}
+
 
 class AuthPassOtpFailState extends AuthState {
   final String error;
 
   AuthPassOtpFailState({required this.error});
+
+  @override
+  List<Object> get props => [error];
+}
+class AuthPassResetFailState extends AuthState {
+  final String error;
+
+  AuthPassResetFailState({required this.error});
 
   @override
   List<Object> get props => [error];

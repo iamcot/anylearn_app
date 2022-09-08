@@ -1,3 +1,4 @@
+import 'package:anylearn/widgets/otpform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -14,11 +15,18 @@ class PasswordResetScreen extends StatefulWidget {
 class _PasswordResetScreen extends State<PasswordResetScreen> {
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _otpController = TextEditingController();
-  final _passwordConfirmController = TextEditingController();
+  // final _passwordController = TextEditingController();
+  // final _otpController = TextEditingController();
+  // final _passwordConfirmController = TextEditingController();
   late AuthBloc _authBloc;
   bool sentOTP = false;
+  late String _otp;
+  final TextEditingController _fieldOne = TextEditingController();
+  final TextEditingController _fieldTwo = TextEditingController();
+  final TextEditingController _fieldThree = TextEditingController();
+  final TextEditingController _fieldFour = TextEditingController();
+  final TextEditingController _fieldfive = TextEditingController();
+  final TextEditingController _fieldsix = TextEditingController();
 
   @override
   void didChangeDependencies() {
@@ -31,7 +39,7 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text("Khôi phục mật khẩu"),
+        title: Text("Nhập mã OTP"),
       ),
       body: BlocListener(
         bloc: _authBloc,
@@ -44,13 +52,13 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
           if (state is AuthPassOtpFailState) {
             toast(state.error);
           }
-          if (state is AuthPassResetSuccessState) {
+          if (state is AuthPhoneResetSuccessState) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
-                content: Text("Thay đổi mật khẩu thành công. Vui lòng đăng nhập lại"),
+                content: Text("Nhập mật khẩu cần thay đổi"),
               ));
-            Navigator.of(context).pop();
+            Navigator.of(context).popAndPushNamed("/passwordupdate");
           }
         },
         child: Form(
@@ -63,10 +71,14 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                   color: Colors.grey[100],
                 ),
                 child: Text(
-                  sentOTP ? "Nhập OTP từ SMS và mật khẩu mới" : "Nhập SDT để nhận OTP",
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey[600]),
+                  sentOTP ? "Nhập OTP từ SMS " : "Nhập SDT để nhận OTP",
+                  style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[600]),
                 ),
               ),
+              SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0, right: 30.0),
                 child: TextFormField(
@@ -84,85 +96,139 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                   ),
                 ),
               ),
+
               !sentOTP
                   ? Container()
                   : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        // Implement 6 input fields
                         Padding(
-                          padding: const EdgeInsets.only(left: 15.0, right: 30.0),
-                          child: TextFormField(
-                            controller: _otpController,
-                            validator: (value) {
-                              if (value! == "") {
-                                return "Bạn kiểm tra tin nhắn để lấy mã OTP nhé.";
-                              }
-                              _formKey.currentState!.save();
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Mã OTP",
-                              icon: Icon(MdiIcons.codeTags),
-                            ),
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              otpform(_fieldOne, true),
+                              otpform(_fieldTwo, false),
+                              otpform(_fieldThree, false),
+                              otpform(_fieldFour, false),
+                              otpform(_fieldfive, false),
+                              otpform(_fieldsix, false)
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0, right: 30.0),
-                          child: TextFormField(
-                            controller: _passwordController,
-                            validator: (value) {
-                              if (value!.length < 8) {
-                                return "Mật khẩu ít nhất 8 kí tự";
-                              }
-                              _formKey.currentState!.save();
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Mật khẩu mới",
-                              icon: Icon(MdiIcons.formTextboxPassword),
-                            ),
-                            obscureText: true,
-                          ),
+                        const SizedBox(
+                          height: 30,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0, right: 30.0),
-                          child: TextFormField(
-                            controller: _passwordConfirmController,
-                            validator: (value) {
-                              if (value != _passwordController.text) {
-                                return "Xác nhận mât khẩu không đúng";
-                              }
-                              _formKey.currentState!.save();
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Nhập lại mật khẩu mới",
-                              icon: Icon(MdiIcons.formTextboxPassword),
-                            ),
-                            obscureText: true,
-                          ),
+
+                        const SizedBox(
+                          height: 30,
                         ),
                       ],
                     ),
+
+              // : Column(
+              //     children: [
+              //       SizedBox(height: 20),
+              //       Padding(
+              //         padding:
+              //             const EdgeInsets.only(left: 15.0, right: 30.0),
+
+              //         child: TextFormField(
+              //           controller: _otpController,
+              //           validator: (value) {
+              //             if (value! == "") {
+              //               return "Bạn kiểm tra tin nhắn để lấy mã OTP nhé.";
+              //             }
+              //             _formKey.currentState!.save();
+              //             return null;
+              //           },
+              //           decoration: InputDecoration(
+              //             labelText: "Mã OTP",
+              //             icon: Icon(MdiIcons.codeTags),
+              //           ),
+              //         ),
+              //       ),
+              //       SizedBox(height: 10),
+              //       Padding(
+              //         padding:
+              //             const EdgeInsets.only(left: 15.0, right: 30.0),
+              //         child: TextFormField(
+              //           controller: _passwordController,
+              //           validator: (value) {
+              //             if (value!.length < 8) {
+              //               return "Mật khẩu ít nhất 8 kí tự";
+              //             }
+              //             _formKey.currentState!.save();
+              //             return null;
+              //           },
+              //           decoration: InputDecoration(
+              //             labelText: "Mật khẩu mới",
+              //             icon: Icon(MdiIcons.formTextboxPassword),
+              //           ),
+              //           obscureText: true,
+              //         ),
+              //       ),
+              //       SizedBox(height: 10),
+              //       Padding(
+              //         padding:
+              //             const EdgeInsets.only(left: 15.0, right: 30.0),
+              //         child: TextFormField(
+              //           controller: _passwordConfirmController,
+              //           validator: (value) {
+              //             if (value != _passwordController.text) {
+              //               return "Xác nhận mât khẩu không đúng";
+              //             }
+              //             _formKey.currentState!.save();
+              //             return null;
+              //           },
+              //           decoration: InputDecoration(
+              //             labelText: "Nhập lại mật khẩu mới",
+              //             icon: Icon(MdiIcons.formTextboxPassword),
+              //           ),
+              //           obscureText: true,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              SizedBox(height: 10),
               Container(
                 height: 36.0,
-                margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+                margin:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
                 child: BlocBuilder<AuthBloc, AuthState>(
                     bloc: _authBloc,
                     builder: (context, state) {
-                      if (state is AuthPassOtpLoadingState || state is AuthPassResetLoadingState) {
+                      if (state is AuthPassOtpLoadingState) {
                         return LoadingWidget();
                       }
                       return ElevatedButton(
                           onPressed: () {
+                            setState(() {
+                              _otp = _fieldOne.text +
+                                  _fieldTwo.text +
+                                  _fieldThree.text +
+                                  _fieldFour.text +
+                                  _fieldfive.text +
+                                  _fieldsix.text;
+                            });
                             if (!sentOTP) {
-                              _authBloc..add(AuthPassOtpEvent(phone: _phoneController.text));
+                              _authBloc
+                                ..add(AuthPassOtpEvent(
+                                    phone: _phoneController.text));
                             } else {
                               _authBloc
-                                ..add(AuthPassResetEvent(
+                                ..add(AuthPhoneResetEvent(
                                   phone: _phoneController.text,
-                                  otp: _otpController.text,
-                                  password: _passwordController.text,
-                                  confirmPassword: _passwordConfirmController.text,
+                                  otp: _otp,
+                                  // otp: _otpController.text,
+
+                                  // password: _passwordController.text,
+                                  // confirmPassword:
+                                  //     _passwordConfirmController.text,
                                 ));
                             }
                           },
