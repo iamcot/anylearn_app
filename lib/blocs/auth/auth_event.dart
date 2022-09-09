@@ -108,44 +108,28 @@ class AuthPassOtpEvent extends AuthEvent {
   String toString() => 'AuthPassOtpEvent phone: $phone';
 }
 
-class AuthPhoneResetEvent extends AuthEvent {
+class AuthCheckOtpEvent extends AuthEvent {
   final String otp;
   final String phone;
-  // final String password;
-  // final String confirmPassword;
-  const AuthPhoneResetEvent({
-    required this.phone,
-    required this.otp,
-  });
-
-  @override
-  List<Object> get props => [phone];
-
-  @override
-  String toString() => 'AuthPhoneResetEvent phone: $phone';
-}
-class AuthOTPResetEvent extends AuthEvent {
-  final String otp;
-  // final String phone;
-  // final String password;
-  // final String confirmPassword;
-  const AuthOTPResetEvent({
-    // required this.phone,
-    required this.otp,
-  });
+  const AuthCheckOtpEvent({required this.otp, required this.phone});
 
   @override
   List<Object> get props => [otp];
 
   @override
-  String toString() => 'AuthOTPResetEvent phone: $otp';
+  String toString() => 'AuthCheckOtpEvent otp: $otp';
 }
 
 class AuthPassResetEvent extends AuthEvent {
+  final String otp;
+  final String phone;
   final String password;
   final String confirmPassword;
   const AuthPassResetEvent(
-      {required this.password, required this.confirmPassword});
+      {required this.password,
+      required this.confirmPassword,
+      required this.phone,
+      required this.otp});
 
   @override
   List<Object> get props => [password];

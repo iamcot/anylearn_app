@@ -36,7 +36,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
     super.didChangeDependencies();
     final userRepo = RepositoryProvider.of<UserRepository>(context);
     accountBloc = AccountBloc(userRepository: userRepo);
-    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent(isFull: true));
+    _authBloc = BlocProvider.of<AuthBloc>(context)
+      ..add(AuthCheckEvent(isFull: true));
   }
 
   @override
@@ -64,8 +65,11 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    _user.fullContent = ""; //await keyEditor.currentState.getText();
-                    accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
+                    _user.fullContent =
+                        ""; //await keyEditor.currentState.getText();
+                    accountBloc
+                      ..add(
+                          AccEditSubmitEvent(user: _user, token: _user.token));
                   }
                 })
           ],
@@ -124,14 +128,17 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                           child: ListView(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                                padding:
+                                    EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                                 decoration: BoxDecoration(
                                   color: Colors.grey[100],
                                 ),
                                 child: Text(
                                   "Chỉnh sửa thông tin cá nhân của bạn",
-                                  style:
-                                      TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey[600]),
+                                  style: TextStyle(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[600]),
                                 ),
                               ),
                               Stack(
@@ -141,7 +148,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0),
                                 child: TextFormField(
                                   initialValue: _user.name,
                                   onSaved: (value) {
@@ -163,7 +171,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0),
                                 child: TextFormField(
                                   initialValue: _user.refcode,
                                   validator: (value) {
@@ -185,7 +194,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0),
                                 child: TextFormField(
                                   initialValue: _user.title,
                                   onSaved: (value) {
@@ -195,13 +205,16 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   },
                                   decoration: InputDecoration(
                                     labelText: "Chức danh" +
-                                        (_user.role == MyConst.ROLE_SCHOOL ? " & Tên người đại diện" : ""),
+                                        (_user.role == MyConst.ROLE_SCHOOL
+                                            ? " & Tên người đại diện"
+                                            : ""),
                                     icon: Icon(MdiIcons.officeBuilding),
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0),
                                 child: TextFormField(
                                   initialValue: _user.phone,
                                   onSaved: (value) {
@@ -224,7 +237,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0),
                                 child: TextFormField(
                                   initialValue: _user.email,
                                   onSaved: (value) {
@@ -247,7 +261,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0),
                                 child: TextFormField(
                                   initialValue: _user.address,
                                   onSaved: (value) {
@@ -262,7 +277,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0),
                                 child: TextFormField(
                                   initialValue: _user.country,
                                   onSaved: (value) {
@@ -277,7 +293,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0),
                                 child: TextFormField(
                                   maxLines: 3,
                                   initialValue: _user.introduce,
@@ -293,8 +310,10 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15),
-                                child: Text("Thông tin giới thiệu vui lòng cập nhật từ website"),
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0, top: 15),
+                                child: Text(
+                                    "Thông tin giới thiệu vui lòng cập nhật từ website"),
                               ),
                               // Padding(
                               //   padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 15),
@@ -311,14 +330,14 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 height: 48.0,
                                 margin: const EdgeInsets.all(15.0),
                                 child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue,
-                                  ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      _user.fullContent = ""; //await keyEditor.currentState.getText();
+                                      _user.fullContent =
+                                          ""; //await keyEditor.currentState.getText();
                                       _formKey.currentState!.save();
-                                      accountBloc..add(AccEditSubmitEvent(user: _user, token: _user.token));
+                                      accountBloc
+                                        ..add(AccEditSubmitEvent(
+                                            user: _user, token: _user.token));
                                     }
                                   },
                                   child: BlocBuilder(
@@ -329,7 +348,9 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                       }
                                       return Text(
                                         "Lưu thay đổi",
-                                        style: TextStyle(fontSize: 16.0, color: Colors.white),
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            color: Colors.white),
                                       );
                                     },
                                   ),
@@ -353,7 +374,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
       source: ImageSource.gallery,
     );
     if (image != null) {
-      accountBloc..add(AccChangeBannerEvent(token: _user.token, file: File(image.path)));
+      accountBloc
+        ..add(AccChangeBannerEvent(token: _user.token, file: File(image.path)));
     }
   }
 
@@ -363,7 +385,8 @@ class _AccountEditScreen extends State<AccountEditScreen> {
     );
 
     if (image != null) {
-      accountBloc..add(AccChangeAvatarEvent(token: _user.token, file: File(image.path)));
+      accountBloc
+        ..add(AccChangeAvatarEvent(token: _user.token, file: File(image.path)));
     }
   }
 

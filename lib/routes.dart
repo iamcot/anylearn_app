@@ -1,5 +1,4 @@
 import 'package:anylearn/screens/password_reset.dart';
-import 'package:anylearn/screens/password_update.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
@@ -86,5 +85,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/contract/sign": (BuildContext context) => ContractSignScreen(),
   // "/draw": (BuildContext context) => DrawScreen(),
   "/resetPassword": (BuildContext context) => PasswordResetScreen(),
-  "/passwordupdate": (BuildContext context) => PasswordupdateScreen(),
+  // "/passwordupdate": (BuildContext context) => PasswordupdateScreen(),
 };

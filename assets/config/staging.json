@@ -1,0 +1,5 @@
+{
+    "apiUrl": "https://test.anylearn.vn/api",
+    "webUrl":"https://test.anylearn.vn/",
+    "tokenParam" : "api_token"
+}

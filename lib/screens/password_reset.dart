@@ -15,11 +15,13 @@ class PasswordResetScreen extends StatefulWidget {
 class _PasswordResetScreen extends State<PasswordResetScreen> {
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
-  // final _passwordController = TextEditingController();
+  final _passwordController = TextEditingController();
   // final _otpController = TextEditingController();
-  // final _passwordConfirmController = TextEditingController();
+  final _passwordConfirmController = TextEditingController();
   late AuthBloc _authBloc;
   bool sentOTP = false;
+  int steps = 1;
+  bool checkotp = false;
   late String _otp;
   final TextEditingController _fieldOne = TextEditingController();
   final TextEditingController _fieldTwo = TextEditingController();
@@ -47,18 +49,29 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
           if (state is AuthPassOtpSuccessState) {
             setState(() {
               sentOTP = true;
+              steps = 2;
             });
           }
+
           if (state is AuthPassOtpFailState) {
             toast(state.error);
           }
-          if (state is AuthPhoneResetSuccessState) {
+          if (state is AuthCheckPhoneOTPResetSuccessState) {
+            setState(() {
+              checkotp = true;
+              steps = 3;
+            });
+          } else if (state is AuthCheckPhoneOtpFailState) {
+            toast(state.error);
+          }
+          if (state is AuthPassResetSuccessState) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
-                content: Text("Nhập mật khẩu cần thay đổi"),
+                content: Text(
+                    "Thay đổi mật khẩu thành công. Vui lòng đăng nhập lại"),
               ));
-            Navigator.of(context).popAndPushNamed("/passwordupdate");
+            Navigator.of(context).pop();
           }
         },
         child: Form(
@@ -79,27 +92,27 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                 ),
               ),
               SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0, right: 30.0),
-                child: TextFormField(
-                  controller: _phoneController,
-                  validator: (value) {
-                    if (value == "") {
-                      return "Bạn quên nhập số điện thoại rồi nè.";
-                    }
-                    _formKey.currentState!.save();
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Số điện thoại",
-                    icon: Icon(MdiIcons.phone),
-                  ),
-                ),
-              ),
-
-              !sentOTP
-                  ? Container()
-                  : Column(
+              steps == 1
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 15.0, right: 30.0),
+                      child: TextFormField(
+                        controller: _phoneController,
+                        validator: (value) {
+                          if (value == "") {
+                            return "Bạn quên nhập số điện thoại rồi nè.";
+                          }
+                          _formKey.currentState!.save();
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Số điện thoại",
+                          icon: Icon(MdiIcons.phone),
+                        ),
+                      ),
+                    )
+                  : Container(),
+              steps == 2
+                  ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(
@@ -128,72 +141,73 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                           height: 30,
                         ),
                       ],
-                    ),
-
-              // : Column(
-              //     children: [
-              //       SizedBox(height: 20),
-              //       Padding(
-              //         padding:
-              //             const EdgeInsets.only(left: 15.0, right: 30.0),
-
-              //         child: TextFormField(
-              //           controller: _otpController,
-              //           validator: (value) {
-              //             if (value! == "") {
-              //               return "Bạn kiểm tra tin nhắn để lấy mã OTP nhé.";
-              //             }
-              //             _formKey.currentState!.save();
-              //             return null;
-              //           },
-              //           decoration: InputDecoration(
-              //             labelText: "Mã OTP",
-              //             icon: Icon(MdiIcons.codeTags),
-              //           ),
-              //         ),
-              //       ),
-              //       SizedBox(height: 10),
-              //       Padding(
-              //         padding:
-              //             const EdgeInsets.only(left: 15.0, right: 30.0),
-              //         child: TextFormField(
-              //           controller: _passwordController,
-              //           validator: (value) {
-              //             if (value!.length < 8) {
-              //               return "Mật khẩu ít nhất 8 kí tự";
-              //             }
-              //             _formKey.currentState!.save();
-              //             return null;
-              //           },
-              //           decoration: InputDecoration(
-              //             labelText: "Mật khẩu mới",
-              //             icon: Icon(MdiIcons.formTextboxPassword),
-              //           ),
-              //           obscureText: true,
-              //         ),
-              //       ),
-              //       SizedBox(height: 10),
-              //       Padding(
-              //         padding:
-              //             const EdgeInsets.only(left: 15.0, right: 30.0),
-              //         child: TextFormField(
-              //           controller: _passwordConfirmController,
-              //           validator: (value) {
-              //             if (value != _passwordController.text) {
-              //               return "Xác nhận mât khẩu không đúng";
-              //             }
-              //             _formKey.currentState!.save();
-              //             return null;
-              //           },
-              //           decoration: InputDecoration(
-              //             labelText: "Nhập lại mật khẩu mới",
-              //             icon: Icon(MdiIcons.formTextboxPassword),
-              //           ),
-              //           obscureText: true,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
+                    )
+                  : Container(),
+              steps == 3
+                  ? Column(
+                      children: [
+                        // SizedBox(height: 20),
+                        // Padding(
+                        //   padding:
+                        //       const EdgeInsets.only(left: 15.0, right: 30.0),
+                        //   child: TextFormField(
+                        //     controller: _otp,
+                        //     validator: (value) {
+                        //       if (value! == "") {
+                        //         return "Bạn kiểm tra tin nhắn để lấy mã OTP nhé.";
+                        //       }
+                        //       _formKey.currentState!.save();
+                        //       return null;
+                        //     },
+                        //     decoration: InputDecoration(
+                        //       labelText: "Mã OTP",
+                        //       icon: Icon(MdiIcons.codeTags),
+                        //     ),
+                        //   ),
+                        // ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 15.0, right: 30.0),
+                          child: TextFormField(
+                            controller: _passwordController,
+                            validator: (value) {
+                              if (value!.length < 8) {
+                                return "Mật khẩu ít nhất 8 kí tự";
+                              }
+                              _formKey.currentState!.save();
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: "Mật khẩu mới",
+                              icon: Icon(MdiIcons.formTextboxPassword),
+                            ),
+                            obscureText: true,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 15.0, right: 30.0),
+                          child: TextFormField(
+                            controller: _passwordConfirmController,
+                            validator: (value) {
+                              if (value != _passwordController.text) {
+                                return "Xác nhận mât khẩu không đúng";
+                              }
+                              _formKey.currentState!.save();
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: "Nhập lại mật khẩu mới",
+                              icon: Icon(MdiIcons.formTextboxPassword),
+                            ),
+                            obscureText: true,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Container(),
               SizedBox(height: 10),
               Container(
                 height: 36.0,
@@ -215,20 +229,25 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                                   _fieldfive.text +
                                   _fieldsix.text;
                             });
-                            if (!sentOTP) {
+
+                            if (steps == 1) {
                               _authBloc
                                 ..add(AuthPassOtpEvent(
                                     phone: _phoneController.text));
-                            } else {
+                            } else if (steps == 2) {
                               _authBloc
-                                ..add(AuthPhoneResetEvent(
+                                ..add(AuthCheckOtpEvent(
+                                    otp: _otp, phone: _phoneController.text));
+                            } else if (steps == 3) {
+                              _authBloc
+                                ..add(AuthPassResetEvent(
                                   phone: _phoneController.text,
                                   otp: _otp,
                                   // otp: _otpController.text,
 
-                                  // password: _passwordController.text,
-                                  // confirmPassword:
-                                  //     _passwordConfirmController.text,
+                                  password: _passwordController.text,
+                                  confirmPassword:
+                                      _passwordConfirmController.text,
                                 ));
                             }
                           },

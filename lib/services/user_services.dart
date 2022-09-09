@@ -285,34 +285,29 @@ class UserService extends BaseService {
     return json['result'];
   }
 
-  Future<bool> phoneOtp(
-    String phone,
-    String otp,
-  ) async {
-    final url = buildUrl(appConfig: config, endPoint: "/password/otp");
+  Future<bool> resetOtp(String phone , String otp ,String password, String passwordConfirm) async {
+    final url = buildUrl(appConfig: config, endPoint: "/password/reset");
     final json = await post(httpClient, url, {
       "phone": phone,
       "otp": otp,
-      // "password": password,
-      // "password_confirmation": passwordConfirm,
-    });
-    return json['result'];
-  }
-
-  Future<bool> resetpassOtp(String password, String passwordConfirm) async {
-    final url = buildUrl(appConfig: config, endPoint: "/password/reset");
-    final json = await post(httpClient, url, {
-      // "phone": phone,
-      // "otp": otp,
       "password": password,
       "password_confirmation": passwordConfirm,
     });
     return json['result'];
   }
-  Future<bool> checkOtp(String otp) async {
+
+  // Future<bool> checkOtp(String otp) async {
+  //   final url = buildUrl(
+  //       appConfig: config,
+  //       endPoint: "/password/otp/check",
+  //       query: buildQuery({"otp": otp}));
+  //   final json = await get(httpClient, url);
+  //   return json['result'];
+  // }
+  Future<bool> checkOtp(String otp, String phone) async {
     final url = buildUrl(appConfig: config, endPoint: "/otp/check");
     final json = await post(httpClient, url, {
-      // "phone": phone,
+      "phone": phone,
       "otp": otp,
       // "password": password,
       // "password_confirmation": passwordConfirm,

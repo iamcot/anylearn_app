@@ -159,15 +159,12 @@ class UserRepository {
     return await userService.sentOtp(phone);
   }
 
-  Future<bool> phoneOtp(String phone, String otp) async {
-    return await userService.phoneOtp(phone, otp);
+  Future<bool> resetOtp(
+      String phone, String otp,String password, String passwordConfirm) async {
+    return await userService.resetOtp(phone, otp ,password, passwordConfirm);
   }
 
-  Future<bool> resetpassOtp(String password, String passwordConfirm) async {
-    return await userService.resetpassOtp(password, passwordConfirm);
-  }
-
-  Future<bool> checkOtp(String otp) async {
-    return await userService.checkOtp(otp);
+  Future<bool> checkOtp(String otp,String phone) async {
+    return await userService.checkOtp(otp,phone);
   }
 }

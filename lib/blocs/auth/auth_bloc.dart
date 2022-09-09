@@ -95,22 +95,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
       if (event is AuthPassResetEvent) {
         yield AuthPassResetLoadingState();
-        await userRepository.resetpassOtp(
-            event.password, event.confirmPassword);
+        await userRepository.resetOtp( event.phone,event.otp,event.password, event.confirmPassword);
         yield AuthPassResetSuccessState();
-      }
-      if (event is AuthPhoneResetEvent) {
-        yield AuthPhoneResetLoadingState();
-        await userRepository.phoneOtp(event.phone, event.otp);
-        yield AuthPhoneResetSuccessState();
-      }
-      if (event is AuthOTPResetEvent) {
-        yield AuthPhoneResetLoadingState();
-        await userRepository.checkOtp(event.otp);
-        yield AuthPhoneResetSuccessState();
       }
     } catch (error) {
       yield AuthPassOtpFailState(error: error.toString());
+    }
+    try {
+      if (event is AuthCheckOtpEvent) {
+        yield AuthCheckPhoneOTPLoadingState();
+        await userRepository.checkOtp(event.otp , event.phone);
+        yield AuthCheckPhoneOTPResetSuccessState();
+      }
+    } catch (error) {
+      yield AuthCheckPhoneOtpFailState(error: error.toString());
     }
   }
 }
