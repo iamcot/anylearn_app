@@ -23,7 +23,7 @@ class AskCatBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               data.currentPage > 1
-                  ? FlatButton.icon(
+                  ? TextButton.icon(
                       onPressed: () async {
                         articleBloc..add(ArticleTypeEvent(type: type, page: (data.currentPage - 1)));
                       },
@@ -32,7 +32,7 @@ class AskCatBody extends StatelessWidget {
                     )
                   : SizedBox(height: 0),
               data.lastPage > data.currentPage
-                  ? FlatButton.icon(
+                  ? TextButton.icon(
                       onPressed: () async {
                         articleBloc..add(ArticleTypeEvent(type: type, page: (data.currentPage + 1)));
                       },

@@ -69,11 +69,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                         children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.all(15),
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  color: Colors.blue,
+                                child: ElevatedButton(
                                   onPressed: () async {
                                     final PickedFile? image = await _imagePicker.getImage(
                                       source: ImageSource.camera,
@@ -130,13 +126,15 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                             },
                                                             child: Text("Bỏ qua"),
                                                           ),
-                                                          RaisedButton(
+                                                          ElevatedButton(
                                                               onPressed: () {
                                                                 accountBloc
                                                                   ..add(AccRemoveDocEvent(token: token, fileId: e.id));
                                                                 Navigator.of(context).pop();
                                                               },
-                                                              color: Colors.red,
+                                                              style: ElevatedButton.styleFrom(
+                                                                backgroundColor: Colors.red,
+                                                              ),
                                                               child: Text("Xóa"))
                                                         ]),
                                                   );

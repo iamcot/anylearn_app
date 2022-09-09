@@ -51,6 +51,7 @@ class _PDPScreen extends State<PDPScreen> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
+            BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
             pdpBloc..add(LoadPDPEvent(id: itemId, token: user.token));
           },
           child: BlocListener<PdpBloc, PdpState>(

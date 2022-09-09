@@ -10,8 +10,10 @@ class FeatureIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      padding: EdgeInsets.all(0.0),
+    return TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

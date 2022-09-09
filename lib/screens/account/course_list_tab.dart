@@ -15,7 +15,8 @@ class CourseList extends StatelessWidget {
   final List<ItemDTO> list;
   final shortDayFormat = DateFormat("dd/MM");
 
-  CourseList({key, required this.list, required this.hasMenu, required this.courseBloc, required this.user}) : super(key: key);
+  CourseList({key, required this.list, required this.hasMenu, required this.courseBloc, required this.user})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return list.length > 0
@@ -56,13 +57,15 @@ class CourseList extends StatelessWidget {
                                         content: Text(
                                             "Bạn chắc chắn muốn đóng lớp này? Lớp đã đóng không thể mở lại, xin hãy xác nhận."),
                                         actions: <Widget>[
-                                          FlatButton(
+                                          TextButton(
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
                                               child: Text("Quay lại")),
-                                          RaisedButton(
-                                              color: Colors.red,
+                                          ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.red,
+                                              ),
                                               child: Text("Hủy lớp"),
                                               onPressed: () {
                                                 courseBloc.add(CourseChangeUserStatusEvent(

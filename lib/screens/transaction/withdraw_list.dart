@@ -63,14 +63,10 @@ class WithdrawList extends StatelessWidget {
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.all(8.0),
-                                              child: RaisedButton(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10.0),
-                                                ),
+                                              child: ElevatedButton(
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },
-                                                color: Colors.blue,
                                                 child: Text(
                                                   "OK",
                                                   style: TextStyle(color: Colors.white),
