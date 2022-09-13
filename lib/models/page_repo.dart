@@ -157,4 +157,7 @@ class PageRepository {
   Future<List<String>> searchTags() async {
     return await configService.searchTags();
   }
+  Future<List<String>> suggestFromKeyword() async {
+    return await configService.suggestFromKeyword();
+  }
 }

@@ -15,17 +15,24 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     try {
       if (event is SearchUserEvent) {
         yield SearchLoadingState();
-        final result = await pageRepository.searchUser(event.screen, event.query);
+        final result =
+            await pageRepository.searchUser(event.screen, event.query);
         yield SearchUserSuccessState(users: result);
       } else if (event is SearchItemEvent) {
         yield SearchLoadingState();
-        final result = await pageRepository.searchItem(event.screen, event.query);
+        final result =
+            await pageRepository.searchItem(event.screen, event.query);
         yield SearchItemSuccessState(items: result);
       }
       if (event is SearchTagsEvent) {
         yield SearchTagsLoadingState();
         final tags = await pageRepository.searchTags();
         yield SearchTagsSuccessState(tags: tags);
+      }
+      if (event is suggestFromKeywordEvent) {
+        yield suggestFromKeywordLoadingState();
+        final key = await pageRepository.suggestFromKeyword();
+        yield suggestFromKeywordSuccessState(key: key);
       }
     } catch (error, trace) {
       yield SearchFailState(error: error.toString());

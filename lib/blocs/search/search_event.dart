@@ -35,3 +35,10 @@ class SearchTagsEvent extends SearchEvent {
   @override
   String toString() => 'SearchTagsEvent {}';
 }
+class suggestFromKeywordEvent extends SearchEvent {
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'suggestFromKeywordEvent {}';
+}

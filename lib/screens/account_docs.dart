@@ -133,7 +133,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                                 Navigator.of(context).pop();
                                                               },
                                                               style: ElevatedButton.styleFrom(
-                                                                backgroundColor: Colors.red,
+                                                                primary: Colors.red,
                                                               ),
                                                               child: Text("Xóa"))
                                                         ]),

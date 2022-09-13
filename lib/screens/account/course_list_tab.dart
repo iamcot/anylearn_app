@@ -64,7 +64,7 @@ class CourseList extends StatelessWidget {
                                               child: Text("Quay lại")),
                                           ElevatedButton(
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.red,
+                                                primary: Colors.red,
                                               ),
                                               child: Text("Hủy lớp"),
                                               onPressed: () {

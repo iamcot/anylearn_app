@@ -8,9 +8,9 @@ import 'custom_cached_image.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   final screen;
-
-  CustomSearchDelegate({this.screen});
-
+  // final sugestion = tags ;
+  CustomSearchDelegate({required this.screen});
+// final SearchUserEvent  _tags = SearchEvent();
   @override
   String get searchFieldLabel {
     if (screen == "school") {
@@ -54,9 +54,11 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     if (screen == "school" || screen == "teacher") {
-      BlocProvider.of<SearchBloc>(context)..add(SearchUserEvent(screen: screen, query: query));
+      BlocProvider.of<SearchBloc>(context)
+        ..add(SearchUserEvent(screen: screen, query: query));
     } else {
-      BlocProvider.of<SearchBloc>(context)..add(SearchItemEvent(screen: screen, query: query));
+      BlocProvider.of<SearchBloc>(context)
+        ..add(SearchItemEvent(screen: screen, query: query));
     }
     return BlocBuilder<SearchBloc, SearchState>(
       bloc: BlocProvider.of<SearchBloc>(context),
@@ -80,7 +82,8 @@ class CustomSearchDelegate extends SearchDelegate {
                           title: Text(users[index].name),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
-                            Navigator.of(context).pushNamed("/items/$screen", arguments: users[index].id);
+                            Navigator.of(context).pushNamed("/items/$screen",
+                                arguments: users[index].id);
                           },
                         );
                       },
@@ -107,11 +110,14 @@ class CustomSearchDelegate extends SearchDelegate {
                                       url: items[index].image,
                                     )),
                           title: Text(items[index].title),
-                          subtitle: Text((items[index].authorType == "school" ? "Trung tâm: " : "Giảng viên: ") +
+                          subtitle: Text((items[index].authorType == "school"
+                                  ? "Trung tâm: "
+                                  : "Giảng viên: ") +
                               items[index].authorName),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
-                            Navigator.of(context).pushNamed("/pdp", arguments: items[index].id);
+                            Navigator.of(context)
+                                .pushNamed("/pdp", arguments: items[index].id);
                           },
                         );
                       },
@@ -128,34 +134,66 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return (screen == "teacher" || screen == "school")
-        ? Text("")
-        : BlocBuilder<SearchBloc, SearchState>(
-            bloc: BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent()),
-            builder: (context, state) {
-              if (state is SearchTagsSuccessState) {
-                return Container(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                            "@${state.tags[index]}",
-                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                          ),
-                          trailing: Icon(Icons.chevron_right),
-                          onTap: () {
-                            query = "@${state.tags[index]}";
-                            showResults(context);
-                          },
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return Divider();
-                      },
-                      itemCount: state.tags.length),
-                );
-              }
-              return CircularProgressIndicator();
-            });
+    if (query.isEmpty) {
+      BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent());
+    } else {
+      BlocProvider.of<SearchBloc>(context)..add(suggestFromKeywordEvent());
+    }
+    return
+        // (screen == "school" || screen == "teacher")
+        //     ? Text("") :
+        BlocBuilder<SearchBloc, SearchState>(
+      bloc: BlocProvider.of<SearchBloc>(context),
+      builder: (context, state) {
+        if (state is SearchTagsSuccessState) {
+          return Container(
+            child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      "@${state.tags[index]}",
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Icon(Icons.chevron_right),
+                    onTap: () {
+                      query = "@${state.tags[index]}";
+                      showResults(context);
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider();
+                },
+                itemCount: state.tags.length),
+          );
+        }
+        if (state is suggestFromKeywordSuccessState) {
+          return Container(
+            child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      "@${state.key[index]}",
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Icon(Icons.chevron_right),
+                    onTap: () {
+                      query = "@${state.key[index]}";
+                      showResults(context);
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider();
+                },
+                itemCount: state.key.length),
+          );
+        }
+
+        return CircularProgressIndicator();
+      },
+    );
   }
 }

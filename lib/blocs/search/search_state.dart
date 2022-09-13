@@ -44,3 +44,12 @@ class SearchTagsSuccessState extends SearchState {
   @override
   List<Object> get props => [tags];
 }
+
+class suggestFromKeywordLoadingState extends SearchState {}
+
+class suggestFromKeywordSuccessState extends SearchState {
+  final List<String> key;
+  suggestFromKeywordSuccessState({required this.key});
+  @override
+  List<Object> get props => [key];
+}

@@ -18,9 +18,14 @@ class SearchBox extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.only(bottom: 10.0),
-            child: Text.rich(TextSpan(
-                text: "Tìm kiếm Trường học và Chuyên gia hàng đầu\n Khóa học Offline và Online",
-              ), textAlign: TextAlign.center, style: TextStyle(color: Colors.grey[600]),),
+            child: Text.rich(
+              TextSpan(
+                text:
+                    "Tìm kiếm Trường học và Chuyên gia hàng đầu\n Khóa học Offline và Online",
+              ),
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey[600]),
+            ),
           ),
           Container(
             decoration: BoxDecoration(
@@ -34,18 +39,27 @@ class SearchBox extends StatelessWidget {
             ),
             margin: const EdgeInsets.only(right: 20.0, left: 20.0),
             child: TextFormField(
+              cursorColor: Colors.white,
+              readOnly: true,
               autofocus: false,
               controller: searchController,
               onTap: () {
-                showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
+                showSearch(
+                    context: context,
+                    delegate: CustomSearchDelegate(screen: "" ,),
+                    query: searchController.text);
               },
               onFieldSubmitted: (value) {
-                showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: value);
+                showSearch(
+                    context: context,
+                    delegate: CustomSearchDelegate(screen: ""),
+                    query: value);
               },
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(color: Colors.transparent, width: 0),
