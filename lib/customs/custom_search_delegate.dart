@@ -137,7 +137,8 @@ class CustomSearchDelegate extends SearchDelegate {
     if (query.isEmpty) {
       BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent());
     } else {
-      BlocProvider.of<SearchBloc>(context)..add(suggestFromKeywordEvent());
+      BlocProvider.of<SearchBloc>(context)
+        ..add(suggestFromKeywordEvent(screen: screen, query: query));
     }
     return
         // (screen == "school" || screen == "teacher")

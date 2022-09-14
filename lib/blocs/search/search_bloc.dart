@@ -31,7 +31,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       }
       if (event is suggestFromKeywordEvent) {
         yield suggestFromKeywordLoadingState();
-        final key = await pageRepository.suggestFromKeyword();
+        final key = await pageRepository.suggestFromKeyword(event.screen, event.query);
         yield suggestFromKeywordSuccessState(key: key);
       }
     } catch (error, trace) {
