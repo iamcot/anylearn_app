@@ -93,9 +93,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await userRepository.sentOtp(event.phone);
         yield AuthPassOtpSuccessState();
       }
+      if (event is AuthResentOtpEvent) {
+        yield AuthResentOtpLoadingState();
+        await userRepository.ResentOtp(event.phone);
+        yield AuthResentOtpSuccessState();
+      }
+
       if (event is AuthPassResetEvent) {
         yield AuthPassResetLoadingState();
-        await userRepository.resetOtp( event.phone,event.otp,event.password, event.confirmPassword);
+        await userRepository.resetOtp(
+            event.phone, event.otp, event.password, event.confirmPassword);
         yield AuthPassResetSuccessState();
       }
     } catch (error) {
@@ -104,7 +111,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       if (event is AuthCheckOtpEvent) {
         yield AuthCheckPhoneOTPLoadingState();
-        await userRepository.checkOtp(event.otp , event.phone);
+        await userRepository.checkOtp(event.otp, event.phone);
         yield AuthCheckPhoneOTPResetSuccessState();
       }
     } catch (error) {

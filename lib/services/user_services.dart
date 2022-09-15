@@ -284,6 +284,14 @@ class UserService extends BaseService {
     final json = await get(httpClient, url);
     return json['result'];
   }
+  // Future<bool> resentOtp(String phone) async {
+  //   final url = buildUrl(
+  //       appConfig: config,
+  //       endPoint: "/password/otp",
+  //       query: buildQuery({"phone": phone}));
+  //   final json = await get(httpClient, url);
+  //   return json['result'];
+  // }
 
   Future<bool> resetOtp(String phone , String otp ,String password, String passwordConfirm) async {
     final url = buildUrl(appConfig: config, endPoint: "/password/reset");
