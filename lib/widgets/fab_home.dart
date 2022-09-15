@@ -13,7 +13,8 @@ class FloatingActionButtonHome extends StatelessWidget {
       child: FittedBox(
         child: FloatingActionButton(
           heroTag: "homeBtn",
-          backgroundColor: isHome != null && isHome ? Colors.green[600] : Colors.grey[500],
+          backgroundColor:
+              isHome != null && isHome ? Colors.green[600] : Colors.grey[500],
           onPressed: () {
             return Navigator.of(context).popUntil(ModalRoute.withName("/"));
           },

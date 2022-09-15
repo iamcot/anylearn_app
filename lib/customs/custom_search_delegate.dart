@@ -134,48 +134,46 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-
     if (query.isEmpty) {
       BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent());
     } else {
-    if (screen == "school" || screen == "teacher") {
-      BlocProvider.of<SearchBloc>(context)
-        ..add(SearchUserEvent(screen: screen, query: query));
-    } else {
-      BlocProvider.of<SearchBloc>(context)
-        ..add(SearchItemEvent(screen: screen, query: query));
-    }
+      if (screen == "school" || screen == "teacher") {
+        BlocProvider.of<SearchBloc>(context)
+          ..add(SearchUserEvent(screen: screen, query: query));
+      } else {
+        BlocProvider.of<SearchBloc>(context)
+          ..add(SearchItemEvent(screen: screen, query: query));
+      }
     }
     // return (screen == "school" || screen == "teacher")
     //     ? Text("") :
-        return BlocBuilder<SearchBloc, SearchState>(
-            bloc: BlocProvider.of<SearchBloc>(context),
-            builder: (context, state) {
-              if (state is SearchTagsSuccessState) {
-                return Container(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                            "@${state.tags[index]}",
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          trailing: Icon(Icons.chevron_right),
-                          onTap: () {
-                            query = "@${state.tags[index]}";
-                            showResults(context);
-                          },
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return Divider();
-                      },
-                      itemCount: state.tags.length),
-                );
-              }
-             if (state is SearchUserSuccessState) {
+    return BlocBuilder<SearchBloc, SearchState>(
+      bloc: BlocProvider.of<SearchBloc>(context),
+      builder: (context, state) {
+        if (state is SearchTagsSuccessState) {
+          return Container(
+            child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      "@${state.tags[index]}",
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Icon(Icons.chevron_right),
+                    onTap: () {
+                      query = "@${state.tags[index]}";
+                      showResults(context);
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider();
+                },
+                itemCount: state.tags.length ),
+          );
+        }
+        if (state is SearchUserSuccessState) {
           final List<UserDTO> users = state.users;
           return users == null || users.length == 0
               ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."))
@@ -205,7 +203,7 @@ class CustomSearchDelegate extends SearchDelegate {
                       itemCount: users.length),
                 );
         }
-         if (state is SearchItemSuccessState) {
+        if (state is SearchItemSuccessState) {
           final List<ItemDTO> items = state.items;
           return items == null || items.length == 0
               ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."))
@@ -239,8 +237,8 @@ class CustomSearchDelegate extends SearchDelegate {
                       itemCount: items.length),
                 );
         }
-              return CircularProgressIndicator();
-            },
-          );
+        return CircularProgressIndicator();
+      },
+    );
   }
 }

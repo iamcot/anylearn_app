@@ -11,7 +11,9 @@ abstract class SearchState extends Equatable {
 
 class SearchInitState extends SearchState {}
 
-class SearchLoadingState extends SearchState {}
+class SearchLoadingState extends SearchState {
+  
+}
 
 class SearchUserSuccessState extends SearchState {
   final List<UserDTO> users;

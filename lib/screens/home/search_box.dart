@@ -1,13 +1,27 @@
+import 'dart:async';
+
 import '../../dto/user_dto.dart';
 import 'package:flutter/material.dart';
 
 import '../../customs/custom_search_delegate.dart';
 
-class SearchBox extends StatelessWidget {
-  final searchController = TextEditingController();
+class SearchBox extends StatefulWidget {
   final user;
 
   SearchBox({key, this.user}) : super(key: key);
+
+  @override
+  State<SearchBox> createState() => _SearchBoxState();
+}
+
+class _SearchBoxState extends State<SearchBox> {
+  final searchController = TextEditingController();
+
+  Timer? _debounce;
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +60,28 @@ class SearchBox extends StatelessWidget {
               onTap: () {
                 showSearch(
                     context: context,
-                    delegate: CustomSearchDelegate(screen: "" ,),
+                    delegate: CustomSearchDelegate(
+                      screen: "",
+                    ),
                     query: searchController.text);
               },
               onFieldSubmitted: (value) {
                 showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(screen: ""),
-                    query: value);
+                  context: context,
+                  delegate: CustomSearchDelegate(screen: ""),
+                  query: value,
+                );
+              },
+              onChanged: (value) {
+                if (_debounce?.isActive ?? false) _debounce?.cancel();
+                _debounce = Timer(const Duration(milliseconds: 2000), () async {
+                  // await showSearch(
+                  //   context: context,
+                  //   delegate: CustomSearchDelegate(screen: ""),
+                  //   query: value,
+                  // );
+                  print(value);
+                });
               },
               decoration: InputDecoration(
                   filled: true,

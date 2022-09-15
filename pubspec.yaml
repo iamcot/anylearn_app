@@ -67,6 +67,7 @@ dependencies:
   simple_gesture_detector: ^0.2.0
   screenshot: ^1.2.3
   flutter_datetime_picker: ^1.5.1
+  stream_transform: ^2.0.0
 
 
 dev_dependencies:

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 
 import '../../models/page_repo.dart';
 import 'search_blocs.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final PageRepository pageRepository;
@@ -9,6 +10,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   @override
   SearchState get initialState => SearchInitState();
+
+  @override
+  Stream<Transition<SearchEvent, SearchState>> transformEvents(
+      Stream<SearchEvent> events, transitionFn) {
+    return events
+        .debounce(const Duration(milliseconds: 1000))
+        .switchMap((transitionFn));
+  }
 
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
@@ -31,7 +40,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       }
       if (event is suggestFromKeywordEvent) {
         yield suggestFromKeywordLoadingState();
-        final key = await pageRepository.suggestFromKeyword(event.screen, event.query);
+        final key =
+            await pageRepository.suggestFromKeyword(event.screen, event.query);
         yield suggestFromKeywordSuccessState(key: key);
       }
     } catch (error, trace) {
