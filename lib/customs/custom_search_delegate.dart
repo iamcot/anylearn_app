@@ -147,7 +147,7 @@ class CustomSearchDelegate extends SearchDelegate {
     }
     }
     // return (screen == "school" || screen == "teacher")
-    //     ? Text("")
+    //     ? Text("") :
         return BlocBuilder<SearchBloc, SearchState>(
             bloc: BlocProvider.of<SearchBloc>(context),
             builder: (context, state) {
