@@ -158,6 +158,9 @@ class UserRepository {
   Future<bool> sentOtp(String phone) async {
     return await userService.sentOtp(phone);
   }
+   Future<bool> ResentOtp(String phone) async {
+    return await userService.sentOtp(phone);
+  }
 
   Future<bool> resetOtp(
       String phone, String otp,String password, String passwordConfirm) async {

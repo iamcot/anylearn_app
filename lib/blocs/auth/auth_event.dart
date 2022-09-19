@@ -107,7 +107,16 @@ class AuthPassOtpEvent extends AuthEvent {
   @override
   String toString() => 'AuthPassOtpEvent phone: $phone';
 }
+class AuthResentOtpEvent extends AuthEvent {
+  final String phone;
+  const AuthResentOtpEvent({required this.phone});
 
+  @override
+  List<Object> get props => [phone];
+
+  @override
+  String toString() => 'AuthResentOtpEvent phone: $phone';
+}
 class AuthCheckOtpEvent extends AuthEvent {
   final String otp;
   final String phone;

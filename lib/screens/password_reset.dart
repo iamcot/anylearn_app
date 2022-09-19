@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:anylearn/widgets/otpform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,22 +15,45 @@ class PasswordResetScreen extends StatefulWidget {
 }
 
 class _PasswordResetScreen extends State<PasswordResetScreen> {
+  int secondsRemaining = 0;
+  bool enableResend = false;
+  late Timer timer;
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   // final _otpController = TextEditingController();
+
   final _passwordConfirmController = TextEditingController();
   late AuthBloc _authBloc;
   bool sentOTP = false;
+
   int steps = 1;
   bool checkotp = false;
+
   late String _otp;
+  // final _resendotp = TextEditingController();
   final TextEditingController _fieldOne = TextEditingController();
   final TextEditingController _fieldTwo = TextEditingController();
   final TextEditingController _fieldThree = TextEditingController();
   final TextEditingController _fieldFour = TextEditingController();
   final TextEditingController _fieldfive = TextEditingController();
   final TextEditingController _fieldsix = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (secondsRemaining != 0) {
+        setState(() {
+          secondsRemaining--;
+        });
+      } else {
+        setState(() {
+          enableResend = true;
+        });
+      }
+    });
+  }
 
   @override
   void didChangeDependencies() {
@@ -49,9 +74,20 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
           if (state is AuthPassOtpSuccessState) {
             setState(() {
               sentOTP = true;
+              // enableResend = false;
               steps = 2;
             });
+          } 
+           if (state is AuthResentOtpSuccessState) {
+            setState(() {
+              enableResend = true;
+            });
           }
+          ;
+          if (state is AuthResentOtpFailState) {
+            toast(state.error);
+          }
+          ;
 
           if (state is AuthPassOtpFailState) {
             toast(state.error);
@@ -114,7 +150,7 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
               steps == 2
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: <Widget>[
                         const SizedBox(
                           height: 50,
                         ),
@@ -134,11 +170,27 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                           ),
                         ),
                         const SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
+                        ElevatedButton(
+                          onPressed: enableResend ? _resendCode : null,
+                          child: enableResend ?  Text('Gửi lại OTP',style: TextStyle(fontSize: 10),)
+                          : Text(
+                          "Gửi lại sau $secondsRemaining giây",
+                          style: TextStyle(color: Colors.blue, fontSize: 10),
+                        ),
+                        ),
+                        
+                        // const SizedBox(
+                        //   height: 20,
+                        // ),
+
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
 
                         const SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                       ],
                     )
@@ -234,6 +286,10 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                               _authBloc
                                 ..add(AuthPassOtpEvent(
                                     phone: _phoneController.text));
+                            }  if (steps == 1) {
+                              _authBloc
+                                ..add(AuthResentOtpEvent(
+                                    phone: _phoneController.text));
                             } else if (steps == 2) {
                               _authBloc
                                 ..add(AuthCheckOtpEvent(
@@ -259,5 +315,19 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
         ),
       ),
     );
+  }
+
+  void _resendCode() {
+    //other code here
+    setState(() {
+      secondsRemaining = 60;
+      enableResend = false;
+    });
+  }
+
+  @override
+  dispose() {
+    timer.cancel();
+    super.dispose();
   }
 }
