@@ -106,7 +106,8 @@ class PageRepository {
     return await userService.allFriends(token);
   }
 
-  Future<bool> shareFriends(String token, int id, List<int> friends, bool isALL) async {
+  Future<bool> shareFriends(
+      String token, int id, List<int> friends, bool isALL) async {
     return await userService.shareFriends(token, id, friends, isALL);
   }
 
@@ -142,7 +143,8 @@ class PageRepository {
     return await askService.getThread(askId, token);
   }
 
-  Future<bool> createAsk(int askId, String title, String content, UserDTO userDTO, String type) async {
+  Future<bool> createAsk(int askId, String title, String content,
+      UserDTO userDTO, String type) async {
     return await askService.create(askId, title, content, userDTO, type);
   }
 
@@ -156,5 +158,9 @@ class PageRepository {
 
   Future<List<String>> searchTags() async {
     return await configService.searchTags();
+  }
+
+  Future<List<ItemDTO>> suggestFromKeyword(String screen , String query) async {
+    return await configService.searchItem(screen, query);
   }
 }

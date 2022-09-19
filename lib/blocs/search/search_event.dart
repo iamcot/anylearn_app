@@ -35,3 +35,16 @@ class SearchTagsEvent extends SearchEvent {
   @override
   String toString() => 'SearchTagsEvent {}';
 }
+
+class suggestFromKeywordEvent extends SearchEvent {
+  final String screen;
+  final String query;
+  suggestFromKeywordEvent({required this.screen, this.query = ""});
+
+  @override
+  List<Object> get props => [screen, query];
+
+  @override
+  String toString() =>
+      'suggestFromKeywordEvent {screen: $screen, query: $query }';
+}

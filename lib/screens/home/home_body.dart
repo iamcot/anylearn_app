@@ -22,7 +22,9 @@ class HomeBody extends StatefulWidget {
   final HomeDTO homeData;
   final HomeBloc homeBloc;
 
-  HomeBody({key, required this.user, required this.homeData, required this.homeBloc}) : super(key: key);
+  HomeBody(
+      {key, required this.user, required this.homeData, required this.homeBloc})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomeBody();
@@ -37,8 +39,7 @@ class _HomeBody extends State<HomeBody> {
     int classLength = widget.homeData.homeClasses.length;
     if (classLength == 0) {
       homeClasses = [];
-    }
-    else if (classLength <= 1) {
+    } else if (classLength <= 1) {
       homeClasses = widget.homeData.homeClasses;
     } else {
       widget.homeData.homeClasses.asMap().forEach((key, value) {
@@ -50,7 +51,8 @@ class _HomeBody extends State<HomeBody> {
       });
     }
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      if (widget.homeData.config.ignorePopupVersion != widget.homeData.config.popup.version &&
+      if (widget.homeData.config.ignorePopupVersion !=
+              widget.homeData.config.popup.version &&
           widget.homeData.config.popup.image != null &&
           widget.homeData.config.popup.image != "" &&
           canShowPopup) {
@@ -67,7 +69,8 @@ class _HomeBody extends State<HomeBody> {
                     onTap: () {
                       if (widget.homeData.config.popup.route != null) {
                         Navigator.of(context).pop();
-                        Navigator.of(context).pushNamed(widget.homeData.config.popup.route,
+                        Navigator.of(context).pushNamed(
+                            widget.homeData.config.popup.route,
                             arguments: widget.homeData.config.popup.args);
                       }
                     },
@@ -85,16 +88,20 @@ class _HomeBody extends State<HomeBody> {
                   ),
                   Row(
                     children: [
-                      Expanded(child: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+                      Expanded(child: StatefulBuilder(builder:
+                          (BuildContext context, StateSetter setState) {
                         return CheckboxListTile(
                           value: showPopupChecked,
                           onChanged: (value) {
                             setState(() {
                               if (value!) {
                                 widget.homeBloc
-                                  ..add(UpdatePopupVersionEvent(version: widget.homeData.config.popup.version));
+                                  ..add(UpdatePopupVersionEvent(
+                                      version: widget
+                                          .homeData.config.popup.version));
                               } else {
-                                widget.homeBloc..add(UpdatePopupVersionEvent(version: 0));
+                                widget.homeBloc
+                                  ..add(UpdatePopupVersionEvent(version: 0));
                               }
                               showPopupChecked = value;
                             });

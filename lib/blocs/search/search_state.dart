@@ -11,7 +11,9 @@ abstract class SearchState extends Equatable {
 
 class SearchInitState extends SearchState {}
 
-class SearchLoadingState extends SearchState {}
+class SearchLoadingState extends SearchState {
+  
+}
 
 class SearchUserSuccessState extends SearchState {
   final List<UserDTO> users;
@@ -43,4 +45,13 @@ class SearchTagsSuccessState extends SearchState {
   SearchTagsSuccessState({required this.tags});
   @override
   List<Object> get props => [tags];
+}
+
+class suggestFromKeywordLoadingState extends SearchState {}
+
+class suggestFromKeywordSuccessState extends SearchState {
+  final List<ItemDTO> key;
+  suggestFromKeywordSuccessState({required this.key});
+  @override
+  List<Object> get props => [key];
 }
