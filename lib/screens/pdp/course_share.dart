@@ -33,18 +33,23 @@ class _CourseShareScreen extends State<CourseShareScreen> {
             child: TextButton(
                 onPressed: () {
                   widget.pdpBloc
-                    ..add(PdpFriendShareEvent(token: user.token, itemId: widget.pdpId, isALL: true, friendIds: []));
+                    ..add(PdpFriendShareEvent(
+                        token: user.token,
+                        itemId: widget.pdpId,
+                        isALL: true,
+                        friendIds: []));
                 },
                 child: Text(
                   "GỬI TẤT CẢ",
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 )),
             preferredSize: Size.fromHeight(40),
           ),
           actions: <Widget>[
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                primary: Colors.blue,
               ),
               icon: Icon(Icons.send),
               onPressed: () {
@@ -55,7 +60,11 @@ class _CourseShareScreen extends State<CourseShareScreen> {
                   }
                 });
                 widget.pdpBloc
-                  ..add(PdpFriendShareEvent(token: user.token, itemId: widget.pdpId, friendIds: ids, isALL: false));
+                  ..add(PdpFriendShareEvent(
+                      token: user.token,
+                      itemId: widget.pdpId,
+                      friendIds: ids,
+                      isALL: false));
               },
               label: Text("GỬI"),
             )
@@ -96,7 +105,8 @@ class _CourseShareScreen extends State<CourseShareScreen> {
                   ? LoadingWidget()
                   : Container(
                       child: StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) {
+                        builder: (BuildContext context,
+                            void Function(void Function()) setState) {
                           return ListView.separated(
                             itemBuilder: (context, index) => CheckboxListTile(
                               title: Text(_friends![index].name),
@@ -110,7 +120,8 @@ class _CourseShareScreen extends State<CourseShareScreen> {
                                         Icons.account_circle,
                                         size: 32,
                                       )
-                                    : CachedNetworkImage(imageUrl: _friends![index].image),
+                                    : CachedNetworkImage(
+                                        imageUrl: _friends![index].image),
                               ),
                               onChanged: (value) {
                                 setState(() {

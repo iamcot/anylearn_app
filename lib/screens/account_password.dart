@@ -47,7 +47,8 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
                 duration: Duration(seconds: 4),
-                content: Text("Mật khẩu đã được thay đổi. Vui lòng đăng nhập lại."),
+                content:
+                    Text("Mật khẩu đã được thay đổi. Vui lòng đăng nhập lại."),
               )).closed.then((value) {
                 Navigator.of(context).pop();
                 _authBloc.add(AuthLoggedOutEvent(token: token));
@@ -73,7 +74,10 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                 ),
                 child: Text(
                   "Đổi mật khẩu của bạn",
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey[600]),
+                  style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[600]),
                 ),
               ),
               Padding(
@@ -144,12 +148,13 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
               ),
               Container(
                 height: 36.0,
-                margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+                margin:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
                 child: loading
                     ? LoadingWidget()
                     : ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          primary: Colors.blue,
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate() && !loading) {

@@ -15,7 +15,12 @@ class CourseList extends StatelessWidget {
   final List<ItemDTO> list;
   final shortDayFormat = DateFormat("dd/MM");
 
-  CourseList({key, required this.list, required this.hasMenu, required this.courseBloc, required this.user})
+  CourseList(
+      {key,
+      required this.list,
+      required this.hasMenu,
+      required this.courseBloc,
+      required this.user})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,8 @@ class CourseList extends StatelessWidget {
                             title: Text("Chỉnh sửa khóa học"),
                             onTap: () {
                               Navigator.of(context).pop();
-                              Navigator.of(context).pushNamed("/course/form", arguments: list[index].id);
+                              Navigator.of(context).pushNamed("/course/form",
+                                  arguments: list[index].id);
                             }),
                         Divider(),
                         ListTile(
@@ -41,8 +47,11 @@ class CourseList extends StatelessWidget {
                             title: Text("Danh sách đăng ký"),
                             onTap: () {
                               Navigator.of(context).pop();
-                              Navigator.of(context).pushNamed('/course/registered',
-                                  arguments: CourseRegisteredPramsDTO(token: user.token, itemId: list[index].id));
+                              Navigator.of(context).pushNamed(
+                                  '/course/registered',
+                                  arguments: CourseRegisteredPramsDTO(
+                                      token: user.token,
+                                      itemId: list[index].id));
                             }),
                         Divider(),
                         _userStatusAction(context, list[index]),
@@ -64,14 +73,16 @@ class CourseList extends StatelessWidget {
                                               child: Text("Quay lại")),
                                           ElevatedButton(
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.red,
+                                                primary: Colors.red,
                                               ),
                                               child: Text("Hủy lớp"),
                                               onPressed: () {
-                                                courseBloc.add(CourseChangeUserStatusEvent(
-                                                    itemId: list[index].id,
-                                                    token: user.token,
-                                                    newStatus: MyConst.ITEM_USER_STATUS_CANCEL));
+                                                courseBloc.add(
+                                                    CourseChangeUserStatusEvent(
+                                                        itemId: list[index].id,
+                                                        token: user.token,
+                                                        newStatus: MyConst
+                                                            .ITEM_USER_STATUS_CANCEL));
                                                 Navigator.of(context).pop();
                                               }),
                                         ],
@@ -85,7 +96,8 @@ class CourseList extends StatelessWidget {
               leading: CalendarBox(
                   image: list[index].image,
                   fontSize: 12,
-                  text: shortDayFormat.format(DateTime.parse(list[index].dateStart))),
+                  text: shortDayFormat
+                      .format(DateTime.parse(list[index].dateStart))),
               title: Text(list[index].title),
               subtitle: Text.rich(
                 TextSpan(
@@ -153,18 +165,23 @@ class CourseList extends StatelessWidget {
             title: Text("Mở lớp nhận đăng ký"),
             onTap: () {
               courseBloc.add(CourseChangeUserStatusEvent(
-                  itemId: itemDTO.id, token: user.token, newStatus: MyConst.ITEM_USER_STATUS_ACTIVE));
+                  itemId: itemDTO.id,
+                  token: user.token,
+                  newStatus: MyConst.ITEM_USER_STATUS_ACTIVE));
               Navigator.of(context).pop();
             });
 
       case MyConst.ITEM_USER_STATUS_ACTIVE:
-        if (DateTime.now().isAfter(DateTime.parse(itemDTO.dateStart + " " + itemDTO.timeStart))) {
+        if (DateTime.now().isAfter(
+            DateTime.parse(itemDTO.dateStart + " " + itemDTO.timeStart))) {
           return ListTile(
               trailing: Icon(Icons.check),
               title: Text("Lớp đã hoàn thành"),
               onTap: () {
                 courseBloc.add(CourseChangeUserStatusEvent(
-                    itemId: itemDTO.id, token: user.token, newStatus: MyConst.ITEM_USER_STATUS_DONE));
+                    itemId: itemDTO.id,
+                    token: user.token,
+                    newStatus: MyConst.ITEM_USER_STATUS_DONE));
                 Navigator.of(context).pop();
               });
         } else {
@@ -173,7 +190,9 @@ class CourseList extends StatelessWidget {
               title: Text("Tạm ẩn lớp, dừng đăng ký"),
               onTap: () {
                 courseBloc.add(CourseChangeUserStatusEvent(
-                    itemId: itemDTO.id, token: user.token, newStatus: MyConst.ITEM_USER_STATUS_INACTIVE));
+                    itemId: itemDTO.id,
+                    token: user.token,
+                    newStatus: MyConst.ITEM_USER_STATUS_INACTIVE));
                 Navigator.of(context).pop();
               });
         }

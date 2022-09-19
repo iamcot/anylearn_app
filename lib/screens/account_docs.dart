@@ -71,11 +71,15 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                 padding: const EdgeInsets.all(15),
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    final PickedFile? image = await _imagePicker.getImage(
+                                    final PickedFile? image =
+                                        await _imagePicker.getImage(
                                       source: ImageSource.camera,
                                     );
                                     if (image != null) {
-                                      accountBloc..add(AccAddDocEvent(token: token, file: File(image.path)));
+                                      accountBloc
+                                        ..add(AccAddDocEvent(
+                                            token: token,
+                                            file: File(image.path)));
                                     }
                                   },
                                   child: (state is AccAddDocLoadingState)
@@ -100,42 +104,63 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                             onTap: () {
                                               showDialog(
                                                   context: context,
-                                                  builder: (context) => SimpleDialog(
+                                                  builder: (context) =>
+                                                      SimpleDialog(
                                                         children: <Widget>[
-                                                          CustomCachedImage(url: e.data),
+                                                          CustomCachedImage(
+                                                              url: e.data),
                                                           TextButton(
                                                               onPressed: () {
-                                                                Navigator.of(context).pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
                                                               },
-                                                              child: Text("Đóng"))
+                                                              child:
+                                                                  Text("Đóng"))
                                                         ],
                                                       ));
                                             },
-                                            title: CustomCachedImage(url: e.data),
+                                            title:
+                                                CustomCachedImage(url: e.data),
                                             trailing: IconButton(
                                                 icon: Icon(Icons.delete),
                                                 onPressed: () {
                                                   showDialog(
                                                     context: context,
-                                                    builder: (context) => AlertDialog(
-                                                        content: Text("Bạn có muốn xóa file này"),
-                                                        actions: [
+                                                    builder: (context) =>
+                                                        AlertDialog(
+                                                            content: Text(
+                                                                "Bạn có muốn xóa file này"),
+                                                            actions: [
                                                           TextButton(
                                                             onPressed: () {
-                                                              Navigator.of(context).pop();
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
                                                             },
-                                                            child: Text("Bỏ qua"),
+                                                            child:
+                                                                Text("Bỏ qua"),
                                                           ),
                                                           ElevatedButton(
                                                               onPressed: () {
                                                                 accountBloc
-                                                                  ..add(AccRemoveDocEvent(token: token, fileId: e.id));
-                                                                Navigator.of(context).pop();
+                                                                  ..add(AccRemoveDocEvent(
+                                                                      token:
+                                                                          token,
+                                                                      fileId: e
+                                                                          .id));
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
                                                               },
-                                                              style: ElevatedButton.styleFrom(
-                                                                backgroundColor: Colors.red,
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                primary:
+                                                                    Colors.red,
                                                               ),
-                                                              child: Text("Xóa"))
+                                                              child:
+                                                                  Text("Xóa"))
                                                         ]),
                                                   );
                                                 }),

@@ -25,8 +25,8 @@ import 'themes/default.dart';
 bool newNotification = false;
 late String notifToken;
 // final env = "prod";
-// final env = "staging";
-final env = "dev";
+final env = "staging";
+// final env = "dev";
 late AppConfig config;
 UserDTO user = UserDTO(id: 0, token: "");
 

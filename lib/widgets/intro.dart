@@ -36,13 +36,14 @@ class IntroScreenState extends State<IntroScreen> {
     slides.add(new Slide(
       backgroundImage: "assets/images/FlyerT.jpg",
       backgroundOpacity: 0,
-      foregroundImageFit: BoxFit.contain,
+      
+      backgroundImageFit: BoxFit.fitWidth,
     ));
     slides.add(
       new Slide(
         backgroundImage: "assets/images/FlyerS.jpg",
         backgroundOpacity: 0,
-        foregroundImageFit: BoxFit.contain,
+        backgroundImageFit: BoxFit.fitHeight,
       ),
     );
   }

@@ -85,4 +85,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/contract/sign": (BuildContext context) => ContractSignScreen(),
   // "/draw": (BuildContext context) => DrawScreen(),
   "/resetPassword": (BuildContext context) => PasswordResetScreen(),
+  // "/passwordupdate": (BuildContext context) => PasswordupdateScreen(),
 };
