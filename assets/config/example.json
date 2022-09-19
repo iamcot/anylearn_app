@@ -1,4 +1,5 @@
 {
-    "apiUrl": "http://localhost:8000/api",
-    "tokenParam" : "api_token"
+    "apiUrl": "https://anylearn.vn/api",
+    "webUrl": "https://anylearn.vn/",
+    "tokenParam": "api_token"
 }
