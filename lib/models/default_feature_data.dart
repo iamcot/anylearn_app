@@ -110,7 +110,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
       FeatureDataDTO(
           icon: MdiIcons.piggyBank,
           title: "Quỹ từ thiện",
-          route: "foundation",
+          route: "/foundation",
           bg: Colors.green[600],
           iconBg: "green",
           routeParam: FriendParamsDTO(userId: userId, level: 1)),
