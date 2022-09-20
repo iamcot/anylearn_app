@@ -44,7 +44,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
           actions: <Widget>[
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                primary: Colors.blue,
               ),
               icon: Icon(Icons.send),
               onPressed: () {
