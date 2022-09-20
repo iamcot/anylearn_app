@@ -23,6 +23,12 @@ class IntroScreenState extends State<IntroScreen> {
     );
     slides.add(
       new Slide(
+          backgroundImage: "assets/images/intro6.jpg",
+          backgroundOpacity: 0,
+          backgroundImageFit: BoxFit.fill),
+    );
+    slides.add(
+      new Slide(
           backgroundImage: "assets/images/intro3.jpg",
           backgroundOpacity: 0,
           backgroundImageFit: BoxFit.fill),
