@@ -330,6 +330,9 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 height: 48.0,
                                 margin: const EdgeInsets.all(15.0),
                                 child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.blue,
+                                  ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
                                       _user.fullContent =

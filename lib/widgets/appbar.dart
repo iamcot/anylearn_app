@@ -15,7 +15,11 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool hasBack;
   final UserDTO user;
 
-  const BaseAppBar({required this.title, this.screen = "", this.hasBack = true, required this.user});
+  const BaseAppBar(
+      {required this.title,
+      this.screen = "",
+      this.hasBack = true,
+      required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +46,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
                 screen: screen,
               )
             : Text(""),
-        LocaleIcon(),
-        FoundationIcon(),
+        // FoundationIcon(),
         NotificationIcon(),
         screen != "account" && screen != "notification"
             ? new AccountIcon(
@@ -59,7 +62,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : Image.asset(
               "assets/images/logo-full.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
               height: 32.0,
             ),
     );

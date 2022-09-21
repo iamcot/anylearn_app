@@ -153,11 +153,8 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                                         context)
                                                                     .pop();
                                                               },
-                                                              style:
-                                                                  ElevatedButton
-                                                                      .styleFrom(
-                                                                primary:
-                                                                    Colors.red,
+                                                              style: ElevatedButton.styleFrom(
+                                                                primary: Colors.red,
                                                               ),
                                                               child:
                                                                   Text("Xóa"))
