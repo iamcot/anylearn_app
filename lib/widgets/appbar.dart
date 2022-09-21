@@ -42,9 +42,9 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
                 screen: screen,
               )
             : Text(""),
-        LocaleIcon(),
         FoundationIcon(),
         NotificationIcon(),
+        LocaleIcon(),
         screen != "account" && screen != "notification"
             ? new AccountIcon(
                 user: user,
