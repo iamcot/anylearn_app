@@ -16,7 +16,6 @@ import 'base_service.dart';
 class ConfigServices extends BaseService {
   final http.Client httpClient;
   final AppConfig config;
-  final DateFormat _month = DateFormat("yyyy-MM");
 
   ConfigServices({required this.config, required this.httpClient});
 
@@ -50,6 +49,7 @@ class ConfigServices extends BaseService {
   }
 
   Future<Map<DateTime, List<EventDTO>>> monthEvent(DateTime month) async {
+    final DateFormat _month = DateFormat("yyyy-MM");
     final url =
         buildUrl(appConfig: config, endPoint: "/event/${_month.format(month)}");
     final json = await get(httpClient, url);

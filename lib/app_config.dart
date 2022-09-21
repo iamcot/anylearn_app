@@ -13,8 +13,8 @@ class AppConfig {
     required this.webUrl,
   });
 
-  static Future<AppConfig> forEnv(String env) async {
-    final content = await rootBundle.loadString('assets/config/$env.json');
+  static Future<AppConfig> forEnv() async {
+    final content = await rootBundle.loadString('assets/config/env.json');
     final json = jsonDecode(content);
     return AppConfig(
       apiUrl: json['apiUrl'],

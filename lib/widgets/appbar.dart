@@ -1,6 +1,7 @@
 import 'package:anylearn/main.dart';
 import 'package:anylearn/screens/webview.dart';
 import 'package:anylearn/widgets/foundation_icon.dart';
+import 'package:anylearn/widgets/locale_icon.dart';
 
 import '../dto/user_dto.dart';
 import '../widgets/account_icon.dart';
@@ -41,6 +42,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
                 screen: screen,
               )
             : Text(""),
+        LocaleIcon(),
         FoundationIcon(),
         NotificationIcon(),
         screen != "account" && screen != "notification"

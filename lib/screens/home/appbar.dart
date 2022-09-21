@@ -1,3 +1,4 @@
+import 'package:anylearn/widgets/locale_icon.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
@@ -50,9 +51,9 @@ class _HomeAppBar extends State<HomeAppBar> {
                       }),
                 ),
               ),
+        LocaleIcon(),
         FoundationIcon(),
-        NotificationIcon(
-        ),
+        NotificationIcon(),
         AccountIcon(
           user: user,
         ),
