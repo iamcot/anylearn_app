@@ -52,7 +52,7 @@ class _HomeAppBar extends State<HomeAppBar> {
                       }),
                 ),
               ),
-        LocaleIcon(),
+        // LocaleIcon(),
         FoundationIcon(),
         NotificationIcon(),
         AccountIcon(

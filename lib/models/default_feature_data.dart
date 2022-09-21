@@ -30,7 +30,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
           bg: Colors.blue[600]),
       FeatureDataDTO(
           icon: MdiIcons.piggyBank,
-          title: "Quỹ từ thiện ",
+          title: "anyFoundation ",
           route: "/foundation",
           iconBg: "purple",
           bg: Colors.green[300]),
@@ -61,7 +61,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
           bg: Colors.blue[600]),
       FeatureDataDTO(
           icon: MdiIcons.piggyBank,
-          title: "Quỹ từ thiện ",
+          title: "anyFoundation ",
           route: "/foundation",
           iconBg: "purple",
           bg: Colors.green[300]),
@@ -92,7 +92,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
           bg: Colors.blue[600]),
       FeatureDataDTO(
           icon: MdiIcons.piggyBank,
-          title: "Quỹ từ thiện ",
+          title: "anyFoundation ",
           route: "/foundation",
           iconBg: "purple",
           bg: Colors.green[300]),
@@ -110,7 +110,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
           bg: Colors.blue[300]),
       FeatureDataDTO(
           icon: MdiIcons.piggyBank,
-          title: "Quỹ từ thiện",
+          title: "anyFoundation",
           route: "/foundation",
           bg: Colors.green[600],
           iconBg: "green",
