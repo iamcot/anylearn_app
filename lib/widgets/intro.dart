@@ -1,8 +1,9 @@
-import 'package:anylearn/screens/home/home_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+
+import '../screens/home/home_body.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -44,19 +45,6 @@ class IntroScreenState extends State<IntroScreen> {
           backgroundImage: "assets/images/intro1.jpg",
           backgroundOpacity: 0,
           backgroundImageFit: BoxFit.fill),
-    );
-    slides.add(new Slide(
-      backgroundImage: "assets/images/FlyerT.jpg",
-      backgroundOpacity: 0,
-      
-      backgroundImageFit: BoxFit.fitWidth,
-    ));
-    slides.add(
-      new Slide(
-        backgroundImage: "assets/images/FlyerS.jpg",
-        backgroundOpacity: 0,
-        backgroundImageFit: BoxFit.fitHeight,
-      ),
     );
   }
 
