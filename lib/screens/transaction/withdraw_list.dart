@@ -1,4 +1,5 @@
 import 'package:anylearn/widgets/bank_info.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +13,8 @@ class WithdrawList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     final DateFormat _dateFormat = DateFormat("hh:mm\ndd/MM/yy");
     final NumberFormat _monneyFormat = NumberFormat("###,###,###", "vi_VN");
     return ListBody(

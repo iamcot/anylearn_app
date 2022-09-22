@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../dto/const.dart';
 import '../../widgets/youtube_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -33,6 +35,8 @@ class _HomeArticleTabs extends State<HomeArticleTabs> with TickerProviderStateMi
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return SliverToBoxAdapter(
         child: DefaultTabController(
       length: 2,

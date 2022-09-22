@@ -4,6 +4,7 @@ import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:anylearn/widgets/rating.dart';
 import 'package:anylearn/widgets/time_ago.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -27,6 +28,8 @@ class _ItemRatingScreen extends State<ItemRatingScreen> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Các đánh giá của khóa học"),

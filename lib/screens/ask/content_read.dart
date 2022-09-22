@@ -2,6 +2,7 @@ import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:anylearn/customs/custom_carousel.dart';
 import 'package:anylearn/screens/webview.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -15,6 +16,8 @@ class ContentRead extends StatelessWidget {
   const ContentRead({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return ListView(
       children: [
         data.image == null

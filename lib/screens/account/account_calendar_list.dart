@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,13 +22,16 @@ class AccountCalendarList extends StatefulWidget {
   final isOpen;
   final AccountBloc accountBloc;
 
-  const AccountCalendarList({key, required this.events, this.isOpen, required this.accountBloc}) : super(key: key);
+  const AccountCalendarList(
+      {key, required this.events, this.isOpen, required this.accountBloc})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AccountCalendarList();
 }
 
-class _AccountCalendarList extends State<AccountCalendarList> with TickerProviderStateMixin {
+class _AccountCalendarList extends State<AccountCalendarList>
+    with TickerProviderStateMixin {
   late List<AnimationController> controllers;
 
   String timerString(AnimationController controller) {
@@ -54,6 +58,7 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
     // String nowStr = DateFormat("yyyy-MM-dd").format(DateTime.now());
     return CustomScrollView(
       slivers: <Widget>[
+        Text(context.locale.toString()),
         widget.events.length > 0
             ? SliverList(
                 delegate: SliverChildBuilderDelegate(
@@ -63,31 +68,41 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                       return ListTile(
                         leading: CalendarBox(
                           fontSize: 12,
-                          text: DateFormat("dd/MM").format(DateTime.parse(widget.events[itemIndex].date)),
+                          text: DateFormat("dd/MM").format(
+                              DateTime.parse(widget.events[itemIndex].date)),
                           image: widget.events[itemIndex].image,
                         ),
                         title: Text(widget.events[itemIndex].title),
                         subtitle: Text.rich(TextSpan(
-                          text: (widget.events[itemIndex].itemSubtype == MyConst.ITEM_SUBTYPE_OFFLINE &&
-                                  widget.events[itemIndex].scheduleContent != widget.events[itemIndex].title)
+                          text: (widget.events[itemIndex].itemSubtype ==
+                                      MyConst.ITEM_SUBTYPE_OFFLINE &&
+                                  widget.events[itemIndex].scheduleContent !=
+                                      widget.events[itemIndex].title)
                               ? widget.events[itemIndex].scheduleContent
                               : "",
                           children: [
                             TextSpan(
                                 text: widget.events[itemIndex].childName != null
-                                    ? "[" + widget.events[itemIndex].childName + "] "
+                                    ? "[" +
+                                        widget.events[itemIndex].childName +
+                                        "] "
                                     : ""),
                             TextSpan(text: widget.events[itemIndex].time),
                             TextSpan(
-                                text: widget.events[itemIndex].userJoined == null ? "" : "\nĐã xác nhận",
+                                text:
+                                    widget.events[itemIndex].userJoined == null
+                                        ? ""
+                                        : "\nĐã xác nhận",
                                 style: TextStyle(color: Colors.green))
                           ],
                         )),
-                        trailing: widget.events[itemIndex].authorStatus == MyConst.ITEM_USER_STATUS_CANCEL
+                        trailing: widget.events[itemIndex].authorStatus ==
+                                MyConst.ITEM_USER_STATUS_CANCEL
                             ? Text("Lớp đã hủy")
                             : _buildTrailing(widget.events[itemIndex]),
                         onLongPress: () {
-                          Navigator.of(context).pushNamed("/pdp", arguments: widget.events[itemIndex].itemId);
+                          Navigator.of(context).pushNamed("/pdp",
+                              arguments: widget.events[itemIndex].itemId);
                         },
                       );
                     }
@@ -128,6 +143,9 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
   }
 
   Widget _buildTrailing(EventDTO event) {
+    child:
+    Text(context.locale.toString());
+
     if (!widget.isOpen) {
       if (event.userJoined == null) {
         return BlocBuilder<AccountBloc, AccountState>(
@@ -139,7 +157,10 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                     onPressed: () {
                       widget.accountBloc
                         ..add(AccJoinCourseEvent(
-                            token: user.token, itemId: event.itemId, scheduleId: event.id, childId: event.childId));
+                            token: user.token,
+                            itemId: event.itemId,
+                            scheduleId: event.id,
+                            childId: event.childId));
                     },
                     child: Text(
                       "Xác nhận",
@@ -162,14 +183,17 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
       final today = DateFormat("yyyy-MM-dd").format(DateTime.now());
       if (today == event.date || event.nolimitTime) {
         if (event.userJoined == null) {
-          Duration diffInSeconds = DateTime.parse(event.date + " " + event.time).difference(DateTime.now());
-          if (!diffInSeconds.isNegative && diffInSeconds < Duration(hours: 24)) {
+          Duration diffInSeconds = DateTime.parse(event.date + " " + event.time)
+              .difference(DateTime.now());
+          if (!diffInSeconds.isNegative &&
+              diffInSeconds < Duration(hours: 24)) {
             AnimationController controller = AnimationController(
               vsync: this,
               duration: diffInSeconds,
             );
             controllers.add(controller);
-            controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
+            controller.reverse(
+                from: controller.value == 0.0 ? 1.0 : controller.value);
             return AnimatedBuilder(
                 animation: controller,
                 builder: (context, child) {
@@ -193,7 +217,8 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                           ));
                 });
           } else if (diffInSeconds >= Duration(hours: 24)) {
-             return Text("Chưa diễn ra");;
+            return Text("Chưa diễn ra");
+            ;
           } else {
             return BlocBuilder<AccountBloc, AccountState>(
               bloc: widget.accountBloc,
@@ -238,12 +263,15 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
   }
 
   void _dialogJoin(EventDTO eventDTO, bool hasConfirm) {
+    Text('title').tr();
+
     String route = "";
     String routeInfo = "";
     OnlineScheduleInfoDTO onlineScheduleInfoDTO = OnlineScheduleInfoDTO();
     if (eventDTO.itemSubtype == MyConst.ITEM_SUBTYPE_ONLINE) {
       try {
-        onlineScheduleInfoDTO = OnlineScheduleInfoDTO.fromJson(jsonDecode(eventDTO.scheduleContent));
+        onlineScheduleInfoDTO = OnlineScheduleInfoDTO.fromJson(
+            jsonDecode(eventDTO.scheduleContent));
       } catch (e) {}
 
       if (onlineScheduleInfoDTO.url != "") {
@@ -258,15 +286,20 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
       routeInfo = eventDTO.scheduleContent;
     }
     showDialog(
+      
       context: context,
       builder: (context) => SimpleDialog(
         children: <Widget>[
+                  Text('title').tr(),
+
           eventDTO.itemSubtype != MyConst.ITEM_SUBTYPE_ONLINE
               ? Container()
               : ListTile(
                   title: Text("Vào lớp học"),
                   subtitle: Text.rich(TextSpan(text: route, children: [
-                    routeInfo.isEmpty ? TextSpan(text: "") : TextSpan(text: "\n" + routeInfo),
+                    routeInfo.isEmpty
+                        ? TextSpan(text: "")
+                        : TextSpan(text: "\n" + routeInfo),
                   ])),
                   onTap: () async {
                     Navigator.of(context).pop();
@@ -278,7 +311,8 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                           if (await canLaunch(route)) {
                             await launch(route);
                           } else {
-                            toast("Đường dẫn lớp học không đúng, vui lòng kiểm tra lại với người phụ trách.");
+                            toast(
+                                "Đường dẫn lớp học không đúng, vui lòng kiểm tra lại với người phụ trách.");
                             throw 'Could not launch';
                           }
                         }
@@ -313,11 +347,13 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                   trailing: eventDTO.userRating > 0
                       ? Text("LÀM LẠI", style: TextStyle(color: Colors.blue))
                       : Icon(Icons.chevron_right),
-                  title:
-                      Text(eventDTO.userRating > 0 ? "Bạn đã đánh giá ${eventDTO.userRating}*" : "Đánh giá khóa học"),
+                  title: Text(eventDTO.userRating > 0
+                      ? "Bạn đã đánh giá ${eventDTO.userRating}*"
+                      : "Đánh giá khóa học"),
                   onTap: () async {
                     Navigator.of(context).pop();
-                    final sentReview = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                    final sentReview = await Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
                       return RatingInputScreen(
                           user: user,
                           itemId: eventDTO.itemId,
@@ -325,7 +361,8 @@ class _AccountCalendarList extends State<AccountCalendarList> with TickerProvide
                           lastRating: eventDTO.userRating);
                     }));
                     if (sentReview) {
-                      widget.accountBloc..add(AccLoadMyCalendarEvent(token: user.token));
+                      widget.accountBloc
+                        ..add(AccLoadMyCalendarEvent(token: user.token));
                     }
                   },
                 )

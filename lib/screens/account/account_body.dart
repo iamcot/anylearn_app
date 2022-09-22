@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -28,6 +29,7 @@ class _AccountBody extends State<AccountBody> {
     var moneyFormat = new NumberFormat("###,###,###", "vi_VN");
     return CustomScrollView(
       slivers: <Widget>[
+        Text('title').tr(),
         AccountAppBarWithImage(user: user),
         SliverToBoxAdapter(
           child: Column(children: <Widget>[
@@ -71,11 +73,20 @@ class _AccountBody extends State<AccountBody> {
               leadingIcon: MdiIcons.accountGroup,
               trailing: SizedBox(
                   width: 80.0,
-                  child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  child:
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     Text(user.numFriends.toString() + " bạn "),
                     Icon(Icons.chevron_right),
                   ])),
             ),
+            AccountNormalMenu(
+              title: "Quỹ từ thiện",
+              route: "/foundation",
+              routeParam: FriendParamsDTO(userId: user.id, level: 1),
+              leadingIcon: MdiIcons.piggyBank,
+              trailing: Icon(Icons.chevron_right_sharp),
+            ),
+
             AccountNormalMenu(
               title: "Quản lý tài khoản phụ",
               route: "/account/children",
@@ -138,7 +149,8 @@ class _AccountBody extends State<AccountBody> {
               leadingIcon: MdiIcons.televisionGuide,
               trailing: Icon(Icons.chevron_right),
             ),
-            user.role == MyConst.ROLE_SCHOOL || user.role == MyConst.ROLE_TEACHER
+            user.role == MyConst.ROLE_SCHOOL ||
+                    user.role == MyConst.ROLE_TEACHER
                 ? AccountNormalMenu(
                     title: "Chính sách",
                     route: "/guide",

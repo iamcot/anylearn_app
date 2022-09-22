@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:anylearn/customs/custom_cached_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,6 +31,8 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     final token = ModalRoute.of(context)!.settings.arguments.toString();
     accountBloc..add(AccLoadDocsEvent(token: token));
     return Scaffold(

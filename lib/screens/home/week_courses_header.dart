@@ -1,8 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class WeekCourseHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),

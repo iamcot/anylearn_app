@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,6 +32,7 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBody extends State<HomeBody> {
+
   List<HomeClassesDTO> homeClasses = [];
   List<HomeClassesDTO> homeClasses2 = [];
   @override
@@ -51,6 +53,8 @@ class _HomeBody extends State<HomeBody> {
       });
     }
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
+          Text('title').tr();
+
       if (widget.homeData.config.ignorePopupVersion !=
               widget.homeData.config.popup.version &&
           widget.homeData.config.popup.image != null &&
@@ -128,6 +132,8 @@ class _HomeBody extends State<HomeBody> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return Container(
       color: Colors.grey[200],
       child: CustomScrollView(

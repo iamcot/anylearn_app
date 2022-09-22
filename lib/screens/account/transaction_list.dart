@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:anylearn/dto/const.dart';
 import 'package:anylearn/dto/transaction_dto.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -16,6 +17,8 @@ class TransactionList extends StatelessWidget {
     var monneyF = new NumberFormat("###,###,###", "vi_VN");
     return CustomScrollView(
       slivers: <Widget>[
+            Text('title').tr(),
+
         transactions.length > 0
             ? SliverList(
                 delegate: SliverChildBuilderDelegate(
@@ -66,10 +69,14 @@ class TransactionList extends StatelessWidget {
                 ),
               )
             : SliverToBoxAdapter(
+                  
+
                 child: TextButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed("/event");
                     },
+                        
+
                     child: Text("Bạn không có giao dịch nào. Xem các lịch học đang có")),
               )
       ],

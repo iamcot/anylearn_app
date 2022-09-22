@@ -2,6 +2,7 @@ import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/main.dart';
 import 'package:anylearn/widgets/bottom_nav.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -53,6 +54,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder<AccountBloc, AccountState>(
       bloc: _accountBloc,

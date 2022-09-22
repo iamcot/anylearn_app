@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../main.dart';
 import '../../widgets/categories_box.dart';
 import 'package:expandable/expandable.dart';
@@ -39,6 +41,8 @@ class PdpBody extends StatefulWidget {
 class _PdpBody extends State<PdpBody> {
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     double width = MediaQuery.of(context).size.width;
     double imageHeight = width - 30 - 50;
     return Container(

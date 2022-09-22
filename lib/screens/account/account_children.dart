@@ -1,5 +1,6 @@
 import 'package:anylearn/main.dart';
 import 'package:anylearn/screens/webview.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -37,6 +38,8 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Text('title').tr();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Quản lý tài khoản phụ"),
@@ -60,7 +63,8 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                   title: Text(state.children[index].name),
                   trailing: Icon(Icons.edit),
                   onTap: () {
-                    _formEdit(context, state.children[index].id, state.children[index].name, state.children[index].dob);
+                    _formEdit(context, state.children[index].id,
+                        state.children[index].name, state.children[index].dob);
                   },
                 ),
                 separatorBuilder: (context, index) => Divider(),
@@ -75,13 +79,20 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
   }
 
   void _formEdit(BuildContext context, int id, String name, String dob) {
+    child:
+    Text(context.locale.toString());
+
     _titleController.text = name;
     _dobController.text = dob;
     showDialog(
+              
+
         context: context,
         builder: (context) => SimpleDialog(
               contentPadding: EdgeInsets.fromLTRB(10, 5, 10, 0),
               children: [
+                        Text('title').tr(),
+
                 Form(
                     key: _formKey,
                     child: Column(
@@ -106,7 +117,9 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                                   _dobController.text = f.format(time);
                                 },
                                 maxTime: DateTime.now(),
-                                currentTime: _dobController.text == "" ? DateTime.now() : DateTime.parse(_dobController.text),
+                                currentTime: _dobController.text == ""
+                                    ? DateTime.now()
+                                    : DateTime.parse(_dobController.text),
                               );
                             },
                             controller: _dobController,
@@ -122,10 +135,12 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                     listener: (context, state) {
                       if (state is AccSaveChildrenSuccessState) {
                         toast("Lưu thành công!");
-                        _accountBloc..add(AccLoadChildrenEvent(token: user.token));
+                        _accountBloc
+                          ..add(AccLoadChildrenEvent(token: user.token));
                         Navigator.of(context).pop();
                         if (user.inRegisterClassId > 0) {
-                          _add2Cart(context, user.token, user.inRegisterClassId, state.id);
+                          _add2Cart(context, user.token, user.inRegisterClassId,
+                              state.id);
                         }
                       } else if (state is AccChildrenFailState) {
                         toast(state.error);
@@ -135,7 +150,10 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                       onPressed: () {
                         _accountBloc
                           ..add(AccSaveChildrenEvent(
-                              id: id, name: _titleController.text, dob: _dobController.text, token: user.token));
+                              id: id,
+                              name: _titleController.text,
+                              dob: _dobController.text,
+                              token: user.token));
                       },
                       child: BlocBuilder(
                         bloc: _accountBloc,
@@ -144,11 +162,14 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                             return Container(
                               padding: EdgeInsets.all(2),
                               child: CircularProgressIndicator(
-                                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                                valueColor: new AlwaysStoppedAnimation<Color>(
+                                    Colors.white),
                               ),
                             );
                           }
-                          return id == 0 ? Text("Thêm tài khoản mới") : Text("Cập nhật tài khoản");
+                          return id == 0
+                              ? Text("Thêm tài khoản mới")
+                              : Text("Cập nhật tài khoản");
                         },
                       ),
                     )),

@@ -1,4 +1,5 @@
 import 'package:anylearn/screens/ask_cat.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AskHeader extends StatelessWidget {
@@ -10,6 +11,8 @@ class AskHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return Container(
       padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
       decoration: BoxDecoration(

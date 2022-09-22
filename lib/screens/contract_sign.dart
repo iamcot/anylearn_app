@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -32,6 +33,8 @@ class _ContractSignScreen extends State<ContractSignScreen> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("XEM/KÝ hợp đồng"),

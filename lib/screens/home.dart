@@ -1,4 +1,5 @@
 import 'package:anylearn/dto/user_dto.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,6 +61,8 @@ class _HomeScreen extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return WillPopScope(
         onWillPop: _willExit,
         child: BlocBuilder<AuthBloc, AuthState>(

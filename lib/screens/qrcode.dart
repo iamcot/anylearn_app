@@ -51,10 +51,14 @@ class _QrCodeScreen extends State<QrCodeScreen> {
           return user == null
               ? LoadingWidget()
               : Scaffold(
+                
                   appBar: AppBar(
                     title: Text(user!.name),
                   ),
+                  
                   body: CustomFeedback(
+                    
+                    
                     user: user!,
                     child: Container(
                       alignment: Alignment.center,
@@ -73,14 +77,19 @@ class _QrCodeScreen extends State<QrCodeScreen> {
                             ),
                           ),
                           Container(
+                            
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(left: textPadding, right: textPadding),
                             child: Text(
+                              
                               "Bạn bè có thể kết nối với bạn khi quét mã QR này. Thêm bạn học thêm vui.",
                               textAlign: TextAlign.center,
+                              
                             ),
+                            
                           ),
                           Expanded(
+                            
                             child: Align(
                                 alignment: FractionalOffset.bottomCenter,
                                 child: Row(
@@ -98,6 +107,7 @@ class _QrCodeScreen extends State<QrCodeScreen> {
                                       onPressed: () {
                                          Share.share(user!.refLink);
                                       },
+                                      
                                       child: Text(
                                         "CHIA SẺ MÃ",
                                         style: TextStyle(fontSize: 16.0, color: Colors.blue),

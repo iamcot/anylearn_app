@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ItemsFilter extends StatefulWidget {
@@ -6,8 +7,10 @@ class ItemsFilter extends StatefulWidget {
 }
 
 class _ItemsFilter extends State<ItemsFilter> {
+  
   String dropdownValue = "newest";
   Map<String, String> options = {
+    
     // 'nameaz': 'Theo tên A-Z',
     // 'nameza': 'Theo tên Z-A',
     // 'course': 'Theo Số lượng Khóa học',
@@ -53,6 +56,8 @@ class _ItemsFilter extends State<ItemsFilter> {
   }
 
   List<Widget> _buildSelected(BuildContext context) {
+        Text('title').tr();
+
     List<Widget> list = [];
     options.forEach((key, title) {
       list.add(Container(

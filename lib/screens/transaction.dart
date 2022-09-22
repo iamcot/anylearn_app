@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -41,6 +42,8 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return BlocProvider<TransactionBloc>(
         create: (BuildContext context) => _transBloc,
         child: BlocBuilder<TransactionBloc, TransactionState>(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -61,6 +62,8 @@ class _DepositList extends State<DepositList> {
   }
 
   TextSpan _buildStatus(int status) {
+        Text('title').tr();
+
     if (status == MyConst.TRANS_STATUS_APPROVE) {
       return TextSpan(text: "Đã xác nhận", style: TextStyle(color: Colors.green));
     } else if (status == MyConst.TRANS_STATUS_CANCEL) {

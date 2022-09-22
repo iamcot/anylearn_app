@@ -1,4 +1,5 @@
 import 'package:anylearn/dto/feature_data_dto.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -7,6 +8,8 @@ import 'feature_icon.dart';
 class WalletCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return Card(
       child: Column(
         children: <Widget>[

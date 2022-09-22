@@ -1,4 +1,5 @@
 import 'package:anylearn/screens/webview.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
@@ -19,6 +20,8 @@ class _AccountHelpCenterScreen extends State<AccountHelpCenterScreen> {
   );
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     DateFormat f = DateFormat("dd/MM/yyyy");
     return Scaffold(
         appBar: AppBar(

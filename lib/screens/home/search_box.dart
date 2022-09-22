@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../dto/user_dto.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +27,8 @@ class _SearchBoxState extends State<SearchBox> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return Container(
       height: 120,
       padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),

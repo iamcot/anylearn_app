@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -24,6 +25,8 @@ class CourseList extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Text('title').tr();
+
     return list.length > 0
         ? ListView.separated(
             itemBuilder: (context, index) => ListTile(
@@ -128,6 +131,8 @@ class CourseList extends StatelessWidget {
   }
 
   TextSpan _userStatusStr(int status) {
+    Text('title').tr();
+
     switch (status) {
       case MyConst.ITEM_USER_STATUS_INACTIVE:
         return TextSpan(
@@ -158,6 +163,8 @@ class CourseList extends StatelessWidget {
   }
 
   Widget _userStatusAction(BuildContext context, ItemDTO itemDTO) {
+    Text('title').tr();
+
     switch (itemDTO.userStatus) {
       case MyConst.ITEM_USER_STATUS_INACTIVE:
         return ListTile(

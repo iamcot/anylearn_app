@@ -1,4 +1,5 @@
 import 'package:anylearn/main.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -36,6 +37,8 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Quản lý hợp đồng"),

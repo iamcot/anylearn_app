@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -37,6 +38,8 @@ class _FoundationScreen extends State<FoundationScreen> with TickerProviderState
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     final width = MediaQuery.of(context).size.width;
 
     return RefreshIndicator(

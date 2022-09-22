@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:anylearn/dto/const.dart';
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,6 +39,8 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     var args = ModalRoute.of(context)!.settings.arguments;
     FriendParamsDTO param;
     if (args is String) {

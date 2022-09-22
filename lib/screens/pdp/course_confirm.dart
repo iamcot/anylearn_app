@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +18,7 @@ class CourseConfirm extends StatefulWidget {
 }
 
 class _CourseConfirm extends State<CourseConfirm> {
+  
   bool hasVoucher = false;
   bool childRegister = false;
   String dropdownValue = "0";
@@ -27,6 +29,8 @@ class _CourseConfirm extends State<CourseConfirm> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return user.id == widget.pdpDTO.author.id
         ? AlertDialog(
             content: Text("Bạn không thể đăng ký khóa học của chính bạn."),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,8 @@ class _ExchangeScreen extends State<ExchangeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    Text('title').tr();
+
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthFailState) {

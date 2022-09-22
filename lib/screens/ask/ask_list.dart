@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -14,6 +15,8 @@ class AskList extends StatelessWidget {
   const AskList({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     final width = MediaQuery.of(context).size.width;
     final height = width * 0.5625;
     final imgHeight = height - 32;

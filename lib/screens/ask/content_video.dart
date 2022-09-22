@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -33,6 +34,8 @@ class _ContentVideo extends State<ContentVideo> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return YoutubePlayerBuilder(
       player: YoutubePlayer(
         controller: _controller,

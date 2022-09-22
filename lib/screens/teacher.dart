@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,6 +34,8 @@ class _TeacherScreen extends State<TeacherScreen> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return Scaffold(
         appBar: BaseAppBar(
           user: user,

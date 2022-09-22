@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,8 @@ class _WithdrawScreen extends State<WithdrawScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Text('title').tr();
+
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthFailState) {
@@ -52,7 +55,9 @@ class _WithdrawScreen extends State<WithdrawScreen> {
         }
         if (state is AuthSuccessState) {
           user = state.user;
-          _transBloc..add(LoadTransactionPageEvent(type: MyConst.TRANS_TYPE_WITHDRAW, token: user.token));
+          _transBloc
+            ..add(LoadTransactionPageEvent(
+                type: MyConst.TRANS_TYPE_WITHDRAW, token: user.token));
         }
       },
       child: Scaffold(
@@ -69,7 +74,8 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
-                    content: Text("Gửi lệnh rút tiền thành công. Vui lòng chờ chúng tôi xác nhận."),
+                    content: Text(
+                        "Gửi lệnh rút tiền thành công. Vui lòng chờ chúng tôi xác nhận."),
                     duration: Duration(seconds: 2),
                   ));
               }
@@ -106,22 +112,30 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                           child: Text.rich(
                                         TextSpan(
                                           text: "SỐ ĐIỂM: ".toUpperCase(),
-                                          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.grey),
                                           children: [
                                             TextSpan(
-                                                text: _moneyFormat.format(user.walletC),
+                                                text: _moneyFormat
+                                                    .format(user.walletC),
                                                 style: TextStyle(
-                                                    color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 16.0)),
+                                                    color: Colors.orange,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16.0)),
                                           ],
                                         ),
                                       )),
                                       Text.rich(
                                         TextSpan(
                                             text: "LỊCH SỬ ĐIỂM",
-                                            style: TextStyle(color: Colors.blue),
+                                            style:
+                                                TextStyle(color: Colors.blue),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
-                                                Navigator.of(context).pushNamed("/transaction", arguments: 1);
+                                                Navigator.of(context).pushNamed(
+                                                    "/transaction",
+                                                    arguments: 1);
                                               }),
                                       ),
                                     ]),
@@ -130,74 +144,100 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                 Card(
                                   child: Container(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                                        TextFormField(
-                                          controller: _amountInput,
-                                          style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
-                                          keyboardType: TextInputType.number,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _ammountMInput.text = (int.parse(value) * config.rate).toString();
-                                            });
-                                          },
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return "Bạn chưa nhập số điểm muốn rút";
-                                            }
-                                            if (user.walletC < keep || int.parse(value) > max) {
-                                              return "Bạn được rút tối đa $max điểm";
-                                            }
-                                            if (int.tryParse(value)! < 0) {
-                                              return "Số tiền không đúng";
-                                            }
-                                            _formKey.currentState?.save();
-                                            return null;
-                                          },
-                                          decoration: InputDecoration(
-                                              hintText: "Nhập số điểm muốn rút",
-                                              hintStyle: TextStyle(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.normal,
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            TextFormField(
+                                              controller: _amountInput,
+                                              style: TextStyle(
+                                                  fontSize: 32.0,
+                                                  fontWeight: FontWeight.bold),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _ammountMInput.text =
+                                                      (int.parse(value) *
+                                                              config.rate)
+                                                          .toString();
+                                                });
+                                              },
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return "Bạn chưa nhập số điểm muốn rút";
+                                                }
+                                                if (user.walletC < keep ||
+                                                    int.parse(value) > max) {
+                                                  return "Bạn được rút tối đa $max điểm";
+                                                }
+                                                if (int.tryParse(value)! < 0) {
+                                                  return "Số tiền không đúng";
+                                                }
+                                                _formKey.currentState?.save();
+                                                return null;
+                                              },
+                                              decoration: InputDecoration(
+                                                  hintText:
+                                                      "Nhập số điểm muốn rút",
+                                                  hintStyle: TextStyle(
+                                                    fontSize: 20.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                  icon: Text(
+                                                    "ĐIỂM",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )),
+                                            ),
+                                            TextFormField(
+                                              controller: _ammountMInput,
+                                              readOnly: true,
+                                              style: TextStyle(
+                                                  fontSize: 24.0,
+                                                  fontWeight: FontWeight.bold),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                  hintText:
+                                                      "Số tiền quy đổi dự kiến",
+                                                  hintStyle: TextStyle(
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                  icon: Text(
+                                                    "VND",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "Bạn được rút tối đa $max điểm",
+                                                style:
+                                                    TextStyle(fontSize: 12.0),
                                               ),
-                                              icon: Text(
-                                                "ĐIỂM",
-                                                style: TextStyle(fontWeight: FontWeight.bold),
-                                              )),
-                                        ),
-                                        TextFormField(
-                                          controller: _ammountMInput,
-                                          readOnly: true,
-                                          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                                          keyboardType: TextInputType.number,
-                                          decoration: InputDecoration(
-                                              hintText: "Số tiền quy đổi dự kiến",
-                                              hintStyle: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                              icon: Text(
-                                                "VND",
-                                                style: TextStyle(fontWeight: FontWeight.bold),
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            "Bạn được rút tối đa $max điểm",
-                                            style: TextStyle(fontSize: 12.0),
-                                          ),
-                                        ),
-                                      ])),
+                                            ),
+                                          ])),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     "Thông tin ngân hàng".toUpperCase(),
-                                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey),
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 8),
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8, bottom: 8),
                                   child: BankForm(
                                     formKey: _formKey,
                                     bankName: _bankName,
@@ -209,8 +249,11 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                 Container(
                                   margin: EdgeInsets.only(top: 15.0),
                                   decoration: BoxDecoration(
-                                    gradient:
-                                        LinearGradient(colors: [Colors.blue, Colors.lightBlueAccent, Colors.blue]),
+                                    gradient: LinearGradient(colors: [
+                                      Colors.blue,
+                                      Colors.lightBlueAccent,
+                                      Colors.blue
+                                    ]),
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   height: 40.0,
@@ -234,12 +277,15 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                                   bankName: _bankName.text,
                                                   bankBranch: _bankBranch.text,
                                                   bankNo: _bankNo.text,
-                                                  accountName: _bankAccount.text)));
+                                                  accountName:
+                                                      _bankAccount.text)));
                                         }
                                       },
                                       child: Text(
                                         "Rút tiền".toUpperCase(),
-                                        style: TextStyle(fontSize: 16.0, color: Colors.white),
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            color: Colors.white),
                                       )),
                                 ),
                                 Divider(
@@ -251,7 +297,9 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     "Lịch sử rút tiền gần đây".toUpperCase(),
-                                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey),
                                   ),
                                 ),
                                 new WithdrawList(list: config.lastTransactions),

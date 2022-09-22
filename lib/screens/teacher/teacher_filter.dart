@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class TeacherFilter extends StatefulWidget {
@@ -45,6 +46,8 @@ class _TeacherFilter extends State<TeacherFilter> {
   }
 
   List<Widget> _buildSelected(BuildContext context) {
+        Text('title').tr();
+
     List<Widget> list = [];
     options.forEach((key, title) {
       list.add(Container(

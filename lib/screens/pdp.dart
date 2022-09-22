@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,6 +40,8 @@ class _PDPScreen extends State<PDPScreen> {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return BlocProvider<PdpBloc>(
       create: (context) {
         return pdpBloc..add(LoadPDPEvent(id: itemId, token: user.token));

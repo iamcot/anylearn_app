@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,8 @@ class AccountContactScreen extends StatefulWidget {
 class _AccountContactScreen extends State<AccountContactScreen> {
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,

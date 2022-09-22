@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../blocs/article/article_blocs.dart';
@@ -20,6 +21,8 @@ class AskBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
+            Text('title').tr(),
+
         SliverToBoxAdapter(child: Container(child: Image.asset("assets/banners/ask_banner.jpg"))),
         SliverToBoxAdapter(
           child: Container(

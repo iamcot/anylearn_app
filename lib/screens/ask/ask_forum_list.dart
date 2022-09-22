@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:anylearn/themes/role_color.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../dto/ask_dto.dart';
@@ -13,6 +14,8 @@ class AskForumList extends StatelessWidget {
   const AskForumList({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     return data.length == 0
         ? SliverToBoxAdapter(
             child: Container(

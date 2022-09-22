@@ -1,4 +1,5 @@
 import 'package:anylearn/main.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,9 +47,10 @@ class _RegisterScreen extends State<RegisterScreen> {
     super.didChangeDependencies();
     final userRepository = RepositoryProvider.of<UserRepository>(context);
     _authBloc = BlocProvider.of<AuthBloc>(context);
-    _loginBloc = RegisterBloc(userRepository: userRepository)..add(RegisterFormLoadEvent());
+    _loginBloc = RegisterBloc(userRepository: userRepository)
+      ..add(RegisterFormLoadEvent());
     if (ModalRoute.of(context)?.settings.arguments != null) {
-      callback =  ModalRoute.of(context)?.settings.arguments as LoginCallback;
+      callback = ModalRoute.of(context)?.settings.arguments as LoginCallback;
     } else {
       callback = LoginCallback();
     }
@@ -77,11 +79,11 @@ class _RegisterScreen extends State<RegisterScreen> {
           bloc: _loginBloc,
           listener: (context, state) {
             if (state is RegisterFailState) {
-               ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(
-                content: Text(state.error),
-              ));
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text(state.error),
+                ));
             }
             if (state is RegisterTocSuccessState) {
               _toc = state.toc;
@@ -100,6 +102,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               key: _formKey,
               child: ListView(
                 children: <Widget>[
+                  Text('title').tr(),
                   CustomPaint(
                     child: Container(
                       height: 100.0,
@@ -145,7 +148,8 @@ class _RegisterScreen extends State<RegisterScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
+                    padding: const EdgeInsets.only(
+                        left: 40.0, right: 40.0, top: 10.0),
                     child: TextFormField(
                       initialValue: _user.refcode,
                       onSaved: (value) {
@@ -188,7 +192,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                         _fieldFocusChange(context, _focusName, _focusPhone);
                       },
                       decoration: InputDecoration(
-                        labelText: _user.role == MyConst.ROLE_SCHOOL ? "Tên trường" : "Họ & Tên",
+                        labelText: _user.role == MyConst.ROLE_SCHOOL
+                            ? "Tên trường"
+                            : "Họ & Tên",
                         prefixIcon: Icon(MdiIcons.account),
                         labelStyle: TextStyle(fontSize: 14.0),
                         contentPadding: EdgeInsets.all(5.0),
@@ -309,7 +315,8 @@ class _RegisterScreen extends State<RegisterScreen> {
                         }
                         _agreedToc = value!;
                       }),
-                      title: Text.rich(TextSpan(text: "Tôi đồng ý với ", children: [
+                      title: Text.rich(
+                          TextSpan(text: "Tôi đồng ý với ", children: [
                         TextSpan(
                           text: "Điều khoản sử dụng",
                           style: TextStyle(color: Colors.red),
@@ -319,11 +326,16 @@ class _RegisterScreen extends State<RegisterScreen> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [Colors.blue, Colors.lightBlueAccent, Colors.blue]),
+                      gradient: LinearGradient(colors: [
+                        Colors.blue,
+                        Colors.lightBlueAccent,
+                        Colors.blue
+                      ]),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     height: 40.0,
-                    margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 15.0),
+                    margin: const EdgeInsets.only(
+                        left: 40.0, right: 40.0, top: 15.0),
                     child: TextButton(
                       onPressed: () {
                         _submitForm(context);
@@ -341,10 +353,13 @@ class _RegisterScreen extends State<RegisterScreen> {
                       TextSpan(text: "Bạn đã có tài khoản?", children: [
                         TextSpan(
                             text: " Đăng nhập",
-                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.of(context).popAndPushNamed("/login", arguments: callback);
+                                Navigator.of(context).popAndPushNamed("/login",
+                                    arguments: callback);
                               })
                       ]),
                     ),
@@ -364,12 +379,15 @@ class _RegisterScreen extends State<RegisterScreen> {
     });
   }
 
-  void _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+  void _fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
   void _submitForm(BuildContext context) {
+    Text('title').tr();
+
     if (!_agreedToc) {
       showDialog(
         context: context,
@@ -380,7 +398,8 @@ class _RegisterScreen extends State<RegisterScreen> {
             "Chưa đồng ý điều khoản sử dụng.",
             style: TextStyle(fontSize: 14),
           ),
-          content: Text("Bạn vui lòng đọc và tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
+          content: Text(
+              "Bạn vui lòng đọc và tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context),

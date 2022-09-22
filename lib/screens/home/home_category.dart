@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 
@@ -13,6 +14,8 @@ class HomeCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     width = MediaQuery.of(context).size.width;
     width = width * 2 / 3 - 10;
     return SliverToBoxAdapter(

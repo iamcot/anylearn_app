@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,6 +11,8 @@ class ExchangeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        Text('title').tr();
+
     final DateFormat _dateFormat = DateFormat("hh:mm\ndd/MM/yy");
     final NumberFormat _monneyFormat = NumberFormat("###,###,###", "vi_VN");
     return ListBody(
