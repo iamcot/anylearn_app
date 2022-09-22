@@ -67,7 +67,7 @@ class IntroScreenState extends State<IntroScreen> {
         onSkipPress: this.onDonePress,
         renderNextBtn: Text(
           "TIẾP",
-          style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Color.fromARGB(255, 220, 9, 167), fontWeight: FontWeight.bold),
         ),
         renderSkipBtn: Text(
           "BỎ QUA",
