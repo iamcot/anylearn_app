@@ -45,7 +45,7 @@ class _HomeScreen extends State<HomeScreen> {
   }
 
   Future checkFirstSeen() async {
-    int version = 9;
+    int version = 11;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int _seen = (prefs.getInt('intro_seen') ?? version);
 

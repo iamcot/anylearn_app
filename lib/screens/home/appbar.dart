@@ -17,7 +17,8 @@ class HomeAppBar extends StatefulWidget {
 class _HomeAppBar extends State<HomeAppBar> {
   @override
   Widget build(BuildContext context) {
-    double statusHeight = MediaQuery.of(context).padding.top; //iOS = 44 & Android = 22
+    double statusHeight =
+        MediaQuery.of(context).padding.top; //iOS = 44 & Android = 22
     return SliverAppBar(
       expandedHeight: 185 - (statusHeight - 24),
       title: Image.asset(
@@ -51,6 +52,7 @@ class _HomeAppBar extends State<HomeAppBar> {
                       }),
                 ),
               ),
+        // LocaleIcon(),
         FoundationIcon(),
         NotificationIcon(),
         LocaleIcon(),

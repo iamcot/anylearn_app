@@ -1,7 +1,9 @@
-import 'package:anylearn/screens/home/home_body.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+
+import '../screens/home/home_body.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -14,37 +16,35 @@ class IntroScreenState extends State<IntroScreen> {
   @override
   void initState() {
     super.initState();
-
     slides.add(
       new Slide(
-        backgroundImage: "assets/images/intro3.jpg",
-        backgroundOpacity: 0,
-      ),
+          backgroundImage: "assets/images/intro5.png",
+          backgroundOpacity: 0,
+          backgroundImageFit: BoxFit.fill),
     );
     slides.add(
       new Slide(
-        backgroundOpacity: 0,
-        backgroundImage: "assets/images/intro2.jpg",
-      ),
+          backgroundImage: "assets/images/intro6.jpg",
+          backgroundOpacity: 0,
+          backgroundImageFit: BoxFit.fill),
     );
     slides.add(
       new Slide(
-        backgroundImage: "assets/images/intro1.jpg",
-        backgroundOpacity: 0,
-      ),
+          backgroundImage: "assets/images/intro3.jpg",
+          backgroundOpacity: 0,
+          backgroundImageFit: BoxFit.fill),
     );
-    slides.add(new Slide(
-      backgroundImage: "assets/images/FlyerT.jpg",
-      backgroundOpacity: 0,
-      
-      backgroundImageFit: BoxFit.fitWidth,
-    ));
     slides.add(
       new Slide(
-        backgroundImage: "assets/images/FlyerS.jpg",
-        backgroundOpacity: 0,
-        backgroundImageFit: BoxFit.fitHeight,
-      ),
+          backgroundOpacity: 0,
+          backgroundImage: "assets/images/intro2.jpg",
+          backgroundImageFit: BoxFit.fill),
+    );
+    slides.add(
+      new Slide(
+          backgroundImage: "assets/images/intro1.jpg",
+          backgroundOpacity: 0,
+          backgroundImageFit: BoxFit.fill),
     );
   }
 
