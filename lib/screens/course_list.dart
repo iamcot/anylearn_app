@@ -13,7 +13,8 @@ class CourseListScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _AccountCalendarScreen();
 }
 
-class _AccountCalendarScreen extends State<CourseListScreen> with TickerProviderStateMixin {
+class _AccountCalendarScreen extends State<CourseListScreen>
+    with TickerProviderStateMixin {
   late TabController _tabController;
   late CourseBloc _courseBloc;
   UserCoursesDTO? _data;
@@ -26,7 +27,8 @@ class _AccountCalendarScreen extends State<CourseListScreen> with TickerProvider
       Navigator.of(context).popAndPushNamed("/login");
     }
     _tabController = new TabController(vsync: this, length: 2, initialIndex: 0);
-    _courseBloc = BlocProvider.of<CourseBloc>(context)..add(ListCourseEvent(token: user.token));
+    _courseBloc = BlocProvider.of<CourseBloc>(context)
+      ..add(ListCourseEvent(token: user.token));
   }
 
   @override
@@ -63,6 +65,8 @@ class _AccountCalendarScreen extends State<CourseListScreen> with TickerProvider
               _courseBloc..add(ListCourseEvent(token: user.token));
             }
             if (state is CourseUserStatusSuccessState) {
+              Navigator.of(context).pop();
+
               _courseBloc..add(ListCourseEvent(token: user.token));
             }
           },
@@ -79,7 +83,8 @@ class _AccountCalendarScreen extends State<CourseListScreen> with TickerProvider
                       )
                     : CustomFeedback(
                         user: user,
-                        child: TabBarView(controller: _tabController, children: [
+                        child:
+                            TabBarView(controller: _tabController, children: [
                           CourseList(
                             list: _data!.open,
                             hasMenu: true,

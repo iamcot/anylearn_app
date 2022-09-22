@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:anylearn/models/item_repo.dart';
 import 'package:anylearn/models/user_repo.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -50,9 +51,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
     } catch (e) {
       editId = 0;
     }
-    final itemRepo =  RepositoryProvider.of<ItemRepository>(context);
-    final userRepo =  RepositoryProvider.of<UserRepository>(context);
-    _courseBloc = CourseBloc(itemRepository: itemRepo, userRepository: userRepo);
+    final itemRepo = RepositoryProvider.of<ItemRepository>(context);
+    final userRepo = RepositoryProvider.of<UserRepository>(context);
+    _courseBloc =
+        CourseBloc(itemRepository: itemRepo, userRepository: userRepo);
 
     if (editId > 0) {
       _courseBloc..add(LoadCourseEvent(id: editId, token: user.token));
@@ -84,8 +86,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  _itemDTO!.content = ""; // await keyEditor.currentState.getText();
-                  _courseBloc..add(SaveCourseEvent(item: _itemDTO!, token: user.token));
+                  _itemDTO!.content =
+                      ""; // await keyEditor.currentState.getText();
+                  _courseBloc
+                    ..add(SaveCourseEvent(item: _itemDTO!, token: user.token));
                 }
               })
         ],
@@ -163,7 +167,9 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   _formKey.currentState!.save();
                                   return null;
                                 },
-                                initialValue: _itemDTO!.title != "" ? _itemDTO!.title : "",
+                                initialValue: _itemDTO!.title != ""
+                                    ? _itemDTO!.title
+                                    : "",
                                 onChanged: (value) {
                                   setState(() {
                                     _itemDTO!.title = value;
@@ -184,7 +190,9 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     }
                                   });
                                 },
-                                initialValue: _itemDTO!.priceOrg > 0 ? _itemDTO!.priceOrg.toString() : "",
+                                initialValue: _itemDTO!.priceOrg > 0
+                                    ? _itemDTO!.priceOrg.toString()
+                                    : "",
                                 decoration: InputDecoration(
                                   labelText: "Học phí gốc",
                                 ),
@@ -200,7 +208,9 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   _formKey.currentState!.save();
                                   return null;
                                 },
-                                initialValue: _itemDTO!.price != "" ? _itemDTO!.price.toString() : "",
+                                initialValue: _itemDTO!.price != ""
+                                    ? _itemDTO!.price.toString()
+                                    : "",
                                 onChanged: (value) {
                                   setState(() {
                                     if (value != "") {
@@ -244,11 +254,21 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 },
                                 controller: timeStartMask,
                                 validator: (value) {
-                                  if (value == "") {
-                                    return "Chưa nhập giờ bắt đầu";
+                                  try {
+                                    {
+                                      _formKey.currentState!.save();
+                                      return null;
+                                    }
+                                  } catch (error) {
+                                    if (value == "") {
+                                      return "Chưa nhập giờ bắt đầu";
+                                    }
                                   }
-                                  _formKey.currentState!.save();
-                                  return null;
+                                  // if (value == "") {
+                                  //   return "Chưa nhập giờ bắt đầu";
+                                  // }
+                                  // _formKey.currentState!.save();
+                                  // return null;
                                 },
                                 decoration: InputDecoration(
                                   labelText: "Giờ bắt đầu (HH:mm)",
@@ -299,8 +319,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                              child: Text("Nội dung khóa học vui lòng cập nhật từ website"),
+                              padding:
+                                  EdgeInsets.only(left: 15, right: 15, top: 10),
+                              child: Text(
+                                  "Nội dung khóa học vui lòng cập nhật từ website"),
                             ),
                             // Container(
                             //   padding: EdgeInsets.all(15),
@@ -377,7 +399,8 @@ class _CourseFormScreen extends State<CourseFormScreen> {
       source: ImageSource.gallery,
     );
     if (image != null) {
-      _courseBloc.add(CourseUploadImageEvent(token: user.token, image: File(image.path), itemId: _itemDTO!.id));
+      _courseBloc.add(CourseUploadImageEvent(
+          token: user.token, image: File(image.path), itemId: _itemDTO!.id));
     }
   }
 }

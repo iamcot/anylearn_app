@@ -57,37 +57,40 @@ class CourseList extends StatelessWidget {
                         _userStatusAction(context, list[index]),
                         Divider(),
                         ListTile(
-                            trailing: Icon(Icons.close),
-                            title: Text("Hủy lớp"),
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                        content: Text(
-                                            "Bạn chắc chắn muốn đóng lớp này? Lớp đã đóng không thể mở lại, xin hãy xác nhận."),
-                                        actions: <Widget>[
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text("Quay lại")),
-                                          ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                primary: Colors.red,
-                                              ),
-                                              child: Text("Hủy lớp"),
-                                              onPressed: () {
-                                                courseBloc.add(
-                                                    CourseChangeUserStatusEvent(
-                                                        itemId: list[index].id,
-                                                        token: user.token,
-                                                        newStatus: MyConst
-                                                            .ITEM_USER_STATUS_CANCEL));
-                                                Navigator.of(context).pop();
-                                              }),
-                                        ],
-                                      ));
-                            }),
+                          trailing: Icon(Icons.close),
+                          title: Text("Hủy lớp"),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                content: Text(
+                                    "Bạn chắc chắn muốn đóng lớp này? Lớp đã đóng không thể mở lại, xin hãy xác nhận."),
+                                actions: <Widget>[
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("Quay lại")),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.red,
+                                    ),
+                                    child: Text("Hủy lớp"),
+                                    onPressed: () {
+                                      courseBloc.add(
+                                          CourseChangeUserStatusEvent(
+                                              itemId: list[index].id,
+                                              token: user.token,
+                                              newStatus: MyConst
+                                                  .ITEM_USER_STATUS_CANCEL));
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   );
@@ -96,8 +99,10 @@ class CourseList extends StatelessWidget {
               leading: CalendarBox(
                   image: list[index].image,
                   fontSize: 12,
+                
                   text: shortDayFormat
-                      .format(DateTime.parse(list[index].dateStart))),
+                      .format(DateTime.parse(list[index].dateStart))
+                      ),
               title: Text(list[index].title),
               subtitle: Text.rich(
                 TextSpan(
