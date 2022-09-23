@@ -32,6 +32,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   final timeStartMask = new MaskedTextController(mask: '00:00');
   final timeEndMask = new MaskedTextController(mask: '00:00');
   final DateFormat f = DateFormat("yyyy-MM-dd");
+  final DateFormat hf = DateFormat("HH:mm");
 
   late CourseBloc _courseBloc;
   ItemDTO? _itemDTO;
@@ -211,6 +212,9 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     context,
                                     onConfirm: (time) {
                                       dateMask.text = f.format(time);
+                                      setState(() {
+                                        _itemDTO!.dateStart = dateMask.text;
+                                      });
                                     },
                                     currentTime: dateMask.text == "" ? DateTime.now() : DateTime.parse(dateMask.text),
                                   );
@@ -222,11 +226,6 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   _formKey.currentState!.save();
                                   return null;
                                 },
-                                onChanged: (value) {
-                                  setState(() {
-                                    _itemDTO!.dateStart = value;
-                                  });
-                                },
                                 controller: dateMask,
                                 decoration: InputDecoration(
                                   labelText: "Ngày diễn ra (yyyy-MM-dd)",
@@ -236,23 +235,25 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                             Container(
                               padding: EdgeInsets.only(left: 15, right: 15),
                               child: TextFormField(
-                                onChanged: (value) {
-                                  setState(() {
-                                    _itemDTO!.timeStart = value;
-                                  });
+                                onTap: () {
+                                  DatePicker.showTimePicker(
+                                    context,
+                                    showSecondsColumn: false,
+                                    onConfirm: (timestart) {
+                                      timeStartMask.text = hf.format(timestart);
+                                      setState(() {
+                                        _itemDTO!.timeStart = timeStartMask.text;
+                                      });
+                                    },
+                                  );
                                 },
                                 controller: timeStartMask,
                                 validator: (value) {
-                                  try {
-                                    {
-                                      _formKey.currentState!.save();
-                                      return null;
-                                    }
-                                  } catch (error) {
-                                    if (value == "") {
-                                      return "Chưa nhập giờ bắt đầu";
-                                    }
+                                  if (value == "") {
+                                    return "Chưa nhập giờ bắt đầu";
                                   }
+                                  _formKey.currentState!.save();
+                                  return null;
                                 },
                                 decoration: InputDecoration(
                                   labelText: "Giờ bắt đầu (HH:mm)",
@@ -262,10 +263,17 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                             Container(
                               padding: EdgeInsets.only(left: 15, right: 15),
                               child: TextFormField(
-                                onChanged: (value) {
-                                  setState(() {
-                                    _itemDTO!.timeEnd = value;
-                                  });
+                                onTap: () {
+                                  DatePicker.showTimePicker(
+                                    context,
+                                    showSecondsColumn: false,
+                                    onConfirm: (timeend) {
+                                      timeEndMask.text = hf.format(timeend);
+                                      setState(() {
+                                        _itemDTO!.timeEnd = timeEndMask.text;
+                                      });
+                                    },
+                                  );
                                 },
                                 controller: timeEndMask,
                                 decoration: InputDecoration(
