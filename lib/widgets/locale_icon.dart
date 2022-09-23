@@ -13,7 +13,9 @@ class _LocaleIcon extends State<LocaleIcon> {
       padding: EdgeInsets.only(right: 5.0),
       child: InkWell(
         child: _flagFromLocale(context.locale.toString()),
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed("/locale");
+        },
       ),
     );
   }

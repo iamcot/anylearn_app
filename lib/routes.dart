@@ -1,4 +1,3 @@
-import 'package:anylearn/screens/password_reset.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
@@ -23,17 +22,16 @@ import 'screens/contract_teacher.dart';
 import 'screens/course_form.dart';
 import 'screens/course_list.dart';
 import 'screens/course_registered.dart';
-import 'screens/deposit.dart';
-import 'screens/developing.dart';
-import 'screens/draw.dart';
 import 'screens/event.dart';
 import 'screens/exchange.dart';
 import 'screens/foundation.dart';
 import 'screens/guide.dart';
 import 'screens/items_school.dart';
 import 'screens/items_teacher.dart';
+import 'screens/locale.dart';
 import 'screens/login.dart';
 import 'screens/notification.dart';
+import 'screens/password_reset.dart';
 import 'screens/pdp.dart';
 import 'screens/qrcode.dart';
 import 'screens/register.dart';
@@ -61,11 +59,9 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/account/password": (BuildContext context) => AccountPasswordScreen(),
   "/account/contact": (BuildContext context) => AccountContactScreen(),
   "/account/children": (BuildContext context) => AccountChildrenScreen(),
-  // "/deposit": (BuildContext context) => DepositScreen(),
   "/withdraw": (BuildContext context) => WithdrawScreen(),
   "/exchange": (BuildContext context) => ExchangeScreen(),
   "/transaction": (BuildContext context) => TransactionScreen(),
-  // "/developing": (BuildContext context) => DevelopingScreen(),
   "/notification": (BuildContext context) => NotificationScreen(),
   "/items/teacher": (BuildContext context) => ItemsTeacherScreen(),
   "/items/school": (BuildContext context) => ItemsSchoolScreen(),
@@ -86,4 +82,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   // "/draw": (BuildContext context) => DrawScreen(),
   "/resetPassword": (BuildContext context) => PasswordResetScreen(),
   // "/passwordupdate": (BuildContext context) => PasswordupdateScreen(),
+  "/locale": (BuildContext context) => LocaleScreen(),
 };
