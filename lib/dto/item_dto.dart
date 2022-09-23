@@ -100,8 +100,8 @@ class ItemDTO extends Equatable {
             type: json['type'] ?? "",
             subtype: json['subtype'] ?? "",
             image: json['image'] ?? "",
-            price: json['price'] = 0,
-            priceOrg: json['org_price'] = 0,
+            price: json['price'] ?? 0,
+            priceOrg: json['org_price'] ?? 0,
             shortContent: json['short_content'] ?? "",
             content: json['content'] ?? "",
             rating: json['rating'] == null
