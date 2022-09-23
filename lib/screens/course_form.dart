@@ -117,7 +117,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
         child: BlocBuilder<CourseBloc, CourseState>(
           bloc: _courseBloc,
           builder: (context, state) {
-            if (state is CourseLoadSuccess) {
+            if (state is CourseLoadSuccess && _itemDTO == null) {
               _itemDTO = state.item;
               dateMask.text = _itemDTO!.dateStart;
               timeStartMask.text = _itemDTO!.timeStart;

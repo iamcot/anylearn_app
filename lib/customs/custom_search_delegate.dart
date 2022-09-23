@@ -54,18 +54,16 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     if (screen == "school" || screen == "teacher") {
-      BlocProvider.of<SearchBloc>(context)
-        ..add(SearchUserEvent(screen: screen, query: query));
+      BlocProvider.of<SearchBloc>(context)..add(SearchUserEvent(screen: screen, query: query));
     } else {
-      BlocProvider.of<SearchBloc>(context)
-        ..add(SearchItemEvent(screen: screen, query: query));
+      BlocProvider.of<SearchBloc>(context)..add(SearchItemEvent(screen: screen, query: query));
     }
     return BlocBuilder<SearchBloc, SearchState>(
       bloc: BlocProvider.of<SearchBloc>(context),
       builder: (context, state) {
         if (state is SearchUserSuccessState) {
           final List<UserDTO> users = state.users;
-          return users == null || users.length == 0
+          return users.length == 0
               ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."))
               : Container(
                   child: ListView.separated(
@@ -82,8 +80,7 @@ class CustomSearchDelegate extends SearchDelegate {
                           title: Text(users[index].name),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
-                            Navigator.of(context).pushNamed("/items/$screen",
-                                arguments: users[index].id);
+                            Navigator.of(context).pushNamed("/items/$screen", arguments: users[index].id);
                           },
                         );
                       },
@@ -110,14 +107,11 @@ class CustomSearchDelegate extends SearchDelegate {
                                       url: items[index].image,
                                     )),
                           title: Text(items[index].title),
-                          subtitle: Text((items[index].authorType == "school"
-                                  ? "Trung tâm: "
-                                  : "Giảng viên: ") +
+                          subtitle: Text((items[index].authorType == "school" ? "Trung tâm: " : "Giảng viên: ") +
                               items[index].authorName),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
-                            Navigator.of(context)
-                                .pushNamed("/pdp", arguments: items[index].id);
+                            Navigator.of(context).pushNamed("/pdp", arguments: items[index].id);
                           },
                         );
                       },
@@ -138,13 +132,12 @@ class CustomSearchDelegate extends SearchDelegate {
       BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent());
     } else {
       if (screen == "school" || screen == "teacher") {
-        BlocProvider.of<SearchBloc>(context)
-          ..add(SearchUserEvent(screen: screen, query: query));
+        BlocProvider.of<SearchBloc>(context)..add(SearchUserEvent(screen: screen, query: query));
       } else {
-        BlocProvider.of<SearchBloc>(context)
-          ..add(SearchItemEvent(screen: screen, query: query));
+        BlocProvider.of<SearchBloc>(context)..add(SearchItemEvent(screen: screen, query: query));
       }
     }
+
     // return (screen == "school" || screen == "teacher")
     //     ? Text("") :
     return BlocBuilder<SearchBloc, SearchState>(
@@ -157,8 +150,7 @@ class CustomSearchDelegate extends SearchDelegate {
                   return ListTile(
                     title: Text(
                       "@${state.tags[index]}",
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                     ),
                     trailing: Icon(Icons.chevron_right),
                     onTap: () {
@@ -170,12 +162,12 @@ class CustomSearchDelegate extends SearchDelegate {
                 separatorBuilder: (context, index) {
                   return Divider();
                 },
-                itemCount: state.tags.length ),
+                itemCount: state.tags.length),
           );
         }
         if (state is SearchUserSuccessState) {
           final List<UserDTO> users = state.users;
-          return users == null || users.length == 0
+          return users.length == 0
               ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."))
               : Container(
                   child: ListView.separated(
@@ -184,7 +176,7 @@ class CustomSearchDelegate extends SearchDelegate {
                           leading: Container(
                               height: 50,
                               width: 50,
-                              child: users[index].image == null
+                              child: users[index].image == ""
                                   ? Icon(Icons.broken_image)
                                   : CustomCachedImage(
                                       url: users[index].image,
@@ -192,8 +184,7 @@ class CustomSearchDelegate extends SearchDelegate {
                           title: Text(users[index].name),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
-                            Navigator.of(context).pushNamed("/items/$screen",
-                                arguments: users[index].id);
+                            Navigator.of(context).pushNamed("/items/$screen", arguments: users[index].id);
                           },
                         );
                       },
@@ -205,7 +196,7 @@ class CustomSearchDelegate extends SearchDelegate {
         }
         if (state is SearchItemSuccessState) {
           final List<ItemDTO> items = state.items;
-          return items == null || items.length == 0
+          return items.length == 0
               ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."))
               : Container(
                   child: ListView.separated(
@@ -214,20 +205,17 @@ class CustomSearchDelegate extends SearchDelegate {
                           leading: Container(
                               height: 50,
                               width: 50,
-                              child: items[index].image == null
+                              child: items[index].image == ""
                                   ? Icon(Icons.broken_image)
                                   : CustomCachedImage(
                                       url: items[index].image,
                                     )),
                           title: Text(items[index].title),
-                          subtitle: Text((items[index].authorType == "school"
-                                  ? "Trung tâm: "
-                                  : "Giảng viên: ") +
+                          subtitle: Text((items[index].authorType == "school" ? "Trung tâm: " : "Giảng viên: ") +
                               items[index].authorName),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
-                            Navigator.of(context)
-                                .pushNamed("/pdp", arguments: items[index].id);
+                            Navigator.of(context).pushNamed("/pdp", arguments: items[index].id);
                           },
                         );
                       },
