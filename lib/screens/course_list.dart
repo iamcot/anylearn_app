@@ -65,8 +65,7 @@ class _AccountCalendarScreen extends State<CourseListScreen>
               _courseBloc..add(ListCourseEvent(token: user.token));
             }
             if (state is CourseUserStatusSuccessState) {
-              Navigator.of(context).pop();
-
+              // Navigator.of(context).pop();
               _courseBloc..add(ListCourseEvent(token: user.token));
             }
           },
