@@ -28,6 +28,11 @@ class CourseFormScreen extends StatefulWidget {
 class _CourseFormScreen extends State<CourseFormScreen> {
   // GlobalKey<HtmlEditorState> keyEditor = GlobalKey();
   final _formKey = GlobalKey<FormState>();
+  final titleController = new TextEditingController();
+  final priceController = new TextEditingController();
+  final priceOrgController = new TextEditingController();
+  final locationController = new TextEditingController();
+  final shortController = new TextEditingController();
   final dateMask = new MaskedTextController(mask: '0000-00-00');
   final timeStartMask = new MaskedTextController(mask: '00:00');
   final timeEndMask = new MaskedTextController(mask: '00:00');
@@ -63,7 +68,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
       _courseBloc..add(LoadCourseEvent(id: editId, token: user.token));
     } else {
       _itemDTO = new ItemDTO(
-        type: MyConst.ITEM_COURSE,
+        type: MyConst.ITEM_CLASS,
       );
     }
     super.didChangeDependencies();
@@ -87,11 +92,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
           IconButton(
               icon: Icon(Icons.save),
               onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  _itemDTO!.content = ""; // await keyEditor.currentState.getText();
-                  _courseBloc..add(SaveCourseEvent(item: _itemDTO!, token: user.token));
-                }
+                _submit();
               })
         ],
       ),
@@ -104,7 +105,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
           if (state is CourseSaveSuccessState) {
             toast("Lưu khóa học thành công.");
             _itemDTO = new ItemDTO(
-              type: MyConst.ITEM_COURSE,
+              type: MyConst.ITEM_CLASS,
             );
             Navigator.of(context).popUntil(ModalRoute.withName("/"));
             Navigator.of(context).pushNamed("/course/list");
@@ -119,6 +120,10 @@ class _CourseFormScreen extends State<CourseFormScreen> {
           builder: (context, state) {
             if (state is CourseLoadSuccess && _itemDTO == null) {
               _itemDTO = state.item;
+              titleController.text = _itemDTO!.title;
+              priceController.text = _itemDTO!.price.toString();
+              priceOrgController.text = _itemDTO!.priceOrg.toString();
+              shortController.text = _itemDTO!.shortContent;
               dateMask.text = _itemDTO!.dateStart;
               timeStartMask.text = _itemDTO!.timeStart;
               timeEndMask.text = _itemDTO!.timeEnd;
@@ -154,12 +159,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   _formKey.currentState!.save();
                                   return null;
                                 },
-                                initialValue: _itemDTO!.title,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _itemDTO!.title = value;
-                                  });
-                                },
+                                controller: titleController,
                                 decoration: InputDecoration(
                                   labelText: "Tên khóa học",
                                 ),
@@ -168,14 +168,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                             Container(
                               padding: EdgeInsets.only(left: 15, right: 15),
                               child: TextFormField(
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (value != "") {
-                                      _itemDTO!.priceOrg = int.parse(value);
-                                    }
-                                  });
-                                },
-                                initialValue: _itemDTO!.priceOrg.toString(),
+                                controller: priceOrgController,
                                 decoration: InputDecoration(
                                   labelText: "Học phí gốc",
                                 ),
@@ -191,14 +184,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   _formKey.currentState!.save();
                                   return null;
                                 },
-                                initialValue: _itemDTO!.price.toString(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (value != "") {
-                                      _itemDTO!.price = int.parse(value);
-                                    }
-                                  });
-                                },
+                                controller: priceController,
                                 decoration: InputDecoration(
                                   labelText: "Học phí",
                                 ),
@@ -212,9 +198,6 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     context,
                                     onConfirm: (time) {
                                       dateMask.text = f.format(time);
-                                      setState(() {
-                                        _itemDTO!.dateStart = dateMask.text;
-                                      });
                                     },
                                     currentTime: dateMask.text == "" ? DateTime.now() : DateTime.parse(dateMask.text),
                                   );
@@ -241,9 +224,6 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     showSecondsColumn: false,
                                     onConfirm: (timestart) {
                                       timeStartMask.text = hf.format(timestart);
-                                      setState(() {
-                                        _itemDTO!.timeStart = timeStartMask.text;
-                                      });
                                     },
                                   );
                                 },
@@ -269,9 +249,6 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                     showSecondsColumn: false,
                                     onConfirm: (timeend) {
                                       timeEndMask.text = hf.format(timeend);
-                                      setState(() {
-                                        _itemDTO!.timeEnd = timeEndMask.text;
-                                      });
                                     },
                                   );
                                 },
@@ -284,12 +261,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                             Container(
                               padding: EdgeInsets.only(left: 15, right: 15),
                               child: TextFormField(
-                                onChanged: (value) {
-                                  setState(() {
-                                    _itemDTO!.location = value;
-                                  });
-                                },
-                                initialValue: _itemDTO!.location,
+                                controller: locationController,
                                 decoration: InputDecoration(
                                   labelText: "Địa điểm/Room online",
                                 ),
@@ -299,12 +271,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               padding: EdgeInsets.only(left: 15, right: 15),
                               child: TextFormField(
                                 maxLines: 3,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _itemDTO!.shortContent = value;
-                                  });
-                                },
-                                initialValue: _itemDTO!.shortContent,
+                                controller: shortController,
                                 decoration: InputDecoration(
                                   labelText: "Giới thiệu ngắn",
                                 ),
@@ -338,6 +305,15 @@ class _CourseFormScreen extends State<CourseFormScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       _itemDTO!.content = ""; //await keyEditor.currentState.getText();
+      _itemDTO!.title = titleController.text;
+      _itemDTO!.priceOrg = priceOrgController.text != "" ? int.parse(priceOrgController.text) : 0;
+      _itemDTO!.price = int.parse(priceController.text);
+      _itemDTO!.dateStart = dateMask.text;
+      _itemDTO!.timeStart = timeStartMask.text;
+      _itemDTO!.timeEnd = timeEndMask.text;
+      _itemDTO!.location = locationController.text;
+      _itemDTO!.shortContent = shortController.text;
+
       _courseBloc.add(SaveCourseEvent(item: _itemDTO!, token: user.token));
     }
   }
