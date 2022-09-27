@@ -40,6 +40,7 @@ import 'screens/register.dart';
 import 'screens/school.dart';
 import 'screens/teacher.dart';
 import 'screens/transaction.dart';
+import 'screens/waitpayment/waitpayment.dart';
 import 'screens/withdraw.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
@@ -86,4 +87,6 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   // "/draw": (BuildContext context) => DrawScreen(),
   "/resetPassword": (BuildContext context) => PasswordResetScreen(),
   // "/passwordupdate": (BuildContext context) => PasswordupdateScreen(),
+    "/waitpayment": (BuildContext context) => Waitpayment(),
+
 };
