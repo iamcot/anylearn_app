@@ -1,3 +1,4 @@
+import 'package:anylearn/blocs/pendingorder/pendingorder_blos.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -17,6 +18,7 @@ import 'dto/notification_dto.dart';
 import 'dto/user_dto.dart';
 import 'models/item_repo.dart';
 import 'models/page_repo.dart';
+import 'models/pendingorder_repo.dart';
 import 'models/transaction_repo.dart';
 import 'models/user_repo.dart';
 import 'routes.dart';
@@ -43,6 +45,7 @@ void main() async {
   final pageRepo = PageRepository(config: config);
   final transRepo = TransactionRepository(config: config);
   final itemRepo = ItemRepository(config: config);
+  final pendorderRepo = PendingorderRepository(config: config);
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -62,16 +65,29 @@ void main() async {
             RepositoryProvider<ItemRepository>(
               create: (context) => itemRepo,
             ),
+            RepositoryProvider<PendingorderRepository>(
+              create: (context) => pendorderRepo,
+            ),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
-              BlocProvider<AccountBloc>(create: (context) => AccountBloc(userRepository: userRepo)),
+              BlocProvider<AuthBloc>(
+                  create: (context) => AuthBloc(userRepository: userRepo)),
+              BlocProvider<AccountBloc>(
+                  create: (context) => AccountBloc(userRepository: userRepo)),
               BlocProvider<CourseBloc>(
-                  create: (context) => CourseBloc(itemRepository: itemRepo, userRepository: userRepo)),
-              BlocProvider<SearchBloc>(create: (context) => SearchBloc(pageRepository: pageRepo)),
-              BlocProvider<NotifBloc>(create: (context) => NotifBloc(userRepository: userRepo)),
-              BlocProvider<ArticleBloc>(create: (context) => ArticleBloc(pageRepository: pageRepo)),
+                  create: (context) => CourseBloc(
+                      itemRepository: itemRepo, userRepository: userRepo)),
+              BlocProvider<SearchBloc>(
+                  create: (context) => SearchBloc(pageRepository: pageRepo)),
+              BlocProvider<NotifBloc>(
+                  create: (context) => NotifBloc(userRepository: userRepo)),
+              BlocProvider<ArticleBloc>(
+                  create: (context) => ArticleBloc(pageRepository: pageRepo)),
+              BlocProvider<PendingOrderBloc>(
+                create: (context) =>
+                    PendingOrderBloc(pendingorderRepository: pendorderRepo),
+              )
             ],
             child: MyApp(),
           )),
@@ -90,7 +106,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
-  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey =
+      new GlobalKey<NavigatorState>();
 
   @override
   void initState() {
