@@ -71,19 +71,18 @@ class _AccountBody extends State<AccountBody> {
               leadingIcon: MdiIcons.accountGroup,
               trailing: SizedBox(
                   width: 80.0,
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     Text(user.numFriends.toString() + " bạn "),
                     Icon(Icons.chevron_right),
                   ])),
             ),
-            AccountNormalMenu(
-              title: "Quỹ từ thiện",
-              route: "/foundation",
-              routeParam: FriendParamsDTO(userId: user.id, level: 1),
-              leadingIcon: MdiIcons.piggyBank,
-              trailing: Icon(Icons.chevron_right_sharp),
-            ),
+            // AccountNormalMenu(
+            //   title: "Quỹ từ thiện",
+            //   route: "/foundation",
+            //   routeParam: FriendParamsDTO(userId: user.id, level: 1),
+            //   leadingIcon: MdiIcons.piggyBank,
+            //   trailing: Icon(Icons.chevron_right_sharp),
+            // ),
 
             AccountNormalMenu(
               title: "Quản lý tài khoản phụ",
@@ -147,8 +146,7 @@ class _AccountBody extends State<AccountBody> {
               leadingIcon: MdiIcons.televisionGuide,
               trailing: Icon(Icons.chevron_right),
             ),
-            user.role == MyConst.ROLE_SCHOOL ||
-                    user.role == MyConst.ROLE_TEACHER
+            user.role == MyConst.ROLE_SCHOOL || user.role == MyConst.ROLE_TEACHER
                 ? AccountNormalMenu(
                     title: "Chính sách",
                     route: "/guide",
@@ -172,6 +170,12 @@ class _AccountBody extends State<AccountBody> {
               trailing: Icon(Icons.arrow_right),
             ),
             AccountNormalMenu(
+              title: "Xóa tài khoản",
+              route: "/account/delete",
+              leadingIcon: MdiIcons.deleteForever,
+              trailing: Icon(Icons.chevron_right),
+            ),
+            AccountNormalMenu(
               title: "Trung Tâm Hỗ Trợ",
               routeFunction: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -182,6 +186,7 @@ class _AccountBody extends State<AccountBody> {
               leadingIcon: MdiIcons.helpCircle,
               trailing: Icon(Icons.chevron_right),
             ),
+
             AccountNormalMenu(
               title: "Đăng xuất",
               routeFunction: () {

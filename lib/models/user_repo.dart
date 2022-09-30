@@ -166,4 +166,8 @@ class UserRepository {
   Future<bool> checkOtp(String otp, String phone) async {
     return await userService.checkOtp(otp, phone);
   }
+
+  Future<bool> deleteAccount(String token) async {
+    return await userService.deleteAccount(token);
+  }
 }

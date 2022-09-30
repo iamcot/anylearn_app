@@ -48,8 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
     try {
       if (event is AuthContractSaveEvent) {
-        final result =
-            await userRepository.saveContract(event.token, event.contract);
+        final result = await userRepository.saveContract(event.token, event.contract);
         if (result) {
           yield AuthContractSuccessState();
         }
@@ -60,8 +59,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       if (event is AuthContractLoadEvent) {
         yield AuthContractInProgressState();
-        final contract =
-            await userRepository.loadContract(event.token, event.contractId);
+        final contract = await userRepository.loadContract(event.token, event.contractId);
         print(contract);
         yield AuthContractLoadSuccessState(contract: contract);
       }
@@ -71,8 +69,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       if (event is AuthContractLoadForSignEvent) {
         yield AuthContractInProgressState();
-        final contract =
-            await userRepository.loadContract(event.token, event.contractId);
+        final contract = await userRepository.loadContract(event.token, event.contractId);
         yield AuthContractLoadForSignSuccessState(contract: contract);
       }
     } catch (error) {
@@ -101,8 +98,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       if (event is AuthPassResetEvent) {
         yield AuthPassResetLoadingState();
-        await userRepository.resetOtp(
-            event.phone, event.otp, event.password, event.confirmPassword);
+        await userRepository.resetOtp(event.phone, event.otp, event.password, event.confirmPassword);
         yield AuthPassResetSuccessState();
       }
     } catch (error) {
@@ -116,6 +112,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } catch (error) {
       yield AuthCheckPhoneOtpFailState(error: error.toString());
+    }
+    try {
+      if (event is AuthDeleteEvent) {
+        yield AuthDeleteLoadingState();
+        await userRepository.deleteAccount(event.token);
+        yield AuthDeleteSuccessState();
+      }
+    } catch (error) {
+      yield AuthDeleteFailState(error: error.toString());
     }
   }
 }

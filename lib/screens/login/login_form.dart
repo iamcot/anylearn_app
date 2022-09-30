@@ -234,35 +234,35 @@ class _LoginForm extends State<LoginForm> {
                   //   ),
                   // ),
                   // (Platform.isIOS && double.parse(_deviceData["systemVersion"]) > 12.0)
-                  (Platform.isIOS)
-                      ? Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colors.grey, (Colors.grey[400])!, Colors.grey]),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          height: 48.0,
-                          margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
-                          child: TextButton.icon(
-                            icon: Icon(
-                              MdiIcons.apple,
-                              color: Colors.white,
-                            ),
-                            onPressed: state is! LoginInProgressState
-                                ? () async {
-                                    await _loginApple();
-                                  }
-                                : () {},
-                            label: state is! LoginInProgressState
-                                ? Text(
-                                    "Đăng nhập bằng Apple",
-                                    style: TextStyle(fontSize: 16.0, color: Colors.white),
-                                  )
-                                : CircularProgressIndicator(
-                                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-                                  ),
-                          ),
-                        )
-                      : SizedBox(height: 0),
+                  // (Platform.isIOS)
+                  //     ? Container(
+                  //         decoration: BoxDecoration(
+                  //           gradient: LinearGradient(colors: [Colors.grey, (Colors.grey[400])!, Colors.grey]),
+                  //           borderRadius: BorderRadius.circular(10.0),
+                  //         ),
+                  //         height: 48.0,
+                  //         margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
+                  //         child: TextButton.icon(
+                  //           icon: Icon(
+                  //             MdiIcons.apple,
+                  //             color: Colors.white,
+                  //           ),
+                  //           onPressed: state is! LoginInProgressState
+                  //               ? () async {
+                  //                   await _loginApple();
+                  //                 }
+                  //               : () {},
+                  //           label: state is! LoginInProgressState
+                  //               ? Text(
+                  //                   "Đăng nhập bằng Apple",
+                  //                   style: TextStyle(fontSize: 16.0, color: Colors.white),
+                  //                 )
+                  //               : CircularProgressIndicator(
+                  //                   valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                  //                 ),
+                  //         ),
+                  //       )
+                  //     : SizedBox(height: 0),
                 ],
               ),
             ),

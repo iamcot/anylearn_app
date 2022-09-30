@@ -1,7 +1,6 @@
-import 'package:anylearn/dto/contract.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
+import '../../dto/contract.dart';
 import '../../dto/user_dto.dart';
 
 abstract class AuthState extends Equatable {
@@ -113,15 +112,16 @@ class AuthResentOtpLoadingState extends AuthState {}
 
 class AuthResentOtpSuccessState extends AuthState {}
 
-
 class AuthPhoneResetLoadingState extends AuthState {}
 
 class AuthPassResetSuccessState extends AuthState {}
 
 class AuthPhoneResetSuccessState extends AuthState {}
+
 class AuthCheckPhoneOTPLoadingState extends AuthState {}
 
 class AuthCheckPhoneOTPResetSuccessState extends AuthState {}
+
 class AuthCheckPhoneOtpFailState extends AuthState {
   final String error;
 
@@ -131,7 +131,6 @@ class AuthCheckPhoneOtpFailState extends AuthState {
   List<Object> get props => [error];
 }
 
-
 class AuthPassOtpFailState extends AuthState {
   final String error;
 
@@ -140,6 +139,7 @@ class AuthPassOtpFailState extends AuthState {
   @override
   List<Object> get props => [error];
 }
+
 class AuthPassResetFailState extends AuthState {
   final String error;
 
@@ -148,10 +148,24 @@ class AuthPassResetFailState extends AuthState {
   @override
   List<Object> get props => [error];
 }
+
 class AuthResentOtpFailState extends AuthState {
   final String error;
 
   AuthResentOtpFailState({required this.error});
+
+  @override
+  List<Object> get props => [error];
+}
+
+class AuthDeleteLoadingState extends AuthState {}
+
+class AuthDeleteSuccessState extends AuthState {}
+
+class AuthDeleteFailState extends AuthState {
+  final String error;
+
+  AuthDeleteFailState({required this.error});
 
   @override
   List<Object> get props => [error];
