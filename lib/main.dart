@@ -18,7 +18,6 @@ import 'dto/notification_dto.dart';
 import 'dto/user_dto.dart';
 import 'models/item_repo.dart';
 import 'models/page_repo.dart';
-import 'models/pendingorder_repo.dart';
 import 'models/transaction_repo.dart';
 import 'models/user_repo.dart';
 import 'routes.dart';
@@ -45,7 +44,6 @@ void main() async {
   final pageRepo = PageRepository(config: config);
   final transRepo = TransactionRepository(config: config);
   final itemRepo = ItemRepository(config: config);
-  final pendorderRepo = PendingorderRepository(config: config);
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -65,9 +63,7 @@ void main() async {
             RepositoryProvider<ItemRepository>(
               create: (context) => itemRepo,
             ),
-            RepositoryProvider<PendingorderRepository>(
-              create: (context) => pendorderRepo,
-            ),
+            
           ],
           child: MultiBlocProvider(
             providers: [
@@ -84,10 +80,7 @@ void main() async {
                   create: (context) => NotifBloc(userRepository: userRepo)),
               BlocProvider<ArticleBloc>(
                   create: (context) => ArticleBloc(pageRepository: pageRepo)),
-              BlocProvider<PendingOrderBloc>(
-                create: (context) =>
-                    PendingOrderBloc(pendingorderRepository: pendorderRepo),
-              )
+             
             ],
             child: MyApp(),
           )),

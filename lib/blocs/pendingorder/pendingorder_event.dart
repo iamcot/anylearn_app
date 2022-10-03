@@ -11,8 +11,8 @@ class LoadPendingorderPageEvent extends PendingOrderEvent {
 
   LoadPendingorderPageEvent({required this.id, required this.userId});
   @override
-  List<Object> get props => [id, userId];
+  List<Object> get props => [userId , id ];
 
   @override
-  String toString() => 'LoadPendingorderPageEvent {id : $id}';
+  String toString() => 'LoadPendingorderPageEvent {user: $userId, id: $id}';
 }

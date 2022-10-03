@@ -9,6 +9,7 @@ import '../dto/class_registered_user.dart';
 import '../dto/contract.dart';
 import '../dto/friends_dto.dart';
 import '../dto/notification_dto.dart';
+import '../dto/pending_order_dto.dart';
 import '../dto/user_doc_dto.dart';
 import '../dto/user_dto.dart';
 import '../dto/users_dto.dart';
@@ -293,7 +294,8 @@ class UserService extends BaseService {
   //   return json['result'];
   // }
 
-  Future<bool> resetOtp(String phone , String otp ,String password, String passwordConfirm) async {
+  Future<bool> resetOtp(
+      String phone, String otp, String password, String passwordConfirm) async {
     final url = buildUrl(appConfig: config, endPoint: "/password/reset");
     final json = await post(httpClient, url, {
       "phone": phone,
@@ -321,5 +323,15 @@ class UserService extends BaseService {
       // "password_confirmation": passwordConfirm,
     });
     return json['result'];
+  }
+
+  Future<PendingOrderDTO> PendingOrderConfigs(int id ,int userId) async {
+    final url = buildUrl(
+      appConfig: config,
+      endPoint: "/user/pending-orders",
+    );
+    print(url);
+    final json = await get(httpClient, url);
+    return PendingOrderDTO.fromJson(json);
   }
 }

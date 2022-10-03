@@ -6,6 +6,8 @@ abstract class PendingOrderState extends Equatable {
   const PendingOrderState();
   @override
   List<Object> get props => [];
+
+  get load => null;
 }
 
 class PendingOrderInitState extends PendingOrderState {}
@@ -28,3 +30,11 @@ class PendingOrderFailState extends PendingOrderState {
   String toString() => '{error: $error}';
 }
 
+
+class PendingOrderSuccessState extends PendingOrderState {
+  final Map<String, List<PendingOrderDTO>> load;
+
+  PendingOrderSuccessState({required this.load});
+  @override
+  List<Object> get props => [load];
+}

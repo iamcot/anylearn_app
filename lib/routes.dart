@@ -35,7 +35,7 @@ import 'screens/items_teacher.dart';
 import 'screens/login.dart';
 import 'screens/notification.dart';
 import 'screens/pdp.dart';
-import 'screens/pendingorders/pendingorder.dart';
+import 'screens/pendingorder/pendingorder.dart';
 import 'screens/qrcode.dart';
 import 'screens/register.dart';
 import 'screens/school.dart';
@@ -87,5 +87,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   // "/draw": (BuildContext context) => DrawScreen(),
   "/resetPassword": (BuildContext context) => PasswordResetScreen(),
   // "/passwordupdate": (BuildContext context) => PasswordupdateScreen(),
-  "/pendingorders/pendingorder": (BuildContext context) => PendingOrder(),
+  "/pendingorder/pendingorder": (BuildContext context) => PendingOrder(),
 };

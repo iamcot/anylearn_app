@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final pendingOrder = pendingOrderFromJson(jsonString);
 
-import 'dart:convert';
 
 class PendingOrderDTO{
   PendingOrderDTO({
