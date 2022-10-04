@@ -37,7 +37,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {    Text('title').tr();
+  Widget build(BuildContext context) {    
 
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
@@ -51,7 +51,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Đổi điểm sang tài khoản tiền"),
+          title: Text("Đổi điểm sang tài khoản tiền".tr()),
           centerTitle: false,
         ),
         body: BlocProvider<TransactionBloc>(
@@ -65,7 +65,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
-                    content: Text("Gửi lệnh đổi điểm thành công"),
+                    content: Text("Gửi lệnh đổi điểm thành công".tr()),
                     duration: Duration(seconds: 2),
                   )).closed.then((value) {
                     Navigator.of(context).pop();
@@ -75,7 +75,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
-                    content: Text(state.error + "| Có lỗi khi lưu, vui lòng thử lại"),
+                    content: Text(state.error + "| Có lỗi khi lưu, vui lòng thử lại".tr()),
                     duration: Duration(seconds: 2),
                   ));
               }
@@ -101,7 +101,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                       Expanded(
                                           child: Text.rich(
                                         TextSpan(
-                                          text: "Số điểm: ".toUpperCase(),
+                                          text: "Số điểm: ".tr().toUpperCase(),
                                           style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
                                           children: [
                                             TextSpan(
@@ -113,7 +113,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                       )),
                                       Text.rich(
                                         TextSpan(
-                                            text: "Lịch sử điểm".toUpperCase(),
+                                            text: "Lịch sử điểm".tr().toUpperCase(),
                                             style: TextStyle(color: Colors.blue),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
@@ -139,22 +139,22 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                         },
                                         validator: (value) {
                                           if (value == "") {
-                                            return "Bạn chưa nhập số điểm muốn rút";
+                                            return "Bạn chưa nhập số điểm muốn rút".tr();
                                           }
                                           if (int.parse(value.toString()) > max) {
-                                            return "Bạn được rút tối đa $max điểm";
+                                            return "Bạn được rút tối đa $max điểm".tr();
                                           }
                                           _formKey.currentState?.save();
                                           return null;
                                         },
                                         decoration: InputDecoration(
-                                            hintText: "Nhập số điểm muốn rút",
+                                            hintText: "Nhập số điểm muốn rút".tr(),
                                             hintStyle: TextStyle(
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.normal,
                                             ),
                                             icon: Text(
-                                              "ĐIỂM",
+                                              "ĐIỂM".tr(),
                                               style: TextStyle(fontWeight: FontWeight.bold),
                                             )),
                                       ),
@@ -164,7 +164,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                         style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                            hintText: "Số tiền quy đổi rút được",
+                                            hintText: "Số tiền quy đổi rút được".tr(),
                                             hintStyle: TextStyle(
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.normal,
@@ -204,7 +204,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                         }
                                       },
                                       child: Text(
-                                        "Đổi điểm".toUpperCase(),
+                                        "Đổi điểm".tr().toUpperCase(),
                                         style: TextStyle(fontSize: 16.0, color: Colors.white),
                                       )),
                                 ),
@@ -216,7 +216,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "Lịch sử đổi điểm gần đây".toUpperCase(),
+                                    "Lịch sử đổi điểm gần đây".tr().toUpperCase(),
                                     style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
                                   ),
                                 ),

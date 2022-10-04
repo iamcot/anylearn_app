@@ -16,7 +16,7 @@ class ContentRead extends StatelessWidget {
   const ContentRead({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return ListView(
       children: [
@@ -49,7 +49,7 @@ class ContentRead extends StatelessWidget {
           Padding(
             padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 10.0),
             child: Text(
-              "Các bài liên quan",
+              "Các bài liên quan".tr(),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),

@@ -11,7 +11,7 @@ class AskHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return Container(
       padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -24,7 +24,7 @@ class AskHeader extends StatelessWidget {
             child: Text(title, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
           ),
           InkWell(
-            child: Text("XEM THÊM", style: TextStyle(color: Colors.blue, fontSize: 12.0)),
+            child: Text("XEM THÊM".tr(), style: TextStyle(color: Colors.blue, fontSize: 12.0)),
             onTap: () {
               if (type != "") {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) {

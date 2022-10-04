@@ -13,7 +13,7 @@ class WeekCourseHeader extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Text(
-                "Khóa học sắp diễn ra",
+                "Khóa học sắp diễn ra".tr(),
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -25,7 +25,7 @@ class WeekCourseHeader extends StatelessWidget {
                     Navigator.of(context).pushNamed("/event");
                   },
                   child: Text(
-                    "KHÓA HỌC KHÁC",
+                    "KHÓA HỌC KHÁC".tr(),
                     style: TextStyle(
                       color: Colors.blue,
                       fontSize: 12,

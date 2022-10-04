@@ -8,7 +8,7 @@ import 'feature_icon.dart';
 class WalletCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return Card(
       child: Column(
@@ -16,7 +16,7 @@ class WalletCard extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Tài khoản của tôi",
+              "Tài khoản của tôi".tr(),
               style: TextStyle(fontSize: 12.0),
             ),
             padding: EdgeInsets.all(10.0),
@@ -28,26 +28,26 @@ class WalletCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: FeatureIcon(
-                    featureData: FeatureDataDTO(icon: Icons.input , title: "Nạp tiền", route: "/deposit", iconColor: Colors.green),
+                    featureData: FeatureDataDTO(icon: Icons.input , title: "Nạp tiền".tr(), route: "/deposit", iconColor: Colors.green),
                     iconSize: 24.0,
                   ),
                 ),
                 Expanded(
                   child: FeatureIcon(
                     featureData:
-                        FeatureDataDTO(icon: Icons.monetization_on, title: "Rút tiền", route: "/withdraw", iconColor: Colors.purple),
+                        FeatureDataDTO(icon: Icons.monetization_on, title: "Rút tiền".tr(), route: "/withdraw", iconColor: Colors.purple),
                     iconSize: 24.0,
                   ),
                 ),
                 Expanded(
                   child: FeatureIcon(
-                    featureData: FeatureDataDTO(icon: MdiIcons.gift , title: "Điểm", route: "/exchange", iconColor: Colors.orange),
+                    featureData: FeatureDataDTO(icon: MdiIcons.gift , title: "Điểm".tr(), route: "/exchange", iconColor: Colors.orange),
                     iconSize: 24.0,
                   ),
                 ),
                 Expanded(
                   child: FeatureIcon(
-                    featureData: FeatureDataDTO(icon: Icons.receipt, title: "Giao dịch", route: "/transaction", iconColor: Colors.blue),
+                    featureData: FeatureDataDTO(icon: Icons.receipt, title: "Giao dịch".tr(), route: "/transaction", iconColor: Colors.blue),
                     iconSize: 24.0,
                   ),
                 ),

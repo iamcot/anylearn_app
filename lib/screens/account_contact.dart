@@ -10,12 +10,12 @@ class AccountContactScreen extends StatefulWidget {
 class _AccountContactScreen extends State<AccountContactScreen> {
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text("Liên hệ với chúng tôi"),
+        title: Text("Liên hệ với chúng tôi".tr()),
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),
@@ -23,11 +23,11 @@ class _AccountContactScreen extends State<AccountContactScreen> {
         child: Text.rich(
           TextSpan(
             text:
-                "Xin lỗi! Tính năng này đang được hoàn thiện. Vui lòng phản hồi với chúng tôi qua các kênh trực tiếp.",
+                "Xin lỗi! Tính năng này đang được hoàn thiện. Vui lòng phản hồi với chúng tôi qua các kênh trực tiếp.".tr(),
             style: TextStyle(fontSize: 16.0),
             children: <TextSpan>[
               TextSpan(
-                  text: "TẠI ĐÂY",
+                  text: "TẠI ĐÂY".tr(),
                   style: TextStyle(color: Colors.blue),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {

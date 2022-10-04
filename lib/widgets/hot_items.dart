@@ -1,4 +1,5 @@
 import 'package:anylearn/customs/custom_cached_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../customs/custom_carousel.dart';
@@ -49,7 +50,7 @@ class HotItems extends StatelessWidget {
                                   Navigator.of(context).pushNamed(hotList.route);
                                 },
                                 child: Text(
-                                  "Tất cả",
+                                  "Tất cả".tr(),
                                   style: TextStyle(color: Colors.blue),
                                 ),
                               ),

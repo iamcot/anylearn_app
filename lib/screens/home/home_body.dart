@@ -53,7 +53,7 @@ class _HomeBody extends State<HomeBody> {
       });
     }
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-          Text('title').tr();
+          Text('title');
 
       if (widget.homeData.config.ignorePopupVersion !=
               widget.homeData.config.popup.version &&
@@ -110,7 +110,7 @@ class _HomeBody extends State<HomeBody> {
                               showPopupChecked = value;
                             });
                           },
-                          title: Text("Không xem lại"),
+                          title: Text("Không xem lại".tr()),
                           dense: true,
                           contentPadding: EdgeInsets.all(0),
                           controlAffinity: ListTileControlAffinity.leading,
@@ -132,7 +132,7 @@ class _HomeBody extends State<HomeBody> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return Container(
       color: Colors.grey[200],
@@ -178,7 +178,7 @@ class _HomeBody extends State<HomeBody> {
           ),
           new HomeArticleEvent(
             hotItems: widget.homeData.articles,
-            title: "ĐỌC VÀ HỌC",
+            title: "ĐỌC VÀ HỌC".tr(),
           ),
         ],
       ),

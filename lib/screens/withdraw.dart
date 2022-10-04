@@ -46,7 +46,6 @@ class _WithdrawScreen extends State<WithdrawScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Text('title').tr();
 
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
@@ -62,7 +61,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Rút tiền về ngân hàng"),
+          title: Text("Rút tiền về ngân hàng").tr(),
           centerTitle: false,
         ),
         body: BlocProvider<TransactionBloc>(
@@ -75,7 +74,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
                     content: Text(
-                        "Gửi lệnh rút tiền thành công. Vui lòng chờ chúng tôi xác nhận."),
+                        "Gửi lệnh rút tiền thành công. Vui lòng chờ chúng tôi xác nhận.").tr(),
                     duration: Duration(seconds: 2),
                   ));
               }
@@ -83,7 +82,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
-                    content: Text("Có lỗi khi lưu, vui lòng thử lại"),
+                    content: Text("Có lỗi khi lưu, vui lòng thử lại").tr(),
                     duration: Duration(seconds: 2),
                   ));
               }
@@ -111,7 +110,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                       Expanded(
                                           child: Text.rich(
                                         TextSpan(
-                                          text: "SỐ ĐIỂM: ".toUpperCase(),
+                                          text: "SỐ ĐIỂM: ".tr().toUpperCase(),
                                           style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.grey),
@@ -128,7 +127,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                       )),
                                       Text.rich(
                                         TextSpan(
-                                            text: "LỊCH SỬ ĐIỂM",
+                                            text: "LỊCH SỬ ĐIỂM".tr(),
                                             style:
                                                 TextStyle(color: Colors.blue),
                                             recognizer: TapGestureRecognizer()
@@ -165,28 +164,28 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                               },
                                               validator: (value) {
                                                 if (value!.isEmpty) {
-                                                  return "Bạn chưa nhập số điểm muốn rút";
+                                                  return "Bạn chưa nhập số điểm muốn rút".tr();
                                                 }
                                                 if (user.walletC < keep ||
                                                     int.parse(value) > max) {
-                                                  return "Bạn được rút tối đa $max điểm";
+                                                  return "Bạn được rút tối đa $max điểm".tr();
                                                 }
                                                 if (int.tryParse(value)! < 0) {
-                                                  return "Số tiền không đúng";
+                                                  return "Số tiền không đúng".tr();
                                                 }
                                                 _formKey.currentState?.save();
                                                 return null;
                                               },
                                               decoration: InputDecoration(
                                                   hintText:
-                                                      "Nhập số điểm muốn rút",
+                                                      "Nhập số điểm muốn rút".tr(),
                                                   hintStyle: TextStyle(
                                                     fontSize: 20.0,
                                                     fontWeight:
                                                         FontWeight.normal,
                                                   ),
                                                   icon: Text(
-                                                    "ĐIỂM",
+                                                    "ĐIỂM".tr(),
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -202,7 +201,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                                   TextInputType.number,
                                               decoration: InputDecoration(
                                                   hintText:
-                                                      "Số tiền quy đổi dự kiến",
+                                                      "Số tiền quy đổi dự kiến".tr(),
                                                   hintStyle: TextStyle(
                                                     fontSize: 16.0,
                                                     fontWeight:
@@ -219,7 +218,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
-                                                "Bạn được rút tối đa $max điểm",
+                                                "Bạn được rút tối đa $max điểm".tr(),
                                                 style:
                                                     TextStyle(fontSize: 12.0),
                                               ),
@@ -229,7 +228,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "Thông tin ngân hàng".toUpperCase(),
+                                    "Thông tin ngân hàng".tr().toUpperCase(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.grey),
@@ -282,7 +281,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                         }
                                       },
                                       child: Text(
-                                        "Rút tiền".toUpperCase(),
+                                        "Rút tiền".tr().toUpperCase(),
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             color: Colors.white),
@@ -296,7 +295,7 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "Lịch sử rút tiền gần đây".toUpperCase(),
+                                    "Lịch sử rút tiền gần đây".tr().toUpperCase(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.grey),

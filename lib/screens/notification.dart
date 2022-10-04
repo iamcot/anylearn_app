@@ -33,7 +33,6 @@ class _NotificationScreen extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return BlocListener(
       bloc: _authBloc,
@@ -48,7 +47,7 @@ class _NotificationScreen extends State<NotificationScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Thông báo"),
+          title: Text("Thông báo").tr(),
           centerTitle: false,
         ),
         body: BlocBuilder(
@@ -63,7 +62,7 @@ class _NotificationScreen extends State<NotificationScreen> {
                     child: _notif.total == 0
                         ? Container(
                             alignment: Alignment.center,
-                            child: Text("Bạn chưa có thông báo nào."),
+                            child: Text("Bạn chưa có thông báo nào.".tr()),
                           )
                         : ListView.separated(
                             itemBuilder: (BuildContext context, int index) {
@@ -74,7 +73,7 @@ class _NotificationScreen extends State<NotificationScreen> {
                                     _notifBloc..add(NotifReadEvent(token: _user.token, id: _notif.data[index].id));
                                     if (_notif.data[index].extraContent == "copy") {
                                       Clipboard.setData(new ClipboardData(text: _notif.data[index].route));
-                                      toast("Đã copy vào bộ nhớ");
+                                      toast("Đã copy vào bộ nhớ".tr());
                                       _notifBloc..add(NotifLoadEvent(token: _user.token));
                                     } else if (_notif.data[index].extraContent == "url" &&
                                         _notif.data[index].route != null) {

@@ -43,7 +43,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     double width = MediaQuery.of(context).size.width;
 
@@ -61,7 +61,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: Text("Thông tin cá nhân"),
+          title: Text("Thông tin cá nhân").tr(),
           actions: <Widget>[
             IconButton(
                 icon: Icon(Icons.save),
@@ -93,7 +93,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
-                    content: Text("Cập nhật avatar thành công."),
+                    content: Text("Cập nhật avatar thành công.").tr(),
                   ));
                 _authBloc..add(AuthCheckEvent());
               }
@@ -101,7 +101,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
-                    content: Text("Cập nhật banner thành công."),
+                    content: Text("Cập nhật banner thành công.").tr(),
                   ));
                 _authBloc..add(AuthCheckEvent());
               }
@@ -111,7 +111,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
                     duration: Duration(seconds: 1),
-                    content: Text("Cập nhật thông tin thành công."),
+                    content: Text("Cập nhật thông tin thành công.").tr(),
                   )).closed.then((value) {
                     Navigator.of(context).pop();
                   });
@@ -137,7 +137,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   color: Colors.grey[100],
                                 ),
                                 child: Text(
-                                  "Chỉnh sửa thông tin cá nhân của bạn",
+                                  "Chỉnh sửa thông tin cá nhân của bạn".tr(),
                                   style: TextStyle(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.bold,
@@ -162,13 +162,13 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   },
                                   validator: (value) {
                                     if (value!.length < 3) {
-                                      return "Tên của bạn cần lớn hơn 3 kí tự";
+                                      return "Tên của bạn cần lớn hơn 3 kí tự".tr();
                                     }
                                     _formKey.currentState!.save();
                                     return null;
                                   },
                                   decoration: InputDecoration(
-                                    labelText: "Họ & Tên",
+                                    labelText: "Họ & Tên".tr(),
                                     icon: Icon(MdiIcons.account),
                                   ),
                                 ),
@@ -180,7 +180,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.refcode,
                                   validator: (value) {
                                     if (value!.length < 6) {
-                                      return "Mã giới thiệu cần lớn hơn 6 kí tự";
+                                      return "Mã giới thiệu cần lớn hơn 6 kí tự".tr();
                                     }
                                     _formKey.currentState!.save();
                                     return null;
@@ -191,7 +191,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                     });
                                   },
                                   decoration: InputDecoration(
-                                    labelText: "Mã giới thiệu của bạn",
+                                    labelText: "Mã giới thiệu của bạn".tr(),
                                     icon: Icon(MdiIcons.qrcode),
                                   ),
                                 ),
@@ -207,9 +207,9 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                     });
                                   },
                                   decoration: InputDecoration(
-                                    labelText: "Chức danh" +
+                                    labelText: "Chức danh" .tr()+
                                         (_user.role == MyConst.ROLE_SCHOOL
-                                            ? " & Tên người đại diện"
+                                            ? " & Tên người đại diện".tr()
                                             : ""),
                                     icon: Icon(MdiIcons.officeBuilding),
                                   ),
@@ -227,14 +227,14 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   },
                                   validator: (value) {
                                     if (!validator.isNumeric(value!)) {
-                                      return "Số điện thoại không đúng";
+                                      return "Số điện thoại không đúng".tr();
                                     }
                                     _formKey.currentState!.save();
                                     return null;
                                   },
                                   keyboardType: TextInputType.phone,
                                   decoration: InputDecoration(
-                                    labelText: "Số điện thoại",
+                                    labelText: "Số điện thoại".tr(),
                                     icon: Icon(MdiIcons.phone),
                                   ),
                                 ),
@@ -251,7 +251,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   },
                                   validator: (value) {
                                     if (!validator.isEmail(value!)) {
-                                      return "Email không đúng";
+                                      return "Email không đúng".tr();
                                     }
                                     _formKey.currentState!.save();
                                     return null;
@@ -274,7 +274,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                     });
                                   },
                                   decoration: InputDecoration(
-                                    labelText: "Địa chỉ",
+                                    labelText: "Địa chỉ".tr(),
                                     icon: Icon(MdiIcons.map),
                                   ),
                                 ),
@@ -290,7 +290,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                     });
                                   },
                                   decoration: InputDecoration(
-                                    labelText: "Quốc gia",
+                                    labelText: "Quốc gia".tr(),
                                     icon: Icon(MdiIcons.earth),
                                   ),
                                 ),
@@ -307,7 +307,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                     });
                                   },
                                   decoration: InputDecoration(
-                                    labelText: "Giới thiệu ngắn",
+                                    labelText: "Giới thiệu ngắn".tr(),
                                     icon: Icon(MdiIcons.information),
                                   ),
                                 ),
@@ -316,7 +316,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 padding: const EdgeInsets.only(
                                     left: 15.0, right: 15.0, top: 15),
                                 child: Text(
-                                    "Thông tin giới thiệu vui lòng cập nhật từ website"),
+                                    "Thông tin giới thiệu vui lòng cập nhật từ website".tr()),
                               ),
                               // Padding(
                               //   padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 15),
@@ -353,7 +353,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                         return LoadingWidget();
                                       }
                                       return Text(
-                                        "Lưu thay đổi",
+                                        "Lưu thay đổi".tr(),
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             color: Colors.white),
@@ -429,14 +429,14 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                     builder: (context) {
                       return SimpleDialog(children: <Widget>[
                         ListTile(
-                            title: Text("Chụp ảnh bằng camera"),
+                            title: Text("Chụp ảnh bằng camera".tr()),
                             onTap: () {
                               _getAvatar(fromCamera: true);
                               Navigator.pop(context);
                             }),
                         Divider(),
                         ListTile(
-                            title: Text("Chọn ảnh từ thư viện"),
+                            title: Text("Chọn ảnh từ thư viện".tr()),
                             onTap: () {
                               _getAvatar(fromCamera: false);
                               Navigator.pop(context);

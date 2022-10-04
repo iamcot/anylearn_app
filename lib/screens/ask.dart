@@ -32,11 +32,10 @@ class _AskScreen extends State<AskScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Scaffold(
       appBar: BaseAppBar(
-        title: "Học & Hỏi",
+        title: "Học & Hỏi".tr(),
         user: user,
       ),
       body: RefreshIndicator(

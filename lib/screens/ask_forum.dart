@@ -32,11 +32,10 @@ class _AskForumScreen extends State<AskForumScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Hỏi để học"),
+          title: Text("Hỏi để học".tr()),
           centerTitle: false,
           actions: [
             SearchIcon(screen: "ask"),

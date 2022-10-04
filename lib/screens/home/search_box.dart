@@ -39,7 +39,7 @@ class _SearchBoxState extends State<SearchBox> {
             child: Text.rich(
               TextSpan(
                 text:
-                    "Tìm kiếm Trường học và Chuyên gia hàng đầu\n Khóa học Offline và Online",
+                    "Tìm kiếm Trường học và Chuyên gia hàng đầu\n Khóa học Offline và Online".tr(),
               ),
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey[600]),
@@ -100,7 +100,7 @@ class _SearchBoxState extends State<SearchBox> {
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(color: Colors.transparent, width: 0),
                   ),
-                  hintText: "Hôm nay bạn muốn học gì ?",
+                  hintText: "Hôm nay bạn muốn học gì ?".tr(),
                   hintStyle: TextStyle(color: Colors.grey),
                   suffixIcon: Icon(
                     Icons.search,

@@ -13,20 +13,20 @@ class AccountHelpCenterScreen extends StatefulWidget {
 
 class _AccountHelpCenterScreen extends State<AccountHelpCenterScreen> {
   final GuideDTO guide = GuideDTO(
-    title: "HDSD Cho thành viên",
+    title: "HDSD Cho thành viên".tr(),
     content:
         "<p>Content in html</p><p> Has Image <img src=\"https://scholarship-positions.com/wp-content/uploads/2020/01/Free-Online-Course-on-Learning-to-Teach-Online.jpg\" /> </p>",
     lastUpdate: "2020-05-19 19:00:00",
   );
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     DateFormat f = DateFormat("dd/MM/yyyy");
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: Text("Hướng dẫn sử dụng"),
+          title: Text("Hướng dẫn sử dụng".tr()),
         ),
         body: ListView(
           children: <Widget>[
@@ -59,7 +59,7 @@ class _AccountHelpCenterScreen extends State<AccountHelpCenterScreen> {
                     alignment: Alignment.topRight,
                     padding: EdgeInsets.only(right: 10.0),
                     child: Text(
-                      " Cập nhật ngày: " + f.format(DateTime.parse(guide.lastUpdate)),
+                      " Cập nhật ngày: ".tr() + f.format(DateTime.parse(guide.lastUpdate)),
                       style: TextStyle(fontStyle: FontStyle.italic, fontSize: 10.0),
                     ),
                   ),

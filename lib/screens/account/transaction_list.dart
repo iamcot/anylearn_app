@@ -77,7 +77,7 @@ class TransactionList extends StatelessWidget {
                     },
                         
 
-                    child: Text("Bạn không có giao dịch nào. Xem các lịch học đang có")),
+                    child: Text("Bạn không có giao dịch nào. Xem các lịch học đang có".tr())),
               )
       ],
     );
@@ -86,11 +86,11 @@ class TransactionList extends StatelessWidget {
   TextSpan _statusText(int status) {
     switch (status) {
       case MyConst.TRANS_STATUS_PENDING:
-        return TextSpan(text: "Đang chờ", style: TextStyle(color: Colors.grey));
+        return TextSpan(text: "Đang chờ".tr(), style: TextStyle(color: Colors.grey));
       case MyConst.TRANS_STATUS_APPROVE:
-        return TextSpan(text: "Đã xác nhận", style: TextStyle(color: Colors.green));
+        return TextSpan(text: "Đã xác nhận".tr(), style: TextStyle(color: Colors.green));
       case MyConst.TRANS_STATUS_CANCEL:
-        return TextSpan(text: "Bị từ chối", style: TextStyle(color: Colors.red));
+        return TextSpan(text: "Bị từ chối".tr(), style: TextStyle(color: Colors.red));
     }
     return TextSpan(text: "");
   }

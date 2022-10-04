@@ -31,13 +31,12 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     final token = ModalRoute.of(context)!.settings.arguments.toString();
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text("Đổi mật khẩu"),
+        title: Text("Đổi mật khẩu".tr()),
       ),
       body: BlocListener(
         bloc: _accountBloc,
@@ -51,7 +50,7 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
               ..showSnackBar(SnackBar(
                 duration: Duration(seconds: 4),
                 content:
-                    Text("Mật khẩu đã được thay đổi. Vui lòng đăng nhập lại."),
+                    Text("Mật khẩu đã được thay đổi. Vui lòng đăng nhập lại.".tr()),
               )).closed.then((value) {
                 Navigator.of(context).pop();
                 _authBloc.add(AuthLoggedOutEvent(token: token));
@@ -76,7 +75,7 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                   color: Colors.grey[100],
                 ),
                 child: Text(
-                  "Đổi mật khẩu của bạn",
+                  "Đổi mật khẩu của bạn".tr(),
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
@@ -93,13 +92,13 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                   },
                   validator: (value) {
                     if (value == "") {
-                      return "Mật khẩu cũ là bắt buộc";
+                      return "Mật khẩu cũ là bắt buộc".tr();
                     }
                     _formKey.currentState!.save();
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: "Mật khẩu cũ",
+                    labelText: "Mật khẩu cũ".tr(),
                     icon: Icon(MdiIcons.keyRemove),
                   ),
                   obscureText: true,
@@ -115,13 +114,13 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                   },
                   validator: (value) {
                     if (value!.length < 8) {
-                      return "Mật khẩu ít nhất 8 kí tự";
+                      return "Mật khẩu ít nhất 8 kí tự".tr();
                     }
                     _formKey.currentState!.save();
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: "Mật khẩu mới",
+                    labelText: "Mật khẩu mới".tr(),
                     icon: Icon(MdiIcons.formTextboxPassword),
                   ),
                   obscureText: true,
@@ -137,13 +136,13 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                   },
                   validator: (value) {
                     if (value != newPassword) {
-                      return "Xác nhận mât khẩu không đúng";
+                      return "Xác nhận mât khẩu không đúng".tr();
                     }
                     _formKey.currentState!.save();
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: "Nhập lại mật khẩu mới",
+                    labelText: "Nhập lại mật khẩu mới".tr(),
                     icon: Icon(MdiIcons.formTextboxPassword),
                   ),
                   obscureText: true,
@@ -174,7 +173,7 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                           }
                         },
                         child: Text(
-                          "Đổi mật khẩu",
+                          "Đổi mật khẩu".tr(),
                           style: TextStyle(fontSize: 16.0, color: Colors.white),
                         ),
                       ),

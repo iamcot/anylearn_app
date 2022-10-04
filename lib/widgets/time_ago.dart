@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class TimeAgo extends StatelessWidget {
@@ -17,9 +18,9 @@ class TimeAgo extends StatelessWidget {
     String str;
     DateTime now = DateTime.now();
     if (now.difference(_time).inHours <= 1) {
-      str = now.difference(_time).inMinutes.toString() + " phút trước";
+      str = now.difference(_time).inMinutes.toString() + " phút trước".tr();
     } else if (now.difference(_time).inHours < 24) {
-      str = now.difference(_time).inHours.toString() + " giờ trước";
+      str = now.difference(_time).inHours.toString() + " giờ trước".tr();
     } else if (now.difference(_time).inDays < 7) {
       str = _vnWeekday(_time.weekday) + " lúc " + _time.hour.toString() + ":" + _time.minute.toString();
     } else {

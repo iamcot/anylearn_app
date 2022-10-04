@@ -14,13 +14,13 @@ class AskForumList extends StatelessWidget {
   const AskForumList({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return data.length == 0
         ? SliverToBoxAdapter(
             child: Container(
               padding: EdgeInsets.all(15),
-              child: Text("Chưa có câu hỏi nào")),
+              child: Text("Chưa có câu hỏi nào".tr())),
           )
         : SliverList(
             delegate: SliverChildBuilderDelegate(

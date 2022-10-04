@@ -37,11 +37,10 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý hợp đồng"),
+        title: Text("Quản lý hợp đồng".tr()),
         centerTitle: false,
       ),
       body: BlocListener(
@@ -56,7 +55,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
-                  content: Text("Hợp đông mới đã được tạo. Vui lòng xem lại và thực hiện kí hợp đồng để xác nhận."),
+                  content: Text("Hợp đông mới đã được tạo. Vui lòng xem lại và thực hiện kí hợp đồng để xác nhận.".tr()),
                 ));
             }
             if (state is AuthContractFailState) {
@@ -88,9 +87,9 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                       child: ListView(children: [
                         ListTile(
                           leading: Icon(MdiIcons.fileCertificateOutline),
-                          title: Text("Trạng thái hợp đồng của tài khoản"),
+                          title: Text("Trạng thái hợp đồng của tài khoản".tr()),
                           subtitle:
-                              user.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC") : _signedStatus(user.isSigned),
+                              user.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC".tr()) : _signedStatus(user.isSigned),
                           trailing: user.isSigned == 99 ? Icon(Icons.search) : Text(""),
                           onTap: () {
                             if (user.isSigned == 99) {
@@ -105,9 +104,9 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                   top: BorderSide(color: (Colors.grey[300])!),
                                 ),
                                 leading: Icon(Icons.edit_notifications_outlined),
-                                title: Text("Đang có hợp đồng chờ xử lí"),
+                                title: Text("Đang có hợp đồng chờ xử lí".tr()),
                                 subtitle: _signedStatus(_contract!.status),
-                                trailing: _contract!.status == 1 ? Text("KÝ") : Text("XEM"),
+                                trailing: _contract!.status == 1 ? Text("KÝ".tr()) : Text("XEM".tr()),
                                 onTap: () async {
                                   bool result = await Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => ContractSignScreen(user: user, contractId: _contract!.id)));
@@ -123,13 +122,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                           ),
                           leading: Icon(MdiIcons.certificate),
                           trailing: Icon(Icons.chevron_right),
-                          title: Text("Cập nhật chứng chỉ"),
+                          title: Text("Cập nhật chứng chỉ".tr()),
                           onTap: () {
                             Navigator.of(context).pushNamed("/account/docs", arguments: user.token);
                           },
                         ),
                         GradientButton(
-                          title: "TẠO HỢP ĐỒNG MỚI",
+                          title: "TẠO HỢP ĐỒNG MỚI".tr(),
                           height: 40.0,
                           function: () {
                             setState(() {
@@ -159,13 +158,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value!.length < 3 || double.tryParse(value) == null) {
-                                          return "Là một con số phập phân, ví dụ 0.2";
+                                          return "Là một con số phập phân, ví dụ 0.2".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Phần trăm doanh thu của đối tác (số thập phân)",
+                                        labelText: "Phần trăm doanh thu của đối tác (số thập phân)".tr() ,
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -179,7 +178,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value!.length < 9) {
-                                          return "CMND không hợp lệ";
+                                          return "CMND không hợp lệ".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
@@ -198,7 +197,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (DateTime.tryParse(value!) == null) {
-                                          return "Ngày không hợp lệ, nhập năm-tháng-ngày(yyyy-mm-dd)";
+                                          return "Ngày không hợp lệ, nhập năm-tháng-ngày(yyyy-mm-dd)".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
@@ -206,7 +205,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       controller: dateMask,
                                       decoration: InputDecoration(
                                         hintText: "yyyy-mm-dd",
-                                        labelText: "Ngày cấp CMND",
+                                        labelText: "Ngày cấp CMND".tr(),
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -220,13 +219,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value!.length < 3) {
-                                          return "Nơi cấp CMND không hợp lệ";
+                                          return "Nơi cấp CMND không hợp lệ".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Nơi cấp CMND",
+                                        labelText: "Nơi cấp CMND".tr(),
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -239,7 +238,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (DateTime.tryParse(value!) == null) {
-                                          return "Ngày không hợp lệ, nhập năm-tháng-ngày(yyyy-mm-dd)";
+                                          return "Ngày không hợp lệ, nhập năm-tháng-ngày(yyyy-mm-dd)".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
@@ -247,7 +246,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       controller: dobMask,
                                       decoration: InputDecoration(
                                         hintText: "yyyy-mm-dd",
-                                        labelText: "Ngày sinh",
+                                        labelText: "Ngày sinh".tr(),
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -261,13 +260,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value!.length < 3) {
-                                          return "Nơi sinh";
+                                          return "Nơi sinh".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Nơi sinh",
+                                        labelText: "Nơi sinh".tr(),
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -281,13 +280,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value!.length < 3) {
-                                          return "Địa chỉ không hợp lệ";
+                                          return "Địa chỉ không hợp lệ".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Địa chỉ",
+                                        labelText: "Địa chỉ".tr(),
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -301,7 +300,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (!validator.isEmail(value!)) {
-                                          return "Email không hợp lệ";
+                                          return "Email không hợp lệ".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
@@ -321,13 +320,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value!.length < 3) {
-                                          return "Vui lòng nhập";
+                                          return "Vui lòng nhập".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Ngân hàng",
+                                        labelText: "Ngân hàng".tr(),
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -341,13 +340,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value!.length < 3) {
-                                          return "Vui lòng nhập";
+                                          return "Vui lòng nhập".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Chi nhánh ngân hàng",
+                                        labelText: "Chi nhánh ngân hàng".tr(),
                                         // contentPadding: EdgeInsets.all(5.0),
                                         // labelStyle: TextStyle(fontSize: 14.0),
                                       ),
@@ -361,13 +360,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value!.length < 3) {
-                                          return "Vui lòng nhập";
+                                          return "Vui lòng nhập".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "STK Ngân hàng",
+                                        labelText: "STK Ngân hàng".tr(),
                                       ),
                                     ),
                                     TextFormField(
@@ -379,13 +378,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                       },
                                       validator: (value) {
                                         if (value!.length < 3) {
-                                          return "Vui lòng nhập";
+                                          return "Vui lòng nhập".tr();
                                         }
                                         _formKey.currentState!.save();
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        labelText: "Ngân hàng - Người thụ hưởng",
+                                        labelText: "Ngân hàng - Người thụ hưởng".tr(),
                                       ),
                                     ),
                                     Padding(
@@ -417,7 +416,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                         }),
                                         title: Text.rich(TextSpan(text: "Tôi đồng ý với ", children: [
                                           TextSpan(
-                                            text: "Điều khoản sử dụng",
+                                            text: "Điều khoản sử dụng".tr(),
                                             style: TextStyle(color: Colors.red),
                                           ),
                                         ])),
@@ -430,7 +429,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                           color: Colors.green,
                                           colorSub: Colors.greenAccent,
                                           height: 40,
-                                          title: "LƯU HỢP ĐỒNG MỚI",
+                                          title: "LƯU HỢP ĐỒNG MỚI".tr(),
                                           function: () {
                                             if (!_agreedToc) {
                                               showDialog(
@@ -439,15 +438,15 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                                   contentPadding: EdgeInsets.all(5),
                                                   scrollable: true,
                                                   title: Text(
-                                                    "Chưa đồng ý điều khoản sử dụng.",
+                                                    "Chưa đồng ý điều khoản sử dụng.".tr(),
                                                     style: TextStyle(fontSize: 14),
                                                   ),
                                                   content: Text(
-                                                      "Bạn vui lòng tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
+                                                      "Bạn vui lòng tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn.".tr()),
                                                   actions: <Widget>[
                                                     TextButton(
                                                       onPressed: () => Navigator.pop(context),
-                                                      child: Text("Tôi sẽ đọc".toUpperCase()),
+                                                      child: Text("Tôi sẽ đọc".tr().toUpperCase()),
                                                     )
                                                   ],
                                                 ),
@@ -473,13 +472,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
   Widget _signedStatus(int status) {
     switch (status) {
       case 1:
-        return Text("MỚI TẠO / CHỜ BẠN KÝ", style: TextStyle(color: Colors.blue));
+        return Text("MỚI TẠO / CHỜ BẠN KÝ".tr(), style: TextStyle(color: Colors.blue));
       case 10:
-        return Text("BẠN ĐÃ KÝ / CHỜ CÔNG TY", style: TextStyle(color: Colors.blue));
+        return Text("BẠN ĐÃ KÝ / CHỜ CÔNG TY".tr(), style: TextStyle(color: Colors.blue));
       case 99:
-        return Text("CÔNG TY ĐÃ DUYỆT / HOÀN TẤT", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold));
+        return Text("CÔNG TY ĐÃ DUYỆT / HOÀN TẤT".tr(), style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold));
       case 0:
-        return Text("ĐÃ BỊ HỦY", style: TextStyle(color: Colors.blue));
+        return Text("ĐÃ BỊ HỦY".tr(), style: TextStyle(color: Colors.blue));
       default:
         return Text("");
     }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class GotoProfileBar extends StatelessWidget {
@@ -13,7 +14,7 @@ class GotoProfileBar extends StatelessWidget {
             border: Border(bottom: BorderSide(color: (Colors.grey[200])!))
           ),
           child: ListTile(
-            title: Text("Thông tin giới thiệu", style: TextStyle(
+            title: Text("Thông tin giới thiệu".tr(), style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Colors.blue

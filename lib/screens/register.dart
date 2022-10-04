@@ -91,7 +91,7 @@ class _RegisterScreen extends State<RegisterScreen> {
             if (state is RegisterSuccessState) {
               Navigator.of(context).pushNamed("/login",
                   arguments: LoginCallback(
-                    message: "Đăng ký thành công, vui lòng đăng nhập lại.",
+                    message: "Đăng ký thành công, vui lòng đăng nhập lại.".tr(),
                     routeName: callback!.routeName,
                     routeArgs: callback!.routeArgs,
                   ));
@@ -102,14 +102,13 @@ class _RegisterScreen extends State<RegisterScreen> {
               key: _formKey,
               child: ListView(
                 children: <Widget>[
-                  Text('title').tr(),
                   CustomPaint(
                     child: Container(
                       height: 100.0,
                       alignment: Alignment.bottomRight,
                       padding: EdgeInsets.only(right: width / 4, bottom: 20.0),
                       child: Text(
-                        "Đăng ký",
+                        "Đăng ký".tr(),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,
@@ -121,7 +120,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0, top: 15.0),
-                    child: Text("Tôi là: "),
+                    child: Text("Tôi là: ").tr(),
                   ),
                   Container(
                     padding: const EdgeInsets.only(left: 30.0),
@@ -130,18 +129,18 @@ class _RegisterScreen extends State<RegisterScreen> {
                         CustomRadio(
                           groupValue: _user.role,
                           value: MyConst.ROLE_MEMBER,
-                          label: "Thành viên",
+                          label: "Thành viên".tr(),
                           func: () => _selectRole(MyConst.ROLE_MEMBER),
                         ),
                         CustomRadio(
                             groupValue: _user.role,
                             value: MyConst.ROLE_TEACHER,
-                            label: "Giảng viên",
+                            label: "Giảng viên".tr(),
                             func: () => _selectRole(MyConst.ROLE_TEACHER)),
                         CustomRadio(
                           groupValue: _user.role,
                           value: MyConst.ROLE_SCHOOL,
-                          label: "Trường học",
+                          label: "Trường học".tr(),
                           func: () => _selectRole(MyConst.ROLE_SCHOOL),
                         ),
                       ],
@@ -163,7 +162,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         _fieldFocusChange(context, _focusRef, _focusName);
                       },
                       decoration: InputDecoration(
-                        labelText: "Mã giới thiệu",
+                        labelText: "Mã giới thiệu".tr(),
                         contentPadding: EdgeInsets.all(5.0),
                         labelStyle: TextStyle(fontSize: 14.0),
                         prefixIcon: Icon(MdiIcons.qrcode),
@@ -181,7 +180,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                       validator: (value) {
                         if (value!.length < 6) {
-                          return "Tên của bạn cần lớn hơn 6 kí tự";
+                          return "Tên của bạn cần lớn hơn 6 kí tự".tr();
                         }
                         _formKey.currentState?.save();
                         return null;
@@ -193,8 +192,8 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                       decoration: InputDecoration(
                         labelText: _user.role == MyConst.ROLE_SCHOOL
-                            ? "Tên trường"
-                            : "Họ & Tên",
+                            ? "Tên trường".tr()
+                            : "Họ & Tên".tr(),
                         prefixIcon: Icon(MdiIcons.account),
                         labelStyle: TextStyle(fontSize: 14.0),
                         contentPadding: EdgeInsets.all(5.0),
@@ -212,7 +211,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                       validator: (value) {
                         if (value!.length < 10) {
-                          return "Số điện thoại không hợp lệ";
+                          return "Số điện thoại không hợp lệ".tr();
                         }
                         _formKey.currentState?.save();
                         return null;
@@ -224,7 +223,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(5.0),
-                        labelText: "Số điện thoại",
+                        labelText: "Số điện thoại".tr(),
                         labelStyle: TextStyle(fontSize: 14.0),
                         prefixIcon: Icon(MdiIcons.phone),
                       ),
@@ -240,7 +239,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                       validator: (value) {
                         if (value!.length < 8) {
-                          return "Mật khẩu ít nhất 8 kí tự";
+                          return "Mật khẩu ít nhất 8 kí tự".tr();
                         }
                         _formKey.currentState?.save();
                         return null;
@@ -251,7 +250,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         _fieldFocusChange(context, _focusPass, _focusRePass);
                       },
                       decoration: InputDecoration(
-                        labelText: "Mật khẩu",
+                        labelText: "Mật khẩu".tr(),
                         prefixIcon: Icon(MdiIcons.lock),
                         labelStyle: TextStyle(fontSize: 14.0),
                         contentPadding: EdgeInsets.all(5.0),
@@ -274,13 +273,13 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                       validator: (value) {
                         if (value != _user.password) {
-                          return "Xác nhận mât khẩu không đúng";
+                          return "Xác nhận mât khẩu không đúng".tr();
                         }
                         _formKey.currentState?.save();
                         return null;
                       },
                       decoration: InputDecoration(
-                        labelText: "Nhập lại mật khẩu",
+                        labelText: "Nhập lại mật khẩu".tr(),
                         prefixIcon: Icon(MdiIcons.lockCheck),
                         labelStyle: TextStyle(fontSize: 14.0),
                         contentPadding: EdgeInsets.all(5.0),
@@ -316,9 +315,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                         _agreedToc = value!;
                       }),
                       title: Text.rich(
-                          TextSpan(text: "Tôi đồng ý với ", children: [
+                          TextSpan(text: "Tôi đồng ý với ".tr(), children: [
                         TextSpan(
-                          text: "Điều khoản sử dụng",
+                          text: "Điều khoản sử dụng".tr(),
                           style: TextStyle(color: Colors.red),
                         ),
                       ])),
@@ -341,7 +340,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         _submitForm(context);
                       },
                       child: Text(
-                        "Đăng ký",
+                        "Đăng ký".tr(),
                         style: TextStyle(fontSize: 16.0, color: Colors.white),
                       ),
                     ),
@@ -350,9 +349,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(top: 30.0),
                     child: Text.rich(
-                      TextSpan(text: "Bạn đã có tài khoản?", children: [
+                      TextSpan(text: "Bạn đã có tài khoản?".tr(), children: [
                         TextSpan(
-                            text: " Đăng nhập",
+                            text: " Đăng nhập".tr(),
                             style: TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold),
@@ -395,15 +394,15 @@ class _RegisterScreen extends State<RegisterScreen> {
           contentPadding: EdgeInsets.all(0),
           scrollable: true,
           title: Text(
-            "Chưa đồng ý điều khoản sử dụng.",
+            "Chưa đồng ý điều khoản sử dụng.".tr(),
             style: TextStyle(fontSize: 14),
           ),
           content: Text(
-              "Bạn vui lòng đọc và tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn."),
+              "Bạn vui lòng đọc và tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn.".tr()),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Tôi sẽ đọc".toUpperCase()),
+              child: Text("Tôi sẽ đọc".tr().toUpperCase()),
             )
           ],
         ),

@@ -38,7 +38,7 @@ class CourseList extends StatelessWidget {
                       children: <Widget>[
                         ListTile(
                             trailing: Icon(Icons.edit),
-                            title: Text("Chỉnh sửa khóa học"),
+                            title: Text("Chỉnh sửa khóa học".tr()),
                             onTap: () {
                               Navigator.of(context).pop();
                               Navigator.of(context).pushNamed("/course/form",
@@ -47,7 +47,7 @@ class CourseList extends StatelessWidget {
                         Divider(),
                         ListTile(
                             trailing: Icon(Icons.assignment_turned_in),
-                            title: Text("Danh sách đăng ký"),
+                            title: Text("Danh sách đăng ký".tr()),
                             onTap: () {
                               Navigator.of(context).pop();
                               Navigator.of(context).pushNamed(
@@ -61,24 +61,24 @@ class CourseList extends StatelessWidget {
                         Divider(),
                         ListTile(
                             trailing: Icon(Icons.close),
-                            title: Text("Hủy lớp"),
+                            title: Text("Hủy lớp".tr()),
                             onTap: () {
                               showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
                                         content: Text(
-                                            "Bạn chắc chắn muốn đóng lớp này? Lớp đã đóng không thể mở lại, xin hãy xác nhận."),
+                                            "Bạn chắc chắn muốn đóng lớp này? Lớp đã đóng không thể mở lại, xin hãy xác nhận.".tr()),
                                         actions: <Widget>[
                                           TextButton(
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
-                                              child: Text("Quay lại")),
+                                              child: Text("Quay lại".tr())),
                                           ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                 primary: Colors.red,
                                               ),
-                                              child: Text("Hủy lớp"),
+                                              child: Text("Hủy lớp".tr()),
                                               onPressed: () {
                                                 courseBloc.add(
                                                     CourseChangeUserStatusEvent(
@@ -113,11 +113,11 @@ class CourseList extends StatelessWidget {
               ),
               trailing: list[index].status == 0
                   ? Text(
-                      "Đang duyệt",
+                      "Đang duyệt".tr(),
                       style: TextStyle(color: Colors.red),
                     )
                   : Text(
-                      "Đã duyệt",
+                      "Đã duyệt".tr(),
                       style: TextStyle(color: Colors.green),
                     ),
             ),
@@ -126,32 +126,32 @@ class CourseList extends StatelessWidget {
           )
         : Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text.rich(TextSpan(text: "Bạn không có khóa học nào.")),
+            child: Text.rich(TextSpan(text: "Bạn không có khóa học nào.".tr())),
           );
   }
 
   TextSpan _userStatusStr(int status) {
-    Text('title').tr();
+    Text('title');
 
     switch (status) {
       case MyConst.ITEM_USER_STATUS_INACTIVE:
         return TextSpan(
-          text: "Chưa mở ",
+          text: "Chưa mở ".tr(),
           style: TextStyle(color: Colors.grey),
         );
       case MyConst.ITEM_USER_STATUS_ACTIVE:
         return TextSpan(
-          text: "Đang mở ",
+          text: "Đang mở ".tr(),
           style: TextStyle(color: Colors.green),
         );
       case MyConst.ITEM_USER_STATUS_DONE:
         return TextSpan(
-          text: "Đã xong",
+          text: "Đã xong".tr(),
           style: TextStyle(color: Colors.green),
         );
       case MyConst.ITEM_USER_STATUS_CANCEL:
         return TextSpan(
-          text: "Đã hủy",
+          text: "Đã hủy".tr(),
           style: TextStyle(color: Colors.red),
         );
       default:
@@ -163,13 +163,13 @@ class CourseList extends StatelessWidget {
   }
 
   Widget _userStatusAction(BuildContext context, ItemDTO itemDTO) {
-    Text('title').tr();
+    Text('title');
 
     switch (itemDTO.userStatus) {
       case MyConst.ITEM_USER_STATUS_INACTIVE:
         return ListTile(
             trailing: Icon(Icons.play_circle_outline),
-            title: Text("Mở lớp nhận đăng ký"),
+            title: Text("Mở lớp nhận đăng ký".tr()),
             onTap: () {
               courseBloc.add(CourseChangeUserStatusEvent(
                   itemId: itemDTO.id,
@@ -183,7 +183,7 @@ class CourseList extends StatelessWidget {
             DateTime.parse(itemDTO.dateStart + " " + itemDTO.timeStart))) {
           return ListTile(
               trailing: Icon(Icons.check),
-              title: Text("Lớp đã hoàn thành"),
+              title: Text("Lớp đã hoàn thành".tr()),
               onTap: () {
                 courseBloc.add(CourseChangeUserStatusEvent(
                     itemId: itemDTO.id,
@@ -194,7 +194,7 @@ class CourseList extends StatelessWidget {
         } else {
           return ListTile(
               trailing: Icon(Icons.pause_circle_outline),
-              title: Text("Tạm ẩn lớp, dừng đăng ký"),
+              title: Text("Tạm ẩn lớp, dừng đăng ký".tr()),
               onTap: () {
                 courseBloc.add(CourseChangeUserStatusEvent(
                     itemId: itemDTO.id,

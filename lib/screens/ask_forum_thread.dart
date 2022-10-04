@@ -39,11 +39,10 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hỏi để học"),
+        title: Text("Hỏi để học".tr()),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -111,7 +110,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
           subtitle: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text("Đã hỏi ", style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+              Text("Đã hỏi ".tr(), style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
               TimeAgo(time: question.createdAt),
             ],
           ),
@@ -147,12 +146,12 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
       padding: const EdgeInsets.all(10.0),
       child: data!.answers.length > 0
           ? Text(
-              "Có ${data!.answers.length} câu trả lời",
+              "Có ${data!.answers.length} câu trả lời".tr(),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             )
-          : Text("Chưa có câu trả lời."),
+          : Text("Chưa có câu trả lời.".tr()),
     ));
     answers.forEach((ans) {
       list.add(
@@ -189,7 +188,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                     subtitle: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text("Đã trả lời ", style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+                        Text("Đã trả lời ".tr(), style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
                         TimeAgo(time: ans.createdAt),
                       ],
                     ),
@@ -285,7 +284,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                                 child: ans.selectedAnswer
                                     ? Icon(Icons.check_circle_outline, color: Colors.green)
                                     : Text(
-                                        "Chọn",
+                                        "Chọn".tr(),
                                         style: TextStyle(color: Colors.grey[600]),
                                       ),
                               ),
@@ -358,7 +357,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
           Container(
             width: double.infinity,
             child: GradientButton(
-              title: "Trả lời",
+              title: "Trả lời".tr(),
               // height: 48.0,
               function: () async {
                 if (user.token == "") {

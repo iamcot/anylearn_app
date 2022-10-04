@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,13 +15,13 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   String get searchFieldLabel {
     if (screen == "school") {
-      return "Tìm Trường Học...";
+      return "Tìm Trường Học...".tr();
     } else if (screen == "teacher") {
-      return "Tìm chuyên gia...";
+      return "Tìm chuyên gia...".tr();
     } else if (screen == "product") {
-      return "Tìm sản phẩm...";
+      return "Tìm sản phẩm...".tr();
     }
-    return "Tìm khóa học...";
+    return "Tìm khóa học...".tr();
   }
 
   @override
@@ -66,7 +67,7 @@ class CustomSearchDelegate extends SearchDelegate {
         if (state is SearchUserSuccessState) {
           final List<UserDTO> users = state.users;
           return users == null || users.length == 0
-              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."))
+              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm.").tr())
               : Container(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
@@ -96,7 +97,7 @@ class CustomSearchDelegate extends SearchDelegate {
         if (state is SearchItemSuccessState) {
           final List<ItemDTO> items = state.items;
           return items == null || items.length == 0
-              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."))
+              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm.").tr())
               : Container(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
@@ -111,8 +112,8 @@ class CustomSearchDelegate extends SearchDelegate {
                                     )),
                           title: Text(items[index].title),
                           subtitle: Text((items[index].authorType == "school"
-                                  ? "Trung tâm: "
-                                  : "Giảng viên: ") +
+                                  ? "Trung tâm: ".tr()
+                                  : "Giảng viên: ".tr()) +
                               items[index].authorName),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
@@ -176,7 +177,7 @@ class CustomSearchDelegate extends SearchDelegate {
         if (state is SearchUserSuccessState) {
           final List<UserDTO> users = state.users;
           return users == null || users.length == 0
-              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."))
+              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm.").tr())
               : Container(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
@@ -206,7 +207,7 @@ class CustomSearchDelegate extends SearchDelegate {
         if (state is SearchItemSuccessState) {
           final List<ItemDTO> items = state.items;
           return items == null || items.length == 0
-              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."))
+              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm.").tr())
               : Container(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
@@ -221,8 +222,8 @@ class CustomSearchDelegate extends SearchDelegate {
                                     )),
                           title: Text(items[index].title),
                           subtitle: Text((items[index].authorType == "school"
-                                  ? "Trung tâm: "
-                                  : "Giảng viên: ") +
+                                  ? "Trung tâm: ".tr()
+                                  : "Giảng viên: ".tr()) +
                               items[index].authorName),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../customs/custom_cached_image.dart';
@@ -51,7 +52,7 @@ class HotUsers extends StatelessWidget {
                             Navigator.of(context).pushNamed(hotList.route);
                           },
                           child: Text(
-                            "TẤT CẢ",
+                            "TẤT CẢ".tr(),
                             style: TextStyle(
                               color: Colors.blue,
                               fontSize: 12,

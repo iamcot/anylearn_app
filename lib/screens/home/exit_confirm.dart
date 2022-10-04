@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 class ExitConfirm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return AlertDialog(
-      title: new Text('Xác nhận!'),
-      content: new Text('Bạn có chắc là muốn thoát và đóng Ứng dụng?'),
+      title: new Text('Xác nhận!'.tr()),
+      content: new Text('Bạn có chắc là muốn thoát và đóng Ứng dụng?'.tr()),
       actions: <Widget>[
         new TextButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: new Text('Thoát'),
+          child: new Text('Thoát'.tr()),
         ),
         new TextButton(
           style: TextButton.styleFrom(
@@ -20,7 +20,7 @@ class ExitConfirm extends StatelessWidget {
           ),
           onPressed: () => Navigator.of(context).pop(false),
           child: new Text(
-            'Ở lại',
+            'Ở lại'.tr(),
             style: TextStyle(color: Colors.white),
           ),
         ),

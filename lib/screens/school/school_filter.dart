@@ -12,7 +12,7 @@ class _SchooFilter extends State<SchoolFilter> {
     // 'nameaz': 'Theo tên A-Z',
     // 'nameza': 'Theo tên Z-A',
     // 'course': 'Theo Số lượng Khóa học',
-    'price': 'Theo mức độ quan tâm',
+    'price': 'Theo mức độ quan tâm'.tr(),
   };
 
   @override
@@ -54,7 +54,7 @@ class _SchooFilter extends State<SchoolFilter> {
   }
 
   List<Widget> _buildSelected(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     List<Widget> list = [];
     options.forEach((key, title) {
@@ -63,7 +63,7 @@ class _SchooFilter extends State<SchoolFilter> {
           padding: EdgeInsets.all(0.0),
           child: Row(
             children: <Widget>[
-              Text("Sắp xếp: "),
+              Text("Sắp xếp: ".tr()),
               Text(
                 title,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),

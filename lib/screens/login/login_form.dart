@@ -65,7 +65,7 @@ class _LoginForm extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     double width = MediaQuery.of(context).size.width / 2;
     return BlocListener<LoginBloc, LoginState>(
@@ -86,7 +86,7 @@ class _LoginForm extends State<LoginForm> {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-              content: Text("Đăng nhập thành công."),
+              content: Text("Đăng nhập thành công.".tr()),
               backgroundColor: Colors.green,
             ));
         }
@@ -105,7 +105,7 @@ class _LoginForm extends State<LoginForm> {
                       alignment: Alignment.bottomRight,
                       padding: EdgeInsets.only(right: width / 4, bottom: 20.0),
                       child: Text(
-                        "Đăng nhập",
+                        "Đăng nhập".tr(),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14.0,
@@ -121,7 +121,7 @@ class _LoginForm extends State<LoginForm> {
                       controller: _phoneController,
                       validator: (value) {
                         if (value == "") {
-                          return "Số điện thoại không hợp lệ";
+                          return "Số điện thoại không hợp lệ".tr();
                         }
                         _formKey.currentState!.save();
                         return null;
@@ -132,7 +132,7 @@ class _LoginForm extends State<LoginForm> {
                         _fieldFocusChange(context, _phoneNode, _passwordNode);
                       },
                       decoration: InputDecoration(
-                        labelText: "Số điện thoại",
+                        labelText: "Số điện thoại".tr(),
                         labelStyle: TextStyle(fontSize: 14.0),
                         prefixIcon: Icon(MdiIcons.phone),
                       ),
@@ -144,7 +144,7 @@ class _LoginForm extends State<LoginForm> {
                       controller: _passwordController,
                       validator: (value) {
                         if (value == "") {
-                          return "Vui lòng nhập mật khẩu";
+                          return "Vui lòng nhập mật khẩu".tr();
                         }
                         _formKey.currentState!.save();
                         return null;
@@ -155,7 +155,7 @@ class _LoginForm extends State<LoginForm> {
                         _submitForm(context);
                       },
                       decoration: InputDecoration(
-                        labelText: "Mật khẩu",
+                        labelText: "Mật khẩu".tr(),
                         prefixIcon: Icon(MdiIcons.lock),
                         labelStyle: TextStyle(fontSize: 14.0),
                       ),
@@ -178,7 +178,7 @@ class _LoginForm extends State<LoginForm> {
                           : () {},
                       child: state is! LoginInProgressState
                           ? Text(
-                              "Đăng nhập",
+                              "Đăng nhập".tr(),
                               style: TextStyle(fontSize: 16.0, color: Colors.white),
                             )
                           : CircularProgressIndicator(
@@ -190,9 +190,9 @@ class _LoginForm extends State<LoginForm> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(top: 30.0),
                     child: Text.rich(
-                      TextSpan(text: "Bạn chưa có tài khoản?", children: [
+                      TextSpan(text: "Bạn chưa có tài khoản?".tr(), children: [
                         TextSpan(
-                            text: " Đăng ký ngay",
+                            text: " Đăng ký ngay".tr(),
                             style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -203,7 +203,7 @@ class _LoginForm extends State<LoginForm> {
                   ),
                   Container(
                     child: TextButton(
-                      child: Text("Quên mật khẩu"),
+                      child: Text("Quên mật khẩu".tr()),
                       onPressed: () {
                         Navigator.of(context).pushNamed("/resetPassword");
                       },
@@ -257,7 +257,7 @@ class _LoginForm extends State<LoginForm> {
                                 : () {},
                             label: state is! LoginInProgressState
                                 ? Text(
-                                    "Đăng nhập bằng Apple",
+                                    "Đăng nhập bằng Apple".tr(),
                                     style: TextStyle(fontSize: 16.0, color: Colors.white),
                                   )
                                 : CircularProgressIndicator(

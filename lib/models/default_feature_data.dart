@@ -11,20 +11,20 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
     MyConst.ROLE_MEMBER: [
       FeatureDataDTO(
           icon: MdiIcons.qrcode,
-          title: "Mã Giới thiệu",
+          title: tr("Mã Giới thiệu"),
           route: "/qrcode",
           iconBg: "red",
           bg: Colors.blue[300]),
       FeatureDataDTO(
           icon: MdiIcons.accountGroup,
-          title: "Bạn bè",
+          title: "Bạn bè".tr(),
           route: "/account/friends",
           iconBg: "green",
           bg: Colors.green[600],
           routeParam: FriendParamsDTO(userId: userId, level: 1)),
       FeatureDataDTO(
           icon: MdiIcons.calendarClock,
-          title: "Lịch học",
+          title: "Lịch học".tr(),
           route: "/account/calendar",
           iconBg: "orange",
           bg: Colors.blue[600]),
@@ -42,20 +42,20 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
     MyConst.ROLE_TEACHER: [
       FeatureDataDTO(
           icon: MdiIcons.qrcode,
-          title: "Mã Giới thiệu",
+          title: "Mã Giới thiệu".tr(),
           route: "/qrcode",
           iconBg: "red",
           bg: Colors.blue[300]),
       FeatureDataDTO(
           icon: MdiIcons.accountGroup,
-          title: "Bạn bè",
+          title: "Bạn bè".tr(),
           route: "/account/friends",
           bg: Colors.green[600],
           iconBg: "green",
           routeParam: FriendParamsDTO(userId: userId, level: 1)),
       FeatureDataDTO(
           icon: MdiIcons.calendarClock,
-          title: "Lịch dạy",
+          title: "Lịch dạy".tr(),
           route: "/course/list",
           iconBg: "orange",
           bg: Colors.blue[600]),
@@ -73,20 +73,20 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
     MyConst.ROLE_SCHOOL: [
       FeatureDataDTO(
           icon: MdiIcons.qrcode,
-          title: "Mã Giới thiệu",
+          title: "Mã Giới thiệu".tr(),
           route: "/qrcode",
           iconBg: "red",
           bg: Colors.blue[300]),
       FeatureDataDTO(
           icon: MdiIcons.accountGroup,
-          title: "Bạn bè",
+          title: "Bạn bè".tr(),
           route: "/account/friends",
           bg: Colors.green[600],
           iconBg: "green",
           routeParam: FriendParamsDTO(userId: userId, level: 1)),
       FeatureDataDTO(
           icon: MdiIcons.calendarClock,
-          title: "Lịch dạy",
+          title: "Lịch dạy".tr(),
           route: "/course/list",
           iconBg: "orange",
           bg: Colors.blue[600]),
@@ -104,7 +104,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
     MyConst.ROLE_GUEST: [
       FeatureDataDTO(
           icon: MdiIcons.qrcode,
-          title: "Mã Giới thiệu",
+          title: "Mã Giới thiệu".tr(),
           route: "/qrcode",
           iconBg: "red",
           bg: Colors.blue[300]),
@@ -117,13 +117,13 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
           routeParam: FriendParamsDTO(userId: userId, level: 1)),
       FeatureDataDTO(
           icon: MdiIcons.login,
-          title: "Đăng nhập",
+          title: "Đăng nhập".tr(),
           route: "/login",
           iconBg: "orange",
           bg: Colors.blue[600]),
       FeatureDataDTO(
           icon: MdiIcons.lockOutline,
-          title: "Đăng ký",
+          title: "Đăng ký".tr(),
           route: "/register",
           iconBg: "purple",
           bg: Colors.green[300]),

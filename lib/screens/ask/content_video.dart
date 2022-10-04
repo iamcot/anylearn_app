@@ -34,7 +34,7 @@ class _ContentVideo extends State<ContentVideo> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return YoutubePlayerBuilder(
       player: YoutubePlayer(
@@ -72,7 +72,7 @@ class _ContentVideo extends State<ContentVideo> {
             Padding(
               padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 10.0),
               child: Text(
-                "Các bài liên quan",
+                "Các bài liên quan".tr(),
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

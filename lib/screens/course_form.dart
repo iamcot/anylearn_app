@@ -74,12 +74,11 @@ class _CourseFormScreen extends State<CourseFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Thông tin khóa học"),
+        title: Text("Thông tin khóa học".tr()),
         centerTitle: false,
         actions: <Widget>[
           IconButton(
@@ -107,7 +106,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
-                content: Text("Lưu khóa học thành công."),
+                content: Text("Lưu khóa học thành công.".tr()),
               ));
             _itemDTO = new ItemDTO(
               type: MyConst.ITEM_COURSE,
@@ -119,7 +118,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
-                content: Text("Cập nhật hình ảnh thành công."),
+                content: Text("Cập nhật hình ảnh thành công.".tr()),
               ));
             _itemDTO!.image = state.url;
           }
@@ -148,7 +147,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               child: _itemDTO!.id == 0
                                   ? Container(
                                       child: Text(
-                                      "Sẽ cập nhật được ảnh đại diện khóa học sau khi tạo thành công",
+                                      "Sẽ cập nhật được ảnh đại diện khóa học sau khi tạo thành công".tr(),
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.grey,
@@ -161,7 +160,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               child: TextFormField(
                                 validator: (value) {
                                   if (value!.length < 3) {
-                                    return "Cần nhập tên khóa học tối thiểu 3 kí tự";
+                                    return "Cần nhập tên khóa học tối thiểu 3 kí tự".tr();
                                   }
                                   _formKey.currentState!.save();
                                   return null;
@@ -173,7 +172,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   });
                                 },
                                 decoration: InputDecoration(
-                                  labelText: "Tên khóa học",
+                                  labelText: "Tên khóa học".tr(),
                                 ),
                               ),
                             ),
@@ -189,7 +188,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 },
                                 initialValue: _itemDTO!.priceOrg > 0 ? _itemDTO!.priceOrg.toString() : "",
                                 decoration: InputDecoration(
-                                  labelText: "Học phí gốc",
+                                  labelText: "Học phí gốc".tr(),
                                 ),
                               ),
                             ),
@@ -198,7 +197,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == "") {
-                                    return "Chưa nhập học phí khóa học";
+                                    return "Chưa nhập học phí khóa học".tr();
                                   }
                                   _formKey.currentState!.save();
                                   return null;
@@ -212,7 +211,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                   });
                                 },
                                 decoration: InputDecoration(
-                                  labelText: "Học phí",
+                                  labelText: "Học phí".tr(),
                                 ),
                               ),
                             ),
@@ -221,7 +220,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == "") {
-                                    return "Chưa nhập ngày diễn ra";
+                                    return "Chưa nhập ngày diễn ra".tr();
                                   }
                                   _formKey.currentState!.save();
                                   return null;
@@ -233,7 +232,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 },
                                 controller: dateMask,
                                 decoration: InputDecoration(
-                                  labelText: "Ngày diễn ra (yyyy-MM-dd)",
+                                  labelText: "Ngày diễn ra (yyyy-MM-dd)".tr(),
                                 ),
                               ),
                             ),
@@ -248,13 +247,13 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 controller: timeStartMask,
                                 validator: (value) {
                                   if (value == "") {
-                                    return "Chưa nhập giờ bắt đầu";
+                                    return "Chưa nhập giờ bắt đầu".tr();
                                   }
                                   _formKey.currentState!.save();
                                   return null;
                                 },
                                 decoration: InputDecoration(
-                                  labelText: "Giờ bắt đầu (HH:mm)",
+                                  labelText: "Giờ bắt đầu (HH:mm)".tr(),
                                 ),
                               ),
                             ),
@@ -268,7 +267,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 },
                                 controller: timeEndMask,
                                 decoration: InputDecoration(
-                                  labelText: "Giờ kết thúc",
+                                  labelText: "Giờ kết thúc".tr(),
                                 ),
                               ),
                             ),
@@ -282,7 +281,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 },
                                 initialValue: _itemDTO!.location,
                                 decoration: InputDecoration(
-                                  labelText: "Địa điểm/Room online",
+                                  labelText: "Địa điểm/Room online".tr(),
                                 ),
                               ),
                             ),
@@ -297,13 +296,13 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                                 },
                                 initialValue: _itemDTO!.shortContent,
                                 decoration: InputDecoration(
-                                  labelText: "Giới thiệu ngắn",
+                                  labelText: "Giới thiệu ngắn".tr(),
                                 ),
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                              child: Text("Nội dung khóa học vui lòng cập nhật từ website"),
+                              child: Text("Nội dung khóa học vui lòng cập nhật từ website".tr()),
                             ),
                             // Container(
                             //   padding: EdgeInsets.all(15),
@@ -320,7 +319,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               padding: EdgeInsets.all(15),
                               child: GradientButton(
                                 height: 48,
-                                title: "Lưu khóa học",
+                                title: "Lưu khóa học".tr(),
                                 function: () {
                                   _submit();
                                 },

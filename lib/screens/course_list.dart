@@ -44,10 +44,10 @@ class _AccountCalendarScreen extends State<CourseListScreen> with TickerProvider
                 Navigator.of(context).pushNamed("/course/form");
               }),
         ],
-        title: const Text("Khóa học của bạn"),
+        title: const Text("Khóa học của bạn").tr(),
         bottom: TabBar(controller: _tabController, tabs: [
-          Tab(child: Text("Đang mở")),
-          Tab(child: Text("Đã xong")),
+          Tab(child: Text("Đang mở").tr()),
+          Tab(child: Text("Đã xong").tr()),
         ]),
       ),
       body: Padding(

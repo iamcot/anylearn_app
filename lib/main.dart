@@ -83,7 +83,7 @@ void main() async {
           )),
       supportedLocales: [Locale('en'), Locale('vi')],
       path: 'assets/translations',
-      saveLocale: true,
+      saveLocale: false,
       useOnlyLangCode: true,
       startLocale: Locale('en'),
       fallbackLocale: Locale('vi', 'en'),

@@ -14,7 +14,7 @@ class HomeCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     width = MediaQuery.of(context).size.width;
     width = width * 2 / 3 - 10;
@@ -29,7 +29,7 @@ class HomeCategory extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    "CÁC LĨNH VỰC HỌC TẬP",
+                    "CÁC LĨNH VỰC HỌC TẬP".tr(),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

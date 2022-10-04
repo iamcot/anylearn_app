@@ -34,12 +34,11 @@ class _SchoolScreen extends State<SchoolScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Scaffold(
       appBar: BaseAppBar(
         user: user,
-        title: "Học viện & Trung tâm đào tạo",
+        title: "Học viện & Trung tâm đào tạo".tr(),
         screen: "school",
       ),
       body: BlocProvider<UsersBloc>(

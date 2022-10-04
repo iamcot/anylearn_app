@@ -30,7 +30,6 @@ class _GuideScreen extends State<GuideScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     final width = MediaQuery.of(context).size.width - 10;
     return BlocProvider<HomeBloc>(
@@ -60,7 +59,7 @@ class _GuideScreen extends State<GuideScreen> {
                       alignment: Alignment.topRight,
                       padding: EdgeInsets.only(right: 15.0, bottom: 15),
                       child: Text(
-                        " Cập nhật cuối: " + DateFormat("hh:mm dd/MM/yyyy").format(state.doc.lastUpdate),
+                        " Cập nhật cuối:.tr() " + DateFormat("hh:mm dd/MM/yyyy").format(state.doc.lastUpdate),
                         style: TextStyle(fontStyle: FontStyle.italic, fontSize: 10.0),
                       ),
                     ),

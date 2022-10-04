@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -72,7 +73,7 @@ class UserQuickProfile extends StatelessWidget {
                                         ],
                                       ),
                                       child: Text(
-                                        "XEM THÊM",
+                                        "XEM THÊM".tr(),
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -106,7 +107,7 @@ class UserQuickProfile extends StatelessWidget {
                                         ],
                                       ),
                                       child: Text(
-                                        "THU GỌN",
+                                        "THU GỌN".tr(),
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     )),

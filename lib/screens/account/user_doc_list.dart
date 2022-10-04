@@ -1,6 +1,7 @@
 import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:anylearn/dto/user_doc_dto.dart';
 import 'package:anylearn/widgets/loading_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../image_view.dart';
@@ -51,7 +52,7 @@ class UserDocList extends StatelessWidget {
           ),
           initialIndex: index,
           scrollDirection: Axis.horizontal,
-          imageText: "Chứng chỉ", loadingBuilder: (BuildContext context, ImageChunkEvent? event) { 
+          imageText: "Chứng chỉ".tr(), loadingBuilder: (BuildContext context, ImageChunkEvent? event) { 
             return LoadingWidget();
            },
         ),

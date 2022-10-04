@@ -35,7 +35,7 @@ class _HomeArticleTabs extends State<HomeArticleTabs> with TickerProviderStateMi
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return SliverToBoxAdapter(
         child: DefaultTabController(
@@ -50,10 +50,10 @@ class _HomeArticleTabs extends State<HomeArticleTabs> with TickerProviderStateMi
               unselectedLabelColor: Colors.black54,
               tabs: [
                 Tab(
-                  text: "Đọc để Học",
+                  text: "Đọc để Học".tr(),
                 ),
                 Tab(
-                  text: "Xem để học",
+                  text: "Xem để học".tr(),
                 ),
               ],
             ),

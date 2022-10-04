@@ -40,7 +40,6 @@ class _PDPScreen extends State<PDPScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return BlocProvider<PdpBloc>(
       create: (context) {
@@ -77,7 +76,7 @@ class _PDPScreen extends State<PDPScreen> {
                   ..showSnackBar(SnackBar(
                     duration: Duration(seconds: 5),
                     content: Text(
-                        "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất."),
+                        "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất.".tr()),
                   ));
               }
             },

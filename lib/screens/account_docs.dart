@@ -37,7 +37,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
     accountBloc..add(AccLoadDocsEvent(token: token));
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý chứng chỉ"),
+        title: Text("Quản lý chứng chỉ".tr()),
         centerTitle: false,
       ),
       body: BlocProvider<AccountBloc>(
@@ -90,7 +90,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                           color: Colors.white,
                                         )
                                       : Text(
-                                          "Thêm chứng chỉ mới",
+                                          "Thêm chứng chỉ mới".tr(),
                                           style: TextStyle(color: Colors.white),
                                         ),
                                 ),
@@ -119,7 +119,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                                     .pop();
                                                               },
                                                               child:
-                                                                  Text("Đóng"))
+                                                                  Text("Đóng").tr())
                                                         ],
                                                       ));
                                             },
@@ -133,7 +133,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                     builder: (context) =>
                                                         AlertDialog(
                                                             content: Text(
-                                                                "Bạn có muốn xóa file này"),
+                                                                "Bạn có muốn xóa file này").tr(),
                                                             actions: [
                                                           TextButton(
                                                             onPressed: () {
@@ -142,7 +142,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                                   .pop();
                                                             },
                                                             child:
-                                                                Text("Bỏ qua"),
+                                                                Text("Bỏ qua").tr(),
                                                           ),
                                                           ElevatedButton(
                                                               onPressed: () {
@@ -160,7 +160,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                                 primary: Colors.red,
                                                               ),
                                                               child:
-                                                                  Text("Xóa"))
+                                                                  Text("Xóa").tr())
                                                         ]),
                                                   );
                                                 }),

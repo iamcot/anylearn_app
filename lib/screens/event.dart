@@ -68,7 +68,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: BaseAppBar(
-        title: "Lịch đào tạo & Sự kiện",
+        title: "Lịch đào tạo & Sự kiện".tr(),
         user: user,
       ),
       body: BlocProvider<EventBloc>(

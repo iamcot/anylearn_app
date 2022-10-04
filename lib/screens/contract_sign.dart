@@ -33,18 +33,17 @@ class _ContractSignScreen extends State<ContractSignScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("XEM/KÝ hợp đồng"),
+        title: Text("XEM/KÝ hợp đồng".tr()),
         centerTitle: false,
       ),
       body: BlocListener(
         bloc: BlocProvider.of<AuthBloc>(context),
         listener: (context, state) {
           if (state is AuthContractSignedSuccessState) {
-            toast("Bạn đã ký thành công, anyLEARN sẽ kiểm tra và phản hồi trong thời gian sớm nhất.");
+            toast("Bạn đã ký thành công, anyLEARN sẽ kiểm tra và phản hồi trong thời gian sớm nhất.".tr());
             Navigator.of(context).pop(true);
           }
           if (state is AuthContractSignedFailState) {
@@ -76,7 +75,7 @@ class _ContractSignScreen extends State<ContractSignScreen> {
                                         ..add(AuthContractSignEvent(
                                             token: widget.user.token, contractId: widget.contractId));
                                     },
-                                    child: Text("TÔI ĐÃ ĐỌC VÀ ĐỒNG Ý KÝ HỢP ĐỒNG")),
+                                    child: Text("TÔI ĐÃ ĐỌC VÀ ĐỒNG Ý KÝ HỢP ĐỒNG".tr())),
                               )
                             : Container(),
                         Html(
@@ -97,7 +96,7 @@ class _ContractSignScreen extends State<ContractSignScreen> {
                                         ..add(AuthContractSignEvent(
                                             token: widget.user.token, contractId: widget.contractId));
                                     },
-                                    child: Text("TÔI ĐÃ ĐỌC VÀ ĐỒNG Ý KÝ HỢP ĐỒNG")),
+                                    child: Text("TÔI ĐÃ ĐỌC VÀ ĐỒNG Ý KÝ HỢP ĐỒNG".tr())),
                               )
                             : Container(),
                       ],

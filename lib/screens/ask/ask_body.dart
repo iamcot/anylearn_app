@@ -21,7 +21,7 @@ class AskBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-            Text('title').tr(),
+            Text('title'),
 
         SliverToBoxAdapter(child: Container(child: Image.asset("assets/banners/ask_banner.jpg"))),
         SliverToBoxAdapter(
@@ -57,7 +57,7 @@ class AskBody extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(color: Colors.grey, width: 1.0),
                 ),
-                hintText: "Bạn đang muốn hỏi điều gì ?",
+                hintText: "Bạn đang muốn hỏi điều gì ?".tr(),
                 hintStyle: TextStyle(color: Colors.grey),
                 suffixIcon: Icon(Icons.question_answer),
                 // onPressed: () {
@@ -70,21 +70,21 @@ class AskBody extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: AskHeader(
-            title: "Hỏi để Học".toUpperCase(),
-            route: "/ask/forum",
+            title: "Hỏi để Học".tr().toUpperCase(),
+            route: "/ask/forum".tr(),
           ),
         ),
         AskForumList(data: data.asks),
         SliverToBoxAdapter(
           child: AskHeader(
-            title: "Xem để Học".toUpperCase(),
+            title: "Xem để Học".tr().toUpperCase(),
             type: MyConst.ASK_TYPE_VIDEO,
           ),
         ),
         AskList(data: data.videos),
         SliverToBoxAdapter(
           child: AskHeader(
-            title: "Đọc để Học".toUpperCase(),
+            title: "Đọc để Học".tr().toUpperCase(),
             type: MyConst.ASK_TYPE_READ,
           ),
         ),

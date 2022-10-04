@@ -34,11 +34,10 @@ class _AskCatScreen extends State<AskCatScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Scaffold(
       appBar: BaseAppBar(
-        title: widget.type == MyConst.ASK_TYPE_READ ? "Đọc để học" : "Xem để học", 
+        title: widget.type == MyConst.ASK_TYPE_READ ? "Đọc để học" .tr(): "Xem để học".tr(), 
         user: user,
       ),
       body: RefreshIndicator(

@@ -35,7 +35,7 @@ class _CourseRegisteredScreen extends State<CourseRegisteredScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text("Thành viên đăng ký khóa học"),
+        title: const Text("Thành viên đăng ký khóa học").tr(),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 10, bottom: 10),

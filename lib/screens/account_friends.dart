@@ -87,7 +87,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                               decoration: BoxDecoration(
                                 color: Colors.grey[100],
                               ),
-                              child: Text("Bạn bè của " + _data!.user.name + " (MGT: " + _data!.user.refcode + ")",
+                              child: Text("Bạn bè của " .tr()+ _data!.user.name + " (MGT: " + _data!.user.refcode + ")",
                                   style:
                                       TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
                             ),
@@ -142,7 +142,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                           trailing: SizedBox(
                                               width: 80.0,
                                               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                                                Text(_data!.friends[itemIndex].numFriends.toString() + " bạn "),
+                                                Text(_data!.friends[itemIndex].numFriends.toString() + " bạn ".tr()),
                                                 Icon(Icons.chevron_right),
                                               ])),
                                           // onTap: () {
@@ -211,22 +211,22 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                     child: param.level == 1
                                         ? Text.rich(
                                             TextSpan(
-                                              text: "Hiện tại chưa có bạn nào.",
+                                              text: "Hiện tại chưa có bạn nào.".tr(),
                                               style: TextStyle(fontSize: 16.0),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                    text: " CHIA SẺ MÃ GIỚI THIỆU",
+                                                    text: " CHIA SẺ MÃ GIỚI THIỆU".tr(),
                                                     style: TextStyle(color: Colors.blue),
                                                     recognizer: TapGestureRecognizer()
                                                       ..onTap = () {
                                                         Navigator.of(context).pushNamed("/qrcode");
                                                       }),
-                                                TextSpan(text: " để có thêm bạn nhé.")
+                                                TextSpan(text: " để có thêm bạn nhé.".tr())
                                               ],
                                             ),
                                             textAlign: TextAlign.center,
                                           )
-                                        : Text("Chưa có bạn nào."),
+                                        : Text("Chưa có bạn nào.".tr()),
                                   ),
                                 ),
                         ],

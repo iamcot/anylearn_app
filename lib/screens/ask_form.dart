@@ -25,7 +25,6 @@ class _AskFormScreen extends State<AskFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Scaffold(
       appBar: AppBar(
@@ -39,7 +38,7 @@ class _AskFormScreen extends State<AskFormScreen> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
-                content: Text("Đã gửi thành công."),
+                content: Text("Đã gửi thành công.".tr()),
               )).closed.then((value) {
                 Navigator.of(context).pop(true);
               });
@@ -63,7 +62,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                       ? TextFormField(
                           controller: _titleController,
                           decoration: InputDecoration(
-                            labelText: "Tiêu đề",
+                            labelText: "Tiêu đề".tr(),
                           ),
                         )
                       : SizedBox(
@@ -71,7 +70,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                         ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15, bottom: 10),
-                    child: Text("Nội dung " + _buildText(widget.type)),
+                    child: Text("Nội dung ".tr() + _buildText(widget.type)),
                   ),
                   TextField(
                     controller: _contentController,
@@ -84,7 +83,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                         )
                       : Padding(
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
-                          child: Text("Nếu bạn đã trả lời, trả lời mới sẽ cập nhật nội dung trả lời cũ."),
+                          child: Text("Nếu bạn đã trả lời, trả lời mới sẽ cập nhật nội dung trả lời cũ.".tr()),
                         ),
                   Container(
                     width: double.infinity,
@@ -97,7 +96,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                           }
                           return GradientButton(
                             height: 48,
-                            title: "Gửi " + _buildText(widget.type),
+                            title: "Gửi " .tr()+ _buildText(widget.type),
                             function: () {
                               _submit();
                             },
@@ -127,11 +126,11 @@ class _AskFormScreen extends State<AskFormScreen> {
   String _buildText(String type) {
     switch (type) {
       case MyConst.ASK_QUESTION:
-        return "câu hỏi";
+        return "câu hỏi".tr();
       case MyConst.ASK_ANSWER:
-        return "trả lời";
+        return "trả lời".tr();
       case MyConst.ASK_COMMENT:
-        return "bình luận";
+        return "bình luận".tr();
     }
     return "";
   }

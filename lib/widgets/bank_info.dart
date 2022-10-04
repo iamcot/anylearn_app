@@ -1,4 +1,5 @@
 import 'package:anylearn/dto/bank_dto.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,18 +11,18 @@ class BankInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text("Vui lòng chuyển khoản theo thông tin sau:", style: TextStyle(fontSize: 12.0)),
+      title: Text("Vui lòng chuyển khoản theo thông tin sau:".tr(), style: TextStyle(fontSize: 12.0)),
       children: [
         ListTile(
-          title: Text("Ngân hàng"),
+          title: Text("Ngân hàng").tr(),
           subtitle: Text(bankDTO.bankName),
         ),
         ListTile(
-          title: Text("Chi nhánh"),
+          title: Text("Chi nhánh").tr(),
           subtitle: Text(bankDTO.bankBranch),
         ),
         ListTile(
-          title: Text("Số tài khoản"),
+          title: Text("Số tài khoản").tr(),
           subtitle: Text(bankDTO.bankNo),
           trailing: Icon(Icons.content_copy),
           onTap: () {
@@ -29,11 +30,11 @@ class BankInfo extends StatelessWidget {
           },
         ),
         ListTile(
-          title: Text("Người  thụ hưởng"),
+          title: Text("Người  thụ hưởng").tr(),
           subtitle: Text(bankDTO.accountName),
         ),
         ListTile(
-          title: Text("Nội dung chuyển khoản"),
+          title: Text("Nội dung chuyển khoản").tr(),
           subtitle: Text(bankDTO.content + (phone != null ? " - $phone" : "")),
         ),
         Padding(

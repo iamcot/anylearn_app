@@ -45,19 +45,19 @@ class _RatingInputScreen extends State<RatingInputScreen> {
       bloc: _courseBloc,
       listener: (context, state) {
         if (state is ReviewSubmitSuccessState) {
-          toast("Cảm ơn bạn đã gửi nhận xét về khóa học.", duration: Duration(seconds: 3));
+          toast("Cảm ơn bạn đã gửi nhận xét về khóa học.".tr(), duration: Duration(seconds: 3));
           Navigator.of(context).pop(true);
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Đánh giá về khóa học"),
+          title: Text("Đánh giá về khóa học").tr(),
           centerTitle: false,
         ),
         body: Container(
           padding: EdgeInsets.all(15),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            Text("Đánh giá của bạn rất quan trọng để chúng tôi cải thiện mỗi ngày."),
+            Text("Đánh giá của bạn rất quan trọng để chúng tôi cải thiện mỗi ngày.").tr(),
             Card(
               child: Container(
                 padding: EdgeInsets.all(15),
@@ -65,7 +65,7 @@ class _RatingInputScreen extends State<RatingInputScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Cho điểm " + widget.itemTitle,
+                      "Cho điểm ".tr() + widget.itemTitle,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Container(
@@ -84,14 +84,14 @@ class _RatingInputScreen extends State<RatingInputScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Bình luận thêm về " + widget.itemTitle,
+                      "Bình luận thêm về ".tr() + widget.itemTitle,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextFormField(
                       controller: _commentInput,
                       maxLines: 5,
                       decoration: InputDecoration(
-                        hintText: "Hãy chia sẻ thêm cảm nhận của bạn về buổi học nhé.",
+                        hintText: "Hãy chia sẻ thêm cảm nhận của bạn về buổi học nhé.".tr(),
                       ),
                     )
                   ],
@@ -105,7 +105,7 @@ class _RatingInputScreen extends State<RatingInputScreen> {
                     return LoadingWidget();
                   }
                   return GradientButton(
-                    title: "LƯU NHẬN XÉT",
+                    title: "LƯU NHẬN XÉT".tr(),
                     function: () {
                       _courseBloc
                         ..add(ReviewSubmitEvent(

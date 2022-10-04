@@ -42,7 +42,6 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return BlocProvider<TransactionBloc>(
         create: (BuildContext context) => _transBloc,
@@ -56,7 +55,7 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                 : Scaffold(
                     appBar: AppBar(
                       centerTitle: false,
-                      title: const Text("Giao dịch của tôi"),
+                      title: const Text("Giao dịch của tôi").tr(),
                       actions: <Widget>[
                         IconButton(
                             icon: Icon(Icons.refresh),
@@ -118,8 +117,8 @@ class _TransactionScreen extends State<TransactionScreen> with TickerProviderSta
                                     ],
                                   ),
                                   TabBar(controller: _tabController, tabs: [
-                                    Tab(child: Text("Lịch sử thanh toán")),
-                                    Tab(child: Text("Lịch sử anyPoint")),
+                                    Tab(child: Text("Lịch sử thanh toán").tr()),
+                                    Tab(child: Text("Lịch sử anyPoint").tr()),
                                   ]),
                                 ],
                               ),

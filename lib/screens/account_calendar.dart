@@ -43,12 +43,12 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text("Lịch học của tôi"),
+        title: const Text("Lịch học của tôi").tr(),
         bottom: PreferredSize(
           child: Column(
             children: <Widget>[
@@ -58,9 +58,9 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                 child: Image.asset("assets/banners/schedule_banner.jpg", fit: BoxFit.cover),
               ),
               TabBar(controller: _tabController, tabs: [
-                Tab(child: Text("Đã qua")),
-                Tab(child: Text("Sắp diễn ra")),
-                Tab(child: Text("Quan tâm")),
+                Tab(child: Text("Đã qua").tr()),
+                Tab(child: Text("Sắp diễn ra").tr()),
+                Tab(child: Text("Quan tâm").tr()),
               ]),
             ],
           ),
@@ -76,8 +76,8 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                        title: Text("Mời đánh giá khóa học."),
-                        content: Text("Chúc mừng bạn vừa hoàn thành buổi học. Vui lòng để lại đánh giá của bạn nhé."),
+                        title: Text("Mời đánh giá khóa học.").tr(),
+                        content: Text("Chúc mừng bạn vừa hoàn thành buổi học. Vui lòng để lại đánh giá của bạn nhé.").tr(),
                         actions: [
                           TextButton(
                               onPressed: () async {
@@ -88,7 +88,7 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                                       user: user, itemId: state.itemId, itemTitle: "", lastRating: 0);
                                 }));
                               },
-                              child: Text("ĐÁNH GIÁ"))
+                              child: Text("ĐÁNH GIÁ").tr())
                         ],
                       ));
             }
@@ -147,11 +147,11 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                               padding: const EdgeInsets.all(15.0),
                               child: Text.rich(
                                 TextSpan(
-                                  text: "Bạn chưa đánh dấu khóa học nào là ưa thích.",
+                                  text: "Bạn chưa đánh dấu khóa học nào là ưa thích.".tr(),
                                   style: TextStyle(fontSize: 16.0),
                                   children: <TextSpan>[
                                     TextSpan(
-                                        text: "Xem các lịch học đang có",
+                                        text: "Xem các lịch học đang có".tr(),
                                         style: TextStyle(color: Colors.blue),
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {

@@ -92,13 +92,13 @@ class _AccountCalendarList extends State<AccountCalendarList>
                                 text:
                                     widget.events[itemIndex].userJoined == null
                                         ? ""
-                                        : "\nĐã xác nhận",
+                                        : "\nĐã xác nhận".tr(),
                                 style: TextStyle(color: Colors.green))
                           ],
                         )),
                         trailing: widget.events[itemIndex].authorStatus ==
                                 MyConst.ITEM_USER_STATUS_CANCEL
-                            ? Text("Lớp đã hủy")
+                            ? Text("Lớp đã hủy".tr())
                             : _buildTrailing(widget.events[itemIndex]),
                         onLongPress: () {
                           Navigator.of(context).pushNamed("/pdp",
@@ -122,11 +122,11 @@ class _AccountCalendarList extends State<AccountCalendarList>
                   padding: const EdgeInsets.all(15.0),
                   child: Text.rich(
                     TextSpan(
-                      text: "Bạn không có lịch học nào.",
+                      text: "Bạn không có lịch học nào.".tr(),
                       style: TextStyle(fontSize: 16.0),
                       children: <TextSpan>[
                         TextSpan(
-                            text: "Xem các lịch học đang có",
+                            text: "Xem các lịch học đang có".tr(),
                             style: TextStyle(color: Colors.blue),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -152,7 +152,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
           bloc: widget.accountBloc,
           builder: (context, state) {
             return event.userJoined != null && event.userJoined > 0
-                ? Text("Đã tham gia")
+                ? Text("Đã tham gia".tr())
                 : ElevatedButton(
                     onPressed: () {
                       widget.accountBloc
@@ -163,7 +163,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
                             childId: event.childId));
                     },
                     child: Text(
-                      "Xác nhận",
+                      "Xác nhận".tr(),
                       style: TextStyle(fontSize: 12, color: Colors.white),
                     ));
           },
@@ -175,7 +175,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
             },
             // color: Colors.blue,
             child: Text(
-              "Đánh giá",
+              "Đánh giá".tr(),
               style: TextStyle(fontSize: 12, color: Colors.white),
             ));
       }
@@ -217,7 +217,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
                           ));
                 });
           } else if (diffInSeconds >= Duration(hours: 24)) {
-            return Text("Chưa diễn ra");
+            return Text("Chưa diễn ra".tr());
             ;
           } else {
             return BlocBuilder<AccountBloc, AccountState>(
@@ -230,7 +230,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
                         },
                         // color: Colors.blue,
                         child: Text(
-                          "Vào lớp",
+                          "Vào lớp".tr(),
                           style: TextStyle(fontSize: 12, color: Colors.white),
                         ))
                     : ElevatedButton(
@@ -239,7 +239,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
                           _dialogJoin(event, true);
                         },
                         child: Text(
-                          "Tham gia",
+                          "Tham gia".tr(),
                           style: TextStyle(fontSize: 12, color: Colors.white),
                         ));
               },
@@ -252,18 +252,18 @@ class _AccountCalendarList extends State<AccountCalendarList>
               },
               // color: Colors.blue,
               child: Text(
-                "Vào lớp",
+                "Vào lớp".tr(),
                 style: TextStyle(fontSize: 12, color: Colors.white),
               ));
         }
       } else {
-        return Text("Chưa diễn ra");
+        return Text("Chưa diễn ra".tr());
       }
     }
   }
 
   void _dialogJoin(EventDTO eventDTO, bool hasConfirm) {
-    Text('title').tr();
+    Text('title');
 
     String route = "";
     String routeInfo = "";
@@ -280,22 +280,20 @@ class _AccountCalendarList extends State<AccountCalendarList>
       } else if (eventDTO.location != "") {
         route = eventDTO.location;
       } else {
-        routeInfo = "Vui lòng chờ cập nhật thông tin lớp học.";
+        routeInfo = "Vui lòng chờ cập nhật thông tin lớp học.".tr();
       }
     } else {
       routeInfo = eventDTO.scheduleContent;
     }
     showDialog(
-      
       context: context,
       builder: (context) => SimpleDialog(
         children: <Widget>[
-                  Text('title').tr(),
-
+          Text('title').tr(),
           eventDTO.itemSubtype != MyConst.ITEM_SUBTYPE_ONLINE
               ? Container()
               : ListTile(
-                  title: Text("Vào lớp học"),
+                  title: Text("Vào lớp học".tr()),
                   subtitle: Text.rich(TextSpan(text: route, children: [
                     routeInfo.isEmpty
                         ? TextSpan(text: "")
@@ -312,7 +310,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
                             await launch(route);
                           } else {
                             toast(
-                                "Đường dẫn lớp học không đúng, vui lòng kiểm tra lại với người phụ trách.");
+                                "Đường dẫn lớp học không đúng, vui lòng kiểm tra lại với người phụ trách.".tr());
                             throw 'Could not launch';
                           }
                         }
@@ -329,7 +327,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
           hasConfirm ? Divider() : SizedBox(height: 0),
           hasConfirm
               ? ListTile(
-                  title: Text("Xác nhận tham gia"),
+                  title: Text("Xác nhận tham gia".tr()),
                   onTap: () {
                     widget.accountBloc
                       ..add(AccJoinCourseEvent(
@@ -345,11 +343,11 @@ class _AccountCalendarList extends State<AccountCalendarList>
           !hasConfirm
               ? ListTile(
                   trailing: eventDTO.userRating > 0
-                      ? Text("LÀM LẠI", style: TextStyle(color: Colors.blue))
+                      ? Text("LÀM LẠI".tr(), style: TextStyle(color: Colors.blue))
                       : Icon(Icons.chevron_right),
                   title: Text(eventDTO.userRating > 0
-                      ? "Bạn đã đánh giá ${eventDTO.userRating}*"
-                      : "Đánh giá khóa học"),
+                      ? "Bạn đã đánh giá ${eventDTO.userRating}*".tr()
+                      : "Đánh giá khóa học".tr()),
                   onTap: () async {
                     Navigator.of(context).pop();
                     final sentReview = await Navigator.of(context)

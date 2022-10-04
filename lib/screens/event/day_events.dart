@@ -10,7 +10,7 @@ class DayEvents extends StatelessWidget {
   const DayEvents({key, required this.eventToday}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return Column(
       children: [

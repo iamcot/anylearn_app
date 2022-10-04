@@ -12,11 +12,11 @@ class PdpShareDialog extends StatelessWidget {
   const PdpShareDialog({key, this.item, this.user, this.pdpBloc}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return SimpleDialog(children: <Widget>[
       ListTile(
-          title: Text("Chia sẻ tới bạn bè trong cộng đồng"),
+          title: Text("Chia sẻ tới bạn bè trong cộng đồng".tr()),
           onTap: () {
             Navigator.of(context).pop();
             Navigator.of(context).push(MaterialPageRoute(
@@ -27,7 +27,7 @@ class PdpShareDialog extends StatelessWidget {
           }),
       Divider(),
       ListTile(
-          title: Text("Chia sẻ ra mạng xã hội"),
+          title: Text("Chia sẻ ra mạng xã hội".tr()),
           onTap: () {
             Share.share(item.url);
           }),

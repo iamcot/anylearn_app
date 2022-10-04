@@ -64,12 +64,11 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text("Nhập mã OTP"),
+        title: Text("Nhập mã OTP".tr()),
       ),
       body: BlocListener(
         bloc: _authBloc,
@@ -108,7 +107,7 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
                 content: Text(
-                    "Thay đổi mật khẩu thành công. Vui lòng đăng nhập lại"),
+                    "Thay đổi mật khẩu thành công. Vui lòng đăng nhập lại".tr()),
               ));
             Navigator.of(context).pop();
           }
@@ -123,7 +122,7 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                   color: Colors.grey[100],
                 ),
                 child: Text(
-                  sentOTP ? "Nhập OTP từ SMS " : "Nhập SDT để nhận OTP",
+                  sentOTP ? "Nhập OTP từ SMS ".tr() : "Nhập SDT để nhận OTP".tr(),
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
@@ -138,13 +137,13 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                         controller: _phoneController,
                         validator: (value) {
                           if (value == "") {
-                            return "Bạn quên nhập số điện thoại rồi nè.";
+                            return "Bạn quên nhập số điện thoại rồi nè.".tr();
                           }
                           _formKey.currentState!.save();
                           return null;
                         },
                         decoration: InputDecoration(
-                          labelText: "Số điện thoại",
+                          labelText: "Số điện thoại".tr(),
                           icon: Icon(MdiIcons.phone),
                         ),
                       ),
@@ -177,9 +176,9 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                         ),
                         ElevatedButton(
                           onPressed: enableResend ? _resendCode : null,
-                          child: enableResend ?  Text('Gửi lại OTP',style: TextStyle(fontSize: 10),)
+                          child: enableResend ?  Text('Gửi lại OTP'.tr(),style: TextStyle(fontSize: 10),)
                           : Text(
-                          "Gửi lại sau $secondsRemaining giây",
+                          "Gửi lại sau $secondsRemaining giây".tr(),
                           style: TextStyle(color: Colors.blue, fontSize: 10),
                         ),
                         ),
@@ -228,13 +227,13 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                             controller: _passwordController,
                             validator: (value) {
                               if (value!.length < 8) {
-                                return "Mật khẩu ít nhất 8 kí tự";
+                                return "Mật khẩu ít nhất 8 kí tự".tr();
                               }
                               _formKey.currentState!.save();
                               return null;
                             },
                             decoration: InputDecoration(
-                              labelText: "Mật khẩu mới",
+                              labelText: "Mật khẩu mới".tr(),
                               icon: Icon(MdiIcons.formTextboxPassword),
                             ),
                             obscureText: true,
@@ -248,13 +247,13 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                             controller: _passwordConfirmController,
                             validator: (value) {
                               if (value != _passwordController.text) {
-                                return "Xác nhận mât khẩu không đúng";
+                                return "Xác nhận mât khẩu không đúng".tr();
                               }
                               _formKey.currentState!.save();
                               return null;
                             },
                             decoration: InputDecoration(
-                              labelText: "Nhập lại mật khẩu mới",
+                              labelText: "Nhập lại mật khẩu mới".tr(),
                               icon: Icon(MdiIcons.formTextboxPassword),
                             ),
                             obscureText: true,
@@ -310,7 +309,7 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                                 ));
                             }
                           },
-                          child: Text("Gửi"));
+                          child: Text("Gửi".tr()));
                     }),
               ),
             ],

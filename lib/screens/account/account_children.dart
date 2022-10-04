@@ -42,7 +42,7 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý tài khoản phụ"),
+        title: Text("Quản lý tài khoản phụ".tr()),
         actions: [
           IconButton(
               icon: Icon(
@@ -91,7 +91,7 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
         builder: (context) => SimpleDialog(
               contentPadding: EdgeInsets.fromLTRB(10, 5, 10, 0),
               children: [
-                        Text('title').tr(),
+                        Text('title'),
 
                 Form(
                     key: _formKey,
@@ -103,7 +103,7 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                           child: TextFormField(
                             controller: _titleController,
                             decoration: InputDecoration(
-                              labelText: "Tên thành viên",
+                              labelText: "Tên thành viên".tr(),
                             ),
                           ),
                         ),
@@ -124,7 +124,7 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                             },
                             controller: _dobController,
                             decoration: InputDecoration(
-                              labelText: "Ngày tháng năm sinh (YYYY-mm-dd)",
+                              labelText: "Ngày tháng năm sinh (YYYY-mm-dd)".tr(),
                             ),
                           ),
                         )
@@ -134,7 +134,7 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                     bloc: _accountBloc,
                     listener: (context, state) {
                       if (state is AccSaveChildrenSuccessState) {
-                        toast("Lưu thành công!");
+                        toast("Lưu thành công!".tr());
                         _accountBloc
                           ..add(AccLoadChildrenEvent(token: user.token));
                         Navigator.of(context).pop();
@@ -168,8 +168,8 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                             );
                           }
                           return id == 0
-                              ? Text("Thêm tài khoản mới")
-                              : Text("Cập nhật tài khoản");
+                              ? Text("Thêm tài khoản mới".tr())
+                              : Text("Cập nhật tài khoản".tr());
                         },
                       ),
                     )),

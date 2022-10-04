@@ -12,7 +12,7 @@ class _TeacherFilter extends State<TeacherFilter> {
     // 'nameaz': 'Theo tên A-Z',
     // 'nameza': 'Theo tên Z-A',
     // 'course': 'Theo Số lượng Khóa học',
-    'popular': 'Theo mức độ quan tâm',
+    'popular': 'Theo mức độ quan tâm'.tr(),
   };
 
   @override
@@ -46,7 +46,7 @@ class _TeacherFilter extends State<TeacherFilter> {
   }
 
   List<Widget> _buildSelected(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     List<Widget> list = [];
     options.forEach((key, title) {
@@ -55,7 +55,7 @@ class _TeacherFilter extends State<TeacherFilter> {
           padding: EdgeInsets.all(0.0),
           child: Row(
             children: <Widget>[
-              Text("Sắp xếp: "),
+              Text("Sắp xếp: ".tr()),
               Text(
                 title,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),

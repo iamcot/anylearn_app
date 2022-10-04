@@ -54,7 +54,6 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder<AccountBloc, AccountState>(
@@ -114,7 +113,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                         dense: true,
                         contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
                         leading: Icon(MdiIcons.shieldAccount),
-                        title: Text("Người đại diện: " + userProfile!.title),
+                        title: Text("Người đại diện: ".tr() + userProfile!.title),
                         isThreeLine: false,
                       )
                     : SizedBox(height: 0),
@@ -136,7 +135,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 15, right: 15),
                             child: Text(
-                              "Chứng chỉ",
+                              "Chứng chỉ".tr(),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )
@@ -157,7 +156,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           //   thickness: 10,
                           // ),
                           HotItems(
-                            hotItems: [HotItemsDTO(title: "Các khoá học đã đăng ký", list: userProfile!.registered)],
+                            hotItems: [HotItemsDTO(title: "Các khoá học đã đăng ký".tr(), list: userProfile!.registered)],
                           ),
                         ],
                       ),
@@ -170,7 +169,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           //   thickness: 10,
                           // ),
                           HotItems(
-                            hotItems: [HotItemsDTO(title: "Các khoá học đang quan tâm", list: userProfile!.faved)],
+                            hotItems: [HotItemsDTO(title: "Các khoá học đang quan tâm".tr(), list: userProfile!.faved)],
                           ),
                         ],
                       ),
@@ -183,7 +182,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           //   thickness: 10,
                           // ),
                           HotItems(
-                            hotItems: [HotItemsDTO(title: "Các khoá học đã đánh giá", list: userProfile!.rated)],
+                            hotItems: [HotItemsDTO(title: "Các khoá học đã đánh giá".tr(), list: userProfile!.rated)],
                           ),
                         ],
                       ),

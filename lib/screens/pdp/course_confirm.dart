@@ -22,30 +22,30 @@ class _CourseConfirm extends State<CourseConfirm> {
   bool hasVoucher = false;
   bool childRegister = false;
   String dropdownValue = "0";
-  Map<String, String> options = {"0": "Chọn thành viên"};
+  Map<String, String> options = {"0": "Chọn thành viên".tr()};
   final voucherController = TextEditingController();
 
   final NumberFormat _moneyFormat = NumberFormat("###,###,###", 'vi_VN');
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        Text('title');
 
     return user.id == widget.pdpDTO.author.id
         ? AlertDialog(
-            content: Text("Bạn không thể đăng ký khóa học của chính bạn."),
+            content: Text("Bạn không thể đăng ký khóa học của chính bạn.".tr()),
             actions: <Widget>[
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text("Đã hiểu"),
+                child: Text("Đã hiểu".tr()),
               )
             ],
           )
         : SimpleDialog(
             title: Text(
-              "Xác nhận đăng ký",
+              "Xác nhận đăng ký".tr(),
               style: TextStyle(fontSize: 14),
             ),
             titlePadding: EdgeInsets.fromLTRB(15, 15, 15, 0),
@@ -53,7 +53,7 @@ class _CourseConfirm extends State<CourseConfirm> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             children: <Widget>[
               Text.rich(TextSpan(
-                text: "Bạn đang muốn đăng ký khóa học\n",
+                text: "Bạn đang muốn đăng ký khóa học\n".tr(),
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
                 ),
@@ -66,7 +66,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         color: Colors.blue,
                       )),
                   TextSpan(
-                      text: "\n${widget.pdpDTO.author.role == 'school' ? 'Trường' : 'Giảng viên'}: ",
+                      text: "\n${widget.pdpDTO.author.role == 'school'.tr() ? 'Trường'.tr() : 'Giảng viên'.tr()}: ",
                       style: TextStyle()),
                   TextSpan(
                       text: widget.pdpDTO.author.name,
@@ -75,7 +75,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         fontWeight: FontWeight.w400,
                       )),
                   TextSpan(
-                      text: "\nHọc phí: ",
+                      text: "\nHọc phí: ".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                       )),
@@ -86,7 +86,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         color: Colors.red,
                       )),
                   TextSpan(
-                      text: "\nKhai giảng: ",
+                      text: "\nKhai giảng: ".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                       )),
@@ -112,12 +112,12 @@ class _CourseConfirm extends State<CourseConfirm> {
                   ? Container()
                   : Padding(
                       padding: const EdgeInsets.only(top: 15),
-                      child: Text.rich(TextSpan(text: "Bạn sẽ nhận được ", children: [
+                      child: Text.rich(TextSpan(text: "Bạn sẽ nhận được ".tr(), children: [
                         TextSpan(
                           text: _moneyFormat.format(widget.pdpDTO.commission),
                           style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(text: " anyPoint cho giao dịch này.")
+                        TextSpan(text: " anyPoint cho giao dịch này.".tr())
                       ])),
                     ),
               !hasVoucher
@@ -128,7 +128,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         });
                       },
                       child: Text(
-                        "Tôi có mã khuyến mãi",
+                        "Tôi có mã khuyến mãi".tr(),
                         style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
                       ))
                   : Container(
@@ -150,7 +150,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(color: Colors.grey, width: 1.0),
                               ),
-                              hintText: "Mã khuyến mãi khóa học",
+                              hintText: "Mã khuyến mãi khóa học".tr(),
                               hintStyle: TextStyle(color: Colors.grey),
                             ),
                           ),
@@ -190,7 +190,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         });
                       },
                       child: Text(
-                        "Tôi muốn đăng ký cho tài khoản con",
+                        "Tôi muốn đăng ký cho tài khoản con".tr(),
                         style: TextStyle(color: Colors.blue),
                       )),
               Container(
@@ -205,7 +205,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                     _add2Cart(context, user.token, widget.pdpDTO.item.id, voucherController.text,
                         (dropdownValue != "0" && childRegister ? int.parse(dropdownValue) : 0));
                   },
-                  child: Text("XÁC NHẬN"),
+                  child: Text("XÁC NHẬN".tr()),
                 ),
               ),
             ],

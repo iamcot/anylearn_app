@@ -32,7 +32,7 @@ class _ItemRatingScreen extends State<ItemRatingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Các đánh giá của khóa học"),
+        title: Text("Các đánh giá của khóa học".tr()),
         centerTitle: false,
       ),
       body: BlocBuilder(

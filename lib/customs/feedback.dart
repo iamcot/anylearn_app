@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,7 +44,7 @@ class _CustomFeedback extends State<CustomFeedback> {
             if (state is FeedbackSuccessState) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(content: Text("Cảm ơn bạn đã góp ý cho chúng tôi.")));
+                ..showSnackBar(SnackBar(content: Text("Cảm ơn bạn đã góp ý cho chúng tôi.").tr()));
             }
           },
           child: Container(
@@ -69,7 +70,7 @@ class _CustomFeedback extends State<CustomFeedback> {
                                         title: Text(
                                           "anyLEARN luôn hoàn thiện từng ngày để phục vụ bạn tốt hơn, hãy nhắn cho chúng tôi 1 thông tin phản hồi về trải nghiệm của bạn!",
                                           style: TextStyle(fontSize: 12),
-                                        ),
+                                        ).tr(),
                                         contentPadding: EdgeInsets.all(10),
                                         children: <Widget>[
                                           Form(
@@ -77,7 +78,7 @@ class _CustomFeedback extends State<CustomFeedback> {
                                             child: TextFormField(
                                               validator: (value) {
                                                 if (value!.length < 3) {
-                                                  return "Bạn chưa nhập phản hồi nè.";
+                                                  return "Bạn chưa nhập phản hồi nè.".tr();
                                                 }
                                                 _formKey.currentState?.save();
                                                 return null;
@@ -91,7 +92,7 @@ class _CustomFeedback extends State<CustomFeedback> {
                                               initialValue: "",
                                               decoration: InputDecoration(
                                                   alignLabelWithHint: true,
-                                                  labelText: "Để lại ý kiến đóng góp của bạn vào đây..",
+                                                  labelText: "Để lại ý kiến đóng góp của bạn vào đây..".tr(),
                                                   labelStyle: TextStyle(fontSize: 14)),
                                             ),
                                           ),
@@ -107,7 +108,7 @@ class _CustomFeedback extends State<CustomFeedback> {
                                                   child: Text(
                                                 "Để hiểu rõ hơn ý kiến của bạn, chúng tôi xin phép được chụp màn hình ứng dụng của bạn.",
                                                 style: TextStyle(fontSize: 12, color: Colors.black87),
-                                              )),
+                                              ).tr()),
                                             ]),
                                           ),
                                           ElevatedButton(
@@ -129,7 +130,7 @@ class _CustomFeedback extends State<CustomFeedback> {
                                             child: Text(
                                               "Gửi phản hồi",
                                               style: TextStyle(color: Colors.white),
-                                            ),
+                                            ).tr(),
                                           )
                                         ],
                                       ));

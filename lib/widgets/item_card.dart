@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../customs/custom_cached_image.dart';
@@ -74,7 +75,7 @@ class ItemCard extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pushNamed("/pdp", arguments: item.id);
                   },
-                  child: Text("CHI TIẾT", style: TextStyle(color: Colors.green),),
+                  child: Text("CHI TIẾT".tr(), style: TextStyle(color: Colors.green),),
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>((Colors.white)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
