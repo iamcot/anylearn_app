@@ -30,7 +30,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
     return StatefulBuilder(
       builder: (context, setState) => Scaffold(
         appBar: AppBar(
-          title: Text("Chia sẻ khóa học".tr()),
+          title: Text("Chia sẻ khóa học").tr(),
           centerTitle: false,
           bottom: PreferredSize(
             child: TextButton(
@@ -43,10 +43,10 @@ class _CourseShareScreen extends State<CourseShareScreen> {
                         friendIds: []));
                 },
                 child: Text(
-                  "GỬI TẤT CẢ".tr(),
+                  "GỬI TẤT CẢ",
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
-                )),
+                ).tr()),
             preferredSize: Size.fromHeight(40),
           ),
           actions: <Widget>[
@@ -69,7 +69,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
                       friendIds: ids,
                       isALL: false));
               },
-              label: Text("GỬI".tr()),
+              label: Text("GỬI").tr(),
             )
           ],
         ),
@@ -80,7 +80,7 @@ class _CourseShareScreen extends State<CourseShareScreen> {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
-                  content: Text("Đã gửi lời mời tới các bạn.".tr()),
+                  content: Text("Đã gửi lời mời tới các bạn.").tr(),
                 )).closed.then((value) {
                   Navigator.of(context).pop();
                 });

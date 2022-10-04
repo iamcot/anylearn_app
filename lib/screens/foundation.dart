@@ -96,8 +96,8 @@ class _FoundationScreen extends State<FoundationScreen> with TickerProviderState
                         TabBar(
                             controller: _tabController,
                             tabs: data.enableIosTrans
-                                ? [Tab(child: Text("Đóng góp".tr())), Tab(child: Text("Điểm tin".tr()))]
-                                : [Tab(child: Text("Điểm tin".tr()))]),
+                                ? [Tab(child: Text("Đóng góp").tr()), Tab(child: Text("Điểm tin").tr())]
+                                : [Tab(child: Text("Điểm tin").tr())]),
                       ],
                     ),
                     preferredSize: Size.fromHeight(100.0),

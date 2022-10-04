@@ -35,7 +35,6 @@ class _HomeArticleTabs extends State<HomeArticleTabs> with TickerProviderStateMi
 
   @override
   Widget build(BuildContext context) {
-        Text('title');
 
     return SliverToBoxAdapter(
         child: DefaultTabController(

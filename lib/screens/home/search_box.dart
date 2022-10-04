@@ -27,7 +27,6 @@ class _SearchBoxState extends State<SearchBox> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Container(
       height: 120,

@@ -43,8 +43,6 @@ class _AccountEditScreen extends State<AccountEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title');
-
     double width = MediaQuery.of(context).size.width;
 
     return BlocListener<AuthBloc, AuthState>(
@@ -137,12 +135,12 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   color: Colors.grey[100],
                                 ),
                                 child: Text(
-                                  "Chỉnh sửa thông tin cá nhân của bạn".tr(),
+                                  "Chỉnh sửa thông tin cá nhân của bạn",
                                   style: TextStyle(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.grey[600]),
-                                ),
+                                ).tr(),
                               ),
                               Stack(
                                 children: [
@@ -316,7 +314,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 padding: const EdgeInsets.only(
                                     left: 15.0, right: 15.0, top: 15),
                                 child: Text(
-                                    "Thông tin giới thiệu vui lòng cập nhật từ website".tr()),
+                                    "Thông tin giới thiệu vui lòng cập nhật từ website").tr(),
                               ),
                               // Padding(
                               //   padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 15),
@@ -353,11 +351,11 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                         return LoadingWidget();
                                       }
                                       return Text(
-                                        "Lưu thay đổi".tr(),
+                                        "Lưu thay đổi",
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             color: Colors.white),
-                                      );
+                                      ).tr();
                                     },
                                   ),
                                 ),
@@ -429,14 +427,14 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                     builder: (context) {
                       return SimpleDialog(children: <Widget>[
                         ListTile(
-                            title: Text("Chụp ảnh bằng camera".tr()),
+                            title: Text("Chụp ảnh bằng camera").tr(),
                             onTap: () {
                               _getAvatar(fromCamera: true);
                               Navigator.pop(context);
                             }),
                         Divider(),
                         ListTile(
-                            title: Text("Chọn ảnh từ thư viện".tr()),
+                            title: Text("Chọn ảnh từ thư viện").tr(),
                             onTap: () {
                               _getAvatar(fromCamera: false);
                               Navigator.pop(context);

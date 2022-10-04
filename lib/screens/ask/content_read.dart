@@ -16,7 +16,6 @@ class ContentRead extends StatelessWidget {
   const ContentRead({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-        Text('title');
 
     return ListView(
       children: [
@@ -49,9 +48,9 @@ class ContentRead extends StatelessWidget {
           Padding(
             padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 10.0),
             child: Text(
-              "Các bài liên quan".tr(),
+              "Các bài liên quan",
               style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            ).tr(),
           ),
           CustomCarousel(items: data.related, builderFunction: _itemSlider, height: 170.0),
         ]),

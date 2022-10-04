@@ -36,7 +36,7 @@ class _ContractSignScreen extends State<ContractSignScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("XEM/KÝ hợp đồng".tr()),
+        title: Text("XEM/KÝ hợp đồng").tr(),
         centerTitle: false,
       ),
       body: BlocListener(
@@ -75,7 +75,7 @@ class _ContractSignScreen extends State<ContractSignScreen> {
                                         ..add(AuthContractSignEvent(
                                             token: widget.user.token, contractId: widget.contractId));
                                     },
-                                    child: Text("TÔI ĐÃ ĐỌC VÀ ĐỒNG Ý KÝ HỢP ĐỒNG".tr())),
+                                    child: Text("TÔI ĐÃ ĐỌC VÀ ĐỒNG Ý KÝ HỢP ĐỒNG").tr()),
                               )
                             : Container(),
                         Html(
@@ -96,7 +96,7 @@ class _ContractSignScreen extends State<ContractSignScreen> {
                                         ..add(AuthContractSignEvent(
                                             token: widget.user.token, contractId: widget.contractId));
                                     },
-                                    child: Text("TÔI ĐÃ ĐỌC VÀ ĐỒNG Ý KÝ HỢP ĐỒNG".tr())),
+                                    child: Text("TÔI ĐÃ ĐỌC VÀ ĐỒNG Ý KÝ HỢP ĐỒNG").tr()),
                               )
                             : Container(),
                       ],

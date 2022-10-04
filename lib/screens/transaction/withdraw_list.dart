@@ -13,7 +13,6 @@ class WithdrawList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     final DateFormat _dateFormat = DateFormat("hh:mm\ndd/MM/yy");
     final NumberFormat _monneyFormat = NumberFormat("###,###,###", "vi_VN");
@@ -34,8 +33,8 @@ class WithdrawList extends StatelessWidget {
                 title: Text(e.content),
                 subtitle: Text.rich(
                   e.status > 0
-                      ? TextSpan(text: "Đã xác nhận", style: TextStyle(color: Colors.green))
-                      : (TextSpan(text: "Chưa xác nhận", style: TextStyle(color: Colors.grey), children: [
+                      ? TextSpan(text: "Đã xác nhận".tr(), style: TextStyle(color: Colors.green))
+                      : (TextSpan(text: "Chưa xác nhận".tr(), style: TextStyle(color: Colors.grey), children: [
                           TextSpan(
                               text: "\nThông tin ngân hàng",
                               style: TextStyle(color: Colors.blue),
@@ -46,22 +45,22 @@ class WithdrawList extends StatelessWidget {
                                       builder: (context) {
                                         return SimpleDialog(
                                           title: Text("Tiền sẽ được chuyển khoản về ngân hàng sau:",
-                                              style: TextStyle(fontSize: 12.0)),
+                                              style: TextStyle(fontSize: 12.0)).tr(),
                                           children: [
                                             ListTile(
-                                              title: Text("Ngân hàng"),
+                                              title: Text("Ngân hàng").tr(),
                                               subtitle: Text(e.bankInfo.bankName),
                                             ),
                                             ListTile(
-                                              title: Text("Chi nhánh"),
+                                              title: Text("Chi nhánh").tr(),
                                               subtitle: Text(e.bankInfo.bankBranch),
                                             ),
                                             ListTile(
-                                              title: Text("Số tài khoản"),
+                                              title: Text("Số tài khoản").tr(),
                                               subtitle: Text(e.bankInfo.bankNo),
                                             ),
                                             ListTile(
-                                              title: Text("Người  thụ hưởng"),
+                                              title: Text("Người  thụ hưởng").tr(),
                                               subtitle: Text(e.bankInfo.accountName),
                                             ),
                                             Padding(

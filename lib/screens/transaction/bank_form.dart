@@ -12,7 +12,6 @@ class BankForm extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return Container(
       child: Column(
@@ -21,13 +20,13 @@ class BankForm extends StatelessWidget {
             controller: bankName,
             validator: (value) {
               if (value == "") {
-                return "Bạn cần nhập tên ngân hàng";
+                return "Bạn cần nhập tên ngân hàng".tr();
               }
               formKey.currentState.save();
               return null;
             },
             decoration: InputDecoration(
-              labelText: "Ngân hàng",
+              labelText: "Ngân hàng".tr(),
               contentPadding: EdgeInsets.all(5),
             ),
           ),
@@ -35,13 +34,13 @@ class BankForm extends StatelessWidget {
             controller: bankBranch,
              validator: (value) {
               if (value == "") {
-                return "Bạn cần nhập chi nhánh ngân hàng";
+                return "Bạn cần nhập chi nhánh ngân hàng".tr();
               }
               formKey.currentState.save();
               return null;
             },
             decoration: InputDecoration(
-              labelText: "Chi nhánh",
+              labelText: "Chi nhánh".tr(),
               contentPadding: EdgeInsets.all(5),
             ),
           ),
@@ -49,13 +48,13 @@ class BankForm extends StatelessWidget {
             controller: bankNo,
              validator: (value) {
               if (value == "") {
-                return "Bạn cần nhập Số tài khoản";
+                return "Bạn cần nhập Số tài khoản".tr();
               }
               formKey.currentState.save();
               return null;
             },
             decoration: InputDecoration(
-              labelText: "Số tài khoản",
+              labelText: "Số tài khoản".tr(),
               contentPadding: EdgeInsets.all(5),
             ),
           ),
@@ -63,13 +62,13 @@ class BankForm extends StatelessWidget {
             controller: bankAccount,
              validator: (value) {
               if (value == "") {
-                return "Bạn cần nhập Họ tên chủ tài khoản";
+                return "Bạn cần nhập Họ tên chủ tài khoản".tr();
               }
               formKey.currentState.save();
               return null;
             },
             decoration: InputDecoration(
-              labelText: "Chủ tài khoản",
+              labelText: "Chủ tài khoản".tr(),
               contentPadding: EdgeInsets.all(5),
             ),
           ),

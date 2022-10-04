@@ -185,11 +185,11 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                                         FontWeight.normal,
                                                   ),
                                                   icon: Text(
-                                                    "ĐIỂM".tr(),
+                                                    "ĐIỂM",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
-                                                  )),
+                                                  ).tr()),
                                             ),
                                             TextFormField(
                                               controller: _ammountMInput,
@@ -218,21 +218,21 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
-                                                "Bạn được rút tối đa $max điểm".tr(),
+                                                "Bạn được rút tối đa $max điểm",
                                                 style:
                                                     TextStyle(fontSize: 12.0),
-                                              ),
+                                              ).tr(),
                                             ),
                                           ])),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "Thông tin ngân hàng".tr().toUpperCase(),
+                                    "Thông tin ngân hàng".toUpperCase(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.grey),
-                                  ),
+                                  ).tr(),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
@@ -281,11 +281,11 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                         }
                                       },
                                       child: Text(
-                                        "Rút tiền".tr().toUpperCase(),
+                                        "Rút tiền".toUpperCase(),
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             color: Colors.white),
-                                      )),
+                                      ).tr()),
                                 ),
                                 Divider(
                                   thickness: 0,
@@ -295,11 +295,11 @@ class _WithdrawScreen extends State<WithdrawScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "Lịch sử rút tiền gần đây".tr().toUpperCase(),
+                                    "Lịch sử rút tiền gần đây".toUpperCase(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.grey),
-                                  ),
+                                  ).tr(),
                                 ),
                                 new WithdrawList(list: config.lastTransactions),
                               ],

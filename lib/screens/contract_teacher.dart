@@ -40,7 +40,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý hợp đồng".tr()),
+        title: Text("Quản lý hợp đồng").tr(),
         centerTitle: false,
       ),
       body: BlocListener(
@@ -55,7 +55,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
-                  content: Text("Hợp đông mới đã được tạo. Vui lòng xem lại và thực hiện kí hợp đồng để xác nhận.".tr()),
+                  content: Text("Hợp đông mới đã được tạo. Vui lòng xem lại và thực hiện kí hợp đồng để xác nhận.").tr(),
                 ));
             }
             if (state is AuthContractFailState) {
@@ -87,9 +87,9 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                       child: ListView(children: [
                         ListTile(
                           leading: Icon(MdiIcons.fileCertificateOutline),
-                          title: Text("Trạng thái hợp đồng của tài khoản".tr()),
+                          title: Text("Trạng thái hợp đồng của tài khoản").tr(),
                           subtitle:
-                              user.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC".tr()) : _signedStatus(user.isSigned),
+                              user.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC").tr() : _signedStatus(user.isSigned),
                           trailing: user.isSigned == 99 ? Icon(Icons.search) : Text(""),
                           onTap: () {
                             if (user.isSigned == 99) {
@@ -104,9 +104,9 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                   top: BorderSide(color: (Colors.grey[300])!),
                                 ),
                                 leading: Icon(Icons.edit_notifications_outlined),
-                                title: Text("Đang có hợp đồng chờ xử lí".tr()),
+                                title: Text("Đang có hợp đồng chờ xử lí").tr(),
                                 subtitle: _signedStatus(_contract!.status),
-                                trailing: _contract!.status == 1 ? Text("KÝ".tr()) : Text("XEM".tr()),
+                                trailing: _contract!.status == 1 ? Text("KÝ").tr() : Text("XEM").tr(),
                                 onTap: () async {
                                   bool result = await Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => ContractSignScreen(user: user, contractId: _contract!.id)));
@@ -122,7 +122,7 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                           ),
                           leading: Icon(MdiIcons.certificate),
                           trailing: Icon(Icons.chevron_right),
-                          title: Text("Cập nhật chứng chỉ".tr()),
+                          title: Text("Cập nhật chứng chỉ").tr(),
                           onTap: () {
                             Navigator.of(context).pushNamed("/account/docs", arguments: user.token);
                           },
@@ -438,11 +438,11 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
                                                   contentPadding: EdgeInsets.all(5),
                                                   scrollable: true,
                                                   title: Text(
-                                                    "Chưa đồng ý điều khoản sử dụng.".tr(),
+                                                    "Chưa đồng ý điều khoản sử dụng.",
                                                     style: TextStyle(fontSize: 14),
-                                                  ),
+                                                  ).tr(),
                                                   content: Text(
-                                                      "Bạn vui lòng tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn.".tr()),
+                                                      "Bạn vui lòng tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn.").tr(),
                                                   actions: <Widget>[
                                                     TextButton(
                                                       onPressed: () => Navigator.pop(context),
@@ -472,13 +472,13 @@ class _ContractTeacherScreen extends State<ContractTeacherScreen> {
   Widget _signedStatus(int status) {
     switch (status) {
       case 1:
-        return Text("MỚI TẠO / CHỜ BẠN KÝ".tr(), style: TextStyle(color: Colors.blue));
+        return Text("MỚI TẠO / CHỜ BẠN KÝ", style: TextStyle(color: Colors.blue)).tr();
       case 10:
-        return Text("BẠN ĐÃ KÝ / CHỜ CÔNG TY".tr(), style: TextStyle(color: Colors.blue));
+        return Text("BẠN ĐÃ KÝ / CHỜ CÔNG TY", style: TextStyle(color: Colors.blue)).tr();
       case 99:
-        return Text("CÔNG TY ĐÃ DUYỆT / HOÀN TẤT".tr(), style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold));
+        return Text("CÔNG TY ĐÃ DUYỆT / HOÀN TẤT", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)).tr();
       case 0:
-        return Text("ĐÃ BỊ HỦY".tr(), style: TextStyle(color: Colors.blue));
+        return Text("ĐÃ BỊ HỦY", style: TextStyle(color: Colors.blue)).tr();
       default:
         return Text("");
     }

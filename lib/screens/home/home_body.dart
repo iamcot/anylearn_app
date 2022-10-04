@@ -110,7 +110,7 @@ class _HomeBody extends State<HomeBody> {
                               showPopupChecked = value;
                             });
                           },
-                          title: Text("Không xem lại".tr()),
+                          title: Text("Không xem lại").tr(),
                           dense: true,
                           contentPadding: EdgeInsets.all(0),
                           controlAffinity: ListTileControlAffinity.leading,
@@ -132,7 +132,6 @@ class _HomeBody extends State<HomeBody> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title');
 
     return Container(
       color: Colors.grey[200],

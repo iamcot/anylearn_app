@@ -113,7 +113,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                         dense: true,
                         contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
                         leading: Icon(MdiIcons.shieldAccount),
-                        title: Text("Người đại diện: ".tr() + userProfile!.title),
+                        title: Text("Người đại diện: " + userProfile!.title).tr(),
                         isThreeLine: false,
                       )
                     : SizedBox(height: 0),
@@ -135,9 +135,9 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 15, right: 15),
                             child: Text(
-                              "Chứng chỉ".tr(),
+                              "Chứng chỉ",
                               style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
+                            ).tr(),
                           )
                         ],
                       ),

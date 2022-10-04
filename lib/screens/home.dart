@@ -61,7 +61,6 @@ class _HomeScreen extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return WillPopScope(
         onWillPop: _willExit,

@@ -10,7 +10,6 @@ class AccountContactScreen extends StatefulWidget {
 class _AccountContactScreen extends State<AccountContactScreen> {
   @override
   Widget build(BuildContext context) {
-        Text('title');
 
     return Scaffold(
       appBar: AppBar(

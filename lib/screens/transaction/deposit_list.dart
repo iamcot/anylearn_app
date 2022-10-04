@@ -62,15 +62,14 @@ class _DepositList extends State<DepositList> {
   }
 
   TextSpan _buildStatus(int status) {
-        Text('title').tr();
 
     if (status == MyConst.TRANS_STATUS_APPROVE) {
-      return TextSpan(text: "Đã xác nhận", style: TextStyle(color: Colors.green));
+      return TextSpan(text: "Đã xác nhận".tr(), style: TextStyle(color: Colors.green));
     } else if (status == MyConst.TRANS_STATUS_CANCEL) {
-      return TextSpan(text: "Đã từ chối", style: TextStyle(color: Colors.red));
+      return TextSpan(text: "Đã từ chối".tr(), style: TextStyle(color: Colors.red));
     } else {
-      return TextSpan(text: "Chưa xác nhận", style: TextStyle(color: Colors.grey), children: [
-        TextSpan(text: "\nCHUYỂN KHOẢN", style: TextStyle(color: Colors.blue)),
+      return TextSpan(text: "Chưa xác nhận".tr(), style: TextStyle(color: Colors.grey), children: [
+        TextSpan(text: "\nCHUYỂN KHOẢN".tr(), style: TextStyle(color: Colors.blue)),
       ]);
     }
   }

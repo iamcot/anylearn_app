@@ -16,7 +16,6 @@ class AskCatBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-            Text('title'),
 
         SliverToBoxAdapter(child: Container(child: Image.asset("assets/banners/ask_banner.jpg"))),
         AskList(data: data.data),
@@ -31,7 +30,7 @@ class AskCatBody extends StatelessWidget {
                         articleBloc..add(ArticleTypeEvent(type: type, page: (data.currentPage - 1)));
                       },
                       icon: Icon(Icons.chevron_left),
-                      label: Text("TRANG TRƯỚC".tr(), style: TextStyle(color: Colors.blue),),
+                      label: Text("TRANG TRƯỚC", style: TextStyle(color: Colors.blue),).tr(),
                     )
                   : SizedBox(height: 0),
               data.lastPage > data.currentPage
@@ -40,7 +39,7 @@ class AskCatBody extends StatelessWidget {
                         articleBloc..add(ArticleTypeEvent(type: type, page: (data.currentPage + 1)));
                       },
                       icon: Icon(Icons.chevron_right),
-                      label: Text("TRANG SAU".tr(), style: TextStyle(color: Colors.blue),),
+                      label: Text("TRANG SAU", style: TextStyle(color: Colors.blue),).tr(),
                     )
                   : SizedBox(height: 0),
             ],

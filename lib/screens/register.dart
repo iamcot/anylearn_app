@@ -108,13 +108,13 @@ class _RegisterScreen extends State<RegisterScreen> {
                       alignment: Alignment.bottomRight,
                       padding: EdgeInsets.only(right: width / 4, bottom: 20.0),
                       child: Text(
-                        "Đăng ký".tr(),
+                        "Đăng ký",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,
                           color: Colors.blue,
                         ),
-                      ),
+                      ).tr(),
                     ),
                     painter: CustomCurvedPaint(),
                   ),
@@ -349,7 +349,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(top: 30.0),
                     child: Text.rich(
-                      TextSpan(text: "Bạn đã có tài khoản?".tr(), children: [
+                      TextSpan(text: "Bạn đã có tài khoản?", children: [
                         TextSpan(
                             text: " Đăng nhập".tr(),
                             style: TextStyle(
@@ -361,7 +361,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                                     arguments: callback);
                               })
                       ]),
-                    ),
+                    ).tr(),
                   )
                 ],
               ),
@@ -394,15 +394,15 @@ class _RegisterScreen extends State<RegisterScreen> {
           contentPadding: EdgeInsets.all(0),
           scrollable: true,
           title: Text(
-            "Chưa đồng ý điều khoản sử dụng.".tr(),
+            "Chưa đồng ý điều khoản sử dụng.",
             style: TextStyle(fontSize: 14),
-          ),
+          ).tr(),
           content: Text(
-              "Bạn vui lòng đọc và tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn.".tr()),
+              "Bạn vui lòng đọc và tick chọn đồng ý với điều khoản sử dụng của chúng tôi. Cảm ơn.").tr(),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Tôi sẽ đọc".tr().toUpperCase()),
+              child: Text("Tôi sẽ đọc".toUpperCase()).tr(),
             )
           ],
         ),

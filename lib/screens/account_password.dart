@@ -36,7 +36,7 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text("Đổi mật khẩu".tr()),
+        title: Text("Đổi mật khẩu").tr(),
       ),
       body: BlocListener(
         bloc: _accountBloc,
@@ -50,7 +50,7 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
               ..showSnackBar(SnackBar(
                 duration: Duration(seconds: 4),
                 content:
-                    Text("Mật khẩu đã được thay đổi. Vui lòng đăng nhập lại.".tr()),
+                    Text("Mật khẩu đã được thay đổi. Vui lòng đăng nhập lại.").tr(),
               )).closed.then((value) {
                 Navigator.of(context).pop();
                 _authBloc.add(AuthLoggedOutEvent(token: token));
@@ -75,12 +75,12 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                   color: Colors.grey[100],
                 ),
                 child: Text(
-                  "Đổi mật khẩu của bạn".tr(),
+                  "Đổi mật khẩu của bạn",
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[600]),
-                ),
+                ).tr(),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0, right: 30.0),
@@ -173,9 +173,9 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                           }
                         },
                         child: Text(
-                          "Đổi mật khẩu".tr(),
+                          "Đổi mật khẩu",
                           style: TextStyle(fontSize: 16.0, color: Colors.white),
-                        ),
+                        ).tr(),
                       ),
               ),
             ],

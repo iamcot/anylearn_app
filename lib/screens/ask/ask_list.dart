@@ -15,7 +15,6 @@ class AskList extends StatelessWidget {
   const AskList({key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-        Text('title');
 
     final width = MediaQuery.of(context).size.width;
     final height = width * 0.5625;

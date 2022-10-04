@@ -29,7 +29,6 @@ class _AccountBody extends State<AccountBody> {
     var moneyFormat = new NumberFormat("###,###,###", "vi_VN");
     return CustomScrollView(
       slivers: <Widget>[
-        Text('title').tr(),
         AccountAppBarWithImage(user: user),
         SliverToBoxAdapter(
           child: Column(children: <Widget>[

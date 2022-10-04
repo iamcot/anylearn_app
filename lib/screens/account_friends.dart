@@ -39,7 +39,6 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     var args = ModalRoute.of(context)!.settings.arguments;
     FriendParamsDTO param;
@@ -87,9 +86,9 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                               decoration: BoxDecoration(
                                 color: Colors.grey[100],
                               ),
-                              child: Text("Bạn bè của " .tr()+ _data!.user.name + " (MGT: " + _data!.user.refcode + ")",
+                              child: Text("Bạn bè của "+ _data!.user.name + " (MGT: " + _data!.user.refcode + ")",
                                   style:
-                                      TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.grey[600])),
+                                      TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.grey[600])).tr(),
                             ),
                           ),
                           // SliverToBoxAdapter(
@@ -142,7 +141,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                           trailing: SizedBox(
                                               width: 80.0,
                                               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                                                Text(_data!.friends[itemIndex].numFriends.toString() + " bạn ".tr()),
+                                                Text(_data!.friends[itemIndex].numFriends.toString() + " bạn ").tr(),
                                                 Icon(Icons.chevron_right),
                                               ])),
                                           // onTap: () {
@@ -226,7 +225,7 @@ class _AccountFriendsScreen extends State<AccountFriendsScreen> {
                                             ),
                                             textAlign: TextAlign.center,
                                           )
-                                        : Text("Chưa có bạn nào.".tr()),
+                                        : Text("Chưa có bạn nào.").tr(),
                                   ),
                                 ),
                         ],

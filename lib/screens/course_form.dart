@@ -78,7 +78,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Thông tin khóa học".tr()),
+        title: Text("Thông tin khóa học").tr(),
         centerTitle: false,
         actions: <Widget>[
           IconButton(
@@ -106,7 +106,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
-                content: Text("Lưu khóa học thành công.".tr()),
+                content: Text("Lưu khóa học thành công.").tr(),
               ));
             _itemDTO = new ItemDTO(
               type: MyConst.ITEM_COURSE,
@@ -118,7 +118,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
-                content: Text("Cập nhật hình ảnh thành công.".tr()),
+                content: Text("Cập nhật hình ảnh thành công.").tr(),
               ));
             _itemDTO!.image = state.url;
           }
@@ -147,12 +147,12 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                               child: _itemDTO!.id == 0
                                   ? Container(
                                       child: Text(
-                                      "Sẽ cập nhật được ảnh đại diện khóa học sau khi tạo thành công".tr(),
+                                      "Sẽ cập nhật được ảnh đại diện khóa học sau khi tạo thành công",
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.grey,
                                       ),
-                                    ))
+                                    ).tr())
                                   : _imageBox(width / 2),
                             ),
                             Container(

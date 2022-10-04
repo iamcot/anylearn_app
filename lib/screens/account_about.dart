@@ -20,13 +20,12 @@ class _AccountAboutScreen extends State<AccountAboutScreen> {
   );
   @override
   Widget build(BuildContext context) {
-        Text('title');
 
     DateFormat f = DateFormat("dd/MM/yyyy");
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text("Giới thiệu".tr()),
+        title: Text("Giới thiệu").tr(),
       ),
       body: ListView(
         children: <Widget>[
@@ -55,7 +54,7 @@ class _AccountAboutScreen extends State<AccountAboutScreen> {
             alignment: Alignment.topRight,
             padding: EdgeInsets.only(right: 10.0),
             child: Text(
-              " Cập nhật ngày: ".tr() + f.format(DateTime.parse(guide.lastUpdate)),
+              " Cập nhật ngày: "+ f.format(DateTime.parse(guide.lastUpdate)).tr(),
               style: TextStyle(fontStyle: FontStyle.italic, fontSize: 10.0),
             ),
           ),

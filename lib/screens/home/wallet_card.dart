@@ -16,9 +16,9 @@ class WalletCard extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Tài khoản của tôi".tr(),
+              "Tài khoản của tôi",
               style: TextStyle(fontSize: 12.0),
-            ),
+            ).tr(),
             padding: EdgeInsets.all(10.0),
             decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 0.1))),
           ),

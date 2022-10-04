@@ -13,9 +13,9 @@ class WeekCourseHeader extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Text(
-                "Khóa học sắp diễn ra".tr(),
+                "Khóa học sắp diễn ra",
                 style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              ).tr(),
             ),
             Expanded(
               child: Align(
@@ -25,13 +25,13 @@ class WeekCourseHeader extends StatelessWidget {
                     Navigator.of(context).pushNamed("/event");
                   },
                   child: Text(
-                    "KHÓA HỌC KHÁC".tr(),
+                    "KHÓA HỌC KHÁC",
                     style: TextStyle(
                       color: Colors.blue,
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
-                  ),
+                  ).tr(),
                 ),
               ),
             )

@@ -17,7 +17,6 @@ class TransactionList extends StatelessWidget {
     var monneyF = new NumberFormat("###,###,###", "vi_VN");
     return CustomScrollView(
       slivers: <Widget>[
-            Text('title').tr(),
 
         transactions.length > 0
             ? SliverList(
@@ -77,7 +76,7 @@ class TransactionList extends StatelessWidget {
                     },
                         
 
-                    child: Text("Bạn không có giao dịch nào. Xem các lịch học đang có".tr())),
+                    child: Text("Bạn không có giao dịch nào. Xem các lịch học đang có").tr()),
               )
       ],
     );

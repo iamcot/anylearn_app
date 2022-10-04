@@ -56,7 +56,6 @@ class _ItemsFilter extends State<ItemsFilter> {
   }
 
   List<Widget> _buildSelected(BuildContext context) {
-        Text('title');
 
     List<Widget> list = [];
     options.forEach((key, title) {
@@ -65,7 +64,7 @@ class _ItemsFilter extends State<ItemsFilter> {
           padding: EdgeInsets.all(0.0),
           child: Row(
             children: <Widget>[
-              Text("Sắp xếp: ".tr()),
+              Text("Sắp xếp: ").tr(),
               Text(
                 title,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),

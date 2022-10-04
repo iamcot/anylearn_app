@@ -35,7 +35,7 @@ class _AskForumScreen extends State<AskForumScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Hỏi để học".tr()),
+          title: Text("Hỏi để học").tr(),
           centerTitle: false,
           actions: [
             SearchIcon(screen: "ask"),

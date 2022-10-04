@@ -38,11 +38,10 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Text('title').tr();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý tài khoản phụ".tr()),
+        title: Text("Quản lý tài khoản phụ").tr(),
         actions: [
           IconButton(
               icon: Icon(
@@ -168,8 +167,8 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                             );
                           }
                           return id == 0
-                              ? Text("Thêm tài khoản mới".tr())
-                              : Text("Cập nhật tài khoản".tr());
+                              ? Text("Thêm tài khoản mới").tr()
+                              : Text("Cập nhật tài khoản").tr();
                         },
                       ),
                     )),

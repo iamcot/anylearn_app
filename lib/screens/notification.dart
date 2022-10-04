@@ -62,7 +62,7 @@ class _NotificationScreen extends State<NotificationScreen> {
                     child: _notif.total == 0
                         ? Container(
                             alignment: Alignment.center,
-                            child: Text("Bạn chưa có thông báo nào.".tr()),
+                            child: Text("Bạn chưa có thông báo nào.").tr(),
                           )
                         : ListView.separated(
                             itemBuilder: (BuildContext context, int index) {

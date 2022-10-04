@@ -31,13 +31,13 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+        
 
     final token = ModalRoute.of(context)!.settings.arguments.toString();
     accountBloc..add(AccLoadDocsEvent(token: token));
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý chứng chỉ".tr()),
+        title: Text("Quản lý chứng chỉ").tr(),
         centerTitle: false,
       ),
       body: BlocProvider<AccountBloc>(
@@ -90,9 +90,9 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                           color: Colors.white,
                                         )
                                       : Text(
-                                          "Thêm chứng chỉ mới".tr(),
+                                          "Thêm chứng chỉ mới",
                                           style: TextStyle(color: Colors.white),
-                                        ),
+                                        ).tr(),
                                 ),
                               ),
                               Divider(thickness: 10),

@@ -28,7 +28,7 @@ class _AskFormScreen extends State<AskFormScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Gửi " + _buildText(widget.type)),
+        title: Text("Gửi " + _buildText(widget.type).tr()),
         centerTitle: false,
       ),
       body: BlocListener<ArticleBloc, ArticleState>(
@@ -38,7 +38,7 @@ class _AskFormScreen extends State<AskFormScreen> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
-                content: Text("Đã gửi thành công.".tr()),
+                content: Text("Đã gửi thành công.").tr(),
               )).closed.then((value) {
                 Navigator.of(context).pop(true);
               });
@@ -70,7 +70,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                         ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15, bottom: 10),
-                    child: Text("Nội dung ".tr() + _buildText(widget.type)),
+                    child: Text("Nội dung " + _buildText(widget.type).tr()),
                   ),
                   TextField(
                     controller: _contentController,
@@ -83,7 +83,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                         )
                       : Padding(
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
-                          child: Text("Nếu bạn đã trả lời, trả lời mới sẽ cập nhật nội dung trả lời cũ.".tr()),
+                          child: Text("Nếu bạn đã trả lời, trả lời mới sẽ cập nhật nội dung trả lời cũ.").tr(),
                         ),
                   Container(
                     width: double.infinity,
@@ -96,7 +96,7 @@ class _AskFormScreen extends State<AskFormScreen> {
                           }
                           return GradientButton(
                             height: 48,
-                            title: "Gửi " .tr()+ _buildText(widget.type),
+                            title: "Gửi " + _buildText(widget.type).tr(),
                             function: () {
                               _submit();
                             },

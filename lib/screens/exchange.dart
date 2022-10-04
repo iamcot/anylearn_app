@@ -51,7 +51,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Đổi điểm sang tài khoản tiền".tr()),
+          title: Text("Đổi điểm sang tài khoản tiền").tr(),
           centerTitle: false,
         ),
         body: BlocProvider<TransactionBloc>(
@@ -65,7 +65,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
-                    content: Text("Gửi lệnh đổi điểm thành công".tr()),
+                    content: Text("Gửi lệnh đổi điểm thành công").tr(),
                     duration: Duration(seconds: 2),
                   )).closed.then((value) {
                     Navigator.of(context).pop();
@@ -75,7 +75,7 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
-                    content: Text(state.error + "| Có lỗi khi lưu, vui lòng thử lại".tr()),
+                    content: Text(state.error + "| Có lỗi khi lưu, vui lòng thử lại").tr(),
                     duration: Duration(seconds: 2),
                   ));
               }
@@ -204,9 +204,9 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                         }
                                       },
                                       child: Text(
-                                        "Đổi điểm".tr().toUpperCase(),
+                                        "Đổi điểm"..toUpperCase(),
                                         style: TextStyle(fontSize: 16.0, color: Colors.white),
-                                      )),
+                                      ).tr()),
                                 ),
                                 Divider(
                                   thickness: 0,
@@ -216,9 +216,9 @@ class _ExchangeScreen extends State<ExchangeScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "Lịch sử đổi điểm gần đây".tr().toUpperCase(),
+                                    "Lịch sử đổi điểm gần đây".toUpperCase(),
                                     style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
-                                  ),
+                                  ).tr(),
                                 ),
                                 ExchangeList(list: config.lastTransactions),
                               ],

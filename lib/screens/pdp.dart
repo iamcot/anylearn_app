@@ -76,7 +76,7 @@ class _PDPScreen extends State<PDPScreen> {
                   ..showSnackBar(SnackBar(
                     duration: Duration(seconds: 5),
                     content: Text(
-                        "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất.".tr()),
+                        "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất.").tr(),
                   ));
               }
             },

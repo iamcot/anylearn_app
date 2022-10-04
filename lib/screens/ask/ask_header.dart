@@ -24,7 +24,7 @@ class AskHeader extends StatelessWidget {
             child: Text(title, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
           ),
           InkWell(
-            child: Text("XEM THÊM".tr(), style: TextStyle(color: Colors.blue, fontSize: 12.0)),
+            child: Text("XEM THÊM", style: TextStyle(color: Colors.blue, fontSize: 12.0)).tr(),
             onTap: () {
               if (type != "") {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) {

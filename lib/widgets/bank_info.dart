@@ -11,7 +11,8 @@ class BankInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text("Vui lòng chuyển khoản theo thông tin sau:".tr(), style: TextStyle(fontSize: 12.0)),
+      title: Text("Vui lòng chuyển khoản theo thông tin sau:".tr(),
+          style: TextStyle(fontSize: 12.0)),
       children: [
         ListTile(
           title: Text("Ngân hàng").tr(),

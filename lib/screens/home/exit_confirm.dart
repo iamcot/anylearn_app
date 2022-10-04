@@ -7,12 +7,12 @@ class ExitConfirm extends StatelessWidget {
         Text('title');
 
     return AlertDialog(
-      title: new Text('Xác nhận!'.tr()),
-      content: new Text('Bạn có chắc là muốn thoát và đóng Ứng dụng?'.tr()),
+      title: new Text('Xác nhận!').tr(),
+      content: new Text('Bạn có chắc là muốn thoát và đóng Ứng dụng?').tr(),
       actions: <Widget>[
         new TextButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: new Text('Thoát'.tr()),
+          child: new Text('Thoát').tr(),
         ),
         new TextButton(
           style: TextButton.styleFrom(
@@ -20,9 +20,9 @@ class ExitConfirm extends StatelessWidget {
           ),
           onPressed: () => Navigator.of(context).pop(false),
           child: new Text(
-            'Ở lại'.tr(),
+            'Ở lại',
             style: TextStyle(color: Colors.white),
-          ),
+          ).tr(),
         ),
       ],
     );

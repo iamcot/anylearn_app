@@ -29,31 +29,30 @@ class _CourseConfirm extends State<CourseConfirm> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title');
 
     return user.id == widget.pdpDTO.author.id
         ? AlertDialog(
-            content: Text("Bạn không thể đăng ký khóa học của chính bạn.".tr()),
+            content: Text("Bạn không thể đăng ký khóa học của chính bạn.").tr(),
             actions: <Widget>[
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text("Đã hiểu".tr()),
+                child: Text("Đã hiểu").tr(),
               )
             ],
           )
         : SimpleDialog(
             title: Text(
-              "Xác nhận đăng ký".tr(),
+              "Xác nhận đăng ký",
               style: TextStyle(fontSize: 14),
-            ),
+            ).tr(),
             titlePadding: EdgeInsets.fromLTRB(15, 15, 15, 0),
             contentPadding: EdgeInsets.all(15),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             children: <Widget>[
               Text.rich(TextSpan(
-                text: "Bạn đang muốn đăng ký khóa học\n".tr(),
+                text: "Bạn đang muốn đăng ký khóa học\n",
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
                 ),
@@ -66,7 +65,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         color: Colors.blue,
                       )),
                   TextSpan(
-                      text: "\n${widget.pdpDTO.author.role == 'school'.tr() ? 'Trường'.tr() : 'Giảng viên'.tr()}: ",
+                      text: "\n${widget.pdpDTO.author.role == 'school' ? 'Trường' : 'Giảng viên'}: ",
                       style: TextStyle()),
                   TextSpan(
                       text: widget.pdpDTO.author.name,
@@ -75,7 +74,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         fontWeight: FontWeight.w400,
                       )),
                   TextSpan(
-                      text: "\nHọc phí: ".tr(),
+                      text: "\nHọc phí: ",
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                       )),
@@ -86,7 +85,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         color: Colors.red,
                       )),
                   TextSpan(
-                      text: "\nKhai giảng: ".tr(),
+                      text: "\nKhai giảng: ",
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                       )),
@@ -99,7 +98,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         // color: Colors.pink,
                       )),
                 ],
-              )),
+              )).tr(),
               // Padding(
               //   padding: const EdgeInsets.only(top: 15),
               //   child: Text.rich(TextSpan(text: "Số dư tài khoản: ", children: [
@@ -128,9 +127,9 @@ class _CourseConfirm extends State<CourseConfirm> {
                         });
                       },
                       child: Text(
-                        "Tôi có mã khuyến mãi".tr(),
+                        "Tôi có mã khuyến mãi",
                         style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-                      ))
+                      ).tr())
                   : Container(
                       padding: EdgeInsets.only(bottom: 5, top: 10),
                       child: Row(children: [
@@ -190,9 +189,9 @@ class _CourseConfirm extends State<CourseConfirm> {
                         });
                       },
                       child: Text(
-                        "Tôi muốn đăng ký cho tài khoản con".tr(),
+                        "Tôi muốn đăng ký cho tài khoản con",
                         style: TextStyle(color: Colors.blue),
-                      )),
+                      ).tr()),
               Container(
                 // padding: const EdgeInsets.only(top: 15),
                 child: ElevatedButton(
@@ -205,7 +204,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                     _add2Cart(context, user.token, widget.pdpDTO.item.id, voucherController.text,
                         (dropdownValue != "0" && childRegister ? int.parse(dropdownValue) : 0));
                   },
-                  child: Text("XÁC NHẬN".tr()),
+                  child: Text("XÁC NHẬN").tr(),
                 ),
               ),
             ],

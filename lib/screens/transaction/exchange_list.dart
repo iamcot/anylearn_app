@@ -11,7 +11,6 @@ class ExchangeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     final DateFormat _dateFormat = DateFormat("hh:mm\ndd/MM/yy");
     final NumberFormat _monneyFormat = NumberFormat("###,###,###", "vi_VN");
@@ -32,9 +31,9 @@ class ExchangeList extends StatelessWidget {
                 title: Text(e.content),
                 subtitle: Text.rich(
                   e.status > 0
-                      ? TextSpan(text: "Đã xác nhận", style: TextStyle(color: Colors.green))
-                      : (TextSpan(text: "Chưa xác nhận", style: TextStyle(color: Colors.grey), children: [
-                          TextSpan(text: "\nThông tin ngân hàng", style: TextStyle(color: Colors.blue)),
+                      ? TextSpan(text: "Đã xác nhận".tr(), style: TextStyle(color: Colors.green))
+                      : (TextSpan(text: "Chưa xác nhận".tr(), style: TextStyle(color: Colors.grey), children: [
+                          TextSpan(text: "\nThông tin ngân hàng".tr(), style: TextStyle(color: Colors.blue)),
                         ])),
                 ),
                 trailing: Text(

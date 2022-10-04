@@ -41,7 +41,6 @@ class PdpBody extends StatefulWidget {
 class _PdpBody extends State<PdpBody> {
   @override
   Widget build(BuildContext context) {
-        Text('title');
 
     double width = MediaQuery.of(context).size.width;
     double imageHeight = width - 30 - 50;
@@ -79,7 +78,7 @@ class _PdpBody extends State<PdpBody> {
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.supervisor_account, color: Colors.black54, size: 14.0),
-                        Text(widget.data.author.role == 'school' .tr()? " Trường: ".tr() : " Giảng viên: ".tr()),
+                        Text(widget.data.author.role == 'school' ? " Trường: " : " Giảng viên: ").tr(),
                         Text.rich(
                           TextSpan(
                               text: widget.data.author.name,
@@ -120,7 +119,7 @@ class _PdpBody extends State<PdpBody> {
                                                 return ItemRatingScreen(itemId: widget.data.item.id);
                                               }));
                                             },
-                                            child: Text("XEM ĐÁNH GIÁ".tr(), style: TextStyle(color: Colors.blue)),
+                                            child: Text("XEM ĐÁNH GIÁ", style: TextStyle(color: Colors.blue)).tr(),
                                           ),
                                         )
                                       : Text("")
@@ -132,12 +131,12 @@ class _PdpBody extends State<PdpBody> {
                               child: Row(
                                 children: <Widget>[
                                   Icon(Icons.calendar_today, color: Colors.black54, size: 14.0),
-                                  Text(" Khai giảng: ".tr() +
+                                  Text(" Khai giảng: " +
                                       widget.data.item.timeStart +
                                       " " +
-                                      DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart))),
+                                      DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart))).tr(),
                                   widget.data.numSchedule > 1
-                                      ? Text(" (${widget.data.numSchedule} buổi học)".tr())
+                                      ? Text(" (${widget.data.numSchedule} buổi học)").tr()
                                       : SizedBox(height: 1)
                                 ],
                               ),
@@ -204,13 +203,13 @@ class _PdpBody extends State<PdpBody> {
                                                     DateTime.now().isAfter(DateTime.parse(
                                                         widget.data.item.dateStart + " " + widget.data.item.timeStart)))
                                                 ? AlertDialog(
-                                                    content: Container(child: Text("Đã quá hạn đăng ký khóa học này.".tr())),
+                                                    content: Container(child: Text("Đã quá hạn đăng ký khóa học này.").tr()),
                                                     actions: [
                                                       ElevatedButton(
                                                         onPressed: () {
                                                           Navigator.of(context).pop();
                                                         },
-                                                        child: Text("ĐÃ HIỂU".tr()),
+                                                        child: Text("ĐÃ HIỂU").tr(),
                                                       ),
                                                     ],
                                                   )
@@ -225,7 +224,7 @@ class _PdpBody extends State<PdpBody> {
                                   },
                                   child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [Icon(Icons.app_registration), Text(" ĐĂNG KÝ".tr())]),
+                                      children: [Icon(Icons.app_registration), Text(" ĐĂNG KÝ").tr()]),
                                 ),
                               ),
                         BlocListener(
@@ -261,10 +260,10 @@ class _PdpBody extends State<PdpBody> {
                                           color: widget.data.isFavorite != true ? Colors.red : Colors.white,
                                         ),
                                         Text(
-                                          " Quan tâm".tr(),
+                                          " Quan tâm",
                                           style: TextStyle(
                                               color: widget.data.isFavorite != true ? Colors.red : Colors.white),
-                                        )
+                                        ).tr()
                                       ]),
                                       style: ButtonStyle(
                                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -325,7 +324,7 @@ class _PdpBody extends State<PdpBody> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text("Thông tin khóa học".tr(), style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text("Thông tin khóa học", style: TextStyle(fontWeight: FontWeight.bold)).tr(),
                       widget.data.item.content == null
                           ? Container()
                           : ExpandableNotifier(
@@ -356,9 +355,9 @@ class _PdpBody extends State<PdpBody> {
                                             ],
                                           ),
                                           child: Text(
-                                            "XEM THÊM".tr(),
+                                            "XEM THÊM",
                                             style: TextStyle(color: Colors.black),
-                                          ),
+                                          ).tr(),
                                         ),
                                       ),
                                     ],
@@ -391,9 +390,9 @@ class _PdpBody extends State<PdpBody> {
                                         ],
                                       ),
                                       child: Text(
-                                        "THU GỌN".tr(),
+                                        "THU GỌN",
                                         style: TextStyle(color: Colors.black),
-                                      ),
+                                      ).tr(),
                                     )),
                                   ]),
                                 ),

@@ -13,7 +13,7 @@ class _LocaleScreen extends State<LocaleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chọn ngôn ngữ".tr()),
+        title: Text("Chọn ngôn ngữ").tr(),
       ),
       body: Center(
         child: Container(

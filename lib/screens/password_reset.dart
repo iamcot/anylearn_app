@@ -68,7 +68,7 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text("Nhập mã OTP".tr()),
+        title: Text("Nhập mã OTP").tr(),
       ),
       body: BlocListener(
         bloc: _authBloc,
@@ -107,7 +107,7 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
                 content: Text(
-                    "Thay đổi mật khẩu thành công. Vui lòng đăng nhập lại".tr()),
+                    "Thay đổi mật khẩu thành công. Vui lòng đăng nhập lại").tr(),
               ));
             Navigator.of(context).pop();
           }
@@ -176,11 +176,11 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                         ),
                         ElevatedButton(
                           onPressed: enableResend ? _resendCode : null,
-                          child: enableResend ?  Text('Gửi lại OTP'.tr(),style: TextStyle(fontSize: 10),)
+                          child: enableResend ?  Text('Gửi lại OTP',style: TextStyle(fontSize: 10),).tr()
                           : Text(
-                          "Gửi lại sau $secondsRemaining giây".tr(),
+                          "Gửi lại sau $secondsRemaining giây",
                           style: TextStyle(color: Colors.blue, fontSize: 10),
-                        ),
+                        ).tr(),
                         ),
                         
                         // const SizedBox(
@@ -309,7 +309,7 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                                 ));
                             }
                           },
-                          child: Text("Gửi".tr()));
+                          child: Text("Gửi").tr());
                     }),
               ),
             ],

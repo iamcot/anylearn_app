@@ -110,9 +110,9 @@ class _QrCodeScreen extends State<QrCodeScreen> {
                                       },
                                       
                                       child: Text(
-                                        "CHIA SẺ MÃ".tr(),
+                                        "CHIA SẺ MÃ",
                                         style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                                      ),
+                                      ).tr(),
                                     ),
                                   ],
                                 )),

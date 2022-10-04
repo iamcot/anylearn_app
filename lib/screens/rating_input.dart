@@ -39,7 +39,6 @@ class _RatingInputScreen extends State<RatingInputScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
 
     return BlocListener(
       bloc: _courseBloc,
@@ -65,9 +64,9 @@ class _RatingInputScreen extends State<RatingInputScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Cho điểm ".tr() + widget.itemTitle,
+                      "Cho điểm "+ widget.itemTitle,
                       style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    ).tr(),
                     Container(
                       child: Row(
                         children: _buildStar(),
@@ -84,9 +83,9 @@ class _RatingInputScreen extends State<RatingInputScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Bình luận thêm về ".tr() + widget.itemTitle,
+                      "Bình luận thêm về " + widget.itemTitle,
                       style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    ).tr(),
                     TextFormField(
                       controller: _commentInput,
                       maxLines: 5,

@@ -42,7 +42,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hỏi để học".tr()),
+        title: Text("Hỏi để học").tr(),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -110,7 +110,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
           subtitle: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text("Đã hỏi ".tr(), style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+              Text("Đã hỏi ", style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)).tr(),
               TimeAgo(time: question.createdAt),
             ],
           ),
@@ -146,12 +146,12 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
       padding: const EdgeInsets.all(10.0),
       child: data!.answers.length > 0
           ? Text(
-              "Có ${data!.answers.length} câu trả lời".tr(),
+              "Có ${data!.answers.length} câu trả lời",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
-            )
-          : Text("Chưa có câu trả lời.".tr()),
+            ).tr()
+          : Text("Chưa có câu trả lời.").tr(),
     ));
     answers.forEach((ans) {
       list.add(
@@ -188,7 +188,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                     subtitle: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text("Đã trả lời ".tr(), style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+                        Text("Đã trả lời ", style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)).tr(),
                         TimeAgo(time: ans.createdAt),
                       ],
                     ),
@@ -284,9 +284,9 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
                                 child: ans.selectedAnswer
                                     ? Icon(Icons.check_circle_outline, color: Colors.green)
                                     : Text(
-                                        "Chọn".tr(),
+                                        "Chọn",
                                         style: TextStyle(color: Colors.grey[600]),
-                                      ),
+                                      ).tr(),
                               ),
                             )
                           : SizedBox(

@@ -40,7 +40,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý hợp đồng".tr()),
+        title: Text("Quản lý hợp đồng").tr(),
         centerTitle: false,
       ),
       body: BlocListener(
@@ -55,7 +55,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
-                  content: Text("Hợp đông mới đã được tạo. Vui lòng xem lại và thực hiện kí hợp đồng để xác nhận.".tr()),
+                  content: Text("Hợp đông mới đã được tạo. Vui lòng xem lại và thực hiện kí hợp đồng để xác nhận.").tr(),
                 ));
             }
             if (state is AuthContractFailState) {
@@ -82,7 +82,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                       child: ListView(children: [
                         ListTile(
                           leading: Icon(MdiIcons.fileCertificateOutline),
-                          title: Text("Trạng thái hợp đồng của tài khoản".tr()),
+                          title: Text("Trạng thái hợp đồng của tài khoản").tr(),
                           subtitle:
                               _user!.isSigned == 0 ? Text("CHƯA CÓ HỢP ĐỒNG HIỆU LỰC".tr()) : _signedStatus(_user!.isSigned),
                           trailing: _user!.isSigned == 99 ? Icon(Icons.search) : Text(""),
@@ -99,9 +99,9 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                                   top: BorderSide(color: (Colors.grey[300])!),
                                 ),
                                 leading: Icon(Icons.edit_notifications_outlined),
-                                title: Text("Đang có hợp đồng chờ xử lí".tr()),
+                                title: Text("Đang có hợp đồng chờ xử lí").tr(),
                                 subtitle: _signedStatus(_contract.status),
-                                trailing: _contract.status == 1 ? Text("KÝ".tr()) : Text("XEM".tr()),
+                                trailing: _contract.status == 1 ? Text("KÝ").tr() : Text("XEM").tr(),
                                 onTap: () async {
                                   bool result = await Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => ContractSignScreen(user: _user, contractId: _contract.id)));
@@ -117,7 +117,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                           ),
                           leading: Icon(MdiIcons.certificate),
                           trailing: Icon(Icons.chevron_right),
-                          title: Text("Cập nhật chứng chỉ".tr()),
+                          title: Text("Cập nhật chứng chỉ").tr(),
                           onTap: () {
                             Navigator.of(context).pushNamed("/account/docs", arguments: _user!.token);
                           },
