@@ -50,9 +50,9 @@ class HotItems extends StatelessWidget {
                                   Navigator.of(context).pushNamed(hotList.route);
                                 },
                                 child: Text(
-                                  "Tất cả".tr(),
+                                  "Tất cả",
                                   style: TextStyle(color: Colors.blue),
-                                ),
+                                ).tr(),
                               ),
                             ),
                           )

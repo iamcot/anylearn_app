@@ -52,13 +52,13 @@ class HotUsers extends StatelessWidget {
                             Navigator.of(context).pushNamed(hotList.route);
                           },
                           child: Text(
-                            "TẤT CẢ".tr(),
+                            "TẤT CẢ",
                             style: TextStyle(
                               color: Colors.blue,
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
-                          ),
+                          ).tr(),
                         ),
                       ),
                     )

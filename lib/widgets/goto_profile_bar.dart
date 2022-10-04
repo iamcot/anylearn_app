@@ -14,11 +14,11 @@ class GotoProfileBar extends StatelessWidget {
             border: Border(bottom: BorderSide(color: (Colors.grey[200])!))
           ),
           child: ListTile(
-            title: Text("Thông tin giới thiệu".tr(), style: TextStyle(
+            title: Text("Thông tin giới thiệu", style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Colors.blue
-            ),),
+            ),).tr(),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               Navigator.of(context).pushNamed("/profile", arguments: userId);
