@@ -325,13 +325,16 @@ class UserService extends BaseService {
     return json['result'];
   }
 
-  Future<PendingOrderDTO> PendingOrderConfigs(int id ,int userId) async {
+  Future<List<PendingOrderDTO>> PendingOrderConfigs(String token) async {
     final url = buildUrl(
       appConfig: config,
       endPoint: "/user/pending-orders",
+      token: token,
     );
     print(url);
     final json = await get(httpClient, url);
-    return PendingOrderDTO.fromJson(json);
+    return List<PendingOrderDTO>.from(
+            json?.map((e) => e == null ? null : PendingOrderDTO.fromJson(e)))
+        .toList();
   }
 }

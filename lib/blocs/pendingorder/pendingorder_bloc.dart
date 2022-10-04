@@ -12,7 +12,7 @@ class PendingOrderBloc extends Bloc<PendingOrderEvent, PendingOrderState> {
   Stream<PendingOrderState> mapEventToState(PendingOrderEvent event) async* {
     try {
       if (event is LoadPendingorderPageEvent) {
-        final config = await pendingorderRepository.dataPendingOrderPage(event.id ,event.userId);
+        final config = await pendingorderRepository.dataPendingOrderPage(event.token);
         if (config == null) {
           yield PendingOrderFailState(error: "Không load được cấu hình.");
         } else {

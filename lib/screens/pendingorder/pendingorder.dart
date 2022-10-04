@@ -1,19 +1,13 @@
-import 'package:anylearn/blocs/pendingorder/pendingorder_blos.dart'
-    show
-        LoadPendingorderPageEvent,
-        PendingOrderBloc,
-        PendingOrderFailState,
-        PendingOrderState;
-import 'package:anylearn/customs/feedback.dart';
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/dto/pending_order_dto.dart';
-import 'package:anylearn/main.dart';
-import 'package:anylearn/models/user_repo.dart';
-import 'package:anylearn/screens/loading.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overlay_support/overlay_support.dart';
+
+import '../../blocs/pendingorder/pendingorder_blos.dart';
+import '../../dto/pending_order_dto.dart';
+import '../../main.dart';
+import '../../models/user_repo.dart';
+import '../loading.dart';
+import '../webview.dart';
 
 class PendingOrder extends StatefulWidget {
   const PendingOrder({Key? key}) : super(key: key);
@@ -25,9 +19,12 @@ class PendingOrder extends StatefulWidget {
 @override
 class _MyWidgetState extends State<PendingOrder> with TickerProviderStateMixin {
   late PendingOrderBloc _pendingorderBloc;
-  late int id;
-  late int userId;
-  Map<String, List<PendingOrderDTO>>? data;
+
+  List<PendingOrderDTO>? datas;
+  // Map<String, List<PendingOrderDTO>>? datas;
+
+  late TabController _tabController;
+
   final monneyF = new NumberFormat("###,###,###", "vi_VN");
 
   void didChangeDependencies() {
@@ -38,15 +35,15 @@ class _MyWidgetState extends State<PendingOrder> with TickerProviderStateMixin {
     final pendingOrderRepo = RepositoryProvider.of<UserRepository>(context);
     _pendingorderBloc =
         PendingOrderBloc(pendingorderRepository: pendingOrderRepo);
-    _pendingorderBloc..add(LoadPendingorderPageEvent(id: id, userId: userId));
-    // int initTab = 0;
-    // try {
-    //   initTab =
-    //       int.parse((ModalRoute.of(context)?.settings.arguments.toString())!);
-    // } catch (e) {}
+    _pendingorderBloc..add(LoadPendingorderPageEvent(token: user.token));
+    int initTab = 0;
+    try {
+      initTab =
+          int.parse((ModalRoute.of(context)?.settings.arguments.toString())!);
+    } catch (e) {}
 
-    // _tabController =
-    //     new TabController(vsync: this, length: 2, initialIndex: initTab);
+    _tabController =
+        new TabController(vsync: this, length: 2, initialIndex: initTab);
     super.didChangeDependencies();
   }
 
@@ -57,82 +54,100 @@ class _MyWidgetState extends State<PendingOrder> with TickerProviderStateMixin {
       child: BlocBuilder<PendingOrderBloc, PendingOrderState>(
           bloc: _pendingorderBloc,
           builder: ((context, state) {
-            if (state is PendingOrderFailState) {
-              toast(state.error);
-            }
-            // if (state is PendingOrderSuccessState) {
-            //   data = state.load;
+            // if (state is PendingOrderFailState) {
+            //   toast(state.error);
             // }
+            if (state is PendingOrderConfigSuccessState) {
+              datas = state.configs;
+            }
 
-            return data == null
+            return datas == null
                 ? LoadingScreen()
                 : Scaffold(
                     appBar: AppBar(
                       centerTitle: false,
                       title: Text("Chờ thanh toán"),
                     ),
-                    body: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: SingleChildScrollView(
-                          child: DataTable(
-                              columns: [
-                            DataColumn(
-                              label: Text("ID"),
-                            ),
-                            DataColumn(
-                              label: Text("user_id"),
-                            ),
-                            DataColumn(
-                              label: Text("quantity"),
-                            ),
-                            DataColumn(
-                              label: Text("amount"),
-                            ),
-                            DataColumn(
-                              label: Text("status"),
-                            ),
-                            DataColumn(
-                              label: Text("delivery_name"),
-                            ),
-                            DataColumn(
-                              label: Text("delivery_address"),
-                            ),
-                            DataColumn(
-                              label: Text("delivery_phone"),
-                            ),
-                            DataColumn(
-                              label: Text("payment"),
-                            ),
-                            DataColumn(
-                              label: Text("created_at"),
-                            ),
-                            DataColumn(
-                              label: Text("updated_at"),
-                            ),
-                            DataColumn(
-                              label: Text("sale_id"),
-                            ),
-                            DataColumn(
-                              label: Text("classes"),
-                            ),
-                          ],
-                              rows: state.load.map((load) => DataRow(cells: [
-                                    DataCell(Text(load.id)),
-                                    DataCell(Text(load.userId)),
-                                    DataCell(Text(load.quantity)),
-                                    DataCell(Text(load.amount)),
-                                    DataCell(Text(load.status)),
-                                    DataCell(Text(load.deliveryName)),
-                                    DataCell(Text(load.deliveryAddress)),
-                                    DataCell(Text(load.deliveryPhone)),
-                                    DataCell(Text(load.payment)),
-                                    DataCell(Text(load.createdAt)),
-                                    DataCell(Text(load.updatedAt)),
-                                    DataCell(Text(load.saleId)),
-                                    DataCell(Text(load.classes)),
-                                  ])))),
-                    ),
-                  );
+                    body: ListView.separated(
+                        itemBuilder: ((context, index) => ListTile(
+                              isThreeLine: true,
+                              leading: CircleAvatar(
+                                  child: Text(datas![index].id.toString())),
+                              title: Text(datas![index].createdAt.toString()),
+                              subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(datas![index].amount.toString()),
+                                    Text(datas![index].classes.toString())
+                                  ]),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => WebviewScreen(
+                                          url: config.webUrl +
+                                              "/payment-help?order_id=" +
+                                              datas![index].id.toString(),
+                                          token: user.token,
+                                        )));
+                              },
+                            )),
+                        separatorBuilder: ((context, index) => Divider()),
+                        itemCount: datas!.length));
+
+            // body: (SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: SingleChildScrollView(
+            //     child: DataTable(
+            //         columns: [
+            //           DataColumn(
+            //             label: Text("ID"),
+            //           ),
+            //           // DataColumn(
+            //           //   label: Text("user_id"),
+            //           // ),
+            //           // DataColumn(
+            //           //   label: Text("quantity"),
+            //           // ),
+            //           DataColumn(
+            //             label: Text("amount"),
+            //           ),
+            //           // DataColumn(
+            //           //   label: Text("status"),
+            //           // ),
+            //           // DataColumn(
+            //           //   label: Text("payment"),
+            //           // ),
+            //           DataColumn(
+            //             label: Text("created_at"),
+            //           ),
+            //           // DataColumn(
+            //           //   label: Text("updated_at"),
+            //           // ),
+            //           // DataColumn(
+            //           //   label: Text("sale_id"),
+            //           // ),
+            //           DataColumn(
+            //             label: Text("classes"),
+            //           ),
+            //         ],
+            //         rows: datas!
+            //             .map<DataRow>((data) => DataRow(
+            //                   cells: [
+            //                     DataCell(Text(data.id.toString())),
+            //                     // DataCell(Text(data.userId.toString())),
+            //                     // DataCell(Text(data.quantity.toString())),
+            //                     DataCell(Text(data.amount.toString())),
+            //                     // DataCell(Text(data.status)),
+            //                     // DataCell(Text(data.payment.toString())),
+            //                     DataCell(
+            //                         Text(data.createdAt.toString())),
+            //                     // DataCell(Text(data.updatedAt.toString())),
+            //                     // DataCell(Text(data.saleId.toString())),
+            //                     DataCell(Text(data.classes.toString())),
+            //                   ],
+            //                 ))
+            //             .toList()),
+            //   ),
+            // )),
           })),
     );
   }

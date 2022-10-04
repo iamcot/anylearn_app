@@ -1,4 +1,3 @@
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class PendingOrderEvent extends Equatable {
@@ -6,13 +5,13 @@ abstract class PendingOrderEvent extends Equatable {
 }
 
 class LoadPendingorderPageEvent extends PendingOrderEvent {
-  final int id;
-  final int userId;
+  final String token;
 
-  LoadPendingorderPageEvent({required this.id, required this.userId});
-  @override
-  List<Object> get props => [userId , id ];
+  LoadPendingorderPageEvent({required this.token});
 
   @override
-  String toString() => 'LoadPendingorderPageEvent {user: $userId, id: $id}';
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'LoadTransactionPageEvent {token: $token}  ';
 }

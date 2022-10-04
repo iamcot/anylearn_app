@@ -15,7 +15,7 @@ class PendingOrderInitState extends PendingOrderState {}
 class PendingOrderLoadingState extends PendingOrderState {}
 
 class PendingOrderConfigSuccessState extends PendingOrderState {
-  final PendingOrderDTO configs;
+  final List<PendingOrderDTO> configs;
   const PendingOrderConfigSuccessState({required this.configs});
   @override
   List<Object> get props => [configs];
@@ -30,11 +30,10 @@ class PendingOrderFailState extends PendingOrderState {
   String toString() => '{error: $error}';
 }
 
+// class PendingOrderSuccessState extends PendingOrderState {
+//   final Map<String, List<PendingOrderDTO>> load;
 
-class PendingOrderSuccessState extends PendingOrderState {
-  final Map<String, List<PendingOrderDTO>> load;
-
-  PendingOrderSuccessState({required this.load});
-  @override
-  List<Object> get props => [load];
-}
+//   PendingOrderSuccessState({required this.load});
+//   @override
+//   List<Object> get props => [load];
+// }

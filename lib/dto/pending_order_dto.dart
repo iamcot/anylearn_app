@@ -1,6 +1,4 @@
-
-
-class PendingOrderDTO{
+class PendingOrderDTO {
   PendingOrderDTO({
     this.id,
     this.userId,
@@ -31,23 +29,23 @@ class PendingOrderDTO{
   dynamic saleId;
   String? classes;
 
-  factory PendingOrderDTO.fromJson(Map<String, dynamic> json) => PendingOrderDTO(
-        id: json["id"] == null ? null : json["id"],
-        userId: json["user_id"] == null ? null : json["user_id"],
-        quantity: json["quantity"] == null ? null : json["quantity"],
-        amount: json["amount"] == null ? null : json["amount"],
-        status: json["status"] == null ? null : json["status"],
-        deliveryName: json["delivery_name"],
-        deliveryAddress: json["delivery_address"],
-        deliveryPhone: json["delivery_phone"],
-        payment: json["payment"] == null ? null : json["payment"],
+  factory PendingOrderDTO.fromJson(dynamic json) => PendingOrderDTO(
+        id: json["id"] ?? 0,
+        userId: json["user_id"] ?? 0,
+        quantity: json["quantity"] ?? 0,
+        amount: json["amount"] ?? 0,
+        status: json["status"] ?? "",
+        deliveryName: json["delivery_name"] ?? "",
+        deliveryAddress: json["delivery_address"] ?? "",
+        deliveryPhone: json["delivery_phone"] ?? "",
+        payment: json["payment"] ?? "",
         createdAt: json["created_at"] == null
-            ? null
+            ? DateTime.now()
             : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null
-            ? null
+            ? DateTime.now()
             : DateTime.parse(json["updated_at"]),
-        saleId: json["sale_id"],
-        classes: json["classes"] == null ? null : json["classes"],
+        saleId: json["sale_id"] ?? 0,
+        classes: json["classes"] ?? "",
       );
 }
