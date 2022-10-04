@@ -302,7 +302,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                              child: Text("Nội dung khóa học vui lòng cập nhật từ website".tr()),
+                              child: Text("Nội dung khóa học vui lòng cập nhật từ website").tr(),
                             ),
                             // Container(
                             //   padding: EdgeInsets.all(15),

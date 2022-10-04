@@ -53,7 +53,6 @@ class _HomeBody extends State<HomeBody> {
       });
     }
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-          Text('title');
 
       if (widget.homeData.config.ignorePopupVersion !=
               widget.homeData.config.popup.version &&
