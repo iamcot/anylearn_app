@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:anylearn/main.dart';
+
 import '../app_config.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,8 +12,9 @@ class BaseService {
   String buildUrl({required AppConfig appConfig, required String endPoint, String token: "", String query: ""}) {
     return appConfig.apiUrl +
         endPoint +
-        (token.isNotEmpty ? "?${appConfig.tokenParam}=$token" : "") +
-        (query.isNotEmpty ? ((token.isNotEmpty ? "&" : "?") + query) : "");
+        "?v=" + packageInfo.version + 
+        (token.isNotEmpty ? "&${appConfig.tokenParam}=$token" : "") +
+        (query.isNotEmpty ? ("&" + query) : "");
   }
 
   String buildQuery(Map<String, dynamic> params) {
