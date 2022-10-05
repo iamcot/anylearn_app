@@ -47,6 +47,13 @@ class _AccountBody extends State<AccountBody> {
                     //   ),
                     // ),
                   ),
+            AccountNormalMenu(
+              title: "Chờ thanh toán",
+              route: "/pendingorder/pendingorder",
+              leadingIcon: MdiIcons.walletMembership,
+              trailing: Icon(Icons.chevron_right),
+            ),
+
             user.role == MyConst.ROLE_MEMBER
                 ? SizedBox(height: 0)
                 : AccountNormalMenu(

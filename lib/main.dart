@@ -62,16 +62,24 @@ void main() async {
             RepositoryProvider<ItemRepository>(
               create: (context) => itemRepo,
             ),
+            
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
-              BlocProvider<AccountBloc>(create: (context) => AccountBloc(userRepository: userRepo)),
+              BlocProvider<AuthBloc>(
+                  create: (context) => AuthBloc(userRepository: userRepo)),
+              BlocProvider<AccountBloc>(
+                  create: (context) => AccountBloc(userRepository: userRepo)),
               BlocProvider<CourseBloc>(
-                  create: (context) => CourseBloc(itemRepository: itemRepo, userRepository: userRepo)),
-              BlocProvider<SearchBloc>(create: (context) => SearchBloc(pageRepository: pageRepo)),
-              BlocProvider<NotifBloc>(create: (context) => NotifBloc(userRepository: userRepo)),
-              BlocProvider<ArticleBloc>(create: (context) => ArticleBloc(pageRepository: pageRepo)),
+                  create: (context) => CourseBloc(
+                      itemRepository: itemRepo, userRepository: userRepo)),
+              BlocProvider<SearchBloc>(
+                  create: (context) => SearchBloc(pageRepository: pageRepo)),
+              BlocProvider<NotifBloc>(
+                  create: (context) => NotifBloc(userRepository: userRepo)),
+              BlocProvider<ArticleBloc>(
+                  create: (context) => ArticleBloc(pageRepository: pageRepo)),
+             
             ],
             child: MyApp(),
           )),
@@ -90,7 +98,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
-  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey =
+      new GlobalKey<NavigatorState>();
 
   @override
   void initState() {

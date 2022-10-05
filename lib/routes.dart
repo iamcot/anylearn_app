@@ -33,6 +33,7 @@ import 'screens/login.dart';
 import 'screens/notification.dart';
 import 'screens/password_reset.dart';
 import 'screens/pdp.dart';
+import 'screens/pendingorder/pendingorder.dart';
 import 'screens/qrcode.dart';
 import 'screens/register.dart';
 import 'screens/school.dart';
@@ -85,4 +86,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/resetPassword": (BuildContext context) => PasswordResetScreen(),
   "/account/delete": (BuildContext context) => AccountDeleteScreen(),
   // "/passwordupdate": (BuildContext context) => PasswordupdateScreen(),
+  "/pendingorder/pendingorder": (BuildContext context) => PendingOrder(),
 };

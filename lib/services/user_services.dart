@@ -9,6 +9,7 @@ import '../dto/class_registered_user.dart';
 import '../dto/contract.dart';
 import '../dto/friends_dto.dart';
 import '../dto/notification_dto.dart';
+import '../dto/pending_order_dto.dart';
 import '../dto/user_doc_dto.dart';
 import '../dto/user_dto.dart';
 import '../dto/users_dto.dart';
@@ -275,6 +276,19 @@ class UserService extends BaseService {
       // "password_confirmation": passwordConfirm,
     });
     return json['result'];
+  }
+
+  Future<List<PendingOrderDTO>> pendingOrderConfigs(String token) async {
+    final url = buildUrl(
+      appConfig: config,
+      endPoint: "/user/pending-orders",
+      token: token,
+    );
+    print(url);
+    final json = await get(httpClient, url);
+    return List<PendingOrderDTO>.from(
+            json?.map((e) => e == null ? null : PendingOrderDTO.fromJson(e)))
+        .toList();
   }
 
   Future<bool> deleteAccount(String token) async {
