@@ -14,7 +14,7 @@ class AppConfig {
   });
 
   static Future<AppConfig> forEnv() async {
-    final content = await rootBundle.loadString('assets/config/staging.json');
+    final content = await rootBundle.loadString('assets/config/env.json');
     final json = jsonDecode(content);
     return AppConfig(
       apiUrl: json['apiUrl'],

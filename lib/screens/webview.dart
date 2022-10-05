@@ -41,6 +41,9 @@ class _WebviewScreen extends State<WebviewScreen> {
         onPageStarted: (String progress) {
           print("WebView is loading (progress : $progress%)");
         },
+        onPageFinished: (url) {
+          print("WebView loaded");
+        },
       ),
     );
   }

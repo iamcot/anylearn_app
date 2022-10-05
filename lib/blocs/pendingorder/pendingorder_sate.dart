@@ -29,11 +29,3 @@ class PendingOrderFailState extends PendingOrderState {
   @override
   String toString() => '{error: $error}';
 }
-
-// class PendingOrderSuccessState extends PendingOrderState {
-//   final Map<String, List<PendingOrderDTO>> load;
-
-//   PendingOrderSuccessState({required this.load});
-//   @override
-//   List<Object> get props => [load];
-// }

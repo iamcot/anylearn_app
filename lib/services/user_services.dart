@@ -325,7 +325,7 @@ class UserService extends BaseService {
     return json['result'];
   }
 
-  Future<List<PendingOrderDTO>> PendingOrderConfigs(String token) async {
+  Future<List<PendingOrderDTO>> pendingOrderConfigs(String token) async {
     final url = buildUrl(
       appConfig: config,
       endPoint: "/user/pending-orders",

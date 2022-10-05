@@ -174,6 +174,6 @@ class UserRepository {
   }
 
   Future<List<PendingOrderDTO>> dataPendingOrderPage(String token) async {
-    return await userService.PendingOrderConfigs(token);
+    return await userService.pendingOrderConfigs(token);
   }
 }
