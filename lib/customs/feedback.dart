@@ -29,7 +29,8 @@ class _CustomFeedback extends State<CustomFeedback> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final PageRepository pageRepository = RepositoryProvider.of<PageRepository>(context);
+    final PageRepository pageRepository =
+        RepositoryProvider.of<PageRepository>(context);
     feedbackBloc = FeedbackBloc(pageRepository: pageRepository);
   }
 
@@ -44,7 +45,8 @@ class _CustomFeedback extends State<CustomFeedback> {
             if (state is FeedbackSuccessState) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(content: Text("Cảm ơn bạn đã góp ý cho chúng tôi.").tr()));
+                ..showSnackBar(SnackBar(
+                    content: Text("Cảm ơn bạn đã góp ý cho chúng tôi.").tr()));
             }
           },
           child: Container(
@@ -68,9 +70,10 @@ class _CustomFeedback extends State<CustomFeedback> {
                                   builder: (context) => SimpleDialog(
                                         titlePadding: EdgeInsets.all(10),
                                         title: Text(
-                                          "anyLEARN luôn hoàn thiện từng ngày để phục vụ bạn tốt hơn, hãy nhắn cho chúng tôi 1 thông tin phản hồi về trải nghiệm của bạn!",
+                                          "anyLEARN luôn hoàn thiện từng ngày để phục vụ bạn tốt hơn, hãy nhắn cho chúng tôi 1 thông tin phản hồi về trải nghiệm của bạn!"
+                                              .tr(),
                                           style: TextStyle(fontSize: 12),
-                                        ).tr(),
+                                        ),
                                         contentPadding: EdgeInsets.all(10),
                                         children: <Widget>[
                                           Form(
@@ -78,7 +81,8 @@ class _CustomFeedback extends State<CustomFeedback> {
                                             child: TextFormField(
                                               validator: (value) {
                                                 if (value!.length < 3) {
-                                                  return "Bạn chưa nhập phản hồi nè.".tr();
+                                                  return "Bạn chưa nhập phản hồi nè."
+                                                      .tr();
                                                 }
                                                 _formKey.currentState?.save();
                                                 return null;
@@ -92,12 +96,15 @@ class _CustomFeedback extends State<CustomFeedback> {
                                               initialValue: "",
                                               decoration: InputDecoration(
                                                   alignLabelWithHint: true,
-                                                  labelText: "Để lại ý kiến đóng góp của bạn vào đây..".tr(),
-                                                  labelStyle: TextStyle(fontSize: 14)),
+                                                  labelText: tr(
+                                                      "Để lại ý kiến đóng góp của bạn vào đây.."),
+                                                  labelStyle:
+                                                      TextStyle(fontSize: 14)),
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 8, bottom: 8),
+                                            padding: const EdgeInsets.only(
+                                                top: 8, bottom: 8),
                                             child: Row(children: [
                                               Icon(
                                                 Icons.info,
@@ -106,19 +113,24 @@ class _CustomFeedback extends State<CustomFeedback> {
                                               // Image.file(await takeScreenShot()),
                                               Expanded(
                                                   child: Text(
-                                                "Để hiểu rõ hơn ý kiến của bạn, chúng tôi xin phép được chụp màn hình ứng dụng của bạn.",
-                                                style: TextStyle(fontSize: 12, color: Colors.black87),
-                                              ).tr()),
+                                                "Để hiểu rõ hơn ý kiến của bạn, chúng tôi xin phép được chụp màn hình ứng dụng của bạn.".tr(),
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.black87),
+                                              )),
                                             ]),
                                           ),
                                           ElevatedButton(
                                             // padding: EdgeInsets.all(10),
                                             onPressed: () async {
-                                              if (_formKey.currentState!.validate()) {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
                                                 _formKey.currentState?.save();
                                                 Navigator.of(context).pop();
-                                                Future.delayed(const Duration(seconds: 3));
-                                                final file = await takeScreenShot();
+                                                Future.delayed(
+                                                    const Duration(seconds: 3));
+                                                final file =
+                                                    await takeScreenShot();
                                                 feedbackBloc
                                                   ..add(SaveFeedbackEvent(
                                                     file: file,
@@ -128,9 +140,10 @@ class _CustomFeedback extends State<CustomFeedback> {
                                               }
                                             },
                                             child: Text(
-                                              "Gửi phản hồi",
-                                              style: TextStyle(color: Colors.white),
-                                            ).tr(),
+                                              "Gửi phản hồi".tr(),
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
                                           )
                                         ],
                                       ));
