@@ -20,16 +20,23 @@ class _LocaleScreen extends State<LocaleScreen> {
           child: Column(
             children: [
               TextButton.icon(
-                icon: Icon(Icons.language),
+                icon: Image.asset(
+                  "assets/icons/vi.png",
+                  width: 30,
+                  height: 30,
+                ),
                 onPressed: () {
                   context.locale = Locale('vi');
-
                   Navigator.pop(context);
                 },
-                label: Text('Việt Nam'),
+                label: Text('VietNam'),
               ),
               TextButton.icon(
-                icon: Icon(Icons.language),
+                icon: Image.asset(
+                  "assets/icons/en.png",
+                  width: 30,
+                  height: 30,
+                ),
                 onPressed: () {
                   context.locale = Locale('en');
                   Navigator.pop(context);

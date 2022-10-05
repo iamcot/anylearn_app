@@ -102,7 +102,7 @@
     "XÁC NHẬN":"CONFIRM",
     "Chia sẻ khóa học":"Share course",
     "GỬI TẤT CẢ":"SEND ALL",
-    "GỬI":"SEND",
+    "Gửi":"Send",
     "Đã gửi lời mời tới các bạn.":"Sent invitation to friends.",
     "XEM ĐÁNH GIÁ":"VIEW REVIEW",
     " buổi học":" session",
@@ -326,6 +326,6 @@
     " phút trước":" minute ago",
     " giờ trước":" hour ago",
     "THU GỌN":"SHORTEN",
-    "Chọn ngôn ngữ":"select language"
-
+    "Chọn ngôn ngữ":"select language",
+    "Bạn đang muốn hỏi điều gì ?": "What do you want to ask?"
 }

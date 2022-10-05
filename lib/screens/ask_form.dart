@@ -25,10 +25,9 @@ class _AskFormScreen extends State<AskFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("Gửi " + _buildText(widget.type).tr()),
+        title: Text(tr("Gửi") + _buildText(widget.type)),
         centerTitle: false,
       ),
       body: BlocListener<ArticleBloc, ArticleState>(
@@ -70,20 +69,23 @@ class _AskFormScreen extends State<AskFormScreen> {
                         ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15, bottom: 10),
-                    child: Text("Nội dung " + _buildText(widget.type).tr()),
+                    child: Text("Nội dung ".tr() + _buildText(widget.type)),
                   ),
                   TextField(
                     controller: _contentController,
                     minLines: 5,
                     maxLines: 8,
                   ),
-                  (widget.type == MyConst.ASK_COMMENT || widget.type == MyConst.ASK_QUESTION)
+                  (widget.type == MyConst.ASK_COMMENT ||
+                          widget.type == MyConst.ASK_QUESTION)
                       ? SizedBox(
                           height: 0,
                         )
                       : Padding(
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
-                          child: Text("Nếu bạn đã trả lời, trả lời mới sẽ cập nhật nội dung trả lời cũ.").tr(),
+                          child: Text(
+                                  "Nếu bạn đã trả lời, trả lời mới sẽ cập nhật nội dung trả lời cũ.")
+                              .tr(),
                         ),
                   Container(
                     width: double.infinity,
@@ -92,11 +94,13 @@ class _AskFormScreen extends State<AskFormScreen> {
                         bloc: widget.askBloc,
                         builder: (context, state) {
                           if (state is AskCreateLoadingState) {
-                            return Container(width: 50.0, child: CircularProgressIndicator());
+                            return Container(
+                                width: 50.0,
+                                child: CircularProgressIndicator());
                           }
                           return GradientButton(
                             height: 48,
-                            title: "Gửi " + _buildText(widget.type).tr(),
+                            title: tr("Gửi") + _buildText(widget.type),
                             function: () {
                               _submit();
                             },
