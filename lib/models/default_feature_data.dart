@@ -11,7 +11,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
     MyConst.ROLE_MEMBER: [
       FeatureDataDTO(
           icon: MdiIcons.qrcode,
-          title: tr("Mã Giới thiệu"),
+          title: "Mã giới thiệu".tr(),
           route: "/qrcode",
           iconBg: "red",
           bg: Colors.blue[300]),
@@ -42,7 +42,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
     MyConst.ROLE_TEACHER: [
       FeatureDataDTO(
           icon: MdiIcons.qrcode,
-          title: "Mã Giới thiệu".tr(),
+          title: "Mã giới thiệu".tr(),
           route: "/qrcode",
           iconBg: "red",
           bg: Colors.blue[300]),
@@ -73,7 +73,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
     MyConst.ROLE_SCHOOL: [
       FeatureDataDTO(
           icon: MdiIcons.qrcode,
-          title: "Mã Giới thiệu".tr(),
+          title: "Mã giới thiệu".tr(),
           route: "/qrcode",
           iconBg: "red",
           bg: Colors.blue[300]),
@@ -104,7 +104,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
     MyConst.ROLE_GUEST: [
       FeatureDataDTO(
           icon: MdiIcons.qrcode,
-          title: "Mã Giới thiệu".tr(),
+          title: "Mã giới thiệu".tr(),
           route: "/qrcode",
           iconBg: "red",
           bg: Colors.blue[300]),

@@ -24,14 +24,15 @@ class _LocaleScreen extends State<LocaleScreen> {
                 onPressed: () {
                   context.locale = Locale('vi');
 
-                  print(context.supportedLocales);
+                  Navigator.pop(context);
                 },
                 label: Text('Việt Nam'),
               ),
               TextButton.icon(
                 icon: Icon(Icons.language),
                 onPressed: () {
-                  context.locale = Locale ('en');
+                  context.locale = Locale('en');
+                  Navigator.pop(context);
                 },
                 label: Text('English'),
               ),

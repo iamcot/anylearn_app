@@ -385,7 +385,6 @@ class _RegisterScreen extends State<RegisterScreen> {
   }
 
   void _submitForm(BuildContext context) {
-    Text('title').tr();
 
     if (!_agreedToc) {
       showDialog(
