@@ -90,7 +90,7 @@
     "Đã hiểu":"Understood",
     "Xác nhận đăng ký": "Registration confirmation",
     "Bạn đang muốn đăng ký khóa học":"You want to register for a course",
-    "Trường":"School",
+    " Trường: ":"School: ",
     "Giảng viên":"Professor",
     "Học phí":"Tuition fee",
     "Khai giảng:":"Opening:",
@@ -331,5 +331,15 @@
     "anyLEARN luôn hoàn thiện từng ngày để phục vụ bạn tốt hơn, hãy nhắn cho chúng tôi 1 thông tin phản hồi về trải nghiệm của bạn!":"anyLEARN is improving day by day to serve you better, send them a message, I'll give you feedback on your experience!",
     "Để lại ý kiến đóng góp của bạn vào đây..":"Leave your comments here..",
     "Để hiểu rõ hơn ý kiến của bạn, chúng tôi xin phép được chụp màn hình ứng dụng của bạn.":"To better understand your opinion, we would like to take a screenshot of your application.",
-    "Gửi phản hồi":"Send Feedback"
+    "Gửi phản hồi":"Send Feedback",
+    "Tìm Trường Học...":"Find Schools...",
+    "Tìm chuyên gia...":"Find expert...",
+    "Tìm sản phẩm...":"Find products...",
+    "Tìm khóa học...":"Find a course...",
+    "Trung tâm: ":"Center:",
+    "Giảng viên: ": "Lecturers: ",
+    " Khai giảng: ":" Opening: "                    
+
+    
+
 }

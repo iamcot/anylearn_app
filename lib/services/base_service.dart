@@ -12,7 +12,7 @@ class BaseService {
   String buildUrl({required AppConfig appConfig, required String endPoint, String token: "", String query: ""}) {
     return appConfig.apiUrl +
         endPoint +
-        "?v=" + packageInfo.version + 
+        "?v=" + packageInfo.version +  "&locale=" +
         (token.isNotEmpty ? "&${appConfig.tokenParam}=$token" : "") +
         (query.isNotEmpty ? ("&" + query) : "");
   }

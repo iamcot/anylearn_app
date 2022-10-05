@@ -78,7 +78,7 @@ class _PdpBody extends State<PdpBody> {
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.supervisor_account, color: Colors.black54, size: 14.0),
-                        Text(widget.data.author.role == 'school' ? " Trường: " : " Giảng viên: ").tr(),
+                        Text(widget.data.author.role == 'school' ? " Trường: ".tr() : " Giảng viên: ".tr()),
                         Text.rich(
                           TextSpan(
                               text: widget.data.author.name,
@@ -131,12 +131,12 @@ class _PdpBody extends State<PdpBody> {
                               child: Row(
                                 children: <Widget>[
                                   Icon(Icons.calendar_today, color: Colors.black54, size: 14.0),
-                                  Text(" Khai giảng: " +
+                                  Text(" Khai giảng: ".tr() +
                                       widget.data.item.timeStart +
                                       " " +
                                       DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart))).tr(),
                                   widget.data.numSchedule > 1
-                                      ? Text(" (${widget.data.numSchedule} buổi học)").tr()
+                                      ? Text(" (${widget.data.numSchedule} buổi học)".tr())
                                       : SizedBox(height: 1)
                                 ],
                               ),
