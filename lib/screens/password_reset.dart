@@ -9,6 +9,7 @@ import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/auth/auth_blocs.dart';
 import '../widgets/loading_widget.dart';
+import '../widgets/otpform.dart';
 
 class PasswordResetScreen extends StatefulWidget {
   @override
@@ -41,7 +42,6 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
   final TextEditingController _fieldsix = TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     timer = Timer.periodic(Duration(seconds: 1), (_) {
       if (secondsRemaining != 0) {
@@ -79,8 +79,8 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
               // enableResend = false;
               steps = 2;
             });
-          } 
-           if (state is AuthResentOtpSuccessState) {
+          }
+          if (state is AuthResentOtpSuccessState) {
             setState(() {
               enableResend = true;
             });
@@ -182,14 +182,6 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                           style: TextStyle(color: Colors.blue, fontSize: 10),
                         ).tr(),
                         ),
-                        
-                        // const SizedBox(
-                        //   height: 20,
-                        // ),
-
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
 
                         const SizedBox(
                           height: 10,
@@ -200,29 +192,9 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
               steps == 3
                   ? Column(
                       children: [
-                        // SizedBox(height: 20),
-                        // Padding(
-                        //   padding:
-                        //       const EdgeInsets.only(left: 15.0, right: 30.0),
-                        //   child: TextFormField(
-                        //     controller: _otp,
-                        //     validator: (value) {
-                        //       if (value! == "") {
-                        //         return "Bạn kiểm tra tin nhắn để lấy mã OTP nhé.";
-                        //       }
-                        //       _formKey.currentState!.save();
-                        //       return null;
-                        //     },
-                        //     decoration: InputDecoration(
-                        //       labelText: "Mã OTP",
-                        //       icon: Icon(MdiIcons.codeTags),
-                        //     ),
-                        //   ),
-                        // ),
                         SizedBox(height: 10),
                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, right: 30.0),
+                          padding: const EdgeInsets.only(left: 15.0, right: 30.0),
                           child: TextFormField(
                             controller: _passwordController,
                             validator: (value) {
@@ -241,8 +213,7 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                         ),
                         SizedBox(height: 10),
                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, right: 30.0),
+                          padding: const EdgeInsets.only(left: 15.0, right: 30.0),
                           child: TextFormField(
                             controller: _passwordConfirmController,
                             validator: (value) {
@@ -265,47 +236,34 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
               SizedBox(height: 10),
               Container(
                 height: 36.0,
-                margin:
-                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+                margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
                 child: BlocBuilder<AuthBloc, AuthState>(
                     bloc: _authBloc,
                     builder: (context, state) {
-                      if (state is AuthPassOtpLoadingState) {
+                      if (state is AuthPassOtpLoadingState || state is AuthCheckPhoneOTPLoadingState || state is AuthPassResetLoadingState) {
                         return LoadingWidget();
                       }
                       return ElevatedButton(
                           onPressed: () {
-                            setState(() {
-                              _otp = _fieldOne.text +
-                                  _fieldTwo.text +
-                                  _fieldThree.text +
-                                  _fieldFour.text +
-                                  _fieldfive.text +
-                                  _fieldsix.text;
-                            });
-
                             if (steps == 1) {
-                              _authBloc
-                                ..add(AuthPassOtpEvent(
-                                    phone: _phoneController.text));
-                            }  if (steps == 1) {
-                              _authBloc
-                                ..add(AuthResentOtpEvent(
-                                    phone: _phoneController.text));
+                              _authBloc..add(AuthPassOtpEvent(phone: _phoneController.text));
                             } else if (steps == 2) {
-                              _authBloc
-                                ..add(AuthCheckOtpEvent(
-                                    otp: _otp, phone: _phoneController.text));
+                              setState(() {
+                                _otp = _fieldOne.text +
+                                    _fieldTwo.text +
+                                    _fieldThree.text +
+                                    _fieldFour.text +
+                                    _fieldfive.text +
+                                    _fieldsix.text;
+                              });
+                              _authBloc..add(AuthCheckOtpEvent(otp: _otp, phone: _phoneController.text));
                             } else if (steps == 3) {
                               _authBloc
                                 ..add(AuthPassResetEvent(
                                   phone: _phoneController.text,
                                   otp: _otp,
-                                  // otp: _otpController.text,
-
                                   password: _passwordController.text,
-                                  confirmPassword:
-                                      _passwordConfirmController.text,
+                                  confirmPassword: _passwordConfirmController.text,
                                 ));
                             }
                           },

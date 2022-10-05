@@ -9,6 +9,7 @@ import '../dto/const.dart';
 import '../dto/contract.dart';
 import '../dto/friends_dto.dart';
 import '../dto/notification_dto.dart';
+import '../dto/pending_order_dto.dart';
 import '../dto/user_doc_dto.dart';
 import '../dto/user_dto.dart';
 import '../services/config_services.dart';
@@ -158,16 +159,25 @@ class UserRepository {
   Future<bool> sentOtp(String phone) async {
     return await userService.sentOtp(phone);
   }
-   Future<bool> ResentOtp(String phone) async {
+
+  Future<bool> ResentOtp(String phone) async {
     return await userService.sentOtp(phone);
   }
 
   Future<bool> resetOtp(
-      String phone, String otp,String password, String passwordConfirm) async {
-    return await userService.resetOtp(phone, otp ,password, passwordConfirm);
+      String phone, String otp, String password, String passwordConfirm) async {
+    return await userService.resetOtp(phone, otp, password, passwordConfirm);
   }
 
-  Future<bool> checkOtp(String otp,String phone) async {
-    return await userService.checkOtp(otp,phone);
+  Future<bool> checkOtp(String otp, String phone) async {
+    return await userService.checkOtp(otp, phone);
+  }
+
+  Future<List<PendingOrderDTO>> dataPendingOrderPage(String token) async {
+    return await userService.pendingOrderConfigs(token);
+  }
+
+  Future<bool> deleteAccount(String token) async {
+    return await userService.deleteAccount(token);
   }
 }

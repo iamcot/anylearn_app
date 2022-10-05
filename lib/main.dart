@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'app_config.dart';
 import 'blocs/account/account_blocs.dart';
@@ -26,6 +27,7 @@ import 'themes/default.dart';
 bool newNotification = false;
 late String notifToken;
 late AppConfig config;
+late PackageInfo packageInfo;
 UserDTO user = UserDTO(id: 0, token: "");
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -38,6 +40,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   //@TODO: pls copy new env.json file from example.json in assets/config
   config = await AppConfig.forEnv();
+  packageInfo = await PackageInfo.fromPlatform();
 
   final userRepo = UserRepository(config: config);
   final pageRepo = PageRepository(config: config);
@@ -62,6 +65,7 @@ void main() async {
             RepositoryProvider<ItemRepository>(
               create: (context) => itemRepo,
             ),
+            
           ],
           child: MultiBlocProvider(
             providers: [
@@ -78,6 +82,7 @@ void main() async {
                   create: (context) => NotifBloc(userRepository: userRepo)),
               BlocProvider<ArticleBloc>(
                   create: (context) => ArticleBloc(pageRepository: pageRepo)),
+             
             ],
             child: MyApp(),
           )),

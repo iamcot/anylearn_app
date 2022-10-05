@@ -74,8 +74,7 @@ class AuthContractLoadEvent extends AuthEvent {
 class AuthContractLoadForSignEvent extends AuthEvent {
   final String token;
   final int contractId;
-  const AuthContractLoadForSignEvent(
-      {required this.token, required this.contractId});
+  const AuthContractLoadForSignEvent({required this.token, required this.contractId});
 
   @override
   List<Object> get props => [token];
@@ -97,6 +96,18 @@ class AuthContractSignEvent extends AuthEvent {
   String toString() => 'AuthContractSignEvent';
 }
 
+class AuthDeleteEvent extends AuthEvent {
+  final String token;
+
+  const AuthDeleteEvent({required this.token});
+
+  @override
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'AuthDeleteEvent';
+}
+
 class AuthPassOtpEvent extends AuthEvent {
   final String phone;
   const AuthPassOtpEvent({required this.phone});
@@ -107,6 +118,7 @@ class AuthPassOtpEvent extends AuthEvent {
   @override
   String toString() => 'AuthPassOtpEvent phone: $phone';
 }
+
 class AuthResentOtpEvent extends AuthEvent {
   final String phone;
   const AuthResentOtpEvent({required this.phone});
@@ -117,6 +129,7 @@ class AuthResentOtpEvent extends AuthEvent {
   @override
   String toString() => 'AuthResentOtpEvent phone: $phone';
 }
+
 class AuthCheckOtpEvent extends AuthEvent {
   final String otp;
   final String phone;
@@ -135,10 +148,7 @@ class AuthPassResetEvent extends AuthEvent {
   final String password;
   final String confirmPassword;
   const AuthPassResetEvent(
-      {required this.password,
-      required this.confirmPassword,
-      required this.phone,
-      required this.otp});
+      {required this.password, required this.confirmPassword, required this.phone, required this.otp});
 
   @override
   List<Object> get props => [password];

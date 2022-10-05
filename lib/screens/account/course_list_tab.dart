@@ -99,8 +99,10 @@ class CourseList extends StatelessWidget {
               leading: CalendarBox(
                   image: list[index].image,
                   fontSize: 12,
+                
                   text: shortDayFormat
-                      .format(DateTime.parse(list[index].dateStart))),
+                      .format(DateTime.parse(list[index].dateStart))
+                      ),
               title: Text(list[index].title),
               subtitle: Text.rich(
                 TextSpan(

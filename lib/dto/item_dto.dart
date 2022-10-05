@@ -88,7 +88,6 @@ class ItemDTO extends Equatable {
         url,
       ];
 
-
   @override
   String toString() => 'ItemDTO {title: $title, type: $type}';
 
@@ -100,12 +99,14 @@ class ItemDTO extends Equatable {
             id: json['id'] ?? 0,
             type: json['type'] ?? "",
             subtype: json['subtype'] ?? "",
-            image: json['image']  ?? "",
-            price: json['price']  ?? 0,
+            image: json['image'] ?? "",
+            price: json['price'] ?? 0,
             priceOrg: json['org_price'] ?? 0,
             shortContent: json['short_content'] ?? "",
             content: json['content'] ?? "",
-            rating: json['rating'] == null ? 0.0 : double.parse(json['rating'].toString()),
+            rating: json['rating'] == null
+                ? 0.0
+                : double.parse(json['rating'].toString()),
             dateStart: json['date_start'] ?? "",
             dateEnd: json['date_end'] ?? "",
             timeStart: json['time_start'] ?? "",
@@ -122,7 +123,9 @@ class ItemDTO extends Equatable {
             nolimitTime: json['nolimit_time'] == "1" ? true : false,
             openings: json['openings'] == null
                 ? []
-                : List<ItemDTO>.from(json['openings']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
+                : List<ItemDTO>.from(json['openings']
+                        ?.map((v) => v == null ? null : ItemDTO.fromJson(v)))
+                    .toList(),
           );
   }
 }

@@ -143,6 +143,7 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                         }
                       } else if (state is AccChildrenFailState) {
                         toast(state.error);
+                        _accountBloc..add(AccLoadChildrenEvent(token: user.token));
                       }
                     },
                     child: ElevatedButton(

@@ -8,7 +8,8 @@ import 'course_state.dart';
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
   final ItemRepository itemRepository;
   final UserRepository userRepository;
-  CourseBloc({required this.userRepository,required this.itemRepository}) : super(CourseInitState());
+  CourseBloc({required this.userRepository, required this.itemRepository})
+      : super(CourseInitState());
 
   @override
   CourseState get initialState => CourseInitState();
@@ -31,7 +32,8 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         if (result) {
           yield CourseSaveSuccessState();
         } else {
-          yield CourseFailState(error: "Lưu khóa học thất bại, vui lòng thử lại.");
+          yield CourseFailState(
+              error: "Lưu khóa học thất bại, vui lòng thử lại.");
         }
       }
 
@@ -43,22 +45,27 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
 
       if (event is CourseUploadImageEvent) {
         yield UploadImageInprogressState();
-        String url = await itemRepository.uploadImage(event.image, event.token, event.itemId);
+        String url = await itemRepository.uploadImage(
+            event.image, event.token, event.itemId);
         if (url != null && url.isNotEmpty) {
           yield UploadImageSuccessState(url: url);
         } else {
-          yield CourseFailState(error: "Up hình không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
+          yield CourseFailState(
+              error:
+                  "Up hình không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
         }
       }
 
       if (event is CourseChangeUserStatusEvent) {
         yield CourseUserStatusInprogressState();
-        await itemRepository.changeUserStatus(event.itemId, event.newStatus, event.token);
+        await itemRepository.changeUserStatus(
+            event.itemId, event.newStatus, event.token);
         yield CourseUserStatusSuccessState();
       }
 
       if (event is RegisteredUsersEvent) {
-        final users = await userRepository.registeredUsers(event.token, event.itemId);
+        final users =
+            await userRepository.registeredUsers(event.token, event.itemId);
         yield RegisteredUsersSuccessState(users: users);
       }
     } catch (error, trace) {
@@ -68,7 +75,8 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     if (event is ReviewSubmitEvent) {
       try {
         yield ReviewSubmitingState();
-        final result = await itemRepository.saveRating(event.itemId, event.rating, event.comment, event.token);
+        final result = await itemRepository.saveRating(
+            event.itemId, event.rating, event.comment, event.token);
         yield ReviewSubmitSuccessState(result: result);
       } catch (e) {
         print(e);
