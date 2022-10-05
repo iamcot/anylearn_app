@@ -25,7 +25,6 @@ class _CourseShareScreen extends State<CourseShareScreen> {
 
   @override
   Widget build(BuildContext context) {
-        Text('title');
 
     return StatefulBuilder(
       builder: (context, setState) => Scaffold(

@@ -44,15 +44,15 @@ class _CourseConfirm extends State<CourseConfirm> {
           )
         : SimpleDialog(
             title: Text(
-              "Xác nhận đăng ký",
+              "Xác nhận đăng ký".tr(),
               style: TextStyle(fontSize: 14),
-            ).tr(),
+            ),
             titlePadding: EdgeInsets.fromLTRB(15, 15, 15, 0),
             contentPadding: EdgeInsets.all(15),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             children: <Widget>[
               Text.rich(TextSpan(
-                text: "Bạn đang muốn đăng ký khóa học\n",
+                text: "Bạn đang muốn đăng ký khóa học\n".tr(),
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
                 ),
@@ -65,7 +65,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         color: Colors.blue,
                       )),
                   TextSpan(
-                      text: "\n${widget.pdpDTO.author.role == 'school' ? 'Trường' : 'Giảng viên'}: ",
+                      text: "\n${widget.pdpDTO.author.role == 'school'.tr() ? 'Trường'.tr() : 'Giảng viên'.tr()}: ",
                       style: TextStyle()),
                   TextSpan(
                       text: widget.pdpDTO.author.name,
@@ -74,7 +74,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         fontWeight: FontWeight.w400,
                       )),
                   TextSpan(
-                      text: "\nHọc phí: ",
+                      text: "\nHọc phí: ".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                       )),
@@ -85,7 +85,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                         color: Colors.red,
                       )),
                   TextSpan(
-                      text: "\nKhai giảng: ",
+                      text: "\nKhai giảng: ".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                       )),
@@ -127,9 +127,9 @@ class _CourseConfirm extends State<CourseConfirm> {
                         });
                       },
                       child: Text(
-                        "Tôi có mã khuyến mãi",
+                        "Tôi có mã khuyến mãi".tr(),
                         style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-                      ).tr())
+                      ))
                   : Container(
                       padding: EdgeInsets.only(bottom: 5, top: 10),
                       child: Row(children: [
