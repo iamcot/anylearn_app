@@ -6,6 +6,7 @@ class LocaleScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _LocaleScreen();
   final locale = Locale("vi", "en");
+  
 }
 
 class _LocaleScreen extends State<LocaleScreen> {
@@ -26,9 +27,10 @@ class _LocaleScreen extends State<LocaleScreen> {
                   height: 30,
                 ),
                 onPressed: () {
-                  context.locale = Locale('vi');
+                  context.setLocale(Locale('vi'));
                   Navigator.pop(context);
                 },
+                
                 label: Text('VietNam'),
               ),
               TextButton.icon(
@@ -38,7 +40,7 @@ class _LocaleScreen extends State<LocaleScreen> {
                   height: 30,
                 ),
                 onPressed: () {
-                  context.locale = Locale('en');
+                  context.setLocale(Locale('en'));
                   Navigator.pop(context);
                 },
                 label: Text('English'),

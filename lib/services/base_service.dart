@@ -23,7 +23,6 @@ class BaseService {
         (token.isNotEmpty ? "&${appConfig.tokenParam}=$token" : "") +
         (query.isNotEmpty ? ("&" + query) : "");
   }
-
   String buildQuery(Map<String, dynamic> params) {
     String rs = "";
     params.forEach((key, value) {
