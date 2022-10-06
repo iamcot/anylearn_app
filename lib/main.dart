@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -41,6 +44,9 @@ void main() async {
   //@TODO: pls copy new env.json file from example.json in assets/config
   config = await AppConfig.forEnv();
   packageInfo = await PackageInfo.fromPlatform();
+  final String defaultSystemLocale = Platform.localeName;
+    final List<Locale> systemLocales = WidgetsBinding.instance.window.locales;
+
 
   final userRepo = UserRepository(config: config);
   final pageRepo = PageRepository(config: config);
@@ -65,7 +71,6 @@ void main() async {
             RepositoryProvider<ItemRepository>(
               create: (context) => itemRepo,
             ),
-            
           ],
           child: MultiBlocProvider(
             providers: [
@@ -82,7 +87,6 @@ void main() async {
                   create: (context) => NotifBloc(userRepository: userRepo)),
               BlocProvider<ArticleBloc>(
                   create: (context) => ArticleBloc(pageRepository: pageRepo)),
-             
             ],
             child: MyApp(),
           )),
@@ -90,15 +94,17 @@ void main() async {
       path: 'assets/translations',
       saveLocale: false,
       useOnlyLangCode: true,
-      startLocale: Locale('en'),
+      startLocale: Locale('vi'),
       fallbackLocale: Locale('vi', 'en'),
     ),
   );
 }
 
 class MyApp extends StatefulWidget {
+  
   @override
   State<StatefulWidget> createState() => _MyApp();
+  
 }
 
 class _MyApp extends State<MyApp> {

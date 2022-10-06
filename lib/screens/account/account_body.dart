@@ -49,7 +49,7 @@ class _AccountBody extends State<AccountBody> {
                     // ),
                   ),
             AccountNormalMenu(
-              title: "Chờ thanh toán",
+              title: "Chờ thanh toán".tr(),
               route: "/pendingorder/pendingorder",
               leadingIcon: MdiIcons.walletMembership,
               trailing: Icon(Icons.chevron_right),

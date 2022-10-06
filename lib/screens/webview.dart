@@ -15,7 +15,8 @@ class WebviewScreen extends StatefulWidget {
 }
 
 class _WebviewScreen extends State<WebviewScreen> {
-  final Completer<WebViewController> _controller = Completer<WebViewController>();
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
 
   @override
   void initState() {

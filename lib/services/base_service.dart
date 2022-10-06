@@ -9,10 +9,17 @@ import 'package:http/http.dart' as http;
 import '../customs/rest_exception.dart';
 
 class BaseService {
-  String buildUrl({required AppConfig appConfig, required String endPoint, String token: "", String query: ""}) {
+  String buildUrl(
+      {required AppConfig appConfig,
+      required String endPoint,
+      String token: "",
+      String query: ""}) {
     return appConfig.apiUrl +
         endPoint +
-        "?v=" + packageInfo.version +  "&locale=" +
+        "?v=" +
+        packageInfo.version +
+        "&locale=" +
+        Platform.localeName +
         (token.isNotEmpty ? "&${appConfig.tokenParam}=$token" : "") +
         (query.isNotEmpty ? ("&" + query) : "");
   }
@@ -37,7 +44,8 @@ class BaseService {
     return responseJson;
   }
 
-  Future<dynamic> post(http.Client httpClient, String url, Map<String, dynamic> body) async {
+  Future<dynamic> post(
+      http.Client httpClient, String url, Map<String, dynamic> body) async {
     var responseJson;
     print(url);
     print(body);
@@ -60,7 +68,8 @@ class BaseService {
     }
   }
 
-  Future<dynamic> postImageHasContent(String url, File file, Map<String, String> body) async {
+  Future<dynamic> postImageHasContent(
+      String url, File file, Map<String, String> body) async {
     try {
       final request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields.addAll(body);
@@ -101,7 +110,8 @@ class BaseService {
       case 500:
       case 502:
       default:
-        throw FetchDataException('Server Error 5xx : ${response.stream.bytesToString()}');
+        throw FetchDataException(
+            'Server Error 5xx : ${response.stream.bytesToString()}');
     }
   }
 }
