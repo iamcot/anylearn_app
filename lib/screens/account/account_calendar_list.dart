@@ -58,7 +58,6 @@ class _AccountCalendarList extends State<AccountCalendarList>
     // String nowStr = DateFormat("yyyy-MM-dd").format(DateTime.now());
     return CustomScrollView(
       slivers: <Widget>[
-        Text(context.locale.toString()),
         widget.events.length > 0
             ? SliverList(
                 delegate: SliverChildBuilderDelegate(
@@ -263,7 +262,6 @@ class _AccountCalendarList extends State<AccountCalendarList>
   }
 
   void _dialogJoin(EventDTO eventDTO, bool hasConfirm) {
-
     String route = "";
     String routeInfo = "";
     OnlineScheduleInfoDTO onlineScheduleInfoDTO = OnlineScheduleInfoDTO();
@@ -308,7 +306,8 @@ class _AccountCalendarList extends State<AccountCalendarList>
                             await launch(route);
                           } else {
                             toast(
-                                "Đường dẫn lớp học không đúng, vui lòng kiểm tra lại với người phụ trách.".tr());
+                                "Đường dẫn lớp học không đúng, vui lòng kiểm tra lại với người phụ trách."
+                                    .tr());
                             throw 'Could not launch';
                           }
                         }
@@ -341,11 +340,13 @@ class _AccountCalendarList extends State<AccountCalendarList>
           !hasConfirm
               ? ListTile(
                   trailing: eventDTO.userRating > 0
-                      ? Text("LÀM LẠI", style: TextStyle(color: Colors.blue)).tr()
+                      ? Text("LÀM LẠI", style: TextStyle(color: Colors.blue))
+                          .tr()
                       : Icon(Icons.chevron_right),
                   title: Text(eventDTO.userRating > 0
-                      ? "Bạn đã đánh giá ${eventDTO.userRating}*"
-                      : "Đánh giá khóa học").tr(),
+                          ? "Bạn đã đánh giá ${eventDTO.userRating}*"
+                          : "Đánh giá khóa học")
+                      .tr(),
                   onTap: () async {
                     Navigator.of(context).pop();
                     final sentReview = await Navigator.of(context)
