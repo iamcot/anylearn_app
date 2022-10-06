@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LocaleScreen extends StatefulWidget {
   @override
@@ -30,8 +29,7 @@ class _LocaleScreen extends State<LocaleScreen> {
                   context.setLocale(Locale('vi'));
                   Navigator.pop(context);
                 },
-                
-                label: Text('VietNam'),
+                label: Text('Tiếng Việt'),
               ),
               TextButton.icon(
                 icon: Image.asset(
