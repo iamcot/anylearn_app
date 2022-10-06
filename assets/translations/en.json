@@ -348,7 +348,10 @@
     "Xác nhận XÓA!":"Confirm DELETE!",
     "Bạn đã chắc chắn XÓA TÀI KHOẢN":"You are sure to DELETE ACCOUNT",
     "Không muốn":"Do not want",
-    "Chắn chắn xóa":"Definitely Delete"
+    "Chắn chắn xóa":"Definitely Delete",
+    "Chờ thanh toán":"Wait for pay",
+    "Tổng tiền: ":"Total amount:",
+    "Nếu bạn đã thực hiện chuyển khoản, vui lòng đợi ít phút để anyLEARN xác nhận đơn hàng.":"If you have already made a transfer, please wait a few minutes for anyLEARN to confirm the order. "
 
 
     
