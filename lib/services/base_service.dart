@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:anylearn/main.dart';
-
-import '../app_config.dart';
 import 'package:http/http.dart' as http;
 
+import '../app_config.dart';
 import '../customs/rest_exception.dart';
+import '../main.dart';
 
 class BaseService {
   String buildUrl(
@@ -16,10 +15,8 @@ class BaseService {
       String query: ""}) {
     return appConfig.apiUrl +
         endPoint +
-        "?v=" +
-        packageInfo.version +
-        "&locale=" +
-        Platform.localeName +
+        "?v=" + packageInfo.version +
+        "&locale=" + locale +
         (token.isNotEmpty ? "&${appConfig.tokenParam}=$token" : "") +
         (query.isNotEmpty ? ("&" + query) : "");
   }

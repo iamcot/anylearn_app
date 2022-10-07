@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_config.dart';
 import 'blocs/account/account_blocs.dart';
@@ -31,6 +31,7 @@ bool newNotification = false;
 late String notifToken;
 late AppConfig config;
 late PackageInfo packageInfo;
+String locale = "vi";
 UserDTO user = UserDTO(id: 0, token: "");
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -73,19 +74,13 @@ void main() async {
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<AuthBloc>(
-                  create: (context) => AuthBloc(userRepository: userRepo)),
-              BlocProvider<AccountBloc>(
-                  create: (context) => AccountBloc(userRepository: userRepo)),
+              BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
+              BlocProvider<AccountBloc>(create: (context) => AccountBloc(userRepository: userRepo)),
               BlocProvider<CourseBloc>(
-                  create: (context) => CourseBloc(
-                      itemRepository: itemRepo, userRepository: userRepo)),
-              BlocProvider<SearchBloc>(
-                  create: (context) => SearchBloc(pageRepository: pageRepo)),
-              BlocProvider<NotifBloc>(
-                  create: (context) => NotifBloc(userRepository: userRepo)),
-              BlocProvider<ArticleBloc>(
-                  create: (context) => ArticleBloc(pageRepository: pageRepo)),
+                  create: (context) => CourseBloc(itemRepository: itemRepo, userRepository: userRepo)),
+              BlocProvider<SearchBloc>(create: (context) => SearchBloc(pageRepository: pageRepo)),
+              BlocProvider<NotifBloc>(create: (context) => NotifBloc(userRepository: userRepo)),
+              BlocProvider<ArticleBloc>(create: (context) => ArticleBloc(pageRepository: pageRepo)),
             ],
             child: MyApp(),
           )),
@@ -93,10 +88,16 @@ void main() async {
       path: 'assets/translations',
       saveLocale: false,
       useOnlyLangCode: true,
-      startLocale: Locale('vi'),
+      startLocale: await _getSavedLocale(),
       fallbackLocale: Locale('vi', 'en'),
     ),
   );
+}
+
+Future<Locale> _getSavedLocale() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  locale = prefs.getString('locale') ?? "vi";
+  return Locale(locale);
 }
 
 class MyApp extends StatefulWidget {
@@ -105,8 +106,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
-  final GlobalKey<NavigatorState> navigatorKey =
-      new GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
   @override
   void initState() {

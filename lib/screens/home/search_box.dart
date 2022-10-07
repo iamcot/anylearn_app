@@ -28,7 +28,7 @@ class _SearchBoxState extends State<SearchBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
+      // height: 120,
       padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       child: Column(
         children: [
