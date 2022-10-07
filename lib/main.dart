@@ -46,7 +46,6 @@ void main() async {
   config = await AppConfig.forEnv();
   packageInfo = await PackageInfo.fromPlatform();
   final String defaultSystemLocale = Platform.localeName;
-  final List<Locale> systemLocales = WidgetsBinding.instance.window.locales;
 
   final userRepo = UserRepository(config: config);
   final pageRepo = PageRepository(config: config);
