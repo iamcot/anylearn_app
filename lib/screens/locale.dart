@@ -23,29 +23,25 @@ class _LocaleScreen extends State<LocaleScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextButton.icon(
-                icon: _flagFromLocale("vi"),
-                onPressed: () {
+              ListTile(
+                leading: _flagFromLocale("vi"),
+                title: Text("Tiếng Việt"),
+                trailing: Icon(Icons.chevron_right),
+                onTap: () {
                   context.setLocale(Locale('vi'));
                   _setSavedLocale("vi");
                   Navigator.pop(context);
                 },
-                label: Text(
-                  'Tiếng Việt',
-                  style: TextStyle(fontSize: 20),
-                ),
               ),
-              TextButton.icon(
-                icon: _flagFromLocale("en"),
-                onPressed: () {
+              ListTile(
+                leading: _flagFromLocale("en"),
+                title: Text("English"),
+                trailing: Icon(Icons.chevron_right),
+                onTap: () {
                   context.setLocale(Locale('en'));
                   _setSavedLocale("en");
                   Navigator.pop(context);
                 },
-                label: Text(
-                  'English',
-                  style: TextStyle(fontSize: 20),
-                ),
               ),
             ],
           ),
@@ -73,9 +69,9 @@ class _LocaleScreen extends State<LocaleScreen> {
   }
 
   Future<bool> _setSavedLocale(String localeStr) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final rs = prefs.setString('locale', localeStr);
-    locale = localeStr;
-    return rs;
+    setState(() {
+      locale = localeStr;
+    });
+    return true;
   }
 }

@@ -41,11 +41,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
+  EasyLocalization.ensureInitialized();
   //@TODO: pls copy new env.json file from example.json in assets/config
   config = await AppConfig.forEnv();
   packageInfo = await PackageInfo.fromPlatform();
-  final String defaultSystemLocale = Platform.localeName;
 
   final userRepo = UserRepository(config: config);
   final pageRepo = PageRepository(config: config);
@@ -85,18 +84,12 @@ void main() async {
           )),
       supportedLocales: [Locale('en'), Locale('vi')],
       path: 'assets/translations',
-      saveLocale: false,
+      saveLocale: true,
       useOnlyLangCode: true,
-      startLocale: await _getSavedLocale(),
-      fallbackLocale: Locale('vi', 'en'),
+      // startLocale: Locale(locale),
+      fallbackLocale: Locale('vi'),
     ),
   );
-}
-
-Future<Locale> _getSavedLocale() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  locale = prefs.getString('locale') ?? "vi";
-  return Locale(locale);
 }
 
 class MyApp extends StatefulWidget {
@@ -136,6 +129,12 @@ class _MyApp extends State<MyApp> {
       print(token);
       notifToken = token!;
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    locale = context.locale.languageCode;
+    super.didChangeDependencies();
   }
 
   @override
