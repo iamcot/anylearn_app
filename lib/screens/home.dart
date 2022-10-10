@@ -1,5 +1,3 @@
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +7,7 @@ import '../blocs/home/home_blocs.dart';
 import '../customs/feedback.dart';
 import '../dto/home_dto.dart';
 import '../dto/quote_dto.dart';
+import '../dto/user_dto.dart';
 import '../main.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
@@ -45,7 +44,7 @@ class _HomeScreen extends State<HomeScreen> {
   }
 
   Future checkFirstSeen() async {
-    int version = 11;
+    int version = 12;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int _seen = (prefs.getInt('intro_seen') ?? version);
 

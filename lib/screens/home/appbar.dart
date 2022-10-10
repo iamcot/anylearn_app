@@ -1,10 +1,10 @@
-import 'package:anylearn/widgets/locale_icon.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import '../../widgets/account_icon.dart';
 import '../../widgets/foundation_icon.dart';
+import '../../widgets/locale_icon.dart';
 import '../../widgets/notification_icon.dart';
 import '../webview.dart';
 import 'home_top_icons.dart';

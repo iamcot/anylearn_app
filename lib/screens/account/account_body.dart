@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -48,12 +47,14 @@ class _AccountBody extends State<AccountBody> {
                     //   ),
                     // ),
                   ),
-            AccountNormalMenu(
-              title: "Chờ thanh toán".tr(),
-              route: "/pendingorder/pendingorder",
-              leadingIcon: MdiIcons.walletMembership,
-              trailing: Icon(Icons.chevron_right),
-            ),
+            (Platform.isIOS && !user.enableIosTrans)
+                ? SizedBox(height: 0)
+                : AccountNormalMenu(
+                    title: "Chờ thanh toán".tr(),
+                    route: "/pendingorder/pendingorder",
+                    leadingIcon: MdiIcons.walletMembership,
+                    trailing: Icon(Icons.chevron_right),
+                  ),
 
             user.role == MyConst.ROLE_MEMBER
                 ? SizedBox(height: 0)
@@ -84,14 +85,6 @@ class _AccountBody extends State<AccountBody> {
                     Icon(Icons.chevron_right),
                   ])),
             ),
-            // AccountNormalMenu(
-            //   title: "Quỹ từ thiện",
-            //   route: "/foundation",
-            //   routeParam: FriendParamsDTO(userId: user.id, level: 1),
-            //   leadingIcon: MdiIcons.piggyBank,
-            //   trailing: Icon(Icons.chevron_right_sharp),
-            // ),
-
             AccountNormalMenu(
               title: "Quản lý tài khoản phụ".tr(),
               route: "/account/children",

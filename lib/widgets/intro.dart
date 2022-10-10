@@ -22,24 +22,24 @@ class IntroScreenState extends State<IntroScreen> {
           backgroundOpacity: 0,
           backgroundImageFit: BoxFit.fill),
     );
-    slides.add(
-      new Slide(
-          backgroundImage: "assets/images/intro6.jpg",
-          backgroundOpacity: 0,
-          backgroundImageFit: BoxFit.fill),
-    );
+    // slides.add(
+    //   new Slide(
+    //       backgroundImage: "assets/images/intro6.jpg",
+    //       backgroundOpacity: 0,
+    //       backgroundImageFit: BoxFit.fill),
+    // );
     slides.add(
       new Slide(
           backgroundImage: "assets/images/intro3.jpg",
           backgroundOpacity: 0,
           backgroundImageFit: BoxFit.fill),
     );
-    slides.add(
-      new Slide(
-          backgroundOpacity: 0,
-          backgroundImage: "assets/images/intro2.jpg",
-          backgroundImageFit: BoxFit.fill),
-    );
+    // slides.add(
+    //   new Slide(
+    //       backgroundOpacity: 0,
+    //       backgroundImage: "assets/images/intro2.jpg",
+    //       backgroundImageFit: BoxFit.fill),
+    // );
     slides.add(
       new Slide(
           backgroundImage: "assets/images/intro1.jpg",
