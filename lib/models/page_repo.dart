@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/post_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -164,4 +165,7 @@ class PageRepository {
   Future<List<ItemDTO>> suggestFromKeyword(String screen , String query) async {
     return await configService.searchItem(screen, query);
   }
+  // Future<List<PostPagingDTO>>userLoadLike(int page, String lastPage  ) async{
+  //   return await configService.
+  // }
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:anylearn/dto/article_dto.dart';
+import 'package:anylearn/dto/post_dto.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -142,4 +143,9 @@ class ConfigServices extends BaseService {
     ];
     return result;
   }
+  // Future<List<PostPagingDTO>>userLoadLike()async{
+  //    final url = buildUrl(appConfig: config, endPoint: ,);
+  //   final json = await get(httpClient, url);
+  //   return json == null ? [] : List<String>.from(json);
+  // }
 }

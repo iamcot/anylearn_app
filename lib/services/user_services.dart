@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:anylearn/dto/action_dto.dart';
+import 'package:anylearn/dto/post_dto.dart';
 import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
@@ -294,6 +296,17 @@ class UserService extends BaseService {
   Future<bool> deleteAccount(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/delete", token: token);
     final json = await get(httpClient, url);
+    return json['result'];
+  }
+  Future<ActionDTO>actionUser(String token)async{
+    final url = buildUrl(appConfig: config, endPoint: ,token: token);
+    final json = await get(httpClient,url);
+    return json['result'];
+   
+  }
+  Future<PostDTO>userPost(String token , int id)async{
+    final url = buildUrl(appConfig: config, endPoint: ,token: token );
+    final json = await get(httpClient,url);
     return json['result'];
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/action_dto.dart';
+import 'package:anylearn/dto/post_dto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -179,5 +181,13 @@ class UserRepository {
 
   Future<bool> deleteAccount(String token) async {
     return await userService.deleteAccount(token);
+  }
+
+  Future<ActionDTO> actionUser(String token) async {
+    return await userService.actionUser(token);
+  }
+
+  Future<PostDTO> userPost(String token , int id) async {
+    return await userService.userPost(token, id);
   }
 }
