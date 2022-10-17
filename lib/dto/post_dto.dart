@@ -45,8 +45,6 @@ class PostDTO {
             : DateTime.parse(json['created_at'] as String),
         comments: List<ActionDTO>.from(json['comments']
             ?.map((e) => e == null ? null : ActionDTO.fromJson(e))).toList(),
-      
-
         likes: List<ActionDTO>.from(json['like']
             ?.map((e) => e == null ? null : ActionDTO.fromJson(e))).toList(),
       );
@@ -61,10 +59,18 @@ class PostPagingDTO extends Equatable {
   final to;
   final total;
 
-  PostPagingDTO({this.currentPage, this.data, this.from, this.lastPage, this.perPage, this.to, this.total});
+  PostPagingDTO(
+      {this.currentPage,
+      this.data,
+      this.from,
+      this.lastPage,
+      this.perPage,
+      this.to,
+      this.total});
 
   @override
-  List<Object> get props => [currentPage, data, from, lastPage, perPage, to, total];
+  List<Object> get props =>
+      [currentPage, data, from, lastPage, perPage, to, total];
 
   @override
   String toString() {
@@ -76,7 +82,9 @@ class PostPagingDTO extends Equatable {
         ? PostPagingDTO()
         : PostPagingDTO(
             currentPage: json['current_page'],
-            data: List<PostPagingDTO>.from(json['data']?.map((v) => v == null ? null : PostPagingDTO.fromJson(v))).toList(),
+            data: List<PostPagingDTO>.from(json['data']
+                    ?.map((v) => v == null ? null : PostPagingDTO.fromJson(v)))
+                .toList(),
             // from: json['from'],
             // to: json['to'],
             perPage: json['per_page'],
@@ -85,4 +93,3 @@ class PostPagingDTO extends Equatable {
           );
   }
 }
-

@@ -58,4 +58,8 @@ class MyConst {
 
   static const ASK_VOTE_LIKE = 'like';
   static const ASK_VOTE_DISLIKE = 'dislike';
+
+  static const POST_TYPE_REGISTERED = 'registered';
+  static const POST_TYPE_FINAL = 'final';
+  static const POST_TYPE_FAVOUR = 'fav';
 }
