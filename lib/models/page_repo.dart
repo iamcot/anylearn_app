@@ -74,7 +74,7 @@ class PageRepository {
   Future<HomeDTO> dataHome(String role, int userId) async {
     HomeDTO homeConfig = await configService.homeLayout(role);
     if (homeConfig.featuresIcons.length == 0) {
-      homeConfig.featuresIcons = defaultHomeFeatures(role, userId)!;
+      homeConfig.featuresIcons = defaultHomeFeatures(role, userId) ?? [];
     }
     return homeConfig;
   }
@@ -107,8 +107,7 @@ class PageRepository {
     return await userService.allFriends(token);
   }
 
-  Future<bool> shareFriends(
-      String token, int id, List<int> friends, bool isALL) async {
+  Future<bool> shareFriends(String token, int id, List<int> friends, bool isALL) async {
     return await userService.shareFriends(token, id, friends, isALL);
   }
 
@@ -144,8 +143,7 @@ class PageRepository {
     return await askService.getThread(askId, token);
   }
 
-  Future<bool> createAsk(int askId, String title, String content,
-      UserDTO userDTO, String type) async {
+  Future<bool> createAsk(int askId, String title, String content, UserDTO userDTO, String type) async {
     return await askService.create(askId, title, content, userDTO, type);
   }
 
@@ -161,7 +159,7 @@ class PageRepository {
     return await configService.searchTags();
   }
 
-  Future<List<ItemDTO>> suggestFromKeyword(String screen , String query) async {
+  Future<List<ItemDTO>> suggestFromKeyword(String screen, String query) async {
     return await configService.searchItem(screen, query);
   }
 }

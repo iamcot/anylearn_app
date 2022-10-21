@@ -52,7 +52,7 @@ class _HomeBody extends State<HomeBody> {
         }
       });
     }
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
 
       if (widget.homeData.config.ignorePopupVersion !=
               widget.homeData.config.popup.version &&

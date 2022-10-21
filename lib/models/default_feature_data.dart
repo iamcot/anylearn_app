@@ -10,11 +10,7 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
   Map<String, List<FeatureDataDTO>> configs = {
     MyConst.ROLE_MEMBER: [
       FeatureDataDTO(
-          icon: MdiIcons.qrcode,
-          title: "Mã giới thiệu".tr(),
-          route: "/qrcode",
-          iconBg: "red",
-          bg: Colors.blue[300]),
+          icon: MdiIcons.qrcode, title: "Mã giới thiệu".tr(), route: "/qrcode", iconBg: "red", bg: Colors.blue[300]),
       FeatureDataDTO(
           icon: MdiIcons.accountGroup,
           title: "Bạn bè".tr(),
@@ -34,18 +30,10 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
           route: "/foundation",
           iconBg: "purple",
           bg: Colors.green[300]),
-      // FeatureDataDTO(icon: Icons.video_label, title: "Xem Để Học", route: "/ask", iconBg: "blue"),
-      // FeatureDataDTO(icon: Icons.chrome_reader_mode, title: "Đọc Để Học", route: "/ask", iconBg: "yellow"),
-      // FeatureDataDTO(icon: Icons.question_answer, title: "Hỏi Để Học", route: "/developing", iconBg: "cyan"),
-      // FeatureDataDTO(icon: MdiIcons.handHeart, title: "Quỹ học bổng", route: "/foundation", iconBg: "pink"),
-    ],
+      ],
     MyConst.ROLE_TEACHER: [
       FeatureDataDTO(
-          icon: MdiIcons.qrcode,
-          title: "Mã giới thiệu".tr(),
-          route: "/qrcode",
-          iconBg: "red",
-          bg: Colors.blue[300]),
+          icon: MdiIcons.qrcode, title: "Mã giới thiệu".tr(), route: "/qrcode", iconBg: "red", bg: Colors.blue[300]),
       FeatureDataDTO(
           icon: MdiIcons.accountGroup,
           title: "Bạn bè".tr(),
@@ -65,18 +53,10 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
           route: "/foundation",
           iconBg: "purple",
           bg: Colors.green[300]),
-      // FeatureDataDTO(icon: Icons.video_label, title: "Xem Để Học", route: "/ask", iconBg: "blue"),
-      // FeatureDataDTO(icon: Icons.chrome_reader_mode, title: "Đọc Để Học", route: "/ask", iconBg: "yellow"),
-      // FeatureDataDTO(icon: Icons.question_answer, title: "Hỏi Để Học", route: "/developing", iconBg: "cyan"),
-      // FeatureDataDTO(icon: MdiIcons.handHeart, title: "Quỹ học bổng", route: "/foundation", iconBg: "pink"),
     ],
     MyConst.ROLE_SCHOOL: [
       FeatureDataDTO(
-          icon: MdiIcons.qrcode,
-          title: "Mã giới thiệu".tr(),
-          route: "/qrcode",
-          iconBg: "red",
-          bg: Colors.blue[300]),
+          icon: MdiIcons.qrcode, title: "Mã giới thiệu".tr(), route: "/qrcode", iconBg: "red", bg: Colors.blue[300]),
       FeatureDataDTO(
           icon: MdiIcons.accountGroup,
           title: "Bạn bè".tr(),
@@ -96,42 +76,25 @@ List<FeatureDataDTO>? defaultHomeFeatures(String role, int userId) {
           route: "/foundation",
           iconBg: "purple",
           bg: Colors.green[300]),
-      // FeatureDataDTO(icon: Icons.video_label, title: "Xem Để Học", route: "/ask", iconBg: "blue"),
-      // FeatureDataDTO(icon: Icons.chrome_reader_mode, title: "Đọc Để Học", route: "/ask", iconBg: "yellow"),
-      // FeatureDataDTO(icon: Icons.question_answer, title: "Hỏi Để Học", route: "/developing", iconBg: "cyan"),
-      // FeatureDataDTO(icon: MdiIcons.handHeart, title: "Quỹ học bổng", route: "/foundation", iconBg: "pink"),
     ],
     MyConst.ROLE_GUEST: [
       FeatureDataDTO(
-          icon: MdiIcons.qrcode,
-          title: "Mã giới thiệu".tr(),
-          route: "/qrcode",
-          iconBg: "red",
-          bg: Colors.blue[300]),
+          icon: MdiIcons.qrcode, title: "Mã giới thiệu".tr(), route: "/qrcode", iconBg: "red", bg: Colors.blue[300]),
       FeatureDataDTO(
           icon: MdiIcons.piggyBank,
           title: "anyFoundation",
           route: "/foundation",
           bg: Colors.green[600],
-          iconBg: "green",
-          routeParam: FriendParamsDTO(userId: userId, level: 1)),
+          iconBg: "green"),
       FeatureDataDTO(
-          icon: MdiIcons.login,
-          title: "Đăng nhập".tr(),
-          route: "/login",
-          iconBg: "orange",
-          bg: Colors.blue[600]),
+          icon: MdiIcons.login, title: "Đăng nhập".tr(), route: "/login", iconBg: "orange", bg: Colors.blue[600]),
       FeatureDataDTO(
           icon: MdiIcons.lockOutline,
           title: "Đăng ký".tr(),
           route: "/register",
           iconBg: "purple",
-          bg: Colors.green[300]),
-      // FeatureDataDTO(icon: Icons.video_label, title: "Xem Để Học", route: "/ask", iconBg: "blue"),
-      // FeatureDataDTO(icon: Icons.chrome_reader_mode, title: "Đọc Để Học", route: "/ask", iconBg: "yellow"),
-      // FeatureDataDTO(icon: Icons.question_answer, title: "Hỏi Để Học", route: "/developing", iconBg: "cyan"),
-      // FeatureDataDTO(icon: MdiIcons.handHeart, title: "Quỹ học bổng", route: "/foundation", iconBg: "pink"),
+          bg: Colors.green[300])
     ],
   };
-  return role != "" ? configs[role] : configs[MyConst.ROLE_MEMBER];
+  return configs.containsKey(role) ? configs[role] : configs[MyConst.ROLE_GUEST];
 }

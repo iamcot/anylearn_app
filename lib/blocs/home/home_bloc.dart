@@ -32,7 +32,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
       }
     } catch (error, trace) {
-      yield HomeFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
+      yield HomeFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error trace \n $trace");
       print(trace.toString());
     }
 
