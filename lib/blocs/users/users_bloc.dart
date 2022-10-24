@@ -7,8 +7,9 @@ import '../../models/page_repo.dart';
 
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
   final PageRepository pageRepository;
-  final UserRepository userRepository;
-  UsersBloc({required this.pageRepository , required this.userRepository}) : super(UsersInitState());
+  UsersBloc({
+    required this.pageRepository,
+  }) : super(UsersInitState());
 
   @override
   UsersState get initialState => UsersInitState();
@@ -29,15 +30,15 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         if (data != null) {
           yield UsersTeacherSuccessState(data: data);
         }
-      } else if (event is UserLoadLikesEvent) {
-        data = await userRepository.userPost(event.page, event.pageSize);
-      } else if (event is UserLoadCommentsEvent){
-        data = await 
-
       }
-       if (data != null) {
-          yield UserLoadLikesSuccessState(likes: data);
-        }
+
+      // else if (event is UserLoadLikesEvent) {
+      //   data = await userRepository.userPost(event.page, event.pageSize);
+      // } else if (event is UserLoadCommentsEvent){
+      //   data = await
+
+      // }
+
       if (data == null) {
         yield UsersLoadFailState(
             error: "Không có thông tin bạn đang tìm kiếm.");

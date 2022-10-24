@@ -61,5 +61,5 @@ class MyConst {
 
   static const POST_TYPE_REGISTERED = 'registered';
   static const POST_TYPE_FINAL = 'final';
-  static const POST_TYPE_FAVOUR = 'fav';
+  static const POST_TYPE_FAV = 'fav';
 }

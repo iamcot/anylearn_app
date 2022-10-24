@@ -1,4 +1,4 @@
-import 'package:anylearn/dto/post_dto.dart';
+import 'package:anylearn/dto/likecomment/post_dto.dart';
 import 'package:anylearn/dto/user_dto.dart';
 
 class ProfileDTO {

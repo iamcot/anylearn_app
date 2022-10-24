@@ -80,7 +80,11 @@ class AccJoinCourseEvent extends AccountEvent {
   final int itemId;
   final int childId;
 
-  AccJoinCourseEvent({required this.token, required this.itemId, required this.scheduleId, required this.childId});
+  AccJoinCourseEvent(
+      {required this.token,
+      required this.itemId,
+      required this.scheduleId,
+      required this.childId});
   @override
   List<Object> get props => [token, itemId, scheduleId, childId];
   @override
@@ -135,7 +139,11 @@ class AccSaveChildrenEvent extends AccountEvent {
   final int id;
   final String dob;
 
-  AccSaveChildrenEvent({required this.token, required this.id, required this.name, required this.dob});
+  AccSaveChildrenEvent(
+      {required this.token,
+      required this.id,
+      required this.name,
+      required this.dob});
   @override
   List<Object> get props => [token, id, name, dob];
   @override
@@ -157,9 +165,96 @@ class AccChangePassEvent extends AccountEvent {
   final String oldPass;
   final String token;
 
-  AccChangePassEvent({required this.newPass, required this.oldPass, required this.token});
+  AccChangePassEvent(
+      {required this.newPass, required this.oldPass, required this.token});
   @override
   List<Object> get props => [token, newPass, oldPass];
   @override
   String toString() => 'AccChangePassEvent';
+}
+
+class AccLikeEvent extends AccountEvent {
+  final UserDTO user;
+  final String type;
+  AccLikeEvent({required this.user, required this.type});
+  List<Object> get props => [user, type];
+  String toString() => 'UserLikeEvent{user: $user, type:$type}';
+}
+
+class AccCommentEvent extends AccountEvent {
+  final UserDTO user;
+  final String type;
+  AccCommentEvent({required this.user, required this.type});
+  List<Object> get props => [user, type];
+  String toString() => 'UserLikeEvent{user: $user, type:$type}';
+}
+
+class AccDisLikeEvent extends AccountEvent {
+  final UserDTO user;
+  final String type;
+  AccDisLikeEvent({required this.user, required this.type});
+  List<Object> get props => [user, type];
+  String toString() => 'UserLikeEvent{user: $user, type:$type}';
+}
+
+class AccShareEvent extends AccountEvent {
+  final UserDTO user;
+  final String type;
+  AccShareEvent({required this.user, required this.type});
+  List<Object> get props => [user, type];
+  String toString() => 'UserLikeEvent{user: $user, type:$type}';
+}
+
+class AccDeleteCommentEvent extends AccountEvent {
+  final UserDTO user;
+
+  const AccDeleteCommentEvent({required this.user});
+
+  @override
+  List<Object> get props => [user];
+
+  @override
+  String toString() => 'AuthDeleteEvent';
+}
+
+class AccLikeCountEvent extends AccountEvent {
+  final int likeCount;
+  const AccLikeCountEvent({required this.likeCount});
+  List<Object> get props => [likeCount];
+  String toString() => 'UserLikeCountEvent';
+}
+
+class AccLoadLikesEvent extends AccountEvent {
+  final int page;
+  final int pageSize;
+
+  AccLoadLikesEvent({this.page = 1, this.pageSize = 9999});
+
+  @override
+  List<Object> get props => [page, pageSize];
+
+  @override
+  String toString() =>
+      'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
+}
+
+class AccLoadCommentsEvent extends AccountEvent {
+  final int page;
+  final int pageSize;
+
+  AccLoadCommentsEvent({this.page = 1, this.pageSize = 9999});
+
+  @override
+  List<Object> get props => [page, pageSize];
+
+  @override
+  String toString() =>
+      'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
+}
+
+class AccPostEvent extends AccountEvent {
+  final int id;
+  AccPostEvent({required this.id});
+  List<Object> get props => [ id];
+  String toString() => 'UserPostEvent { id: $id}';
 }

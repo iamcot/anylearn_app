@@ -1,3 +1,6 @@
+import 'package:anylearn/dto/likecomment/action_dto.dart';
+import 'package:anylearn/dto/likecomment/post_dto.dart';
+import 'package:anylearn/screens/account_profile.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -109,15 +112,15 @@ class AccJoinSuccessState extends AccountState {
 class AccProfileLoadingState extends AccountState {}
 
 class AccProfileSuccessState extends AccountState {
-  final UserDTO user;
+  final UserProfileDTO data;
 
-  AccProfileSuccessState({required this.user});
-
-  @override
-  List<Object> get props => [user];
+  AccProfileSuccessState({required this.data});
 
   @override
-  String toString() => 'AccProfileSuccessState $user';
+  List<Object> get props => [data];
+
+  @override
+  String toString() => 'AccProfileSuccessState';
 }
 
 class AccountFailState extends AccountState {
@@ -207,7 +210,8 @@ class AccChangePassInProgressState extends AccountState {
   final String oldPass;
   final String token;
 
-  AccChangePassInProgressState({required this.token, required this.newPass, required this.oldPass});
+  AccChangePassInProgressState(
+      {required this.token, required this.newPass, required this.oldPass});
   @override
   String toString() => 'AccChangePassInProgressState';
 }
@@ -225,3 +229,53 @@ class AccChangePassFailState extends AccountState {
   @override
   String toString() => '{error: $error}';
 }
+
+class AccLikeSuccessState extends AccountState {}
+
+class AccCommentSuccessState extends AccountState {}
+
+class AccDisLikeSuccessState extends AccountState {}
+
+class AccShareSucccessState extends AccountState {}
+
+class AccDeleteCommentSuccessState extends AccountState {}
+
+class AccLikeCountSuccessState extends AccountState {}
+
+class AccLoadLikesSuccessState extends AccountState {
+  final List<ActionDTO> likes;
+  AccLoadLikesSuccessState({required this.likes}) : assert(likes != null);
+  List<Object> get props => [likes];
+}
+
+class AccLoadCommentsSuccessState extends AccountState {
+  final List<ActionDTO> comments;
+  AccLoadCommentsSuccessState({required this.comments});
+  List<Object> get props => [comments];
+}
+
+class AccLoadLikesFailState extends AccountState {
+  final String error;
+  const AccLoadLikesFailState({required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}
+
+class AccLoadCommentsFailState extends AccountState {
+  final String error;
+  const AccLoadCommentsFailState({required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}
+
+class AccPostSuccessState extends AccountState {
+  final PostDTO data;
+  AccPostSuccessState({required this.data});
+  List<Object> get props => [data];
+}
+
+class AccPostLoadingState extends AccountState {}
