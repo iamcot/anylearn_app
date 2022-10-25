@@ -1,5 +1,3 @@
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +7,7 @@ import '../blocs/home/home_blocs.dart';
 import '../customs/feedback.dart';
 import '../dto/home_dto.dart';
 import '../dto/quote_dto.dart';
+import '../dto/user_dto.dart';
 import '../main.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
@@ -40,12 +39,11 @@ class _HomeScreen extends State<HomeScreen> {
 
   HomeDTO? homeData;
   Future<bool> _willExit() async {
-    return await showDialog(
-        context: context, builder: (context) => new ExitConfirm());
+    return await showDialog(context: context, builder: (context) => new ExitConfirm());
   }
 
   Future checkFirstSeen() async {
-    int version = 11;
+    int version = 12;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int _seen = (prefs.getInt('intro_seen') ?? version);
 
@@ -54,14 +52,12 @@ class _HomeScreen extends State<HomeScreen> {
       setState(() {
         canShowPopup = false;
       });
-      Navigator.of(context)
-          .push(new MaterialPageRoute(builder: (context) => new IntroScreen()));
+      Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new IntroScreen()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
         onWillPop: _willExit,
         child: BlocBuilder<AuthBloc, AuthState>(
@@ -78,14 +74,16 @@ class _HomeScreen extends State<HomeScreen> {
             }
 
             return BlocProvider<HomeBloc>(
-              create: (context) =>
-                  _homeBloc, //..add(LoadHomeEvent(role: _role)),
-              child:
-                  BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+              create: (context) => _homeBloc, //..add(LoadHomeEvent(role: _role)),
+              child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
                 if (state is HomeSuccessState) {
                   homeData = state.data;
-                  _homeBloc
-                    ..add(LoadQuoteEvent(url: homeData?.config.quoteUrl));
+                  _homeBloc..add(LoadQuoteEvent(url: homeData?.config.quoteUrl));
+                }
+                if (state is HomeFailState) {
+                  return Scaffold(
+                    body: Container(alignment: Alignment.center, child: Text(state.error.toString())),
+                  );
                 }
                 return homeData == null
                     ? LoadingScreen()
@@ -109,8 +107,7 @@ class _HomeScreen extends State<HomeScreen> {
                         floatingActionButton: FloatingActionButtonHome(
                           isHome: true,
                         ),
-                        floatingActionButtonLocation:
-                            FloatingActionButtonLocation.startDocked,
+                        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
                         bottomNavigationBar: BottomNav(
                           route: BottomNav.HOME_INDEX,
                         ),
