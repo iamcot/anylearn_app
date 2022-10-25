@@ -33,30 +33,37 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     final _userRepo = RepositoryProvider.of<UserRepository>(context);
     _accountBloc = AccountBloc(userRepository: _userRepo);
     int userId = 0;
-    int postId = 0;
+    // int postId = 0;
     try {
       userId = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
-      postId = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
     } catch (e) {
       if (user.id > 0) {
         userId = user.id;
       }
     }
+
     if (userId == 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         Navigator.of(context).pop();
       });
+    } else {
+      _accountBloc..add(AccProfileEvent(userId: userId));
+      
     }
+    // try {
+    //   postId = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
+    // } catch (e) {
+    //   if (userProfile?.post.data.id > 0) {
+    //     postId = userProfile?.post.data.id;
+    //   }
+    // }
     // if (postId == 0) {
     //   WidgetsBinding.instance.addPostFrameCallback((_) async {
     //     Navigator.of(context).pop();
     //   });
+    // } else {
+    //   _accountBloc..add(AccPostEvent(id: postId));
     // }
-     else {
-      _accountBloc..add(AccProfileEvent(userId: userId));
-      _accountBloc..add(AccPostEvent(id: postId));
-    }
-
     super.didChangeDependencies();
   }
 

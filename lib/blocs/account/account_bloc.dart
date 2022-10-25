@@ -70,7 +70,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       } else if (event is AccPostEvent) {
         yield AccPostLoadingState();
         final data = await userRepository.accPost(event.id);
-        yield AccPostSuccessState(data: data.data);
+        yield AccPostSuccessState(data: data);
       } else if (event is AccLoadDocsEvent) {
         final userDocs = await userRepository.getDocs(event.token);
         yield AccLoadDocsSuccessState(userDocs: userDocs);
@@ -82,9 +82,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         final userDocs =
             await userRepository.removeDoc(event.token, event.fileId);
         yield AccRemoveDocSuccessState(userDocs: userDocs);
-      } else if (event is AccPostEvent) {
-        final userPosts = await userRepository.accPost(event.id);
-        yield AccPostSuccessState(data: userPosts.data);
       }
     } catch (error) {
       yield AccountFailState(error: error.toString());
