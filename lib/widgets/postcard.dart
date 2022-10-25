@@ -1,4 +1,4 @@
-import 'package:anylearn/assettest.dart';
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../blocs/account/account_bloc.dart';
@@ -157,20 +157,16 @@ class _PostCardState extends State<PostCard> {
   Widget postCardHeader() {
     return ListTile(
       leading: CircleAvatar(
-        child: (widget.post.user!.image != "")
-            ? CircleAvatar(
-                backgroundImage:
-                    CachedNetworkImageProvider(widget.post.user!.image),
-                radius: 50,
-              )
-            : Icon(
-                Icons.account_circle,
-                color: Colors.grey,
-              ),
-        // backgroundImage: CachedNetworkXImageProvider(
-        //   widget.post.user!.image),
-        //   radius: 50,
-      ),
+          radius: 50,
+          child: (widget.post.user!.image != "")
+              ? CircleAvatar(
+                  backgroundImage:
+                      CachedNetworkImageProvider(widget.post.user!.image),
+                )
+              : Icon(
+                  Icons.account_circle,
+                  color: Colors.grey,
+                )),
       title: Row(
         children: [
           Text(
@@ -178,7 +174,7 @@ class _PostCardState extends State<PostCard> {
             style: TextStyle(color: Colors.black),
           ),
           SizedBox(width: 10),
-          widget.post.status.isOdd ? Varfied() : SizedBox(),
+          widget.post.status == 1 ? Varfied() : SizedBox(),
         ],
       ),
       subtitle: Row(
