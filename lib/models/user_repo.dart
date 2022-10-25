@@ -187,7 +187,7 @@ class UserRepository {
   //   return await userService.actionUser(token);
   // }
 
-  Future<PostDTO> accPost(int id) async {
-    return await userService.accpost(id);
-  }
+  // Future<PostDTO> accPost(int id) async {
+  //   return await userService.accpost(id);
+  // }
 }
