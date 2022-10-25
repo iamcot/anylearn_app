@@ -9,7 +9,7 @@ import '../blocs/account/account_blocs.dart';
 import '../customs/custom_cached_image.dart';
 import '../dto/const.dart';
 import '../dto/likecomment/post_dto.dart';
-import '../dto/user_dto.dart';
+import '../dto/profile_dto.dart';
 import '../main.dart';
 import '../models/user_repo.dart';
 import '../widgets/bottom_nav.dart';
@@ -26,7 +26,7 @@ class AccountProfileScreen extends StatefulWidget {
 
 class _AccountProfileScreen extends State<AccountProfileScreen> {
   late AccountBloc _accountBloc;
-  UserProfileDTO? userProfile;
+  ProfileDTO? userProfile;
 
   @override
   void didChangeDependencies() {
@@ -48,22 +48,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
       });
     } else {
       _accountBloc..add(AccProfileEvent(userId: userId));
-      
     }
-    // try {
-    //   postId = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
-    // } catch (e) {
-    //   if (userProfile?.post.data.id > 0) {
-    //     postId = userProfile?.post.data.id;
-    //   }
-    // }
-    // if (postId == 0) {
-    //   WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //     Navigator.of(context).pop();
-    //   });
-    // } else {
-    //   _accountBloc..add(AccPostEvent(id: postId));
-    // }
     super.didChangeDependencies();
   }
 
@@ -81,8 +66,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
               actions: [],
             ),
             floatingActionButton: FloatingActionButtonHome(),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.startDocked,
+            floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
             bottomNavigationBar: BottomNav(
               route: BottomNav.PROFILE_INDEX,
             ),
@@ -95,23 +79,23 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                   ],
                 ),
                 Text(
-                  userProfile!.userprofile.name,
+                  userProfile!.profile.name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
                 ),
-                userProfile!.userprofile.role != MyConst.ROLE_SCHOOL
+                userProfile!.profile.role != MyConst.ROLE_SCHOOL
                     ? Text(
-                        userProfile!.userprofile.title,
+                        userProfile!.profile.title,
                         textAlign: TextAlign.center,
                         style: TextStyle(),
                       )
                     : SizedBox(height: 0),
                 Container(
                   padding: EdgeInsets.all(15),
-                  child: Text(userProfile!.userprofile.introduce,
+                  child: Text(userProfile!.profile.introduce,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontStyle: FontStyle.italic,
@@ -119,30 +103,25 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                         color: Colors.blue,
                       )),
                 ),
-                userProfile!.userprofile.role == MyConst.ROLE_SCHOOL &&
-                        userProfile!.userprofile.title != ""
+                userProfile!.profile.role == MyConst.ROLE_SCHOOL && userProfile!.profile.title != ""
                     ?
                     // Container(
                     //     padding: EdgeInsets.only(left: 15, right: 15),
                     //     child: Text.rich(TextSpan(text: "Người đại diện: ", children: [TextSpan(text: user!.title)])))
                     ListTile(
                         dense: true,
-                        contentPadding: EdgeInsets.only(
-                            top: 0, bottom: 0, left: 15, right: 15),
+                        contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
                         leading: Icon(MdiIcons.shieldAccount),
-                        title: Text("Người đại diện: " +
-                                userProfile!.userprofile.title)
-                            .tr(),
+                        title: Text("Người đại diện: " + userProfile!.profile.title).tr(),
                         isThreeLine: false,
                       )
                     : SizedBox(height: 0),
-                userProfile!.userprofile.address != ""
+                userProfile!.profile.address != ""
                     ? ListTile(
                         dense: true,
-                        contentPadding: EdgeInsets.only(
-                            top: 0, bottom: 0, left: 15, right: 15),
+                        contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
                         leading: Icon(MdiIcons.mapMarker),
-                        title: Text(userProfile!.userprofile.address),
+                        title: Text(userProfile!.profile.address),
                         isThreeLine: false,
                       )
                     : SizedBox(height: 0),
@@ -164,86 +143,12 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                   thickness: 1,
                   color: Colors.grey[300],
                 ),
-                // userProfile!.role == MyConst.POST_TYPE_REGISTERED &&
-                //         userProfile!.title != ""
-                //     ?
-                // if(state is AccPostSuccessState){
-                //   userProfile?.post = state.data;
-                //   return
-                // },
-
-                _renderPosts(context, userProfile!.post),
-
+                _renderPosts(context, userProfile!.posts),
                 Divider(
                   thickness: 10,
                   color: Colors.grey[300],
                 ),
-                // userProfile!.role == MyConst.POST_TYPE_FINAL &&
-                //         userProfile!.title != ""
-                //     ?
-
-                // userProfile!.docs == null || userProfile!.docs.length == 0
-                //     ? SizedBox(height: r0)
-                //     : Column(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: <Widget>[
-                //           Divider(),
-                //           Padding(
-                //             padding: const EdgeInsets.only(left: 15, right: 15),
-                //             child: Text(
-                //               "Chứng chỉ",
-                //               style: TextStyle(fontWeight: FontWeight.bold),
-                //             ).tr(),
-                //           )
-                //         ],
-                //       ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 15, right: 15),
-                //   child: userProfile!.docs == null || userProfile!.docs.length == 0
-                //       ? SizedBox(height: 0)
-                //       : UserDocList(userDocs: userProfile!.docs),
-                // ),
-
-                // (userProfile!.registered == null || userProfile!.registered.length == 0)
-                //     ? SizedBox(height: 0)
-                //     : Column(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           // Divider(
-                //           //   thickness: 10,
-                //           // ),
-                //           HotItems(
-                //             hotItems: [HotItemsDTO(title: "Các khoá học đã đăng ký".tr(), list: userProfile!.registered)],
-                //           ),
-                //         ],
-                //       ),
-                // (userProfile!.faved == null || userProfile!.faved.length == 0)
-                //     ? SizedBox(height: 0)
-                //     : Column(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           // Divider(
-                //           //   thickness: 10,
-                //           // ),
-                //           HotItems(
-                //             hotItems: [HotItemsDTO(title: "Các khoá học đang quan tâm".tr(), list: userProfile!.faved)],
-                //           ),
-                //         ],
-                //       ),
-                // (userProfile!.rated == null || userProfile!.rated.length == 0)
-                //     ? SizedBox(height: 0)
-                //     : Column(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           // Divider(
-                //           //   thickness: 10,
-                //           // ),
-                //           HotItems(
-                //             hotItems: [HotItemsDTO(title: "Các khoá học đã đánh giá".tr(), list: userProfile!.rated)],
-                //           ),
-                //         ],
-                //       ),
-                userProfile!.userprofile.fullContent == ""
+                userProfile!.profile.fullContent == ""
                     ? SizedBox(height: 0)
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,7 +159,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           Padding(
                             padding: const EdgeInsets.all(15),
                             child: Html(
-                              data: userProfile!.userprofile.fullContent,
+                              data: userProfile!.profile.fullContent,
                               shrinkWrap: true,
                               onLinkTap: (url, _, __, ___) {
                                 Navigator.of(context).push(MaterialPageRoute(
@@ -277,7 +182,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
 
   Widget _renderPosts(BuildContext context, PostPagingDTO post) {
     List<Widget> list = [];
-    post.data.foreach((PostDTO post) {
+    post.data.forEach((PostDTO post) {
       list.add(PostCard(
         post: post,
       ));
@@ -294,11 +199,9 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
           child: CircleAvatar(
             backgroundColor: Colors.white,
             radius: size / 2,
-            child: (userProfile!.userprofile.image != "")
+            child: (userProfile!.profile.image != "")
                 ? CircleAvatar(
-                    radius: size / 2 - 2.0,
-                    backgroundImage: CachedNetworkImageProvider(
-                        userProfile!.userprofile.image))
+                    radius: size / 2 - 2.0, backgroundImage: CachedNetworkImageProvider(userProfile!.profile.image))
                 : Icon(
                     Icons.account_circle,
                     size: size,
@@ -316,18 +219,9 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
       width: double.infinity,
       alignment: Alignment.bottomRight,
       color: Colors.grey[200],
-      child: userProfile!.userprofile.banner != ""
-          ? CustomCachedImage(url: userProfile!.userprofile.banner)
+      child: userProfile!.profile.banner != ""
+          ? CustomCachedImage(url: userProfile!.profile.banner)
           : SizedBox(height: size),
     );
   }
-}
-
-class UserProfileDTO {
-  final PostPagingDTO post;
-  final UserDTO userprofile;
-  UserProfileDTO({
-    required this.post,
-    required this.userprofile,
-  });
 }
