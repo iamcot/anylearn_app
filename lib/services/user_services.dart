@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:anylearn/dto/likecomment/action_dto.dart';
-import 'package:anylearn/dto/likecomment/post_dto.dart';
+import 'package:anylearn/dto/profile/action_dto.dart';
+import 'package:anylearn/dto/profile/post_dto.dart';
 import 'package:anylearn/dto/picture_dto.dart';
+import 'package:anylearn/dto/profile/profile_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -165,12 +166,6 @@ class UserService extends BaseService {
     final json = await get(httpClient, url);
     return List<ClassRegisteredUserDTO>.from(json?.map(
         (e) => e == null ? null : ClassRegisteredUserDTO.fromJson(e))).toList();
-  }
-
-  Future<UserDTO> getProfile(int userId) async {
-    final url = buildUrl(appConfig: config, endPoint: "/user/profile/$userId");
-    final json = await get(httpClient, url);
-    return UserDTO.fromJson(json);
   }
 
   Future<List<UserDocDTO>> getDocs(String token) async {
@@ -350,30 +345,86 @@ class UserService extends BaseService {
     return json['result'];
   }
 
-  Future<ActionDTO> actionUser(String token) async {
+  Future<bool> actionUser(String token) async {
     // final url = buildUrl(appConfig: config, endPoint: ,token: token);
     // final json = await get(httpClient,url);
 
-    return ActionDTO(
-      actionId: 1,
-      likeCount: 1,
-      type: "1",
-    );
+    return true;
   }
 
-  Future<PostPagingDTO> AccountPost(int id) async {
+  Future<ProfileDTO> getProfile(int userId) async {
+    // final url = buildUrl(appConfig: config, endPoint: "/user/profile/$userId");
+    // final json = await get(httpClient, url);
+    // return UserDTO.fromJson(json);
+    return ProfileDTO(
+        profile: UserDTO(id: 8873, name: "Ngô Hiếu Phát"),
+        posts: PostPagingDTO(
+          currentPage: 1,
+          data: [
+            PostDTO(
+              id: 1,
+              status: 1,
+              title: "Bạn đã đăng ký khóa học ABC",
+              description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
+              user: UserDTO(name: "Ngô Hiếu Phát"),
+              likeCounts: 20,
+              commentCounts: 15765,
+              shareCounts: 13233,
+              // likes: [100],
+              // share: 100,
+            ),
+            PostDTO(
+              id: 2,
+              status: 1,
+              title: "Bạn đã đăng ký khóa học ABC 2",
+              description: "Khóa học ABC 2 là của XYZ, rất bổ ích cho trẻ nhỏ",
+              user: UserDTO(name: "Ngô Hiếu Phát"),
+              likeCounts: 1234,
+              commentCounts: 1323,
+              shareCounts: 1323,
+            ),
+          ],
+        ));
+  }
+
+  Future<PostPagingDTO> accountPost(int id, int page) async {
     // final url = buildUrl(appConfig: config, endPoint: ,token: token );
     // final json = await get(httpClient,url);
 
-    return PostPagingDTO(currentPage: 1, data: [
-      PostDTO(
-        id: 1,
-        status: 1,
-        user: user,
-        title: "da thich khoa hoc",
-        images: '',
-        createdAt: DateTime.now(),
-      )
-    ]);
+    return PostPagingDTO(
+      currentPage: 2,
+      data: [
+        PostDTO(
+          id: 1,
+          status: 1,
+          title: "Bạn đã đăng ký khóa học ABC",
+          description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
+          user: UserDTO(id: 1, name: "Bạn"),
+          comments: [],
+          likeCounts: 2,
+        ),
+        PostDTO(
+          id: 2,
+          status: 1,
+          title: "Bạn đã đăng ký khóa học ABC 2",
+          description: "Khóa học ABC 2 là của XYZ, rất bổ ích cho trẻ nhỏ",
+          user: UserDTO(id: 1, name: "Bạn"),
+          comments: [],
+          likeCounts: 100,
+        ),
+      ],
+    );
+  }
+
+  Future<PostDTO> postContent(int id) async {
+    return PostDTO(
+      id: 1,
+      status: 1,
+      title: "Bạn đã đăng ký khóa học ABC",
+      description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
+      user: UserDTO(id: 1, name: "Bạn"),
+      comments: [],
+      likeCounts: 2,
+    );
   }
 }

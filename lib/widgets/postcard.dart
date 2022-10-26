@@ -1,5 +1,7 @@
 import 'package:anylearn/dto/user_dto.dart';
+import 'package:anylearn/widgets/format.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:intl/intl.dart';
 
 import '../blocs/account/account_bloc.dart';
 import '../blocs/account/account_blocs.dart';
@@ -12,14 +14,14 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../dto/likecomment/post_dto.dart';
+import '../dto/profile/post_dto.dart';
 import 'headerButtonSection.dart';
 import 'varfied.dart';
 
 class PostCard extends StatefulWidget {
   final PostDTO post;
 
-  const PostCard({Key? key, required this.post}) : super(key: key);
+  PostCard({Key? key, required this.post}) : super(key: key);
 
   @override
   State<PostCard> createState() => _PostCardState();
@@ -29,40 +31,46 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Column(
-      children: [
-        postCardHeader(),
-        titleSection(),
-        imageSection(),
-        footerSection(),
-        Divider(
-          thickness: 1,
-          color: Colors.grey[300],
-        ),
-        HeaderButtonSection(
-            buttonOne: headerbutton(
-                buttontext: "Like",
-                buttonicon: Icons.thumb_up_alt_outlined,
-                buttonaction: () {},
-                buttoncolor: Colors.grey),
-            buttonTwo: headerbutton(
-                buttontext: "comment",
-                buttonicon: Icons.mode_comment_outlined,
-                buttonaction: () {},
-                buttoncolor: Colors.grey),
-            buttonThree: headerbutton(
-                buttontext: "share",
-                buttonicon: Icons.share_outlined,
-                buttonaction: () {},
-                buttoncolor: Colors.grey))
-      ],
-    ));
+      child: Column(
+        children: [
+          postCardHeader(),
+          titleSection(),
+          imageSection(),
+          footerSection(),
+          Divider(
+            thickness: 1,
+            color: Colors.grey[300],
+          ),
+          HeaderButtonSection(
+              buttonOne: headerbutton(
+                  buttontext: "Like",
+                  buttonicon: Icons.thumb_up_alt_outlined,
+                  buttonaction: () {},
+                  buttoncolor: Colors.grey),
+              buttonTwo: headerbutton(
+                  buttontext: "comment",
+                  buttonicon: Icons.mode_comment_outlined,
+                  buttonaction: () {},
+                  buttoncolor: Colors.grey),
+              buttonThree: headerbutton(
+                  buttontext: "share",
+                  buttonicon: Icons.share_outlined,
+                  buttonaction: () {},
+                  buttoncolor: Colors.grey)),
+          Divider(
+            thickness: 10,
+            color: Colors.grey[300],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget titleSection() {
     return widget.post.title != null && widget.post.title != ""
         ? Container(
             padding: EdgeInsets.only(bottom: 5, left: 10, right: 10),
+            alignment: Alignment.bottomLeft / 1.2,
             child: Text(
               widget.post.title == null ? "N/A" : widget.post.title.toString(),
               style: TextStyle(
@@ -77,7 +85,11 @@ class _PostCardState extends State<PostCard> {
   Widget imageSection() {
     return Container(
       padding: EdgeInsets.only(top: 5, bottom: 5),
-      child: Image.asset("assets/test/2.png"),
+      child: Image.asset('assets/banners/ask_banner.jpg'),
+      // CachedNetworkImage(
+      //   imageUrl: widget.post.images.toString(),
+      //   fit: BoxFit.cover,
+      // ),
     );
   }
 
@@ -107,14 +119,16 @@ class _PostCardState extends State<PostCard> {
                 SizedBox(
                   width: 1,
                 ),
-                displayText(label: widget.post.likes.toString()),
+                displayText(
+                    label: numberFormat(widget.post.likeCounts!.toInt())),
               ],
             ),
           ),
           Container(
             child: Row(
               children: [
-                displayText(label: widget.post.comments.toString()),
+                displayText(
+                    label: numberFormat(widget.post.commentCounts!.toInt())),
                 SizedBox(
                   width: 5,
                 ),
@@ -122,7 +136,8 @@ class _PostCardState extends State<PostCard> {
                 SizedBox(
                   width: 10,
                 ),
-                displayText(label: widget.post.share.toString()),
+                displayText(
+                    label: numberFormat(widget.post.shareCounts!.toInt())),
                 SizedBox(
                   width: 5,
                 ),
@@ -145,6 +160,30 @@ class _PostCardState extends State<PostCard> {
     );
   }
 
+  String numberFormat(int n) {
+    String num = n.toString();
+    int len = num.length;
+
+    if (n >= 1000 && n < 1000000) {
+      return num.substring(0, len - 3) +
+          '.' +
+          num.substring(len - 3, 1 + (len - 3)) +
+          'k';
+    } else if (n >= 1000000 && n < 1000000000) {
+      return num.substring(0, len - 6) +
+          '.' +
+          num.substring(len - 6, 1 + (len - 6)) +
+          'm';
+    } else if (n > 1000000000) {
+      return num.substring(0, len - 9) +
+          '.' +
+          num.substring(len - 9, 1 + (len - 9)) +
+          'b';
+    } else {
+      return num.toString();
+    }
+  }
+
   Widget displayText({required String label}) {
     return Text(
       label,
@@ -157,20 +196,23 @@ class _PostCardState extends State<PostCard> {
   Widget postCardHeader() {
     return ListTile(
       leading: CircleAvatar(
-          radius: 50,
-          child: (widget.post.user!.image != "")
-              ? CircleAvatar(
-                  backgroundImage:
-                      CachedNetworkImageProvider(widget.post.user!.image),
-                )
-              : Icon(
-                  Icons.account_circle,
-                  color: Colors.grey,
-                )),
+        radius: 22,
+        backgroundColor: Colors.white30,
+        child: (widget.post.user!.image != "")
+            ? CircleAvatar(
+                backgroundImage:
+                    CachedNetworkImageProvider(widget.post.user!.image),
+              )
+            : Icon(
+                Icons.account_circle,
+                color: Colors.grey,
+                size: 56,
+              ),
+      ),
       title: Row(
         children: [
           Text(
-            widget.post.user.toString(),
+            widget.post.user!.name,
             style: TextStyle(color: Colors.black),
           ),
           SizedBox(width: 10),

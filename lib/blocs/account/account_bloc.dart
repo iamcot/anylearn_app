@@ -1,5 +1,3 @@
-import 'package:anylearn/dto/likecomment/post_dto.dart';
-import 'package:anylearn/screens/account_profile.dart';
 import 'package:bloc/bloc.dart';
 
 import '../../dto/friends_dto.dart';
@@ -65,15 +63,13 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         this..add(AccLoadMyCalendarEvent(token: event.token));
       } else if (event is AccProfileEvent) {
         yield AccProfileLoadingState();
-        final user = await userRepository.getProfile(event.userId);
-        yield AccProfileSuccessState(data: user.userId);
-      }
-      //  else if (event is AccPostEvent) {
-      //   yield AccPostLoadingState();
-      //   final data = await userRepository.accPost(event.id);
-      //   yield AccPostSuccessState(data: data);
-      // }
-       else if (event is AccLoadDocsEvent) {
+        final profile = await userRepository.getProfile(event.userId);
+        yield AccProfileSuccessState(data: profile);
+      } else if (event is AccPostEvent) {
+        yield AccPostLoadingState();
+        final data = await userRepository.postContent(event.id);
+        yield AccPostSuccessState(data: data);
+      } else if (event is AccLoadDocsEvent) {
         final userDocs = await userRepository.getDocs(event.token);
         yield AccLoadDocsSuccessState(userDocs: userDocs);
       } else if (event is AccAddDocEvent) {

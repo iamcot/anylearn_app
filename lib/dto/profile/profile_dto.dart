@@ -1,5 +1,5 @@
-import 'likecomment/post_dto.dart';
-import 'user_dto.dart';
+import 'post_dto.dart';
+import '../user_dto.dart';
 
 class ProfileDTO {
   final UserDTO profile ;

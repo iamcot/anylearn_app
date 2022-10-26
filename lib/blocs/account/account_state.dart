@@ -1,11 +1,10 @@
-import 'package:anylearn/dto/likecomment/action_dto.dart';
-import 'package:anylearn/dto/likecomment/post_dto.dart';
-import 'package:anylearn/screens/account_profile.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 import '../../dto/account_calendar_dto.dart';
 import '../../dto/friends_dto.dart';
+import '../../dto/profile/action_dto.dart';
+import '../../dto/profile/post_dto.dart';
+import '../../dto/profile/profile_dto.dart';
 import '../../dto/user_doc_dto.dart';
 import '../../dto/user_dto.dart';
 
@@ -112,7 +111,7 @@ class AccJoinSuccessState extends AccountState {
 class AccProfileLoadingState extends AccountState {}
 
 class AccProfileSuccessState extends AccountState {
-  final UserProfileDTO data;
+  final ProfileDTO data;
 
   AccProfileSuccessState({required this.data});
 

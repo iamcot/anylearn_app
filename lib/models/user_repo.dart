@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:anylearn/dto/likecomment/action_dto.dart';
-import 'package:anylearn/dto/likecomment/post_dto.dart';
+import 'package:anylearn/dto/profile/action_dto.dart';
+import 'package:anylearn/dto/profile/post_dto.dart';
+import 'package:anylearn/dto/profile/profile_dto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -36,8 +37,7 @@ class UserRepository {
     return await userService.getInfoLess(token);
   }
 
-  Future<UserDTO> authenticated(
-      {required String phone, required String password}) async {
+  Future<UserDTO> authenticated({required String phone, required String password}) async {
     return await userService.login(phone, password);
   }
 
@@ -63,8 +63,7 @@ class UserRepository {
     return await storage.read(key: MyConst.AUTH_TOKEN);
   }
 
-  Future<UserDTO> register(String phone, String name, String password,
-      String refcode, String role) async {
+  Future<UserDTO> register(String phone, String name, String password, String refcode, String role) async {
     return await userService.register(phone, name, password, refcode, role);
   }
 
@@ -104,12 +103,11 @@ class UserRepository {
     return userService.joinCourse(token, itemId, childId);
   }
 
-  Future<List<ClassRegisteredUserDTO>> registeredUsers(
-      String token, int itemId) async {
+  Future<List<ClassRegisteredUserDTO>> registeredUsers(String token, int itemId) async {
     return userService.registeredUsers(token, itemId);
   }
 
-  Future<UserDTO> getProfile(int userId) async {
+  Future<ProfileDTO> getProfile(int userId) async {
     return userService.getProfile(userId);
   }
 
@@ -149,8 +147,7 @@ class UserRepository {
     return await userService.signContract(token, contractId);
   }
 
-  Future<int> saveChildren(
-      String token, int id, String name, String dob) async {
+  Future<int> saveChildren(String token, int id, String name, String dob) async {
     return await userService.saveChildren(token, id, name, dob);
   }
 
@@ -166,8 +163,7 @@ class UserRepository {
     return await userService.sentOtp(phone);
   }
 
-  Future<bool> resetOtp(
-      String phone, String otp, String password, String passwordConfirm) async {
+  Future<bool> resetOtp(String phone, String otp, String password, String passwordConfirm) async {
     return await userService.resetOtp(phone, otp, password, passwordConfirm);
   }
 
@@ -187,7 +183,11 @@ class UserRepository {
   //   return await userService.actionUser(token);
   // }
 
-  // Future<PostDTO> accPost(int id) async {
-  //   return await userService.accpost(id);
-  // }
+  Future<PostPagingDTO> accountPost(int id , int page) async {
+    return await userService.accountPost(id , page);
+  }
+
+  Future<PostDTO> postContent(int id) async {
+    return await userService.postContent(id);
+  }
 }

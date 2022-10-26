@@ -1,5 +1,5 @@
-import 'package:anylearn/dto/likecomment/action_dto.dart';
-import 'package:anylearn/dto/likecomment/post_dto.dart';
+import 'package:anylearn/dto/profile/action_dto.dart';
+import 'package:anylearn/dto/profile/post_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
