@@ -1,18 +1,8 @@
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/widgets/format.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:intl/intl.dart';
-
-import '../blocs/account/account_bloc.dart';
-import '../blocs/account/account_blocs.dart';
-import '../blocs/account/account_event.dart';
-import '../models/user_repo.dart';
-import '../screens/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../dto/profile/post_dto.dart';
 import 'headerButtonSection.dart';
