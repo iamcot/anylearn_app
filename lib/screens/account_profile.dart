@@ -197,6 +197,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
   }
 
   Widget _imageBox(double size) {
+    
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
