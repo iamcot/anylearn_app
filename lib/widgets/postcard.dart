@@ -67,20 +67,15 @@ class _PostCardState extends State<PostCard> {
               TextButton.icon(
                 onPressed: () {
                   if (_isLiked) {
+                    _isLiked = false;
                     setState(() {
-                      _isLiked = false;
-
-                      widget.post.likes;
-                      _likeCounts -= 1;
+                      widget.post.likes = (widget.post.likes - 1)!;
                     });
                   } else {
+                    _isLiked = true;
                     setState(() {
-                      _isLiked = true;
-                      widget.post.likes;
-                      _likeCounts += 1;
+                      widget.post.likes = (widget.post.likes + 1)!;
                     });
-
-                    // widget.post.likes = widget.post.likes - 1;
                   }
                 },
                 icon: _isLiked
