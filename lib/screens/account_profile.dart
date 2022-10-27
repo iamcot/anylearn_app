@@ -190,6 +190,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     List<Widget> list = [];
     post.data.forEach((PostDTO post) {
       list.add(PostCard(
+        // type: type,
         post: post,
       ));
     });

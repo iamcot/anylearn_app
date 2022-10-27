@@ -368,7 +368,7 @@ class UserService extends BaseService {
               description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
               user: UserDTO(name: "Ngô Hiếu Phát"),
               likeCounts: 20,
-              commentCounts: 15765,
+              commentCounts: 0,
               shareCounts: 13233,
               // likes: [100],
               // share: 100,

@@ -16,7 +16,7 @@ class PostDTO {
   final UserDTO? user;
   final DateTime? createdAt;
   final List<ActionDTO>? comments;
-  final List<ActionDTO>? likes;
+  late final List<ActionDTO>? likes;
   final List<ActionDTO>? share;
 
   PostDTO({

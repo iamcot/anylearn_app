@@ -1,3 +1,4 @@
+import '../dto/profile/action_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,11 +6,11 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../dto/profile/post_dto.dart';
-import 'headerButtonSection.dart';
 import 'varfied.dart';
 
 class PostCard extends StatefulWidget {
   final PostDTO post;
+  // final ActionDTO type;
 
   PostCard({Key? key, required this.post}) : super(key: key);
 
@@ -18,6 +19,35 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
+  int _likeCounts = 0;
+  bool _isLiked = false;
+  // int get commentCount => widget.post.comments ?? 0;
+  bool _isComment = false;
+  bool _isShared = false;
+  // void initState() {
+  //   super.initState();
+
+  //   _likeCounts = widget.post.likeCounts ?? 0;
+  //   _isLiked = widget.post.likes ?? false;
+  // }
+
+  // @override
+  // void didUpdateWidget(PostCard oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+
+  //   _likeCounts = widget.post.likeCounts ?? 0;
+  //   _isLiked = widget.post.likes ?? false;
+  // }
+  @override
+  void initState() {
+    super.initState();
+    if (widget.post.likes == 1) {
+      setState(() {
+        _isLiked = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,22 +61,78 @@ class _PostCardState extends State<PostCard> {
             thickness: 1,
             color: Colors.grey[300],
           ),
-          HeaderButtonSection(
-              buttonOne: headerbutton(
-                  buttontext: "Like",
-                  buttonicon: Icons.thumb_up_alt_outlined,
-                  buttonaction: () {},
-                  buttoncolor: Colors.grey),
-              buttonTwo: headerbutton(
-                  buttontext: "comment",
-                  buttonicon: Icons.mode_comment_outlined,
-                  buttonaction: () {},
-                  buttoncolor: Colors.grey),
-              buttonThree: headerbutton(
-                  buttontext: "share",
-                  buttonicon: Icons.share_outlined,
-                  buttonaction: () {},
-                  buttoncolor: Colors.grey)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  if (_isLiked) {
+                    setState(() {
+                      _isLiked = false;
+
+                      widget.post.likes;
+                      _likeCounts -= 1;
+                    });
+                  } else {
+                    setState(() {
+                      _isLiked = true;
+                      widget.post.likes;
+                      _likeCounts += 1;
+                    });
+
+                    // widget.post.likes = widget.post.likes - 1;
+                  }
+                },
+                icon: _isLiked
+                    ? Icon(
+                        Icons.thumb_up_alt_outlined,
+                        color: Colors.blue,
+                      )
+                    : Icon(Icons.thumb_up_alt_outlined),
+                label: _isLiked
+                    ? Text(
+                        "Thich",
+                        selectionColor: Colors.grey,
+                      )
+                    : Text("Thich"),
+              ),
+              TextButton.icon(
+                onPressed: () {},
+                icon: _isComment
+                    ? Icon(
+                        Icons.mode_comment_outlined,
+                        // color: Colors.blue,
+                        color: Colors.grey,
+                      )
+                    : Icon(Icons.mode_comment_sharp),
+                label: _isComment
+                    ? Text(
+                        "Binh luan",
+                        selectionColor: Colors.grey,
+                      )
+                    : Text("Binh Luan"),
+              ),
+              TextButton.icon(
+                onPressed: () {},
+                icon: _isShared
+                    ? Icon(
+                        Icons.screen_share_outlined,
+                        // color: Colors.blue,
+                        color: Colors.grey,
+                      )
+                    : Icon(
+                        Icons.screen_share_outlined,
+                        // color: Colors.grey,
+                      ),
+                label: _isShared
+                    ? Text(
+                        "chia se",
+                        selectionColor: Colors.grey,
+                      )
+                    : Text("Chia se"),
+              ),
+            ],
+          ),
           Divider(
             thickness: 10,
             color: Colors.grey[300],
@@ -65,7 +151,7 @@ class _PostCardState extends State<PostCard> {
               widget.post.title == null ? "N/A" : widget.post.title.toString(),
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 14,
+                fontSize: 17,
               ),
             ),
           )
@@ -107,7 +193,7 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
                 SizedBox(
-                  width: 1,
+                  width: 4,
                 ),
                 displayText(
                     label: numberFormat(widget.post.likeCounts!.toInt())),
@@ -233,4 +319,12 @@ class _PostCardState extends State<PostCard> {
       ),
     );
   }
+}
+
+Future<void> updateLikes({String? id, int? value}) async {
+  var brewCollection;
+  var FieldValue;
+  return await brewCollection
+      .document(id)
+      .updateData({'likes': FieldValue.increment(value)});
 }
