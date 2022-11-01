@@ -1,15 +1,18 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:http/http.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../blocs/account/account_blocs.dart';
 import '../customs/custom_cached_image.dart';
 import '../dto/const.dart';
-import '../dto/profile/post_dto.dart';
-import '../dto/profile/profile_dto.dart';
+import '../dto/profilelikecmt/post_dto.dart';
+import '../dto/profilelikecmt/profile_dto.dart';
 import '../main.dart';
 import '../models/user_repo.dart';
 import '../widgets/bottom_nav.dart';
@@ -27,6 +30,35 @@ class AccountProfileScreen extends StatefulWidget {
 class _AccountProfileScreen extends State<AccountProfileScreen> {
   late AccountBloc _accountBloc;
   ProfileDTO? userProfile;
+  late ScrollController _scrollController;
+  late double _scrollPosition;
+  int page = 1;
+
+  _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      setState(() {
+        _scrollPosition = 0;
+      });
+    }
+
+    if (_scrollController.offset <=
+            _scrollController.position.minScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      setState(() {
+        page += 1;
+      });
+      _accountBloc..add(AccPageProfileLoadEvent(page: page));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+  }
 
   @override
   void didChangeDependencies() {
@@ -34,20 +66,33 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     _accountBloc = AccountBloc(userRepository: _userRepo);
     int userId = 0;
     // int postId = 0;
+    // int? postId = 0;
     try {
       userId = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
+      // postId = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
     } catch (e) {
       if (user.id > 0) {
         userId = user.id;
       }
+      // if (userProfile?.posts.data != 0) {
+      //   postId = userProfile?.posts.data.length;
+      // }
     }
 
     if (userId == 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         Navigator.of(context).pop();
       });
-    } else {
+    }
+    // if (postId == 0){
+    //     WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //     Navigator.of(context).pop();
+    //     }
+    //     );
+    // }
+    else {
       _accountBloc..add(AccProfileEvent(userId: userId));
+      // _accountBloc..add(AccPageProfileLoadEvent(id: postId  , page: page  ));
     }
     super.didChangeDependencies();
   }
@@ -149,36 +194,62 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                 //   thickness: 1,
                 //   color: Colors.grey[300],
                 // ),
+                // Container(
+                //   child: ListView.builder(
+                //     controller: _scrollController,
+                //     itemBuilder: ((context, index) {
+                //       return
+                // ListView.builder(
+                //   itemBuilder: (context, index) {
+                //     return _renderPosts(context, userProfile!.posts);
+                //   },
+                //   controller: _scrollController,
+                // )
                 _renderPosts(context, userProfile!.posts),
+                //     }),
+                //     // itemCount: 100,
+                //   ),
+                // ),
+
                 // Divider(
                 //   thickness: 10,
                 //   color: Colors.grey[300],
                 // ),
-                userProfile!.profile.fullContent == ""
-                    ? SizedBox(height: 0)
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Divider(
-                            thickness: 10,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Html(
-                              data: userProfile!.profile.fullContent,
-                              shrinkWrap: true,
-                              onLinkTap: (url, _, __, ___) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => WebviewScreen(
-                                          url: url!,
-                                        )));
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                // userProfile!.profile.fullContent == ""
+                //     ? SizedBox(height: 0)
+                //     : Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           Divider(
+                //             thickness: 10,
+                //           ),
+                //           Padding(
+                //             padding: const EdgeInsets.all(15),
+                //             child: Html(
+                //               data: userProfile!.profile.fullContent,
+                //               shrinkWrap: true,
+                //               onLinkTap: (url, _, __, ___) {
+                //                 Navigator.of(context).push(MaterialPageRoute(
+                //                     builder: (context) => WebviewScreen(
+                //                           url: url!,
+                //                         )));
+                //               },
+                //             ),
+                //           ),
+                //         ],
+                //       ),
               ],
             ),
+          );
+        }
+        if (state is AccPageProfileLoadingSuccessState) {
+          userProfile!.posts.currentPage = state.data;
+          return Container(
+            child: ListView.builder(
+                controller: _scrollController,
+                itemBuilder: ((context, index) {
+                  return _renderPosts(context, userProfile!.posts);
+                })),
           );
         }
         return LoadingWidget();
@@ -198,7 +269,6 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
   }
 
   Widget _imageBox(double size) {
-    
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
