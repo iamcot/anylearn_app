@@ -260,12 +260,13 @@ class AccPostEvent extends AccountEvent {
 }
 
 class AccPageProfileLoadEvent extends AccountEvent {
-  final int page;
+  int page;
+  int id;
 
-  AccPageProfileLoadEvent({required this.page});
+  AccPageProfileLoadEvent({required this.page, required this.id});
   @override
-  List<Object> get props => [ page];
+  List<Object> get props => [page, id];
 
   @override
-  String toString() => 'AccPageProfileLoadEvent  {  page: $page }';
+  String toString() => 'AccPageProfileLoadEvent  {  page: $page , id: $id}';
 }

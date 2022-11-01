@@ -183,8 +183,8 @@ class UserRepository {
   //   return await userService.actionUser(token);
   // }
 
-  Future<PostPagingDTO> accountPost( int page) async {
-    return await userService.accountPost( page);
+  Future<PostPagingDTO> accountPost( int id ,int page) async {
+    return await userService.accountPost( page,id);
   }
 
   Future<PostDTO> postContent(int id) async {

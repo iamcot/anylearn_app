@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 import '../../dto/friends_dto.dart';
 import '../../models/user_repo.dart';
@@ -8,6 +9,23 @@ import 'account_state.dart';
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final UserRepository userRepository;
   AccountBloc({required this.userRepository}) : super(AccountInitState());
+
+  final scrollController = ScrollController();
+
+  _scrollListener() {
+    if (scrollController.hasClients) {
+      if (scrollController.offset >=
+              scrollController.position.maxScrollExtent &&
+          !scrollController.position.outOfRange) {
+        debugPrint("reach the bottom");
+      }
+      if (scrollController.offset <=
+              scrollController.position.minScrollExtent &&
+          !scrollController.position.outOfRange) {
+        debugPrint("reach the top");
+      }
+    }
+  }
 
   @override
   AccountState get initialState => AccountInitState();
@@ -67,8 +85,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         yield AccProfileSuccessState(data: profile);
       } else if (event is AccPageProfileLoadEvent) {
         yield AccPageProfileLoadingState();
-        final page =
-            await userRepository.accountPost( event.page);
+        final page = await userRepository.accountPost(event.page,event.id);
         yield AccPageProfileLoadingSuccessState(data: page);
       } else if (event is AccPostEvent) {
         yield AccPostLoadingState();

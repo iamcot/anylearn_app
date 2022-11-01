@@ -25,44 +25,43 @@ class AccountProfileScreen extends StatefulWidget {
 class _AccountProfileScreen extends State<AccountProfileScreen> {
   late AccountBloc _accountBloc;
   ProfileDTO? userProfile;
-  ScrollController _scrollController = ScrollController();
+  // ScrollController _scrollController = ScrollController();
   late double _scrollPosition;
   int page = 1;
-  _scrollListener() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        if (_scrollController.offset >=
-                _scrollController.position.maxScrollExtent &&
-            !_scrollController.position.outOfRange) {
-          setState(() {
-            debugPrint("reach the bottom");
-          });
-        }
-        if (_scrollController.offset <=
-                _scrollController.position.minScrollExtent &&
-            !_scrollController.position.outOfRange) {
-          setState(() {
-            debugPrint("reach the top");
-          });
-        }
-      }
-      _accountBloc..add(AccPageProfileLoadEvent(page: page));
-    });
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListener);
-    page += 1;
-    _scrollPosition = 0;
+  _scrollListener() {
+    // SchedulerBinding.instance.addPostFrameCallback((_) {
+    if (_accountBloc.scrollController.hasClients) {
+      if (_accountBloc.scrollController.offset >=
+              _accountBloc.scrollController.position.maxScrollExtent &&
+          !_accountBloc.scrollController.position.outOfRange) {
+        // setState(() {
+        debugPrint("reach the bottom");
+        _accountBloc
+          ..add(AccPageProfileLoadEvent(
+              page: page, id: userProfile!.posts.data.length));
+        page += 1;
+        // });
+      }
+      if (_accountBloc.scrollController.offset <=
+              _accountBloc.scrollController.position.minScrollExtent &&
+          !_accountBloc.scrollController.position.outOfRange) {
+        // setState(() {
+        debugPrint("reach the top");
+        _scrollPosition = 0;
+
+        // });
+      }
+    }
+    //   // _accountBloc..add(AccPageProfileLoadEvent(page: page));
+    // });
   }
 
   @override
   void didChangeDependencies() {
     final _userRepo = RepositoryProvider.of<UserRepository>(context);
     _accountBloc = AccountBloc(userRepository: _userRepo);
+    _accountBloc.scrollController.addListener(_scrollListener);
     int userId = 0;
     // int postId = 0;
     // int? postId = 0;
@@ -116,6 +115,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
               route: BottomNav.PROFILE_INDEX,
             ),
             body: ListView(
+              controller: _accountBloc.scrollController,
               children: [
                 Stack(
                   children: [
@@ -245,8 +245,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
           userProfile!.posts = state.data;
           return Container(
             child: ListView.builder(
-                controller: _scrollController,
-                itemCount: userProfile!.posts.data.length,
+                itemCount: userProfile!.posts.currentPage.length,
                 itemBuilder: ((context, index) {
                   return _renderPosts(context, userProfile!.posts);
                 })),

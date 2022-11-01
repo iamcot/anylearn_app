@@ -387,7 +387,7 @@ class UserService extends BaseService {
         ));
   }
 
-  Future<PostPagingDTO> accountPost( int page) async {
+  Future<PostPagingDTO> accountPost( int id ,int page) async {
     // final url = buildUrl(appConfig: config, endPoint: ,token: token );
     // final json = await get(httpClient,url);
 
