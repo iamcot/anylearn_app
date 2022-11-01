@@ -1,15 +1,17 @@
-import '../dto/profile/action_dto.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+import '../dto/profilelikecmt/action_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../dto/profile/post_dto.dart';
+import '../dto/profilelikecmt/post_dto.dart';
 import 'varfied.dart';
 
 class PostCard extends StatefulWidget {
-  final PostDTO post;
+  PostDTO post;
   // final ActionDTO type;
 
   PostCard({Key? key, required this.post}) : super(key: key);
@@ -18,35 +20,10 @@ class PostCard extends StatefulWidget {
   State<PostCard> createState() => _PostCardState();
 }
 
-class _PostCardState extends State<PostCard> {
-  int _likeCounts = 0;
-  bool _isLiked = false;
-  // int get commentCount => widget.post.comments ?? 0;
-  bool _isComment = false;
-  bool _isShared = false;
-  // void initState() {
-  //   super.initState();
-
-  //   _likeCounts = widget.post.likeCounts ?? 0;
-  //   _isLiked = widget.post.likes ?? false;
-  // }
-
-  // @override
-  // void didUpdateWidget(PostCard oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-
-  //   _likeCounts = widget.post.likeCounts ?? 0;
-  //   _isLiked = widget.post.likes ?? false;
-  // }
-  @override
-  void initState() {
-    super.initState();
-    if (widget.post.likes == 1) {
-      setState(() {
-        _isLiked = true;
-      });
-    }
-  }
+class _PostCardState extends State<PostCard>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+      duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
 
   @override
   Widget build(BuildContext context) {
@@ -65,67 +42,60 @@ class _PostCardState extends State<PostCard> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton.icon(
-                onPressed: () {
-                  if (_isLiked) {
-                    _isLiked = false;
-                    setState(() {
-                      widget.post.likes = (widget.post.likes - 1)!;
-                    });
-                  } else {
-                    _isLiked = true;
-                    setState(() {
-                      widget.post.likes = (widget.post.likes + 1)!;
-                    });
-                  }
-                },
-                icon: _isLiked
-                    ? Icon(
-                        Icons.thumb_up_alt_outlined,
-                        color: Colors.blue,
-                      )
-                    : Icon(Icons.thumb_up_alt_outlined),
-                label: _isLiked
-                    ? Text(
-                        "Thich",
-                        selectionColor: Colors.grey,
-                      )
-                    : Text("Thich"),
-              ),
+                  onPressed: () {
+                    print("nhan like ne");
+                    if (widget.post.isLiked) {
+                      setState(() {
+                        widget.post.isLiked = false;
+                        widget.post.likeCounts -= 1;
+                      });
+                    } else {
+                      setState(() {
+                        widget.post.isLiked = true;
+                        widget.post.likeCounts += 1;
+                      });
+                      _controller
+                          .reverse()
+                          .then((value) => _controller.forward());
+                    }
+                  },
+                  // onPressed: () {
+                  //   setState(()  {
+                  //     _isLiked = !_isLiked;
+                  //   });
+                  //   _controller
+                  //       .reverse()
+                  //       .then((value) => _controller.forward());
+                  // },
+                  icon: widget.post.isLiked
+                      ? Icon(
+                          Icons.thumb_up_alt_outlined,
+                          color: Colors.blue,
+                        )
+                      : Icon(Icons.thumb_up_alt_outlined, color: Colors.grey),
+                  label: widget.post.isLiked
+                      ? Text("Thích".tr(), style: TextStyle(color: Colors.blue))
+                      : Text(
+                          "Thích".tr(),
+                          style: TextStyle(color: Colors.grey),
+                        )),
               TextButton.icon(
-                onPressed: () {},
-                icon: _isComment
-                    ? Icon(
-                        Icons.mode_comment_outlined,
-                        // color: Colors.blue,
-                        color: Colors.grey,
-                      )
-                    : Icon(Icons.mode_comment_sharp),
-                label: _isComment
-                    ? Text(
-                        "Binh luan",
-                        selectionColor: Colors.grey,
-                      )
-                    : Text("Binh Luan"),
-              ),
+                  onPressed: () {},
+                  icon: Icon(Icons.mode_comment_sharp, color: Colors.grey),
+                  label: Text(
+                    "Bình Luận".tr(),
+                    style: TextStyle(color: Colors.grey),
+                  )),
               TextButton.icon(
-                onPressed: () {},
-                icon: _isShared
-                    ? Icon(
-                        Icons.screen_share_outlined,
-                        // color: Colors.blue,
-                        color: Colors.grey,
-                      )
-                    : Icon(
-                        Icons.screen_share_outlined,
-                        // color: Colors.grey,
-                      ),
-                label: _isShared
-                    ? Text(
-                        "chia se",
-                        selectionColor: Colors.grey,
-                      )
-                    : Text("Chia se"),
-              ),
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.screen_share_outlined,
+                    color: Colors.grey,
+                  ),
+                  label: Text(
+                    "Chia sẻ".tr(),
+                    style: TextStyle(color: Colors.grey),
+                  )),
             ],
           ),
           Divider(
@@ -191,41 +161,56 @@ class _PostCardState extends State<PostCard> {
                   width: 4,
                 ),
                 displayText(
-                    label: numberFormat(widget.post.likeCounts!.toInt())),
+                    label: numberFormat(widget.post.likeCounts.toInt())),
               ],
             ),
           ),
-          Container(
-            child: Row(
-              children: [
-                displayText(
-                    label: numberFormat(widget.post.commentCounts!.toInt())),
-                SizedBox(
-                  width: 5,
-                ),
-                displayText(label: "Comments"),
-                SizedBox(
-                  width: 10,
-                ),
-                displayText(
-                    label: numberFormat(widget.post.shareCounts!.toInt())),
-                SizedBox(
-                  width: 5,
-                ),
-                displayText(label: "Share"),
-                // CircleAvatar(
-                //   radius: 50,
-                // ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.grey[700],
+          SizedBox(
+            width: 50,
+          ),
+          widget.post.commentCounts == 0
+              ? Container()
+              : Container(
+                  child: Row(
+                    children: [
+                      displayText(
+                          label:
+                              numberFormat(widget.post.commentCounts.toInt())),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      displayText(label: "Comments"),
+
+                      // CircleAvatar(
+                      //   radius: 50,
+                      // ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
+          // SizedBox(
+          //   width: 50,
+          // ),
+          widget.post.shareCounts == 0
+              ? Container()
+              : Container(
+                  child: Row(
+                    children: [
+                      displayText(
+                          label: numberFormat(widget.post.shareCounts.toInt())),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      displayText(label: "Share"),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
         ],
       ),
     );

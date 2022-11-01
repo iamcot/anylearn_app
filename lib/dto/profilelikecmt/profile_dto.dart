@@ -3,7 +3,7 @@ import '../user_dto.dart';
 
 class ProfileDTO {
   final UserDTO profile ;
-  final PostPagingDTO posts;
+  late final PostPagingDTO posts;
 
   @override
   List<Object> get props => [profile, posts];

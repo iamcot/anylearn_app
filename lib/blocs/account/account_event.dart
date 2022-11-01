@@ -255,6 +255,17 @@ class AccLoadCommentsEvent extends AccountEvent {
 class AccPostEvent extends AccountEvent {
   final int id;
   AccPostEvent({required this.id});
-  List<Object> get props => [ id];
+  List<Object> get props => [id];
   String toString() => 'UserPostEvent { id: $id}';
+}
+
+class AccPageProfileLoadEvent extends AccountEvent {
+  final int page;
+
+  AccPageProfileLoadEvent({required this.page});
+  @override
+  List<Object> get props => [ page];
+
+  @override
+  String toString() => 'AccPageProfileLoadEvent  {  page: $page }';
 }

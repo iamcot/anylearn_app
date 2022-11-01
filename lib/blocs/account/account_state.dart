@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 
 import '../../dto/account_calendar_dto.dart';
 import '../../dto/friends_dto.dart';
-import '../../dto/profile/action_dto.dart';
-import '../../dto/profile/post_dto.dart';
-import '../../dto/profile/profile_dto.dart';
+import '../../dto/profilelikecmt/action_dto.dart';
+import '../../dto/profilelikecmt/post_dto.dart';
+import '../../dto/profilelikecmt/profile_dto.dart';
 import '../../dto/user_doc_dto.dart';
 import '../../dto/user_dto.dart';
 
@@ -278,3 +278,11 @@ class AccPostSuccessState extends AccountState {
 }
 
 class AccPostLoadingState extends AccountState {}
+
+class AccPageProfileLoadingState extends AccountState {}
+
+class AccPageProfileLoadingSuccessState extends AccountState {
+  final PostPagingDTO data;
+  AccPageProfileLoadingSuccessState({required this.data});
+  List<Object> get props => [data];
+}

@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:anylearn/dto/profile/action_dto.dart';
-import 'package:anylearn/dto/profile/post_dto.dart';
+import 'package:anylearn/dto/profilelikecmt/action_dto.dart';
+import 'package:anylearn/dto/profilelikecmt/post_dto.dart';
 import 'package:anylearn/dto/picture_dto.dart';
-import 'package:anylearn/dto/profile/profile_dto.dart';
+import 'package:anylearn/dto/profilelikecmt/profile_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -368,8 +368,8 @@ class UserService extends BaseService {
               description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
               user: UserDTO(name: "Ngô Hiếu Phát"),
               likeCounts: 20,
-              commentCounts: 0,
-              shareCounts: 13233,
+              commentCounts: 100,
+              shareCounts: 0,
               // likes: [100],
               // share: 100,
             ),
@@ -387,7 +387,7 @@ class UserService extends BaseService {
         ));
   }
 
-  Future<PostPagingDTO> accountPost(int id, int page) async {
+  Future<PostPagingDTO> accountPost( int page) async {
     // final url = buildUrl(appConfig: config, endPoint: ,token: token );
     // final json = await get(httpClient,url);
 

@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:anylearn/dto/profile/action_dto.dart';
-import 'package:anylearn/dto/profile/post_dto.dart';
-import 'package:anylearn/dto/profile/profile_dto.dart';
+import 'package:anylearn/dto/profilelikecmt/action_dto.dart';
+import 'package:anylearn/dto/profilelikecmt/post_dto.dart';
+import 'package:anylearn/dto/profilelikecmt/profile_dto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -183,8 +183,8 @@ class UserRepository {
   //   return await userService.actionUser(token);
   // }
 
-  Future<PostPagingDTO> accountPost(int id , int page) async {
-    return await userService.accountPost(id , page);
+  Future<PostPagingDTO> accountPost( int page) async {
+    return await userService.accountPost( page);
   }
 
   Future<PostDTO> postContent(int id) async {
