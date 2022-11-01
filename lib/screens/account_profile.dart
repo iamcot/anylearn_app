@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:http/http.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../blocs/account/account_blocs.dart';
@@ -19,8 +16,6 @@ import '../widgets/bottom_nav.dart';
 import '../widgets/fab_home.dart';
 import '../widgets/loading_widget.dart';
 import '../widgets/postcard.dart';
-import '../widgets/statusSection.dart';
-import 'webview.dart';
 
 class AccountProfileScreen extends StatefulWidget {
   @override
@@ -30,27 +25,29 @@ class AccountProfileScreen extends StatefulWidget {
 class _AccountProfileScreen extends State<AccountProfileScreen> {
   late AccountBloc _accountBloc;
   ProfileDTO? userProfile;
-  late ScrollController _scrollController;
+  ScrollController _scrollController = ScrollController();
   late double _scrollPosition;
   int page = 1;
-
   _scrollListener() {
-    if (_scrollController.offset >=
-            _scrollController.position.maxScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      setState(() {
-        _scrollPosition = 0;
-      });
-    }
-
-    if (_scrollController.offset <=
-            _scrollController.position.minScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      setState(() {
-        page += 1;
-      });
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        if (_scrollController.offset >=
+                _scrollController.position.maxScrollExtent &&
+            !_scrollController.position.outOfRange) {
+          setState(() {
+            debugPrint("reach the bottom");
+          });
+        }
+        if (_scrollController.offset <=
+                _scrollController.position.minScrollExtent &&
+            !_scrollController.position.outOfRange) {
+          setState(() {
+            debugPrint("reach the top");
+          });
+        }
+      }
       _accountBloc..add(AccPageProfileLoadEvent(page: page));
-    }
+    });
   }
 
   @override
@@ -58,6 +55,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
+    page += 1;
+    _scrollPosition = 0;
   }
 
   @override
@@ -243,10 +242,11 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
           );
         }
         if (state is AccPageProfileLoadingSuccessState) {
-          userProfile!.posts.currentPage = state.data;
+          userProfile!.posts = state.data;
           return Container(
             child: ListView.builder(
                 controller: _scrollController,
+                itemCount: userProfile!.posts.data.length,
                 itemBuilder: ((context, index) {
                   return _renderPosts(context, userProfile!.posts);
                 })),
