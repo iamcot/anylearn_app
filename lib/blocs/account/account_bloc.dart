@@ -83,7 +83,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         yield AccProfileLoadingState();
         final profile =
             await userRepository.getProfile(event.userId ,event.page);
-        yield AccProfileSuccessState(data: profile);
+        yield AccProfileLoadSuccessState(data: profile);
       }
       //  else if (event is AccPageProfileLoadEvent) {
       //   yield AccPageProfileLoadingState();

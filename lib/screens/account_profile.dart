@@ -40,9 +40,9 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
         page += 1;
 
         print("reach the bottom");
-        // _accountBloc
-        //   ..add(
-        //       AccProfileEvent(userId: userProfile!.profile.userId, page: page));
+        _accountBloc
+          ..add(
+              AccProfileEvent(userId: user.userId, page: page));
       }
     }
   }
@@ -51,7 +51,6 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
-    _scrollPosition = 0;
   }
 
   @override
@@ -73,7 +72,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
         Navigator.of(context).pop();
       });
     } else {
-      _accountBloc..add(AccProfileEvent(userId: userId , page: page));
+      _accountBloc..add(AccProfileEvent(userId: userId, page: page));
     }
     super.didChangeDependencies();
   }
@@ -84,8 +83,12 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     return BlocBuilder<AccountBloc, AccountState>(
         bloc: _accountBloc,
         builder: (context, state) {
-          if (state is AccProfileSuccessState) {
-            userProfile = state.data;
+          if (state is AccProfileLoadSuccessState) {
+            if (page < 2) {
+              userProfile = state.data;
+            } else {
+              // userProfile!.posts.data += state.profile;
+            }
             return Scaffold(
                 appBar: AppBar(
                   actions: [],

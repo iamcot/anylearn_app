@@ -108,18 +108,28 @@ class AccJoinSuccessState extends AccountState {
   String toString() => 'AccJoinSuccessState $itemId';
 }
 
+class AccProfileInitState extends AccountState {}
+
 class AccProfileLoadingState extends AccountState {}
 
-class AccProfileSuccessState extends AccountState {
-  final ProfileDTO data;
+class AccProfileLoadSuccessState extends AccountState {
+  ProfileDTO data;
 
-  AccProfileSuccessState({required this.data});
+  AccProfileLoadSuccessState({required this.data});
 
   @override
   List<Object> get props => [data];
 
+
+}
+
+class AccProfileFailState extends AccountState {
+  final String error;
+  const AccProfileFailState({required this.error});
   @override
-  String toString() => 'AccProfileSuccessState';
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
 }
 
 class AccountFailState extends AccountState {

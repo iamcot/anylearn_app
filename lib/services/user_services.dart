@@ -356,7 +356,7 @@ class UserService extends BaseService {
     final url =
         buildUrl(appConfig: config, endPoint: "/social/profile/$userId");
     final json = await get(httpClient, url);
-    return json['result'];
+    return json[""];
   }
   // if (page == 0) {
   //     return ProfileDTO(

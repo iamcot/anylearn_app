@@ -2,8 +2,8 @@ import 'post_dto.dart';
 import '../user_dto.dart';
 
 class ProfileDTO {
-  UserDTO profile;
-  PostPagingDTO posts;
+  final UserDTO profile;
+  final PostPagingDTO posts;
 
   @override
   List<Object> get props => [profile, posts];
@@ -13,4 +13,5 @@ class ProfileDTO {
         profile: json['profile'] = UserDTO.fromJson(json['profile']),
         posts: json['posts'] = PostPagingDTO.fromJson(json['posts']),
       );
+    
 }
