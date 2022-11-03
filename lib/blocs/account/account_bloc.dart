@@ -81,8 +81,10 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         this..add(AccLoadMyCalendarEvent(token: event.token));
       } else if (event is AccProfileEvent) {
         yield AccProfileLoadingState();
+
         final profile =
-            await userRepository.getProfile(event.userId ,event.page);
+            await userRepository.getProfile(event.userId, event.page);
+        print(profile.profile);
         yield AccProfileLoadSuccessState(data: profile);
       }
       //  else if (event is AccPageProfileLoadEvent) {

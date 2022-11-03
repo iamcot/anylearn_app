@@ -98,7 +98,7 @@ class AccProfileEvent extends AccountEvent {
   @override
   List<Object> get props => [userId, page];
   @override
-  String toString() => 'AccProfileEvent';
+  String toString() => 'AccProfileEvent $page';
 }
 
 class AccLoadDocsEvent extends AccountEvent {

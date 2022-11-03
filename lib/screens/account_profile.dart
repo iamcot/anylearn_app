@@ -40,9 +40,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
         page += 1;
 
         print("reach the bottom");
-        _accountBloc
-          ..add(
-              AccProfileEvent(userId: user.userId, page: page));
+        _accountBloc..add(AccProfileEvent(userId: user.userId, page: page));
       }
     }
   }
@@ -84,11 +82,13 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
         bloc: _accountBloc,
         builder: (context, state) {
           if (state is AccProfileLoadSuccessState) {
-            if (page < 2) {
-              userProfile = state.data;
-            } else {
-              // userProfile!.posts.data += state.profile;
-            }
+            // if (page < 2) {
+            userProfile = state.data;
+          
+
+            // } else {
+            //   // userProfile!.posts.data += state.profile;
+            // }
             return Scaffold(
                 appBar: AppBar(
                   actions: [],
@@ -101,10 +101,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                 ),
                 body: ListView(
                   controller: _scrollController,
-
-                  // controller: _scrollController,
                   children: [
-                    new Column(
+                    Column(
                       children: [
                         Stack(
                           children: [
@@ -164,37 +162,39 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           thickness: 10,
                           color: Colors.grey[300],
                         ),
-                        userProfile!.posts.data == MyConst.TYPE_CLASS_REGISTER
+                        userProfile?.posts.data[0] ==
+                                MyConst.TYPE_CLASS_REGISTER
                             ? Container(
                                 child:
                                     _renderPosts(context, userProfile!.posts),
                               )
                             : SizedBox(height: 0),
-                        userProfile!.posts.data == MyConst.TYPE_CLASS_FAV
+                        userProfile?.posts.data[1] == MyConst.TYPE_CLASS_FAV
                             ? Container(
                                 child:
                                     _renderPosts(context, userProfile!.posts),
                               )
                             : SizedBox(height: 0),
-                        userProfile!.posts.data == MyConst.TYPE_CLASS_COMPLETE
+                        userProfile?.posts.data[1] ==
+                                MyConst.TYPE_CLASS_COMPLETE
                             ? Container(
                                 child:
                                     _renderPosts(context, userProfile!.posts),
                               )
                             : SizedBox(height: 0),
-                        userProfile!.posts.data == MyConst.TYPE_CLASS_SHARED
+                        userProfile?.posts.data[1] == MyConst.TYPE_CLASS_SHARED
                             ? Container(
                                 child:
                                     _renderPosts(context, userProfile!.posts),
                               )
                             : SizedBox(height: 0),
-                        userProfile!.posts.data == MyConst.TYPE_CLASS_CERT
+                        userProfile?.posts.data[1] == MyConst.TYPE_CLASS_CERT
                             ? Container(
                                 child:
                                     _renderPosts(context, userProfile!.posts),
                               )
                             : SizedBox(height: 0),
-                        userProfile!.posts.data == MyConst.TYPE_CLASS_RATING
+                        userProfile?.posts.data[1] == MyConst.TYPE_CLASS_RATING
                             ? Container(
                                 child:
                                     _renderPosts(context, userProfile!.posts),
@@ -203,6 +203,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                       ],
                     )
                   ],
+
+                  // controller: _scrollController,
                 ));
           }
 
