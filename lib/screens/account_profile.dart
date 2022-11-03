@@ -84,8 +84,6 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
           if (state is AccProfileLoadSuccessState) {
             // if (page < 2) {
             userProfile = state.data;
-          
-
             // } else {
             //   // userProfile!.posts.data += state.profile;
             // }
@@ -162,44 +160,46 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           thickness: 10,
                           color: Colors.grey[300],
                         ),
-                        userProfile?.posts.data[0] ==
-                                MyConst.TYPE_CLASS_REGISTER
-                            ? Container(
-                                child:
-                                    _renderPosts(context, userProfile!.posts),
-                              )
-                            : SizedBox(height: 0),
-                        userProfile?.posts.data[1] == MyConst.TYPE_CLASS_FAV
-                            ? Container(
-                                child:
-                                    _renderPosts(context, userProfile!.posts),
-                              )
-                            : SizedBox(height: 0),
-                        userProfile?.posts.data[1] ==
-                                MyConst.TYPE_CLASS_COMPLETE
-                            ? Container(
-                                child:
-                                    _renderPosts(context, userProfile!.posts),
-                              )
-                            : SizedBox(height: 0),
-                        userProfile?.posts.data[1] == MyConst.TYPE_CLASS_SHARED
-                            ? Container(
-                                child:
-                                    _renderPosts(context, userProfile!.posts),
-                              )
-                            : SizedBox(height: 0),
-                        userProfile?.posts.data[1] == MyConst.TYPE_CLASS_CERT
-                            ? Container(
-                                child:
-                                    _renderPosts(context, userProfile!.posts),
-                              )
-                            : SizedBox(height: 0),
-                        userProfile?.posts.data[1] == MyConst.TYPE_CLASS_RATING
-                            ? Container(
-                                child:
-                                    _renderPosts(context, userProfile!.posts),
-                              )
-                            : SizedBox(height: 0),
+                        ...renderType(userProfile?.posts.data)
+                        // _renderPosts(context, userProfile?.posts.data)
+                        // userProfile?.posts.data[0] ==
+                        //         MyConst.TYPE_CLASS_REGISTER
+                        //     ? Container(
+                        //         child:
+                        //             _renderPosts(context, userProfile!.posts),
+                        //       )
+                        //     : SizedBox(height: 0),
+                        // userProfile?.posts.data[1] == MyConst.TYPE_CLASS_FAV
+                        //     ? Container(
+                        //         child:
+                        //             _renderPosts(context, userProfile!.posts),
+                        //       )
+                        //     : SizedBox(height: 0),
+                        // userProfile?.posts.data[1] ==
+                        //         MyConst.TYPE_CLASS_COMPLETE
+                        //     ? Container(
+                        //         child:
+                        //             _renderPosts(context, userProfile!.posts),
+                        //       )
+                        //     : SizedBox(height: 0),
+                        // userProfile?.posts.data[1] == MyConst.TYPE_CLASS_SHARED
+                        //     ? Container(
+                        //         child:
+                        //             _renderPosts(context, userProfile!.posts),
+                        //       )
+                        //     : SizedBox(height: 0),
+                        // userProfile?.posts.data[1] == MyConst.TYPE_CLASS_CERT
+                        //     ? Container(
+                        //         child:
+                        //             _renderPosts(context, userProfile!.posts),
+                        //       )
+                        //     : SizedBox(height: 0),
+                        // userProfile?.posts.data[1] == MyConst.TYPE_CLASS_RATING
+                        //     ? Container(
+                        //         child:
+                        //             _renderPosts(context, userProfile!.posts),
+                        //       )
+                        //     : SizedBox(height: 0),
                       ],
                     )
                   ],
@@ -212,16 +212,25 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
         });
   }
 
-  Widget _renderPosts(BuildContext context, PostPagingDTO post) {
-    List<Widget> list = [];
-    post.data.forEach((PostDTO post) {
-      list.add(PostCard(
-        // type: type,
-        post: post,
-      ));
+  List<Widget> renderType(List<PostDTO>? listPostDTO) {
+    List<Widget> listWidget = List.empty(growable: true);
+    if (listPostDTO == null) return listWidget;
+    listPostDTO.forEach((postDTO) {
+        listWidget.add(PostCard(post: postDTO,));
     });
-    return Column(children: list);
+    return listWidget;
   }
+
+  // Widget _renderPosts(BuildContext context, PostPagingDTO post) {
+  //   List<Widget> list = [];
+  //   post.data.forEach((PostDTO post) {
+  //     list.add(PostCard(
+  //       // type: type,
+  //       post: post,
+  //     ));
+  //   });
+  //   return Column(children: list);
+  // }
 
   Widget _imageBox(double size) {
     return Stack(

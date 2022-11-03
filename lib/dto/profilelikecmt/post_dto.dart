@@ -7,6 +7,7 @@ import '../user_dto.dart';
 class PostDTO {
   final int id;
   final int status; // 1 active; 0 inactive
+  final String type;
   final String? title;
   final String? description;
   final String? images;
@@ -22,6 +23,7 @@ class PostDTO {
 
 
   PostDTO({
+    this.type = "",
     this.commentCounts = 0,
     this.shareCounts = 0,
     this.id = 0,
@@ -40,6 +42,7 @@ class PostDTO {
     // this.isShare = false,
   });
   factory PostDTO.fromJson(Map<String, dynamic> json) => PostDTO(
+        type: json["type"] ?? "",
         id: json['id'] ?? 0,
         status: json['status'] ?? 0,
         title: json['title'] ?? "",

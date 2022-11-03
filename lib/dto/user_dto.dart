@@ -127,10 +127,13 @@ class UserDTO extends Equatable {
         inRegisterClassId,
       ];
 
-  @override
-  String toString() => 'UserDTO {id: $id, name: $name, phone: $phone}';
 
-  static UserDTO fromJson(dynamic json) {
+   @override
+  String toString() {
+    return 'UserDTO{id: $id, name: $name, title: $title, phone: $phone, role: $role, image: $image, banner: $banner, address: $address, walletM: $walletM, walletC: $walletC, userId: $userId, commissionRate: $commissionRate, country: $country, dob: $dob, email: $email, expire: $expire, introduce: $introduce, isHot: $isHot, numFriends: $numFriends, refcode: $refcode, status: $status, updateDoc: $updateDoc, route: $route, rating: $rating, password: $password, token: $token, refLink: $refLink, fullContent: $fullContent, docs: $docs, dobPlace: $dobPlace, isSigned: $isSigned, enableIosTrans: $enableIosTrans, disableAnypoint: $disableAnypoint, registered: $registered, faved: $faved, rated: $rated, children: $children, cartcount: $cartcount, inRegisterClassId: $inRegisterClassId}';
+  }
+
+   static UserDTO fromJson(dynamic json) {
     return json != ""
         ? UserDTO(
             id: json['id'] ?? 0,
