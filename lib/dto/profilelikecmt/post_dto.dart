@@ -42,12 +42,12 @@ class PostDTO {
   factory PostDTO.fromJson(Map<String, dynamic> json) => PostDTO(
         id: json['id'] ?? 0,
         status: json['status'] ?? 0,
-        title: json['title'] as String,
-        description: json['description'] as String,
+        title: json['title'] ?? "",
+        description: json['description'] ?? "",
         images: json['image'] ?? "",
-        likeCounts: json['like_counts'] as int,
-        commentCounts: json['comment_counts'] as int,
-        shareCounts: json['share_counts'] as int,
+        likeCounts: json['like_counts'] ?? 0,
+        commentCounts: json['comment_counts'] ?? 0,
+        shareCounts: json['share_counts'] ?? 0,
         user: json['user'] == null ? UserDTO() : UserDTO.fromJson(json['user']),
         createdAt: json['created_at'] == null
             ? null
@@ -91,14 +91,14 @@ class PostPagingDTO extends Equatable {
     return json == ""
         ? PostPagingDTO(data: [])
         : PostPagingDTO(
-            currentPage: json['current_page'],
+            currentPage: json['current_page'] ?? 1,
             data: List<PostDTO>.from(json['data']
                 ?.map((v) => v == null ? null : PostDTO.fromJson(v))).toList(),
             // from: json['from'],
             // to: json['to'],
-            perPage: json['per_page'],
+            perPage: json['per_page'] ?? 10,
             // lastPage: json['last_page'],
-            total: json['total'],
+            total: json['total'] ?? 0,
           );
   }
 }

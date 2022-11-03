@@ -10,7 +10,7 @@ class ProfileDTO {
 
   ProfileDTO({required this.profile, required this.posts});
   factory ProfileDTO.fromJson(Map<String, dynamic> json) => ProfileDTO(
-        profile: json['profile'] = UserDTO.fromJson(json['profile']),
-        posts: json['posts'] = PostPagingDTO.fromJson(json['posts']),
+        profile: UserDTO.fromJson(json['profile']),
+        posts: PostPagingDTO.fromJson(json['post']),
       );
 }
