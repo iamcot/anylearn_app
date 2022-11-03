@@ -59,7 +59,14 @@ class MyConst {
   static const ASK_VOTE_LIKE = 'like';
   static const ASK_VOTE_DISLIKE = 'dislike';
 
-  static const POST_TYPE_REGISTERED = 'registered';
-  static const POST_TYPE_FINAL = 'final';
-  static const POST_TYPE_FAV = 'fav';
+  static const TYPE_CLASS_REGISTER = 'class_registered';
+  static const TYPE_CLASS_FAV = 'class_fav';
+  static const TYPE_CLASS_COMPLETE = 'class_complete';
+  static const TYPE_CLASS_SHARED = 'class_shared';
+  static const TYPE_CLASS_CERT = 'class_cert';
+  static const TYPE_CLASS_RATING = 'class_rating';
+
+  static const TYPE_ACTION_LIKE = 'action_like';
+  static const TYPE_ACTION_COMMENT = 'action_comment';
+  static const TYPE_ACTION_SHARE = 'action_share';
 }

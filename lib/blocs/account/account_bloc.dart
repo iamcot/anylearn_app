@@ -10,22 +10,22 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final UserRepository userRepository;
   AccountBloc({required this.userRepository}) : super(AccountInitState());
 
-  final scrollController = ScrollController();
+  // final scrollController = ScrollController();
 
-  _scrollListener() {
-    if (scrollController.hasClients) {
-      if (scrollController.offset >=
-              scrollController.position.maxScrollExtent &&
-          !scrollController.position.outOfRange) {
-        debugPrint("reach the bottom");
-      }
-      if (scrollController.offset <=
-              scrollController.position.minScrollExtent &&
-          !scrollController.position.outOfRange) {
-        debugPrint("reach the top");
-      }
-    }
-  }
+  // _scrollListener() {
+  //   if (scrollController.hasClients) {
+  //     if (scrollController.offset >=
+  //             scrollController.position.maxScrollExtent &&
+  //         !scrollController.position.outOfRange) {
+  //       debugPrint("reach the bottom");
+  //     }
+  //     if (scrollController.offset <=
+  //             scrollController.position.minScrollExtent &&
+  //         !scrollController.position.outOfRange) {
+  //       debugPrint("reach the top");
+  //     }
+  //   }
+  // }
 
   @override
   AccountState get initialState => AccountInitState();
@@ -81,13 +81,16 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         this..add(AccLoadMyCalendarEvent(token: event.token));
       } else if (event is AccProfileEvent) {
         yield AccProfileLoadingState();
-        final profile = await userRepository.getProfile(event.userId);
+        final profile =
+            await userRepository.getProfile(event.userId ,event.page);
         yield AccProfileSuccessState(data: profile);
-      } else if (event is AccPageProfileLoadEvent) {
-        yield AccPageProfileLoadingState();
-        final page = await userRepository.accountPost(event.page,event.id);
-        yield AccPageProfileLoadingSuccessState(data: page);
-      } else if (event is AccPostEvent) {
+      }
+      //  else if (event is AccPageProfileLoadEvent) {
+      //   yield AccPageProfileLoadingState();
+      //   final page = await userRepository.accountPost(event.page,event.id);
+      //   yield AccPageProfileLoadingSuccessState(data: page);
+      // }
+      else if (event is AccPostEvent) {
         yield AccPostLoadingState();
         final data = await userRepository.postContent(event.id);
         yield AccPostSuccessState(data: data);

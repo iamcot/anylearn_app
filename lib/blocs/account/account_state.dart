@@ -285,4 +285,5 @@ class AccPageProfileLoadingSuccessState extends AccountState {
   final PostPagingDTO data;
   AccPageProfileLoadingSuccessState({required this.data});
   List<Object> get props => [data];
+  String toString() => 'AccPageProfileLoadingSuccessState';
 }

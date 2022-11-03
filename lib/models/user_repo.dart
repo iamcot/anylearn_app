@@ -107,8 +107,8 @@ class UserRepository {
     return userService.registeredUsers(token, itemId);
   }
 
-  Future<ProfileDTO> getProfile(int userId) async {
-    return userService.getProfile(userId);
+  Future<ProfileDTO> getProfile(int userId , int page) async {
+    return userService.getProfile(userId ,page);
   }
 
   Future<List<UserDocDTO>> getDocs(String token) async {
@@ -183,9 +183,9 @@ class UserRepository {
   //   return await userService.actionUser(token);
   // }
 
-  Future<PostPagingDTO> accountPost( int id ,int page) async {
-    return await userService.accountPost( page,id);
-  }
+  // Future<PostPagingDTO> accountPost( int id ,int page) async {
+  //   return await userService.accountPost( page,id);
+  // }
 
   Future<PostDTO> postContent(int id) async {
     return await userService.postContent(id);

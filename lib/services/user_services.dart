@@ -352,69 +352,126 @@ class UserService extends BaseService {
     return true;
   }
 
-  Future<ProfileDTO> getProfile(int userId) async {
-    // final url = buildUrl(appConfig: config, endPoint: "/user/profile/$userId");
-    // final json = await get(httpClient, url);
-    // return UserDTO.fromJson(json);
-    return ProfileDTO(
-        profile: UserDTO(id: 8873, name: "Ngô Hiếu Phát"),
-        posts: PostPagingDTO(
-          currentPage: 1,
-          data: [
-            PostDTO(
-              id: 1,
-              status: 1,
-              title: "Bạn đã đăng ký khóa học ABC",
-              description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
-              user: UserDTO(name: "Ngô Hiếu Phát"),
-              likeCounts: 20,
-              commentCounts: 100,
-              shareCounts: 0,
-              // likes: [100],
-              // share: 100,
-            ),
-            PostDTO(
-              id: 2,
-              status: 1,
-              title: "Bạn đã đăng ký khóa học ABC 2",
-              description: "Khóa học ABC 2 là của XYZ, rất bổ ích cho trẻ nhỏ",
-              user: UserDTO(name: "Ngô Hiếu Phát"),
-              likeCounts: 1234,
-              commentCounts: 1323,
-              shareCounts: 1323,
-            ),
-          ],
-        ));
+  Future<ProfileDTO> getProfile(int userId , int page) async {
+    final url =
+        buildUrl(appConfig: config, endPoint: "/social/profile/$userId");
+    final json = await get(httpClient, url);
+    return json['result'];
   }
+  // if (page == 0) {
+  //     return ProfileDTO(
+  //         profile: UserDTO(id: 8873, name: "Ngô Hiếu Phát"),
+  //         posts: PostPagingDTO(
+  //           currentPage: 1,
+  //           data: [
+  //             PostDTO(
+  //               id: 1,
+  //               status: 1,
+  //               title: "Bạn đã đăng ký khóa học ABC",
+  //               description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
+  //               user: UserDTO(name: "Ngô Hiếu Phát"),
+  //               likeCounts: 20,
+  //               commentCounts: 100,
+  //               shareCounts: 0,
+  //               // likes: [100],
+  //               // share: 100,
+  //             ),
+  //             PostDTO(
+  //               id: 2,
+  //               status: 1,
+  //               title: "Bạn đã đăng ký khóa học ABC 2",
+  //               description:
+  //                   "Khóa học ABC 2 là của XYZ, rất bổ ích cho trẻ nhỏ",
+  //               user: UserDTO(name: "Ngô Hiếu Phát"),
+  //               likeCounts: 1234,
+  //               commentCounts: 1323,
+  //               shareCounts: 1323,
+  //             ),
+  //           ],
+  //         ));
+  //   }
+  //   else {
+  //     return ProfileDTO(
+  //         profile: UserDTO(id: 8873, name: "Ngô Hiếu Phát"),
+  //         posts: PostPagingDTO(
+  //           currentPage: page,
+  //           data: [
+  //             PostDTO(
+  //               id: 3,
+  //               status: 1,
+  //               title:
+  //                   "Bạn đã đăng ký khóa học ABC cua page " + page.toString(),
+  //               description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
+  //               user: UserDTO(name: "Ngô Hiếu Phát"),
+  //               likeCounts: 20,
+  //               commentCounts: 100,
+  //               shareCounts: 0,
+  //               // likes: [100],
+  //               // share: 100,
+  //             ),
+  //             PostDTO(
+  //               id: 4,
+  //               status: 1,
+  //               title:
+  //                   "Bạn đã đăng ký khóa học ABC 2 cua page" + page.toString(),
+  //               description:
+  //                   "Khóa học ABC 2 là của XYZ, rất bổ ích cho trẻ nhỏ",
+  //               user: UserDTO(name: "Ngô Hiếu Phát"),
+  //               likeCounts: 1234,
+  //               commentCounts: 1323,
+  //               shareCounts: 1323,
+  //             ),
+  //             PostDTO(
+  //               id: 6,
+  //               status: 1,
+  //               title: "Bạn đã đăng ký khóa học ABC",
+  //               description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
+  //               user: UserDTO(id: 1, name: "Bạn"),
+  //               comments: [],
+  //               likeCounts: 2,
+  //             ),
+  //             PostDTO(
+  //               id: 6,
+  //               status: 1,
+  //               title: "Bạn đã đăng ký khóa học ABC 2",
+  //               description:
+  //                   "Khóa học ABC 2 là của XYZ, rất bổ ích cho trẻ nhỏ",
+  //               user: UserDTO(id: 1, name: "Bạn"),
+  //               comments: [],
+  //               likeCounts: 100,
+  //             ),
+  //           ],
+  //         ));
+  //   }
 
-  Future<PostPagingDTO> accountPost( int id ,int page) async {
-    // final url = buildUrl(appConfig: config, endPoint: ,token: token );
-    // final json = await get(httpClient,url);
+  // Future<PostPagingDTO> accountPost(int id, int page) async {
+  //   // final url = buildUrl(appConfig: config, endPoint: ,token: token );
+  //   // final json = await get(httpClient,url);
 
-    return PostPagingDTO(
-      currentPage: 2,
-      data: [
-        PostDTO(
-          id: 1,
-          status: 1,
-          title: "Bạn đã đăng ký khóa học ABC",
-          description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
-          user: UserDTO(id: 1, name: "Bạn"),
-          comments: [],
-          likeCounts: 2,
-        ),
-        PostDTO(
-          id: 2,
-          status: 1,
-          title: "Bạn đã đăng ký khóa học ABC 2",
-          description: "Khóa học ABC 2 là của XYZ, rất bổ ích cho trẻ nhỏ",
-          user: UserDTO(id: 1, name: "Bạn"),
-          comments: [],
-          likeCounts: 100,
-        ),
-      ],
-    );
-  }
+  //   return PostPagingDTO(
+  //     currentPage: 2,
+  //     data: [
+  //       PostDTO(
+  //         id: 1,
+  //         status: 1,
+  //         title: "Bạn đã đăng ký khóa học ABC",
+  //         description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
+  //         user: UserDTO(id: 1, name: "Bạn"),
+  //         comments: [],
+  //         likeCounts: 2,
+  //       ),
+  //       PostDTO(
+  //         id: 2,
+  //         status: 1,
+  //         title: "Bạn đã đăng ký khóa học ABC 2",
+  //         description: "Khóa học ABC 2 là của XYZ, rất bổ ích cho trẻ nhỏ",
+  //         user: UserDTO(id: 1, name: "Bạn"),
+  //         comments: [],
+  //         likeCounts: 100,
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Future<PostDTO> postContent(int id) async {
     return PostDTO(

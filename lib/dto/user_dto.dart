@@ -4,7 +4,7 @@ import 'item_dto.dart';
 import 'user_doc_dto.dart';
 
 class UserDTO extends Equatable {
-  final id;
+   final id;
   String name;
   String title;
   String phone;

@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/const.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../dto/profilelikecmt/action_dto.dart';
@@ -43,7 +44,6 @@ class _PostCardState extends State<PostCard>
             children: [
               TextButton.icon(
                   onPressed: () {
-                    print("nhan like ne");
                     if (widget.post.isLiked) {
                       setState(() {
                         widget.post.isLiked = false;
@@ -67,13 +67,13 @@ class _PostCardState extends State<PostCard>
                   //       .reverse()
                   //       .then((value) => _controller.forward());
                   // },
-                  icon: widget.post.isLiked
+                  icon: widget.post == MyConst.TYPE_ACTION_LIKE
                       ? Icon(
                           Icons.thumb_up_alt_outlined,
                           color: Colors.blue,
                         )
                       : Icon(Icons.thumb_up_alt_outlined, color: Colors.grey),
-                  label: widget.post.isLiked
+                  label: widget.post == MyConst.TYPE_ACTION_LIKE
                       ? Text("Thích".tr(), style: TextStyle(color: Colors.blue))
                       : Text(
                           "Thích".tr(),

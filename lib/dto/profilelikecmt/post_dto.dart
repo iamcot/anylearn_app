@@ -62,7 +62,7 @@ class PostDTO {
 
 class PostPagingDTO extends Equatable {
   late final currentPage;
-  final List<PostDTO> data;
+  late final List<PostDTO> data;
   final from;
   final lastPage;
   final perPage;

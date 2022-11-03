@@ -2,8 +2,8 @@ import 'post_dto.dart';
 import '../user_dto.dart';
 
 class ProfileDTO {
-  final UserDTO profile ;
-  late final PostPagingDTO posts;
+  UserDTO profile;
+  PostPagingDTO posts;
 
   @override
   List<Object> get props => [profile, posts];
@@ -12,6 +12,5 @@ class ProfileDTO {
   factory ProfileDTO.fromJson(Map<String, dynamic> json) => ProfileDTO(
         profile: json['profile'] = UserDTO.fromJson(json['profile']),
         posts: json['posts'] = PostPagingDTO.fromJson(json['posts']),
-
       );
 }

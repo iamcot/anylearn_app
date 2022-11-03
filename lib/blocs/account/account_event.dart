@@ -92,13 +92,13 @@ class AccJoinCourseEvent extends AccountEvent {
 }
 
 class AccProfileEvent extends AccountEvent {
-  final int userId;
-
-  AccProfileEvent({required this.userId});
+  int userId;
+  int page;
+  AccProfileEvent({required this.userId, required this.page});
   @override
-  List<Object> get props => [userId];
+  List<Object> get props => [userId, page];
   @override
-  String toString() => 'AccProfileEvent $userId';
+  String toString() => 'AccProfileEvent';
 }
 
 class AccLoadDocsEvent extends AccountEvent {
@@ -268,5 +268,5 @@ class AccPageProfileLoadEvent extends AccountEvent {
   List<Object> get props => [page, id];
 
   @override
-  String toString() => 'AccPageProfileLoadEvent  {  page: $page , id: $id}';
+  String toString() => 'AccPageProfileLoadEvent  {  page: $page , id $id;}';
 }
