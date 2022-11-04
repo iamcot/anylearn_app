@@ -1,8 +1,7 @@
-import 'package:anylearn/dto/picture_dto.dart';
 import 'package:equatable/equatable.dart';
 
-import 'action_dto.dart';
 import '../user_dto.dart';
+import 'action_dto.dart';
 
 class PostDTO {
   final int id;
@@ -64,8 +63,8 @@ class PostDTO {
 }
 
 class PostPagingDTO extends Equatable {
-  late final currentPage;
-  late final List<PostDTO> data;
+  final currentPage;
+  List<PostDTO> data;
   final from;
   final lastPage;
   final perPage;
@@ -100,7 +99,7 @@ class PostPagingDTO extends Equatable {
             // from: json['from'],
             // to: json['to'],
             perPage: json['per_page'] ?? 10,
-            // lastPage: json['last_page'],
+            lastPage: json['last_page'] ?? 1,
             total: json['total'] ?? 0,
           );
   }

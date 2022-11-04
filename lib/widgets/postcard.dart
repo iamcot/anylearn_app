@@ -21,10 +21,9 @@ class PostCard extends StatefulWidget {
   State<PostCard> createState() => _PostCardState();
 }
 
-class _PostCardState extends State<PostCard>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-      duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
+class _PostCardState extends State<PostCard> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller =
+      AnimationController(duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +53,7 @@ class _PostCardState extends State<PostCard>
                         widget.post.isLiked = true;
                         widget.post.likeCounts += 1;
                       });
-                      _controller
-                          .reverse()
-                          .then((value) => _controller.forward());
+                      _controller.reverse().then((value) => _controller.forward());
                     }
                   },
                   // onPressed: () {
@@ -126,11 +123,10 @@ class _PostCardState extends State<PostCard>
   Widget imageSection() {
     return Container(
       padding: EdgeInsets.only(top: 5, bottom: 5),
-      child: Image.asset('assets/banners/ask_banner.jpg'),
-      // CachedNetworkImage(
-      //   imageUrl: widget.post.images.toString(),
-      //   fit: BoxFit.cover,
-      // ),
+      child: CachedNetworkImage(
+        imageUrl: widget.post.images.toString(),
+        fit: BoxFit.cover,
+      ),
     );
   }
 
@@ -160,8 +156,7 @@ class _PostCardState extends State<PostCard>
                 SizedBox(
                   width: 4,
                 ),
-                displayText(
-                    label: numberFormat(widget.post.likeCounts.toInt())),
+                displayText(label: numberFormat(widget.post.likeCounts.toInt())),
               ],
             ),
           ),
@@ -173,9 +168,7 @@ class _PostCardState extends State<PostCard>
               : Container(
                   child: Row(
                     children: [
-                      displayText(
-                          label:
-                              numberFormat(widget.post.commentCounts.toInt())),
+                      displayText(label: numberFormat(widget.post.commentCounts.toInt())),
                       SizedBox(
                         width: 5,
                       ),
@@ -195,8 +188,7 @@ class _PostCardState extends State<PostCard>
               : Container(
                   child: Row(
                     children: [
-                      displayText(
-                          label: numberFormat(widget.post.shareCounts.toInt())),
+                      displayText(label: numberFormat(widget.post.shareCounts.toInt())),
                       SizedBox(
                         width: 5,
                       ),
@@ -221,20 +213,11 @@ class _PostCardState extends State<PostCard>
     int len = num.length;
 
     if (n >= 1000 && n < 1000000) {
-      return num.substring(0, len - 3) +
-          '.' +
-          num.substring(len - 3, 1 + (len - 3)) +
-          'k';
+      return num.substring(0, len - 3) + '.' + num.substring(len - 3, 1 + (len - 3)) + 'k';
     } else if (n >= 1000000 && n < 1000000000) {
-      return num.substring(0, len - 6) +
-          '.' +
-          num.substring(len - 6, 1 + (len - 6)) +
-          'm';
+      return num.substring(0, len - 6) + '.' + num.substring(len - 6, 1 + (len - 6)) + 'm';
     } else if (n > 1000000000) {
-      return num.substring(0, len - 9) +
-          '.' +
-          num.substring(len - 9, 1 + (len - 9)) +
-          'b';
+      return num.substring(0, len - 9) + '.' + num.substring(len - 9, 1 + (len - 9)) + 'b';
     } else {
       return num.toString();
     }
@@ -256,8 +239,7 @@ class _PostCardState extends State<PostCard>
         backgroundColor: Colors.white30,
         child: (widget.post.user!.image != "")
             ? CircleAvatar(
-                backgroundImage:
-                    CachedNetworkImageProvider(widget.post.user!.image),
+                backgroundImage: CachedNetworkImageProvider(widget.post.user!.image),
               )
             : Icon(
                 Icons.account_circle,
@@ -277,9 +259,7 @@ class _PostCardState extends State<PostCard>
       ),
       subtitle: Row(
         children: [
-          Text(widget.post.createdAt != null
-              ? widget.post.createdAt.toString()
-              : "N/A"),
+          Text(widget.post.createdAt != null ? widget.post.createdAt.toString() : "N/A"),
           SizedBox(
             width: 10,
           ),
@@ -304,7 +284,5 @@ class _PostCardState extends State<PostCard>
 Future<void> updateLikes({String? id, int? value}) async {
   var brewCollection;
   var FieldValue;
-  return await brewCollection
-      .document(id)
-      .updateData({'likes': FieldValue.increment(value)});
+  return await brewCollection.document(id).updateData({'likes': FieldValue.increment(value)});
 }
