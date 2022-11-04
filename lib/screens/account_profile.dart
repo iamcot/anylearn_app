@@ -1,4 +1,5 @@
 import 'package:anylearn/dto/user_dto.dart';
+import 'package:anylearn/screens/loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +35,9 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
 
   void _scrollListener() {
     if (_scrollController.hasClients) {
-      if (_scrollController.offset >=
-              _scrollController.position.maxScrollExtent - 10 &&
-          !_scrollController.position.outOfRange) {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
         page += 1;
-
-        print("reach the bottom");
-        _accountBloc..add(AccProfileEvent(userId: user.userId, page: page));
       }
     }
   }
@@ -82,11 +79,11 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
         bloc: _accountBloc,
         builder: (context, state) {
           if (state is AccProfileLoadSuccessState) {
-            // if (page < 2) {
-            userProfile = state.data;
-            // } else {
-            //   // userProfile!.posts.data += state.profile;
-            // }
+            if (page < 2) {
+              userProfile = state.data;
+            } else {
+              userProfile!.posts.data += state.data.posts.data;
+            }
             return Scaffold(
                 appBar: AppBar(
                   actions: [],
@@ -160,46 +157,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           thickness: 10,
                           color: Colors.grey[300],
                         ),
-                        ...renderType(userProfile?.posts.data)
-                        // _renderPosts(context, userProfile?.posts.data)
-                        // userProfile?.posts.data[0] ==
-                        //         MyConst.TYPE_CLASS_REGISTER
-                        //     ? Container(
-                        //         child:
-                        //             _renderPosts(context, userProfile!.posts),
-                        //       )
-                        //     : SizedBox(height: 0),
-                        // userProfile?.posts.data[1] == MyConst.TYPE_CLASS_FAV
-                        //     ? Container(
-                        //         child:
-                        //             _renderPosts(context, userProfile!.posts),
-                        //       )
-                        //     : SizedBox(height: 0),
-                        // userProfile?.posts.data[1] ==
-                        //         MyConst.TYPE_CLASS_COMPLETE
-                        //     ? Container(
-                        //         child:
-                        //             _renderPosts(context, userProfile!.posts),
-                        //       )
-                        //     : SizedBox(height: 0),
-                        // userProfile?.posts.data[1] == MyConst.TYPE_CLASS_SHARED
-                        //     ? Container(
-                        //         child:
-                        //             _renderPosts(context, userProfile!.posts),
-                        //       )
-                        //     : SizedBox(height: 0),
-                        // userProfile?.posts.data[1] == MyConst.TYPE_CLASS_CERT
-                        //     ? Container(
-                        //         child:
-                        //             _renderPosts(context, userProfile!.posts),
-                        //       )
-                        //     : SizedBox(height: 0),
-                        // userProfile?.posts.data[1] == MyConst.TYPE_CLASS_RATING
-                        //     ? Container(
-                        //         child:
-                        //             _renderPosts(context, userProfile!.posts),
-                        //       )
-                        //     : SizedBox(height: 0),
+                        // ...renderType(userProfile?.posts.data)
+                        _renderPosts(context, userProfile!.posts)
                       ],
                     )
                   ],
@@ -212,25 +171,27 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
         });
   }
 
-  List<Widget> renderType(List<PostDTO>? listPostDTO) {
-    List<Widget> listWidget = List.empty(growable: true);
-    if (listPostDTO == null) return listWidget;
-    listPostDTO.forEach((postDTO) {
-        listWidget.add(PostCard(post: postDTO,));
-    });
-    return listWidget;
-  }
-
-  // Widget _renderPosts(BuildContext context, PostPagingDTO post) {
-  //   List<Widget> list = [];
-  //   post.data.forEach((PostDTO post) {
-  //     list.add(PostCard(
-  //       // type: type,
-  //       post: post,
+  // List<Widget> renderType(List<PostDTO>? listPostDTO) {
+  //   List<Widget> listWidget = List.empty(growable: true);
+  //   if (listPostDTO == null) return listWidget;
+  //   listPostDTO.forEach((postDTO) {
+  //     listWidget.add(PostCard(
+  //       post: postDTO,
   //     ));
   //   });
-  //   return Column(children: list);
+  //   return listWidget;
   // }
+
+  Widget _renderPosts(BuildContext context, PostPagingDTO post) {
+    List<Widget> list = [];
+    post.data.forEach((PostDTO post) {
+      list.add(PostCard(
+        // type: type,
+        post: post,
+      ));
+    });
+    return Column(children: list);
+  }
 
   Widget _imageBox(double size) {
     return Stack(

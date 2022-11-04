@@ -126,11 +126,10 @@ class _PostCardState extends State<PostCard>
   Widget imageSection() {
     return Container(
       padding: EdgeInsets.only(top: 5, bottom: 5),
-      child: Image.asset('assets/banners/ask_banner.jpg'),
-      // CachedNetworkImage(
-      //   imageUrl: widget.post.images.toString(),
-      //   fit: BoxFit.cover,
-      // ),
+      child: CachedNetworkImage(
+        imageUrl: widget.post.images.toString(),
+        fit: BoxFit.cover,
+      ),
     );
   }
 
