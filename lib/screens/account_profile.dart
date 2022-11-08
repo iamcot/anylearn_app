@@ -37,7 +37,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
 
   void _scrollListener() {
     if (_scrollController.hasClients) {
-      if (_scrollController.offset >= _scrollController.position.maxScrollExtent - 10 &&
+      if (_scrollController.offset >=
+              _scrollController.position.maxScrollExtent - 10 &&
           !_scrollController.position.outOfRange &&
           page < maxPage) {
         page += 1;
@@ -46,7 +47,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
           if (userId == 0) {
             _accountBloc..add(AccProfileEvent(token: user.token, page: page));
           } else {
-            _accountBloc..add(AccFriendProfileEvent(userId: userId, page: page));
+            _accountBloc
+              ..add(AccFriendProfileEvent(userId: userId, page: page));
           }
           setState(() {
             isLoading = true;
@@ -107,7 +109,8 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                   actions: [],
                 ),
                 floatingActionButton: FloatingActionButtonHome(),
-                floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.startDocked,
                 bottomNavigationBar: BottomNav(
                   route: BottomNav.PROFILE_INDEX,
                 ),
@@ -149,19 +152,31 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                                       color: Colors.blue,
                                     )),
                               ),
-                              userProfile!.profile.role == MyConst.ROLE_SCHOOL && userProfile!.profile.title != ""
+                              userProfile!.profile.role ==
+                                          MyConst.ROLE_SCHOOL &&
+                                      userProfile!.profile.title != ""
                                   ? ListTile(
                                       dense: true,
-                                      contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
+                                      contentPadding: EdgeInsets.only(
+                                          top: 0,
+                                          bottom: 0,
+                                          left: 15,
+                                          right: 15),
                                       leading: Icon(MdiIcons.shieldAccount),
-                                      title: Text("Người đại diện: " + userProfile!.profile.title).tr(),
+                                      title: Text("Người đại diện: " +
+                                              userProfile!.profile.title)
+                                          .tr(),
                                       isThreeLine: false,
                                     )
                                   : SizedBox(height: 0),
                               userProfile!.profile.address != ""
                                   ? ListTile(
                                       dense: true,
-                                      contentPadding: EdgeInsets.only(top: 0, bottom: 0, left: 15, right: 15),
+                                      contentPadding: EdgeInsets.only(
+                                          top: 0,
+                                          bottom: 0,
+                                          left: 15,
+                                          right: 15),
                                       leading: Icon(MdiIcons.mapMarker),
                                       title: Text(userProfile!.profile.address),
                                       isThreeLine: false,
@@ -214,7 +229,9 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
             radius: size / 2,
             child: (userProfile!.profile.image != "")
                 ? CircleAvatar(
-                    radius: size / 2 - 2.0, backgroundImage: CachedNetworkImageProvider(userProfile!.profile.image))
+                    radius: size / 2 - 2.0,
+                    backgroundImage:
+                        CachedNetworkImageProvider(userProfile!.profile.image))
                 : Icon(
                     Icons.account_circle,
                     size: size,

@@ -5,11 +5,13 @@ import 'action_dto.dart';
 
 class PostDTO {
   final int id;
+  int refId;
   final int status; // 1 active; 0 inactive
   final String type;
   final String? title;
   final String? description;
   final String? images;
+  String? content;
   int likeCounts;
   int commentCounts;
   int shareCounts;
@@ -19,11 +21,16 @@ class PostDTO {
   final List<ActionDTO>? likes;
   final List<ActionDTO>? share;
   bool isLiked;
+  DateTime? day;
+
 
   PostDTO({
+    this.day ,
+    this.refId = 0,
     this.type = "",
     this.commentCounts = 0,
     this.shareCounts = 0,
+    this.content = "",
     this.id = 0,
     this.status = 1,
     this.title,
@@ -40,6 +47,11 @@ class PostDTO {
     // this.isShare = false,
   });
   factory PostDTO.fromJson(Map<String, dynamic> json) => PostDTO(
+        refId: json["refId"] ,
+        day: json['day'] == null
+            ? null
+            : DateTime.parse(json['day']),
+        content: json["content"]?? "",
         type: json["type"] ?? "",
         id: json['id'] ?? 0,
         status: json['status'] ?? 0,

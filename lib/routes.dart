@@ -1,4 +1,4 @@
-import 'package:anylearn/screens/commentbox.dart';
+import 'package:anylearn/screens/commentpage.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';

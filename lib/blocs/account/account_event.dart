@@ -250,9 +250,9 @@ class AccLoadCommentsEvent extends AccountEvent {
   String toString() => 'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
 }
 
-class AccPostEvent extends AccountEvent {
+class AccPostContenEvent extends AccountEvent {
   final int id;
-  AccPostEvent({required this.id});
+  AccPostContenEvent({required this.id});
   List<Object> get props => [id];
   String toString() => 'UserPostEvent { id: $id}';
 }

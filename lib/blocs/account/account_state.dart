@@ -281,16 +281,16 @@ class AccLoadCommentsFailState extends AccountState {
   String toString() => '{error: $error}';
 }
 
-class AccPostSuccessState extends AccountState {
+class AccPostContentSuccessState extends AccountState {
   final PostDTO data;
-  AccPostSuccessState({required this.data});
+  AccPostContentSuccessState({required this.data});
   List<Object> get props => [data];
 }
 
-class AccPostLoadingState extends AccountState {}
-class AccPostFailState extends AccountState{
+class AccPostContenLoadingState extends AccountState {}
+class AccPostContentFailState extends AccountState{
    final String error;
-  const AccPostFailState({required this.error});
+  const AccPostContentFailState({required this.error});
   @override
   List<Object> get props => [error];
   @override

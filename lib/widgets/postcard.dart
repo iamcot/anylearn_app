@@ -1,16 +1,14 @@
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/screens/commentbox.dart';
-import 'package:anylearn/widgets/time_ago.dart';
-import 'package:easy_localization/easy_localization.dart';
-
-import '../dto/profilelikecmt/action_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../dto/const.dart';
 import '../dto/profilelikecmt/post_dto.dart';
+import '../screens/commentpage.dart';
+import 'time_ago.dart';
 import 'varfied.dart';
 
 class PostCard extends StatefulWidget {
@@ -303,6 +301,7 @@ class _PostCardState extends State<PostCard>
       ),
     );
   }
+  
 }
 
 Future<void> updateLikes({String? id, int? value}) async {
