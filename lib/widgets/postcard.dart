@@ -1,4 +1,6 @@
 import 'package:anylearn/dto/const.dart';
+import 'package:anylearn/screens/commentbox.dart';
+import 'package:anylearn/widgets/time_ago.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../dto/profilelikecmt/action_dto.dart';
@@ -80,7 +82,10 @@ class _PostCardState extends State<PostCard>
                           style: TextStyle(color: Colors.grey),
                         )),
               TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => CommentPage()));
+                  },
                   icon: Icon(Icons.mode_comment_sharp, color: Colors.grey),
                   label: Text(
                     "Bình Luận".tr(),
@@ -276,9 +281,9 @@ class _PostCardState extends State<PostCard>
       ),
       subtitle: Row(
         children: [
-          Text(widget.post.createdAt != null
-              ? widget.post.createdAt.toString()
-              : "N/A"),
+          TimeAgo(time: widget.post.createdAt) != null
+              ? TimeAgo(time: widget.post.createdAt)
+              : SizedBox(),
           SizedBox(
             width: 10,
           ),

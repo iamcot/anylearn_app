@@ -345,14 +345,27 @@ class UserService extends BaseService {
     return json['result'];
   }
 
-  Future<bool> actionUser(String token) async {
-    // final url = buildUrl(appConfig: config, endPoint: ,token: token);
-    // final json = await get(httpClient,url);
+  Future<bool> actionUser(
+      String token, int id, Map<String, dynamic> body) async {
+    final url = buildUrl(
+        appConfig: config, endPoint: "/api/social/$id/action", token: token);
+    final json = await post(httpClient, url, body);
 
-    return true;
+    return json['result'];
   }
 
-  Future<ProfileDTO> getProfile(int userId, int page) async {
+  Future<ProfileDTO> getProfile(String token, int page) async {
+    final url = buildUrl(
+        appConfig: config,
+        endPoint: "/social/profile",
+        token: token,
+        query: page > 1 ? "page=$page" : "");
+    final json = await get(httpClient, url);
+    print(url);
+    return ProfileDTO.fromJson(json);
+  }
+
+  Future<ProfileDTO> getFriendProfile(int userId, int page) async {
     final url =
         buildUrl(appConfig: config, endPoint: "/social/profile/$userId");
     final json = await get(httpClient, url);
@@ -360,14 +373,8 @@ class UserService extends BaseService {
   }
 
   Future<PostDTO> postContent(int id) async {
-    return PostDTO(
-      id: 1,
-      status: 1,
-      title: "Bạn đã đăng ký khóa học ABC",
-      description: "Khóa học ABC là của XYZ, rất bổ ích cho trẻ nhỏ",
-      user: UserDTO(id: 1, name: "Bạn"),
-      comments: [],
-      likeCounts: 2,
-    );
+    final url = buildUrl(appConfig: config, endPoint: "api/social/post/$id");
+    final json = await get(httpClient, url);
+    return PostDTO.fromJson(json);
   }
 }

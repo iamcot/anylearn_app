@@ -69,4 +69,5 @@ class MyConst {
   static const TYPE_ACTION_LIKE = 'action_like';
   static const TYPE_ACTION_COMMENT = 'action_comment';
   static const TYPE_ACTION_SHARE = 'action_share';
+  static const TYPE_ACTION_DISLIKE = 'action_dislike';
 }

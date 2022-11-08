@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../dto/user_dto.dart';
 
@@ -80,11 +79,7 @@ class AccJoinCourseEvent extends AccountEvent {
   final int itemId;
   final int childId;
 
-  AccJoinCourseEvent(
-      {required this.token,
-      required this.itemId,
-      required this.scheduleId,
-      required this.childId});
+  AccJoinCourseEvent({required this.token, required this.itemId, required this.scheduleId, required this.childId});
   @override
   List<Object> get props => [token, itemId, scheduleId, childId];
   @override
@@ -92,13 +87,23 @@ class AccJoinCourseEvent extends AccountEvent {
 }
 
 class AccProfileEvent extends AccountEvent {
-  int userId;
-  int page;
-  AccProfileEvent({required this.userId, required this.page});
+  final String token;
+  final int page;
+  AccProfileEvent({required this.token, required this.page});
+  @override
+  List<Object> get props => [token, page];
+  @override
+  String toString() => 'AccProfileEvent $page';
+}
+
+class AccFriendProfileEvent extends AccountEvent {
+  final int userId;
+  final int page;
+  AccFriendProfileEvent({required this.userId, required this.page});
   @override
   List<Object> get props => [userId, page];
   @override
-  String toString() => 'AccProfileEvent $page';
+  String toString() => 'AccFriendProfileEvent $userId $page';
 }
 
 class AccLoadDocsEvent extends AccountEvent {
@@ -139,11 +144,7 @@ class AccSaveChildrenEvent extends AccountEvent {
   final int id;
   final String dob;
 
-  AccSaveChildrenEvent(
-      {required this.token,
-      required this.id,
-      required this.name,
-      required this.dob});
+  AccSaveChildrenEvent({required this.token, required this.id, required this.name, required this.dob});
   @override
   List<Object> get props => [token, id, name, dob];
   @override
@@ -165,8 +166,7 @@ class AccChangePassEvent extends AccountEvent {
   final String oldPass;
   final String token;
 
-  AccChangePassEvent(
-      {required this.newPass, required this.oldPass, required this.token});
+  AccChangePassEvent({required this.newPass, required this.oldPass, required this.token});
   @override
   List<Object> get props => [token, newPass, oldPass];
   @override
@@ -234,8 +234,7 @@ class AccLoadLikesEvent extends AccountEvent {
   List<Object> get props => [page, pageSize];
 
   @override
-  String toString() =>
-      'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
+  String toString() => 'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
 }
 
 class AccLoadCommentsEvent extends AccountEvent {
@@ -248,8 +247,7 @@ class AccLoadCommentsEvent extends AccountEvent {
   List<Object> get props => [page, pageSize];
 
   @override
-  String toString() =>
-      'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
+  String toString() => 'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
 }
 
 class AccPostEvent extends AccountEvent {

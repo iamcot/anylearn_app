@@ -107,8 +107,8 @@ class UserRepository {
     return userService.registeredUsers(token, itemId);
   }
 
-  Future<ProfileDTO> getProfile(int userId, int page) async {
-    return userService.getProfile(userId ,page);
+  Future<ProfileDTO> getProfile(String token, int page) async {
+    return userService.getProfile(token, page);
   }
 
   Future<List<UserDocDTO>> getDocs(String token) async {

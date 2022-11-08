@@ -29,28 +29,40 @@ class BottomNav extends StatelessWidget {
               onPressed: () {
                 _navigate(context, SCHOOL_INDEX);
               },
-              icon: Icon(Icons.school, color: route == SCHOOL_INDEX ? Colors.green[600] : Colors.grey[500],)),
+              icon: Icon(
+                Icons.school,
+                color: route == SCHOOL_INDEX ? Colors.green[600] : Colors.grey[500],
+              )),
           IconButton(
               onPressed: () {
                 _navigate(context, TEACHER_INDEX);
               },
-              icon: Icon(Icons.supervised_user_circle, color: route == TEACHER_INDEX ? Colors.green[600] : Colors.grey[500],)),
+              icon: Icon(
+                Icons.supervised_user_circle,
+                color: route == TEACHER_INDEX ? Colors.green[600] : Colors.grey[500],
+              )),
           IconButton(
               onPressed: () {
                 if (user.token != "") {
                   Navigator.of(context).canPop()
-                      ? Navigator.of(context).popAndPushNamed("/profile", arguments: user.id)
-                      : Navigator.of(context).pushNamed("/profile", arguments: user.id);
+                      ? Navigator.of(context).popAndPushNamed("/profile")
+                      : Navigator.of(context).pushNamed("/profile");
                 } else {
                   Navigator.of(context).pushNamed("/login", arguments: LoginCallback(routeName: "/profile"));
                 }
               },
-              icon: Icon(Icons.account_circle, color: route == PROFILE_INDEX ? Colors.green[600] : Colors.grey[500],)),
+              icon: Icon(
+                Icons.account_circle,
+                color: route == PROFILE_INDEX ? Colors.green[600] : Colors.grey[500],
+              )),
           IconButton(
               onPressed: () {
                 _navigate(context, ASK_INDEX);
               },
-              icon: Icon(Icons.question_answer, color: route == ASK_INDEX ? Colors.green[600] : Colors.grey[500],)),
+              icon: Icon(
+                Icons.question_answer,
+                color: route == ASK_INDEX ? Colors.green[600] : Colors.grey[500],
+              )),
         ],
       ),
     );

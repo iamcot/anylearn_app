@@ -1,8 +1,7 @@
-import 'package:anylearn/dto/picture_dto.dart';
 import 'package:equatable/equatable.dart';
 
-import 'action_dto.dart';
 import '../user_dto.dart';
+import 'action_dto.dart';
 
 class PostDTO {
   final int id;
@@ -15,12 +14,11 @@ class PostDTO {
   int commentCounts;
   int shareCounts;
   final UserDTO? user;
-  final DateTime? createdAt;
-  final List<ActionDTO>? comments;
+  final createdAt;
+  late final List<ActionDTO>? comments;
   final List<ActionDTO>? likes;
   final List<ActionDTO>? share;
   bool isLiked;
-
 
   PostDTO({
     this.type = "",
@@ -54,7 +52,7 @@ class PostDTO {
         user: json['user'] == null ? UserDTO() : UserDTO.fromJson(json['user']),
         createdAt: json['created_at'] == null
             ? null
-            : DateTime.parse(json['created_at'] as String),
+            : DateTime.parse(json['created_at']),
         comments: List<ActionDTO>.from(json['comments']
                 ?.map((e) => e == null ? ActionDTO() : ActionDTO.fromJson(e)))
             .toList(),
@@ -64,8 +62,8 @@ class PostDTO {
 }
 
 class PostPagingDTO extends Equatable {
-  late final currentPage;
-  late final List<PostDTO> data;
+  final currentPage;
+  List<PostDTO> data;
   final from;
   final lastPage;
   final perPage;
@@ -100,7 +98,7 @@ class PostPagingDTO extends Equatable {
             // from: json['from'],
             // to: json['to'],
             perPage: json['per_page'] ?? 10,
-            // lastPage: json['last_page'],
+            lastPage: json['last_page'] ?? 1,
             total: json['total'] ?? 0,
           );
   }

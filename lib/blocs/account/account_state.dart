@@ -288,6 +288,14 @@ class AccPostSuccessState extends AccountState {
 }
 
 class AccPostLoadingState extends AccountState {}
+class AccPostFailState extends AccountState{
+   final String error;
+  const AccPostFailState({required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
+}
 
 class AccPageProfileLoadingState extends AccountState {}
 
@@ -296,4 +304,11 @@ class AccPageProfileLoadingSuccessState extends AccountState {
   AccPageProfileLoadingSuccessState({required this.data});
   List<Object> get props => [data];
   String toString() => 'AccPageProfileLoadingSuccessState';
+}
+
+class GetFriendProfileLoadingState extends AccountState{
+
+}
+class GetFriendProfileSuccessState extends AccountState{
+
 }
