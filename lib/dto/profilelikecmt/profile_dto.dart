@@ -2,7 +2,7 @@ import 'post_dto.dart';
 import '../user_dto.dart';
 
 class ProfileDTO {
-  final UserDTO profile;
+   UserDTO profile;
   PostPagingDTO posts;
 
   @override

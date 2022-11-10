@@ -185,4 +185,5 @@ class UserDTO extends Equatable {
           )
         : UserDTO();
   }
+ 
 }

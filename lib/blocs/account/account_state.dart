@@ -287,7 +287,7 @@ class AccPostContentSuccessState extends AccountState {
   List<Object> get props => [data];
 }
 
-class AccPostContenLoadingState extends AccountState {}
+class AccPostContentLoadingState extends AccountState {}
 class AccPostContentFailState extends AccountState{
    final String error;
   const AccPostContentFailState({required this.error});

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/profilelikecmt/action_dto.dart';
+import 'package:anylearn/dto/profilelikecmt/post_dto.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../dto/user_dto.dart';
@@ -79,7 +81,11 @@ class AccJoinCourseEvent extends AccountEvent {
   final int itemId;
   final int childId;
 
-  AccJoinCourseEvent({required this.token, required this.itemId, required this.scheduleId, required this.childId});
+  AccJoinCourseEvent(
+      {required this.token,
+      required this.itemId,
+      required this.scheduleId,
+      required this.childId});
   @override
   List<Object> get props => [token, itemId, scheduleId, childId];
   @override
@@ -144,7 +150,11 @@ class AccSaveChildrenEvent extends AccountEvent {
   final int id;
   final String dob;
 
-  AccSaveChildrenEvent({required this.token, required this.id, required this.name, required this.dob});
+  AccSaveChildrenEvent(
+      {required this.token,
+      required this.id,
+      required this.name,
+      required this.dob});
   @override
   List<Object> get props => [token, id, name, dob];
   @override
@@ -166,7 +176,8 @@ class AccChangePassEvent extends AccountEvent {
   final String oldPass;
   final String token;
 
-  AccChangePassEvent({required this.newPass, required this.oldPass, required this.token});
+  AccChangePassEvent(
+      {required this.newPass, required this.oldPass, required this.token});
   @override
   List<Object> get props => [token, newPass, oldPass];
   @override
@@ -234,7 +245,8 @@ class AccLoadLikesEvent extends AccountEvent {
   List<Object> get props => [page, pageSize];
 
   @override
-  String toString() => 'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
+  String toString() =>
+      'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
 }
 
 class AccLoadCommentsEvent extends AccountEvent {
@@ -247,12 +259,13 @@ class AccLoadCommentsEvent extends AccountEvent {
   List<Object> get props => [page, pageSize];
 
   @override
-  String toString() => 'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
+  String toString() =>
+      'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
 }
 
-class AccPostContenEvent extends AccountEvent {
+class AccPostContentEvent extends AccountEvent {
   final int id;
-  AccPostContenEvent({required this.id});
+  AccPostContentEvent({required this.id});
   List<Object> get props => [id];
   String toString() => 'UserPostEvent { id: $id}';
 }
@@ -267,4 +280,13 @@ class AccPageProfileLoadEvent extends AccountEvent {
 
   @override
   String toString() => 'AccPageProfileLoadEvent  {  page: $page , id $id;}';
+}
+
+class ActionUserEvent extends AccountEvent {
+  ActionDTO type;
+  String content;
+  PostDTO id;
+  ActionUserEvent({required this.type, required this.content , required this.id});
+  List<Object> get props => [type, content, id ];
+  String toString() => 'ActionUserEvent ';
 }

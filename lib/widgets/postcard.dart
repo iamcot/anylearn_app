@@ -1,3 +1,5 @@
+import 'package:anylearn/widgets/action_post.dart';
+import 'package:anylearn/widgets/item_row.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -106,6 +108,50 @@ class _PostCardState extends State<PostCard>
             color: Colors.grey[300],
           ),
         ],
+      ),
+    );
+    // return Container(
+    //   padding: EdgeInsets.only(top: 8),
+    //   margin: EdgeInsets.only(top: 12),
+    //   child: GestureDetector(
+    //     onTap: () => _navigateToPostDetailPage(context),
+    //     child: Card(
+    //       margin: EdgeInsets.symmetric(horizontal: 8),
+    //       shape: RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.circular(8),
+    //       ),
+    //       child: ClipRRect(
+    //         borderRadius: BorderRadius.circular(8),
+    //         child: Column(
+    //           mainAxisSize: MainAxisSize.min,
+    //           children: [
+    //             Padding(
+    //               padding: EdgeInsets.fromLTRB(12, 12, 0, 8),
+    //               child: ItemRow(
+    //                 avatarUrl: widget.post.user!.image,
+    //                 title: widget.post.user!.name,
+    //                 subtitle: widget.post.displayTimePostCreated,
+    //                 rightWidget: IconButton(
+    //                   onPressed: () {},
+    //                   icon: const Icon(Icons.more_horiz),
+    //                 ),
+    //               ),
+    //             ),
+    //             imageSection(),
+    //             ActionPost(),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
+  }
+
+  void _navigateToPostDetailPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CommentPage(),
       ),
     );
   }
@@ -301,7 +347,6 @@ class _PostCardState extends State<PostCard>
       ),
     );
   }
-  
 }
 
 Future<void> updateLikes({String? id, int? value}) async {
