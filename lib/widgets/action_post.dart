@@ -14,7 +14,7 @@ class ActionPost extends StatefulWidget {
 class _ActionPostState extends State<ActionPost> {
   PostDTO? post;
 
-  int get commentCount => post!.commentCounts ?? 0;
+  int get commentCount => post!.commentCounts;
 
   @override
   void initState() {
@@ -89,7 +89,7 @@ class _ActionPostState extends State<ActionPost> {
                                 ),
                               )
                             : Container(
-                                color: Colors.transparent,
+                                color: Colors.grey,
                                 padding: const EdgeInsets.all(8),
                                 child: const Icon(CupertinoIcons.heart),
                               ),

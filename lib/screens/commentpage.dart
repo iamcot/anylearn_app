@@ -1,4 +1,5 @@
 import 'package:anylearn/screens/list_comment.dart';
+import 'package:anylearn/widgets/textFieldcomment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,9 @@ class _CommentPageState extends State<CommentPage> {
   late AccountBloc _accountBloc;
   PostDTO? post;
   int userId = 0;
+ TextEditingController? controller;
+
+
 
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -53,6 +57,7 @@ class _CommentPageState extends State<CommentPage> {
               body: Stack(
                 children: [
                   CustomScrollView(
+                    
                     physics: AlwaysScrollableScrollPhysics(),
                     slivers: <Widget>[
                       SliverAppBar(
@@ -94,6 +99,35 @@ class _CommentPageState extends State<CommentPage> {
                             ActionPost(),
                             // const Divider(thickness: 1),
                             ListComment(),
+                            SizedBox(
+                              height: 550,
+                            ),
+                            TextFieldComment(),
+                            // TextField(
+                            //   controller: controller,
+                            //   maxLines: 3,
+                            //   decoration: new InputDecoration(
+                            //       hintText: 'Write a Comment',
+                            //       hintStyle: new TextStyle(
+                            //         color: Colors.grey,
+                            //       ),
+                            //       prefixIcon: InkWell(
+                            //         child: Icon(Icons.camera_alt),
+                            //         onTap: () {
+                            //         },
+                            //       ),
+                            //       suffixIcon: InkWell(
+                            //         child: Icon(
+                            //           Icons.send,
+                            //         ),
+                            //         onTap: () {
+                                      
+                            //         },
+                            //       )),
+                            //   style: new TextStyle(
+                            //     color: Colors.black,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -105,6 +139,4 @@ class _CommentPageState extends State<CommentPage> {
           }),
     );
   }
-
-  
 }

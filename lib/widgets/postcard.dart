@@ -71,12 +71,12 @@ class _PostCardState extends State<PostCard>
                   // },
                   icon: widget.post == MyConst.TYPE_ACTION_LIKE
                       ? Icon(
-                          Icons.thumb_up_alt_outlined,
-                          color: Colors.blue,
+                          CupertinoIcons.heart_solid,
+                          color: Colors.red,
                         )
-                      : Icon(Icons.thumb_up_alt_outlined, color: Colors.grey),
+                      : Icon(CupertinoIcons.heart, color: Colors.grey),
                   label: widget.post == MyConst.TYPE_ACTION_LIKE
-                      ? Text("Thích".tr(), style: TextStyle(color: Colors.blue))
+                      ? Text("Thích".tr(), style: TextStyle(color: Colors.red))
                       : Text(
                           "Thích".tr(),
                           style: TextStyle(color: Colors.grey),
@@ -86,7 +86,7 @@ class _PostCardState extends State<PostCard>
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => CommentPage()));
                   },
-                  icon: Icon(Icons.mode_comment_sharp, color: Colors.grey),
+                  icon: Icon(CupertinoIcons.conversation_bubble, color: Colors.grey),
                   label: Text(
                     "Bình Luận".tr(),
                     style: TextStyle(color: Colors.grey),
