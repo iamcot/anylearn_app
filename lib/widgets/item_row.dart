@@ -35,7 +35,7 @@ class ItemRow extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               avatarWidget ??
-                   Container(
+                  Container(
                     width: 40,
                     height: 40,
                     decoration: const BoxDecoration(shape: BoxShape.circle),

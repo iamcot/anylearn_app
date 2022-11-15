@@ -184,85 +184,6 @@ class AccChangePassEvent extends AccountEvent {
   String toString() => 'AccChangePassEvent';
 }
 
-class AccLikeEvent extends AccountEvent {
-  final UserDTO user;
-  final String type;
-  AccLikeEvent({required this.user, required this.type});
-  List<Object> get props => [user, type];
-  String toString() => 'UserLikeEvent{user: $user, type:$type}';
-}
-
-class AccCommentEvent extends AccountEvent {
-  final UserDTO user;
-  final String type;
-  AccCommentEvent({required this.user, required this.type});
-  List<Object> get props => [user, type];
-  String toString() => 'UserLikeEvent{user: $user, type:$type}';
-}
-
-class AccDisLikeEvent extends AccountEvent {
-  final UserDTO user;
-  final String type;
-  AccDisLikeEvent({required this.user, required this.type});
-  List<Object> get props => [user, type];
-  String toString() => 'UserLikeEvent{user: $user, type:$type}';
-}
-
-class AccShareEvent extends AccountEvent {
-  final UserDTO user;
-  final String type;
-  AccShareEvent({required this.user, required this.type});
-  List<Object> get props => [user, type];
-  String toString() => 'UserLikeEvent{user: $user, type:$type}';
-}
-
-class AccDeleteCommentEvent extends AccountEvent {
-  final UserDTO user;
-
-  const AccDeleteCommentEvent({required this.user});
-
-  @override
-  List<Object> get props => [user];
-
-  @override
-  String toString() => 'AuthDeleteEvent';
-}
-
-class AccLikeCountEvent extends AccountEvent {
-  final int likeCount;
-  const AccLikeCountEvent({required this.likeCount});
-  List<Object> get props => [likeCount];
-  String toString() => 'UserLikeCountEvent';
-}
-
-class AccLoadLikesEvent extends AccountEvent {
-  final int page;
-  final int pageSize;
-
-  AccLoadLikesEvent({this.page = 1, this.pageSize = 9999});
-
-  @override
-  List<Object> get props => [page, pageSize];
-
-  @override
-  String toString() =>
-      'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
-}
-
-class AccLoadCommentsEvent extends AccountEvent {
-  final int page;
-  final int pageSize;
-
-  AccLoadCommentsEvent({this.page = 1, this.pageSize = 9999});
-
-  @override
-  List<Object> get props => [page, pageSize];
-
-  @override
-  String toString() =>
-      'UsersLoadTeacherEvent  { page: $page, pageSize: $pageSize}';
-}
-
 class AccPostContentEvent extends AccountEvent {
   final int id;
   AccPostContentEvent({required this.id});
@@ -283,10 +204,15 @@ class AccPageProfileLoadEvent extends AccountEvent {
 }
 
 class ActionUserEvent extends AccountEvent {
-  ActionDTO type;
-  String content;
-  PostDTO id;
-  ActionUserEvent({required this.type, required this.content , required this.id});
-  List<Object> get props => [type, content, id ];
-  String toString() => 'ActionUserEvent ';
+  final String token;
+  final int id;
+  final String type;
+  final String content;
+  ActionUserEvent(
+      {required this.type,
+      required this.content,
+      required this.id,
+      required this.token});
+  List<Object> get props => [type, content, id, token];
+  String toString() => 'ActionUserEvent $id , $type';
 }

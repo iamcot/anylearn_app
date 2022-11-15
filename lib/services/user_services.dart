@@ -346,10 +346,11 @@ class UserService extends BaseService {
   }
 
   Future<bool> actionUser(
-      String token, int id, Map<String, dynamic> body) async {
+      String token, int id, String type, String content) async {
     final url = buildUrl(
-        appConfig: config, endPoint: "/api/social/$id/action", token: token);
-    final json = await post(httpClient, url, body);
+        appConfig: config, endPoint: "/social/$id/action", token: token);
+    final json =
+        await post(httpClient, url, {"type": type, "content": content});
 
     return json['result'];
   }
@@ -373,7 +374,7 @@ class UserService extends BaseService {
   }
 
   Future<PostDTO> postContent(int id) async {
-    final url = buildUrl(appConfig: config, endPoint: "api/social/post/$id");
+    final url = buildUrl(appConfig: config, endPoint: "/social/post/$id");
     final json = await get(httpClient, url);
     return PostDTO.fromJson(json);
   }

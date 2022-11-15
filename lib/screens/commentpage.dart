@@ -12,7 +12,9 @@ import '../widgets/action_post.dart';
 import '../widgets/item_row.dart';
 
 class CommentPage extends StatefulWidget {
-  const CommentPage({Key? key}) : super(key: key);
+  final PostDTO postId;
+
+  const CommentPage({Key? key, required this.postId}) : super(key: key);
 
   @override
   State<CommentPage> createState() => _CommentPageState();
@@ -20,22 +22,12 @@ class CommentPage extends StatefulWidget {
 
 class _CommentPageState extends State<CommentPage> {
   late AccountBloc _accountBloc;
-  PostDTO? post;
-  int userId = 0;
- TextEditingController? controller;
-
-
+  TextEditingController? controller;
 
   void didChangeDependencies() {
     super.didChangeDependencies();
     _accountBloc = BlocProvider.of<AccountBloc>(context);
-    try {
-      userId =
-          int.parse((ModalRoute.of(context)!.settings.arguments.toString()));
-    } catch (e) {}
-    if (userId == 0) {
-      _accountBloc..add(AccPostContentEvent(id: userId));
-    }
+    _accountBloc..add(AccPostContentEvent(id: widget.postId.id));
   }
 
   @override
@@ -51,13 +43,12 @@ class _CommentPageState extends State<CommentPage> {
           bloc: _accountBloc,
           builder: (context, state) {
             if (state is AccPostContentSuccessState) {
-              post = state.data;
+              widget.postId.id = state.data.id;
             }
             return Scaffold(
               body: Stack(
                 children: [
                   CustomScrollView(
-                    
                     physics: AlwaysScrollableScrollPhysics(),
                     slivers: <Widget>[
                       SliverAppBar(
@@ -82,23 +73,26 @@ class _CommentPageState extends State<CommentPage> {
                       SliverList(
                         delegate: SliverChildListDelegate(
                           [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(12, 12, 0, 8),
-                              child: post == null
-                                  ? Container()
-                                  : ItemRow(
-                                      avatarUrl: post!.user!.image,
-                                      title: post!.user!.name,
-                                      subtitle: post!.createdAt,
-                                      rightWidget: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.more_horiz),
-                                      ),
-                                    ),
+                            // Padding(
+                            //   padding: const EdgeInsets.fromLTRB(12, 12, 0, 8),
+                            //   child: widget.postId == null
+                            //       ? Container()
+                            //       : ItemRow(
+                            //           avatarUrl: widget.postId.user!.image,
+                            //           title: widget.postId.user!.name,
+                            //           subtitle:
+                            //               widget.postId.displayTimePostCreated,
+                            //           rightWidget: IconButton(
+                            //             onPressed: () {},
+                            //             icon: const Icon(Icons.more_horiz),
+                            //           ),
+                            //         ),
+                            // ),
+                            ActionPost(
+                              post: widget.postId,
                             ),
-                            ActionPost(),
                             // const Divider(thickness: 1),
-                            ListComment(),
+                            ListComment(postId: widget.postId),
                             SizedBox(
                               height: 550,
                             ),
@@ -121,7 +115,7 @@ class _CommentPageState extends State<CommentPage> {
                             //           Icons.send,
                             //         ),
                             //         onTap: () {
-                                      
+
                             //         },
                             //       )),
                             //   style: new TextStyle(

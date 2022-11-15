@@ -6,8 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 class ListComment extends StatefulWidget {
+ final PostDTO? postId;
+
   const ListComment({
-    Key? key,
+    Key? key, required this.postId
   }) : super(key: key);
 
   @override
@@ -16,19 +18,11 @@ class ListComment extends StatefulWidget {
 
 class _ListCommentState extends State<ListComment> {
   late AccountBloc _accountBloc;
-  int userId = 0;
-  PostDTO? postId;
 
   @override
   void didChangeDependencies() {
     _accountBloc = BlocProvider.of<AccountBloc>(context);
-    try {
-      userId =
-          int.parse((ModalRoute.of(context)!.settings.arguments.toString()));
-    } catch (e) {}
-    if (userId == 0) {
-      _accountBloc..add(AccPostContentEvent(id: userId));
-    }
+      _accountBloc..add(AccPostContentEvent(id: widget.postId!.id));
     super.didChangeDependencies();
   }
 
@@ -39,7 +33,6 @@ class _ListCommentState extends State<ListComment> {
       builder: (context, state) {
         if (state is AccPostContentSuccessState) {
           if (state is AccPostContentLoadingState) {
-            postId = state.data.comments!.isEmpty as PostDTO?;
             return Container(
               color: Colors.transparent,
               padding: const EdgeInsets.only(top: 12),

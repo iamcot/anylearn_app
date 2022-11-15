@@ -1,3 +1,4 @@
+import 'package:anylearn/blocs/account/account_blocs.dart';
 import 'package:anylearn/widgets/action_post.dart';
 import 'package:anylearn/widgets/item_row.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../dto/const.dart';
 import '../dto/profilelikecmt/post_dto.dart';
@@ -27,89 +30,119 @@ class _PostCardState extends State<PostCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
       duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
+  late AccountBloc _accountBloc;
+
+  @override
+  void didChangeDependencies() {
+    _accountBloc = BlocProvider.of<AccountBloc>(context);
+    _accountBloc
+      ..add(ActionUserEvent(
+          content: widget.post.content.toString(),
+          token: widget.post.user!.token,
+          type: widget.post.likes.toString(),
+          id: widget.post.id));
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          postCardHeader(),
-          titleSection(),
-          imageSection(),
-          footerSection(),
-          Divider(
-            thickness: 1,
-            color: Colors.grey[300],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton.icon(
-                  onPressed: () {
-                    if (widget.post.isLiked) {
-                      setState(() {
-                        widget.post.isLiked = false;
-                        widget.post.likeCounts -= 1;
-                      });
-                    } else {
-                      setState(() {
-                        widget.post.isLiked = true;
-                        widget.post.likeCounts += 1;
-                      });
-                      _controller
-                          .reverse()
-                          .then((value) => _controller.forward());
-                    }
-                  },
-                  // onPressed: () {
-                  //   setState(()  {
-                  //     _isLiked = !_isLiked;
-                  //   });
-                  //   _controller
-                  //       .reverse()
-                  //       .then((value) => _controller.forward());
-                  // },
-                  icon: widget.post == MyConst.TYPE_ACTION_LIKE
-                      ? Icon(
-                          CupertinoIcons.heart_solid,
-                          color: Colors.red,
-                        )
-                      : Icon(CupertinoIcons.heart, color: Colors.grey),
-                  label: widget.post == MyConst.TYPE_ACTION_LIKE
-                      ? Text("Thích".tr(), style: TextStyle(color: Colors.red))
-                      : Text(
-                          "Thích".tr(),
+    return BlocListener<AccountBloc, AccountState>(
+      bloc: _accountBloc,
+      listener: (context, state) {
+        if (state is ActionUserFailState) {
+          toast(state.error.toString());
+        }
+      },
+      child: BlocBuilder<AccountBloc, AccountState>(
+        bloc: _accountBloc,
+        builder: (context, state) {
+          if (state is ActionUserSuccessState) {
+            
+          }
+          return Container(
+            child: Column(
+              children: [
+                postCardHeader(),
+                titleSection(),
+                imageSection(),
+                footerSection(),
+                Divider(
+                  thickness: 1,
+                  color: Colors.grey[300],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton.icon(
+                        onPressed: () {
+                          if (widget.post.isLiked) {
+                            setState(() {
+                              widget.post.isLiked = false;
+                              widget.post.likeCounts -= 1;
+                            });
+                          } else {
+                            setState(() {
+                              widget.post.isLiked = true;
+                              widget.post.likeCounts += 1;
+                            });
+                            _controller
+                                .reverse()
+                                .then((value) => _controller.forward());
+                          }
+                        },
+                        icon: widget.post == null
+                            ? Container()
+                            : widget.post.isLiked
+                                ? Icon(CupertinoIcons.heart_solid,
+                                    color: Colors.red)
+                                : Icon(
+                                    CupertinoIcons.heart,
+                                    color: Colors.grey,
+                                  ),
+                        label: widget.post == null
+                            ? Container()
+                            : widget.post.isLiked
+                                ? Text("Thích".tr(),
+                                    style: TextStyle(color: Colors.red))
+                                : Text(
+                                    "Thích".tr(),
+                                    style: TextStyle(color: Colors.grey),
+                                  )),
+                    TextButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  CommentPage(postId: widget.post)));
+                        },
+                        icon: Icon(CupertinoIcons.conversation_bubble,
+                            color: Colors.grey),
+                        label: Text(
+                          "Bình Luận".tr(),
                           style: TextStyle(color: Colors.grey),
                         )),
-              TextButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => CommentPage()));
-                  },
-                  icon: Icon(CupertinoIcons.conversation_bubble, color: Colors.grey),
-                  label: Text(
-                    "Bình Luận".tr(),
-                    style: TextStyle(color: Colors.grey),
-                  )),
-              TextButton.icon(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.screen_share_outlined,
-                    color: Colors.grey,
-                  ),
-                  label: Text(
-                    "Chia sẻ".tr(),
-                    style: TextStyle(color: Colors.grey),
-                  )),
-            ],
-          ),
-          Divider(
-            thickness: 10,
-            color: Colors.grey[300],
-          ),
-        ],
+                    TextButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.screen_share_outlined,
+                          color: Colors.grey,
+                        ),
+                        label: Text(
+                          "Chia sẻ".tr(),
+                          style: TextStyle(color: Colors.grey),
+                        )),
+                  ],
+                ),
+                Divider(
+                  thickness: 10,
+                  color: Colors.grey[300],
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
+
     // return Container(
     //   padding: EdgeInsets.only(top: 8),
     //   margin: EdgeInsets.only(top: 12),
@@ -145,15 +178,6 @@ class _PostCardState extends State<PostCard>
     //     ),
     //   ),
     // );
-  }
-
-  void _navigateToPostDetailPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CommentPage(),
-      ),
-    );
   }
 
   Widget titleSection() {

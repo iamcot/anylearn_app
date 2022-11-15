@@ -42,7 +42,9 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         if (url != "") {
           yield UploadAvatarSuccessState(url: url);
         } else {
-          yield AccountFailState(error: "Up ảnh không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
+          yield AccountFailState(
+              error:
+                  "Up ảnh không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
         }
       } else if (event is AccChangeBannerEvent) {
         yield UploadBannerInprogressState();
@@ -50,32 +52,33 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         if (url != "") {
           yield UploadBannerSuccessState(url: url);
         } else {
-          yield AccountFailState(error: "Up banner không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
+          yield AccountFailState(
+              error:
+                  "Up banner không thành công. Có thể file ảnh không phù hợp. Vui lòng thử lại");
         }
       } else if (event is AccEditSubmitEvent) {
         yield AccEditSavingState();
         bool result = await userRepository.editUser(event.user, event.token);
         if (!result) {
-          yield AccountFailState(error: "Cập nhật thông tin thất bại, vui lòng thử lại");
+          yield AccountFailState(
+              error: "Cập nhật thông tin thất bại, vui lòng thử lại");
         } else {
           yield AccEditSaveSuccessState(result: result);
         }
       } else if (event is AccLoadFriendsEvent) {
         yield AccFriendsLoadingState();
-        FriendsDTO friendsDTO = await userRepository.friends(event.userId, event.token);
+        FriendsDTO friendsDTO =
+            await userRepository.friends(event.userId, event.token);
         yield AccFriendsLoadSuccessState(friends: friendsDTO);
       } else if (event is AccLoadMyCalendarEvent) {
         yield AccMyCalendarLoadingState();
         final calendar = await userRepository.myCalendar(event.token);
         yield AccMyCalendarSuccessState(calendar: calendar);
       } else if (event is AccJoinCourseEvent) {
-        await userRepository.joinCourse(event.token, event.scheduleId, event.childId);
+        await userRepository.joinCourse(
+            event.token, event.scheduleId, event.childId);
         yield AccJoinSuccessState(itemId: event.itemId);
         this..add(AccLoadMyCalendarEvent(token: event.token));
-      } else if (event is AccPostContentEvent) {
-        yield AccPostContentLoadingState();
-        final data = await userRepository.postContent(event.id);
-        yield AccPostContentSuccessState(data: data);
       } else if (event is AccLoadDocsEvent) {
         final userDocs = await userRepository.getDocs(event.token);
         yield AccLoadDocsSuccessState(userDocs: userDocs);
@@ -84,7 +87,8 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         final userDocs = await userRepository.addDoc(event.token, event.file);
         yield AccAddDocSuccessState(userDocs: userDocs);
       } else if (event is AccRemoveDocEvent) {
-        final userDocs = await userRepository.removeDoc(event.token, event.fileId);
+        final userDocs =
+            await userRepository.removeDoc(event.token, event.fileId);
         yield AccRemoveDocSuccessState(userDocs: userDocs);
       }
     } catch (error) {
@@ -93,17 +97,30 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     try {
       if (event is AccProfileEvent) {
         yield AccProfileLoadingState();
-        final profile = await userRepository.getProfile(event.token, event.page);
+        final profile =
+            await userRepository.getProfile(event.token, event.page);
         yield AccProfileLoadSuccessState(data: profile);
+      } else if (event is AccPostContentEvent) {
+        yield AccPostContentLoadingState();
+        final data = await userRepository.postContent(event.id);
+        yield AccPostContentSuccessState(data: data);
+      } 
+       else if (event is ActionUserEvent) {
+        yield ActionUserLoadingState();
+        final actionUser = await userRepository.actionUser(
+            event.token, event.id, event.type, event.content);
+        yield ActionUserSuccessState(actionUser: actionUser);
       }
     } catch (error) {
       yield AccProfileFailState(error: error.toString());
     }
+    
 
     try {
       if (event is AccSaveChildrenEvent) {
         yield AccSaveChildrenLoadingState();
-        final newChildId = await userRepository.saveChildren(event.token, event.id, event.name, event.dob);
+        final newChildId = await userRepository.saveChildren(
+            event.token, event.id, event.name, event.dob);
         yield AccSaveChildrenSuccessState(id: newChildId);
       } else if (event is AccLoadChildrenEvent) {
         yield AccChildrenLoadingState();
@@ -116,8 +133,10 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
     try {
       if (event is AccChangePassEvent) {
-        yield AccChangePassInProgressState(token: event.token, newPass: event.newPass, oldPass: event.oldPass);
-        await userRepository.changePass(event.token, event.newPass, event.oldPass);
+        yield AccChangePassInProgressState(
+            token: event.token, newPass: event.newPass, oldPass: event.oldPass);
+        await userRepository.changePass(
+            event.token, event.newPass, event.oldPass);
         yield AccChangePassSuccessState();
       }
     } catch (error) {

@@ -119,8 +119,6 @@ class AccProfileLoadSuccessState extends AccountState {
 
   @override
   List<Object> get props => [data];
-
-
 }
 
 class AccProfileFailState extends AccountState {
@@ -288,8 +286,9 @@ class AccPostContentSuccessState extends AccountState {
 }
 
 class AccPostContentLoadingState extends AccountState {}
-class AccPostContentFailState extends AccountState{
-   final String error;
+
+class AccPostContentFailState extends AccountState {
+  final String error;
   const AccPostContentFailState({required this.error});
   @override
   List<Object> get props => [error];
@@ -306,9 +305,24 @@ class AccPageProfileLoadingSuccessState extends AccountState {
   String toString() => 'AccPageProfileLoadingSuccessState';
 }
 
-class GetFriendProfileLoadingState extends AccountState{
+class GetFriendProfileLoadingState extends AccountState {}
 
+class GetFriendProfileSuccessState extends AccountState {}
+
+class ActionUserLoadingState extends AccountState {}
+
+class ActionUserSuccessState extends AccountState {
+  final PostDTO actionUser;
+  ActionUserSuccessState({required this.actionUser});
+  List<Object> get props => [actionUser];
+  String toString() => "ActionUserSuccessState";
 }
-class GetFriendProfileSuccessState extends AccountState{
 
+class ActionUserFailState extends AccountState {
+  final String error;
+  const ActionUserFailState({required this.error});
+  @override
+  List<Object> get props => [error];
+  @override
+  String toString() => '{error: $error}';
 }

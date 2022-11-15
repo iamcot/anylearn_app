@@ -5,16 +5,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ActionPost extends StatefulWidget {
-  const ActionPost({Key? key}) : super(key: key);
+  final PostDTO post;
+
+  const ActionPost({Key? key, required this.post}) : super(key: key);
 
   @override
   _ActionPostState createState() => _ActionPostState();
 }
 
-class _ActionPostState extends State<ActionPost> {
-  PostDTO? post;
+class _ActionPostState extends State<ActionPost>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+      duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
+  PostDTO get post => widget.post;
+  int likeCount = 0;
+  bool isLiked = false;
 
-  int get commentCount => post!.commentCounts;
+  int get commentCount => post.commentCounts ?? 0;
 
   @override
   void initState() {
@@ -27,12 +34,12 @@ class _ActionPostState extends State<ActionPost> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         if (post == null &&
-            post?.description != null &&
-            post!.description!.trim().isNotEmpty)
+            post.description != null &&
+            post.description!.trim().isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(left: 12, top: 8),
             child: Text(
-              post!.description!,
+              post.description!,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -46,40 +53,27 @@ class _ActionPostState extends State<ActionPost> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(right: 0, left: 4),
-                  // child: Toggle(
-                  //   isActivated: isLiked,
-                  //   deActivatedChild: Container(
-                  //     color: Colors.transparent,
-                  //     padding: const EdgeInsets.all(8),
-                  //     child: const Icon(CupertinoIcons.heart),
-                  //   ),
-                  //   activatedChild: Container(
-                  //     color: Colors.transparent,
-                  //     padding: const EdgeInsets.all(8),
-                  //     child: const Icon(
-                  //       CupertinoIcons.heart_solid,
-                  //       color: Colors.red,
-                  //     ),
-                  //   ),
-                  //   onTrigger: _handleLikePost,
-                  //   onTap: (isOn) {
-                  //     setState(() {
-                  //       likeCount = isOn ? likeCount + 1 : likeCount - 1;
-                  //       isLiked = isOn;
-                  //     });
-                  //   },
-                  // ),
+                  padding: const EdgeInsets.only(left: 20),
                   child: GestureDetector(
                     onTap: () {
-                      setState(() {
-                        post!.isLiked = false;
-                        post!.likeCounts -= 1;
-                      });
+                      if (widget.post.isLiked) {
+                        setState(() {
+                          widget.post.isLiked = false;
+                          widget.post.likeCounts -= 1;
+                        });
+                      } else {
+                        setState(() {
+                          widget.post.isLiked = true;
+                          widget.post.likeCounts += 1;
+                        });
+                        _controller
+                            .reverse()
+                            .then((value) => _controller.forward());
+                      }
                     },
                     child: post == null
                         ? Container()
-                        : post!.isLiked
+                        : post.isLiked
                             ? Container(
                                 color: Colors.transparent,
                                 padding: const EdgeInsets.all(8),
@@ -95,6 +89,9 @@ class _ActionPostState extends State<ActionPost> {
                               ),
                   ),
                 ),
+                SizedBox(
+                  width: 30,
+                ),
                 const IconPostComment(),
               ],
             ),
@@ -108,13 +105,13 @@ class _ActionPostState extends State<ActionPost> {
               post == null
                   ? Container()
                   : TextCountNumber(
-                      number: post!.likeCounts,
+                      number: post.likeCounts,
                       subText: 'lượt thích',
                     ),
               post == null
                   ? Container()
                   : TextCountNumber(
-                      number: post!.commentCounts,
+                      number: post.commentCounts,
                       subText: 'bình luận',
                     ),
             ],

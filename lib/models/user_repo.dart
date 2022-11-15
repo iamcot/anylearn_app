@@ -37,7 +37,8 @@ class UserRepository {
     return await userService.getInfoLess(token);
   }
 
-  Future<UserDTO> authenticated({required String phone, required String password}) async {
+  Future<UserDTO> authenticated(
+      {required String phone, required String password}) async {
     return await userService.login(phone, password);
   }
 
@@ -63,7 +64,8 @@ class UserRepository {
     return await storage.read(key: MyConst.AUTH_TOKEN);
   }
 
-  Future<UserDTO> register(String phone, String name, String password, String refcode, String role) async {
+  Future<UserDTO> register(String phone, String name, String password,
+      String refcode, String role) async {
     return await userService.register(phone, name, password, refcode, role);
   }
 
@@ -103,7 +105,8 @@ class UserRepository {
     return userService.joinCourse(token, itemId, childId);
   }
 
-  Future<List<ClassRegisteredUserDTO>> registeredUsers(String token, int itemId) async {
+  Future<List<ClassRegisteredUserDTO>> registeredUsers(
+      String token, int itemId) async {
     return userService.registeredUsers(token, itemId);
   }
 
@@ -147,7 +150,8 @@ class UserRepository {
     return await userService.signContract(token, contractId);
   }
 
-  Future<int> saveChildren(String token, int id, String name, String dob) async {
+  Future<int> saveChildren(
+      String token, int id, String name, String dob) async {
     return await userService.saveChildren(token, id, name, dob);
   }
 
@@ -163,7 +167,8 @@ class UserRepository {
     return await userService.sentOtp(phone);
   }
 
-  Future<bool> resetOtp(String phone, String otp, String password, String passwordConfirm) async {
+  Future<bool> resetOtp(
+      String phone, String otp, String password, String passwordConfirm) async {
     return await userService.resetOtp(phone, otp, password, passwordConfirm);
   }
 
@@ -179,13 +184,9 @@ class UserRepository {
     return await userService.deleteAccount(token);
   }
 
-  // Future<ActionDTO> actionUser(String token) async {
-  //   return await userService.actionUser(token);
-  // }
-
-  // Future<PostPagingDTO> accountPost( int id ,int page) async {
-  //   return await userService.accountPost( page,id);
-  // }
+  Future<bool> actionUser(String token, int id , String type , String content) async {
+    return await userService.actionUser(token, id, type, content);
+  }
 
   Future<PostDTO> postContent(int id) async {
     return await userService.postContent(id);

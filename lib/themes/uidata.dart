@@ -1,5 +1,5 @@
 class UIData {
-  static const String imageDir = "assets/images";
+  static const String imageDir = "assets/images/icons";
 
   static const String angryGif = '$imageDir/angry.gif';
   static const String hahaGif = '$imageDir/haha.gif';

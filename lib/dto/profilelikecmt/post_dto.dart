@@ -5,18 +5,18 @@ import '../user_dto.dart';
 import 'action_dto.dart';
 
 class PostDTO {
-  final int? id;
-  final String? type;
+    int id;
+   String? type;
   int? refId;
   int? userId;
   String? content;
-  final String? images;
+   String? images;
   final day;
-  final int status; // 1 active; 0 inactive
+   int status; // 1 active; 0 inactive
   final createdAt;
   final updatedAt;
-  final String? title;
-  final String? description;
+   String? title;
+   String? description;
   int likeCounts;
   int commentCounts;
   int shareCounts;
@@ -43,16 +43,16 @@ class PostDTO {
     this.commentCounts = 0,
     this.shareCounts = 0,
     this.user,
-     this.comments,
-     this.likes,
-     this.share,
+    this.comments,
+    this.likes,
+    this.share,
     this.isLiked = false,
     // this.isComment = false,
     // this.isShare = false,
   });
   String get displayTimePostCreated =>
       StringUtils?.calcTimePost(createdAt ?? DateTime.now()) ?? '';
-  factory PostDTO.fromJson(Map<String, dynamic> json) =>  PostDTO(
+  factory PostDTO.fromJson(Map<String, dynamic> json) => PostDTO(
         id: json['id'] ?? 0,
         type: json["type"] ?? "",
         refId: json['refId'] ?? 0,
@@ -74,11 +74,10 @@ class PostDTO {
         shareCounts: json['share_counts'] ?? 0,
         user: json['user'] == null ? UserDTO() : UserDTO.fromJson(json['user']),
         comments: List<PostDTO>.from(json['comments']
-                ?.map((e) => e == null ? PostDTO() : PostDTO.fromJson(e)))
-            .toList(),
+            ?.map((e) => e == null ? PostDTO() : PostDTO.fromJson(e))).toList(),
         likes: List<PostDTO>.from(json['like']
-            ?.map((e) => e == null ? null : ActionDTO.fromJson(e))).toList(), 
-            share: [],
+            ?.map((e) => e == null ? null : ActionDTO.fromJson(e))).toList(),
+        share: [],
       );
 }
 
