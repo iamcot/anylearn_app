@@ -109,7 +109,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         yield ActionUserLoadingState();
         final actionUser = await userRepository.actionUser(
             event.token, event.id, event.type, event.content);
-        yield ActionUserSuccessState(actionUser: actionUser);
+        yield ActionUserSuccessState();
       }
     } catch (error) {
       yield AccProfileFailState(error: error.toString());

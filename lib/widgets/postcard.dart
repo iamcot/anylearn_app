@@ -1,6 +1,4 @@
-import 'package:anylearn/blocs/account/account_blocs.dart';
-import 'package:anylearn/widgets/action_post.dart';
-import 'package:anylearn/widgets/item_row.dart';
+import 'package:anylearn/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,14 +8,17 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
+import '../blocs/account/account_blocs.dart';
 import '../dto/const.dart';
 import '../dto/profilelikecmt/post_dto.dart';
+import '../dto/user_dto.dart';
 import '../screens/commentpage.dart';
 import 'time_ago.dart';
 import 'varfied.dart';
 
 class PostCard extends StatefulWidget {
   PostDTO post;
+
   // final ActionDTO type;
 
   PostCard({Key? key, required this.post}) : super(key: key);
@@ -35,12 +36,7 @@ class _PostCardState extends State<PostCard>
   @override
   void didChangeDependencies() {
     _accountBloc = BlocProvider.of<AccountBloc>(context);
-    _accountBloc
-      ..add(ActionUserEvent(
-          content: widget.post.content.toString(),
-          token: widget.post.user!.token,
-          type: widget.post.likes.toString(),
-          id: widget.post.id));
+
     super.didChangeDependencies();
   }
 
@@ -56,9 +52,7 @@ class _PostCardState extends State<PostCard>
       child: BlocBuilder<AccountBloc, AccountState>(
         bloc: _accountBloc,
         builder: (context, state) {
-          if (state is ActionUserSuccessState) {
-            
-          }
+          if (state is ActionUserSuccessState) {}
           return Container(
             child: Column(
               children: [
@@ -80,11 +74,23 @@ class _PostCardState extends State<PostCard>
                               widget.post.isLiked = false;
                               widget.post.likeCounts -= 1;
                             });
+                            _accountBloc
+                              ..add(ActionUserEvent(
+                                  content: "",
+                                  token: user.token,
+                                  type: MyConst.TYPE_ACTION_DISLIKE,
+                                  id: widget.post.id));
                           } else {
                             setState(() {
                               widget.post.isLiked = true;
                               widget.post.likeCounts += 1;
                             });
+                            _accountBloc
+                              ..add(ActionUserEvent(
+                                  content: "",
+                                  token: user.token,
+                                  type: MyConst.TYPE_ACTION_LIKE,
+                                  id: widget.post.id));
                             _controller
                                 .reverse()
                                 .then((value) => _controller.forward());

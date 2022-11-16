@@ -214,5 +214,5 @@ class ActionUserEvent extends AccountEvent {
       required this.id,
       required this.token});
   List<Object> get props => [type, content, id, token];
-  String toString() => 'ActionUserEvent $id , $type';
+  String toString() => 'ActionUserEvent $id';
 }

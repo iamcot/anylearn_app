@@ -312,10 +312,10 @@ class GetFriendProfileSuccessState extends AccountState {}
 class ActionUserLoadingState extends AccountState {}
 
 class ActionUserSuccessState extends AccountState {
-  final PostDTO actionUser;
-  ActionUserSuccessState({required this.actionUser});
-  List<Object> get props => [actionUser];
-  String toString() => "ActionUserSuccessState";
+  // final PostDTO actionUser;
+  // ActionUserSuccessState({required this.actionUser});
+  // List<Object> get props => [actionUser];
+  // String toString() => "ActionUserSuccessState";
 }
 
 class ActionUserFailState extends AccountState {

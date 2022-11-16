@@ -90,6 +90,14 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
           toast(state.error.toString());
           isLoading = false;
         }
+        if (state is ActionUserSuccessState){
+          if (userId == 0) {
+            _accountBloc..add(AccProfileEvent(token: user.token, page: page));
+          } else {
+            _accountBloc
+              ..add(AccFriendProfileEvent(userId: userId, page: page));
+          }
+        }
       },
       child: BlocBuilder<AccountBloc, AccountState>(
           bloc: _accountBloc,

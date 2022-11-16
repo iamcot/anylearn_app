@@ -351,8 +351,8 @@ class UserService extends BaseService {
         appConfig: config, endPoint: "/social/$id/action", token: token);
     final json =
         await post(httpClient, url, {"type": type, "content": content});
-
-    return json['result'];
+    print(json);
+    return true;
   }
 
   Future<ProfileDTO> getProfile(String token, int page) async {

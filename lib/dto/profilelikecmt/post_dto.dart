@@ -5,18 +5,18 @@ import '../user_dto.dart';
 import 'action_dto.dart';
 
 class PostDTO {
-    int id;
-   String? type;
+  int id;
+  String? type;
   int? refId;
   int? userId;
   String? content;
-   String? images;
+  String? images;
   final day;
-   int status; // 1 active; 0 inactive
+  int status; // 1 active; 0 inactive
   final createdAt;
   final updatedAt;
-   String? title;
-   String? description;
+  String? title;
+  String? description;
   int likeCounts;
   int commentCounts;
   int shareCounts;
@@ -70,6 +70,9 @@ class PostDTO {
         title: json['title'] ?? "",
         description: json['description'] ?? "",
         likeCounts: json['like_counts'] ?? 0,
+        isLiked: json['isliked'] == null
+            ? false
+            : (json['isliked'] == 0 ? false : true),
         commentCounts: json['comment_counts'] ?? 0,
         shareCounts: json['share_counts'] ?? 0,
         user: json['user'] == null ? UserDTO() : UserDTO.fromJson(json['user']),
