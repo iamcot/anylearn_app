@@ -307,7 +307,10 @@ class AccPageProfileLoadingSuccessState extends AccountState {
 
 class GetFriendProfileLoadingState extends AccountState {}
 
-class GetFriendProfileSuccessState extends AccountState {}
+// class GetFriendProfileSuccessState extends AccountState {
+
+
+// }
 
 class ActionUserLoadingState extends AccountState {}
 
@@ -326,3 +329,4 @@ class ActionUserFailState extends AccountState {
   @override
   String toString() => '{error: $error}';
 }
+

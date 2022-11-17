@@ -21,7 +21,7 @@ class PostDTO {
   int commentCounts;
   int shareCounts;
   UserDTO? user;
-  late final List<PostDTO>? comments;
+  List<PostDTO>? comments;
   final List<PostDTO>? likes;
   final List<ActionDTO>? share;
   bool isLiked;
@@ -52,7 +52,9 @@ class PostDTO {
   });
   String get displayTimePostCreated =>
       StringUtils?.calcTimePost(createdAt ?? DateTime.now()) ?? '';
-  factory PostDTO.fromJson(Map<String, dynamic> json) => PostDTO(
+  factory PostDTO.fromJson(Map<String, dynamic> json) {
+    if (json != null) {
+      return PostDTO(
         id: json['id'] ?? 0,
         type: json["type"] ?? "",
         refId: json['refId'] ?? 0,
@@ -76,12 +78,22 @@ class PostDTO {
         commentCounts: json['comment_counts'] ?? 0,
         shareCounts: json['share_counts'] ?? 0,
         user: json['user'] == null ? UserDTO() : UserDTO.fromJson(json['user']),
-        comments: List<PostDTO>.from(json['comments']
-            ?.map((e) => e == null ? PostDTO() : PostDTO.fromJson(e))).toList(),
-        likes: List<PostDTO>.from(json['like']
-            ?.map((e) => e == null ? null : ActionDTO.fromJson(e))).toList(),
+        comments: json['comments'] == null
+            ? []
+            : List<PostDTO>.from(json['comments']
+                    ?.map((e) => e == null ? PostDTO() : PostDTO.fromJson(e)))
+                .toList(),
+        likes: json['like'] == null
+            ? []
+            : List<PostDTO>.from(json['like']
+                    ?.map((e) => e == null ? null : ActionDTO.fromJson(e)))
+                .toList(),
         share: [],
       );
+    } else {
+      return PostDTO();
+    }
+  }
 }
 
 class PostPagingDTO extends Equatable {

@@ -184,11 +184,16 @@ class UserRepository {
     return await userService.deleteAccount(token);
   }
 
-  Future<bool> actionUser(String token, int id , String type , String content) async {
+  Future<bool> actionUser(
+      String token, int id, String type, String content) async {
     return await userService.actionUser(token, id, type, content);
   }
 
   Future<PostDTO> postContent(int id) async {
     return await userService.postContent(id);
+  }
+
+  Future<ProfileDTO> getFriendProfile(int userId, int page) async {
+    return await userService.getFriendProfile(userId , page);
   }
 }

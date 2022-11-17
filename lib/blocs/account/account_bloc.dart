@@ -104,17 +104,22 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         yield AccPostContentLoadingState();
         final data = await userRepository.postContent(event.id);
         yield AccPostContentSuccessState(data: data);
-      } 
-       else if (event is ActionUserEvent) {
+      } else if (event is ActionUserEvent) {
         yield ActionUserLoadingState();
         final actionUser = await userRepository.actionUser(
             event.token, event.id, event.type, event.content);
         yield ActionUserSuccessState();
+      } else if (event is AccFriendProfileEvent) {
+        yield GetFriendProfileLoadingState();
+        final profileId =
+            await userRepository.getFriendProfile(event.userId, event.page);
+        yield AccProfileLoadSuccessState(data: profileId);
       }
-    } catch (error) {
+    } catch (error, trace) {
+      print(trace);
+      print(error);
       yield AccProfileFailState(error: error.toString());
     }
-    
 
     try {
       if (event is AccSaveChildrenEvent) {

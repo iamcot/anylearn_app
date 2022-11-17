@@ -6,11 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 class ListComment extends StatefulWidget {
- final PostDTO? postId;
+  final PostDTO? post;
 
-  const ListComment({
-    Key? key, required this.postId
-  }) : super(key: key);
+  const ListComment({Key? key, required this.post}) : super(key: key);
 
   @override
   _ListCommentState createState() => _ListCommentState();
@@ -22,7 +20,7 @@ class _ListCommentState extends State<ListComment> {
   @override
   void didChangeDependencies() {
     _accountBloc = BlocProvider.of<AccountBloc>(context);
-      _accountBloc..add(AccPostContentEvent(id: widget.postId!.id));
+    _accountBloc..add(AccPostContentEvent(id: widget.post!.id));
     super.didChangeDependencies();
   }
 
@@ -46,7 +44,7 @@ class _ListCommentState extends State<ListComment> {
             shrinkWrap: true,
             padding: const EdgeInsets.all(0),
             itemBuilder: (context, index) {
-              final postId = state.data.comments![index] as List<PostDTO>?;
+              widget.post!.comments = state.data.comments;
 
               return Container(
                 color: Colors.transparent,
@@ -56,11 +54,9 @@ class _ListCommentState extends State<ListComment> {
                     Padding(
                       padding: const EdgeInsets.all(0),
                       child: CommentItemBubble(
-                        cmt: postId![index],
+                        post: widget.post!.comments![index],
                         onReact: (type, isUnReact) {
-                          // if(!isUnReact){
-                          //   commentBloc!.react(comment.id!, type);
-                          // }
+                         
                         },
                       ),
                     ),

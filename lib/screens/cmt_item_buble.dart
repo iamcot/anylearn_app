@@ -1,17 +1,18 @@
-import 'package:anylearn/dto/profilelikecmt/post_dto.dart';
-import 'package:anylearn/themes/uidata.dart';
-import 'package:anylearn/widgets/react_button/reactive_button.dart';
-import 'package:anylearn/widgets/react_button/reactive_icon_definition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../dto/profilelikecmt/post_dto.dart';
+import '../themes/uidata.dart';
+import '../widgets/react_button/reactive_button.dart';
+import '../widgets/react_button/reactive_icon_definition.dart';
+
 class CommentItemBubble extends StatefulWidget {
-  final PostDTO cmt;
+  final PostDTO? post;
   final Function(int, bool) onReact;
 
   const CommentItemBubble({
     Key? key,
-    required this.cmt,
+    required this.post,
     required this.onReact,
   }) : super(key: key);
 
@@ -20,7 +21,6 @@ class CommentItemBubble extends StatefulWidget {
 }
 
 class _CommentItemBubbleState extends State<CommentItemBubble> {
-  late final PostDTO cmt;
   int? yourReact = 0;
 
   @override
@@ -39,10 +39,10 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
             child: CircleAvatar(
               radius: 22,
               backgroundColor: Colors.white30,
-              child: (cmt.user!.image != "")
+              child: (widget.post!.user!.image != "")
                   ? CircleAvatar(
                       backgroundImage:
-                          CachedNetworkImageProvider(cmt.user!.image),
+                          CachedNetworkImageProvider(widget.post!.user!.image),
                     )
                   : Icon(
                       Icons.account_circle,
@@ -65,14 +65,14 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      cmt.user!.name,
+                      widget.post!.user!.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      cmt.content!,
+                      widget.post!.content!,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
@@ -87,7 +87,7 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
               Row(
                 children: [
                   Text(
-                    cmt.day,
+                    widget.post!.displayTimePostCreated,
                     style: Theme.of(context).textTheme.caption,
                   ),
                   buildReactButton(),

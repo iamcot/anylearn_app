@@ -12,9 +12,9 @@ import '../widgets/action_post.dart';
 import '../widgets/item_row.dart';
 
 class CommentPage extends StatefulWidget {
-  final PostDTO postId;
+  final PostDTO post;
 
-  const CommentPage({Key? key, required this.postId}) : super(key: key);
+  const CommentPage({Key? key, required this.post}) : super(key: key);
 
   @override
   State<CommentPage> createState() => _CommentPageState();
@@ -23,11 +23,13 @@ class CommentPage extends StatefulWidget {
 class _CommentPageState extends State<CommentPage> {
   late AccountBloc _accountBloc;
   TextEditingController? controller;
+  bool needScroll = false;
 
   void didChangeDependencies() {
     super.didChangeDependencies();
     _accountBloc = BlocProvider.of<AccountBloc>(context);
-    _accountBloc..add(AccPostContentEvent(id: widget.postId.id));
+    _accountBloc..add(AccPostContentEvent(id: widget.post.id));
+    
   }
 
   @override
@@ -38,13 +40,20 @@ class _CommentPageState extends State<CommentPage> {
         if (state is AccPostContentFailState) {
           toast(state.error.toString());
         }
+        if (state is ActionUserSuccessState) {
+          _accountBloc..add(AccPostContentEvent(id: widget.post.id));
+          setState(() {
+            needScroll = true;
+          });
+        }
       },
       child: BlocBuilder<AccountBloc, AccountState>(
           bloc: _accountBloc,
           builder: (context, state) {
             if (state is AccPostContentSuccessState) {
-              widget.postId.id = state.data.id;
+              widget.post.id = state.data.id;
             }
+
             return Scaffold(
               body: Stack(
                 children: [
@@ -89,14 +98,14 @@ class _CommentPageState extends State<CommentPage> {
                             //         ),
                             // ),
                             ActionPost(
-                              post: widget.postId,
+                              post: widget.post,
                             ),
                             // const Divider(thickness: 1),
-                            ListComment(postId: widget.postId),
+                            ListComment(post: widget.post),
                             SizedBox(
                               height: 550,
                             ),
-                            TextFieldComment(),
+                            TextFieldComment(post: widget.post),
                             // TextField(
                             //   controller: controller,
                             //   maxLines: 3,

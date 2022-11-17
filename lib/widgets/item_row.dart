@@ -11,6 +11,7 @@ class ItemRow extends StatelessWidget {
   final Widget? avatarWidget;
   final Widget? bodyWidget;
   final Widget? rightWidget;
+  
 
   const ItemRow({
     Key? key,

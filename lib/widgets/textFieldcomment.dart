@@ -10,25 +10,29 @@ import '../dto/profilelikecmt/post_dto.dart';
 import '../main.dart';
 
 class TextFieldComment extends StatefulWidget {
-  const TextFieldComment({Key? key}) : super(key: key);
+  final PostDTO? post;
+
+  const TextFieldComment({Key? key, required this.post}) : super(key: key);
 
   @override
   State<TextFieldComment> createState() => _TextFieldCommentState();
 }
 
 class _TextFieldCommentState extends State<TextFieldComment> {
-  TextEditingController? controller;
-  PostDTO? post;
+  final controller = TextEditingController();
   late AccountBloc _accountBloc;
+
   @override
-  void initState() {
-    controller = post?.comments as TextEditingController?;
-    super.initState();
+  void dispose() {
+    controller.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
     _accountBloc = BlocProvider.of<AccountBloc>(context);
   }
 
@@ -37,6 +41,10 @@ class _TextFieldCommentState extends State<TextFieldComment> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextField(
+          textInputAction: TextInputAction.newline,
+          keyboardType: TextInputType.multiline,
+
+          maxLines: null,
           controller: controller,
           // maxLines: 3,
           decoration: new InputDecoration(
@@ -55,10 +63,10 @@ class _TextFieldCommentState extends State<TextFieldComment> {
                 onTap: () {
                   _accountBloc
                     ..add(ActionUserEvent(
-                        content: controller!.text = "",
+                        content: controller.text,
                         token: user.token,
                         type: MyConst.TYPE_ACTION_COMMENT,
-                        id: post!.id));
+                        id: widget.post!.id));
                 },
               )),
           style: new TextStyle(

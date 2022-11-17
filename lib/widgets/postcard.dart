@@ -60,7 +60,7 @@ class _PostCardState extends State<PostCard>
                 titleSection(),
                 imageSection(),
                 footerSection(),
-                Divider(
+              Divider(
                   thickness: 1,
                   color: Colors.grey[300],
                 ),
@@ -118,7 +118,7 @@ class _PostCardState extends State<PostCard>
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  CommentPage(postId: widget.post)));
+                                  CommentPage(post: widget.post)));
                         },
                         icon: Icon(CupertinoIcons.conversation_bubble,
                             color: Colors.grey),
