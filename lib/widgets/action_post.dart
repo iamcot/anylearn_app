@@ -1,13 +1,14 @@
 import 'package:anylearn/dto/profilelikecmt/post_dto.dart';
 import 'package:anylearn/widgets/icon_post_comment.dart';
+import 'package:anylearn/widgets/textFieldcomment.dart';
 import 'package:anylearn/widgets/text_count_number.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ActionPost extends StatefulWidget {
-  final PostDTO post;
+   PostDTO post;
 
-  const ActionPost({Key? key, required this.post}) : super(key: key);
+   ActionPost({Key? key, required this.post}) : super(key: key);
 
   @override
   _ActionPostState createState() => _ActionPostState();
@@ -92,7 +93,7 @@ class _ActionPostState extends State<ActionPost>
                 SizedBox(
                   width: 30,
                 ),
-                const IconPostComment(),
+                IconPostComment(),
               ],
             ),
           ],

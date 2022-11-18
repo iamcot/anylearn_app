@@ -12,9 +12,9 @@ import '../widgets/action_post.dart';
 import '../widgets/item_row.dart';
 
 class CommentPage extends StatefulWidget {
-  final PostDTO post;
+  PostDTO post;
 
-  const CommentPage({Key? key, required this.post}) : super(key: key);
+  CommentPage({Key? key, required this.post}) : super(key: key);
 
   @override
   State<CommentPage> createState() => _CommentPageState();
@@ -29,7 +29,6 @@ class _CommentPageState extends State<CommentPage> {
     super.didChangeDependencies();
     _accountBloc = BlocProvider.of<AccountBloc>(context);
     _accountBloc..add(AccPostContentEvent(id: widget.post.id));
-    
   }
 
   @override
@@ -51,7 +50,7 @@ class _CommentPageState extends State<CommentPage> {
           bloc: _accountBloc,
           builder: (context, state) {
             if (state is AccPostContentSuccessState) {
-              widget.post.id = state.data.id;
+              widget.post = state.data;
             }
 
             return Scaffold(

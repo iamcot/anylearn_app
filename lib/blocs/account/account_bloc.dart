@@ -116,8 +116,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         yield AccProfileLoadSuccessState(data: profileId);
       }
     } catch (error, trace) {
-      print(trace);
-      print(error);
+    
       yield AccProfileFailState(error: error.toString());
     }
 

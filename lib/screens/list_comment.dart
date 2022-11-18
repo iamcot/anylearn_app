@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 class ListComment extends StatefulWidget {
-  final PostDTO? post;
+   PostDTO? post;
 
-  const ListComment({Key? key, required this.post}) : super(key: key);
+   ListComment({Key? key, required this.post}) : super(key: key);
 
   @override
   _ListCommentState createState() => _ListCommentState();
@@ -50,7 +50,7 @@ class _ListCommentState extends State<ListComment> {
                 color: Colors.transparent,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
+                  children:[
                     Padding(
                       padding: const EdgeInsets.all(0),
                       child: CommentItemBubble(
