@@ -60,7 +60,7 @@ class _PostCardState extends State<PostCard>
                 titleSection(),
                 imageSection(),
                 footerSection(),
-              Divider(
+                Divider(
                   thickness: 1,
                   color: Colors.grey[300],
                 ),
@@ -116,9 +116,13 @@ class _PostCardState extends State<PostCard>
                                   )),
                     TextButton.icon(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  CommentPage(post: widget.post)));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CommentPage(
+                                      post: widget.post,
+                                    )),
+                          );
                         },
                         icon: Icon(CupertinoIcons.conversation_bubble,
                             color: Colors.grey),
@@ -238,22 +242,20 @@ class _PostCardState extends State<PostCard>
                 SizedBox(
                   width: 4,
                 ),
-                displayText(
-                    label: numberFormat(widget.post.likeCounts.toInt())),
+                displayText(label: numberFormat(widget.post.likeCounts)),
               ],
             ),
           ),
           SizedBox(
             width: 50,
           ),
-          widget.post.commentCounts == 0
+          widget.post.comments!.length == null
               ? Container()
               : Container(
                   child: Row(
                     children: [
                       displayText(
-                          label:
-                              numberFormat(widget.post.commentCounts.toInt())),
+                          label: numberFormat(widget.post.comments!.length)),
                       SizedBox(
                         width: 5,
                       ),
@@ -268,13 +270,12 @@ class _PostCardState extends State<PostCard>
           // SizedBox(
           //   width: 50,
           // ),
-          widget.post.shareCounts == 0
+          widget.post.shareCounts == null
               ? Container()
               : Container(
                   child: Row(
                     children: [
-                      displayText(
-                          label: numberFormat(widget.post.shareCounts.toInt())),
+                      displayText(label: numberFormat(widget.post.shareCounts)),
                       SizedBox(
                         width: 5,
                       ),

@@ -6,9 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ActionPost extends StatefulWidget {
-   PostDTO post;
+  PostDTO post;
 
-   ActionPost({Key? key, required this.post}) : super(key: key);
+  ActionPost({Key? key, required this.post}) : super(key: key);
 
   @override
   _ActionPostState createState() => _ActionPostState();
@@ -18,11 +18,10 @@ class _ActionPostState extends State<ActionPost>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
       duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
-  PostDTO get post => widget.post;
   int likeCount = 0;
   bool isLiked = false;
 
-  int get commentCount => post.commentCounts ?? 0;
+  int get commentCount => widget.post.commentCounts ?? 0;
 
   @override
   void initState() {
@@ -34,13 +33,13 @@ class _ActionPostState extends State<ActionPost>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if (post == null &&
-            post.description != null &&
-            post.description!.trim().isNotEmpty)
+        if (widget.post == null &&
+            widget.post.description != null &&
+            widget.post.description!.trim().isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(left: 12, top: 8),
             child: Text(
-              post.description!,
+              widget.post.description!,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -72,9 +71,9 @@ class _ActionPostState extends State<ActionPost>
                             .then((value) => _controller.forward());
                       }
                     },
-                    child: post == null
+                    child: widget.post == null
                         ? Container()
-                        : post.isLiked
+                        : widget.post.isLiked
                             ? Container(
                                 color: Colors.transparent,
                                 padding: const EdgeInsets.all(8),
@@ -103,16 +102,16 @@ class _ActionPostState extends State<ActionPost>
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              post == null
+              widget.post == null
                   ? Container()
                   : TextCountNumber(
-                      number: post.likeCounts,
+                      number: widget.post.likeCounts,
                       subText: 'lượt thích',
                     ),
-              post == null
+              widget.post == null
                   ? Container()
                   : TextCountNumber(
-                      number: post.commentCounts,
+                      number: widget.post.comments!.length,
                       subText: 'bình luận',
                     ),
             ],
