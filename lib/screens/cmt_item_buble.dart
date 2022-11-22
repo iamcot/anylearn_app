@@ -1,3 +1,4 @@
+import 'package:anylearn/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -39,10 +40,10 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
             child: CircleAvatar(
               radius: 22,
               backgroundColor: Colors.white30,
-              child: (widget.post!.user!.image != "")
+              child: (user.image != "")
                   ? CircleAvatar(
                       backgroundImage:
-                          CachedNetworkImageProvider(widget.post!.user!.image),
+                          CachedNetworkImageProvider(user.image),
                     )
                   : Icon(
                       Icons.account_circle,
@@ -61,11 +62,12 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: const BorderRadius.all(Radius.circular(8))),
+
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.post!.user!.name,
+                      user.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.subtitle1,
@@ -227,4 +229,6 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
       ),
     );
   }
+
+  
 }

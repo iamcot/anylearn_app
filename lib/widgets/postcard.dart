@@ -48,6 +48,9 @@ class _PostCardState extends State<PostCard>
         if (state is ActionUserFailState) {
           toast(state.error.toString());
         }
+        if (state is ActionUserSuccessState) {
+          _accountBloc..add(AccPostContentEvent(id: widget.post.id));
+        }
       },
       child: BlocBuilder<AccountBloc, AccountState>(
         bloc: _accountBloc,
@@ -249,47 +252,48 @@ class _PostCardState extends State<PostCard>
           SizedBox(
             width: 50,
           ),
-          widget.post.comments!.length == null
-              ? Container()
-              : Container(
-                  child: Row(
-                    children: [
-                      displayText(
-                          label: numberFormat(widget.post.comments!.length)),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      displayText(label: "Comments"),
-
-                      // CircleAvatar(
-                      //   radius: 50,
-                      // ),
-                    ],
-                  ),
+          // widget.post.commentCounts == null
+          //     ? Container()
+          //     :
+          Container(
+            child: Row(
+              children: [
+                displayText(label: numberFormat(widget.post.commentCounts)),
+                SizedBox(
+                  width: 5,
                 ),
+                displayText(label: "Comments"),
+
+                // CircleAvatar(
+                //   radius: 50,
+                // ),
+              ],
+            ),
+          ),
           // SizedBox(
           //   width: 50,
           // ),
-          widget.post.shareCounts == null
-              ? Container()
-              : Container(
-                  child: Row(
-                    children: [
-                      displayText(label: numberFormat(widget.post.shareCounts)),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      displayText(label: "Share"),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                    ],
+          // widget.post.shareCounts == null
+          //     ? Container()
+          //     :
+          Container(
+            child: Row(
+              children: [
+                displayText(label: numberFormat(widget.post.shareCounts)),
+                SizedBox(
+                  width: 5,
+                ),
+                displayText(label: "Share"),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.arrow_drop_down,
+                    color: Colors.grey[700],
                   ),
-                )
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -333,10 +337,10 @@ class _PostCardState extends State<PostCard>
       leading: CircleAvatar(
         radius: 22,
         backgroundColor: Colors.white30,
-        child: (widget.post.user!.image != "")
+        child: (user.image != "")
             ? CircleAvatar(
                 backgroundImage:
-                    CachedNetworkImageProvider(widget.post.user!.image),
+                    CachedNetworkImageProvider(user.image),
               )
             : Icon(
                 Icons.account_circle,
@@ -347,7 +351,7 @@ class _PostCardState extends State<PostCard>
       title: Row(
         children: [
           Text(
-            widget.post.user!.name,
+            user.name,
             style: TextStyle(color: Colors.black),
           ),
           SizedBox(width: 10),
@@ -380,10 +384,4 @@ class _PostCardState extends State<PostCard>
   }
 }
 
-Future<void> updateLikes({String? id, int? value}) async {
-  var brewCollection;
-  var FieldValue;
-  return await brewCollection
-      .document(id)
-      .updateData({'likes': FieldValue.increment(value)});
-}
+

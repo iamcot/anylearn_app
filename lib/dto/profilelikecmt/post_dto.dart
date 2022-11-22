@@ -24,6 +24,7 @@ class PostDTO {
   List<PostDTO>? comments;
   final List<PostDTO>? likes;
   final List<ActionDTO>? share;
+  
   bool isLiked;
 
   PostDTO({

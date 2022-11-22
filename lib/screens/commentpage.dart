@@ -1,6 +1,9 @@
+import 'package:anylearn/dto/const.dart';
+import 'package:anylearn/main.dart';
 import 'package:anylearn/screens/list_comment.dart';
 import 'package:anylearn/widgets/textFieldcomment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -22,7 +25,9 @@ class CommentPage extends StatefulWidget {
 
 class _CommentPageState extends State<CommentPage> {
   late AccountBloc _accountBloc;
-  TextEditingController? controller;
+  final TextEditingController commentController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
   bool needScroll = false;
 
   void didChangeDependencies() {
@@ -54,91 +59,139 @@ class _CommentPageState extends State<CommentPage> {
             }
 
             return Scaffold(
-              body: Stack(
-                children: [
-                  CustomScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    slivers: <Widget>[
-                      SliverAppBar(
-                        // title: Text(
-                        //   "Post Details Page",
-                        //   style: TextStyle(color: Colors.black),
-                        // ),
-                        snap: true,
-                        floating: true,
-                        elevation: 1,
-                        forceElevated: true,
-                        backgroundColor: Colors.white,
-                        leading: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: Colors.black,
-                            )),
-                      ),
-                      SliverList(
-                        delegate: SliverChildListDelegate(
-                          [
-                            // Padding(
-                            //   padding: const EdgeInsets.fromLTRB(12, 12, 0, 8),
-                            //   child: widget.postId == null
-                            //       ? Container()
-                            //       : ItemRow(
-                            //           avatarUrl: widget.postId.user!.image,
-                            //           title: widget.postId.user!.name,
-                            //           subtitle:
-                            //               widget.postId.displayTimePostCreated,
-                            //           rightWidget: IconButton(
-                            //             onPressed: () {},
-                            //             icon: const Icon(Icons.more_horiz),
-                            //           ),
-                            //         ),
-                            // ),
-                            ActionPost(
-                              post: widget.post,
-                            ),
-                            // const Divider(thickness: 1),
-                            ListComment(post: widget.post),
-                            SizedBox(
-                              height: 550,
-                            ),
-                            TextFieldComment(post: widget.post),
-                            // TextField(
-                            //   controller: controller,
-                            //   maxLines: 3,
-                            //   decoration: new InputDecoration(
-                            //       hintText: 'Write a Comment',
-                            //       hintStyle: new TextStyle(
-                            //         color: Colors.grey,
-                            //       ),
-                            //       prefixIcon: InkWell(
-                            //         child: Icon(Icons.camera_alt),
-                            //         onTap: () {
-                            //         },
-                            //       ),
-                            //       suffixIcon: InkWell(
-                            //         child: Icon(
-                            //           Icons.send,
-                            //         ),
-                            //         onTap: () {
-
-                            //         },
-                            //       )),
-                            //   style: new TextStyle(
-                            //     color: Colors.black,
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+              appBar: AppBar(
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
+                ),
+                title:
+                    Text("Bình Luận ", style: TextStyle(color: Colors.black)),
+                backgroundColor: Colors.white,
+              ),
+              body: Container(
+                child: CommentBox(
+                  userImage: CommentBox.commentImageParser(
+                      imageURLorPath: user.image != ""
+                          ? user.image
+                          : "assets/icons/cirle.png"),
+                  child: scrollview(),
+                  labelText: 'Write a comment...',
+                  errorText: 'Comment cannot be blank',
+                  withBorder: false,
+                  sendButtonMethod: () {
+                    _accountBloc
+                      ..add(ActionUserEvent(
+                          content: commentController.text,
+                          token: user.token,
+                          type: MyConst.TYPE_ACTION_COMMENT,
+                          id: widget.post.id));
+                    commentController.clear();
+                    FocusScope.of(context).unfocus();
+                  },
+                  formKey: formKey,
+                  commentController: commentController,
+                  backgroundColor: Colors.white,
+                  textColor: Colors.black,
+                  sendWidget:
+                      Icon(Icons.send_sharp, size: 30, color: Colors.grey),
+                ),
               ),
             );
           }),
     );
+  }
+
+  CustomScrollView scrollview() {
+    return CustomScrollView(
+      physics: AlwaysScrollableScrollPhysics(),
+      slivers: <Widget>[
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 12, 0, 8),
+                child: widget.post == null
+                    ? Container()
+                    : ItemRow(
+                        post: widget.post,
+                        // avatarUrl: user.image,
+                        // title: user.name,
+                        subtitle: widget.post.displayTimePostCreated,
+                        rightWidget: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.more_horiz),
+                        ),
+                      ),
+              ),
+              titleSection(),
+              imageSection(),
+
+              ActionPost(
+                post: widget.post,
+              ),
+              const Divider(thickness: 1),
+
+              ListComment(post: widget.post),
+              // TextField(
+              //   controller: controller,
+              //   maxLines: 3,
+              //   decoration: new InputDecoration(
+              //       hintText: 'Write a Comment',
+              //       hintStyle: new TextStyle(
+              //         color: Colors.grey,
+              //       ),
+              //       prefixIcon: InkWell(
+              //         child: Icon(Icons.camera_alt),
+              //         onTap: () {
+              //         },
+              //       ),
+              //       suffixIcon: InkWell(
+              //         child: Icon(
+              //           Icons.send,
+              //         ),
+              //         onTap: () {
+
+              //         },
+              //       )),
+              //   style: new TextStyle(
+              //     color: Colors.black,
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget imageSection() {
+    return Container(
+      padding: EdgeInsets.only(top: 5, bottom: 5),
+      child: CachedNetworkImage(
+        imageUrl: widget.post.images.toString(),
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget titleSection() {
+    return widget.post.title != null && widget.post.title != ""
+        ? Container(
+            padding: EdgeInsets.only(bottom: 5, left: 10, right: 10),
+            alignment: Alignment.bottomLeft / 1.2,
+            child: Text(
+              widget.post.title == null ? "N/A" : widget.post.title.toString(),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 17,
+              ),
+            ),
+          )
+        : SizedBox();
   }
 }

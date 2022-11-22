@@ -1,23 +1,21 @@
 import 'package:anylearn/dto/profilelikecmt/post_dto.dart';
+import 'package:anylearn/main.dart';
+import 'package:anylearn/widgets/time_ago.dart';
+import 'package:anylearn/widgets/varfied.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ItemRow extends StatelessWidget {
-  final PostDTO? post;
-  final String? title;
-  final String? avatarUrl;
+  PostDTO post;
 
   final String? subtitle;
   final Widget? avatarWidget;
   final Widget? bodyWidget;
   final Widget? rightWidget;
-  
 
-  const ItemRow({
+  ItemRow({
     Key? key,
-    this.post,
-    this.avatarUrl,
-    this.title,
+    required this.post,
     this.subtitle,
     this.avatarWidget,
     this.bodyWidget,
@@ -36,15 +34,19 @@ class ItemRow extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               avatarWidget ??
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: const BoxDecoration(shape: BoxShape.circle),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(40 / 2),
-                      child: CachedNetworkImage(imageUrl: avatarUrl!),
-                    ),
-                  ),
+                  CircleAvatar(
+                      radius: 22,
+                      backgroundColor: Colors.white30,
+                      child: (user.image != "")
+                          ? CircleAvatar(
+                              backgroundImage:
+                                  CachedNetworkImageProvider(user.image),
+                            )
+                          : Icon(
+                              Icons.account_circle,
+                              color: Colors.grey,
+                              size: 45,
+                            )),
               const SizedBox(width: 8),
               bodyWidget ?? buildBodyWidget(context),
             ],
@@ -67,28 +69,30 @@ class ItemRow extends StatelessWidget {
   }
 
   Widget buildTitle(BuildContext context) {
-    if (post!.user!.name == null) {
+    if (user.name == null) {
       return const SizedBox();
     }
 
     return Flexible(
-      child: Text(
-        post!.title!,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
+      child: post == null
+          ? Container()
+          : Text(
+              user.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
     );
   }
 
   Widget buildSubTitle(BuildContext context) {
-    if (post!.day == null) {
+    if (post.displayTimePostCreated == null) {
       return const SizedBox();
     }
     return Container(
       margin: const EdgeInsets.only(top: 2),
       child: Text(
-        post!.day,
+        post.displayTimePostCreated,
         style: Theme.of(context)
             .textTheme
             .bodyText2!
