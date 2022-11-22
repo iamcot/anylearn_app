@@ -1,5 +1,5 @@
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/screens/loading.dart';
+import '../dto/user_dto.dart';
+import 'loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +90,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
           toast(state.error.toString());
           isLoading = false;
         }
-        if (state is ActionUserSuccessState){
+        if (state is ActionUserSuccessState) {
           if (userId == 0) {
             _accountBloc..add(AccProfileEvent(token: user.token, page: page));
           } else {
@@ -214,17 +214,6 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     });
     return listWidget;
   }
-
-  // Widget _renderPosts(BuildContext context, PostPagingDTO post) {
-  //   List<Widget> list = [];
-  //   post.data.forEach((PostDTO post) {
-  //     list.add(PostCard(
-  //       // type: type,
-  //       post: post,
-  //     ));
-  //   });
-  //   return Column(children: list);
-  // }
 
   Widget _imageBox(double size) {
     return Stack(

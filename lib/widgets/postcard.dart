@@ -155,42 +155,6 @@ class _PostCardState extends State<PostCard>
         },
       ),
     );
-
-    // return Container(
-    //   padding: EdgeInsets.only(top: 8),
-    //   margin: EdgeInsets.only(top: 12),
-    //   child: GestureDetector(
-    //     onTap: () => _navigateToPostDetailPage(context),
-    //     child: Card(
-    //       margin: EdgeInsets.symmetric(horizontal: 8),
-    //       shape: RoundedRectangleBorder(
-    //         borderRadius: BorderRadius.circular(8),
-    //       ),
-    //       child: ClipRRect(
-    //         borderRadius: BorderRadius.circular(8),
-    //         child: Column(
-    //           mainAxisSize: MainAxisSize.min,
-    //           children: [
-    //             Padding(
-    //               padding: EdgeInsets.fromLTRB(12, 12, 0, 8),
-    //               child: ItemRow(
-    //                 avatarUrl: widget.post.user!.image,
-    //                 title: widget.post.user!.name,
-    //                 subtitle: widget.post.displayTimePostCreated,
-    //                 rightWidget: IconButton(
-    //                   onPressed: () {},
-    //                   icon: const Icon(Icons.more_horiz),
-    //                 ),
-    //               ),
-    //             ),
-    //             imageSection(),
-    //             ActionPost(),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 
   Widget titleSection() {
@@ -263,19 +227,10 @@ class _PostCardState extends State<PostCard>
                   width: 5,
                 ),
                 displayText(label: "Comments"),
-
-                // CircleAvatar(
-                //   radius: 50,
-                // ),
               ],
             ),
           ),
-          // SizedBox(
-          //   width: 50,
-          // ),
-          // widget.post.shareCounts == null
-          //     ? Container()
-          //     :
+
           Container(
             child: Row(
               children: [
@@ -339,8 +294,7 @@ class _PostCardState extends State<PostCard>
         backgroundColor: Colors.white30,
         child: (user.image != "")
             ? CircleAvatar(
-                backgroundImage:
-                    CachedNetworkImageProvider(user.image),
+                backgroundImage: CachedNetworkImageProvider(user.image),
               )
             : Icon(
                 Icons.account_circle,
@@ -383,5 +337,3 @@ class _PostCardState extends State<PostCard>
     );
   }
 }
-
-

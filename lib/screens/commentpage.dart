@@ -1,7 +1,3 @@
-import 'package:anylearn/dto/const.dart';
-import 'package:anylearn/main.dart';
-import 'package:anylearn/screens/list_comment.dart';
-import 'package:anylearn/widgets/textFieldcomment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +6,12 @@ import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/account/account_bloc.dart';
 import '../blocs/account/account_blocs.dart';
+import '../dto/const.dart';
 import '../dto/profilelikecmt/post_dto.dart';
+import '../main.dart';
 import '../widgets/action_post.dart';
 import '../widgets/item_row.dart';
+import 'list_comment.dart';
 
 class CommentPage extends StatefulWidget {
   PostDTO post;
@@ -130,38 +129,11 @@ class _CommentPageState extends State<CommentPage> {
               ),
               titleSection(),
               imageSection(),
-
               ActionPost(
                 post: widget.post,
               ),
               const Divider(thickness: 1),
-
               ListComment(post: widget.post),
-              // TextField(
-              //   controller: controller,
-              //   maxLines: 3,
-              //   decoration: new InputDecoration(
-              //       hintText: 'Write a Comment',
-              //       hintStyle: new TextStyle(
-              //         color: Colors.grey,
-              //       ),
-              //       prefixIcon: InkWell(
-              //         child: Icon(Icons.camera_alt),
-              //         onTap: () {
-              //         },
-              //       ),
-              //       suffixIcon: InkWell(
-              //         child: Icon(
-              //           Icons.send,
-              //         ),
-              //         onTap: () {
-
-              //         },
-              //       )),
-              //   style: new TextStyle(
-              //     color: Colors.black,
-              //   ),
-              // ),
             ],
           ),
         ),

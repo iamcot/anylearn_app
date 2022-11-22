@@ -59,34 +59,7 @@ class _ActionPostState extends State<ActionPost>
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: GestureDetector(
-                    onTap: () {
-                      // if (widget.post.isLiked) {
-                      //   setState(() {
-                      //     widget.post.isLiked = false;
-                      //     widget.post.likeCounts -= 1;
-                      //   });
-                      //   _accountBloc
-                      //     ..add(ActionUserEvent(
-                      //         content: "",
-                      //         token: user.token,
-                      //         type: MyConst.TYPE_ACTION_DISLIKE,
-                      //         id: widget.post.id));
-                      // } else {
-                      //   setState(() {
-                      //     widget.post.isLiked = true;
-                      //     widget.post.likeCounts += 1;
-                      //   });
-                      //   _accountBloc
-                      //     ..add(ActionUserEvent(
-                      //         content: "",
-                      //         token: user.token,
-                      //         type: MyConst.TYPE_ACTION_DISLIKE,
-                      //         id: widget.post.id));
-                      //   _controller
-                      //       .reverse()
-                      //       .then((value) => _controller.forward());
-                      // }
-                    },
+                    onTap: () {},
                     child: widget.post == null
                         ? Container()
                         : widget.post.isLiked
