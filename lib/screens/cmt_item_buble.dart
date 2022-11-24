@@ -8,10 +8,9 @@ import '../widgets/react_button/reactive_button.dart';
 import '../widgets/react_button/reactive_icon_definition.dart';
 
 class CommentItemBubble extends StatefulWidget {
-  final PostDTO? post;
+  PostDTO post;
   final Function(int, bool) onReact;
-
-  const CommentItemBubble({
+  CommentItemBubble({
     Key? key,
     required this.post,
     required this.onReact,
@@ -40,10 +39,9 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
             child: CircleAvatar(
               radius: 22,
               backgroundColor: Colors.white30,
-              child: (user.image != "")
+              child: (widget.post.user!.image != "")
                   ? CircleAvatar(
-                      backgroundImage:
-                          CachedNetworkImageProvider(user.image),
+                      backgroundImage: CachedNetworkImageProvider(widget.post.user!.image),
                     )
                   : Icon(
                       Icons.account_circle,
@@ -62,19 +60,18 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: const BorderRadius.all(Radius.circular(8))),
-
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user.name,
+                      widget.post.user!.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      widget.post!.content!,
+                      widget.post.content!,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
@@ -89,7 +86,7 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
               Row(
                 children: [
                   Text(
-                    widget.post!.displayTimePostCreated,
+                    widget.post.displayTimePostCreated,
                     style: Theme.of(context).textTheme.caption,
                   ),
                   buildReactButton(),
@@ -229,6 +226,4 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
       ),
     );
   }
-
-  
 }

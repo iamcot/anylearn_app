@@ -1,3 +1,7 @@
+import '../dto/const.dart';
+import '../main.dart';
+import 'list_comment.dart';
+import '../widgets/textFieldcomment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +10,9 @@ import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/account/account_bloc.dart';
 import '../blocs/account/account_blocs.dart';
-import '../dto/const.dart';
 import '../dto/profilelikecmt/post_dto.dart';
-import '../main.dart';
 import '../widgets/action_post.dart';
 import '../widgets/item_row.dart';
-import 'list_comment.dart';
 
 class CommentPage extends StatefulWidget {
   PostDTO post;

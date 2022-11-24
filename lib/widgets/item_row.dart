@@ -37,10 +37,10 @@ class ItemRow extends StatelessWidget {
                   CircleAvatar(
                       radius: 22,
                       backgroundColor: Colors.white30,
-                      child: (user.image != "")
+                      child: (post.user!.image != "")
                           ? CircleAvatar(
                               backgroundImage:
-                                  CachedNetworkImageProvider(user.image),
+                                  CachedNetworkImageProvider(post.user!.image),
                             )
                           : Icon(
                               Icons.account_circle,
@@ -77,7 +77,7 @@ class ItemRow extends StatelessWidget {
       child: post == null
           ? Container()
           : Text(
-              user.name,
+              post.user!.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.subtitle1,

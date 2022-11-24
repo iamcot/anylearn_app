@@ -292,9 +292,10 @@ class _PostCardState extends State<PostCard>
       leading: CircleAvatar(
         radius: 22,
         backgroundColor: Colors.white30,
-        child: (user.image != "")
+        child: (widget.post.user!.image != "")
             ? CircleAvatar(
-                backgroundImage: CachedNetworkImageProvider(user.image),
+                backgroundImage:
+                    CachedNetworkImageProvider(widget.post.user!.image),
               )
             : Icon(
                 Icons.account_circle,
@@ -305,7 +306,7 @@ class _PostCardState extends State<PostCard>
       title: Row(
         children: [
           Text(
-            user.name,
+            widget.post.user!.name,
             style: TextStyle(color: Colors.black),
           ),
           SizedBox(width: 10),
