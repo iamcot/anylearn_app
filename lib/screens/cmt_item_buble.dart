@@ -1,4 +1,5 @@
 import 'package:anylearn/main.dart';
+import 'package:anylearn/screens/account_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -36,18 +37,23 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+          
             child: CircleAvatar(
+              
               radius: 22,
               backgroundColor: Colors.white30,
-              child: (widget.post.user!.image != "")
+              child: (widget.post.commentUserImage != "")
                   ? CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(widget.post.user!.image),
+                      backgroundImage: CachedNetworkImageProvider(
+                          widget.post.commentUserImage),
+                      
                     )
                   : Icon(
                       Icons.account_circle,
                       color: Colors.grey,
                       size: 56,
                     ),
+            
             ),
           ),
           const SizedBox(width: 12),
@@ -59,24 +65,26 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    borderRadius: const BorderRadius.all(Radius.circular(8))),
+                    borderRadius: const BorderRadius.all(Radius.circular(20))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                
                     Text(
-                      widget.post.user!.name,
+                      widget.post.commentUserName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
-                    const SizedBox(height: 6),
+             
+
                     Text(
                       widget.post.content!,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(color: Colors.grey[600]),
-                    )
+                    ),
                   ],
                 ),
               ),

@@ -24,7 +24,11 @@ class PostDTO {
   List<PostDTO>? comments;
   final List<PostDTO>? likes;
   final List<ActionDTO>? share;
-  
+  String commentUserFirstName;
+  String commentUserName;
+  String commentUserImage;
+  int commentUserId;
+
   bool isLiked;
 
   PostDTO({
@@ -48,11 +52,15 @@ class PostDTO {
     this.likes,
     this.share,
     this.isLiked = false,
+    this.commentUserFirstName = "",
+    this.commentUserName = "",
+    this.commentUserImage = "",
+    this.commentUserId = 0,
     // this.isComment = false,
     // this.isShare = false,
   });
   String get displayTimePostCreated =>
-      StringUtils?.calcTimePost(createdAt ?? DateTime.now()) ?? '';
+      StringUtils.calcTimePost(createdAt ?? DateTime.now()) ?? '';
   factory PostDTO.fromJson(Map<String, dynamic> json) {
     if (json != null) {
       return PostDTO(
@@ -90,6 +98,10 @@ class PostDTO {
                     ?.map((e) => e == null ? null : ActionDTO.fromJson(e)))
                 .toList(),
         share: [],
+        commentUserFirstName: json["comment_user_first_name"] ?? "",
+        commentUserName: json["comment_user_name"] ?? "",
+        commentUserImage: json["comment_user_image"] ?? "",
+        commentUserId: json["comment_user_id"] ?? 0,
       );
     } else {
       return PostDTO();

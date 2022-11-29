@@ -290,6 +290,7 @@ class _PostCardState extends State<PostCard>
   Widget postCardHeader() {
     return ListTile(
       leading: CircleAvatar(
+        
         radius: 22,
         backgroundColor: Colors.white30,
         child: (widget.post.user!.image != "")
