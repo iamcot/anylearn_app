@@ -1,6 +1,7 @@
 import 'package:anylearn/main.dart';
 import 'package:anylearn/screens/account_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../dto/profilelikecmt/post_dto.dart';
@@ -102,7 +103,7 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
                     width: 4,
                   ),
                   Text(
-                    'Reply',
+                    'Đáp Lại'.tr(),
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ],
@@ -119,7 +120,7 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
     switch (yourReact) {
       case 1:
         textWidget = Text(
-          'Like',
+          'Thích'.tr(),
           style: Theme.of(context).textTheme.caption!.copyWith(
                 color: Colors.blue,
                 fontWeight: FontWeight.bold,
@@ -173,7 +174,7 @@ class _CommentItemBubbleState extends State<CommentItemBubble> {
         break;
       default:
         textWidget = Text(
-          'Like',
+          'Thích'.tr(),
           style: Theme.of(context).textTheme.caption!.copyWith(
                 fontWeight: FontWeight.bold,
               ),

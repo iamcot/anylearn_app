@@ -1,18 +1,18 @@
-import '../dto/const.dart';
-import '../main.dart';
-import 'list_comment.dart';
-import '../widgets/textFieldcomment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comment_box/comment/comment.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/account/account_bloc.dart';
 import '../blocs/account/account_blocs.dart';
+import '../dto/const.dart';
 import '../dto/profilelikecmt/post_dto.dart';
+import '../main.dart';
 import '../widgets/action_post.dart';
 import '../widgets/item_row.dart';
+import 'list_comment.dart';
 
 class CommentPage extends StatefulWidget {
   PostDTO post;
@@ -46,9 +46,9 @@ class _CommentPageState extends State<CommentPage> {
         }
         if (state is ActionUserSuccessState) {
           _accountBloc..add(AccPostContentEvent(id: widget.post.id));
-          setState(() {
-            needScroll = true;
-          });
+          // setState(() {
+          //   needScroll = true;
+          // });
         }
       },
       child: BlocBuilder<AccountBloc, AccountState>(
@@ -69,8 +69,8 @@ class _CommentPageState extends State<CommentPage> {
                     color: Colors.black,
                   ),
                 ),
-                title:
-                    Text("Bình Luận ", style: TextStyle(color: Colors.black)),
+                title: Text("Bình luận ".tr(),
+                    style: TextStyle(color: Colors.black)),
                 backgroundColor: Colors.white,
               ),
               body: Container(
@@ -80,7 +80,7 @@ class _CommentPageState extends State<CommentPage> {
                           ? user.image
                           : "assets/icons/cirle.png"),
                   child: scrollview(),
-                  labelText: 'Write a comment...',
+                  labelText: 'Viết bình luận...'.tr(),
                   errorText: 'Comment cannot be blank',
                   withBorder: false,
                   sendButtonMethod: () {

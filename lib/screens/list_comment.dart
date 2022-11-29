@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 import '../blocs/account/account_blocs.dart';
 import '../dto/profilelikecmt/post_dto.dart';
 import 'cmt_item_buble.dart';
@@ -43,7 +45,7 @@ class _ListCommentState extends State<ListComment> {
                   color: Colors.transparent,
                   padding: const EdgeInsets.only(top: 12),
                   child: const Center(
-                    child: Text('No comment'),
+                    child: Text("Không bình luận"),
                   ),
                 );
               }
