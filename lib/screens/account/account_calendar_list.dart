@@ -91,7 +91,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
                                 text:
                                     widget.events[itemIndex].userJoined == null
                                         ? ""
-                                        : "\nĐã xác nhận".tr(),
+                                        : "\n" + "Đã xác nhận".tr(),
                                 style: TextStyle(color: Colors.green))
                           ],
                         )),

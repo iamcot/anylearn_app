@@ -1,13 +1,9 @@
-import '../dto/user_dto.dart';
-import 'loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:validators/validators.dart';
 
 import '../blocs/account/account_blocs.dart';
 import '../customs/custom_cached_image.dart';

@@ -1,17 +1,14 @@
-import 'package:anylearn/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/account/account_blocs.dart';
 import '../dto/const.dart';
 import '../dto/profilelikecmt/post_dto.dart';
-import '../dto/user_dto.dart';
+import '../main.dart';
 import '../screens/commentpage.dart';
 import 'time_ago.dart';
 import 'varfied.dart';
@@ -19,18 +16,15 @@ import 'varfied.dart';
 class PostCard extends StatefulWidget {
   PostDTO post;
 
-  // final ActionDTO type;
-
   PostCard({Key? key, required this.post}) : super(key: key);
 
   @override
   State<PostCard> createState() => _PostCardState();
 }
 
-class _PostCardState extends State<PostCard>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-      duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
+class _PostCardState extends State<PostCard> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller =
+      AnimationController(duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
   late AccountBloc _accountBloc;
 
   @override
@@ -90,33 +84,22 @@ class _PostCardState extends State<PostCard>
                             });
                             _accountBloc
                               ..add(ActionUserEvent(
-                                  content: "",
-                                  token: user.token,
-                                  type: MyConst.TYPE_ACTION_LIKE,
-                                  id: widget.post.id));
-                            _controller
-                                .reverse()
-                                .then((value) => _controller.forward());
+                                  content: "", token: user.token, type: MyConst.TYPE_ACTION_LIKE, id: widget.post.id));
+                            _controller.reverse().then((value) => _controller.forward());
                           }
                         },
-                        icon: widget.post == null
-                            ? Container()
-                            : widget.post.isLiked
-                                ? Icon(CupertinoIcons.heart_solid,
-                                    color: Colors.red)
-                                : Icon(
-                                    CupertinoIcons.heart,
-                                    color: Colors.grey,
-                                  ),
-                        label: widget.post == null
-                            ? Container()
-                            : widget.post.isLiked
-                                ? Text("Thích".tr(),
-                                    style: TextStyle(color: Colors.red))
-                                : Text(
-                                    "Thích".tr(),
-                                    style: TextStyle(color: Colors.grey),
-                                  )),
+                        icon: widget.post.isLiked
+                            ? Icon(CupertinoIcons.heart_solid, color: Colors.red)
+                            : Icon(
+                                CupertinoIcons.heart,
+                                color: Colors.grey,
+                              ),
+                        label: widget.post.isLiked
+                            ? Text("Thích".tr(), style: TextStyle(color: Colors.red))
+                            : Text(
+                                "Thích".tr(),
+                                style: TextStyle(color: Colors.grey),
+                              )),
                     TextButton.icon(
                         onPressed: () {
                           Navigator.push(
@@ -127,8 +110,7 @@ class _PostCardState extends State<PostCard>
                                     )),
                           );
                         },
-                        icon: Icon(CupertinoIcons.conversation_bubble,
-                            color: Colors.grey),
+                        icon: Icon(CupertinoIcons.conversation_bubble, color: Colors.grey),
                         label: Text(
                           "Bình Luận".tr(),
                           style: TextStyle(color: Colors.grey),
@@ -163,7 +145,7 @@ class _PostCardState extends State<PostCard>
             padding: EdgeInsets.only(bottom: 5, left: 10, right: 10),
             alignment: Alignment.bottomLeft / 1.2,
             child: Text(
-              widget.post.title == null ? "N/A" : widget.post.title.toString(),
+              widget.post.title.toString(),
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 17,
@@ -259,20 +241,11 @@ class _PostCardState extends State<PostCard>
     int len = num.length;
 
     if (n >= 1000 && n < 1000000) {
-      return num.substring(0, len - 3) +
-          '.' +
-          num.substring(len - 3, 1 + (len - 3)) +
-          'k';
+      return num.substring(0, len - 3) + '.' + num.substring(len - 3, 1 + (len - 3)) + 'k';
     } else if (n >= 1000000 && n < 1000000000) {
-      return num.substring(0, len - 6) +
-          '.' +
-          num.substring(len - 6, 1 + (len - 6)) +
-          'm';
+      return num.substring(0, len - 6) + '.' + num.substring(len - 6, 1 + (len - 6)) + 'm';
     } else if (n > 1000000000) {
-      return num.substring(0, len - 9) +
-          '.' +
-          num.substring(len - 9, 1 + (len - 9)) +
-          'b';
+      return num.substring(0, len - 9) + '.' + num.substring(len - 9, 1 + (len - 9)) + 'b';
     } else {
       return num.toString();
     }
@@ -290,13 +263,11 @@ class _PostCardState extends State<PostCard>
   Widget postCardHeader() {
     return ListTile(
       leading: CircleAvatar(
-        
         radius: 22,
         backgroundColor: Colors.white30,
         child: (widget.post.user!.image != "")
             ? CircleAvatar(
-                backgroundImage:
-                    CachedNetworkImageProvider(widget.post.user!.image),
+                backgroundImage: CachedNetworkImageProvider(widget.post.user!.image),
               )
             : Icon(
                 Icons.account_circle,
@@ -316,9 +287,7 @@ class _PostCardState extends State<PostCard>
       ),
       subtitle: Row(
         children: [
-          TimeAgo(time: widget.post.createdAt) != null
-              ? TimeAgo(time: widget.post.createdAt)
-              : SizedBox(),
+          TimeAgo(time: widget.post.createdAt),
           SizedBox(
             width: 10,
           ),
