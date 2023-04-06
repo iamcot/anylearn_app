@@ -42,14 +42,14 @@ class _PostCardState extends State<PostCard> with SingleTickerProviderStateMixin
         if (state is ActionUserFailState) {
           toast(state.error.toString());
         }
-        if (state is ActionUserSuccessState) {
-          _accountBloc..add(AccPostContentEvent(id: widget.post.id));
-        }
+        // if (state is ActionUserSuccessState) {
+        //   _accountBloc..add(AccPostContentEvent(id: widget.post.id));
+        // }
       },
       child: BlocBuilder<AccountBloc, AccountState>(
         bloc: _accountBloc,
         builder: (context, state) {
-          if (state is ActionUserSuccessState) {}
+          // if (state is ActionUserSuccessState) {}
           return Container(
             child: Column(
               children: [
@@ -112,7 +112,7 @@ class _PostCardState extends State<PostCard> with SingleTickerProviderStateMixin
                         },
                         icon: Icon(CupertinoIcons.conversation_bubble, color: Colors.grey),
                         label: Text(
-                          "Bình Luận".tr(),
+                          "Bình luận".tr(),
                           style: TextStyle(color: Colors.grey),
                         )),
                     TextButton.icon(
@@ -208,7 +208,7 @@ class _PostCardState extends State<PostCard> with SingleTickerProviderStateMixin
                 SizedBox(
                   width: 5,
                 ),
-                displayText(label: "Comments"),
+                displayText(label: "Lượt Bình luận".tr()),
               ],
             ),
           ),
@@ -220,7 +220,7 @@ class _PostCardState extends State<PostCard> with SingleTickerProviderStateMixin
                 SizedBox(
                   width: 5,
                 ),
-                displayText(label: "Share"),
+                displayText(label: "Chia sẻ".tr()),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(

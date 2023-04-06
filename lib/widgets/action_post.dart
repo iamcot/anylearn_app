@@ -1,4 +1,5 @@
 import 'package:anylearn/widgets/icon_post_share.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,11 +80,11 @@ class _ActionPostState extends State<ActionPost>
                   ),
                 ),
                 SizedBox(
-                  width: 30,
+                  width: 20,
                 ),
                 IconPostComment(),
                 SizedBox(
-                  width: 30,
+                  width: 20,
                 ),
                 IconPostShare(),
               ],
@@ -99,18 +100,18 @@ class _ActionPostState extends State<ActionPost>
                   ? Container()
                   : TextCountNumber(
                       number: widget.post.likeCounts,
-                      subText: 'lượt thích',
+                      subText: "Thích".tr(),
                     ),
               widget.post == null
                   ? Container()
                   : TextCountNumber(
                       number: widget.post.comments!.length,
-                      subText: 'bình luận',
+                      subText: "Lượt Bình luận".tr(),
                     ),
               widget.post == null
                   ? Container()
                   : TextCountNumber(
-                      number: widget.post.shareCounts, subText: 'chia sẻ'),
+                      number: widget.post.shareCounts, subText: "Chia sẻ".tr()),
             ],
           ),
         )
