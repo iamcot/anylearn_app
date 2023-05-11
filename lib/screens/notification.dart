@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-import '../blocs/auth/auth_blocs.dart';
+import '../blocs/auth/auth_bloc.dart';
 import '../blocs/notif/notif_blocs.dart';
 import '../dto/notification_dto.dart';
 import '../dto/user_dto.dart';

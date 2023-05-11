@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-import '../../dto/item_dto.dart';
-import '../../dto/user_dto.dart';
+part of searchbloc;
 
 abstract class SearchState extends Equatable {
   const SearchState();
@@ -47,11 +44,11 @@ class SearchTagsSuccessState extends SearchState {
   List<Object> get props => [tags];
 }
 
-class suggestFromKeywordLoadingState extends SearchState {}
+class SuggestFromKeywordLoadingState extends SearchState {}
 
-class suggestFromKeywordSuccessState extends SearchState {
+class SuggestFromKeywordSuccessState extends SearchState {
   final List<ItemDTO> key;
-  suggestFromKeywordSuccessState({required this.key});
+  SuggestFromKeywordSuccessState({required this.key});
   @override
   List<Object> get props => [key];
 }

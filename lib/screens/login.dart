@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/auth/auth_blocs.dart';
+import '../blocs/auth/auth_bloc.dart';
 import '../blocs/login/login_bloc.dart';
 import '../dto/login_callback.dart';
 import '../main.dart';

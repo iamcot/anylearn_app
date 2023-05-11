@@ -25,24 +25,24 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.0.0 
-  flutter_launcher_icons: ^0.9.0
+  flutter_launcher_icons: ^0.12.0
   table_calendar: ^3.0.5
-  material_design_icons_flutter: ^5.0.6595
+  material_design_icons_flutter: ^6.0.7096
   
-  flutter_html: ^2.2.1
+  flutter_html: ^3.0.0-alpha.6
   expandable: ^5.0.1
   url_launcher: ^6.0.3
   qr_flutter: ^4.0.0
   # barcode_scan: ^3.0.1
-  share_plus: ^4.0.4
+  share_plus: ^6.3.1
   validators: ^3.0.0
   image_picker: ^0.8.5
   http: ^0.13.1
-  bloc: ^7.2.1
-  flutter_bloc: ^7.3.3
+  bloc: ^8.1.1
+  flutter_bloc: ^8.1.2
   equatable: ^2.0.3
   meta: ^1.1.8
-  flutter_secure_storage: ^5.0.2
+  flutter_secure_storage: ^8.0.0
   flutter_masked_text2: ^0.9.1
   mime: ^1.0.1
   # html_editor: ^1.0.1
@@ -50,27 +50,29 @@ dependencies:
   # flutter_summernote: ^0.2.2
   path_provider: ^2.0.1
   #flutter_local_notifications: ^5.0.0+1
-  firebase_messaging: ^11.2.7
-  overlay_support: ^1.2.1
+  firebase_messaging: ^14.4.0
+  overlay_support: ^2.1.0
   cached_network_image: ^3.0.0
-  photo_view: ^0.13.0
-  flutter_svg: ^0.23.0+1
+  photo_view: ^0.14.0
+  flutter_svg: ^2.0.4
   youtube_player_flutter: ^8.0.0
   shared_preferences: ^2.0.5
   #flutter_facebook_auth: ^4.3.0
-  sign_in_with_apple: ^3.3.0
+  sign_in_with_apple: ^4.3.0
   # device_info: ^2.0.0
-  intro_slider: ^3.0.2
+  intro_slider: ^4.2.0
   after_layout: ^1.1.0
-  webview_flutter: ^2.0.4
-  badges: ^2.0.1
+  webview_flutter: ^4.0.7
+  badges: ^3.0.3
   vin_decoder: ^0.2.1-nullsafety
   simple_gesture_detector: ^0.2.0
   screenshot: ^1.2.3
   flutter_datetime_picker: ^1.5.1
   stream_transform: ^2.0.0
   easy_localization: ^3.0.1
-  package_info_plus: ^1.4.3+1
+  package_info_plus: ^3.0.3
+  webview_flutter_android: ^3.4.5
+  webview_flutter_wkwebview: ^3.2.3
 
 
 dev_dependencies:
@@ -105,5 +107,6 @@ flutter:
     - assets/icons/
     - assets/icons/bg/
     - assets/config/
+    - assets/mock/
     - assets/translations/
   

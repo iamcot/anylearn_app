@@ -11,9 +11,9 @@ class HomeConfigDTO {
     return json == null
         ? HomeConfigDTO()
         : HomeConfigDTO(
-            quoteUrl: json['quote_url'],
-            bannerRatio: double.tryParse(json['banner_ratio']),
-            catType: json['cat_type'],
+            quoteUrl: json['quote_url'] ?? "",
+            bannerRatio: json['banner_ratio'] != null ? double.tryParse(json['banner_ratio']) : 1,
+            catType: json['cat_type'] ?? "",
             popup: PopupDTO.fromJson(json['popup']),
           );
   }

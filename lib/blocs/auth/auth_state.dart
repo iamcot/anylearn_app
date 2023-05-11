@@ -1,31 +1,24 @@
-import 'package:equatable/equatable.dart';
-
-import '../../dto/contract.dart';
-import '../../dto/user_dto.dart';
+part of authbloc;
 
 abstract class AuthState extends Equatable {
+  AuthState({
+    this.user = UserDTO.empty,
+    this.status = AuthenticationStatus.unknown,
+    this.error = "",
+  });
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [status, user, error];
+
+  final UserDTO user;
+  final AuthenticationStatus status;
+  final String error;
 }
 
 class AuthInitState extends AuthState {}
 
-class AuthSuccessState extends AuthState {
-  final UserDTO user;
-
-  AuthSuccessState({required this.user});
-
-  @override
-  List<Object> get props => [user];
-}
-
-class AuthSubpageSuccessState extends AuthState {
-  final UserDTO user;
-
-  AuthSubpageSuccessState({required this.user});
-
-  @override
-  List<Object> get props => [user];
+class AuthInProgressState extends AuthState {
+  AuthInProgressState() : super();
 }
 
 class AuthFailState extends AuthState {
@@ -37,9 +30,25 @@ class AuthFailState extends AuthState {
   List<Object> get props => [error];
 }
 
+class AuthSuccessState extends AuthState {
+  final UserDTO user;
+
+  AuthSuccessState({required this.user});
+
+  @override
+  List<Object> get props => [user];
+}
+
 class AuthTokenFailState extends AuthState {}
 
-class AuthInProgressState extends AuthState {}
+class AuthSubpageSuccessState extends AuthState {
+  final UserDTO user;
+
+  AuthSubpageSuccessState({required this.user});
+
+  @override
+  List<Object> get props => [user];
+}
 
 class AuthContractInProgressState extends AuthState {}
 

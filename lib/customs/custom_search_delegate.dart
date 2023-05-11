@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/search/search_blocs.dart';
+import '../blocs/search/search_bloc.dart';
 import '../dto/item_dto.dart';
 import '../dto/user_dto.dart';
 import 'custom_cached_image.dart';

@@ -2,9 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
-import '../blocs/auth/auth_blocs.dart';
+import '../blocs/auth/auth_bloc.dart';
 import '../blocs/transaction/transaction_blocs.dart';
 import '../dto/bank_dto.dart';
 import '../dto/const.dart';

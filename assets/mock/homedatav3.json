@@ -1,0 +1,286 @@
+{
+  "configs": {
+    "popup": {
+      "image": "",
+      "route": "",
+      "args": "",
+      "version": 0
+    }
+  },
+  "pointBox": {
+    "anypoint": "1.000",
+    "goingClass": "Khóa A đang học nè",
+    "ratingClass": "Khóa B đã hoàn thành"
+  },
+  "j4u": {
+    "title": "Có thể bạn sẽ thích",
+    "list": [
+      {
+        "id": 1,
+        "title": "Lớp học recommend 1",
+        "price": 1000000,
+        "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg"
+      },
+      {
+        "id": 2,
+        "title": "Lớp học recommend 2",
+        "price": 2000000,
+        "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg"
+      },
+      {
+        "id": 3,
+        "title": "Lớp học recommend 3",
+        "price": 2000000,
+        "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg"
+      }
+    ],
+    "route": ""
+  },
+  "repurchaseds": {
+    "title": "Đăng ký lại",
+    "list": [
+      {
+        "id": 1,
+        "title": "Lớp học dkl 1",
+        "price": 1000000,
+        "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg"
+      },
+      {
+        "id": 2,
+        "title": "Lớp học dkl 2",
+        "price": 2000000,
+        "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg"
+      }
+    ],
+    "route": ""
+  },
+  "banners": [
+    {
+      "file": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/banners/34-04-05.png",
+      "route": "/pdp",
+      "arg": "1"
+    },
+    {
+      "file": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/banners/34-03-03.png",
+      "route": "/pdp",
+      "arg": "2"
+    }
+  ],
+  "promotions": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "category": 1,
+      "type": "promotion",
+      "title": "Promotion 1",
+      "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg",
+      "video": null,
+      "short_content": "read 1 sc",
+      "view": 0,
+      "like": 0,
+      "status": 1,
+      "is_hot": 0,
+      "created_at": "2020-08-12 09:00:00",
+      "updated_at": "2023-02-21 09:40:58",
+      "tags": null
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "category": 1,
+      "type": "promotion",
+      "title": "Promotion 2",
+      "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg",
+      "video": null,
+      "short_content": "read 1 sc",
+      "view": 0,
+      "like": 0,
+      "status": 1,
+      "is_hot": 0,
+      "created_at": "2020-08-12 09:00:00",
+      "updated_at": "2023-02-21 09:40:58",
+      "tags": null
+    }
+  ],
+  "recommendations": {
+    "title": "anyLEARN đề xuất",
+    "list": [
+      {
+        "id": 1,
+        "title": "Lớp học đề xuất 1",
+        "price": 1000000,
+        "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg"
+      },
+      {
+        "id": 2,
+        "title": "Lớp học đề xuất 2",
+        "price": 2000000,
+        "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg"
+      }
+    ],
+    "route": ""
+  },
+  "articles": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "category": 1,
+      "type": "read",
+      "title": "Read 1",
+      "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg",
+      "video": null,
+      "short_content": "read 1 sc",
+      "view": 0,
+      "like": 0,
+      "status": 1,
+      "is_hot": 0,
+      "created_at": "2020-08-12 09:00:00",
+      "updated_at": "2023-02-21 09:40:58",
+      "tags": null
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "category": 1,
+      "type": "read",
+      "title": "Read 2",
+      "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg",
+      "video": null,
+      "short_content": "read 3 sc read 3 sc read 3 sc read 3 sc read 3 sc read 3",
+      "view": 0,
+      "like": 0,
+      "status": 1,
+      "is_hot": 0,
+      "created_at": "2020-08-12 09:00:00",
+      "updated_at": "2023-02-21 09:40:58",
+      "tags": null
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "category": 1,
+      "type": "read",
+      "title": "Read 3 wewe e we we 23 23 we 23 ftgert werwer  werwe",
+      "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg",
+      "video": null,
+      "short_content": "read 3 sc read 3 sc read 3 sc read 3 sc read 3 sc read 3 sc read 3 sc read 3 sc read 3 sc",
+      "view": 0,
+      "like": 0,
+      "status": 1,
+      "is_hot": 0,
+      "created_at": "2020-08-12 09:00:00",
+      "updated_at": "2023-02-21 09:40:58",
+      "tags": null
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "category": 1,
+      "type": "read",
+      "title": "Read 2",
+      "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg",
+      "video": null,
+      "short_content": "read 3 sc",
+      "view": 0,
+      "like": 0,
+      "status": 1,
+      "is_hot": 0,
+      "created_at": "2020-08-12 09:00:00",
+      "updated_at": "2023-02-21 09:40:58",
+      "tags": null
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "category": 1,
+      "type": "read",
+      "title": "Read 2",
+      "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg",
+      "video": null,
+      "short_content": "read 3 sc",
+      "view": 0,
+      "like": 0,
+      "status": 1,
+      "is_hot": 0,
+      "created_at": "2020-08-12 09:00:00",
+      "updated_at": "2023-02-21 09:40:58",
+      "tags": null
+    }
+  ],
+  "vouchers": [
+    {
+      "id": 1,
+      "title": "Khuyến mãi khách mới dịp lễ 30/4 - 1/5",
+      "short_content": ""
+    },
+    {
+      "id": 2,
+      "title": "Khuyến mãi Monkey",
+      "short_content": ""
+    }
+  ],
+  "asks": {
+    "id": 1,
+    "title": "Tìm trung tâm học tiếng anh tại Sài Gòn",
+    "content": "Con 5 tuổi Tìm trung tâm học tiếng anh tại Sài Gòn, Con 5 tuổi Tìm trung tâm học tiếng anh tại Sài Gòn",
+    "name": "CoT",
+    "comments": [],
+    "answers": []
+  },
+  "classes": [
+    {
+      "title": "tiêu biểu 1 vi",
+      "classes": [
+        {
+          "id": 1,
+          "series_id": null,
+          "title": "Khóa học cơ bản 2",
+          "type": "class",
+          "subtype": "offline",
+          "user_id": 3,
+          "item_category_id": 0,
+          "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg",
+          "short_content": "<p>Khóa học cơ bản 2 Khóa học cơ bản 2 Khóa học cơ bản 2 Khóa học cơ bản 2</p>",
+          "price": 80000,
+          "org_price": 100000,
+          "commission_rate": null,
+          "company_commission": "{\"discount\":null,\"commission\":null,\"bonus_foundation\":null}",
+          "got_bonus": 0,
+          "date_start": "2020-08-14",
+          "time_start": "09:00",
+          "date_end": null,
+          "time_end": null,
+          "location_type": "offline",
+          "location": "https://meet.google.com/nej-rujs-szj"
+        }
+      ]
+    },
+    {
+      "title": "tiêu biểu 2",
+      "classes": [
+        {
+          "id": 1,
+          "series_id": null,
+          "title": "Khóa học cơ bản 2",
+          "type": "class",
+          "subtype": "offline",
+          "user_id": 3,
+          "item_category_id": 0,
+          "image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/1/9fz2MJ87EF1633604688.jpg",
+          "short_content": "<p>Khóa học cơ bản 2 Khóa học cơ bản 2 Khóa học cơ bản 2 Khóa học cơ bản 2</p>",
+          "price": 80000,
+          "org_price": 100000,
+          "commission_rate": null,
+          "company_commission": "{\"discount\":null,\"commission\":null,\"bonus_foundation\":null}",
+          "got_bonus": 0,
+          "date_start": "2020-08-14",
+          "time_start": "09:00",
+          "date_end": null,
+          "time_end": null,
+          "location_type": "offline",
+          "location": "https://meet.google.com/nej-rujs-szj"
+        }
+      ]
+    }
+  ]
+}

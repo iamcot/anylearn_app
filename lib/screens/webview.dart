@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 class WebviewScreen extends StatefulWidget {
   final String url;
@@ -15,36 +16,43 @@ class WebviewScreen extends StatefulWidget {
 }
 
 class _WebviewScreen extends State<WebviewScreen> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+  late WebViewController _controller;
 
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    // if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            debugPrint("WebView is loading (progress : $progress%)");
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {
+            debugPrint("WebView loaded");
+          },
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..setUserAgent("anylearn-app")
+      ..loadRequest(Uri.parse(widget.url), headers: {"token": widget.token});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: WebView(
-        key: UniqueKey(),
-        initialUrl: widget.url,
-        userAgent: "anylearn-app",
-        javascriptMode: JavascriptMode.unrestricted,
-        gestureNavigationEnabled: true,
-        onWebViewCreated: (WebViewController webViewController) {
-          _controller.complete(webViewController);
-          Map<String, String> headers = {"token": widget.token};
-          webViewController.loadUrl(widget.url, headers: headers);
-        },
-        onPageStarted: (String progress) {
-          print("WebView is loading (progress : $progress%)");
-        },
-        onPageFinished: (url) {
-          print("WebView loaded");
-        },
+      body: WebViewWidget(
+        controller: _controller,
       ),
     );
   }

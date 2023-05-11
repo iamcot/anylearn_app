@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -7,16 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_config.dart';
 import 'blocs/account/account_blocs.dart';
 import 'blocs/article/article_bloc.dart';
 import 'blocs/auth/auth_bloc.dart';
-import 'blocs/auth/auth_blocs.dart';
 import 'blocs/course/course_blocs.dart';
 import 'blocs/notif/notif_blocs.dart';
-import 'blocs/search/search_blocs.dart';
+import 'blocs/search/search_bloc.dart';
 import 'dto/notification_dto.dart';
 import 'dto/user_dto.dart';
 import 'models/item_repo.dart';
@@ -24,7 +20,7 @@ import 'models/page_repo.dart';
 import 'models/transaction_repo.dart';
 import 'models/user_repo.dart';
 import 'routes.dart';
-import 'screens/home.dart';
+import 'screens/v3/home/home.dart';
 import 'themes/default.dart';
 
 bool newNotification = false;
@@ -150,7 +146,7 @@ class _MyApp extends State<MyApp> {
         title: 'anyLearn',
         theme: appTheme(),
         routes: routes,
-        home: HomeScreen(),
+        home: V3HomeScreen(),
         // home: HomeScreen(),
       ),
     );

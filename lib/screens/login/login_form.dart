@@ -1,5 +1,3 @@
-import 'dart:io';
-
 // import 'package:device_info/device_info.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
@@ -8,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../../blocs/login/login_blocs.dart';
+import '../../blocs/login/login_bloc.dart';
 import '../../customs/register_curved_paint.dart';
 
 class LoginForm extends StatefulWidget {

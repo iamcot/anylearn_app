@@ -55,9 +55,7 @@ class _TeacherScreen extends State<TeacherScreen> {
         ),
         floatingActionButton: FloatingActionButtonHome(),
         floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-        bottomNavigationBar: BottomNav(
-          route: BottomNav.TEACHER_INDEX,
-        ));
+        bottomNavigationBar: BottomNav(BottomNav.HOME_INDEX));
   }
 
   Future<void> _reloadPage() async {

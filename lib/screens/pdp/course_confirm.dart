@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
-import '../../blocs/auth/auth_blocs.dart';
+import '../../blocs/auth/auth_bloc.dart';
 import '../../dto/user_dto.dart';
 import '../../main.dart';
 import '../webview.dart';
@@ -169,7 +168,7 @@ class _CourseConfirm extends State<CourseConfirm> {
                       IconButton(
                           icon: Icon(Icons.add),
                           onPressed: () async {
-                            user.inRegisterClassId = widget.pdpDTO.item.id;
+                            // user.inRegisterClassId = widget.pdpDTO.item.id;
                             Navigator.of(context).pop();
                             await Navigator.of(context).pushNamed("/account/children", arguments: user);
                             BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());

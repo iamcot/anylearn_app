@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
@@ -34,8 +34,8 @@ class _HomeAppBar extends State<HomeAppBar> {
         user.token == "" || !user.enableIosTrans
             ? Text("")
             : Container(
-                child: Badge(
-                  position: BadgePosition.topEnd(top: 5, end: 5),
+                child: badges.Badge(
+                  position: badges.BadgePosition.topEnd(top: 5, end: 5),
                   showBadge: user.cartcount > 0,
                   badgeContent: Text(
                     user.cartcount.toString(),

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/article/article_blocs.dart';
 import '../blocs/auth/auth_bloc.dart';
-import '../blocs/auth/auth_blocs.dart';
 import '../dto/ask_dto.dart';
 import '../dto/ask_thread_dto.dart';
 import '../dto/const.dart';
@@ -75,7 +74,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
       floatingActionButton: FloatingActionButtonHome(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
-        route: BottomNav.ASK_INDEX,
+        BottomNav.SOCIAL_INDEX,
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
 
-import '../blocs/home/home_blocs.dart';
+import '../blocs/home/home_bloc.dart';
 import '../models/page_repo.dart';
 import 'loading.dart';
 

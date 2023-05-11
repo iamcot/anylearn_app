@@ -7,7 +7,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:overlay_support/overlay_support.dart';
 import 'package:validators/validators.dart' as validator;
 
-import '../blocs/auth/auth_blocs.dart';
+import '../blocs/auth/auth_bloc.dart';
 import '../dto/contract.dart';
 import '../dto/user_dto.dart';
 import '../widgets/gradient_button.dart';

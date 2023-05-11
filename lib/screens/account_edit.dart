@@ -12,7 +12,7 @@ import 'package:validators/validators.dart' as validator;
 import '../blocs/account/account_bloc.dart';
 import '../blocs/account/account_event.dart';
 import '../blocs/account/account_state.dart';
-import '../blocs/auth/auth_blocs.dart';
+import '../blocs/auth/auth_bloc.dart';
 import '../customs/feedback.dart';
 import '../dto/const.dart';
 import '../dto/user_dto.dart';
@@ -66,8 +66,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    _user.fullContent =
-                        ""; //await keyEditor.currentState.getText();
+                    // _user.fullContent = ""; 
                     accountBloc
                       ..add(
                           AccEditSubmitEvent(user: _user, token: _user.token));
@@ -155,7 +154,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.name,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.name = value!;
+                                      // _user.name = value!;
                                     });
                                   },
                                   validator: (value) {
@@ -185,7 +184,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   },
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.refcode = value!;
+                                      // _user.refcode = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -201,7 +200,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.title,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.title = value!;
+                                      // _user.title = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -220,7 +219,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.phone,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.phone = value!;
+                                      // _user.phone = value!;
                                     });
                                   },
                                   validator: (value) {
@@ -244,7 +243,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.email,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.email = value!;
+                                      // _user.email = value!;
                                     });
                                   },
                                   validator: (value) {
@@ -268,7 +267,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.address,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.address = value!;
+                                      // _user.address = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -284,7 +283,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.country,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.country = value!;
+                                      // _user.country = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -301,7 +300,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   initialValue: _user.introduce,
                                   onSaved: (value) {
                                     setState(() {
-                                      _user.introduce = value!;
+                                      // _user.introduce = value!;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -336,8 +335,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      _user.fullContent =
-                                          ""; //await keyEditor.currentState.getText();
+                                      // _user.fullContent = ""; //await keyEditor.currentState.getText();
                                       _formKey.currentState!.save();
                                       accountBloc
                                         ..add(AccEditSubmitEvent(

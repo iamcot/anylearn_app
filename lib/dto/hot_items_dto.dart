@@ -15,11 +15,11 @@ class HotItemsDTO extends Equatable {
 
   static HotItemsDTO fromJson(dynamic json) {
     return json == ""
-        ? HotItemsDTO()
+        ? HotItemsDTO(title: "", list: [], route: "")
         : HotItemsDTO(
-            title: json['title'],
-            list: List<ItemDTO>.from(json['list']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
-            route: json['route'],
+            title: json['title'] ?? "",
+            list: json['list'] == null ? [] : List<ItemDTO>.from(json['list']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
+            route: json['route'] ?? "",
           );
   }
 }

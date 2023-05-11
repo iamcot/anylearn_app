@@ -6,7 +6,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:share_plus/share_plus.dart';
 
 import '../../blocs/auth/auth_bloc.dart';
-import '../../blocs/auth/auth_event.dart';
 import '../../dto/const.dart';
 import '../../dto/friend_params_dto.dart';
 import '../../main.dart';

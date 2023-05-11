@@ -54,7 +54,6 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder<AccountBloc, AccountState>(
       bloc: _accountBloc,
@@ -63,13 +62,12 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
           userProfile = state.user;
           return Scaffold(
             appBar: AppBar(
-              actions: [
-              ],
+              actions: [],
             ),
             floatingActionButton: FloatingActionButtonHome(),
             floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
             bottomNavigationBar: BottomNav(
-              route: BottomNav.PROFILE_INDEX,
+              BottomNav.ACCOUNT_INDEX,
             ),
             body: ListView(
               children: [
@@ -156,7 +154,9 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                           //   thickness: 10,
                           // ),
                           HotItems(
-                            hotItems: [HotItemsDTO(title: "Các khoá học đã đăng ký".tr(), list: userProfile!.registered)],
+                            hotItems: [
+                              HotItemsDTO(title: "Các khoá học đã đăng ký".tr(), list: userProfile!.registered)
+                            ],
                           ),
                         ],
                       ),

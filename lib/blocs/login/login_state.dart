@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-
+part of loginbloc;
 abstract class LoginState extends Equatable {
   const LoginState();
 

@@ -11,7 +11,7 @@ class TimeAgo extends StatelessWidget {
     if (time == null) {
       return SizedBox(height: 0);
     }
-    return Text(buildTime(time), style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic));
+    return Text(buildTime(time), style: TextStyle(fontSize: 13));
   }
 
   String buildTime(DateTime _time) {

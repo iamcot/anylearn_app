@@ -122,7 +122,7 @@ class _AskForumScreen extends State<AskForumScreen> {
         floatingActionButton: FloatingActionButtonHome(),
         floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         bottomNavigationBar: BottomNav(
-          route: BottomNav.ASK_INDEX,
+          BottomNav.SOCIAL_INDEX,
         ),
   
     );

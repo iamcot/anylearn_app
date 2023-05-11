@@ -1,7 +1,5 @@
-import 'package:anylearn/blocs/auth/auth_bloc.dart';
-import 'package:anylearn/blocs/auth/auth_blocs.dart';
-import 'package:anylearn/blocs/auth/auth_event.dart';
-import 'package:anylearn/main.dart';
+import '../blocs/auth/auth_bloc.dart';
+import '../main.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

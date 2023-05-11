@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,19 +9,18 @@ import '../dto/ask_thread_dto.dart';
 import '../dto/const.dart';
 import '../dto/doc_dto.dart';
 import '../dto/event_dto.dart';
-import '../dto/home_dto.dart';
 import '../dto/item_dto.dart';
 import '../dto/items_dto.dart';
 import '../dto/pdp_dto.dart';
 import '../dto/quote_dto.dart';
 import '../dto/user_dto.dart';
 import '../dto/users_dto.dart';
+import '../dto/v3/home_dto.dart';
 import '../services/ask_service.dart';
 import '../services/config_services.dart';
 import '../services/item_services.dart';
 import '../services/quote_service.dart';
 import '../services/user_services.dart';
-import 'default_feature_data.dart';
 
 class PageRepository {
   late UserService userService;
@@ -71,11 +69,8 @@ class PageRepository {
     return await configService.category(catId, page, pageSize);
   }
 
-  Future<HomeDTO> dataHome(String role, int userId) async {
-    HomeDTO homeConfig = await configService.homeLayout(role);
-    if (homeConfig.featuresIcons.length == 0) {
-      homeConfig.featuresIcons = defaultHomeFeatures(role, userId) ?? [];
-    }
+  Future<HomeV3DTO> dataHome(String role, int userId) async {
+    HomeV3DTO homeConfig = await configService.homeV3Layout(role);
     return homeConfig;
   }
 

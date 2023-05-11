@@ -3,10 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../blocs/auth/auth_blocs.dart';
+import '../blocs/auth/auth_bloc.dart';
 import '../blocs/register/register_blocs.dart';
 import '../customs/custom_radio.dart';
 import '../customs/register_curved_paint.dart';
@@ -153,7 +152,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       initialValue: _user.refcode,
                       onSaved: (value) {
                         setState(() {
-                          _user.refcode = value!.trim();
+                          // _user.refcode = value!.trim();
                         });
                       },
                       focusNode: _focusRef,
@@ -175,7 +174,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       initialValue: _user.name,
                       onSaved: (value) {
                         setState(() {
-                          _user.name = value!.trim();
+                          // _user.name = value!.trim();
                         });
                       },
                       validator: (value) {
@@ -206,7 +205,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       initialValue: _user.phone,
                       onSaved: (value) {
                         setState(() {
-                          _user.phone = value!.trim();
+                          // _user.phone = value!.trim();
                         });
                       },
                       validator: (value) {
@@ -234,7 +233,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     child: TextFormField(
                       onSaved: (value) {
                         setState(() {
-                          _user.password = value!.trim();
+                          // _user.password = value!.trim();
                         });
                       },
                       validator: (value) {
@@ -374,7 +373,7 @@ class _RegisterScreen extends State<RegisterScreen> {
 
   void _selectRole(String value) {
     setState(() {
-      _user.role = value;
+      // _user.role = value;
     });
   }
 

@@ -1,5 +1,5 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../main.dart';
 // import 'package:overlay_support/overlay_support.dart';
@@ -14,8 +14,8 @@ class _NotificationIcon extends State<NotificationIcon> {
   Widget build(BuildContext context) {
     return Container(
       child: user.token != ""
-          ? Badge(
-              position: BadgePosition.topEnd(top: 5, end: 5),
+          ? badges.Badge(
+              position: badges.BadgePosition.topEnd(top: 5, end: 5),
               badgeContent: Text("!"),
               showBadge: newNotification,
               child: IconButton(

@@ -1,12 +1,8 @@
-import 'package:anylearn/widgets/item_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/shims/dart_ui_real.dart';
 
-import '../../customs/custom_cached_image.dart';
 import '../../customs/custom_carousel.dart';
 import '../../dto/home_dto.dart';
-import '../../widgets/price_box.dart';
-import '../../widgets/rating.dart';
+import '../../widgets/item_card.dart';
 
 class HomeClasses extends StatelessWidget {
   final List<HomeClassesDTO> blocks;

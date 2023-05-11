@@ -1,6 +1,6 @@
-import 'package:anylearn/dto/home_dto.dart';
 import 'package:bloc/bloc.dart';
 
+import '../../dto/v3/home_dto.dart';
 import '../../models/page_repo.dart';
 import 'items_event.dart';
 import 'items_state.dart';

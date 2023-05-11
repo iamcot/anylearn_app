@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/auth/auth_blocs.dart';
+import '../blocs/auth/auth_bloc.dart';
 import '../blocs/pdp/pdp_blocs.dart';
 import '../customs/feedback.dart';
 import '../dto/pdp_dto.dart';
@@ -40,7 +40,6 @@ class _PDPScreen extends State<PDPScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider<PdpBloc>(
       create: (context) {
         return pdpBloc..add(LoadPDPEvent(id: itemId, token: user.token));
@@ -76,7 +75,8 @@ class _PDPScreen extends State<PDPScreen> {
                   ..showSnackBar(SnackBar(
                     duration: Duration(seconds: 5),
                     content: Text(
-                        "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất.").tr(),
+                            "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất.")
+                        .tr(),
                   ));
               }
             },
@@ -104,13 +104,10 @@ class _PDPScreen extends State<PDPScreen> {
         floatingActionButton: FloatingActionButtonHome(),
         floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         bottomNavigationBar: BlocBuilder(
-          bloc: pdpBloc,
-          builder: (context, state) {
-            return BottomNav(
-                route:
-                    data != null && data!.author.role == "teacher" ? BottomNav.TEACHER_INDEX : BottomNav.SCHOOL_INDEX);
-          },
-        ),
+            bloc: pdpBloc,
+            builder: (context, state) {
+              return BottomNav(BottomNav.HOME_INDEX);
+            }),
       ),
     );
   }

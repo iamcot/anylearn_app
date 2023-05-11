@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/home/home_blocs.dart';
+import '../../blocs/home/home_bloc.dart';
 import '../../dto/home_dto.dart';
 import '../../dto/user_dto.dart';
 import '../../widgets/article_event.dart';

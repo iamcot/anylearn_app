@@ -1,60 +1,54 @@
+library loginbloc;
+
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../models/user_repo.dart';
 import '../auth/auth_bloc.dart';
-import '../auth/auth_blocs.dart';
-import '../auth/auth_event.dart';
-import 'login_event.dart';
-import 'login_state.dart';
+part 'login_event.dart';
+part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
   final AuthBloc authBloc;
 
-  LoginBloc({required this.userRepository, required this.authBloc}) : super(LoginInitState());
+  LoginBloc({required this.userRepository, required this.authBloc}) : super(LoginInitState()) {
+    on<LoginButtonPressedEvent>(_onLoginButtonPressedEvent);
+  }
 
-  @override
-  LoginState get initialState => LoginInitState();
-
-  @override
-  Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is LoginButtonPressedEvent) {
-      yield LoginInProgressState();
-
-      try {
-        final user = await userRepository.authenticated(phone: event.phone, password: event.password);
-        authBloc..add(AuthLoggedInEvent(user: user));
-        yield LoginSuccessState();
-        // yield LoginInitState();
-      } catch (error) {
-        yield LoginFailState(error: error.toString());
-      }
-    }
-
-    if (event is LoginFacebookEvent) {
-      yield LoginFacebookInProgressState();
-
-      try {
-        final user = await userRepository.loginFacebook(data: event.data);
-        yield LoginFacebookSuccessState();
-        authBloc..add(AuthLoggedInEvent(user: user));
-        yield LoginSuccessState();
-      } catch (error) {
-        yield LoginFacebookFailState(error: error.toString());
-      }
-    }
-
-    if (event is LoginAppleEvent) {
-      yield LoginAppleInProgressState();
-
-      try {
-        final user = await userRepository.loginApple(data: event.data);
-        yield LoginAppleSuccessState();
-        authBloc..add(AuthLoggedInEvent(user: user));
-        yield LoginSuccessState();
-      } catch (error) {
-        yield LoginAppleFailState(error: error.toString());
-      }
+  void _onLoginButtonPressedEvent(LoginButtonPressedEvent event, Emitter<LoginState> emit) async {
+    emit(LoginInProgressState());
+    try {
+      final user = await userRepository.authenticated(phone: event.phone, password: event.password);
+      authBloc..add(AuthLoggedInEvent(user: user));
+      emit(LoginSuccessState());
+    } catch (e) {
+      return emit(LoginFailState(error: e.toString()));
     }
   }
+  //  if (event is LoginFacebookEvent) {
+  //     yield LoginFacebookInProgressState();
+
+  //     try {
+  //       final user = await userRepository.loginFacebook(data: event.data);
+  //       yield LoginFacebookSuccessState();
+  //       authBloc..add(AuthLoggedInEvent(user: user));
+  //       yield LoginSuccessState();
+  //     } catch (error) {
+  //       yield LoginFacebookFailState(error: error.toString());
+  //     }
+  //   }
+
+  //   if (event is LoginAppleEvent) {
+  //     yield LoginAppleInProgressState();
+
+  //     try {
+  //       final user = await userRepository.loginApple(data: event.data);
+  //       yield LoginAppleSuccessState();
+  //       authBloc..add(AuthLoggedInEvent(user: user));
+  //       yield LoginSuccessState();
+  //     } catch (error) {
+  //       yield LoginAppleFailState(error: error.toString());
+  //     }
+  //   }
 }

@@ -1,16 +1,18 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:anylearn/dto/article_dto.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 import '../app_config.dart';
+import '../dto/article_dto.dart';
 import '../dto/doc_dto.dart';
 import '../dto/event_dto.dart';
-import '../dto/home_dto.dart';
 import '../dto/item_dto.dart';
 import '../dto/transaction_config_dto.dart';
 import '../dto/user_dto.dart';
+import '../dto/v3/home_dto.dart';
 import 'base_service.dart';
 
 class ConfigServices extends BaseService {
@@ -19,10 +21,11 @@ class ConfigServices extends BaseService {
 
   ConfigServices({required this.config, required this.httpClient});
 
-  Future<HomeDTO> homeLayout(String role) async {
-    final url = buildUrl(appConfig: config, endPoint: "/config/homev2/$role");
-    final json = await get(httpClient, url);
-    return HomeDTO.fromJson(json);
+  Future<HomeV3DTO> homeV3Layout(String role) async {
+    // final url = buildUrl(appConfig: config, endPoint: "/config/homev3/$role");
+    // final json = await get(httpClient, url);
+    final json = await rootBundle.loadString('assets/mock/homedatav3.json');
+    return HomeV3DTO.fromJson(jsonDecode(json));
   }
 
   Future<List<CategoryPagingDTO>> category(int catId, page, pageSize) async {

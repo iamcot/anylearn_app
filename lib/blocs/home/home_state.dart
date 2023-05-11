@@ -1,9 +1,4 @@
-import 'package:anylearn/dto/doc_dto.dart';
-import 'package:anylearn/dto/quote_dto.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-
-import '../../dto/home_dto.dart';
+part of homebloc;
 
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -28,8 +23,8 @@ class QuoteSuccessState extends HomeState {
 class QuoteFailState extends HomeState {}
 
 class HomeSuccessState extends HomeState {
-  final HomeDTO data;
-  HomeSuccessState({required this.data}) : assert(data != null);
+  final HomeV3DTO data;
+  HomeSuccessState({required this.data});
   @override
   List<Object> get props => [data];
 }

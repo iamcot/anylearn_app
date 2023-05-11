@@ -65,7 +65,7 @@ class _AskCatScreen extends State<AskCatScreen> {
       floatingActionButton: FloatingActionButtonHome(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
-        route: BottomNav.ASK_INDEX,
+        BottomNav.SOCIAL_INDEX,
       ),
     );
   }

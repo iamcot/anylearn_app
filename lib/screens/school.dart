@@ -34,7 +34,6 @@ class _SchoolScreen extends State<SchoolScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: BaseAppBar(
         user: user,
@@ -54,9 +53,7 @@ class _SchoolScreen extends State<SchoolScreen> {
           })),
       floatingActionButton: FloatingActionButtonHome(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-      bottomNavigationBar: BottomNav(
-        route: BottomNav.SCHOOL_INDEX,
-      ),
+      bottomNavigationBar: BottomNav(BottomNav.HOME_INDEX),
     );
   }
 

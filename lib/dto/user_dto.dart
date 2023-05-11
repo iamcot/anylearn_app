@@ -5,47 +5,49 @@ import 'user_doc_dto.dart';
 
 class UserDTO extends Equatable {
   final id;
-  String name;
-  String title;
-  String phone;
-  String role;
-  String image;
-  String banner;
-  String address;
+  final String name;
+  final String title;
+  final String phone;
+  final String role;
+  final String image;
+  final String banner;
+  final String address;
   final walletM;
   final walletC;
   final userId;
   final commissionRate;
-  String country;
-  String dob;
-  String email;
+  final String country;
+  final String dob;
+  final String email;
   final expire;
-  String introduce;
+  final String introduce;
   final isHot;
   final numFriends;
-  String refcode;
+  final String refcode;
   final status;
   final updateDoc;
   final route;
   final rating;
-  String password;
-  String token;
-  String refLink;
-  String fullContent;
+  final String password;
+  final String token;
+  final String refLink;
+  final String fullContent;
   final docs;
-  String dobPlace;
-  int isSigned;
+  final String dobPlace;
+  final int isSigned;
   final enableIosTrans;
   final disableAnypoint;
   final registered;
   final faved;
   final rated;
-  List<UserDTO>? children;
+  final List<UserDTO>? children;
   final cartcount;
-  int inRegisterClassId;
+  final int inRegisterClassId;
 
-  UserDTO({
-    this.id,
+  static const empty = UserDTO(id: 1);
+
+  const UserDTO({
+    this.id = 0,
     this.name = "",
     this.phone = "",
     this.title = "",
@@ -55,18 +57,18 @@ class UserDTO extends Equatable {
     this.address = "",
     this.walletM = 0,
     this.walletC = 0,
-    this.userId,
-    this.commissionRate,
+    this.userId = 0,
+    this.commissionRate = 0.0,
     this.country = "",
     this.dob = "",
     this.email = "",
-    this.expire,
+    this.expire = 0,
     this.introduce = "",
-    this.isHot,
-    this.numFriends,
+    this.isHot = 0,
+    this.numFriends = 0,
     this.refcode = "",
-    this.status,
-    this.updateDoc,
+    this.status = 1,
+    this.updateDoc = 1,
     this.route = "",
     this.rating = 0.0,
     this.password = "",
@@ -76,12 +78,12 @@ class UserDTO extends Equatable {
     this.docs = "",
     this.isSigned = 0,
     this.dobPlace = "",
-    this.enableIosTrans,
-    this.disableAnypoint,
+    this.enableIosTrans = 1,
+    this.disableAnypoint = 0,
     this.registered = "",
     this.faved = "",
     this.rated = "",
-    this.children,
+    this.children = const [],
     this.cartcount = 0,
     this.inRegisterClassId = 0,
   });

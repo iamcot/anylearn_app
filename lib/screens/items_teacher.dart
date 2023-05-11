@@ -52,7 +52,7 @@ class _ItemsTeacherScreen extends State<ItemsTeacherScreen> {
                 floatingActionButton: FloatingActionButtonHome(),
                 floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
                 bottomNavigationBar: BottomNav(
-                  route: BottomNav.TEACHER_INDEX,
+                  BottomNav.HOME_INDEX,
                 ),
               );
             }

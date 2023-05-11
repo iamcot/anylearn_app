@@ -1,52 +1,63 @@
-import 'package:bloc/bloc.dart';
+library searchbloc;
 
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../dto/item_dto.dart';
+import '../../dto/user_dto.dart';
 import '../../models/page_repo.dart';
-import 'search_blocs.dart';
-import 'package:stream_transform/stream_transform.dart';
+
+part 'search_event.dart';
+part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final PageRepository pageRepository;
-  SearchBloc({required this.pageRepository}) : super(SearchInitState());
-
-  @override
-  SearchState get initialState => SearchInitState();
-
-  @override
-  Stream<Transition<SearchEvent, SearchState>> transformEvents(
-      Stream<SearchEvent> events, transitionFn) {
-    return events
-        .debounce(const Duration(milliseconds: 1000))
-        .switchMap((transitionFn));
+  SearchBloc({required pageRepository})
+      : pageRepository = pageRepository,
+        super(SearchInitState()) {
+    on<SearchUserEvent>(_onSearchUserEvent);
+    on<SearchItemEvent>(_onSearchItemEvent);
+    on<SearchTagsEvent>(_onSearchTagsEvent);
+    on<SuggestFromKeywordEvent>(_onSuggestFromKeywordEvent);
   }
 
-  @override
-  Stream<SearchState> mapEventToState(SearchEvent event) async* {
+  void _onSearchUserEvent(SearchUserEvent event, Emitter<SearchState> emit) async {
+    emit(SearchLoadingState());
     try {
-      if (event is SearchUserEvent) {
-        yield SearchLoadingState();
-        final result =
-            await pageRepository.searchUser(event.screen, event.query);
-        yield SearchUserSuccessState(users: result);
-      } else if (event is SearchItemEvent) {
-        yield SearchLoadingState();
-        final result =
-            await pageRepository.searchItem(event.screen, event.query);
-        yield SearchItemSuccessState(items: result);
-      }
-      if (event is SearchTagsEvent) {
-        yield SearchTagsLoadingState();
-        final tags = await pageRepository.searchTags();
-        yield SearchTagsSuccessState(tags: tags);
-      }
-      if (event is suggestFromKeywordEvent) {
-        yield suggestFromKeywordLoadingState();
-        final key =
-            await pageRepository.suggestFromKeyword(event.screen, event.query);
-        yield suggestFromKeywordSuccessState(key: key);
-      }
-    } catch (error, trace) {
-      yield SearchFailState(error: error.toString());
-      print(trace);
+      final result = await pageRepository.searchUser(event.screen, event.query);
+      return emit(SearchUserSuccessState(users: result));
+    } catch (e) {
+      return emit(SearchFailState(error: e.toString()));
+    }
+  }
+
+  void _onSearchItemEvent(SearchItemEvent event, Emitter<SearchState> emit) async {
+    emit(SearchLoadingState());
+    try {
+      final result = await pageRepository.searchItem(event.screen, event.query);
+      return emit(SearchItemSuccessState(items: result));
+    } catch (e) {
+      return emit(SearchFailState(error: e.toString()));
+    }
+  }
+
+  void _onSearchTagsEvent(SearchTagsEvent event, Emitter<SearchState> emit) async {
+    emit(SearchLoadingState());
+    try {
+      final result = await pageRepository.searchTags();
+      return emit(SearchTagsSuccessState(tags: result));
+    } catch (e) {
+      return emit(SearchFailState(error: e.toString()));
+    }
+  }
+
+  void _onSuggestFromKeywordEvent(SuggestFromKeywordEvent event, Emitter<SearchState> emit) async {
+    emit(SearchLoadingState());
+    try {
+      final result = await pageRepository.suggestFromKeyword(event.screen, event.query);
+      return emit(SuggestFromKeywordSuccessState(key: result));
+    } catch (e) {
+      return emit(SearchFailState(error: e.toString()));
     }
   }
 }
