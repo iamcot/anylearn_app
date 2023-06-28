@@ -1,67 +1,69 @@
-import 'package:bloc/bloc.dart';
+library pdpbloc;
 
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../dto/pdp_dto.dart';
+import '../../dto/user_dto.dart';
 import '../../models/page_repo.dart';
 import '../../models/transaction_repo.dart';
-import 'pdp_event.dart';
-import 'pdp_state.dart';
+
+part 'pdp_event.dart';
+part 'pdp_state.dart';
 
 class PdpBloc extends Bloc<PdpEvent, PdpState> {
   final PageRepository pageRepository;
   final TransactionRepository transactionRepository;
-  PdpBloc({required this.pageRepository,required this.transactionRepository}) : super(PdpInitState());
+  PdpBloc({required this.pageRepository, required this.transactionRepository}) : super(PdpInitState()) {
+    on<LoadPDPEvent>(_loadPDPEvent);
+    on<PdpFavoriteTouchEvent>(_pdpFavoriteTouchEvent);
+    on<PdpFriendLoadEvent>(_pdpFriendLoadEvent);
+    on<PdpFriendShareEvent>(_pdpFriendShareEvent);
+    on<PdpRegisterEvent>(_pdpRegisterEvent);
+  }
 
-  @override
-  PdpState get initialState => PdpInitState();
-
-  @override
-  Stream<PdpState> mapEventToState(PdpEvent event) async* {
+  void _loadPDPEvent(LoadPDPEvent event, Emitter<PdpState> emit) async {
     try {
-      if (event is LoadPDPEvent) {
-        yield PdpLoadingState();
-        if (event.id == null) {
-          yield PdpFailState(error: "Truy vấn không hợp lệ");
-        }
-        final data = await pageRepository.dataPDP(event.id, event.token);
-        if (data != null) {
-          yield PdpSuccessState(data: data);
-        } else {
-          yield PdpFailState(error: "Error 404 - Trang không tồn tại.");
-        }
-      }
-      if (event is PdpFavoriteTouchEvent) {
-        yield PdpFavoriteTouchingState();
-        final rs = await pageRepository.touchFav(event.itemId, event.token);
-        yield PdpFavoriteTouchSuccessState(isFav: rs);
-      }
-      if (event is PdpFriendLoadEvent) {
-        final friends = await pageRepository.allFriends(event.token);
-        yield PdpShareFriendListSuccessState(friends: friends);
-      }
+      final data = await pageRepository.dataPDP(event.id, event.token);
+      return emit(PdpSuccessState(data: data));
     } catch (error) {
-      yield PdpFailState(error: error.toString());
+      return emit(PdpFailState(error: "Error 404 - Trang không tồn tại."));
     }
+  }
 
-    if (event is PdpFriendShareEvent) {
-      try {
-        await pageRepository.shareFriends(event.token, event.itemId, event.friendIds, event.isALL);
-        yield PdpShareSuccessState();
-      } catch (error, trace) {
-        print(trace);
-        yield PdpShareFailState(error: error.toString());
-      }
+  void _pdpFavoriteTouchEvent(PdpFavoriteTouchEvent event, Emitter<PdpState> emit) async {
+    try {
+      final rs = await pageRepository.touchFav(event.itemId, event.token);
+      return emit(PdpFavoriteTouchSuccessState(isFav: rs));
+    } catch (error) {
+      return emit(PdpFailState(error: error.toString()));
     }
+  }
 
-    if (event is PdpRegisterEvent) {
-      try {
-        final data = await transactionRepository.register(event.token, event.itemId, event.voucher, event.childUser);
-        if (data) {
-          yield PdpRegisterSuccessState(result: data);
-        } else {
-          yield PdpRegisterFailState(error: "Có lỗi xảy ra, vui lòng thử lại");
-        }
-      } catch (error) {
-        yield PdpRegisterFailState(error: error.toString());
-      }
+  void _pdpFriendLoadEvent(PdpFriendLoadEvent event, Emitter<PdpState> emit) async {
+    try {
+      final friends = await pageRepository.allFriends(event.token);
+      return emit(PdpShareFriendListSuccessState(friends: friends));
+    } catch (error) {
+      return emit(PdpFailState(error: error.toString()));
+    }
+  }
+
+  void _pdpFriendShareEvent(PdpFriendShareEvent event, Emitter<PdpState> emit) async {
+    try {
+      await pageRepository.shareFriends(event.token, event.itemId, event.friendIds, event.isALL);
+      return emit(PdpShareSuccessState());
+    } catch (error) {
+      return emit(PdpShareFailState(error: error.toString()));
+    }
+  }
+
+  void _pdpRegisterEvent(PdpRegisterEvent event, Emitter<PdpState> emit) async {
+    try {
+      final data = await transactionRepository.register(event.token, event.itemId, event.voucher, event.childUser);
+      return emit(PdpRegisterSuccessState(result: data));
+    } catch (error) {
+      return emit(PdpRegisterFailState(error: error.toString()));
     }
   }
 }

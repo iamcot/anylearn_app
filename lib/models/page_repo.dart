@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/v3/subtype_dto.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,7 @@ import '../dto/quote_dto.dart';
 import '../dto/user_dto.dart';
 import '../dto/users_dto.dart';
 import '../dto/v3/home_dto.dart';
+import '../dto/v3/search_suggest_dto.dart';
 import '../services/ask_service.dart';
 import '../services/config_services.dart';
 import '../services/item_services.dart';
@@ -72,6 +74,11 @@ class PageRepository {
   Future<HomeV3DTO> dataHome(String role, int userId) async {
     HomeV3DTO homeConfig = await configService.homeV3Layout(role);
     return homeConfig;
+  }
+
+  Future<SubtypeDTO> dataSubtype() async {
+    SubtypeDTO data = await configService.subtypeData();
+    return data;
   }
 
   Future<QuoteDTO> getQuote(String url) async {
@@ -152,6 +159,11 @@ class PageRepository {
 
   Future<List<String>> searchTags() async {
     return await configService.searchTags();
+  }
+
+
+  Future<SearchSuggestDTO> searchSuggestion() async {
+    return await configService.searchSuggestion();
   }
 
   Future<List<ItemDTO>> suggestFromKeyword(String screen, String query) async {

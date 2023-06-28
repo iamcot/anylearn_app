@@ -1,6 +1,6 @@
-import 'package:anylearn/dto/ask_dto.dart';
-import 'package:anylearn/dto/hot_items_dto.dart';
-import 'package:anylearn/dto/v3/voucher_dto.dart';
+import '../ask_dto.dart';
+import '../hot_items_dto.dart';
+import 'voucher_dto.dart';
 import 'package:equatable/equatable.dart';
 
 import '../article_dto.dart';
@@ -87,7 +87,8 @@ class HomeV3DTO extends Equatable {
             categories: json['categories'] == null
                 ? []
                 : List<CategoryDTO>.from(json['categories']?.map((v) => v == null ? null : CategoryDTO.fromJson(v)))
-                    .toList());
+                    .toList()
+                    );
   }
 }
 
@@ -172,7 +173,9 @@ class CategoryDTO extends Equatable {
         : CategoryDTO(
             id: json['id'],
             title: json['title'],
-            items: List<ItemDTO>.from(json['items']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
+            items: json['items'] == null
+                ? []
+                : List<ItemDTO>.from(json['items']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
           );
   }
 }

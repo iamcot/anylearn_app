@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:anylearn/dto/v3/subtype_dto.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -13,6 +14,7 @@ import '../dto/item_dto.dart';
 import '../dto/transaction_config_dto.dart';
 import '../dto/user_dto.dart';
 import '../dto/v3/home_dto.dart';
+import '../dto/v3/search_suggest_dto.dart';
 import 'base_service.dart';
 
 class ConfigServices extends BaseService {
@@ -28,18 +30,19 @@ class ConfigServices extends BaseService {
     return HomeV3DTO.fromJson(jsonDecode(json));
   }
 
-  Future<List<CategoryPagingDTO>> category(int catId, page, pageSize) async {
-    final url =
-        buildUrl(appConfig: config, endPoint: "/config/category/$catId");
-    final json = await get(httpClient, url);
-    return List<CategoryPagingDTO>.from(
-        json?.map((e) => CategoryPagingDTO.fromJson(e))).toList();
+  Future<SubtypeDTO> subtypeData() async {
+    final json = await rootBundle.loadString('assets/mock/subtypek12.json');
+    return SubtypeDTO.fromJson(jsonDecode(json));
   }
 
-  Future<TransactionConfigDTO> transactionConfigs(
-      String type, String token) async {
-    final url = buildUrl(
-        appConfig: config, endPoint: "/config/transaction/$type", token: token);
+  Future<List<CategoryPagingDTO>> category(int catId, page, pageSize) async {
+    final url = buildUrl(appConfig: config, endPoint: "/config/category/$catId");
+    final json = await get(httpClient, url);
+    return List<CategoryPagingDTO>.from(json?.map((e) => CategoryPagingDTO.fromJson(e))).toList();
+  }
+
+  Future<TransactionConfigDTO> transactionConfigs(String type, String token) async {
+    final url = buildUrl(appConfig: config, endPoint: "/config/transaction/$type", token: token);
     print(url);
     final json = await get(httpClient, url);
     return TransactionConfigDTO.fromJson(json);
@@ -53,8 +56,7 @@ class ConfigServices extends BaseService {
 
   Future<Map<DateTime, List<EventDTO>>> monthEvent(DateTime month) async {
     final DateFormat _month = DateFormat("yyyy-MM");
-    final url =
-        buildUrl(appConfig: config, endPoint: "/event/${_month.format(month)}");
+    final url = buildUrl(appConfig: config, endPoint: "/event/${_month.format(month)}");
     final json = await get(httpClient, url);
     return Map<DateTime, List<EventDTO>>.from(
       json?.map(
@@ -89,25 +91,17 @@ class ConfigServices extends BaseService {
   }
 
   Future<List<UserDTO>> searchUser(String screen, String query) async {
-    final url = buildUrl(
-        appConfig: config,
-        endPoint: "/search",
-        query: "t=user&s=${screen}&q=$query");
+    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=user&s=${screen}&q=$query");
     print(url);
     final json = await get(httpClient, url);
-    return List<UserDTO>.from(
-        json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
+    return List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
   }
 
   Future<List<ItemDTO>> searchItem(String screen, String query) async {
-    final url = buildUrl(
-        appConfig: config,
-        endPoint: "/search",
-        query: "t=item&s=${screen}&q=$query");
+    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=item&s=${screen}&q=$query");
     print(url);
     final json = await get(httpClient, url);
-    return List<ItemDTO>.from(
-        json?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList();
+    return List<ItemDTO>.from(json?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList();
   }
 
   Future<ArticleHomeDTO> articleIndexPage() async {
@@ -117,8 +111,7 @@ class ConfigServices extends BaseService {
   }
 
   Future<ArticlePagingDTO> articleTypePage(String type, int page) async {
-    final url = buildUrl(
-        appConfig: config, endPoint: "/article/cat/$type", query: "page=$page");
+    final url = buildUrl(appConfig: config, endPoint: "/article/cat/$type", query: "page=$page");
     final json = await get(httpClient, url);
     return ArticlePagingDTO.fromJson(json);
   }
@@ -135,14 +128,10 @@ class ConfigServices extends BaseService {
     return json == null ? [] : List<String>.from(json);
   }
 
-  Future<List<String>> suggestFromKeyword() async {
-    // final url = buildUrl(appConfig: config, endPoint: "/search-tags");
+  Future<SearchSuggestDTO> searchSuggestion() async {
+    // final url = buildUrl(appConfig: config, endPoint: "/search-suggesstion");
     // final json = await get(httpClient, url);
-    // return json == null ? [] : List<String>.from(json);
-    List<String> result = [
-      "aaaa",
-      "bbb",
-    ];
-    return result;
+    final json = jsonDecode(await rootBundle.loadString('assets/mock/searchsuggestv3.json'));
+    return SearchSuggestDTO.fromJson(json);
   }
 }

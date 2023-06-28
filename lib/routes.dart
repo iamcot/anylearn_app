@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/v3/map/screen.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
@@ -87,4 +88,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   // "/passwordupdate": (BuildContext context) => PasswordupdateScreen(),
   "/pendingorder/pendingorder": (BuildContext context) => PendingOrder(),
   "/locale": (BuildContext context) => LocaleScreen(),
+  "/map": (BuildContext context) => MapScreen(),
 };

@@ -7,6 +7,7 @@ class HomeFeatures extends StatelessWidget {
   late double width;
 
   final List<Map<String, dynamic>> features = [
+    {"title": "Bản đồ", "icon": Icons.map_outlined, "route": "/map"},
     {"title": "anyLEARN Foundation", "icon": MdiIcons.piggyBankOutline, "route": "/foundation"},
     {"title": "Bạn bè", "icon": MdiIcons.accountGroup, "route": "/account/friends"},
     {"title": "Lịch học", "icon": MdiIcons.calendarClock, "route": "/account/calendar"},
@@ -35,29 +36,34 @@ class HomeFeatures extends StatelessWidget {
         color: Colors.pink[50],
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Stack(
-        children: [
-          Text(
-            item["title"],
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold, color: Colors.green[800]),
-          ),
-          Container(
-            alignment: Alignment.bottomRight,
-            width: boxWidth,
-            height: boxWidth,
-            // decoration: BoxDecoration(
-            //   backgroundBlendMode: 
-            // ),
-            child: Icon(
-              item["icon"],
-              color: Colors.blue.withOpacity(0.3),
-              size: boxWidth / 1.5,
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(item["route"]);
+        },
+        child: Stack(
+          children: [
+            Text(
+              item["title"],
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold, color: Colors.green[800]),
             ),
-          ),
-          
-        ],
+            Container(
+              alignment: Alignment.bottomRight,
+              width: boxWidth,
+              height: boxWidth,
+              // decoration: BoxDecoration(
+              //   backgroundBlendMode: 
+              // ),
+              child: Icon(
+                item["icon"],
+                color: Colors.blue.withOpacity(0.3),
+                size: boxWidth / 1.5,
+              ),
+            ),
+            
+          ],
+        ),
       ),
     );
   }

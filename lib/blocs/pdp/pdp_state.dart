@@ -1,8 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-import '../../dto/pdp_dto.dart';
-import '../../dto/user_dto.dart';
-
+part of pdpbloc;
 abstract class PdpState extends Equatable {
   const PdpState();
   @override
@@ -15,7 +11,7 @@ class PdpLoadingState extends PdpState {}
 
 class PdpSuccessState extends PdpState {
   final PdpDTO data;
-  PdpSuccessState({required this.data}) : assert(data != null);
+  PdpSuccessState({required this.data});
   @override
   List<Object> get props => [data];
 }

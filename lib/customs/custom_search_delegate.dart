@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/search/search_bloc.dart';
 import '../dto/item_dto.dart';
-import '../dto/user_dto.dart';
+import '../screens/v3/search/filter_widget.dart';
 import 'custom_cached_image.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
@@ -14,14 +14,14 @@ class CustomSearchDelegate extends SearchDelegate {
 // final SearchUserEvent  _tags = SearchEvent();
   @override
   String get searchFieldLabel {
-    if (screen == "school") {
-      return "Tìm Trường Học...".tr();
-    } else if (screen == "teacher") {
-      return "Tìm chuyên gia...".tr();
-    } else if (screen == "product") {
-      return "Tìm sản phẩm...".tr();
-    }
-    return "Tìm khóa học...".tr();
+    // if (screen == "school") {
+    //   return "Tìm Trường Học...".tr();
+    // } else if (screen == "teacher") {
+    //   return "Tìm chuyên gia...".tr();
+    // } else if (screen == "product") {
+    //   return "Tìm sản phẩm...".tr();
+    // }
+    return "Tìm kiếm...".tr();
   }
 
   @override
@@ -54,46 +54,17 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    if (screen == "school" || screen == "teacher") {
-      BlocProvider.of<SearchBloc>(context)..add(SearchUserEvent(screen: screen, query: query));
-    } else {
-      BlocProvider.of<SearchBloc>(context)..add(SearchItemEvent(screen: screen, query: query));
-    }
+    // if (screen == "school" || screen == "teacher") {
+    //   BlocProvider.of<SearchBloc>(context)..add(SearchUserEvent(screen: screen, query: query));
+    // } else {
+    //   BlocProvider.of<SearchBloc>(context)..add(SearchItemEvent(screen: screen, query: query));
+    // }
     return BlocBuilder<SearchBloc, SearchState>(
       bloc: BlocProvider.of<SearchBloc>(context),
       builder: (context, state) {
-        if (state is SearchUserSuccessState) {
-          final List<UserDTO> users = state.users;
-          return users == null || users.length == 0
-              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm.").tr())
-              : Container(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: Container(
-                              height: 50,
-                              width: 50,
-                              child: users[index].image == null
-                                  ? Icon(Icons.broken_image)
-                                  : CustomCachedImage(
-                                      url: users[index].image,
-                                    )),
-                          title: Text(users[index].name),
-                          trailing: Icon(Icons.chevron_right),
-                          onTap: () {
-                            Navigator.of(context).pushNamed("/items/$screen", arguments: users[index].id);
-                          },
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return Divider();
-                      },
-                      itemCount: users.length),
-                );
-        }
         if (state is SearchItemSuccessState) {
           final List<ItemDTO> items = state.items;
-          return items == null || items.length == 0
+          return items.length == 0
               ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm.").tr())
               : Container(
                   child: ListView.separated(
@@ -102,16 +73,13 @@ class CustomSearchDelegate extends SearchDelegate {
                           leading: Container(
                               height: 50,
                               width: 50,
-                              child: items[index].image == null
+                              child: items[index].image.isEmpty
                                   ? Icon(Icons.broken_image)
                                   : CustomCachedImage(
                                       url: items[index].image,
                                     )),
                           title: Text(items[index].title),
-                          subtitle: Text((items[index].authorType == "school"
-                                  ? "Trung tâm: ".tr()
-                                  : "Giảng viên: ".tr()) +
-                              items[index].authorName),
+                          subtitle: Text("Đối tác: ".tr() + items[index].authorName),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
                             Navigator.of(context).pushNamed("/pdp", arguments: items[index].id);
@@ -129,16 +97,17 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 
+  void searchOnFilterTap(BuildContext context, String _query) {
+    query = _query;
+    showResults(context);
+  }
+
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.isEmpty) {
-      BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent());
+      BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent(screen: screen));
     } else {
-      if (screen == "school" || screen == "teacher") {
-        BlocProvider.of<SearchBloc>(context)..add(SearchUserEvent(screen: screen, query: query));
-      } else {
-        BlocProvider.of<SearchBloc>(context)..add(SearchItemEvent(screen: screen, query: query));
-      }
+      BlocProvider.of<SearchBloc>(context)..add(SearchItemEvent(screen: screen, query: query));
     }
 
     // return (screen == "school" || screen == "teacher")
@@ -146,60 +115,18 @@ class CustomSearchDelegate extends SearchDelegate {
     return BlocBuilder<SearchBloc, SearchState>(
       bloc: BlocProvider.of<SearchBloc>(context),
       builder: (context, state) {
-        if (state is SearchTagsSuccessState) {
+        if (state is SearchFailState) {
           return Container(
-            child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                      "@${state.tags[index]}",
-                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                    ),
-                    trailing: Icon(Icons.chevron_right),
-                    onTap: () {
-                      query = "@${state.tags[index]}";
-                      showResults(context);
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Divider();
-                },
-                itemCount: state.tags.length),
+            child: Text(state.error.toString()),
           );
         }
-        if (state is SearchUserSuccessState) {
-          final List<UserDTO> users = state.users;
-          return users == null || users.length == 0
-              ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm.").tr())
-              : Container(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: Container(
-                              height: 50,
-                              width: 50,
-                              child: users[index].image == ""
-                                  ? Icon(Icons.broken_image)
-                                  : CustomCachedImage(
-                                      url: users[index].image,
-                                    )),
-                          title: Text(users[index].name),
-                          trailing: Icon(Icons.chevron_right),
-                          onTap: () {
-                            Navigator.of(context).pushNamed("/items/$screen", arguments: users[index].id);
-                          },
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return Divider();
-                      },
-                      itemCount: users.length),
-                );
+        if (state is SearchTagsSuccessState) {
+          return SearchFilter(suggestion: state.suggestDTO, callback: searchOnFilterTap);
         }
+
         if (state is SearchItemSuccessState) {
           final List<ItemDTO> items = state.items;
-          return items == null || items.length == 0
+          return items.length == 0
               ? Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm.").tr())
               : Container(
                   child: ListView.separated(
@@ -214,10 +141,9 @@ class CustomSearchDelegate extends SearchDelegate {
                                       url: items[index].image,
                                     )),
                           title: Text(items[index].title),
-                          subtitle: Text((items[index].authorType == "school"
-                                  ? "Trung tâm: ".tr()
-                                  : "Giảng viên: ".tr()) +
-                              items[index].authorName),
+                          subtitle: Text(
+                              (items[index].authorType == "school" ? "Trung tâm: ".tr() : "Giảng viên: ".tr()) +
+                                  items[index].authorName),
                           trailing: Icon(Icons.chevron_right),
                           onTap: () {
                             Navigator.of(context).pushNamed("/pdp", arguments: items[index].id);

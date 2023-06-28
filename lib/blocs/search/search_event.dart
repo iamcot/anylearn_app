@@ -17,7 +17,12 @@ class SearchItemEvent extends SearchEvent {
   SearchItemEvent({required this.screen, this.query = ""});
 }
 
-class SearchTagsEvent extends SearchEvent { }
+class SearchTagsEvent extends SearchEvent { 
+  final String screen;
+  final String query;
+
+  SearchTagsEvent({required this.screen, this.query = ""});
+}
 
 class SuggestFromKeywordEvent extends SearchEvent {
   final String screen;

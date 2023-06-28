@@ -1,18 +1,18 @@
-import 'package:anylearn/screens/v3/home/home_articles.dart';
-import 'package:anylearn/screens/v3/home/home_ask.dart';
-import 'package:anylearn/screens/v3/home/home_banner.dart';
-import 'package:anylearn/screens/v3/home/home_classes.dart';
-import 'package:anylearn/screens/v3/home/home_features.dart';
-import 'package:anylearn/screens/v3/home/home_vouchers.dart';
-import 'package:anylearn/widgets/items_list_2.dart';
-import 'package:anylearn/widgets/items_list_3.dart';
+import 'articles.dart';
+import 'ask.dart';
+import 'banner.dart';
+import 'classes.dart';
+import 'features.dart';
+import 'vouchers.dart';
+import '../../../widgets/items_list_2.dart';
+import '../../../widgets/items_list_3.dart';
 
 import '../../../blocs/home/home_bloc.dart';
 import '../../../dto/v3/home_dto.dart';
-import 'home_pointbox.dart';
+import 'pointbox.dart';
 import 'package:flutter/material.dart';
 
-import 'home_subtype.dart';
+import 'subtype.dart';
 
 bool canShowPopup = true;
 

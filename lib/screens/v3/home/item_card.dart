@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
+
 import '../../../customs/custom_cached_image.dart';
 import '../../../dto/item_dto.dart';
 import '../../../widgets/price_box.dart';
 import '../../../widgets/rating.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 
 
 class ItemCard extends StatelessWidget {

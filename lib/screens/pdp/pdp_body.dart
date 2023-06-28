@@ -1,23 +1,20 @@
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
-
-import '../../main.dart';
-import '../../widgets/categories_box.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-import '../../blocs/pdp/pdp_blocs.dart';
+import '../../blocs/pdp/pdp_bloc.dart';
 import '../../customs/custom_cached_image.dart';
 import '../../dto/home_dto.dart';
 import '../../dto/login_callback.dart';
 import '../../dto/pdp_dto.dart';
-import '../../dto/user_dto.dart';
+import '../../main.dart';
+import '../../widgets/categories_box.dart';
 import '../../widgets/item_status_icon.dart';
 import '../../widgets/price_box.dart';
 import '../../widgets/rating.dart';
@@ -41,7 +38,6 @@ class PdpBody extends StatefulWidget {
 class _PdpBody extends State<PdpBody> {
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     double imageHeight = width - 30 - 50;
     return Container(
@@ -58,7 +54,7 @@ class _PdpBody extends State<PdpBody> {
                 children: [
                   Container(
                     height: imageHeight,
-                    child: widget.data.item.image != null
+                    child: widget.data.item.image != ""
                         ? CustomCachedImage(
                             url: widget.data.item.image,
                             borderRadius: 10.0,
@@ -132,9 +128,10 @@ class _PdpBody extends State<PdpBody> {
                                 children: <Widget>[
                                   Icon(Icons.calendar_today, color: Colors.black54, size: 14.0),
                                   Text(" Khai giảng: ".tr() +
-                                      widget.data.item.timeStart +
-                                      " " +
-                                      DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart))).tr(),
+                                          widget.data.item.timeStart +
+                                          " " +
+                                          DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart)))
+                                      .tr(),
                                   widget.data.numSchedule > 1
                                       ? Text(" (${widget.data.numSchedule} buổi học)".tr())
                                       : SizedBox(height: 1)
@@ -197,27 +194,7 @@ class _PdpBody extends State<PdpBody> {
                                       ))),
                                   onPressed: () {
                                     user.token != ""
-                                        ? showDialog(
-                                            context: context,
-                                            builder: (context) => (!widget.data.item.nolimitTime &&
-                                                    DateTime.now().isAfter(DateTime.parse(
-                                                        widget.data.item.dateStart + " " + widget.data.item.timeStart)))
-                                                ? AlertDialog(
-                                                    content: Container(child: Text("Đã quá hạn đăng ký khóa học này.").tr()),
-                                                    actions: [
-                                                      ElevatedButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                        child: Text("ĐÃ HIỂU").tr(),
-                                                      ),
-                                                    ],
-                                                  )
-                                                : CourseConfirm(
-                                                    pdpBloc: widget.pdpBloc,
-                                                    pdpDTO: widget.data,
-                                                  ),
-                                          )
+                                        ? _add2Cart(context, user.token, widget.data.item.id)
                                         : Navigator.of(context).pushNamed('/login',
                                             arguments:
                                                 LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
@@ -238,16 +215,16 @@ class _PdpBody extends State<PdpBody> {
                             }
                           },
                           child: BlocBuilder<PdpBloc, PdpState>(
-                            bloc: BlocProvider.of<PdpBloc>(context),
+                            bloc: widget.pdpBloc,
                             builder: (context, state) {
                               return (Platform.isIOS && !widget.data.enableIosTrans)
                                   ? Expanded(
                                       child: ElevatedButton(
                                       onPressed: () {
                                         if (user.token != "") {
-                                          BlocProvider.of<PdpBloc>(context)
-                                            ..add(PdpFavoriteTouchEvent(
-                                                itemId: widget.data.item.id, token: user.token));
+                                          widget.pdpBloc
+                                            ..add(
+                                                PdpFavoriteTouchEvent(itemId: widget.data.item.id, token: user.token));
                                         } else {
                                           Navigator.of(context).pushNamed('/login',
                                               arguments:
@@ -277,9 +254,9 @@ class _PdpBody extends State<PdpBody> {
                                   : IconButton(
                                       onPressed: () {
                                         if (user.token != "") {
-                                          BlocProvider.of<PdpBloc>(context)
-                                            ..add(PdpFavoriteTouchEvent(
-                                                itemId: widget.data.item.id, token: user.token));
+                                          widget.pdpBloc
+                                            ..add(
+                                                PdpFavoriteTouchEvent(itemId: widget.data.item.id, token: user.token));
                                         } else {
                                           Navigator.of(context).pushNamed('/login',
                                               arguments:
@@ -404,5 +381,14 @@ class _PdpBody extends State<PdpBody> {
         ],
       ),
     );
+  }
+
+  void _add2Cart(BuildContext context, String token, int itemId) {
+    String url = config.webUrl + "add2cart?class=$itemId";
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => WebviewScreen(
+              url: url,
+              token: token,
+            )));
   }
 }

@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_bloc.dart';
-import '../blocs/pdp/pdp_blocs.dart';
-import '../customs/feedback.dart';
+import '../blocs/pdp/pdp_bloc.dart';
 import '../dto/pdp_dto.dart';
 import '../main.dart';
 import '../models/page_repo.dart';
 import '../models/transaction_repo.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
-import '../widgets/fab_home.dart';
 import 'loading.dart';
 import 'pdp/pdp_body.dart';
 
@@ -22,6 +20,7 @@ class PDPScreen extends StatefulWidget {
 
 class _PDPScreen extends State<PDPScreen> {
   late PdpBloc pdpBloc;
+  // late AuthBloc authBloc;
   PdpDTO? data;
   late int itemId;
 
@@ -36,79 +35,68 @@ class _PDPScreen extends State<PDPScreen> {
     } catch (e) {
       itemId = 0;
     }
+    pdpBloc..add(LoadPDPEvent(id: itemId, token: user.token));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PdpBloc>(
-      create: (context) {
-        return pdpBloc..add(LoadPDPEvent(id: itemId, token: user.token));
-      },
-      child: Scaffold(
-        appBar: BaseAppBar(
-          title: "",
-          user: user,
-          screen: "",
-        ),
-        body: RefreshIndicator(
-          onRefresh: () async {
-            BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
-            pdpBloc..add(LoadPDPEvent(id: itemId, token: user.token));
+    return Scaffold(
+      appBar: BaseAppBar(
+        title: "",
+        user: user,
+        screen: "",
+      ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          // BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+          pdpBloc..add(LoadPDPEvent(id: itemId, token: user.token));
+        },
+        child: BlocListener<PdpBloc, PdpState>(
+          bloc: pdpBloc,
+          listener: (context, state) {
+            if (state is PdpFailState) {
+              Navigator.of(context).popUntil(ModalRoute.withName("/"));
+            }
+            if (state is PdpRegisterFailState) {
+              // toast(state.error);
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text(state.error),
+                ));
+            }
+            if (state is PdpRegisterSuccessState) {
+              BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  duration: Duration(seconds: 5),
+                  content: Text(
+                          "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất.")
+                      .tr(),
+                ));
+            }
           },
-          child: BlocListener<PdpBloc, PdpState>(
-            listener: (context, state) {
-              if (state is PdpFailState) {
-                Navigator.of(context).popUntil(ModalRoute.withName("/"));
-              }
-              if (state is PdpRegisterFailState) {
-                // toast(state.error);
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(SnackBar(
-                    content: Text(state.error),
-                  ));
-              }
-              if (state is PdpRegisterSuccessState) {
-                BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(SnackBar(
-                    duration: Duration(seconds: 5),
-                    content: Text(
-                            "Bạn đã đăng ký thành công khóa học. Chúng tôi sẽ gửi thông báo về buổi học trong thời gian sớm nhất.")
-                        .tr(),
-                  ));
-              }
-            },
-            child: BlocBuilder<PdpBloc, PdpState>(
-              builder: (context, state) {
-                if (state is PdpSuccessState) {
-                  data = state.data;
-                }
-                if (state is PdpFavoriteTouchSuccessState) {
-                  data!.isFavorite = state.isFav;
-                }
-                return data != null
-                    ? CustomFeedback(
-                        user: user,
-                        child: PdpBody(
-                          pdpBloc: pdpBloc,
-                          data: data!,
-                        ),
-                      )
-                    : LoadingScreen();
-              },
-            ),
-          ),
-        ),
-        floatingActionButton: FloatingActionButtonHome(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-        bottomNavigationBar: BlocBuilder(
+          child: BlocBuilder<PdpBloc, PdpState>(
             bloc: pdpBloc,
             builder: (context, state) {
-              return BottomNav(BottomNav.HOME_INDEX);
-            }),
+              if (state is PdpSuccessState) {
+                data = state.data;
+              }
+              if (state is PdpFavoriteTouchSuccessState) {
+                data!.isFavorite = state.isFav;
+              }
+              return data != null
+                  ? PdpBody(
+                      pdpBloc: pdpBloc,
+                      data: data!,
+                    )
+                  : LoadingScreen();
+            },
+          ),
+        ),
       ),
+      bottomNavigationBar: BottomNav(BottomNav.HOME_INDEX),
     );
   }
 }

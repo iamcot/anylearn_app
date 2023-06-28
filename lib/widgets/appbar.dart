@@ -28,31 +28,31 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       titleSpacing: 10.0,
       foregroundColor: Colors.grey,
       actions: <Widget>[
-        user.id == 0 || !user.enableIosTrans
-            ? Text("")
-            : IconButton(
-                color: Colors.grey[500],
-                icon: Icon(Icons.shopping_cart),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => WebviewScreen(
-                            url: config.webUrl + "cart",
-                            token: user.token,
-                          )));
-                }),
-        (screen != "notification" && screen != "home")
-            ? SearchIcon(
-                screen: screen,
-              )
-            : Text(""),
+        // user.id == 0 || !user.enableIosTrans
+        //     ? Text("")
+        //     : IconButton(
+        //         color: Colors.grey[500],
+        //         icon: Icon(Icons.shopping_cart),
+        //         onPressed: () {
+        //           Navigator.of(context).push(MaterialPageRoute(
+        //               builder: (context) => WebviewScreen(
+        //                     url: config.webUrl + "cart",
+        //                     token: user.token,
+        //                   )));
+        //         }),
+        // (screen != "notification" && screen != "home")
+        //     ? SearchIcon(
+        //         screen: screen,
+        //       )
+        //     : Text(""),
         // FoundationIcon(),
-        NotificationIcon(),
-        LocaleIcon(),
-        screen != "account" && screen != "notification"
-            ? new AccountIcon(
-                user: user,
-              )
-            : Text(""),
+        // NotificationIcon(),
+        // LocaleIcon(),
+        // screen != "account" && screen != "notification"
+        //     ? new AccountIcon(
+        //         user: user,
+        //       )
+        //     : Text(""),
       ],
       centerTitle: false,
       title: title != ""

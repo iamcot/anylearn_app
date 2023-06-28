@@ -1,5 +1,6 @@
 library searchbloc;
 
+import 'package:anylearn/dto/v3/search_suggest_dto.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -22,7 +23,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void _onSearchUserEvent(SearchUserEvent event, Emitter<SearchState> emit) async {
-    emit(SearchLoadingState());
+    // emit(SearchLoadingState());
     try {
       final result = await pageRepository.searchUser(event.screen, event.query);
       return emit(SearchUserSuccessState(users: result));
@@ -32,7 +33,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void _onSearchItemEvent(SearchItemEvent event, Emitter<SearchState> emit) async {
-    emit(SearchLoadingState());
+    // emit(SearchLoadingState());
     try {
       final result = await pageRepository.searchItem(event.screen, event.query);
       return emit(SearchItemSuccessState(items: result));
@@ -42,17 +43,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void _onSearchTagsEvent(SearchTagsEvent event, Emitter<SearchState> emit) async {
-    emit(SearchLoadingState());
+    // emit(SearchLoadingState());
     try {
-      final result = await pageRepository.searchTags();
-      return emit(SearchTagsSuccessState(tags: result));
-    } catch (e) {
+      final result = await pageRepository.searchSuggestion();
+      print(result);
+      return emit(SearchTagsSuccessState(suggestDTO: result));
+    } catch (e, trace) {
+      print(trace);
       return emit(SearchFailState(error: e.toString()));
     }
   }
 
   void _onSuggestFromKeywordEvent(SuggestFromKeywordEvent event, Emitter<SearchState> emit) async {
-    emit(SearchLoadingState());
+    // emit(SearchLoadingState());
     try {
       final result = await pageRepository.suggestFromKeyword(event.screen, event.query);
       return emit(SuggestFromKeywordSuccessState(key: result));

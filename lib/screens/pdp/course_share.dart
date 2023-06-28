@@ -1,12 +1,11 @@
-import 'package:anylearn/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overlay_support/overlay_support.dart';
 
-import '../../blocs/pdp/pdp_blocs.dart';
+import '../../blocs/pdp/pdp_bloc.dart';
 import '../../dto/user_dto.dart';
+import '../../main.dart';
 import '../../widgets/loading_widget.dart';
 
 class CourseShareScreen extends StatefulWidget {

@@ -1,7 +1,6 @@
-import '../../../customs/custom_cached_image.dart';
-import '../../../customs/custom_carousel.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import '../../../customs/custom_carousel.dart';
 
 class HomePointBox extends StatelessWidget {
   late double width;

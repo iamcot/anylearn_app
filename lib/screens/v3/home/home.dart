@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:anylearn/screens/v3/home/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/auth/auth_bloc.dart';
 import '../../../blocs/home/home_bloc.dart';
-import '../../../dto/v3/home_dto.dart';
 import '../../../dto/user_dto.dart';
+import '../../../dto/v3/home_dto.dart';
 import '../../../main.dart';
 import '../../../models/page_repo.dart';
 import '../../../widgets/bottom_nav.dart';
 import '../../home/exit_confirm.dart';
 import '../../loading.dart';
-import 'home_body.dart';
+import 'body.dart';
+import 'search_box.dart';
 
 class V3HomeScreen extends StatefulWidget {
   @override

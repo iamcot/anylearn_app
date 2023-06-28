@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:anylearn/customs/custom_cached_image.dart';
-import 'package:anylearn/customs/custom_carousel.dart';
 import 'package:flutter/material.dart';
 
+import '../../../customs/custom_cached_image.dart';
+import '../../../customs/custom_carousel.dart';
 import '../../../dto/article_dto.dart';
 import '../../../dto/v3/home_dto.dart';
 

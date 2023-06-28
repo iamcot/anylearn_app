@@ -17,6 +17,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       : userRepository = userRepository,
         super(AuthInitState()) {
     on<AuthCheckEvent>(_onAuthCheckEvent);
+    on<AuthLoggedInEvent>(_onAuthLoggedInEvent);
+    on<AuthLoggedOutEvent>(_onAuthLoggedOutEvent);
+    on<AuthDeleteEvent>(_onAuthDeleteEvent);
   }
 
   @override
@@ -24,64 +27,65 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return super.close();
   }
 
-  void _onAuthCheckEvent(
-    AuthCheckEvent event,
-    Emitter<AuthState> emit,
-  ) async {
-    final String? token = await userRepository.getToken();
-    if (token == "") {
-      return emit(
-        AuthFailState(error: "NO TOKEN"),
-      );
-    } else {
-      bool isFull = event.isFull;
-      UserDTO userDTO = await userRepository.getUser(token!, isFull);
-      if (userDTO.id <= 0) {
-        await userRepository.deleteToken();
+  void _onAuthCheckEvent(AuthCheckEvent event, Emitter<AuthState> emit) async {
+    try {
+      final String? token = await userRepository.getToken();
+      if (token == "") {
         return emit(
-          AuthFailState(error: "Cannot get user info"),
+          AuthFailState(error: "NO TOKEN"),
         );
       } else {
-        return emit(
-          AuthSuccessState(user: userDTO),
-        );
+        bool isFull = event.isFull;
+        UserDTO userDTO = await userRepository.getUser(token!, isFull);
+        if (userDTO.id <= 0) {
+          await userRepository.deleteToken();
+          return emit(
+            AuthFailState(error: "Cannot get user info"),
+          );
+        } else {
+          return emit(
+            AuthSuccessState(user: userDTO),
+          );
+        }
       }
+    } catch (e) {
+      return emit(AuthFailState(error: e.toString()));
     }
   }
 
-  // @override
-  // Stream<AuthState> mapEventToState(AuthEvent event) async* {
-  //   try {
-  //     if (event is AuthCheckEvent) {
-  //       yield AuthInProgressState();
-  //       final String? token = await userRepository.getToken();
-  //       if (token == "") {
-  //         yield AuthFailState(error: "No token");
-  //       } else {
-  //         bool isFull = event.isFull;
-  //         UserDTO userDTO = await userRepository.getUser(token!, isFull);
-  //         if (userDTO.id <= 0) {
-  //           await userRepository.deleteToken();
-  //           yield AuthTokenFailState();
-  //           yield AuthFailState(error: "Cannot get user info");
-  //         } else {
-  //           yield AuthSuccessState(user: userDTO);
-  //         }
-  //       }
-  //     } else if (event is AuthLoggedInEvent) {
-  //       yield AuthInProgressState();
-  //       await userRepository.storeToken(event.user.token);
-  //       yield AuthSuccessState(user: event.user);
-  //     } else if (event is AuthLoggedOutEvent) {
-  //       yield AuthInProgressState();
-  //       await userRepository.deleteToken();
-  //       await userRepository.logout(event.token);
+  void _onAuthLoggedInEvent(AuthLoggedInEvent event, Emitter<AuthState> emit) async {
+    try {
+      await userRepository.storeToken(event.user.token);
+      return emit(AuthSuccessState(user: event.user));
+    } catch (e) {
+      return emit(AuthFailState(error: e.toString()));
+    }
+  }
 
-  //       yield AuthFailState(error: "Loggout");
-  //     }
-  //   } catch (error) {
-  //     yield AuthFailState(error: error.toString());
-  //   }
+  void _onAuthLoggedOutEvent(AuthLoggedOutEvent event, Emitter<AuthState> emit) async {
+    try {
+      await userRepository.deleteToken();
+      await userRepository.logout(event.token);
+      return emit(AuthFailState(error: "Loggout"));
+    } on Exception catch (e) {
+      return emit(AuthFailState(error: e.toString()));
+    }
+  }
+
+  void _onAuthDeleteEvent(AuthDeleteEvent event, Emitter<AuthState> emit) async {
+    try {
+      await userRepository.deleteAccount(event.token);
+      return emit(AuthDeleteSuccessState());
+    } on Exception catch (e) {
+      return emit(AuthDeleteFailState(error: e.toString()));
+    }
+  }
+
+  // void _onAuthLoggedOutEvent(
+  //   AuthLoggedOutEvent event,
+  //   Emitter<AuthState> emit,
+  // ) async {}
+
   //   try {
   //     if (event is AuthContractSaveEvent) {
   //       final result = await userRepository.saveContract(event.token, event.contract);
@@ -148,15 +152,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   //     }
   //   } catch (error) {
   //     yield AuthCheckPhoneOtpFailState(error: error.toString());
-  //   }
-  //   try {
-  //     if (event is AuthDeleteEvent) {
-  //       yield AuthDeleteLoadingState();
-  //       await userRepository.deleteAccount(event.token);
-  //       yield AuthDeleteSuccessState();
-  //     }
-  //   } catch (error) {
-  //     yield AuthDeleteFailState(error: error.toString());
   //   }
   // }
 }
