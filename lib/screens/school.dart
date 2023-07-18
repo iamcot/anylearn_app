@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/users/users_blocs.dart';
+import '../blocs/users/users_bloc.dart';
 import '../customs/feedback.dart';
 import '../main.dart';
 import '../models/page_repo.dart';

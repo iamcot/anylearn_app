@@ -1,14 +1,36 @@
-import 'package:bloc/bloc.dart';
+library eventbloc;
 
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../dto/event_dto.dart';
 import '../../models/page_repo.dart';
-import 'event_event.dart';
-import 'event_state.dart';
+
+part 'event_event.dart';
+part 'event_state.dart';
 
 class EventBloc extends Bloc<EventEvent, EventState> {
   final PageRepository pageRepository;
-  EventBloc({required this.pageRepository}) : super(EventInitState()) ;
+  EventBloc({required this.pageRepository}) : super(EventInitState()) {
+    on<LoadEventEvent>(_onLoadEventEvent);
+  }
 
-  @override
+  void _onLoadEventEvent(LoadEventEvent event, Emitter<EventState> emit) async {
+    try {
+      emit(EventLoadingState());
+      final data = await pageRepository.monthEvent(event.month);
+      if (data != null) {
+        emit(EventSuccessState(data: data));
+      } else {
+        emit(EventFailState(error: "Không có dữ liệu"));
+      }
+    } catch (error, trace) {
+      emit(EventFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
+      print(trace.toString());
+    }
+  } 
+
+  /*@override
   EventState get initialState => EventInitState();
 
   @override
@@ -27,5 +49,5 @@ class EventBloc extends Bloc<EventEvent, EventState> {
       yield EventFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
       print(trace.toString());
     }
-  }
+  }*/
 }

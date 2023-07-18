@@ -10,7 +10,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-import '../blocs/course/course_blocs.dart';
+import '../blocs/course/course_bloc.dart';
 import '../customs/feedback.dart';
 import '../dto/const.dart';
 import '../dto/item_dto.dart';

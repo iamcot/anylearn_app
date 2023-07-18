@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-import '../../dto/event_dto.dart';
-
+part of eventbloc;
 
 abstract class EventState extends Equatable {
   const EventState();

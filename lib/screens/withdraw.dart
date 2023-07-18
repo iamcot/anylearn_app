@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_bloc.dart';
-import '../blocs/transaction/transaction_blocs.dart';
+import '../blocs/transaction/transaction_bloc.dart';
 import '../dto/bank_dto.dart';
 import '../dto/const.dart';
 import '../dto/transaction_config_dto.dart';

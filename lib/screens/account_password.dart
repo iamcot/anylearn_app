@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../blocs/account/account_blocs.dart';
+import '../blocs/account/account_bloc.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../widgets/loading_widget.dart';
 

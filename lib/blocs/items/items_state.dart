@@ -1,8 +1,4 @@
-import 'package:anylearn/dto/home_dto.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-
-import '../../dto/items_dto.dart';
+part of itemsbloc;
 
 abstract class ItemsState extends Equatable {
   const ItemsState();

@@ -1,9 +1,6 @@
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+part of transactionbloc;
 
-import '../../dto/bank_dto.dart';
-
-abstract class TransactionEvent extends Equatable {
+abstract class TransactionEvent {
   const TransactionEvent();
 }
 

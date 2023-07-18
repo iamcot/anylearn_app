@@ -7,7 +7,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/auth/auth_bloc.dart';
-import '../blocs/notif/notif_blocs.dart';
+import '../blocs/notif/notif_bloc.dart';
 import '../dto/notification_dto.dart';
 import '../dto/user_dto.dart';
 import '../widgets/loading_widget.dart';
@@ -27,6 +27,7 @@ class _NotificationScreen extends State<NotificationScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    print('test');
     _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     _notifBloc = BlocProvider.of<NotifBloc>(context);
   }
@@ -37,6 +38,7 @@ class _NotificationScreen extends State<NotificationScreen> {
     return BlocListener(
       bloc: _authBloc,
       listener: (BuildContext context, state) {
+        print(state);
         if (state is AuthFailState) {
           Navigator.of(context).popAndPushNamed("/login");
         }

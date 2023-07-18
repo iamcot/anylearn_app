@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-import '../../dto/notification_dto.dart';
+part of notifbloc;
 
 abstract class NotifState extends Equatable {
   @override

@@ -1,11 +1,6 @@
-import 'dart:io';
+part of accountbloc;
 
-import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-
-import '../../dto/user_dto.dart';
-
-abstract class AccountEvent extends Equatable {
+abstract class AccountEvent {
   const AccountEvent();
 }
 

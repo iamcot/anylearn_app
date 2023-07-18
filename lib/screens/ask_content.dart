@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validators/validators.dart';
 
 import '../blocs/article/article_bloc.dart';
-import '../blocs/article/article_blocs.dart';
 import '../dto/article_dto.dart';
 import '../dto/const.dart';
 import '../widgets/loading_widget.dart';
@@ -25,6 +24,7 @@ class _AskArticleScreen extends State<AskArticleScreen> {
     try {
       id = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
     } catch (e) {
+      print(e);
     }
 
     _articleBloc = BlocProvider.of<ArticleBloc>(context)..add(ArticlePageEvent(id: id));

@@ -1,13 +1,36 @@
+library feedbackbloc;
+
+import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../models/page_repo.dart';
-import 'feedback_blocs.dart';
+
+part 'feedback_event.dart';
+part 'feedback_state.dart';
 
 class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
   final PageRepository pageRepository;
-  FeedbackBloc({required this.pageRepository}) : super(FeedbackInitState());
+  FeedbackBloc({required this.pageRepository}) : super(FeedbackInitState()) {
+    on<SaveFeedbackEvent>(_onSaveFeedbackEvent);
+  }
 
-  @override
+  void _onSaveFeedbackEvent(SaveFeedbackEvent event, Emitter<FeedbackState> emit) async {
+    try {
+      emit(FeedbackSavingState());
+      final result = await pageRepository.saveFeedback(event.token, event.content, event.file);
+      if (result) {
+        emit(FeedbackSuccessState(result: result));
+      } else {
+        emit(FeedbackFailState(error: "Có lỗi xảy ra, vui lòng thử lại"));
+      }
+    } catch (error, trace) {
+      emit(FeedbackFailState(error: error.toString()));
+      print(trace);
+    }
+  }
+
+  /*@override
   FeedbackState get initialState => FeedbackInitState();
 
   @override
@@ -26,5 +49,5 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
       yield FeedbackFailState(error: error.toString());
       print(trace);
     }
-  }
+  }*/
 }

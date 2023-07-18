@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
+part of eventbloc;
 
-abstract class EventEvent extends Equatable {
+abstract class EventEvent {
   const EventEvent();
 }
 

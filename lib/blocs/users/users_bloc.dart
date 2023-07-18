@@ -1,14 +1,52 @@
-import 'package:anylearn/blocs/users/users_event.dart';
-import 'package:anylearn/blocs/users/users_state.dart';
-import 'package:bloc/bloc.dart';
+library usersbloc;
 
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../dto/users_dto.dart';
 import '../../models/page_repo.dart';
+
+part 'users_event.dart';
+part 'users_state.dart';
 
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
   final PageRepository pageRepository;
-  UsersBloc({required this.pageRepository}) : super(UsersInitState());
+  UsersBloc({required this.pageRepository}) : super(UsersInitState()) {
+    on<UsersSchoolLoadEvent>(_onUsersSchoolLoadEvent);
+    on<UsersTeacherLoadEvent>(_onUsersTeacherLoadEvent);
+  }
 
-  @override
+  void _onUsersSchoolLoadEvent(UsersSchoolLoadEvent event, Emitter<UsersState> emit) async {
+    try {
+      emit(UsersLoadingState());
+      final data = await pageRepository.dataSchoolsPage(event.page, event.pageSize);
+      if (data != null) {
+        emit(UsersSchoolSuccessState(data: data));
+      } else {
+        emit(UsersLoadFailState(error: "Không có thông tin bạn đang tìm kiếm."));
+      }
+    } catch (error, trace) {
+      emit(UsersLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
+      print(trace.toString());
+    }
+  }
+
+  void _onUsersTeacherLoadEvent(UsersTeacherLoadEvent event, Emitter<UsersState> emit) async {
+    try {
+      emit(UsersLoadingState());
+      final data = await pageRepository.dataTeachersPage(event.page, event.pageSize);
+      if (data != null) {
+        emit(UsersTeacherSuccessState(data: data));
+      } else {
+        emit(UsersLoadFailState(error: "Không có thông tin bạn đang tìm kiếm."));
+      }
+    } catch (error, trace) {
+      emit(UsersLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
+      print(trace.toString());
+    }
+  }
+
+  /*@override
   UsersState get initialState => UsersInitState();
 
   @override
@@ -34,5 +72,5 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       yield UsersLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
       print(trace.toString());
     }
-  }
+  }*/
 }

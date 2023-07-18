@@ -1,7 +1,6 @@
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+part of itemsbloc;
 
-abstract class ItemsEvent extends Equatable {
+abstract class ItemsEvent {
   const ItemsEvent();
 }
 

@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../blocs/account/account_blocs.dart';
+import '../blocs/account/account_bloc.dart';
 import '../customs/custom_cached_image.dart';
 import '../dto/const.dart';
 import '../dto/hot_items_dto.dart';

@@ -1,4 +1,4 @@
-import 'package:anylearn/blocs/course/course_blocs.dart';
+import 'package:anylearn/blocs/course/course_bloc.dart';
 import 'package:anylearn/dto/item_user_action.dart';
 import 'package:anylearn/widgets/loading_widget.dart';
 import 'package:anylearn/widgets/rating.dart';

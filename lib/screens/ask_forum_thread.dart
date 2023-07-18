@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/article/article_blocs.dart';
+import '../blocs/article/article_bloc.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../dto/ask_dto.dart';
 import '../dto/ask_thread_dto.dart';

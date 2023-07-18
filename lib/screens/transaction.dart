@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../blocs/transaction/transaction_blocs.dart';
+import '../blocs/transaction/transaction_bloc.dart';
 import '../customs/feedback.dart';
 import '../dto/const.dart';
 import '../dto/transaction_dto.dart';

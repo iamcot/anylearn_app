@@ -19,6 +19,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       : pageRepository = pageRepository,
         super(HomeInitState()) {
     on<LoadHomeEvent>(_loadHomeEvent);
+    on<LoadQuoteEvent>(_onLoadQuoteEvent);
+    on<LoadGuideEvent>(_onLoadGuideEvent);
+    on<UpdatePopupVersionEvent>(_onUpdatePopupVersionEvent);
   }
 
   void _loadHomeEvent(LoadHomeEvent event, Emitter<HomeState> emit) async {
@@ -29,7 +32,43 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     return emit(HomeSuccessState(data: data));
   }
 
-  @override
+  void _onLoadQuoteEvent(LoadQuoteEvent event, Emitter<HomeState> emit) async {
+    try {
+      emit(QuoteLoadingState());
+      final quote = await pageRepository.getQuote(event.url);
+      if (quote == null) {
+        emit(QuoteFailState());
+      } else {
+        emit(QuoteSuccessState(quote: quote));
+      }
+    } catch (error, trace) {
+    emit(HomeFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error trace \n $trace"));
+      print(trace.toString());
+    }
+  }
+
+  void _onLoadGuideEvent(LoadGuideEvent event, Emitter<HomeState> emit) async {
+    try {
+      emit(GuideLoadingState());
+      final doc = await pageRepository.guide(event.path);
+      if (doc != null) {
+        emit(GuideLoadSuccessState(doc: doc));
+      }
+    } catch (error) {
+      emit(GuideFailState(error: error.toString()));
+    }
+  }
+
+  void _onUpdatePopupVersionEvent(UpdatePopupVersionEvent event, Emitter<HomeState> emit) async {
+    try {
+      await pageRepository.savePopupVersion(event.version);
+      emit(UpdatePopupSuccessState());
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  /*@override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     try {
       // if (event is LoadHomeEvent) {
@@ -73,5 +112,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         print(e.toString());
       }
     }
-  }
+  }*/
 }

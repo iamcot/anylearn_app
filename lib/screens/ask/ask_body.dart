@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../blocs/article/article_blocs.dart';
+import '../../blocs/article/article_bloc.dart';
 import '../../dto/article_dto.dart';
 import '../../dto/const.dart';
 import '../../dto/user_dto.dart';

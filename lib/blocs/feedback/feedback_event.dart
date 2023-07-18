@@ -1,8 +1,6 @@
-import 'dart:io';
+part of feedbackbloc;
 
-import 'package:equatable/equatable.dart';
-
-abstract class FeedbackEvent extends Equatable {
+abstract class FeedbackEvent {
   const FeedbackEvent();
 }
 

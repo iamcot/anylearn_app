@@ -1,10 +1,6 @@
-import 'dart:io';
+part of coursebloc;
 
-import 'package:equatable/equatable.dart';
-
-import '../../dto/item_dto.dart';
-
-abstract class CourseEvent extends Equatable {
+abstract class CourseEvent {
   const CourseEvent();
 }
 

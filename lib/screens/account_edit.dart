@@ -10,8 +10,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:validators/validators.dart' as validator;
 
 import '../blocs/account/account_bloc.dart';
-import '../blocs/account/account_event.dart';
-import '../blocs/account/account_state.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../customs/feedback.dart';
 import '../dto/const.dart';

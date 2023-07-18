@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-import '../../blocs/pendingorder/pendingorder_blocs.dart';
+import '../../blocs/pendingorder/pendingorder_bloc.dart';
 import '../../dto/pending_order_dto.dart';
 import '../../main.dart';
 import '../../models/user_repo.dart';

@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
+part of notifbloc;
 
-abstract class NotifEvent extends Equatable {
+abstract class NotifEvent {
   const NotifEvent();
 
   @override

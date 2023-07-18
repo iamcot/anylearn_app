@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/items/items_blocs.dart';
+import '../blocs/items/items_bloc.dart';
 import '../main.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';

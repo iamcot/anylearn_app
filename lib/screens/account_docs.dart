@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../blocs/account/account_blocs.dart';
+import '../blocs/account/account_bloc.dart';
 import '../dto/user_doc_dto.dart';
 import '../models/user_repo.dart';
 import '../widgets/loading_widget.dart';

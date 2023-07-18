@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
+part of pendingorderbloc;
 
-abstract class PendingOrderEvent extends Equatable {
+abstract class PendingOrderEvent {
   const PendingOrderEvent();
 }
 

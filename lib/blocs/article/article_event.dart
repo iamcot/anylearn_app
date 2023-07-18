@@ -1,7 +1,8 @@
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:equatable/equatable.dart';
 
-abstract class ArticleEvent extends Equatable {
+
+part of articlebloc;
+
+abstract class ArticleEvent {
   const ArticleEvent();
 }
 

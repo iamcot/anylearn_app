@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-
-import '../../dto/users_dto.dart';
+part of usersbloc;
 
 abstract class UsersState extends Equatable {
   const UsersState();

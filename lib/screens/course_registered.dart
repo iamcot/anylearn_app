@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/course/course_blocs.dart';
+import '../blocs/course/course_bloc.dart';
 import '../dto/course_registered_params_dto.dart';
 import '../widgets/loading_widget.dart';
 

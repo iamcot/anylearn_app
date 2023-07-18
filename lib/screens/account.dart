@@ -26,6 +26,7 @@ class _AccountScreen extends State<AccountScreen> {
     return BlocListener<AuthBloc, AuthState>(
       bloc: _authBloc,
       listener: (context, state) {
+        print(state);
         if (state is AuthFailState) {
           Navigator.of(context).popAndPushNamed("/login");
         }
@@ -35,7 +36,7 @@ class _AccountScreen extends State<AccountScreen> {
         builder: (context, state) {
           if (state is AuthSuccessState) {
             user = state.user;
-          }
+          } 
           return Scaffold(
             body: user.token != ""
                 ? CustomFeedback(

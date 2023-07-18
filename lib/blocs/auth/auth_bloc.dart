@@ -29,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _onAuthCheckEvent(AuthCheckEvent event, Emitter<AuthState> emit) async {
     try {
+      //emit(AuthInitState());
       final String? token = await userRepository.getToken();
       if (token == "") {
         return emit(

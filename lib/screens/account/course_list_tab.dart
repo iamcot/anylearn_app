@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../blocs/course/course_blocs.dart';
+import '../../blocs/course/course_bloc.dart';
 import '../../dto/const.dart';
 import '../../dto/course_registered_params_dto.dart';
 import '../../dto/item_dto.dart';

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../blocs/transaction/transaction_blocs.dart';
+import '../blocs/transaction/transaction_bloc.dart';
 import '../dto/foundation_dto.dart';
 import '../models/transaction_repo.dart';
 import 'account/transaction_list.dart';

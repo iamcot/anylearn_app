@@ -1,15 +1,61 @@
-import 'package:bloc/bloc.dart';
+library itemsbloc;
 
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+//import 'package:anylearn/dto/home_dto.dart';
+
+import '../../dto/items_dto.dart';
 import '../../dto/v3/home_dto.dart';
 import '../../models/page_repo.dart';
-import 'items_event.dart';
-import 'items_state.dart';
+
+part 'items_event.dart';
+part 'items_state.dart';
 
 class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
   final PageRepository pageRepository;
-  ItemsBloc({required this.pageRepository}) : super(ItemsInitState());
+  ItemsBloc({required this.pageRepository}) : super(ItemsInitState()) {
+    on<ItemsSchoolLoadEvent>(_onItemsSchoolLoadEvent);
+    on<ItemsTeacherLoadEvent>(_onItemsTeacherLoadEvent);
+    on<CategoryLoadEvent>(_onCategoryLoadEvent);
+  }
 
-  @override
+  void _onItemsSchoolLoadEvent(ItemsSchoolLoadEvent event, Emitter<ItemsState> emit) async {
+    try {
+      emit(ItemsLoadingState());
+      var data = await pageRepository.dataSchoolPage(event.id, event.page, event.pageSize);
+      if (data != null) {
+        emit(ItemsSchoolSuccessState(data: data));
+      }
+    } catch (error, trace) {
+      emit(ItemsLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
+      print(trace);
+    }
+  }
+
+  void _onItemsTeacherLoadEvent(ItemsTeacherLoadEvent event, Emitter<ItemsState> emit) async {
+    try {
+      emit(ItemsLoadingState());
+      var data = await pageRepository.dataTeacherPage(event.id, event.page, event.pageSize);
+      if (data != null) {
+        emit(ItemsTeacherSuccessState(data: data));
+      }
+    } catch (error, trace) {
+      emit(ItemsLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
+      print(trace);
+    }
+  }
+
+  void _onCategoryLoadEvent(CategoryLoadEvent event, Emitter<ItemsState> emit) async {
+    try {
+      emit(CategoryLoadingState());
+      final List<CategoryPagingDTO> cats = await pageRepository.category(event.id, event.page, event.pageSize);
+    } catch (error, trace) {
+      emit(CategoryFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
+      print(trace);
+    }
+  }
+
+ /* @override
   ItemsState get initialState => ItemsInitState();
 
   @override
@@ -45,5 +91,5 @@ class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
       yield CategoryFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error");
       print(error);
     }
-  }
+  }*/
 }

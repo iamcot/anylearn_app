@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-import '../../dto/pending_order_dto.dart';
+part of pendingorderbloc;
 
 abstract class PendingOrderState extends Equatable {
   const PendingOrderState();

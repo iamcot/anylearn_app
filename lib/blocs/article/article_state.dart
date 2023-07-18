@@ -1,9 +1,4 @@
-import 'package:anylearn/dto/ask_paging_dto.dart';
-import 'package:anylearn/dto/ask_thread_dto.dart';
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-import '../../dto/article_dto.dart';
+part of articlebloc;
 
 abstract class ArticleState extends Equatable {
   const ArticleState();

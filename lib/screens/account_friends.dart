@@ -8,7 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/account/account_blocs.dart';
+import '../blocs/account/account_bloc.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../customs/feedback.dart';
 import '../dto/friend_params_dto.dart';

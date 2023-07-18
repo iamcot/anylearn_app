@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../blocs/account/account_blocs.dart';
+import '../../blocs/account/account_bloc.dart';
 import '../../dto/const.dart';
 import '../../dto/event_dto.dart';
 import '../../main.dart';
@@ -142,7 +142,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
   }
 
   Widget _buildTrailing(EventDTO event) {
-    child:
+    child: 
     Text(context.locale.toString());
 
     if (!widget.isOpen) {
@@ -217,7 +217,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
                 });
           } else if (diffInSeconds >= Duration(hours: 24)) {
             return Text("Chưa diễn ra").tr();
-            ;
+
           } else {
             return BlocBuilder<AccountBloc, AccountState>(
               bloc: widget.accountBloc,

@@ -7,11 +7,11 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'app_config.dart';
-import 'blocs/account/account_blocs.dart';
+import 'blocs/account/account_bloc.dart';
 import 'blocs/article/article_bloc.dart';
 import 'blocs/auth/auth_bloc.dart';
-import 'blocs/course/course_blocs.dart';
-import 'blocs/notif/notif_blocs.dart';
+import 'blocs/course/course_bloc.dart';
+import 'blocs/notif/notif_bloc.dart';
 import 'blocs/search/search_bloc.dart';
 import 'dto/notification_dto.dart';
 import 'dto/user_dto.dart';

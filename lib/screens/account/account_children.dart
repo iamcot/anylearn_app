@@ -8,7 +8,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-import '../../blocs/account/account_blocs.dart';
+import '../../blocs/account/account_bloc.dart';
 import '../../dto/user_dto.dart';
 import '../../models/user_repo.dart';
 

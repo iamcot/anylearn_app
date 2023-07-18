@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of feedbackbloc;
 
 abstract class FeedbackState extends Equatable {
   const FeedbackState();

@@ -1,8 +1,6 @@
-import 'package:equatable/equatable.dart';
+part of registerbloc;
 
-import '../../dto/user_dto.dart';
-
-abstract class RegisterEvent extends Equatable {
+abstract class RegisterEvent {
   const RegisterEvent();
 }
 

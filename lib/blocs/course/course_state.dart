@@ -1,9 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-import '../../dto/class_registered_user.dart';
-import '../../dto/item_dto.dart';
-import '../../dto/item_user_action.dart';
-import '../../dto/user_courses_dto.dart';
+part of coursebloc;
 
 abstract class CourseState extends Equatable {
   const CourseState();

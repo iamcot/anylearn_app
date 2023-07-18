@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-import '../blocs/course/course_blocs.dart';
+import '../blocs/course/course_bloc.dart';
 import '../dto/user_dto.dart';
 import '../main.dart';
 import '../widgets/gradient_button.dart';

@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of registerbloc;
 
 abstract class RegisterState extends Equatable {
   const RegisterState();

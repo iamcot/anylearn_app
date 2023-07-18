@@ -1,9 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-
-import '../../dto/foundation_dto.dart';
-import '../../dto/transaction_config_dto.dart';
-import '../../dto/transaction_dto.dart';
+part of transactionbloc;
 
 abstract class TransactionState extends Equatable {
   const TransactionState();

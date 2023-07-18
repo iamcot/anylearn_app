@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../blocs/auth/auth_bloc.dart';
-import '../blocs/register/register_blocs.dart';
+import '../blocs/register/register_bloc.dart';
 import '../customs/custom_radio.dart';
 import '../customs/register_curved_paint.dart';
 import '../dto/const.dart';

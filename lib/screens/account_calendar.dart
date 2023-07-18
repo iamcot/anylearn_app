@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../blocs/account/account_blocs.dart';
+import '../blocs/account/account_bloc.dart';
 import '../dto/account_calendar_dto.dart';
 import '../main.dart';
 import '../models/user_repo.dart';
