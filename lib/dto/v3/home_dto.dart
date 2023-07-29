@@ -102,10 +102,11 @@ class HomeClassesDTO extends Equatable {
   List<Object> get props => [title, classes];
 
   static HomeClassesDTO fromJson(dynamic json) {
+    json['classes'] ??= json['items'];
     return json == ""
         ? HomeClassesDTO()
         : HomeClassesDTO(
-            title: json['title'],
+            title: json['title'], 
             classes: List<ItemDTO>.from(json['classes']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
           );
   }
@@ -172,7 +173,7 @@ class CategoryDTO extends Equatable {
         ? CategoryDTO()
         : CategoryDTO(
             id: json['id'],
-            title: json['title'],
+            title: json['title'] ?? json['name'],
             items: json['items'] == null
                 ? []
                 : List<ItemDTO>.from(json['items']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),

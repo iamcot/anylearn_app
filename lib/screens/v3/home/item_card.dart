@@ -39,7 +39,7 @@ class ItemCard extends StatelessWidget {
                   ),
           ),
           Container(
-            // height: 50,
+            height: 50,
             padding: EdgeInsets.only(top: 10),
             child: Text(
               item.title,

@@ -1,3 +1,5 @@
+import 'package:anylearn/dto/user_dto.dart';
+
 import 'articles.dart';
 import 'ask.dart';
 import 'banner.dart';
@@ -17,12 +19,14 @@ import 'subtype.dart';
 bool canShowPopup = true;
 
 class V3HomeBody extends StatefulWidget {
-  const V3HomeBody({Key? key, required this.homeData, required this.homeBloc}) : super(key: key);
+  final UserDTO user;
+  final HomeV3DTO homeData;
+  final HomeBloc homeBloc;
+
+  const V3HomeBody({Key? key, required this.user, required this.homeData, required this.homeBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _V3HomeBody();
-  final HomeV3DTO homeData;
-  final HomeBloc homeBloc;
 }
 
 class _V3HomeBody extends State<V3HomeBody> {
@@ -30,7 +34,7 @@ class _V3HomeBody extends State<V3HomeBody> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        HomeSubtype(),
+        HomeSubtype(user: widget.user),
         HomePointBox(
           anyPoint: widget.homeData.pointBox.anypoint,
           ratingItem: widget.homeData.pointBox.ratingClass,

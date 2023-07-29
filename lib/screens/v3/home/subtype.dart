@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:flutter/material.dart';
 
 import '../../../customs/custom_cached_image.dart';
@@ -6,6 +7,7 @@ import '../subtype/screen.dart';
 
 class HomeSubtype extends StatelessWidget {
   late double width;
+  final UserDTO user;
 
   final List<Map<String, dynamic>> subtypes = [
     {"type": "offline", "title": "Hệ K12", "image": "", "icon": Icons.school_outlined},
@@ -14,6 +16,8 @@ class HomeSubtype extends StatelessWidget {
     {"type": "digital", "title": "Ứng dụng", "image": "", "icon": Icons.code},
     {"type": "video", "title": "Học Video", "image": "", "icon": Icons.ondemand_video_outlined},
   ];
+
+  HomeSubtype({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,8 @@ class HomeSubtype extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => SubtypeScreen(
-                  subtype: item,
+                  user: user,
+                  subtype: item,                  
                 )));
       },
       child: Container(

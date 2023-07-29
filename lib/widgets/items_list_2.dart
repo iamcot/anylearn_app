@@ -16,7 +16,7 @@ class ItemsList2 extends StatelessWidget {
     return hotItems.list == null
         ? Container()
         : Container(
-            padding: EdgeInsets.only(bottom: 20.0, left: 10),
+            padding: EdgeInsets.only(left: 10),
             decoration: BoxDecoration(),
             child: Column(children: [
               Padding(

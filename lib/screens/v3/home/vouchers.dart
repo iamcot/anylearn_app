@@ -14,18 +14,24 @@ class HomeVoucher extends StatelessWidget {
     final screenW = MediaQuery.of(context).size.width;
     width = screenW - 50;
     return Container(
-      margin: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-      height: 110,
+      padding: EdgeInsets.only(bottom: 10, left: 10),
+      height: 140,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: EdgeInsets.only(left: 10),
-            child: Text("Khuyến mãi từ anyLEARN", style: TextStyle(
-              fontSize: 18,
-              height: 1.1,
-              fontWeight: FontWeight.w600
-            )),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 20, 20, 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text("Khuyến mãi từ anyLEARN", style: TextStyle(                          
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,  
+                    height: 1.1,
+                  )),
+                ),
+              ],
+            ),
           ),
           CustomCarousel(
             items: vouchers,
@@ -44,7 +50,6 @@ class HomeVoucher extends StatelessWidget {
     return Container(
       height: cardHeight,
       width: width,
-      margin: EdgeInsets.only(top: 5),
       padding: EdgeInsets.only(right: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),

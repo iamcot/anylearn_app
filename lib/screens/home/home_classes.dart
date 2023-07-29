@@ -21,7 +21,7 @@ class HomeClasses extends StatelessWidget {
               children: blocks
                   .map(
                     (block) => Container(
-                      padding: EdgeInsets.only(bottom: 20.0),
+                      //padding: EdgeInsets.only(bottom: 50.0),
                       child: Column(children: [
                         Padding(
                           padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),

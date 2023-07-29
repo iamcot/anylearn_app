@@ -76,8 +76,8 @@ class PageRepository {
     return homeConfig;
   }
 
-  Future<SubtypeDTO> dataSubtype() async {
-    SubtypeDTO data = await configService.subtypeData();
+  Future<SubtypeDTO> dataSubtype(String category, String token) async {
+    SubtypeDTO data = await configService.subtypeData(category, token);
     return data;
   }
 
@@ -91,6 +91,10 @@ class PageRepository {
 
   Future<DocDTO> guide(String key) async {
     return configService.doc(key);
+  }
+
+  Future<bool> imageValidation(String url) async {
+    return await configService.imageValidation(url);
   }
 
   Future<bool> saveFeedback(String token, String content, File file) async {

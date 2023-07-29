@@ -23,7 +23,8 @@ class V3HomeScreen extends StatefulWidget {
 class _V3HomeScreen extends State<V3HomeScreen> {
   late AuthBloc _authBloc;
   late HomeBloc _homeBloc;
-  late String _role;
+  //late String _role;
+  
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -142,7 +143,7 @@ class _V3HomeScreen extends State<V3HomeScreen> {
                         ),
                         body: RefreshIndicator(
                           child: V3HomeBody(
-                              // user: user,
+                              user: user,
                               homeData: homeData!,
                               homeBloc: _homeBloc,
                               ),

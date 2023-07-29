@@ -11,6 +11,7 @@ part 'subtype_state.dart';
 
 class SubtypeBloc extends Bloc<SubtypeEvent, SubtypeState> {
   final PageRepository pageRepository;
+  
   SubtypeBloc({required pageRepository})
       : pageRepository = pageRepository,
         super(SubtypeInitState()) {
@@ -18,7 +19,7 @@ class SubtypeBloc extends Bloc<SubtypeEvent, SubtypeState> {
   }
 
   void _loadSubtypeEvent(LoadSubtypePageEvent event, Emitter<SubtypeState> emit) async {
-    final data = await pageRepository.dataSubtype();
+    final data = await pageRepository.dataSubtype(event.category, event.token);
     return emit(SubtypeSuccessState(data: data));
   }
 }

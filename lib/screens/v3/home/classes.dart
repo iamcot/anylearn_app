@@ -19,7 +19,7 @@ class HomeClasses extends StatelessWidget {
           children: blocks
               .map(
                 (block) => Container(
-                  padding: EdgeInsets.only(bottom: 10.0, left: 10),
+                  padding: EdgeInsets.only(left: 10),
                   child: Column(children: [
                     Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 20.0, 20.0, 10.0),
@@ -37,7 +37,7 @@ class HomeClasses extends StatelessWidget {
                     CustomCarousel(
                       items: block.classes,
                       builderFunction: _itemSlider,
-                      height: width + 100,
+                      height: width + 90,
                       width: width,
                     ),
                   ]),

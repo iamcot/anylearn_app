@@ -30,9 +30,18 @@ class ConfigServices extends BaseService {
     return HomeV3DTO.fromJson(jsonDecode(json));
   }
 
-  Future<SubtypeDTO> subtypeData() async {
-    final json = await rootBundle.loadString('assets/mock/subtypek12.json');
-    return SubtypeDTO.fromJson(jsonDecode(json));
+  Future<SubtypeDTO> subtypeData(String category, String token) async { 
+    //final json = await rootBundle.loadString('assets/mock/subtypek12.json');
+    final path = token == '' ? '/v3/main-subtypes/' : '/v3/auth/main-subtypes/';
+    final url = buildUrl(appConfig: config, endPoint: path + category, token: token);
+    final json = await get(httpClient, url);
+    print(url);
+    return SubtypeDTO.fromJson(json);
+  }
+
+  Future<bool> imageValidation(String url) async {
+    final response = await httpClient.get(Uri.parse(url));
+    return response.statusCode == 200 ? true : false;
   }
 
   Future<List<CategoryPagingDTO>> category(int catId, page, pageSize) async {

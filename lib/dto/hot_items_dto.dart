@@ -14,11 +14,16 @@ class HotItemsDTO extends Equatable {
   List<Object> get props => [title, route, list];
 
   static HotItemsDTO fromJson(dynamic json) {
+    json['list'] ??= json['items'];
     return json == ""
         ? HotItemsDTO(title: "", list: [], route: "")
         : HotItemsDTO(
             title: json['title'] ?? "",
-            list: json['list'] == null ? [] : List<ItemDTO>.from(json['list']?.map((v) => v == null ? null : ItemDTO.fromJson(v))).toList(),
+            list: json['list'] == null 
+              ? [] 
+              : List<ItemDTO>
+                .from(json['list']?.map((v) => v == null ? null : ItemDTO.fromJson(v)))
+                .toList(),
             route: json['route'] ?? "",
           );
   }

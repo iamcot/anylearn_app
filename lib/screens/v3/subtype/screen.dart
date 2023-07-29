@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:anylearn/blocs/auth/auth_bloc.dart';
+import 'package:anylearn/dto/user_dto.dart';
+import 'package:anylearn/models/user_repo.dart';
 import 'package:anylearn/screens/v3/map/screen.dart';
 
 import '../../loading.dart';
-import '../../../widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,14 +19,17 @@ import 'body.dart';
 
 class SubtypeScreen extends StatefulWidget {
   final subtype;
+  final UserDTO user;
 
-  const SubtypeScreen({Key? key, required this.subtype}) : super(key: key);
+  const SubtypeScreen({Key? key, required this.user, this.subtype}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _SubtypeScreen();
 }
 
 class _SubtypeScreen extends State<SubtypeScreen> {
   late SubtypeBloc _bloc;
+  late String category;
+  
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -40,7 +45,7 @@ class _SubtypeScreen extends State<SubtypeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SubtypeBloc, SubtypeState>(
-      bloc: _bloc..add(LoadSubtypePageEvent()),
+      bloc: _bloc..add(LoadSubtypePageEvent(category: widget.subtype['type'], token: user.token)),
       builder: (context, state) {
         if (state is SubtypeSuccessState) {
           data = state.data;
@@ -116,9 +121,7 @@ class _SubtypeScreen extends State<SubtypeScreen> {
                   ),
                 ),
                 body: RefreshIndicator(
-                  child: SubtypeBody(
-                    data: data!,
-                  ),
+                  child: SubtypeBody(subtype: widget.subtype['type'], data: data!),
                   onRefresh: _reloadPage,
                 ),
                 bottomNavigationBar: BottomNav(BottomNav.HOME_INDEX),
@@ -128,6 +131,6 @@ class _SubtypeScreen extends State<SubtypeScreen> {
   }
 
   Future<void> _reloadPage() async {
-    _bloc..add(LoadSubtypePageEvent());
+    _bloc..add(LoadSubtypePageEvent(category: category));
   }
 }

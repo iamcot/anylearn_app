@@ -12,11 +12,11 @@ class ItemsList3 extends StatelessWidget {
   const ItemsList3({required this.hotItems});
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.width / screenSplit + 90;
+    final height = MediaQuery.of(context).size.width / screenSplit + 91;
     return hotItems.list == null
         ? Container()
         : Container(
-            padding: EdgeInsets.only(bottom: 20.0, left: 10),
+            padding: EdgeInsets.only(left: 10),
             decoration: BoxDecoration(),
             child: Column(children: [
               Padding(
