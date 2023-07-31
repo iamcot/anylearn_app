@@ -17,12 +17,30 @@ class HomeFeatures extends StatelessWidget {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width / 4;
     return Container(
-      margin: EdgeInsets.only(left:10, bottom: 10, top: 10),
-      child: CustomCarousel(
-        items: features,
-        builderFunction: _itemSlider,
-        height: width,
-        width: width,
+      margin: EdgeInsets.only(left:10, bottom: 10),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 20, 20, 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text("Các tiện ích của anyLEARN", style: TextStyle(                          
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,  
+                    height: 1.1,
+                  )),
+                ),
+              ],
+            ),
+          ),
+          CustomCarousel(
+            items: features,
+            builderFunction: _itemSlider,
+            height: width,
+            width: width,
+          ),
+        ]
       ),
     );
   }

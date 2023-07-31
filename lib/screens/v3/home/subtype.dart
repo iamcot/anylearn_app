@@ -24,7 +24,7 @@ class HomeSubtype extends StatelessWidget {
     width = MediaQuery.of(context).size.width;
     width = width / 5;
     return Container(
-      margin: EdgeInsets.only(bottom: 10, top: 20),
+      margin: EdgeInsets.only(bottom: 5, top: 15),
       child: CustomCarousel(
         items: subtypes,
         builderFunction: _itemSlider,

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:anylearn/widgets/promotions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../customs/custom_cached_image.dart';
@@ -18,7 +19,7 @@ class HomeBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.only(bottom: 10, top: 10),
+      margin: EdgeInsets.only(bottom: 10, top: 20),
       height: width,
       child: Stack(
         children: [

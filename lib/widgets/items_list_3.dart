@@ -13,7 +13,7 @@ class ItemsList3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.width / screenSplit + 91;
-    return hotItems.list == null
+    return hotItems.list == null || hotItems.list.isEmpty
         ? Container()
         : Container(
             padding: EdgeInsets.only(left: 10),

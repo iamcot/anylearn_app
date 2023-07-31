@@ -32,24 +32,37 @@ class V3HomeBody extends StatefulWidget {
 class _V3HomeBody extends State<V3HomeBody> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        HomeSubtype(user: widget.user),
-        HomePointBox(
-          anyPoint: widget.homeData.pointBox.anypoint,
-          ratingItem: widget.homeData.pointBox.ratingClass,
-          goingItem: widget.homeData.pointBox.goingClass,
-        ),
-        ItemsList3(hotItems: widget.homeData.j4u),
-        ItemsList2(hotItems: widget.homeData.repurchaseds),
-        HomeBanner(banners: widget.homeData.banners, promotions: widget.homeData.promotions),
-        ItemsList3(hotItems: widget.homeData.recommendations),
-        HomeVoucher(vouchers: widget.homeData.vouchers),
-        HomeFeatures(),
-        HomeClasses(blocks: widget.homeData.classes),
-        HomeAsk(ask: widget.homeData.asks),
-        HomeArticles(articles: widget.homeData.articles)
-      ],
-    );
+    return widget.user.token != ''
+      ? ListView(
+          children: [
+            HomeSubtype(user: widget.user),
+            HomePointBox(
+              anyPoint: widget.homeData.pointBox.anypoint.toString(),
+              ratingItem: widget.homeData.pointBox.ratingClass,
+              goingItem: widget.homeData.pointBox.goingClass,
+            ),
+            ItemsList3(hotItems: widget.homeData.j4u),
+            ItemsList2(hotItems: widget.homeData.repurchaseds),
+            HomeBanner(banners: widget.homeData.banners, promotions: widget.homeData.promotions),
+            ItemsList3(hotItems: widget.homeData.recommendations),
+            HomeVoucher(vouchers: widget.homeData.vouchers),
+            HomeFeatures(),
+            HomeClasses(blocks: widget.homeData.classes),
+            //HomeAsk(ask: widget.homeData.asks),
+            HomeArticles(articles: widget.homeData.articles)
+          ]
+        )
+      : ListView(
+          children: [
+            HomeSubtype(user: widget.user),
+            ItemsList3(hotItems: widget.homeData.recommendations),
+            HomeBanner(banners: widget.homeData.banners, promotions: widget.homeData.promotions),
+            HomeVoucher(vouchers: widget.homeData.vouchers),
+            HomeFeatures(),
+            HomeClasses(blocks: widget.homeData.classes),
+            //HomeAsk(ask: widget.homeData.asks),
+            HomeArticles(articles: widget.homeData.articles)
+          ]
+        );
   }
 }

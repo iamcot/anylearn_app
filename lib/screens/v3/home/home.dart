@@ -71,6 +71,7 @@ class _V3HomeScreen extends State<V3HomeScreen> {
               user = state.user;
               _homeBloc.add(LoadHomeEvent(user: user));
             }
+
             if (state is AuthFailState) {
               user = UserDTO(id: 0, token: "");
               debugPrint("reload home");

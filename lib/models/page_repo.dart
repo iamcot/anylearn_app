@@ -71,8 +71,8 @@ class PageRepository {
     return await configService.category(catId, page, pageSize);
   }
 
-  Future<HomeV3DTO> dataHome(String role, int userId) async {
-    HomeV3DTO homeConfig = await configService.homeV3Layout(role);
+  Future<HomeV3DTO> dataHome(String token, String role, int userId) async {
+    HomeV3DTO homeConfig = await configService.homeV3Layout(token, role);
     return homeConfig;
   }
 

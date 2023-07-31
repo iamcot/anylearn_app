@@ -26,8 +26,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void _loadHomeEvent(LoadHomeEvent event, Emitter<HomeState> emit) async {
     emit(HomeLoadingState());
-    final data = await pageRepository.dataHome(
-      event.user.role != "" ? event.user.role : MyConst.ROLE_GUEST, event.user.id);
+      final data = await pageRepository.dataHome(
+        event.user.token,
+        event.user.role != "" ? event.user.role : MyConst.ROLE_GUEST, 
+        event.user.id
+      );
     // data.config.ignorePopupVersion = await pageRepository.getPopupVersion();
     return emit(HomeSuccessState(data: data));
   }

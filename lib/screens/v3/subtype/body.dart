@@ -22,12 +22,13 @@ class SubtypeBody extends StatefulWidget {
 class _SubtypeBody extends State<SubtypeBody> {
   @override
   Widget build(BuildContext context) {
+    print(widget.data.categories);
     return ListView(
       children: [
         SubtypeCatList(subtype: widget.subtype, categories: widget.data.categories),
-        if (!widget.data.j4u.list.isEmpty) ItemsList3(hotItems: widget.data.j4u),
-        if (!widget.data.repurchaseds.list.isEmpty) ItemsList2(hotItems: widget.data.repurchaseds),
-        if (!widget.data.vouchers.isEmpty) HomeVoucher(vouchers: widget.data.vouchers),
+        ItemsList3(hotItems: widget.data.j4u),
+        ItemsList2(hotItems: widget.data.repurchaseds),
+        HomeVoucher(vouchers: widget.data.vouchers),
         PartnerList(partners: widget.data.partners),
         HomeClasses(blocks: widget.data.partnerItems),
         HomeClasses(blocks: widget.data.categoryItems),

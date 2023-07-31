@@ -8,7 +8,7 @@ class PartnerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return partners == null
+    return partners.isEmpty
       ? Container()
       : Container(
         padding: EdgeInsets.only(bottom: 10, left: 10),
@@ -35,7 +35,7 @@ class PartnerList extends StatelessWidget {
                   crossAxisCount: 3,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  childAspectRatio: .8
+                  childAspectRatio: 100/130
                   ),
                 itemCount: partners.length,
                 itemBuilder: (context, index) => LayoutBuilder(
@@ -54,19 +54,23 @@ class PartnerList extends StatelessWidget {
         onTap: () => Navigator.of(context).pushNamed('/partner', arguments: {'id', partner.id }),
         child: Column(children: [
           Container(
-            height: constraints.maxHeight - 25,
+            width: constraints.maxWidth,
+            height: constraints.maxWidth,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: CachedNetworkImage(imageUrl: partner.image)
+              child: CachedNetworkImage(imageUrl: partner.image, fit: BoxFit.fitWidth)
             ),
           ),
           Row(children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.only(top: 10),
                 child: Center(
                   child: Text(partner.name, 
-                    style: TextStyle(overflow: TextOverflow.ellipsis)
+                    style: TextStyle(
+                      fontSize: 16,
+                      overflow: TextOverflow.ellipsis
+                    )
                   ),
                 ),
               ),

@@ -39,56 +39,70 @@ class HomeV3DTO extends Equatable {
 
   @override
   List<Object> get props => [
-        configs,
-        pointBox,
-        j4u,
-        repurchaseds,
-        banners,
-        recommendations,
-        vouchers,
-        asks,
-        classes,
-        articles,
-        promotions,
-        categories
-      ];
+    configs,
+    pointBox,
+    j4u,
+    repurchaseds,
+    banners,
+    recommendations,
+    vouchers,
+    asks,
+    classes,
+    articles,
+    promotions,
+    categories
+  ];
 
   static HomeV3DTO fromJson(dynamic json) {
     return json == ""
-        ? HomeV3DTO()
-        : HomeV3DTO(
-            configs: json['configs'] == null ? HomeConfigDTO() : HomeConfigDTO.fromJson(json['configs']),
-            pointBox: json["pointBox"] == null ? PointBoxDTO() : PointBoxDTO.fromJson(json['pointBox']),
-            j4u: json['j4u'] == null ? HotItemsDTO() : HotItemsDTO.fromJson(json['j4u']),
-            repurchaseds: json['repurchaseds'] == null ? HotItemsDTO() : HotItemsDTO.fromJson(json['repurchaseds']),
-            banners: json['banners'] == null
-                ? []
-                : List<HomeBannerDTO>.from(json['banners']?.map((v) => v == null ? null : HomeBannerDTO.fromJson(v)))
-                    .toList(),
-            promotions: json['promotions'] == null
-                ? []
-                : List<ArticleDTO>.from(json['promotions']?.map((e) => e == null ? null : ArticleDTO.fromJson(e)))
-                    .toList(),
-            recommendations:
-                json['recommendations'] == null ? HotItemsDTO() : HotItemsDTO.fromJson(json['recommendations']),
-            vouchers: json['vouchers'] == null
-                ? []
-                : List<ArticleDTO>.from(json['vouchers']?.map((v) => v == null ? null : ArticleDTO.fromJson(v)))
-                    .toList(),
-            articles: json['articles'] == null
-                ? []
-                : List<ArticleDTO>.from(json['articles']?.map((e) => e == null ? null : ArticleDTO.fromJson(e)))
-                    .toList(),
-            asks: json['asks'] == null ? [] : AskDTO.fromJson(json['asks']),
-            classes: json['classes'] == null
-                ? []
-                : List<HomeClassesDTO>.from(json['classes']?.map((v) => v == null ? null : HomeClassesDTO.fromJson(v)))
-                    .toList(),
-            categories: json['categories'] == null
-                ? []
-                : List<CategoryDTO>.from(json['categories']?.map((v) => v == null ? null : CategoryDTO.fromJson(v)))
-                    .toList()
-                    );
+      ? HomeV3DTO()
+      : HomeV3DTO(
+        configs: json['configs'] == null ? HomeConfigDTO() : HomeConfigDTO.fromJson(json['configs']),
+        pointBox: json['pointBox'] == null
+          ? PointBoxDTO()
+          : PointBoxDTO.fromJson(json['pointBox']),
+        j4u: json['j4u'] == null
+          ? HotItemsDTO() 
+          : HotItemsDTO.fromJson(json['j4u']),
+        repurchaseds: json['repurchases'] == null 
+          ? HotItemsDTO() 
+          : HotItemsDTO.fromJson(json['repurchases']),
+        banners: json['banners'] == null
+          ? []
+          : List<HomeBannerDTO>.from(json['banners']?.map((v) {
+              if (v != null) {
+                v['route'] ??= '';
+                v['arg'] ??= '';
+                return HomeBannerDTO.fromJson(v);
+              }
+              return null;
+            })).toList(),
+        promotions: json['promotions'] == null
+          ? []
+          : List<ArticleDTO>
+            .from(json['promotions']?.map((e) => e == null ? null : ArticleDTO.fromJson(e)))
+            .toList(),
+        recommendations: json['recommendations'] == null
+          ? HotItemsDTO() 
+          : HotItemsDTO.fromJson(json['recommendations']),
+        vouchers: json['vouchers'] == null || json ['vouchers'].isEmpty
+          ? []
+          : List<ArticleDTO>.from(json['vouchers']?.map((v) => v == null ? null : ArticleDTO.fromJson(v)))
+            .toList(),
+        articles: json['articles'] == null || json['articles'].isEmpty
+          ? []
+          : List<ArticleDTO>.from(json['articles']?.map((e) => e == null ? null : ArticleDTO.fromJson(e)))
+            .toList(),
+        asks: json['asks'] == null ? [] : AskDTO.fromJson(json['asks']),
+        classes: json['classes'] == null
+          ? []
+          : List<HomeClassesDTO>.from(json['classes']?.map((v) => v == null ? null : HomeClassesDTO.fromJson(v)))
+            .toList(),
+        categories: json['categories'] == null
+          ? []
+          : List<CategoryDTO>.from(json['categories']?.map((v) => v == null ? null : CategoryDTO.fromJson(v)))
+            .toList()
+        );
   }
 }
 
@@ -123,8 +137,8 @@ class PointBoxDTO extends Equatable {
   List<Object> get props => [anypoint, goingClass, ratingClass];
 
   static PointBoxDTO fromJson(dynamic json) {
-    return json == ""
-        ? PointBoxDTO()
+    return json == '' || json.isEmpty
+        ? PointBoxDTO(anypoint: '', goingClass: '', ratingClass: '')
         : PointBoxDTO(
             anypoint: json['anypoint'],
             goingClass: json['goingClass'],

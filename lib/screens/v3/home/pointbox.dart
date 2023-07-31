@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../customs/custom_carousel.dart';
 
 class HomePointBox extends StatelessWidget {

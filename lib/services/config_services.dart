@@ -23,19 +23,20 @@ class ConfigServices extends BaseService {
 
   ConfigServices({required this.config, required this.httpClient});
 
-  Future<HomeV3DTO> homeV3Layout(String role) async {
-    // final url = buildUrl(appConfig: config, endPoint: "/config/homev3/$role");
-    // final json = await get(httpClient, url);
-    final json = await rootBundle.loadString('assets/mock/homedatav3.json');
-    return HomeV3DTO.fromJson(jsonDecode(json));
+  Future<HomeV3DTO> homeV3Layout(String token, String role) async {
+    final api = token == '' ? '/v3/home' : '/v3/auth/home';
+    final url = buildUrl(appConfig: config, endPoint: api, token: token);
+    final json = await get(httpClient, url);
+    //final json = await rootBundle.loadString('assets/mock/homedatav3.json');
+    return HomeV3DTO.fromJson(json);
   }
 
   Future<SubtypeDTO> subtypeData(String category, String token) async { 
     //final json = await rootBundle.loadString('assets/mock/subtypek12.json');
-    final path = token == '' ? '/v3/main-subtypes/' : '/v3/auth/main-subtypes/';
-    final url = buildUrl(appConfig: config, endPoint: path + category, token: token);
+    final api = token == '' ? '/v3/main-subtypes/' : '/v3/auth/main-subtypes/';
+    final url = buildUrl(appConfig: config, endPoint: api + category, token: token);
     final json = await get(httpClient, url);
-    print(url);
+    //print(url);
     return SubtypeDTO.fromJson(json);
   }
 

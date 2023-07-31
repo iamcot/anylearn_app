@@ -14,19 +14,26 @@ class HomeArticles extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final imgHeight = (width / 2) * 0.7;
     return Container(
-      padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+      padding: EdgeInsets.only(left: 10, bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Tin tức anyLEARN",
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 20, 20, 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text("Tin tức anyLEARN", style: TextStyle(                          
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,  
+                    height: 1.1,
+                  )),
+                ),
+              ],
             ),
           ),
           Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: EdgeInsets.only(left: 10, right: 15),
               height: (articles.length / 2).ceil() * ((width / 2) + 60),
               child: GridView.count(
                 physics: NeverScrollableScrollPhysics(),

@@ -41,11 +41,11 @@ class SubtypeDTO extends Equatable {
     return json == null
       ? SubtypeDTO()
       : SubtypeDTO(
-        j4u: json['j4u'] == null || json['j4u'].isEmpty
-          ? HotItemsDTO(route: '', title: '', list: []) 
+        j4u: json['j4u'] == null
+          ? HotItemsDTO() 
           : HotItemsDTO.fromJson(json['j4u']),
-        repurchaseds: json['repurchases'] == null || json['repurchases'].isEmpty
-          ? HotItemsDTO(route: '', title: '', list: []) 
+        repurchaseds: json['repurchases'] == null
+          ? HotItemsDTO() 
           : HotItemsDTO.fromJson(json['repurchases']),
         categories: json['categories'] == null 
           ? [] 
