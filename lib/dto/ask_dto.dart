@@ -36,7 +36,7 @@ class AskDTO {
         ? AskDTO()
         : AskDTO(
             id: json['id'] ?? 0,
-            title: json['title'] ?? "",
+            title: json['title'] ?? json['question'] ?? "",
             type: json['type'] ?? "ask",
             content: json['content'] ?? "",
             userId: json['user_id'] ?? 0,

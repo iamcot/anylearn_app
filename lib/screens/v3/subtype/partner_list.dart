@@ -51,7 +51,7 @@ class PartnerList extends StatelessWidget {
   Widget _itemBuilder(BuildContext context, BoxConstraints constraints, UserDTO partner) {
     return Container(
       child: InkWell(
-        onTap: () => Navigator.of(context).pushNamed('/partner', arguments: {'id', partner.id }),
+        onTap: () => Navigator.of(context).pushNamed('/partner', arguments: partner.id),
         child: Column(children: [
           Container(
             width: constraints.maxWidth,

@@ -1,4 +1,5 @@
 import 'package:anylearn/screens/v3/map/screen.dart';
+import 'package:anylearn/screens/v3/partner/screen.dart';
 import 'package:flutter/widgets.dart';
 
 import 'screens/account.dart';
@@ -89,4 +90,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/pendingorder/pendingorder": (BuildContext context) => PendingOrder(),
   "/locale": (BuildContext context) => LocaleScreen(),
   "/map": (BuildContext context) => MapScreen(),
+  "/partner": (BuildContext context) => PartnerScreen(),
 };

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:anylearn/dto/v3/partner_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -38,6 +39,13 @@ class ConfigServices extends BaseService {
     final json = await get(httpClient, url);
     //print(url);
     return SubtypeDTO.fromJson(json);
+  }
+
+  Future<PartnerDTO> dataPartner(int partnerId) async {
+    final url = buildUrl(appConfig: config, endPoint: '/v3/partner/$partnerId');
+    final json = await get(httpClient, url);
+    print(url);
+    return PartnerDTO.fromJson(json);
   }
 
   Future<bool> imageValidation(String url) async {

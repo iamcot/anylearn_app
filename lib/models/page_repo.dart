@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/home_config_dto.dart';
+import 'package:anylearn/dto/v3/partner_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,6 +44,10 @@ class PageRepository {
     askService = AskService(config: config, httpClient: this.httpClient);
     // transactionService = TransactionService(config: config, httpClient: httpClient);
   }
+
+  Future<PartnerDTO> dataPartner(int partnerId) async {
+    return await configService.dataPartner(partnerId);
+  } 
 
   Future<PdpDTO> dataPDP(int itemId, String token) async {
     return await itemService.getPDPData(itemId, token);

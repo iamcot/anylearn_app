@@ -75,17 +75,21 @@ class _PdpBody extends State<PdpBody> {
                       children: <Widget>[
                         Icon(Icons.supervisor_account, color: Colors.black54, size: 14.0),
                         Text(widget.data.author.role == 'school' ? " Trường: ".tr() : " Giảng viên: ".tr()),
-                        Text.rich(
-                          TextSpan(
-                              text: widget.data.author.name,
-                              style: TextStyle(
-                                color: Colors.blue,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.of(context)
-                                      .pushNamed("/items/" + widget.data.author.role, arguments: widget.data.author.id);
-                                }),
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(
+                                text: widget.data.author.name,
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context)
+                                        .pushNamed("/items/" + widget.data.author.role, arguments: widget.data.author.id);
+                                  }),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis
+                          ),
                         ),
                       ],
                     ),

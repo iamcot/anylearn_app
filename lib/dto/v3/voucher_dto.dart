@@ -12,11 +12,11 @@ class VoucherDTO extends Equatable {
 
   static VoucherDTO fromJson(dynamic json) {
     return json == ""
-        ? VoucherDTO()
-        : VoucherDTO(
-            title: json['title'] ?? "",
-            id: json['id'] ?? 0,
-            value: json['value'] ?? 0.0,
-          );
+      ? VoucherDTO()
+      : VoucherDTO(
+          title: json['title'] ?? "",
+          id: json['id'] ?? 0,
+          value: json['value'] ?? 0.0,
+    );
   }
 }

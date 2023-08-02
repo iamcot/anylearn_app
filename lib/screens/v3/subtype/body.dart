@@ -22,7 +22,6 @@ class SubtypeBody extends StatefulWidget {
 class _SubtypeBody extends State<SubtypeBody> {
   @override
   Widget build(BuildContext context) {
-    print(widget.data.categories);
     return ListView(
       children: [
         SubtypeCatList(subtype: widget.subtype, categories: widget.data.categories),
