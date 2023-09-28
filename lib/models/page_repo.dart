@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:anylearn/dto/home_config_dto.dart';
+import 'package:anylearn/dto/v3/listing_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
 import 'package:http/http.dart' as http;
@@ -43,6 +43,10 @@ class PageRepository {
     itemService = ItemService(config: config, httpClient: this.httpClient);
     askService = AskService(config: config, httpClient: this.httpClient);
     // transactionService = TransactionService(config: config, httpClient: httpClient);
+  }
+
+  Future<ListingDTO> dataListing(String query) async {
+    return await configService.dataListing(query);
   }
 
   Future<PartnerDTO> dataPartner(int partnerId) async {

@@ -1,7 +1,7 @@
+import 'package:anylearn/screens/v3/listing/args.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../blocs/search/search_bloc.dart';
 import '../dto/item_dto.dart';
 import '../screens/v3/search/filter_widget.dart';
@@ -9,9 +9,11 @@ import 'custom_cached_image.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   final screen;
+
   // final sugestion = tags ;
+  // final SearchUserEvent  _tags = SearchEvent();
   CustomSearchDelegate({required this.screen});
-// final SearchUserEvent  _tags = SearchEvent();
+
   @override
   String get searchFieldLabel {
     // if (screen == "school") {
@@ -35,10 +37,12 @@ class CustomSearchDelegate extends SearchDelegate {
         },
       ),
       IconButton(
-          icon: Icon(Icons.search),
-          onPressed: () {
-            showResults(context);
-          })
+        icon: Icon(Icons.search),
+        onPressed: () => Navigator
+          .of(context)
+          .pushNamed('/listing', arguments: ListingRouteArguments(search: query)),
+        // onPressed: () => showResults(context),
+      ),
     ];
   }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:anylearn/dto/v3/listing_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
 import 'package:flutter/services.dart';
@@ -25,10 +26,10 @@ class ConfigServices extends BaseService {
   ConfigServices({required this.config, required this.httpClient});
 
   Future<HomeV3DTO> homeV3Layout(String token, String role) async {
+    //final json = await rootBundle.loadString('assets/mock/homedatav3.json');
     final api = token == '' ? '/v3/home' : '/v3/auth/home';
     final url = buildUrl(appConfig: config, endPoint: api, token: token);
     final json = await get(httpClient, url);
-    //final json = await rootBundle.loadString('assets/mock/homedatav3.json');
     return HomeV3DTO.fromJson(json);
   }
 
@@ -37,7 +38,7 @@ class ConfigServices extends BaseService {
     final api = token == '' ? '/v3/main-subtypes/' : '/v3/auth/main-subtypes/';
     final url = buildUrl(appConfig: config, endPoint: api + category, token: token);
     final json = await get(httpClient, url);
-    //print(url);
+    print(url);
     return SubtypeDTO.fromJson(json);
   }
 
@@ -47,6 +48,13 @@ class ConfigServices extends BaseService {
     print(url);
     return PartnerDTO.fromJson(json);
   }
+
+  Future<ListingDTO> dataListing(String query) async {
+    final url = buildUrl(appConfig: config, endPoint: '/v3/listing', query: query);
+    final json = await get(httpClient, url);
+    print(url);
+    return ListingDTO.fromJson(json);
+  } 
 
   Future<bool> imageValidation(String url) async {
     final response = await httpClient.get(Uri.parse(url));
@@ -147,8 +155,8 @@ class ConfigServices extends BaseService {
   }
 
   Future<SearchSuggestDTO> searchSuggestion() async {
-    // final url = buildUrl(appConfig: config, endPoint: "/search-suggesstion");
-    // final json = await get(httpClient, url);
+    //final url = buildUrl(appConfig: config, endPoint: "/v3/search");
+    //final json = await get(httpClient, url);
     final json = jsonDecode(await rootBundle.loadString('assets/mock/searchsuggestv3.json'));
     return SearchSuggestDTO.fromJson(json);
   }
