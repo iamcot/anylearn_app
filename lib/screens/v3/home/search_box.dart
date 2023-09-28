@@ -1,13 +1,10 @@
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import '../../../customs/custom_search_delegate.dart';
 
 class SearchBox extends StatefulWidget {
   final user;
-
   SearchBox({key, this.user}) : super(key: key);
 
   @override
@@ -36,7 +33,8 @@ class _SearchBoxState extends State<SearchBox> {
             delegate: CustomSearchDelegate(
               screen: "",
             ),
-            query: searchController.text);
+            query: searchController.text
+        );
       },
       onFieldSubmitted: (value) {
         showSearch(
@@ -65,10 +63,15 @@ class _SearchBoxState extends State<SearchBox> {
           ),
           hintText: "Hôm nay bạn muốn học gì?".tr(),
           hintStyle: TextStyle(color: Colors.grey),
-          suffixIcon: Icon(
-            Icons.search,
-            color: Colors.green[600],
-          )
+          suffixIcon: IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Colors.green[600],
+            ),
+            onPressed: () {
+              showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
+            },
+          ),
 
           // onPressed: () {
           //   showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
