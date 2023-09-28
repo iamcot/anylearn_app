@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/v3/listing/screen.dart';
 import 'package:anylearn/screens/v3/map/screen.dart';
 import 'package:anylearn/screens/v3/partner/screen.dart';
 import 'package:flutter/widgets.dart';
@@ -91,4 +92,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/locale": (BuildContext context) => LocaleScreen(),
   "/map": (BuildContext context) => MapScreen(),
   "/partner": (BuildContext context) => PartnerScreen(),
+  "/listing": (BuildContext context) => ListingScreen(),
 };
