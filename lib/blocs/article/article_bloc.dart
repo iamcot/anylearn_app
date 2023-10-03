@@ -78,7 +78,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   void _onAskSelectEvent(AskSelectEvent event, Emitter<ArticleState> emit) async {
     try {
       emit(AskSelectLoadingState());
-      final result = await pageRepository.askSelectAnswer(event.askId, event.token);
+      await pageRepository.askSelectAnswer(event.askId, event.token);
       emit(AskSelectSuccessState());
     } catch (error) {
       emit(AskFailState(error: error.toString()));
@@ -88,7 +88,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   void _onAskVoteEvent(AskVoteEvent event, Emitter<ArticleState> emit) async {
     try {
       emit(AskVoteLoadingState());
-      final result = await pageRepository.askVote(event.askId, event.type, event.token);
+      await pageRepository.askVote(event.askId, event.type, event.token);
       emit(AskVoteSuccessState());
     } catch (error) {
       emit(AskFailState(error: error.toString()));
@@ -98,7 +98,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   void _onAskCreateEvent(AskCreateEvent event, Emitter<ArticleState> emit) async {
     try {
       emit(AskCreateLoadingState());
-      final result = await pageRepository.createAsk(event.askId, event.title, event.content, event.user, event.type);
+      await pageRepository.createAsk(event.askId, event.title, event.content, event.user, event.type);
       emit(AskCreateSuccessState());
     } catch (error) {
       emit(AskCreateFailState(error: error.toString()));

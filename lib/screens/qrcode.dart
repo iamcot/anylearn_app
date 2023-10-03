@@ -71,7 +71,7 @@ class _QrCodeScreen extends State<QrCodeScreen> {
                       // ),
                       MaterialButton(
                         onPressed: () {
-                          Share.share(user!.refLink);
+                          Share.share(user.refLink);
                         },
                         child: Text(
                           "CHIA SẺ MÃ",

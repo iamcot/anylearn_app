@@ -119,8 +119,6 @@ class _AskForumScreen extends State<AskForumScreen> {
                       );
               }),
         ),
-        floatingActionButton: FloatingActionButtonHome(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         bottomNavigationBar: BottomNav(
           BottomNav.SOCIAL_INDEX,
         ),

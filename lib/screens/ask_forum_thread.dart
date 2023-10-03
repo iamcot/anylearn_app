@@ -71,8 +71,6 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
               }),
         ),
       ),
-      floatingActionButton: FloatingActionButtonHome(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
         BottomNav.SOCIAL_INDEX,
       ),

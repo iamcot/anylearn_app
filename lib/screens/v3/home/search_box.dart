@@ -48,7 +48,6 @@ class _SearchBoxState extends State<SearchBox> {
       onChanged: (value) {
         if (_debounce?.isActive ?? false) _debounce?.cancel();
         _debounce = Timer(const Duration(milliseconds: 2000), () async {
-          print(value);
         });
       },
       decoration: InputDecoration(

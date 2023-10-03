@@ -32,7 +32,7 @@ class BaseService {
   Future<dynamic> get(http.Client httpClient, String url) async {
     var responseJson;
     try {
-      print(url);
+      print("[GET]" + url);
       final response = await httpClient.get(Uri.parse(url));
       responseJson = returnResponse(response);
     } on SocketException {
@@ -44,8 +44,8 @@ class BaseService {
   Future<dynamic> post(
       http.Client httpClient, String url, Map<String, dynamic> body) async {
     var responseJson;
-    print(url);
-    print(body);
+    print("[POST]" + url);
+    // print(body);
     try {
       final response = await httpClient.post(Uri.parse(url), body: body);
       responseJson = returnResponse(response);

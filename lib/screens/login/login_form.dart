@@ -305,7 +305,6 @@ class _LoginForm extends State<LoginForm> {
           ),
         ),
       );
-      print(credential);
       if (credential != null) {
         Map<String, String> loginData = {
           "name": credential.givenName! + " " + credential.familyName!,

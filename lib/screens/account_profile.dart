@@ -42,7 +42,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
     }
 
     if (userId == 0) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
         Navigator.of(context).pop();
       });
     } else {

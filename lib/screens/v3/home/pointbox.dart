@@ -15,9 +15,9 @@ class HomePointBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     boxes = [
-      {"title": "anyPoint", "value": anyPoint, "icon": Icons.account_balance_wallet_outlined, "url": "", "color": Colors.pink},
-      {"title": "Lớp đang học", "value": goingItem, "icon": Icons.calendar_month_outlined, "url": "", "color": Colors.green},
-      {"title": "Đánh giá", "value": ratingItem, "icon": Icons.star_border_outlined, "url" : "", "color": Colors.orange},
+      {"title": "anyPoint", "value": anyPoint, "icon": Icons.account_balance_wallet_outlined, "url": "/transaction", "color": Colors.pink},
+      {"title": "Lớp đang học", "value": goingItem, "icon": Icons.calendar_month_outlined, "url": "/account/calendar", "color": Colors.green},
+      {"title": "Đánh giá", "value": ratingItem, "icon": Icons.star_border_outlined, "url" : "/account/calendar", "color": Colors.orange},
     ];
     final screenW = MediaQuery.of(context).size.width;
     width = screenW * 2 / 5;

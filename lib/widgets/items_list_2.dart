@@ -1,9 +1,8 @@
-import 'package:anylearn/customs/custom_cached_image.dart';
-import 'package:anylearn/screens/v3/home/item_card.dart';
 import 'package:flutter/material.dart';
 
 import '../customs/custom_carousel.dart';
 import '../dto/hot_items_dto.dart';
+import '../screens/v3/home/item_card.dart';
 
 class ItemsList2 extends StatelessWidget {
   final HotItemsDTO hotItems;
@@ -13,7 +12,6 @@ class ItemsList2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.width / screenSplit + 90;
-    print(hotItems.list);
     return hotItems.list == null || hotItems.list.isEmpty
         ? Container()
         : Container(

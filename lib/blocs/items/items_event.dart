@@ -12,9 +12,6 @@ class ItemsSchoolLoadEvent extends ItemsEvent {
   ItemsSchoolLoadEvent({required this.id, this.page = 1, this.pageSize = 9999});
 
   @override
-  List<Object> get props => [id, page, pageSize];
-
-  @override
   String toString() => 'ItemsSchoolLoadEvent  { page: $page, pageSize: $pageSize}';
 }
 
@@ -26,9 +23,6 @@ class ItemsTeacherLoadEvent extends ItemsEvent {
   ItemsTeacherLoadEvent({required this.id, this.page = 1, this.pageSize = 9999});
 
   @override
-  List<Object> get props => [id, page, pageSize];
-
-  @override
   String toString() => 'ItemsTeacherLoadEvent  { page: $page, pageSize: $pageSize}';
 }
 
@@ -38,9 +32,6 @@ class CategoryLoadEvent extends ItemsEvent {
   final int pageSize;
 
   CategoryLoadEvent({required this.id, this.page = 1, this.pageSize = 9999});
-
-  @override
-  List<Object> get props => [id, page, pageSize];
 
   @override
   String toString() => 'CategoryLoadEvent  { page: $page, pageSize: $pageSize}';

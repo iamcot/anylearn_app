@@ -12,7 +12,7 @@ class NotifLoadingState extends NotifState {}
 class NotifSuccessState extends NotifState {
   final NotificationPagingDTO notif;
 
-  NotifSuccessState({required this.notif}) : assert(notif != null);
+  NotifSuccessState({required this.notif});
 
   @override
   List<Object> get props => [notif];

@@ -49,7 +49,6 @@ class UserService extends BaseService {
 
   Future<void> logout(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/logout", token: token);
-    print(url);
     await get(httpClient, url);
     return;
   }
@@ -62,7 +61,6 @@ class UserService extends BaseService {
 
   Future<UserDTO> getInfoLess(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/user-less", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return UserDTO.fromJson(json);
   }
@@ -125,7 +123,6 @@ class UserService extends BaseService {
 
   Future<AccountCalendarDTO> myCalendar(String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/mycalendar", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return AccountCalendarDTO.fromJson(json);
   }
@@ -138,7 +135,6 @@ class UserService extends BaseService {
 
   Future<List<ClassRegisteredUserDTO>> registeredUsers(String token, int itemId) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/course-registered-users/$itemId", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return List<ClassRegisteredUserDTO>.from(json?.map((e) => e == null ? null : ClassRegisteredUserDTO.fromJson(e)))
         .toList();
@@ -177,7 +173,6 @@ class UserService extends BaseService {
 
   Future<void> notifRead(String token, int id) async {
     final url = buildUrl(appConfig: config, endPoint: "/user/notification/" + id.toString(), token: token);
-    // print(url);
     await get(httpClient, url);
     return;
   }
@@ -208,7 +203,6 @@ class UserService extends BaseService {
     final url = buildUrl(appConfig: config, endPoint: "/user/contract/$contractId", token: token);
     final json = await get(httpClient, url);
     final contract = ContractDTO.fromJson(json);
-    print(contract);
     return contract;
   }
 
@@ -284,7 +278,6 @@ class UserService extends BaseService {
       endPoint: "/user/pending-orders",
       token: token,
     );
-    print(url);
     final json = await get(httpClient, url);
     return List<PendingOrderDTO>.from(
             json?.map((e) => e == null ? null : PendingOrderDTO.fromJson(e)))

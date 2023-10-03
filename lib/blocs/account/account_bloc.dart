@@ -178,7 +178,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   void _onAccChangePassEvent(AccChangePassEvent event, Emitter<AccountState> emit) async {
     try {
       emit(AccChangePassInProgressState(token: event.token, newPass: event.newPass, oldPass: event.oldPass));
-      final result = await userRepository.changePass(event.token, event.newPass, event.oldPass);
+      await userRepository.changePass(event.token, event.newPass, event.oldPass);
       emit(AccChangePassSuccessState());
     } catch (error) {
      emit(AccChangePassFailState(error: error.toString()));

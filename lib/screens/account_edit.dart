@@ -50,7 +50,6 @@ class _AccountEditScreen extends State<AccountEditScreen> {
           Navigator.of(context).popUntil(ModalRoute.withName("/"));
         }
         if (state is AuthSuccessState) {
-          print(state.user);
           accountBloc..add(AccInitPageEvent(user: state.user));
         }
       },

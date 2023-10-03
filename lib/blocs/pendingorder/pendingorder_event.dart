@@ -10,8 +10,5 @@ class LoadPendingorderPageEvent extends PendingOrderEvent {
   LoadPendingorderPageEvent({required this.token});
 
   @override
-  List<Object> get props => [token];
-
-  @override
   String toString() => 'LoadTransactionPageEvent {token: $token}  ';
 }
