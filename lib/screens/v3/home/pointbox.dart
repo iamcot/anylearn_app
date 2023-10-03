@@ -42,26 +42,31 @@ class HomePointBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           color: Colors.grey[100],
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item["title"],
-                  style: TextStyle(fontSize: 16, height: 1.2, fontWeight: FontWeight.w300),
-                ),
-                Text(
-                  item["value"].toString(),
-                  style: TextStyle(fontSize: 18, height: 1.5, fontWeight: FontWeight.w500,
-                  overflow: TextOverflow.ellipsis),
-                ),
-              ],
-            )),
-            Icon(item["icon"], color: item["color"], size: 30,)
-          ],
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).pushNamed(item["url"]);
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item["title"],
+                    style: TextStyle(fontSize: 16, height: 1.2, fontWeight: FontWeight.w300),
+                  ),
+                  Text(
+                    item["value"].toString(),
+                    style: TextStyle(fontSize: 18, height: 1.5, fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis),
+                  ),
+                ],
+              )),
+              Icon(item["icon"], color: item["color"], size: 30,)
+            ],
+          ),
         ));
   }
 }
