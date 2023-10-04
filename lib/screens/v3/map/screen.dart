@@ -11,7 +11,7 @@ class MapScreen extends StatefulWidget {
   final subtype;
 
   MapScreen({Key? key, subtype})
-      : subtype = subtype ?? {"type": "offline", "title": "Hệ K12", "image": "", "icon": Icons.school_outlined},
+      : subtype = subtype ?? {"type": "all", "title": "Tìm trường gần tôi", "image": "", "icon": Icons.school_outlined},
         super(key: key);
 
   @override

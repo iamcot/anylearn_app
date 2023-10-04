@@ -1,4 +1,4 @@
-import 'package:anylearn/dto/user_dto.dart';
+import '../../../dto/user_dto.dart';
 
 import 'articles.dart';
 import 'ask.dart';
@@ -35,7 +35,7 @@ class _V3HomeBody extends State<V3HomeBody> {
     return widget.user.token != ''
       ? ListView(
           children: [
-            HomeSubtype(user: widget.user),
+            HomeSubtype(user: widget.user, enableIosTrans: widget.homeData.enableIosTrans,),
             HomePointBox(
               anyPoint: widget.homeData.pointBox.anypoint.toString(),
               ratingItem: widget.homeData.pointBox.ratingClass,

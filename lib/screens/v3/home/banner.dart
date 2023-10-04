@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:anylearn/widgets/promotions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../customs/custom_cached_image.dart';
@@ -20,7 +19,7 @@ class HomeBanner extends StatelessWidget {
     width = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.only(bottom: 10, top: 20),
-      height: width,
+      height: promotions.length > 0 ?  width : width * 2/3,
       child: Stack(
         children: [
           CustomCarousel(
@@ -30,7 +29,7 @@ class HomeBanner extends StatelessWidget {
             width: width,
             dividerIndent: 0,
           ),
-          Container(
+          promotions.length == 0 ? Container() : Container(
             margin: EdgeInsets.only(top: width * 2 / 3),
             height: width / 3,
             child: CustomCarousel(
@@ -53,7 +52,7 @@ class HomeBanner extends StatelessWidget {
       height: height,
       child: Stack(
         children: [
-          Container(
+          promotions.length == 0 ? Container() : Container(
             width: double.infinity,
             height: width,
             decoration: new BoxDecoration(

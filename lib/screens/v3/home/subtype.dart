@@ -8,16 +8,17 @@ import '../subtype/screen.dart';
 class HomeSubtype extends StatelessWidget {
   late double width;
   final UserDTO user;
+  final enableIosTrans;
 
   final List<Map<String, dynamic>> subtypes = [
-    {"type": "offline", "title": "Hệ K12", "image": "", "icon": Icons.school_outlined},
-    {"type": "extra", "title": "Ngoại khóa", "image": "", "icon": Icons.sports_baseball_outlined},
-    {"type": "online", "title": "Học Online", "image": "", "icon": Icons.broadcast_on_home_rounded},
-    {"type": "digital", "title": "Ứng dụng", "image": "", "icon": Icons.code},
-    {"type": "video", "title": "Học Video", "image": "", "icon": Icons.ondemand_video_outlined},
+    {"type": "offline", "title": "Hệ K12", "image": "", "icon": Icons.school_outlined, "checkIos": false},
+    {"type": "extra", "title": "Ngoại khóa", "image": "", "icon": Icons.sports_baseball_outlined, "checkIos": false},
+    {"type": "online", "title": "Học Online", "image": "", "icon": Icons.broadcast_on_home_rounded, "checkIos": false},
+    {"type": "digital", "title": "Ứng dụng", "image": "", "icon": Icons.code, "checkIos": true},
+    {"type": "video", "title": "Học Video", "image": "", "icon": Icons.ondemand_video_outlined, "checkIos": true},
   ];
 
-  HomeSubtype({Key? key, required this.user}) : super(key: key);
+  HomeSubtype({Key? key, required this.user, this.enableIosTrans = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +38,15 @@ class HomeSubtype extends StatelessWidget {
   Widget _itemSlider(BuildContext context, dynamic item, double cardHeight) {
     final boxWidth = width;
     final imageWH = width - 25.0;
+    if (item["checkIos"] && !enableIosTrans) {
+      return Container();
+    }
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => SubtypeScreen(
                   user: user,
-                  subtype: item,                  
+                  subtype: item,
                 )));
       },
       child: Container(

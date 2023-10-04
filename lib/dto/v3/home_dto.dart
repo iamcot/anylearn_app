@@ -21,6 +21,8 @@ class HomeV3DTO extends Equatable {
   final classes;
   final articles;
   final categories;
+  final enableIosTrans;
+
 
   HomeV3DTO({
     this.configs,
@@ -35,6 +37,7 @@ class HomeV3DTO extends Equatable {
     this.articles,
     this.promotions,
     this.categories,
+    this.enableIosTrans,
   });
 
   @override
@@ -50,13 +53,15 @@ class HomeV3DTO extends Equatable {
     classes,
     articles,
     promotions,
-    categories
+    categories,
+    enableIosTrans
   ];
 
   static HomeV3DTO fromJson(dynamic json) {
     return json == ""
       ? HomeV3DTO()
       : HomeV3DTO(
+        enableIosTrans: json['ios_transaction'] == null ? false : (json['ios_transaction'] == 1),
         configs: json['configs'] == null ? HomeConfigDTO() : HomeConfigDTO.fromJson(json['configs']),
         pointBox: json['pointBox'] == null
           ? PointBoxDTO()

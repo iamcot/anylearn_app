@@ -56,19 +56,19 @@ class HomeArticles extends StatelessWidget {
                                   child: _articleImg(article),
                                 ),
                                 Container(
-                                    height: 40,
-                                    margin: EdgeInsets.only(top: 15),
+                                    height: 35,
+                                    margin: EdgeInsets.only(top: 10),
                                     child: Text(
                                       article.title,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                                     )),
                                 article.shortContent == null
                                     ? SizedBox(height: 0)
                                     : Container(
-                                      height: 40,
-                                        margin: EdgeInsets.only(top: 5, bottom: 15),
+                                      height: 45,
+                                        margin: EdgeInsets.only(top: 5, bottom: 10),
                                         child: Text(
                                           article.shortContent,
                                           maxLines: 2,

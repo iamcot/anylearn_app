@@ -7,7 +7,7 @@ class HomeFeatures extends StatelessWidget {
   late double width;
 
   final List<Map<String, dynamic>> features = [
-    {"title": "Bản đồ", "icon": Icons.map_outlined, "route": "/map"},
+    // {"title": "Bản đồ", "icon": Icons.map_outlined, "route": "/map"},
     {"title": "anyLEARN Foundation", "icon": MdiIcons.piggyBankOutline, "route": "/foundation"},
     {"title": "Bạn bè", "icon": MdiIcons.accountGroup, "route": "/account/friends"},
     {"title": "Lịch học", "icon": MdiIcons.calendarClock, "route": "/account/calendar"},

@@ -35,6 +35,9 @@ class HomePointBox extends StatelessWidget {
   Widget _itemSlider(BuildContext context, dynamic item, double cardHeight) {
     // final screenW = MediaQuery.of(context).size.width;
     final boxWidth = item["title"] == "anyPoint"  ? width * 0.9 : width + 50;
+    if (item["title"] != "anyPoint" && item["value"] == "") {
+      return Container();
+    }
     return Container(
         width: boxWidth,
         padding: EdgeInsets.only(top: 5, left: 10, right: 10),
