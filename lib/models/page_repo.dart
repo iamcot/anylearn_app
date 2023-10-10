@@ -91,6 +91,10 @@ class PageRepository {
     return data;
   }
 
+  Future<bool> imageValidation(String url) async {
+    return await configService.imageValidation(url);
+  }
+
   Future<QuoteDTO> getQuote(String url) async {
     return await quoteService.getQuote(url);
   }
@@ -101,10 +105,6 @@ class PageRepository {
 
   Future<DocDTO> guide(String key) async {
     return configService.doc(key);
-  }
-
-  Future<bool> imageValidation(String url) async {
-    return await configService.imageValidation(url);
   }
 
   Future<bool> saveFeedback(String token, String content, File file) async {
@@ -174,10 +174,9 @@ class PageRepository {
   Future<List<String>> searchTags() async {
     return await configService.searchTags();
   }
-
-
-  Future<SearchSuggestDTO> searchSuggestion() async {
-    return await configService.searchSuggestion();
+  
+  Future<SearchSuggestDTO> searchSuggestion(String token) async {
+    return await configService.searchSuggestion(token);
   }
 
   Future<List<ItemDTO>> suggestFromKeyword(String screen, String query) async {

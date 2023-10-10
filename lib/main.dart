@@ -1,3 +1,4 @@
+import 'package:anylearn/blocs/listing/listing_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -75,6 +76,7 @@ void main() async {
               BlocProvider<SearchBloc>(create: (context) => SearchBloc(pageRepository: pageRepo)),
               BlocProvider<NotifBloc>(create: (context) => NotifBloc(userRepository: userRepo)),
               BlocProvider<ArticleBloc>(create: (context) => ArticleBloc(pageRepository: pageRepo)),
+              BlocProvider<ListingBloc>(create: (context) => ListingBloc(pageRepository: pageRepo)),
             ],
             child: MyApp(),
           )),

@@ -25,42 +25,6 @@ class ConfigServices extends BaseService {
 
   ConfigServices({required this.config, required this.httpClient});
 
-  Future<HomeV3DTO> homeV3Layout(String token, String role) async {
-    //final json = await rootBundle.loadString('assets/mock/homedatav3.json');
-    final api = token == '' ? '/v3/home' : '/v3/auth/home';
-    final url = buildUrl(appConfig: config, endPoint: api, token: token);
-    final json = await get(httpClient, url);
-    return HomeV3DTO.fromJson(json);
-  }
-
-  Future<SubtypeDTO> subtypeData(String category, String token) async { 
-    //final json = await rootBundle.loadString('assets/mock/subtypek12.json');
-    final api = token == '' ? '/v3/main-subtypes/' : '/v3/auth/main-subtypes/';
-    final url = buildUrl(appConfig: config, endPoint: api + category, token: token);
-    final json = await get(httpClient, url);
-    print(url);
-    return SubtypeDTO.fromJson(json);
-  }
-
-  Future<PartnerDTO> dataPartner(int partnerId) async {
-    final url = buildUrl(appConfig: config, endPoint: '/v3/partner/$partnerId');
-    final json = await get(httpClient, url);
-    print(url);
-    return PartnerDTO.fromJson(json);
-  }
-
-  Future<ListingDTO> dataListing(String query) async {
-    final url = buildUrl(appConfig: config, endPoint: '/v3/listing', query: query);
-    final json = await get(httpClient, url);
-    print(url);
-    return ListingDTO.fromJson(json);
-  } 
-
-  Future<bool> imageValidation(String url) async {
-    final response = await httpClient.get(Uri.parse(url));
-    return response.statusCode == 200 ? true : false;
-  }
-
   Future<List<CategoryPagingDTO>> category(int catId, page, pageSize) async {
     final url = buildUrl(appConfig: config, endPoint: "/config/category/$catId");
     final json = await get(httpClient, url);
@@ -154,10 +118,48 @@ class ConfigServices extends BaseService {
     return json == null ? [] : List<String>.from(json);
   }
 
-  Future<SearchSuggestDTO> searchSuggestion() async {
-    //final url = buildUrl(appConfig: config, endPoint: "/v3/search");
-    //final json = await get(httpClient, url);
-    final json = jsonDecode(await rootBundle.loadString('assets/mock/searchsuggestv3.json'));
+  Future<SearchSuggestDTO> searchSuggestion(String token) async {
+    //final json = jsonDecode(await rootBundle.loadString('assets/mock/searchsuggestv3.json'));
+    final api  = token == '' ? '/v3/search' : '/v3/auth/search';
+    final url = buildUrl(appConfig: config, endPoint: api, token: token);
+    final json = await get(httpClient, url);
     return SearchSuggestDTO.fromJson(json);
   }
+
+  Future<HomeV3DTO> homeV3Layout(String token, String role) async {
+    //final json = await rootBundle.loadString('assets/mock/homedatav3.json');
+    final api = token == '' ? '/v3/home' : '/v3/auth/home';
+    final url = buildUrl(appConfig: config, endPoint: api, token: token);
+    final json = await get(httpClient, url);
+    return HomeV3DTO.fromJson(json);
+  }
+
+  Future<SubtypeDTO> subtypeData(String category, String token) async { 
+    //final json = await rootBundle.loadString('assets/mock/subtypek12.json');
+    final api = token == '' ? '/v3/main-subtypes/' : '/v3/auth/main-subtypes/';
+    final url = buildUrl(appConfig: config, endPoint: api + category, token: token);
+    final json = await get(httpClient, url);
+    print(url);
+    return SubtypeDTO.fromJson(json);
+  }
+
+  Future<PartnerDTO> dataPartner(int partnerId) async {
+    final url = buildUrl(appConfig: config, endPoint: '/v3/partner/$partnerId');
+    final json = await get(httpClient, url);
+    print(url);
+    return PartnerDTO.fromJson(json);
+  }
+
+  Future<ListingDTO> dataListing(String query) async {
+    final url = buildUrl(appConfig: config, endPoint: '/v3/listing', query: query);
+    final json = await get(httpClient, url);
+    print(url);
+    return ListingDTO.fromJson(json);
+  } 
+
+  Future<bool> imageValidation(String url) async {
+    final response = await httpClient.get(Uri.parse(url));
+    return response.statusCode == 200 ? true : false;
+  }
+
 }

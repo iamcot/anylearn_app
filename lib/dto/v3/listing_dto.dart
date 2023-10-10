@@ -10,7 +10,7 @@ class ListingDTO extends Equatable {
     this.numPage,
     this.currentPage,
     this.searchResults,
-  });
+  }); 
 
   @override 
   List<Object?> get props => [numPage, currentPage, searchResults];

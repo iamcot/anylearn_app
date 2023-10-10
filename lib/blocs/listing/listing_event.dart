@@ -1,8 +1,8 @@
 part of listingbloc;
 
 abstract class ListingEvent {
-  final ListingRouteArguments args;
-  ListingEvent({required this.args});
+  final ListingRouteArguments? args;
+  ListingEvent({this.args});
 }
 
 class ListingLoadEvent extends ListingEvent {
@@ -10,10 +10,8 @@ class ListingLoadEvent extends ListingEvent {
 }
 
 class ListingFilterEvent extends ListingEvent {
-  ListingFilterEvent({required args}) : super(args: args);
+  final String sort;
+  ListingFilterEvent({required this.sort});
 }
 
-class ListingPaginationEvent extends ListingEvent {
-  ListingPaginationEvent({required args}) : super(args: args);
-}
-
+class ListingLoadMoreEvent extends ListingEvent {}

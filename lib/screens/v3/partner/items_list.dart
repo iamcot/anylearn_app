@@ -53,8 +53,7 @@ class ItemsList extends StatelessWidget {
                   ),
                   
                 ],
-              ),
-              
+              ),            
             ),
             Container(
               padding: EdgeInsets.only(left: 10),
@@ -67,6 +66,5 @@ class ItemsList extends StatelessWidget {
         ),
       ),
     );
-
   }
 }

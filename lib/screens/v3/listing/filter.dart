@@ -1,52 +1,48 @@
-
-import 'package:anylearn/blocs/listing/listing_bloc.dart';
-import 'package:anylearn/screens/v3/listing/args.dart';
 import 'package:flutter/material.dart';
 
-class ListingFilter extends StatelessWidget {
-  final ListingBloc bloc;
-  final ListingRouteArguments args;
-  final List<Map<String, dynamic>> filters = [
+class ListingFilter extends StatelessWidget implements PreferredSizeWidget {
+  final Function callback;
+  final List<Map<String, dynamic>> data = [
     {'filter': 'Hot', 'value': 'hot'},
     {'filter': 'New', 'value': 'date'},
     {'filter': 'Price', 'value': 'price'},
   ];
+  static const double height = 55; 
 
-  ListingFilter({Key? key, required this.bloc, required this.args}) : super(key: key);
+  ListingFilter({Key? key, required this.callback}) : super(key: key);
+
+  @override 
+  Size get preferredSize => Size.fromHeight(height);
   
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55,
       //color: Colors.amber.shade100,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.fromLTRB(20, 5, 20, 15),
+      height: height,
       child: Row(
         children: [
           ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            itemCount: filters.length,
+            itemCount: data.length,
             itemBuilder: (context, index) {
-              //return Text('123');
               return Container(
                 margin: EdgeInsets.only(right: 10),
                 child: FilledButton(
                   child: Text(
-                    filters[index]['filter'], 
+                    data[index]['filter'], 
                     style: TextStyle(
-                      color: Colors.grey.shade700,            
+                      color: Colors.grey.shade800,            
                       fontWeight: FontWeight.normal,
                       fontSize: 16,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey.shade200,
-                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   ), 
-                  onPressed: () {
-                    args.sort = filters[index]['value'];
-                    bloc..add(ListingFilterEvent(args: args));
-                  }
+                  onPressed: () => callback(context, data[index]['value']),
                 ),
               );
             },

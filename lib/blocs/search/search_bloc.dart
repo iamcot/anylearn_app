@@ -43,10 +43,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void _onSearchTagsEvent(SearchTagsEvent event, Emitter<SearchState> emit) async {
-    // emit(SearchLoadingState());
     try {
-      final result = await pageRepository.searchSuggestion();
-      print(result);
+      final result = await pageRepository.searchSuggestion(event.token);
       return emit(SearchTagsSuccessState(suggestDTO: result));
     } catch (e, trace) {
       print(trace);

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../customs/custom_scroll_physical.dart';
-
 class CustomCarousel extends StatelessWidget {
   CustomCarousel({
     required this.items,

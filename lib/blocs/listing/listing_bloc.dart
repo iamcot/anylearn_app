@@ -15,14 +15,13 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
   ListingBloc({required this.pageRepository}) : super(ListingInitState()) {
     on<ListingLoadEvent>(_onListingLoadEvent);
     on<ListingFilterEvent>(_onListingFilterEvent);
-    on<ListingPaginationEvent>(_onListingPaginationEvent);
+    on<ListingLoadMoreEvent>(_onListingLoadMoreEvent);
   }
 
   Future<void> _onListingLoadEvent(ListingLoadEvent event, Emitter<ListingState> emit) async {     
     try {
-      //print('Listing: ${event.args}');
       final data = await pageRepository.dataListing(event.args.toString());   
-      return emit(ListingLoadSuccessState(data: data, hasReached: data.currentPage == data.numPage));
+      return emit(ListingLoadSuccessState(data: data, args: event.args));
     } catch (error) {   
       print('Listing Error: $error');
       emit(ListingLoadFailState());
@@ -31,37 +30,41 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
 
   Future<void> _onListingFilterEvent(ListingFilterEvent event, Emitter<ListingState> emit) async {     
     try {
-      event.args.sortBy = state.sort == event.args.sort ? !state.sortBy : true;   
-      final data = await pageRepository.dataListing(event.args.toString());
-      //print('Filter: ${event.args}'); 
-      return emit(ListingLoadSuccessState(data:data, sort: event.args.sort, sortBy: event.args.sortBy));
+      if (state.args!.sort == event.sort) {
+        state.args!.sortBy = !state.args!.sortBy;
+      } else {
+        state.args!.sort = event.sort;
+        state.args!.sortBy = true;
+      } 
+
+      state.args!.page = 1;
+      final data = await pageRepository.dataListing(state.args.toString());
+      return emit(ListingLoadSuccessState(data: data, args: state.args, isRerender: !state.isRerender));
+
     } catch (error) {   
       print('Listing Error: $error');
       return emit(ListingLoadFailState());
     }    
   }
 
-  Future<void> _onListingPaginationEvent(ListingPaginationEvent event, Emitter<ListingState> emit) async {     
+  Future<void> _onListingLoadMoreEvent(ListingLoadMoreEvent event, Emitter<ListingState> emit) async {     
     try {
-      if (state.hasReached) return;
+      if (state.hasReachedMax) return;
+      state.args!.page++;
 
-      final data = await pageRepository.dataListing(event.args.toString()); 
+      final data = await pageRepository.dataListing(state.args.toString()); 
       final next = ListingDTO(
         numPage: data.numPage,
         currentPage: data.currentPage,
-        searchResults: List.of(state.data!.searchResults)..addAll(data.searchResults),
+        searchResults:  List.of(state.data!.searchResults)..addAll(data.searchResults),
       );
 
-      //print('Pagination: ${event.args}');
-      return emit(ListingLoadSuccessState(
-        data: next, 
-        sort: event.args.sort,
-        sortBy: event.args.sortBy,
-        hasReached: event.args.page > next.numPage
-      ));  
+      return emit(ListingLoadSuccessState(data: next, args: state.args!, isRerender: state.isRerender));  
+
     } catch (error) {   
       print('Listing Error: $error');
       return emit(ListingLoadFailState());
     }    
   }
+  
 }

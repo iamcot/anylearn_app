@@ -14,57 +14,49 @@ class ListingCardItem extends StatelessWidget {
     return Row(children: [
       Expanded(
         child: Container(
-          height: width + 80 ,
+          height: width + 75 ,
           child: ListView.builder(
             physics: ScrollPhysics(),
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemCount: data.items.length,
-            itemBuilder: (context, index) => _itemBuilder(data.items[index], width),
+            itemBuilder: (context, index) => _itemBuilder(context, data.items[index], width),
           )
         ),
       ),
     ]);
   }
 
-  Widget _itemBuilder(ItemDTO item, double width) {
+  Widget _itemBuilder(BuildContext context, ItemDTO item, double width) {
     final f = new NumberFormat("###,###,###", "vi_VN");
     return Container(
       margin: EdgeInsets.only(right: 15),
       width: width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: CachedNetworkImage(
-              imageUrl: item.image, 
-              fit: BoxFit.fill, 
-              width: width, 
-              height: width - 10
+      child: InkWell(
+        onTap: () => Navigator.of(context).pushNamed("/pdp", arguments: item.id),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: CachedNetworkImage(
+                imageUrl: item.image, 
+                fit: BoxFit.cover, 
+                width: width, 
+                height: width - 5,
+              ),
             ),
-          ),
-
-          SizedBox(height: 10),
-          Text(
-            '${f.format(item.price)}',        
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,     
-              overflow: TextOverflow.ellipsis,   
+      
+            SizedBox(height: 10),
+            Text(
+              '${f.format(item.price)}',        
+              style: Theme.of(context).textTheme.titleMedium,
             ),
-          ),
-
-          SizedBox(height: 5),
-          Text(
-            item.title,
-            maxLines: 2,
-            style: TextStyle(
-              fontSize: 16,
-              overflow: TextOverflow.ellipsis,     
-            ),
-          ),
-        ],
+      
+            SizedBox(height: 5),
+            Text(item.title, maxLines: 2),
+          ],
+        ),
       ),
     );
   }

@@ -1,21 +1,31 @@
+import 'package:anylearn/blocs/listing/listing_bloc.dart';
+import 'package:anylearn/blocs/search/search_bloc.dart';
+import 'package:anylearn/dto/v3/home_dto.dart' show CategoryDTO;
+import 'package:anylearn/screens/loading.dart';
 import 'package:anylearn/screens/v3/listing/args.dart';
+import 'package:anylearn/screens/v3/listing/filter.dart';
+import 'package:anylearn/screens/v3/listing/screen.dart';
+import 'package:anylearn/screens/v3/search/screen.dart';
+import 'package:anylearn/themes/search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocs/search/search_bloc.dart';
-import '../dto/item_dto.dart';
-import '../screens/v3/search/filter_widget.dart';
-import 'custom_cached_image.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  final screen;
-
   // final sugestion = tags ;
   // final SearchUserEvent  _tags = SearchEvent();
-  CustomSearchDelegate({required this.screen});
+
+  final String token;
+  final String screen;
+
+  final _hasFilter = ValueNotifier<bool>(false);
+  ListingRouteArguments _listingArgs = ListingRouteArguments();
+
+  CustomSearchDelegate({required this.screen, this.token = ''});
 
   @override
   String get searchFieldLabel {
+     return "Hôm nay bạn muốn học gì?".tr();
     // if (screen == "school") {
     //   return "Tìm Trường Học...".tr();
     // } else if (screen == "teacher") {
@@ -23,25 +33,26 @@ class CustomSearchDelegate extends SearchDelegate {
     // } else if (screen == "product") {
     //   return "Tìm sản phẩm...".tr();
     // }
-    return "Tìm kiếm...".tr();
+  }
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return searchTheme();
   }
 
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(
+      if (query.isNotEmpty) IconButton(
         icon: Icon(Icons.clear),
         onPressed: () {
           query = '';
           showSuggestions(context);
-        },
+        }
       ),
       IconButton(
         icon: Icon(Icons.search),
-        onPressed: () => Navigator
-          .of(context)
-          .pushNamed('/listing', arguments: ListingRouteArguments(search: query)),
-        // onPressed: () => showResults(context),
+        onPressed: () => showResults(context),
       ),
     ];
   }
@@ -50,15 +61,25 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
+      onPressed: () => close(context, null),
     );
+  }
+
+  @override 
+  PreferredSizeWidget? buildBottom(BuildContext context) {
+    return _hasFilter.value 
+      ? ListingFilter(callback: listingOnFilterTap) 
+      : null;
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // if (screen == "school" || screen == "teacher") {
+    _hasFilter.value = true;
+    _listingArgs.search = _listingArgs.category.isEmpty ? query : '';
+
+    return ListingScreen(args: _listingArgs);
+   
+    /* if (screen == "school" || screen == "teacher") {
     //   BlocProvider.of<SearchBloc>(context)..add(SearchUserEvent(screen: screen, query: query));
     // } else {
     //   BlocProvider.of<SearchBloc>(context)..add(SearchItemEvent(screen: screen, query: query));
@@ -98,17 +119,62 @@ class CustomSearchDelegate extends SearchDelegate {
         }
         return Center(child: CircularProgressIndicator());
       },
-    );
+    );*/
   }
 
-  void searchOnFilterTap(BuildContext context, String _query) {
-    query = _query;
-    showResults(context);
+  @override
+  void showResults(BuildContext context) {
+    if (query.isEmpty && _listingArgs.category.isEmpty) return;
+    super.showResults(context);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if (query.isEmpty) {
+    _listingArgs = ListingRouteArguments();
+    _hasFilter.value = false;
+
+    return BlocBuilder(
+      bloc: BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent(token: token)),
+      builder: (context, state) {
+        if (state is SearchTagsSuccessState) {
+          final data = state.suggestDTO;
+          
+          return query.isEmpty 
+            ? SearchScreen(
+                suggestions: data,
+                tagCallback: searchOnFilterTap,
+                categoryCallback: searchOnCategoryTap,
+              ) 
+            : Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: data.lastSearch.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(data.lastSearch[index], style: Theme.of(context).textTheme.bodyMedium),
+                    leading: Icon(Icons.search, color: Colors.grey.shade700),
+                    minLeadingWidth: 0,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                    shape: Border(
+                      bottom: BorderSide(
+                        color:index == data.lastSearch.length - 1 
+                          ? Colors.white
+                          : Colors.black12
+                      ),
+                    ),
+                    onTap: () => searchOnFilterTap(context, data.lastSearch[index]),
+                  );
+                }
+              )
+            );
+        }
+
+        return LoadingScreen();
+      },
+    );
+    /*if (query.isEmpty) {
       BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent(screen: screen));
     } else {
       BlocProvider.of<SearchBloc>(context)..add(SearchItemEvent(screen: screen, query: query));
@@ -162,6 +228,24 @@ class CustomSearchDelegate extends SearchDelegate {
         }
         return CircularProgressIndicator();
       },
-    );
+    );*/
   }
+
+  void searchOnFilterTap(BuildContext context, String _query) {
+    query = _query;
+    showResults(context);
+  }
+
+  void searchOnCategoryTap(BuildContext context, CategoryDTO category) {
+    query = category.title;
+    _listingArgs.category = category.id.toString();
+    showResults(context);
+  }
+
+  void listingOnFilterTap(BuildContext context, String filter) {
+    //_listingArgs.sort = filter;
+    BlocProvider.of<ListingBloc>(context).add(ListingFilterEvent(sort: filter));
+    showResults(context);
+  }
+
 }

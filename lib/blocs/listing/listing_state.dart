@@ -1,18 +1,16 @@
 part of listingbloc;
 
 abstract class ListingState extends Equatable {
-  // Pagination
+  final ListingRouteArguments? args;
   final ListingDTO? data;
-  final bool hasReached; 
+  final bool isRerender;
 
-  // Filter
-  final String? sort;
-  final bool sortBy; 
-
-  ListingState({this.data, this.hasReached = false, this.sort, this.sortBy = false});
+  ListingState({this.args, this.data, this.isRerender = false});
 
   @override
-  List<Object?> get props => [data, hasReached, sort, sortBy];
+  List<Object?> get props => [args, data];
+
+  bool get hasReachedMax =>  data!.currentPage + 1 > data!.numPage; 
 }
 
 class ListingInitState extends ListingState {}
@@ -20,10 +18,7 @@ class ListingInitState extends ListingState {}
 class ListingLoadFailState extends ListingState {}
 
 class ListingLoadSuccessState extends ListingState {
-  ListingLoadSuccessState({data, hasReached = false, sort, sortBy = false}) 
-    : super(data: data, hasReached: hasReached, sort: sort, sortBy: sortBy);
-
-  @override
-  List<Object?> get props => [data, sort, sortBy, hasReached];
+  ListingLoadSuccessState({args, data, isRerender = false}) 
+    : super(args: args, data: data, isRerender: isRerender);
 }
 

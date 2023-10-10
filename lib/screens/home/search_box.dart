@@ -1,10 +1,6 @@
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
-
-import '../../dto/user_dto.dart';
 import 'package:flutter/material.dart';
-
 import '../../customs/custom_search_delegate.dart';
 
 class SearchBox extends StatefulWidget {

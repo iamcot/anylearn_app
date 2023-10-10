@@ -9,18 +9,15 @@ class ListingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const wPartner = 115.0;
-    const wCourses = 105.0; 
-
     return Container(
       color: Colors.white,
-      margin: EdgeInsets.only(bottom: 15),
+      margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),  
       child: Column(
         children: [   
-          ListingCardInfo(data: data, width: wPartner),
+          ListingCardInfo(data: data, width: 105.0),
           SizedBox(height: 20),
-          ListingCardItem(data: data, width: wCourses),         
+          ListingCardItem(data: data, width: 105.0),         
         ],
       ),
     );

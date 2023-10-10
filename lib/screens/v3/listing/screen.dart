@@ -1,44 +1,34 @@
-import 'package:anylearn/blocs/listing/listing_bloc.dart';
-import 'package:anylearn/dto/v3/listing_dto.dart';
-import 'package:anylearn/models/page_repo.dart';
 import 'package:anylearn/screens/loading.dart';
+import 'package:anylearn/blocs/listing/listing_bloc.dart';
 import 'package:anylearn/screens/v3/listing/args.dart';
-import 'package:anylearn/screens/v3/listing/body.dart';
-import 'package:anylearn/screens/v3/listing/filter.dart';
-import 'package:anylearn/screens/v3/listing/search_box.dart';
-import 'package:flutter/services.dart';
+import 'package:anylearn/screens/v3/listing/card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 class ListingScreen extends StatefulWidget {
-  const ListingScreen({Key? key}) : super(key: key);
+  final ListingRouteArguments? args;
+  const ListingScreen({Key? key, this.args}) : super(key: key);
 
   @override
   State<ListingScreen> createState() => _ListingScreenState();
 }
 
 class _ListingScreenState extends State<ListingScreen> {
-  final controller = ScrollController();
+  late final ScrollController _scrollController = ScrollController();
   late ListingBloc _bloc;
-
-  ListingRouteArguments? _args;
-  ListingDTO? data;
   
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final pageRepo = RepositoryProvider.of<PageRepository>(context);
-    _bloc = ListingBloc(pageRepository: pageRepo);
-    _args =  ModalRoute.of(context)!.settings.arguments as ListingRouteArguments;
+    _bloc = BlocProvider.of<ListingBloc>(context);
   }
 
   @override 
   void initState() {
-    super.initState();
-    controller.addListener(() {
-      if (controller.position.maxScrollExtent == controller.offset) {
-        _args!.page++;
-        _bloc..add(ListingPaginationEvent(args: _args!));
+    super.initState(); 
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent == _scrollController.offset) {
+        _bloc..add(ListingLoadMoreEvent());
       }
     });
   }
@@ -46,48 +36,44 @@ class _ListingScreenState extends State<ListingScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ListingBloc, ListingState>(
-      bloc: _bloc..add(ListingLoadEvent(args: _args!)),
-      builder: (context, state) {
-        if (state is ListingLoadSuccessState) {   
-          data = state.data;  
-        }
-        return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarIconBrightness: Brightness.dark,
-              statusBarBrightness: Brightness.light,
-            ),
-            titleSpacing: 0,
-            title: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                children: [
-                  InkWell(
-                    child: Icon(Icons.arrow_back, color: Colors.grey.shade600),
-                    onTap: () => Navigator.of(context).pop(),
+      bloc: _bloc..add(ListingLoadEvent(args: widget.args)),
+      builder: (context, state) {   
+        if (state is ListingLoadSuccessState) {
+
+          final searchResults = state.data!.searchResults; 
+          if (searchResults.isEmpty) {
+            return Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."));
+          }
+          
+          return Container(
+            padding: EdgeInsets.only(top: 10),
+            color: Colors.grey.shade100,
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    key: ValueKey<bool>(state.isRerender),
+                    shrinkWrap: true,
+                    controller: _scrollController,
+                    itemCount: searchResults.length,
+                    itemBuilder: (context, index) {
+                      if(index == searchResults.length - 1 && !state.hasReachedMax) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return ListingCard(data: searchResults[index]);
+                    }
                   ),
-                  SizedBox(width: 10),
-                  Expanded(child: ListingSearchBox(search: _args!.search,)),
-                ],
-              ),
+                ),
+              ],
             ),
-            bottom: PreferredSize(
-              child: ListingFilter(bloc: _bloc, args: _args!), 
-              preferredSize: Size.fromHeight(55),
-            ),
-          ),
-          body: data == null 
-            ? LoadingScreen()
-            : ListingBody(
-              controller: controller, 
-              results: data!.searchResults, 
-              hasReached: state.hasReached,
-            ),
-        );
-      }
+          );
+        }
+
+        return LoadingScreen();
+      }  
     );
   }
+
 }
+
+

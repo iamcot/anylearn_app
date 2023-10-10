@@ -14,14 +14,15 @@ class SearchItemEvent extends SearchEvent {
   final String screen;
   final String query;
 
-  SearchItemEvent({required this.screen, this.query = ""});
+  SearchItemEvent({required this.screen , this.query = ""});
 }
 
 class SearchTagsEvent extends SearchEvent { 
   final String screen;
   final String query;
+  final String token;
 
-  SearchTagsEvent({required this.screen, this.query = ""});
+  SearchTagsEvent({this.screen = '', this.query = "", required this.token});
 }
 
 class SuggestFromKeywordEvent extends SearchEvent {

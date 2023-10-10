@@ -27,22 +27,16 @@ class _SearchBoxState extends State<SearchBox> {
       readOnly: true,
       autofocus: false,
       controller: searchController,
-      onTap: () {
-        showSearch(
-            context: context,
-            delegate: CustomSearchDelegate(
-              screen: "",
-            ),
-            query: searchController.text
-        );
-      },
-      onFieldSubmitted: (value) {
-        showSearch(
-          context: context,
-          delegate: CustomSearchDelegate(screen: ""),
-          query: value,
-        );
-      },
+      onTap: () => showSearch(
+        context: context,
+        delegate: CustomSearchDelegate(screen: '', token: widget.user.token),
+        query: searchController.text,
+      ),
+      onFieldSubmitted: (value) => showSearch(
+        context: context,
+        delegate: CustomSearchDelegate(screen: ''),
+        query: value,
+      ),
       onChanged: (value) {
         if (_debounce?.isActive ?? false) _debounce?.cancel();
         _debounce = Timer(const Duration(milliseconds: 2000), () async {
@@ -68,16 +62,9 @@ class _SearchBoxState extends State<SearchBox> {
               Icons.search,
               color: Colors.green[600],
             ),
-            onPressed: () {
-              showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
-            },
+            onPressed: () {},
           ),
-
-          // onPressed: () {
-          //   showSearch(context: context, delegate: CustomSearchDelegate(screen: ""), query: searchController.text);
-          // },
-          // ),
-          ),
+      ),
     );
   }
 }
