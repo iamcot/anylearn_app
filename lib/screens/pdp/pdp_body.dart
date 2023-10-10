@@ -185,11 +185,12 @@ class _PdpBody extends State<PdpBody> {
                     margin: EdgeInsets.only(top: 15),
                     child: Row(
                       children: <Widget>[
-                        (Platform.isIOS && !widget.data.enableIosTrans)
-                            ? SizedBox(
-                                height: 0,
-                              )
-                            : Expanded(
+                        // (Platform.isIOS && !widget.data.enableIosTrans)
+                        //     ? SizedBox(
+                        //         height: 0,
+                        //       )
+                        //     : 
+                            Expanded(
                                 child: ElevatedButton(
                                   style: ButtonStyle(
                                       backgroundColor: MaterialStateProperty.all<Color>((Colors.green[600])!),
@@ -221,41 +222,43 @@ class _PdpBody extends State<PdpBody> {
                           child: BlocBuilder<PdpBloc, PdpState>(
                             bloc: widget.pdpBloc,
                             builder: (context, state) {
-                              return (Platform.isIOS && !widget.data.enableIosTrans)
-                                  ? Expanded(
-                                      child: ElevatedButton(
-                                      onPressed: () {
-                                        if (user.token != "") {
-                                          widget.pdpBloc
-                                            ..add(
-                                                PdpFavoriteTouchEvent(itemId: widget.data.item.id, token: user.token));
-                                        } else {
-                                          Navigator.of(context).pushNamed('/login',
-                                              arguments:
-                                                  LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                                        }
-                                      },
-                                      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                        Icon(
-                                          widget.data.isFavorite == true ? Icons.favorite : Icons.favorite_border,
-                                          color: widget.data.isFavorite != true ? Colors.red : Colors.white,
-                                        ),
-                                        Text(
-                                          " Quan tâm",
-                                          style: TextStyle(
-                                              color: widget.data.isFavorite != true ? Colors.red : Colors.white),
-                                        ).tr()
-                                      ]),
-                                      style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all<Color>(
-                                            widget.data.isFavorite == true ? Colors.red : Colors.white,
-                                          ),
-                                          shape:
-                                              MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(18),
-                                          ))),
-                                    ))
-                                  : IconButton(
+                              return 
+                              // (Platform.isIOS && !widget.data.enableIosTrans)
+                              //     ? Expanded(
+                              //         child: ElevatedButton(
+                              //         onPressed: () {
+                              //           if (user.token != "") {
+                              //             widget.pdpBloc
+                              //               ..add(
+                              //                   PdpFavoriteTouchEvent(itemId: widget.data.item.id, token: user.token));
+                              //           } else {
+                              //             Navigator.of(context).pushNamed('/login',
+                              //                 arguments:
+                              //                     LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                              //           }
+                              //         },
+                              //         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                              //           Icon(
+                              //             widget.data.isFavorite == true ? Icons.favorite : Icons.favorite_border,
+                              //             color: widget.data.isFavorite != true ? Colors.red : Colors.white,
+                              //           ),
+                              //           Text(
+                              //             " Quan tâm",
+                              //             style: TextStyle(
+                              //                 color: widget.data.isFavorite != true ? Colors.red : Colors.white),
+                              //           ).tr()
+                              //         ]),
+                              //         style: ButtonStyle(
+                              //             backgroundColor: MaterialStateProperty.all<Color>(
+                              //               widget.data.isFavorite == true ? Colors.red : Colors.white,
+                              //             ),
+                              //             shape:
+                              //                 MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                              //               borderRadius: BorderRadius.circular(18),
+                              //             ))),
+                              //       ))
+                              //     : 
+                                  IconButton(
                                       onPressed: () {
                                         if (user.token != "") {
                                           widget.pdpBloc

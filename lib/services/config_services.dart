@@ -33,7 +33,6 @@ class ConfigServices extends BaseService {
 
   Future<TransactionConfigDTO> transactionConfigs(String type, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/config/transaction/$type", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return TransactionConfigDTO.fromJson(json);
   }
@@ -82,14 +81,12 @@ class ConfigServices extends BaseService {
 
   Future<List<UserDTO>> searchUser(String screen, String query) async {
     final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=user&s=${screen}&q=$query");
-    print(url);
     final json = await get(httpClient, url);
     return List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
   }
 
   Future<List<ItemDTO>> searchItem(String screen, String query) async {
     final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=item&s=${screen}&q=$query");
-    print(url);
     final json = await get(httpClient, url);
     return List<ItemDTO>.from(json?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList();
   }

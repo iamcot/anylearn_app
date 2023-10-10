@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../blocs/account/account_bloc.dart';
 import '../dto/account_calendar_dto.dart';
@@ -56,9 +55,11 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                 height: 120.0,
                 child: Image.asset("assets/banners/schedule_banner.jpg", fit: BoxFit.cover),
               ),
-              TabBar(controller: _tabController, tabs: [
+              TabBar(
+                controller: _tabController, 
+                tabs: [
                 Tab(child: Text("Đã qua").tr()),
-                Tab(child: Text("Sắp diễn ra").tr()),
+                Tab(child: Text("Đang mở").tr()),
                 Tab(child: Text("Quan tâm").tr()),
               ]),
             ],

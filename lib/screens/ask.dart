@@ -19,13 +19,11 @@ class AskScreen extends StatefulWidget {
 
 class _AskScreen extends State<AskScreen> {
   ArticleHomeDTO? data;
-  late AuthBloc _authBloc;
   late ArticleBloc _articleBloc;
 
   @override
   void didChangeDependencies() {
     _articleBloc = BlocProvider.of<ArticleBloc>(context)..add(ArticleIndexEvent());
-    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     super.didChangeDependencies();
   }
 
@@ -56,8 +54,6 @@ class _AskScreen extends State<AskScreen> {
                     );
             }),
       ),
-      floatingActionButton: FloatingActionButtonHome(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
         BottomNav.SOCIAL_INDEX,
       ),

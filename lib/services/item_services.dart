@@ -69,7 +69,6 @@ class ItemService extends BaseService {
 
   Future<PdpDTO> getPDPData(int itemId, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/pdp/$itemId", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return PdpDTO.fromJson(json);
   }

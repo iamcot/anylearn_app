@@ -12,14 +12,14 @@ class UsersLoadingState extends UsersState {}
 
 class UsersSchoolSuccessState extends UsersState {
   final UsersDTO data;
-  UsersSchoolSuccessState({required this.data}) : assert(data != null);
+  UsersSchoolSuccessState({required this.data});
   @override
   List<Object> get props => [data];
 }
 
 class UsersTeacherSuccessState extends UsersState {
   final UsersDTO data;
-  UsersTeacherSuccessState({required this.data}) : assert(data != null);
+  UsersTeacherSuccessState({required this.data});
   @override
   List<Object> get props => [data];
 }

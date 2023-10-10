@@ -68,7 +68,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
    void _onSaveDepositEvent(SaveDepositEvent event, Emitter<TransactionState> emit) async {
      try {
-      final result = await transactionRepository.submitDeposit(event.amount, event.token, event.payment);
+      await transactionRepository.submitDeposit(event.amount, event.token, event.payment);
       emit(TransactionDepositeSaveSuccessState());
     } catch (error, trace) {
       print(error);
@@ -79,7 +79,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
   void _onSaveWithdrawEvent(SaveWithdrawEvent event, Emitter<TransactionState> emit) async {
     try {
-      final config = await transactionRepository.submitWithdraw(event.amount, event.token, event.bankInfo);
+      await transactionRepository.submitWithdraw(event.amount, event.token, event.bankInfo);
       emit(TransactionWithdrawSaveSuccessState());
     } catch (error, trace) {
       print(error);
@@ -90,7 +90,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
   void _onSaveExchangeEvent(SaveExchangeEvent event, Emitter<TransactionState> emit) async {
     try {
-      final config = await transactionRepository.submitExchange(event.amount, event.token);
+      await transactionRepository.submitExchange(event.amount, event.token);
       emit(TransactionExchangeSaveSuccessState());
     } catch (error, trace) {
       print(error);

@@ -63,9 +63,6 @@ class ArticlePagingDTO {
   ArticlePagingDTO({this.currentPage, required this.data, this.from, this.lastPage, this.perPage, this.to, this.total});
 
   @override
-  List<Object> get props => [currentPage, data, from, lastPage, perPage, to, total];
-
-  @override
   String toString() {
     return 'PagingDTO {currentPage: $currentPage, total: $total, perPage: $perPage}';
   }

@@ -1,16 +1,8 @@
-import 'package:anylearn/dto/login_callback.dart';
-import 'package:anylearn/main.dart';
+import '../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 class BottomNav extends StatelessWidget {
-  // static const HOME_INDEX = "/";
-  // static const SCHOOL_INDEX = "/school";
-  // static const TEACHER_INDEX = "/teacher";
-  // static const PROFILE_INDEX = "/profile";
-  // static const ASK_INDEX = "/ask";
-  // static const ACCOUNT_INDEX = "/account";
   static const HOME_INDEX = 0;
   static const SOCIAL_INDEX = 1;
   static const MYCLASS_INDEX = 2;
@@ -19,8 +11,8 @@ class BottomNav extends StatelessWidget {
 
   static Map<int, String> _routes = {
     HOME_INDEX: "/",
-    MYCLASS_INDEX: "/mycalendar",
-    SOCIAL_INDEX: "/social",
+    MYCLASS_INDEX: "/account/calendar",
+    SOCIAL_INDEX: "/ask",
     NOTI_INDEX: "/notification",
     ACCOUNT_INDEX: "/account",
   };
@@ -33,60 +25,6 @@ class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-        // BottomAppBar(
-        //   shape: CircularNotchedRectangle(),
-        //   child: Row(
-        //     mainAxisSize: MainAxisSize.min,
-        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //     children: [
-        //       Container(
-        //         width: 60.0,
-        //         child: Text(""),
-        //       ),
-        //       IconButton(
-        //           onPressed: () {
-        //             _navigate(context, SCHOOL_INDEX);
-        //           },
-        //           icon: Icon(
-        //             Icons.school,
-        //             color: route == SCHOOL_INDEX ? Colors.green[600] : Colors.grey[500],
-        //           )),
-        //       IconButton(
-        //           onPressed: () {
-        //             _navigate(context, TEACHER_INDEX);
-        //           },
-        //           icon: Icon(
-        //             Icons.supervised_user_circle,
-        //             color: route == TEACHER_INDEX ? Colors.green[600] : Colors.grey[500],
-        //           )),
-        //       IconButton(
-        //           onPressed: () {
-        //             if (user.token != "") {
-        //               Navigator.of(context).canPop()
-        //                   ? Navigator.of(context).popAndPushNamed("/profile", arguments: user.id)
-        //                   : Navigator.of(context).pushNamed("/profile", arguments: user.id);
-        //             } else {
-        //               Navigator.of(context).pushNamed("/login", arguments: LoginCallback(routeName: "/profile"));
-        //             }
-        //           },
-        //           icon: Icon(
-        //             Icons.account_circle,
-        //             color: route == PROFILE_INDEX ? Colors.green[600] : Colors.grey[500],
-        //           )),
-
-        //       FloatingActionButton.extended(
-        //           onPressed: () {
-        //             _navigate(context, ACCOUNT_INDEX);
-        //           },
-        //           icon: Icon(
-        //             Icons.account_circle_outlined,
-        //             color: route == ACCOUNT_INDEX ? Colors.green[600] : Colors.grey[500],
-        //           ),
-        //           label: Text("Tài khoản")),
-
-        //     ],
-        //   ),
-        // );
         BottomNavigationBar(
             type: BottomNavigationBarType.shifting,
             selectedItemColor: Colors.green[800],
@@ -97,7 +35,7 @@ class BottomNav extends StatelessWidget {
             selectedFontSize: 12.0,
             unselectedFontSize: 11.0,
             currentIndex: this.index,
-            onTap: (i) => _navigate(context, index),
+            onTap: (i) => _navigate(context, i),
             items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -139,6 +77,9 @@ class BottomNav extends StatelessWidget {
   }
 
   void _navigate(BuildContext context, int route) {
+    if (route == index) {
+      return;
+    }
     Navigator.of(context).canPop()
         ? Navigator.of(context).popAndPushNamed(_routes[route]!)
         : Navigator.of(context).pushNamed(_routes[route]!);

@@ -1,5 +1,5 @@
-import 'package:anylearn/dto/ask_thread_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
+import '../dto/ask_thread_dto.dart';
+import '../dto/user_dto.dart';
 import 'package:http/http.dart' as http;
 
 import '../app_config.dart';
@@ -20,7 +20,6 @@ class AskService extends BaseService {
 
   Future<AskThreadDTO> getThread(int askId, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/ask/" + askId.toString(), token: token);
-    print(url);
     final json = await get(httpClient, url);
     return AskThreadDTO.fromJson(json);
   }
@@ -37,14 +36,12 @@ class AskService extends BaseService {
 
   Future<bool> selectAnswer(int askId, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/ask/$askId/select", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return json['result'];
   }
 
   Future<bool> vote(int askId, String type, String token) async {
     final url = buildUrl(appConfig: config, endPoint: "/ask/$askId/vote/$type", token: token);
-    print(url);
     final json = await get(httpClient, url);
     return json['result'];
   }

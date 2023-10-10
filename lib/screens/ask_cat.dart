@@ -62,8 +62,6 @@ class _AskCatScreen extends State<AskCatScreen> {
                     );
             }),
       ),
-      floatingActionButton: FloatingActionButtonHome(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       bottomNavigationBar: BottomNav(
         BottomNav.SOCIAL_INDEX,
       ),

@@ -20,7 +20,7 @@ class PdpFavoriteTouchingState extends PdpState {}
 
 class PdpFavoriteTouchSuccessState extends PdpState {
   final bool isFav;
-  PdpFavoriteTouchSuccessState({required this.isFav}) : assert(isFav != null);
+  PdpFavoriteTouchSuccessState({required this.isFav});
   @override
   List<Object> get props => [isFav];
 }

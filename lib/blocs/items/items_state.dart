@@ -12,14 +12,14 @@ class ItemsLoadingState extends ItemsState {}
 
 class ItemsSchoolSuccessState extends ItemsState {
   final ItemsDTO data;
-  ItemsSchoolSuccessState({required this.data}) : assert(data != null);
+  ItemsSchoolSuccessState({required this.data});
   @override
   List<Object> get props => [data];
 }
 
 class ItemsTeacherSuccessState extends ItemsState {
   final ItemsDTO data;
-  ItemsTeacherSuccessState({required this.data}) : assert(data != null);
+  ItemsTeacherSuccessState({required this.data});
   @override
   List<Object> get props => [data];
 }
@@ -37,7 +37,7 @@ class CategoryLoadingState extends ItemsState {}
 
 class CategorySuccessState extends ItemsState {
   final List<CategoryPagingDTO> data;
-  CategorySuccessState({required this.data}) : assert(data != null);
+  CategorySuccessState({required this.data});
   @override
   List<Object> get props => [data];
 }
