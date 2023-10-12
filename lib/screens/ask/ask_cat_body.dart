@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../blocs/article/article_bloc.dart';
-import '../../blocs/article/article_blocs.dart';
 import '../../dto/article_dto.dart';
 import 'ask_list.dart';
 

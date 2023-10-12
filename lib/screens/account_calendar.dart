@@ -42,7 +42,6 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,

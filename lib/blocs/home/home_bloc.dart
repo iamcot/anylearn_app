@@ -54,9 +54,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       emit(GuideLoadingState());
       final doc = await pageRepository.guide(event.path);
-      if (doc != null) {
-        emit(GuideLoadSuccessState(doc: doc));
-      }
+      return emit(GuideLoadSuccessState(doc: doc));
     } catch (error) {
       emit(GuideFailState(error: error.toString()));
     }

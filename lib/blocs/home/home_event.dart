@@ -7,6 +7,7 @@ abstract class HomeEvent {
 class LoadHomeEvent extends HomeEvent {
   final UserDTO user;
   LoadHomeEvent({required this.user});
+  
   @override
   String toString() => 'LoadHomeEvent';
 }

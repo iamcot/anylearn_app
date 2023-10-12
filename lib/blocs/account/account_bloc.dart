@@ -101,8 +101,9 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     try {
       emit(AccMyCalendarLoadingState());
       final calendar = await userRepository.myCalendar(event.token);
-      emit(AccMyCalendarSuccessState(calendar: calendar));
-    } catch (error) {
+      return emit(AccMyCalendarSuccessState(calendar: calendar));
+    } catch (error, trace) {
+      print(trace);
       emit(AccountFailState(error: error.toString()));
     }
   } 

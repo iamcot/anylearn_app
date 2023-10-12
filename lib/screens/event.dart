@@ -7,7 +7,6 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/event/event_bloc.dart';
-import '../blocs/event/event_blocs.dart';
 import '../customs/feedback.dart';
 import '../dto/user_dto.dart';
 import '../models/page_repo.dart';

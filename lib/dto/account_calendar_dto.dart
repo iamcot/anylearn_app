@@ -13,7 +13,7 @@ class AccountCalendarDTO extends Equatable {
   List<Object> get props => [done, open, fav];
 
   static AccountCalendarDTO fromJson(json) {
-    return json == ""
+    return json == ''
         ? AccountCalendarDTO(done: [], open: [], fav: [])
         : AccountCalendarDTO(
             done: List<EventDTO>.from(json['done']?.map((e) => e == null ? null : EventDTO.fromJson(e))).toList(),

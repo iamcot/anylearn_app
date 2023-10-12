@@ -20,6 +20,7 @@ class EventDTO extends Equatable {
   final nolimitTime;
   final childId;
   final childName;
+  final itemCode;
 
   EventDTO({
     this.id,
@@ -41,26 +42,29 @@ class EventDTO extends Equatable {
     this.childId,
     this.childName,
     this.itemSubtype,
+    this.itemCode,
   });
 
   factory EventDTO.fromJson(Map<String, dynamic> json) {
     return EventDTO(
       id: json['id'],
       itemId: json['item_id'],
+      content: json['content'],
+      author: json['author'] ?? '',
+      date: json['date'],
       title: json['title'],
-      itemSubtype: json['item_subtype'],
       time: json['time'],
       timeEnd: json['time_end'],
-      image: json['image'],
-      date: json['date'],
-      author: json['author'],
-      content: json['content'],
-      userJoined: json['user_joined'],
       location: json['location'],
-      authorStatus: json['author_status'],
       scheduleContent: json['schedule_content'],
+      image: json['image'],
+      route: json['route'] ?? '',
+      userJoined: json['user_joined'],
+      authorStatus: json['author_status'],
+      itemSubtype: json['item_subtype'],
       childId: json['child_id'],
       childName: json['child_name'],
+      itemCode: json['item_code'] ?? '********',
       userRating: json['user_rating'] == null ? 0 : int.parse(json['user_rating']),
       nolimitTime: json['nolimit_time'] == null ? false : (json['nolimit_time'] == "1" ? true : false),
     );
@@ -68,21 +72,27 @@ class EventDTO extends Equatable {
 
   @override
   List<Object> get props => [
-        id,
-        title,
-        date,
-        time,
-        image,
-        author,
-        content,
-        userJoined,
-        location,
-        authorStatus,
-        itemId,
-        childId,
-        childName,
-        scheduleContent,
-      ];
+    id,
+    itemId,
+    content,
+    author,
+    date,
+    title,
+    time,
+    timeEnd,
+    location,
+    scheduleContent,
+    image,
+    route,
+    userJoined,
+    authorStatus,
+    userRating,
+    nolimitTime,
+    childId,
+    childName,
+    itemSubtype,
+    itemCode,
+  ];
 }
 
 class OnlineScheduleInfoDTO extends Equatable {

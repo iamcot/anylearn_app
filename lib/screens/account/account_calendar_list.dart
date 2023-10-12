@@ -5,8 +5,8 @@ import 'dart:math' as math;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,12 +19,16 @@ import '../rating_input.dart';
 
 class AccountCalendarList extends StatefulWidget {
   final List<EventDTO> events;
-  final isOpen;
   final AccountBloc accountBloc;
+  final isOpen;
 
-  const AccountCalendarList(
-      {key, required this.events, this.isOpen, required this.accountBloc})
-      : super(key: key);
+  const AccountCalendarList({
+    key, 
+    required this.events, 
+    required this.accountBloc,
+    this.isOpen, 
+  })
+  : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AccountCalendarList();
@@ -32,6 +36,7 @@ class AccountCalendarList extends StatefulWidget {
 
 class _AccountCalendarList extends State<AccountCalendarList>
     with TickerProviderStateMixin {
+
   late List<AnimationController> controllers;
 
   String timerString(AnimationController controller) {
@@ -142,7 +147,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
   }
 
   Widget _buildTrailing(EventDTO event) {
-    child: 
+    //child: 
     Text(context.locale.toString());
 
     if (!widget.isOpen) {
@@ -182,6 +187,15 @@ class _AccountCalendarList extends State<AccountCalendarList>
       final today = DateFormat("yyyy-MM-dd").format(DateTime.now());
       if (today == event.date || event.nolimitTime) {
         if (event.userJoined == null) {
+          // Btn 
+          if (event.itemSubtype == '') {            
+            return ElevatedButton(
+              onPressed: () => _dialogItemCode(context, event),
+              style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: 22)),
+              child: Text("Lấy mã", style: TextStyle(fontSize: 12, color: Colors.white)).tr()
+            );
+          } 
+
           Duration diffInSeconds = DateTime.parse(event.date + " " + event.time)
               .difference(DateTime.now());
           if (!diffInSeconds.isNegative &&
@@ -217,7 +231,6 @@ class _AccountCalendarList extends State<AccountCalendarList>
                 });
           } else if (diffInSeconds >= Duration(hours: 24)) {
             return Text("Chưa diễn ra").tr();
-
           } else {
             return BlocBuilder<AccountBloc, AccountState>(
               bloc: widget.accountBloc,
@@ -368,4 +381,63 @@ class _AccountCalendarList extends State<AccountCalendarList>
       ),
     );
   }
+
+  Future<void> _dialogItemCode(BuildContext context, EventDTO event) {
+    return showDialog(
+      context: context, 
+      builder: (BuildContext context) => SimpleDialog(
+        title: Text('Lấy mã kích hoạt', textAlign: TextAlign.center,),
+        children: [
+          SimpleDialogOption(
+            child: RichText(
+              textAlign: TextAlign.justify,
+              text: TextSpan(
+                text: 'Mã kích hoạt khóa học ',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey.shade800,
+                ),
+                children: [
+                  TextSpan(
+                    text: event.title, 
+                    style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                    recognizer: TapGestureRecognizer()..onTap = () {
+                      Navigator.of(context).pushNamed('/pdp', arguments: event.id);
+                    }
+                  ),
+                  TextSpan(text: ' của bạn là:'),
+                ]
+              ),
+            ),
+          ),
+          SimpleDialogOption(
+            child: Text(
+              event.itemCode, 
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize:  20,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              ),
+            ),
+          ),
+          SimpleDialogOption(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () async => await Clipboard.setData(ClipboardData(text: event.itemCode)), 
+                  child: Text('Sao chép', style: TextStyle(fontSize: 16)).tr()
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pushNamed('/guide', arguments: ''), 
+                  child: Text('Hướng dẫn', style: TextStyle(fontSize: 16,)).tr()),
+              ],
+            ),
+          )
+        ],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      ),
+    );
+  } 
 }
