@@ -1,4 +1,3 @@
-import 'package:anylearn/dto/item_dto.dart';
 import 'package:anylearn/screens/pdp/course_share.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

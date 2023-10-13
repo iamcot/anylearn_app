@@ -1,7 +1,5 @@
 import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:anylearn/dto/item_dto.dart';
-import 'package:anylearn/widgets/calendar_box.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 

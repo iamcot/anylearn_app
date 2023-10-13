@@ -1,9 +1,8 @@
 import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+//import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../dto/article_dto.dart';
 import '../../dto/const.dart';
@@ -64,7 +63,7 @@ class AskList extends StatelessWidget {
     );
   }
 
-  Widget _buildTypeIcon(ArticleDTO _data) {
+  /*Widget _buildTypeIcon(ArticleDTO _data) {
     if (_data.image != null) {
       return CachedNetworkImage(imageUrl: _data.image);
     }
@@ -90,7 +89,7 @@ class AskList extends StatelessWidget {
           size: 32.0,
         );
     }
-  }
+  }*/
 
    Widget _articleImg(ArticleDTO articleDTO) {
     if (articleDTO.type == MyConst.ASK_TYPE_VIDEO) {

@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../dto/user_dto.dart';
-import '../main.dart';
-import '../screens/webview.dart';
-import '../widgets/account_icon.dart';
-import '../widgets/notification_icon.dart';
-import '../widgets/search_icon.dart';
-import 'locale_icon.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;

@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:anylearn/customs/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../dto/users_dto.dart';
 import '../../widgets/rating.dart';
 import '../../widgets/sliver_banner.dart';
 import 'school_filter.dart';

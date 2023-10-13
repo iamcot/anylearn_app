@@ -22,7 +22,6 @@ import '../../widgets/text2lines.dart';
 import '../home/home_classes.dart';
 import '../item_rating.dart';
 import '../webview.dart';
-import 'course_confirm.dart';
 import 'share_dialog.dart';
 
 class PdpBody extends StatefulWidget {

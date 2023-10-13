@@ -78,7 +78,7 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
   }
 
   void _formEdit(BuildContext context, int id, String name, String dob) {
-    child:
+    //child:
     Text(context.locale.toString());
 
     _titleController.text = name;

@@ -37,7 +37,7 @@ class SubtypeDTO extends Equatable {
     vouchers,
   ];
 
-  factory SubtypeDTO.fromJson(Map<String, dynamic> json) {
+  factory SubtypeDTO.fromJson(dynamic json) {
     return json == null
       ? SubtypeDTO()
       : SubtypeDTO(

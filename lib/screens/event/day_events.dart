@@ -1,7 +1,6 @@
 import 'package:anylearn/dto/event_dto.dart';
 import 'package:anylearn/widgets/calendar_box.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class DayEvents extends StatelessWidget {

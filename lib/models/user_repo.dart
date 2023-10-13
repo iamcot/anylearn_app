@@ -92,10 +92,7 @@ class UserRepository {
 
   Future<String> toc() async {
     final docDTO = await configServices.doc(MyConst.GUIDE_TOC);
-    if (docDTO != null) {
-      return docDTO.content;
-    }
-    return "";
+    return docDTO.content;
   }
 
   Future<AccountCalendarDTO> myCalendar(String token) async {

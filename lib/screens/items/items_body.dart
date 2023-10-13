@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../dto/items_dto.dart';
 import '../../widgets/item_card.dart';
-import '../../widgets/sliver_banner.dart';
 import '../teacher/teacher_filter.dart';
 
 class ItemsBody extends StatefulWidget {

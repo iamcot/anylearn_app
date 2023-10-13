@@ -1,9 +1,6 @@
-import 'package:anylearn/widgets/bank_info.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
 import '../../dto/transaction_dto.dart';
 
 class WithdrawList extends StatelessWidget {

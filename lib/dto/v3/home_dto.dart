@@ -1,6 +1,5 @@
 import '../ask_dto.dart';
 import '../hot_items_dto.dart';
-import 'voucher_dto.dart';
 import 'package:equatable/equatable.dart';
 
 import '../article_dto.dart';

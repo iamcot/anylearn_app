@@ -24,7 +24,7 @@ class AccountBody extends StatefulWidget {
 class _AccountBody extends State<AccountBody> {
   @override
   Widget build(BuildContext context) {
-    var moneyFormat = new NumberFormat("###,###,###", "vi_VN");
+    //var moneyFormat = new NumberFormat("###,###,###", "vi_VN");
     return CustomScrollView(
       slivers: <Widget>[
         AccountAppBarWithImage(user: user),
@@ -204,8 +204,8 @@ class _AccountBody extends State<AccountBody> {
     );
   }
 
-  void _tabToCopy(String text) {
+  // void _tabToCopy(String text) {
     // Clipboard.setData(new ClipboardData(text: text));
     // Share.share(text);
-  }
+  // }
 }
