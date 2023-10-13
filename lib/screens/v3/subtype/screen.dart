@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:anylearn/blocs/auth/auth_bloc.dart';
 import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/models/user_repo.dart';
 import 'package:anylearn/screens/v3/map/screen.dart';
 
 import '../../loading.dart';
@@ -18,43 +17,44 @@ import '../home/search_box.dart';
 import 'body.dart';
 
 class SubtypeScreen extends StatefulWidget {
-  final subtype;
-  final UserDTO user;
+  final dynamic subtype;
+  const SubtypeScreen({Key? key, required this.subtype}) : super(key: key);
 
-  const SubtypeScreen({Key? key, required this.user, this.subtype}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _SubtypeScreen();
 }
 
 class _SubtypeScreen extends State<SubtypeScreen> {
+  final searchController = TextEditingController();
+  SubtypeDTO? data;
+
+  late UserDTO _user;
   late SubtypeBloc _bloc;
-  late String category;
   
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     _bloc = SubtypeBloc(pageRepository: pageRepo);
-    // checkFirstSeen();
+    _user = authBloc.state.user; 
   }
-
-  SubtypeDTO? data;
-
-  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SubtypeBloc, SubtypeState>(
-      bloc: _bloc..add(LoadSubtypePageEvent(category: widget.subtype['type'], token: user.token)),
+      bloc: _bloc..add(LoadSubtypePageEvent(category: widget.subtype['type'], token: _user.token)),
       builder: (context, state) {
         if (state is SubtypeSuccessState) {
           data = state.data;
         }
+
         if (state is SubtypeFailState) {
           return Scaffold(
             body: Container(alignment: Alignment.center, child: Text(state.error.toString())),
           );
         }
+
         return data == null
             ? LoadingScreen()
             : Scaffold(
@@ -84,10 +84,9 @@ class _SubtypeScreen extends State<SubtypeScreen> {
                               margin: EdgeInsets.only(right: 10),
                               child: TextButton.icon(
                                 onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => MapScreen(
-                                            subtype: widget.subtype,
-                                          )));
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) => MapScreen(subtype: widget.subtype))
+                                  );
                                 },
                                 icon: Icon(
                                   Icons.map_outlined,
@@ -131,6 +130,6 @@ class _SubtypeScreen extends State<SubtypeScreen> {
   }
 
   Future<void> _reloadPage() async {
-    _bloc..add(LoadSubtypePageEvent(category: category));
+    _bloc..add(LoadSubtypePageEvent(category: widget.subtype['type'], token: _user.token));
   }
 }

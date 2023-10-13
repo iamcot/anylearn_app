@@ -42,13 +42,9 @@ class HomeSubtype extends StatelessWidget {
       return Container();
     }
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => SubtypeScreen(
-                  user: user,
-                  subtype: item,
-                )));
-      },
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => SubtypeScreen(subtype: item))
+      ),
       child: Container(
         width: boxWidth,
         child: Column(

@@ -19,9 +19,15 @@ class CustomSearchDelegate extends SearchDelegate {
   final String screen;
 
   final _hasFilter = ValueNotifier<bool>(false);
-  ListingRouteArguments _listingArgs = ListingRouteArguments();
+  late ListingRouteArguments _listingArgs;
 
-  CustomSearchDelegate({required this.screen, this.token = ''});
+  ListingRouteArguments? argsFromAnotherScreen;
+
+  CustomSearchDelegate({
+    required this.screen, 
+    this.argsFromAnotherScreen,
+    this.token = '',
+  });
 
   @override
   String get searchFieldLabel {
@@ -133,13 +139,17 @@ class CustomSearchDelegate extends SearchDelegate {
     _listingArgs = ListingRouteArguments();
     _hasFilter.value = false;
 
+    if (argsFromAnotherScreen != null) {
+      return _showResultsFromAnotherScreen(context);
+    }
+
     return BlocBuilder(
       bloc: BlocProvider.of<SearchBloc>(context)..add(SearchTagsEvent(token: token)),
-      builder: (context, state) {
+      builder: (context, state) {    
         if (state is SearchTagsSuccessState) {
           final data = state.suggestDTO;
           
-          return query.isEmpty 
+          return query.isEmpty
             ? SearchScreen(
                 suggestions: data,
                 tagCallback: searchOnFilterTap,
@@ -246,6 +256,13 @@ class CustomSearchDelegate extends SearchDelegate {
     //_listingArgs.sort = filter;
     BlocProvider.of<ListingBloc>(context).add(ListingFilterEvent(sort: filter));
     showResults(context);
+  }
+
+  Widget _showResultsFromAnotherScreen(BuildContext context) {
+    _hasFilter.value = true;
+    _listingArgs = argsFromAnotherScreen!;
+    argsFromAnotherScreen = null;
+    return ListingScreen(args: _listingArgs);
   }
 
 }

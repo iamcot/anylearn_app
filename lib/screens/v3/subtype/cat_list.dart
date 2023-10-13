@@ -1,3 +1,5 @@
+import 'package:anylearn/customs/custom_search_delegate.dart';
+import 'package:anylearn/screens/v3/listing/args.dart';
 import 'package:flutter/material.dart';
 import 'package:anylearn/dto/v3/home_dto.dart';
 
@@ -19,12 +21,14 @@ class SubtypeCatList extends StatelessWidget {
         child: Column(
           children: categories.asMap().entries.map((entry) {
             return InkWell(
-              onTap: () => Navigator.of(context).pushNamed('/listing', 
-                arguments: {
-                  'subtype': subtype,
-                  'category': entry.value.id,
-                }
-              ),
+              onTap: () {
+                final args = ListingRouteArguments(subtype: subtype, category: entry.value.id.toString());
+                showSearch(
+                  context: context, 
+                  delegate: CustomSearchDelegate(screen: '', argsFromAnotherScreen: args),
+                  query: entry.value.title,
+                );
+              },
               child: Container(
                 padding: EdgeInsets.only(left: 10, right: 10),
                 decoration: BoxDecoration(
