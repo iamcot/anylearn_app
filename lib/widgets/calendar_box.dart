@@ -6,7 +6,7 @@ class CalendarBox extends StatelessWidget {
   final double fontSize;
   final String image;
 
-  const CalendarBox({required this.text, this.fontSize: 20.0, this.image = ""});
+  const CalendarBox({required this.text, this.fontSize = 20.0, this.image = ""});
   @override
   Widget build(BuildContext context) {
     return Container(

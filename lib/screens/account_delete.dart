@@ -52,7 +52,7 @@ class _AccountDeleteScreen extends State<AccountDeleteScreen> {
             Container(
               child: ElevatedButton(
                 child: Text("XÓA TÀI KHOẢN").tr(),
-                style: ElevatedButton.styleFrom(primary: Colors.red),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 onPressed: () async {
                   final rs = await showDialog(
                       context: context,
@@ -66,7 +66,7 @@ class _AccountDeleteScreen extends State<AccountDeleteScreen> {
                               ),
                               new ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.red,
+                                  backgroundColor: Colors.red,
                                 ),
                                 onPressed: () => Navigator.of(context).pop(true),
                                 child: new Text(

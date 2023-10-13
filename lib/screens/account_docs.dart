@@ -157,7 +157,7 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                                                     .pop();
                                                               },
                                                               style: ElevatedButton.styleFrom(
-                                                                primary: Colors.red,
+                                                                backgroundColor: Colors.red,
                                                               ),
                                                               child:
                                                                   Text("Xóa").tr())

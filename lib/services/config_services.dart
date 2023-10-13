@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:anylearn/dto/v3/listing_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -80,13 +78,13 @@ class ConfigServices extends BaseService {
   }
 
   Future<List<UserDTO>> searchUser(String screen, String query) async {
-    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=user&s=${screen}&q=$query");
+    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=user&s=$screen&q=$query");
     final json = await get(httpClient, url);
     return List<UserDTO>.from(json?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList();
   }
 
   Future<List<ItemDTO>> searchItem(String screen, String query) async {
-    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=item&s=${screen}&q=$query");
+    final url = buildUrl(appConfig: config, endPoint: "/search", query: "t=item&s=$screen&q=$query");
     final json = await get(httpClient, url);
     return List<ItemDTO>.from(json?.map((e) => e == null ? null : ItemDTO.fromJson(e))).toList();
   }

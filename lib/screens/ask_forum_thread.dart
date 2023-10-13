@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/article/article_bloc.dart';
-import '../blocs/auth/auth_bloc.dart';
 import '../dto/ask_dto.dart';
 import '../dto/ask_thread_dto.dart';
 import '../dto/const.dart';
 import '../main.dart';
 import '../themes/role_color.dart';
 import '../widgets/bottom_nav.dart';
-import '../widgets/fab_home.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/loading_widget.dart';
 import '../widgets/time_ago.dart';
@@ -26,7 +24,7 @@ class _AskForumThreadScreen extends State<AskForumThreadScreen> {
   AskThreadDTO? data;
   late ArticleBloc _articleBloc;
   late int askId;
-  late AuthBloc _authBloc;
+  //late AuthBloc _authBloc;
 
   @override
   void didChangeDependencies() {

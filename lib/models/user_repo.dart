@@ -159,7 +159,7 @@ class UserRepository {
     return await userService.sentOtp(phone);
   }
 
-  Future<bool> ResentOtp(String phone) async {
+  Future<bool> resentOtp(String phone) async {
     return await userService.sentOtp(phone);
   }
 

@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/article/article_bloc.dart';
-import '../blocs/auth/auth_bloc.dart';
 import '../dto/article_dto.dart';
 import '../main.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
-import '../widgets/fab_home.dart';
 import '../widgets/loading_widget.dart';
 import 'ask/ask_body.dart';
 

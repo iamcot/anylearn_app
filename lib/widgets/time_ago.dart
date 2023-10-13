@@ -8,9 +8,9 @@ class TimeAgo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (time == null) {
+    /*if (time == null) {
       return SizedBox(height: 0);
-    }
+    }*/
     return Text(buildTime(time), style: TextStyle(fontSize: 13));
   }
 

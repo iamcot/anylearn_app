@@ -9,7 +9,6 @@ import 'package:overlay_support/overlay_support.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../widgets/loading_widget.dart';
-import '../widgets/otpform.dart';
 
 class PasswordResetScreen extends StatefulWidget {
   @override
@@ -85,11 +84,10 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
               enableResend = true;
             });
           }
-          ;
+          
           if (state is AuthResentOtpFailState) {
             toast(state.error);
           }
-          ;
 
           if (state is AuthPassOtpFailState) {
             toast(state.error);
@@ -162,12 +160,12 @@ class _PasswordResetScreen extends State<PasswordResetScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              otpform(_fieldOne, true),
-                              otpform(_fieldTwo, false),
-                              otpform(_fieldThree, false),
-                              otpform(_fieldFour, false),
-                              otpform(_fieldfive, false),
-                              otpform(_fieldsix, false)
+                              OTPform(_fieldOne, true),
+                              OTPform(_fieldTwo, false),
+                              OTPform(_fieldThree, false),
+                              OTPform(_fieldFour, false),
+                              OTPform(_fieldfive, false),
+                              OTPform(_fieldsix, false)
                             ],
                           ),
                         ),

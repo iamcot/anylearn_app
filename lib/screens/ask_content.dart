@@ -32,8 +32,8 @@ class _AskArticleScreen extends State<AskArticleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double imageHeight = width - 80;
+    //double width = MediaQuery.of(context).size.width;
+    //double imageHeight = width - 80;
     return Scaffold(
       appBar: AppBar(),
       body: RefreshIndicator(

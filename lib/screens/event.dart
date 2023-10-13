@@ -2,16 +2,12 @@ import 'package:anylearn/main.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../blocs/auth/auth_bloc.dart';
 import '../blocs/event/event_bloc.dart';
 import '../customs/feedback.dart';
-import '../dto/user_dto.dart';
 import '../models/page_repo.dart';
 import '../widgets/appbar.dart';
-import 'event/day_events.dart';
 
 class EventScreen extends StatefulWidget {
   @override
@@ -48,7 +44,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void _onDaySelected(DateTime day, List events) {
+  /*void _onDaySelected(DateTime day, List events) {
     setState(() {
       _selectedEvents = events;
     });
@@ -58,7 +54,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
     _selectedEvents!.clear();
     _events.clear();
     _eventBloc..add(LoadEventEvent(month: first));
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +114,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildEventsMarker(DateTime date, List events) {
+  /*Widget _buildEventsMarker(DateTime date, List events) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
@@ -148,5 +144,5 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
                   ))
               .toList(),
     );
-  }
+  }*/
 }

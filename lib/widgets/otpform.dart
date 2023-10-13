@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class otpform extends StatelessWidget {
+class OTPform extends StatelessWidget {
   final TextEditingController controller;
   final bool autoFocus;
-  otpform(this.controller, this.autoFocus, {Key? key}) : super(key: key);
+  
+  OTPform(this.controller, this.autoFocus, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

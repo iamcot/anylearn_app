@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_bloc.dart';
-import '../customs/feedback.dart';
 import '../main.dart';
-import '../widgets/loading_widget.dart';
 import 'account/account_body.dart';
 
 class AccountScreen extends StatefulWidget {

@@ -25,7 +25,7 @@ class AccountEditScreen extends StatefulWidget {
 class _AccountEditScreen extends State<AccountEditScreen> {
   final _formKey = GlobalKey<FormState>();
   UserDTO _user = UserDTO();
-  late File _image;
+  //late File _image;
   late AccountBloc accountBloc;
   late AuthBloc _authBloc;
   final ImagePicker _imagePicker = ImagePicker();
@@ -328,7 +328,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
                                 margin: const EdgeInsets.all(15.0),
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    primary: Colors.blue,
+                                    backgroundColor: Colors.blue,
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
@@ -398,7 +398,7 @@ class _AccountEditScreen extends State<AccountEditScreen> {
           child: CircleAvatar(
             backgroundColor: Colors.green,
             radius: size / 2,
-            child: (_user.image != null && _user.image != "")
+            child: (_user.image != "")
                 ? CircleAvatar(
                     radius: size / 2 - 2.0,
                     backgroundImage: CachedNetworkImageProvider(_user.image),
@@ -449,14 +449,12 @@ class _AccountEditScreen extends State<AccountEditScreen> {
         height: size,
         width: double.infinity,
         alignment: Alignment.bottomRight,
-        decoration: _user.banner != null
-            ? BoxDecoration(
+        decoration: BoxDecoration(
                 image: DecorationImage(
                   image: CachedNetworkImageProvider(_user.banner),
                   fit: BoxFit.cover,
                 ),
-              )
-            : BoxDecoration(color: Colors.grey[300]),
+              ),
         child: BlocBuilder(
           bloc: accountBloc,
           builder: (context, state) {

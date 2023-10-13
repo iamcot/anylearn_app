@@ -9,7 +9,6 @@ import 'package:validators/validators.dart' as validator;
 
 import '../blocs/auth/auth_bloc.dart';
 import '../dto/contract.dart';
-import '../dto/user_dto.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/loading_widget.dart';
 import 'contract_sign.dart';

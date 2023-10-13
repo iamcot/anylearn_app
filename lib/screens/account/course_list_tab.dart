@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../blocs/course/course_bloc.dart';
 import '../../dto/const.dart';
@@ -76,7 +75,7 @@ class CourseList extends StatelessWidget {
                                               child: Text("Quay lại").tr()),
                                           ElevatedButton(
                                               style: ElevatedButton.styleFrom(
-                                                primary: Colors.red,
+                                                backgroundColor: Colors.red,
                                               ),
                                               child: Text("Hủy lớp".tr()),
                                               onPressed: () {

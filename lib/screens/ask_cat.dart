@@ -8,7 +8,6 @@ import '../dto/const.dart';
 import '../main.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_nav.dart';
-import '../widgets/fab_home.dart';
 import '../widgets/loading_widget.dart';
 import 'ask/ask_cat_body.dart';
 

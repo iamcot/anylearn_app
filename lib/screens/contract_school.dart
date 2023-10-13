@@ -128,9 +128,7 @@ class _ContractSchoolScreen extends State<ContractSchoolScreen> {
                           function: () {
                             setState(() {
                               openedForm = true;
-                              if (_contract == null) {
-                                _contract = new ContractDTO();
-                              }
+                              _contract = new ContractDTO();
                               _contract.commission = _user!.commissionRate.toString();
                               dateMask.text = _contract.certDate;
                             });

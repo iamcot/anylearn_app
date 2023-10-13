@@ -7,7 +7,14 @@ class GradientButton extends StatelessWidget {
   final Color color;
   final Color colorSub;
 
-  GradientButton({required this.function, this.title = "", this.height: 40.0,this.color = Colors.blue, this.colorSub = Colors.lightBlueAccent});
+  GradientButton({
+    required this.function, 
+    this.title = "", 
+    this.height = 40.0,
+    this.color = Colors.blue, 
+    this.colorSub = Colors.lightBlueAccent
+  });
+  
   @override
   Widget build(BuildContext context) {
     return Container(

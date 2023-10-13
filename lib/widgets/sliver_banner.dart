@@ -10,7 +10,7 @@ class SliverBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.width * 2 / 3;
     return SliverToBoxAdapter(
-      child: banner != null && banner.isNotEmpty
+      child: banner.isNotEmpty
           ? Column(
               children: [
                 Container(

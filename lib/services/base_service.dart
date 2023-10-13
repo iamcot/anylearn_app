@@ -8,17 +8,18 @@ import '../customs/rest_exception.dart';
 import '../main.dart';
 
 class BaseService {
-  String buildUrl(
-      {required AppConfig appConfig,
-      required String endPoint,
-      String token: "",
-      String query: ""}) {
+  String buildUrl({
+    required AppConfig appConfig,
+    required String endPoint,
+    String token = "",
+    String query = "",
+  }) {
     return appConfig.apiUrl +
-        endPoint +
-        "?v=" + packageInfo.version +
-        "&locale=" + locale +
-        (token.isNotEmpty ? "&${appConfig.tokenParam}=$token" : "") +
-        (query.isNotEmpty ? ("&" + query) : "");
+      endPoint +
+      "?v=" + packageInfo.version +
+      "&locale=" + locale +
+      (token.isNotEmpty ? "&${appConfig.tokenParam}=$token" : "") +
+      (query.isNotEmpty ? ("&" + query) : "");
   }
 
   String buildQuery(Map<String, dynamic> params) {

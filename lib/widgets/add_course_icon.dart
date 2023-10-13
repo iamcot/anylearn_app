@@ -11,7 +11,7 @@ class AddCourseIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: user != null && user.role != MyConst.ROLE_MEMBER
+      child: user.role != MyConst.ROLE_MEMBER
           ? IconButton(
               icon: Icon(
                 MdiIcons.newspaperPlus,

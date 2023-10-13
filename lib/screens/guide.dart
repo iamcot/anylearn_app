@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:intl/intl.dart';
 
 import '../blocs/home/home_bloc.dart';
 import '../models/page_repo.dart';
@@ -31,7 +30,7 @@ class _GuideScreen extends State<GuideScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final width = MediaQuery.of(context).size.width - 10;
+    //final width = MediaQuery.of(context).size.width - 10;
     return BlocProvider<HomeBloc>(
       create: (context) => _homeBloc,
       child: BlocListener<HomeBloc, HomeState>(

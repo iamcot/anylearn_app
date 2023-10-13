@@ -16,7 +16,7 @@ class UserQuickProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double imgHeight = width - 50;
-    double height = width + 100;
+    //double height = width + 100;
     return SliverToBoxAdapter(
       child: Container(
           padding: EdgeInsets.all(10),
@@ -30,7 +30,7 @@ class UserQuickProfile extends StatelessWidget {
                   padding: EdgeInsets.all(25),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(imgHeight / 2),
-                    child: user.image != null ? CustomCachedImage(url: user.image) : Icon(Icons.broken_image),
+                    child: user.image.isNotEmpty ? CustomCachedImage(url: user.image) : Icon(Icons.broken_image),
                   ),
                 ),
                 Container(
@@ -48,7 +48,7 @@ class UserQuickProfile extends StatelessWidget {
                     textAlign: TextAlign.justify,
                   ),
                 ),
-                user.fullContent == null
+                user.fullContent.isEmpty
                     ? Container()
                     : Container(
                         child: ExpandableNotifier(

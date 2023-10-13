@@ -3,7 +3,6 @@ import 'package:anylearn/dto/const.dart';
 import 'package:anylearn/dto/transaction_dto.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<TransactionDTO> transactions;

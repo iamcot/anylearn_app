@@ -156,7 +156,7 @@ class _AccountPasswordScreen extends State<AccountPasswordScreen> {
                     ? LoadingWidget()
                     : ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
+                          backgroundColor: Colors.blue,
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate() && !loading) {
