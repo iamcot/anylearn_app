@@ -39,11 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       emit(QuoteLoadingState());
       final quote = await pageRepository.getQuote(event.url);
-      if (quote == null) {
-        emit(QuoteFailState());
-      } else {
-        emit(QuoteSuccessState(quote: quote));
-      }
+      return emit(QuoteSuccessState(quote: quote));
     } catch (error, trace) {
     emit(HomeFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error trace \n $trace"));
       print(trace.toString());

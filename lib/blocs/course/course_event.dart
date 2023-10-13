@@ -9,7 +9,7 @@ class LoadCourseEvent extends CourseEvent {
   final String token;
 
   LoadCourseEvent({required this.id,required  this.token});
-  @override
+
   List<Object> get props => [id, token];
 
   @override
@@ -21,7 +21,7 @@ class SaveCourseEvent extends CourseEvent {
   final String token;
 
   SaveCourseEvent({required this.item,required  this.token});
-  @override
+
   List<Object> get props => [item, token];
 
   @override
@@ -32,7 +32,7 @@ class ListCourseEvent extends CourseEvent {
   final String token;
 
   ListCourseEvent({required this.token});
-  @override
+  
   List<Object> get props => [token];
 
   @override
@@ -46,7 +46,6 @@ class CourseUploadImageEvent extends CourseEvent {
 
   CourseUploadImageEvent({required this.token,required  this.image,required  this.itemId});
 
-  @override
   List<Object> get props => [token, image, itemId];
 
   @override
@@ -60,7 +59,6 @@ class CourseChangeUserStatusEvent extends CourseEvent {
 
   CourseChangeUserStatusEvent({required this.token,required  this.newStatus,required  this.itemId});
 
-  @override
   List<Object> get props => [token, newStatus, itemId];
 
   @override
@@ -72,8 +70,9 @@ class RegisteredUsersEvent extends CourseEvent {
   final int itemId;
 
   RegisteredUsersEvent({required this.token,required  this.itemId});
-  @override
+
   List<Object> get props => [token, itemId];
+
   @override
   String toString() => 'RegisteredUsersEvent $itemId';
 }
@@ -85,8 +84,9 @@ class ReviewSubmitEvent extends CourseEvent {
   final String comment;
 
   ReviewSubmitEvent({required this.token,required  this.itemId,required  this.rating,required  this.comment});
-  @override
+
   List<Object> get props => [token, itemId, rating, comment];
+
   @override
   String toString() => 'ReviewSubmitEvent {itemId: $itemId, rating: $rating}';
 }
@@ -95,8 +95,9 @@ class ReviewLoadEvent extends CourseEvent {
   final int itemId;
 
   ReviewLoadEvent({required this.itemId});
-  @override
+
   List<Object> get props => [itemId];
+  
   @override
   String toString() => 'ReviewLoadEvent {itemId: $itemId}';
 }

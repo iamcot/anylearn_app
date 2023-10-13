@@ -16,16 +16,14 @@ class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
   ItemsBloc({required this.pageRepository}) : super(ItemsInitState()) {
     on<ItemsSchoolLoadEvent>(_onItemsSchoolLoadEvent);
     on<ItemsTeacherLoadEvent>(_onItemsTeacherLoadEvent);
-    on<CategoryLoadEvent>(_onCategoryLoadEvent);
+    //on<CategoryLoadEvent>(_onCategoryLoadEvent);
   }
 
   void _onItemsSchoolLoadEvent(ItemsSchoolLoadEvent event, Emitter<ItemsState> emit) async {
     try {
       emit(ItemsLoadingState());
-      var data = await pageRepository.dataSchoolPage(event.id, event.page, event.pageSize);
-      if (data != null) {
-        emit(ItemsSchoolSuccessState(data: data));
-      }
+      final data = await pageRepository.dataSchoolPage(event.id, event.page, event.pageSize);
+      return  emit(ItemsSchoolSuccessState(data: data));
     } catch (error, trace) {
       emit(ItemsLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
       print(trace);
@@ -35,16 +33,14 @@ class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
   void _onItemsTeacherLoadEvent(ItemsTeacherLoadEvent event, Emitter<ItemsState> emit) async {
     try {
       emit(ItemsLoadingState());
-      var data = await pageRepository.dataTeacherPage(event.id, event.page, event.pageSize);
-      if (data != null) {
-        emit(ItemsTeacherSuccessState(data: data));
-      }
+      final data = await pageRepository.dataTeacherPage(event.id, event.page, event.pageSize);
+      return emit(ItemsTeacherSuccessState(data: data));
     } catch (error, trace) {
       emit(ItemsLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
       print(trace);
     }
   }
-
+/*
   void _onCategoryLoadEvent(CategoryLoadEvent event, Emitter<ItemsState> emit) async {
     try {
       emit(CategoryLoadingState());
@@ -55,7 +51,7 @@ class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
     }
   }
 
- /* @override
+  @override
   ItemsState get initialState => ItemsInitState();
 
   @override

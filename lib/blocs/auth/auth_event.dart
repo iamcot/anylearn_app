@@ -63,7 +63,6 @@ class AuthContractSignEvent extends AuthEvent {
 
   const AuthContractSignEvent({required this.token, required this.contractId});
 
-  @override
   List<Object> get props => [token, contractId];
 
   @override

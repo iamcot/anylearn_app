@@ -20,11 +20,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     try {
       emit(UsersLoadingState());
       final data = await pageRepository.dataSchoolsPage(event.page, event.pageSize);
-      if (data != null) {
-        emit(UsersSchoolSuccessState(data: data));
-      } else {
-        emit(UsersLoadFailState(error: "Không có thông tin bạn đang tìm kiếm."));
-      }
+      return emit(UsersSchoolSuccessState(data: data));
     } catch (error, trace) {
       emit(UsersLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
       print(trace.toString());
@@ -35,11 +31,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     try {
       emit(UsersLoadingState());
       final data = await pageRepository.dataTeachersPage(event.page, event.pageSize);
-      if (data != null) {
-        emit(UsersTeacherSuccessState(data: data));
-      } else {
-        emit(UsersLoadFailState(error: "Không có thông tin bạn đang tìm kiếm."));
-      }
+      return emit(UsersTeacherSuccessState(data: data));
     } catch (error, trace) {
       emit(UsersLoadFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
       print(trace.toString());

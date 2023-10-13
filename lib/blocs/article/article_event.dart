@@ -1,5 +1,3 @@
-
-
 part of articlebloc;
 
 abstract class ArticleEvent {
@@ -7,7 +5,6 @@ abstract class ArticleEvent {
 }
 
 class ArticleIndexEvent extends ArticleEvent {
-  @override
   List<Object> get props => [];
 
   @override
@@ -19,7 +16,7 @@ class ArticleTypeEvent extends ArticleEvent {
   final page;
 
   ArticleTypeEvent({this.type, this.page});
-  @override
+
   List<Object> get props => [type, page];
 
   @override
@@ -30,7 +27,7 @@ class ArticlePageEvent extends ArticleEvent {
   final id;
 
   ArticlePageEvent({this.id});
-  @override
+  
   List<Object> get props => [id];
 
   @override
@@ -38,7 +35,7 @@ class ArticlePageEvent extends ArticleEvent {
 }
 
 class AskIndexEvent extends ArticleEvent {
-  @override
+  
   List<Object> get props => [];
 
   @override
@@ -51,7 +48,6 @@ class AskThreadEvent extends ArticleEvent {
 
   AskThreadEvent({this.askId, this.token});
 
-  @override
   List<Object> get props => [askId, token];
 
   @override
@@ -67,7 +63,6 @@ class AskCreateEvent extends ArticleEvent {
 
   AskCreateEvent({required this.content, required this.title, required this.type, required this.user, this.askId});
 
-  @override
   List<Object> get props => [askId, content, title, type, user];
 
   @override
@@ -80,7 +75,6 @@ class AskSelectEvent extends ArticleEvent {
 
   AskSelectEvent({this.askId, required this.token});
 
-  @override
   List<Object> get props => [askId, token];
 
   @override
@@ -94,7 +88,6 @@ class AskVoteEvent extends ArticleEvent {
 
   AskVoteEvent({this.askId, required this.type, required this.token});
 
-  @override
   List<Object> get props => [askId, token, type];
 
   @override

@@ -40,11 +40,13 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     try {
       emit(CourseLoadingState());
       final item = await itemRepository.loadItemEdit(event.id, event.token);
-      if (item != null) {
+      return emit(CourseLoadSuccess(item: item));
+
+      /*if (item != null) {
         emit(CourseLoadSuccess(item: item));
       } else {
         emit(CourseFailState(error: "Không lấy được không tin"));
-      }
+      }*/
     } catch (error, trace) {
       emit(CourseFailState(error: error.toString()));
       print(trace.toString());
@@ -80,9 +82,8 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
   void _onCourseUploadImageEvent(CourseUploadImageEvent event, Emitter<CourseState> emit) async {
     try {
       emit(UploadImageInprogressState());
-      String url = await itemRepository.uploadImage(
-        event.image, event.token, event.itemId);
-      if (url != null && url.isNotEmpty) {
+      String url = await itemRepository.uploadImage(event.image, event.token, event.itemId);
+      if (url.isNotEmpty) {
         emit(UploadImageSuccessState(url: url));
       } else {
         emit(CourseFailState(error:

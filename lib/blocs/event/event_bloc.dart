@@ -19,11 +19,7 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     try {
       emit(EventLoadingState());
       final data = await pageRepository.monthEvent(event.month);
-      if (data != null) {
-        emit(EventSuccessState(data: data));
-      } else {
-        emit(EventFailState(error: "Không có dữ liệu"));
-      }
+      return emit(EventSuccessState(data: data));
     } catch (error, trace) {
       emit(EventFailState(error: "Có lỗi xảy ra, vui lòng thử lại. $error"));
       print(trace.toString());

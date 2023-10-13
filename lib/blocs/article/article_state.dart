@@ -12,7 +12,7 @@ class ArticleIndexLoadingState extends ArticleState {}
 
 class ArticleIndexSuccessState extends ArticleState {
   final ArticleHomeDTO result;
-  ArticleIndexSuccessState({required this.result}) : assert(result != null);
+  ArticleIndexSuccessState({required this.result});
   @override
   List<Object> get props => [result];
 }
@@ -21,7 +21,7 @@ class ArticleTypeLoadingState extends ArticleState {}
 
 class ArticleTypeSuccessState extends ArticleState {
   final ArticlePagingDTO result;
-  ArticleTypeSuccessState({required this.result}) : assert(result != null);
+  ArticleTypeSuccessState({required this.result});
   @override
   List<Object> get props => [result];
 }
@@ -30,7 +30,7 @@ class ArticlePageLoadingState extends ArticleState {}
 
 class ArticlePageSuccessState extends ArticleState {
   final ArticleDTO result;
-  ArticlePageSuccessState({required this.result}) : assert(result != null);
+  ArticlePageSuccessState({required this.result});
   @override
   List<Object> get props => [result];
 }

@@ -27,11 +27,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   void _onLoadTransactionPageEvent(LoadTransactionPageEvent event, Emitter<TransactionState> emit) async {
     try {
       final config = await transactionRepository.dataTransactionPage(event.type, event.token);
-      if (config == null) {
-        emit(TransactionFailState(error: "Không load được cấu hình."));
-      } else {
-        emit(TransactionConfigSuccessState(configs: config));
-      }
+      return emit(TransactionConfigSuccessState(configs: config));
     } catch (error, trace) {
       emit(TransactionFailState(error: error.toString()));
       print(error);
@@ -42,11 +38,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   void _onLoadTransactionHistoryEvent(LoadTransactionHistoryEvent event, Emitter<TransactionState> emit) async {
     try {
       final data = await transactionRepository.dataHistoryPage(event.token);
-      if (data == null) {
-        emit(TransactionFailState(error: "Không load lịch sử giao dich."));
-      } else {
-        emit(TransactionHistorySuccessState(history: data));
-      }
+      return emit(TransactionHistorySuccessState(history: data));
     } catch (error, trace) {
       emit(TransactionFailState(error: error.toString()));
       print(error);
