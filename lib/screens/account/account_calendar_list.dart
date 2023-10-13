@@ -188,7 +188,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
       if (today == event.date || event.nolimitTime) {
         if (event.userJoined == null) {
           // Btn 
-          if (event.itemSubtype == '') {            
+          if (event.itemSubtype == 'digital') {            
             return ElevatedButton(
               onPressed: () => _dialogItemCode(context, event),
               style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: 22)),
