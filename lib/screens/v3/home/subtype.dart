@@ -12,10 +12,11 @@ class HomeSubtype extends StatelessWidget {
 
   final List<Map<String, dynamic>> subtypes = [
     {"type": "offline", "title": "Hệ K12", "image": "", "icon": Icons.school_outlined, "checkIos": false},
+    {"type": "preschool", "title": "Mầm non", "image": "", "icon": Icons.child_care_outlined, "checkIos": false},
     {"type": "extra", "title": "Ngoại khóa", "image": "", "icon": Icons.sports_baseball_outlined, "checkIos": false},
     {"type": "online", "title": "Học Online", "image": "", "icon": Icons.broadcast_on_home_rounded, "checkIos": false},
     {"type": "digital", "title": "Ứng dụng", "image": "", "icon": Icons.code, "checkIos": true},
-    {"type": "video", "title": "Học Video", "image": "", "icon": Icons.ondemand_video_outlined, "checkIos": true},
+    // {"type": "video", "title": "Học Video", "image": "", "icon": Icons.ondemand_video_outlined, "checkIos": true},
   ];
 
   HomeSubtype({Key? key, required this.user, this.enableIosTrans = true}) : super(key: key);

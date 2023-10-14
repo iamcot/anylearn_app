@@ -84,7 +84,7 @@ class _PdpBody extends State<PdpBody> {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     Navigator.of(context)
-                                        .pushNamed("/items/" + widget.data.author.role, arguments: widget.data.author.id);
+                                        .pushNamed("/partner", arguments: widget.data.author.id);
                                   }),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis

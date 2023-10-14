@@ -6,8 +6,8 @@ class PartnerInfo extends StatelessWidget {
   final UserDTO partner;
   final double sumRating;
   final int sumReviews;
-  const PartnerInfo({Key? key, required this.partner, required this.sumRating, required this.sumReviews}) 
-  : super(key: key);
+  const PartnerInfo({Key? key, required this.partner, required this.sumRating, required this.sumReviews})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,75 +15,80 @@ class PartnerInfo extends StatelessWidget {
     final height = width / 2;
     return Container(
       padding: EdgeInsets.only(bottom: 10),
-      child: Stack(children: [
-        CachedNetworkImage(imageUrl: partner.image, width: width, height: height, fit: BoxFit.cover),
-        Container(
-          margin: EdgeInsets.only(left: 20, top: height - 50, right: 20),
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-              color: Colors.grey,
-              width: 1
+      child: Stack(
+        children: [
+          CachedNetworkImage(imageUrl: partner.image, width: width, height: height, fit: BoxFit.cover),
+          Container(
+            margin: EdgeInsets.only(left: 20, top: height - 50, right: 20),
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.grey.shade300,
               ),
-            borderRadius: BorderRadius.circular(30)
-    
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: Offset(0, 2), // changes position of shadow
+                ),
+              ],
             ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(children: [
-                  Container(
-                    child: Text(
-                      partner.name, 
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(  
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18,
-                      )
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Row(                 
-                      children: [
-                        Text(
-                          'Đánh giá: $sumRating',  
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(children: [
+                    Container(
+                      child: Text(partner.name,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        Icon(Icons.star, color: Colors.orange, size: 18),
-                        Text(
-                          ' ($sumReviews lượt nhận xét)',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                          )),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            partner.introduce, 
-                            maxLines: 8,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.justify,
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Đánh giá: ' + sumRating.toStringAsFixed(1),
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
-                        ),
-                      ],
+                          Icon(Icons.star, color: Colors.orange, size: 18),
+                          Text(
+                            ' ($sumReviews lượt nhận xét)',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  /*Padding(
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              partner.introduce,
+                              maxLines: 8,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /*Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: Row(
                       children: [
@@ -107,11 +112,12 @@ class PartnerInfo extends StatelessWidget {
                       ],
                     ),
                   ),*/
-                ]),
-              ),
-            ],
-          ),
-        )],
+                  ]),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

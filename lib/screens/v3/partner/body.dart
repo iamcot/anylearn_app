@@ -1,8 +1,8 @@
-import 'package:anylearn/dto/v3/partner_dto.dart';
-import 'package:anylearn/screens/v3/partner/items_grid.dart';
-import 'package:anylearn/screens/v3/partner/items_list.dart';
-import 'package:anylearn/screens/v3/partner/partner_info.dart';
-import 'package:anylearn/screens/v3/partner/reviews.dart';
+import '../../../dto/v3/partner_dto.dart';
+import 'items_grid.dart';
+import 'items_list.dart';
+import 'partner_info.dart';
+import 'reviews.dart';
 import 'package:flutter/material.dart';
 
 class PartnerBody extends StatelessWidget {

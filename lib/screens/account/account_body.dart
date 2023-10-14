@@ -65,12 +65,7 @@ class _AccountBody extends State<AccountBody> {
                       Icons.chevron_right,
                     ),
                   ),
-            AccountNormalMenu(
-              title: "Lịch học của tôi".tr(),
-              route: "/account/calendar",
-              leadingIcon: MdiIcons.calendarAccount,
-              trailing: Icon(Icons.chevron_right),
-            ),
+           
 
             AccountNormalMenu(
               title: "Danh sách bạn bè".tr(),

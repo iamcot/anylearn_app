@@ -1,7 +1,7 @@
-import 'package:anylearn/dto/v3/subtype_dto.dart';
-import 'package:anylearn/screens/v3/home/classes.dart';
-import 'package:anylearn/screens/v3/subtype/cat_list.dart';
-import 'package:anylearn/screens/v3/subtype/partner_list.dart';
+import '../../../dto/v3/subtype_dto.dart';
+import '../home/classes.dart';
+import 'cat_list.dart';
+import 'partner_list.dart';
 import 'package:flutter/material.dart';
 
 import '../../../widgets/items_list_2.dart';

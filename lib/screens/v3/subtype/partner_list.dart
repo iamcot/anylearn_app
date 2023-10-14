@@ -1,6 +1,7 @@
-import 'package:anylearn/dto/user_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import '../../../dto/user_dto.dart';
 
 class PartnerList extends StatelessWidget {
   final List<UserDTO> partners;

@@ -7,6 +7,7 @@ import '../blocs/account/account_bloc.dart';
 import '../dto/account_calendar_dto.dart';
 import '../main.dart';
 import '../models/user_repo.dart';
+import '../widgets/bottom_nav.dart';
 import '../widgets/calendar_box.dart';
 import '../widgets/loading_widget.dart';
 import 'account/account_calendar_list.dart';
@@ -43,6 +44,7 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNav(BottomNav.MYCLASS_INDEX),
       appBar: AppBar(
         centerTitle: false,
         title: const Text("Lịch học của tôi").tr(),

@@ -33,7 +33,7 @@ class BottomNav extends StatelessWidget {
             showUnselectedLabels: true,
             iconSize: 28.0,
             selectedFontSize: 12.0,
-            unselectedFontSize: 11.0,
+            unselectedFontSize: 12.0,
             currentIndex: this.index,
             onTap: (i) => _navigate(context, i),
             items: <BottomNavigationBarItem>[
