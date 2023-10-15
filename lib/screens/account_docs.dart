@@ -74,8 +74,8 @@ class _AccountDocsScreen extends State<AccountDocsScreen> {
                                 padding: const EdgeInsets.all(15),
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    final PickedFile? image =
-                                        await _imagePicker.getImage(
+                                    final XFile? image =
+                                        await _imagePicker.pickImage(
                                       source: ImageSource.camera,
                                     );
                                     if (image != null) {

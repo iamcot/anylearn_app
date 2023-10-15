@@ -69,7 +69,7 @@ class WeekCourses extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: monthCourses[itemIndex].image != null && monthCourses[itemIndex].image.isNotEmpty
+                    child: monthCourses[itemIndex].image.isNotEmpty
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: monthCourses[itemIndex].image != null

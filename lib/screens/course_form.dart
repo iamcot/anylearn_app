@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide DatePickerTheme;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 // import 'package:html_editor/html_editor.dart';
 import 'package:image_picker/image_picker.dart';
@@ -83,7 +83,6 @@ class _CourseFormScreen extends State<CourseFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -202,15 +201,15 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                             Container(
                               padding: EdgeInsets.only(left: 15, right: 15),
                               child: TextFormField(
-                                onTap: () {
-                                  DatePicker.showDatePicker(
-                                    context,
-                                    onConfirm: (time) {
-                                      dateMask.text = f.format(time);
-                                    },
-                                    currentTime: dateMask.text == "" ? DateTime.now() : DateTime.parse(dateMask.text),
-                                  );
-                                },
+                                // onTap: () {
+                                //   DatePicker.showDatePicker(
+                                //     context,
+                                //     onConfirm: (time) {
+                                //       dateMask.text = f.format(time);
+                                //     },
+                                //     currentTime: dateMask.text == "" ? DateTime.now() : DateTime.parse(dateMask.text),
+                                //   );
+                                // },
                                 validator: (value) {
                                   if (value == "") {
                                     return "Chưa nhập ngày diễn ra".tr();
@@ -227,15 +226,15 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                             Container(
                               padding: EdgeInsets.only(left: 15, right: 15),
                               child: TextFormField(
-                                onTap: () {
-                                  DatePicker.showTimePicker(
-                                    context,
-                                    showSecondsColumn: false,
-                                    onConfirm: (timestart) {
-                                      timeStartMask.text = hf.format(timestart);
-                                    },
-                                  );
-                                },
+                                // onTap: () {
+                                //   DatePicker.showTimePicker(
+                                //     context,
+                                //     showSecondsColumn: false,
+                                //     onConfirm: (timestart) {
+                                //       timeStartMask.text = hf.format(timestart);
+                                //     },
+                                //   );
+                                // },
                                 controller: timeStartMask,
                                 validator: (value) {
                                   if (value == "") {
@@ -252,15 +251,15 @@ class _CourseFormScreen extends State<CourseFormScreen> {
                             Container(
                               padding: EdgeInsets.only(left: 15, right: 15),
                               child: TextFormField(
-                                onTap: () {
-                                  DatePicker.showTimePicker(
-                                    context,
-                                    showSecondsColumn: false,
-                                    onConfirm: (timeend) {
-                                      timeEndMask.text = hf.format(timeend);
-                                    },
-                                  );
-                                },
+                                // onTap: () {
+                                //   DatePicker.showTimePicker(
+                                //     context,
+                                //     showSecondsColumn: false,
+                                //     onConfirm: (timeend) {
+                                //       timeEndMask.text = hf.format(timeend);
+                                //     },
+                                //   );
+                                // },
                                 controller: timeEndMask,
                                 decoration: InputDecoration(
                                   labelText: "Giờ kết thúc".tr(),
@@ -359,7 +358,7 @@ class _CourseFormScreen extends State<CourseFormScreen> {
   }
 
   Future _getImage() async {
-    final PickedFile? image = await _imagePicker.getImage(
+    final XFile? image = await _imagePicker.pickImage(
       source: ImageSource.gallery,
     );
     if (image != null) {

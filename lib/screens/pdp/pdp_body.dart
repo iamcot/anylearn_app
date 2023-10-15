@@ -349,7 +349,7 @@ class _PdpBody extends State<PdpBody> {
                                     Html(
                                       data: widget.data.item.content ?? "",
                                       shrinkWrap: true,
-                                      onLinkTap: (url, _, __, ___) {
+                                      onLinkTap: (url, _, __) {
                                         Navigator.of(context).push(MaterialPageRoute(
                                             builder: (context) => WebviewScreen(
                                                   url: url!,

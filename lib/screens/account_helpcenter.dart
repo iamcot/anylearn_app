@@ -45,7 +45,7 @@ class _AccountHelpCenterScreen extends State<AccountHelpCenterScreen> {
                   Html(
                     data: guide.content,
                     shrinkWrap: true,
-                    onLinkTap: (url, _, __, ___) {
+                    onLinkTap: (url, _, __) {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => WebviewScreen(
                                 url: url!,

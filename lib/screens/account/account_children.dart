@@ -1,9 +1,9 @@
 import 'package:anylearn/main.dart';
 import 'package:anylearn/screens/webview.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide DatePickerTheme;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -108,18 +108,18 @@ class _AccountChildrenScreen extends State<AccountChildrenScreen> {
                         Container(
                           margin: EdgeInsets.only(bottom: 20),
                           child: TextFormField(
-                            onTap: () {
-                              DatePicker.showDatePicker(
-                                context,
-                                onConfirm: (time) {
-                                  _dobController.text = f.format(time);
-                                },
-                                maxTime: DateTime.now(),
-                                currentTime: _dobController.text == ""
-                                    ? DateTime.now()
-                                    : DateTime.parse(_dobController.text),
-                              );
-                            },
+                            // onTap: () {
+                            //   DatePicker.showDatePicker(
+                            //     context,
+                            //     onConfirm: (time) {
+                            //       _dobController.text = f.format(time);
+                            //     },
+                            //     maxTime: DateTime.now(),
+                            //     currentTime: _dobController.text == ""
+                            //         ? DateTime.now()
+                            //         : DateTime.parse(_dobController.text),
+                            //   );
+                            // },
                             controller: _dobController,
                             decoration: InputDecoration(
                               labelText: "Ngày tháng năm sinh (YYYY-mm-dd)".tr(),

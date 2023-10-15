@@ -14,37 +14,38 @@ class HomeVoucher extends StatelessWidget {
     final screenW = MediaQuery.of(context).size.width;
     width = screenW - 50;
     return vouchers.isEmpty
-      ? Container()
-      : Container(
-        padding: EdgeInsets.only(bottom: 10, left: 10),
-        height: 140,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 20, 20, 10),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text("Khuyến mãi từ anyLEARN", style: TextStyle(                          
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,  
-                      height: 1.1,
-                    )),
+        ? Container()
+        : Container(
+            padding: EdgeInsets.only(bottom: 10, left: 10),
+            height: 140,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10, 20, 20, 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text("Khuyến mãi từ anyLEARN",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              height: 1.1,
+                            )),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                CustomCarousel(
+                  items: vouchers,
+                  builderFunction: _itemSlider,
+                  height: 80,
+                  width: width,
+                  dividerIndent: 10,
+                ),
+              ],
             ),
-            CustomCarousel(
-              items: vouchers,
-              builderFunction: _itemSlider,
-              height: 80,
-              width: width,
-              dividerIndent: 10,
-            ),
-          ],
-        ),
-      );
+          );
   }
 
   Widget _itemSlider(BuildContext context, dynamic item, double cardHeight) {
@@ -58,14 +59,20 @@ class HomeVoucher extends StatelessWidget {
         color: Colors.grey[100],
       ),
       child: ListTile(
-        leading: Icon(Icons.discount_outlined, size: 40, color: Colors.green,),
-        title: Text(item.title, style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-          color: Colors.black87
-        ),),
+        leading: Icon(
+          Icons.discount_outlined,
+          size: 40,
+          color: Colors.green,
+        ),
+        title: Text(
+          item.title,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.black87),
+        ),
         subtitle: Text("Nhận khuyến mãi"),
         trailing: Icon(Icons.chevron_right),
+        onTap: () {
+          // Navigator.of(context).pushNamed("/article", arguments: item.id);
+        },
       ),
     );
   }

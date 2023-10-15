@@ -30,6 +30,13 @@
             {
               "client_id": "90246010853-0dh7b7cg3qtp8qp8glcge187vu8kknua.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "90246010853-hln2kcdbno1des667vba8ttoet8t6gsm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.anylearn"
+              }
             }
           ]
         }

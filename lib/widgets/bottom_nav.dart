@@ -24,19 +24,18 @@ class BottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-        BottomNavigationBar(
-            type: BottomNavigationBarType.shifting,
-            selectedItemColor: Colors.green[800],
-            unselectedItemColor: Colors.grey[500],
-            unselectedIconTheme: IconThemeData(color: Colors.black45),
-            showUnselectedLabels: true,
-            iconSize: 28.0,
-            selectedFontSize: 12.0,
-            unselectedFontSize: 12.0,
-            currentIndex: this.index,
-            onTap: (i) => _navigate(context, i),
-            items: <BottomNavigationBarItem>[
+    return BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        selectedItemColor: Colors.green[800],
+        unselectedItemColor: Colors.grey[500],
+        unselectedIconTheme: IconThemeData(color: Colors.black45),
+        showUnselectedLabels: true,
+        iconSize: 28.0,
+        selectedFontSize: 12.0,
+        unselectedFontSize: 12.0,
+        currentIndex: this.index,
+        onTap: (i) => _navigate(context, i),
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image.asset(
               "assets/images/logo_app_trans.png",
@@ -79,6 +78,9 @@ class BottomNav extends StatelessWidget {
   void _navigate(BuildContext context, int route) {
     if (route == index) {
       return;
+    }
+    if (route == HOME_INDEX) {
+      return Navigator.of(context).popUntil(ModalRoute.withName("/"));
     }
     Navigator.of(context).canPop()
         ? Navigator.of(context).popAndPushNamed(_routes[route]!)

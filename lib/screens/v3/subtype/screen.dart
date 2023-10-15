@@ -80,24 +80,24 @@ class _SubtypeScreen extends State<SubtypeScreen> {
                           centerTitle: false,
                           elevation: 0,
                           actions: [
-                            Container(
-                              margin: EdgeInsets.only(right: 10),
-                              child: TextButton.icon(
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) => MapScreen(subtype: widget.subtype))
-                                  );
-                                },
-                                icon: Icon(
-                                  Icons.map_outlined,
-                                  color: Colors.white,
-                                ),
-                                label: Text(
-                                  "Bản đồ",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            )
+                            // Container(
+                            //   margin: EdgeInsets.only(right: 10),
+                            //   child: TextButton.icon(
+                            //     onPressed: () {
+                            //       Navigator.of(context).push(
+                            //         MaterialPageRoute(builder: (context) => MapScreen(subtype: widget.subtype))
+                            //       );
+                            //     },
+                            //     icon: Icon(
+                            //       Icons.map_outlined,
+                            //       color: Colors.white,
+                            //     ),
+                            //     label: Text(
+                            //       "Bản đồ",
+                            //       style: TextStyle(color: Colors.white),
+                            //     ),
+                            //   ),
+                            // )
                           ],
                         ),
                         Container(

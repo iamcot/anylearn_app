@@ -305,16 +305,14 @@ class _LoginForm extends State<LoginForm> {
           ),
         ),
       );
-      if (credential != null) {
-        Map<String, String> loginData = {
-          "name": credential.givenName! + " " + credential.familyName!,
-          "email": credential.email ?? "",
-          "picture": "",
-          "id": credential.userIdentifier!
-        };
-        widget.loginBloc..add(LoginAppleEvent(data: loginData));
-      }
-    } catch (e) {
+      Map<String, String> loginData = {
+        "name": credential.givenName! + " " + credential.familyName!,
+        "email": credential.email ?? "",
+        "picture": "",
+        "id": credential.userIdentifier!
+      };
+      widget.loginBloc..add(LoginAppleEvent(data: loginData));
+        } catch (e) {
       print(e);
     } finally {
       setState(() {

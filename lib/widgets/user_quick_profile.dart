@@ -84,7 +84,7 @@ class UserQuickProfile extends StatelessWidget {
                                 Html(
                                   data: user.fullContent,
                                   shrinkWrap: true,
-                                  onLinkTap: (url, _, __, ___) {
+                                  onLinkTap: (url, _, __) {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => WebviewScreen(
                                               url: url!,

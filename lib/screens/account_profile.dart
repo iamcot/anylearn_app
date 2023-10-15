@@ -199,7 +199,7 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
                             child: Html(
                               data: userProfile!.fullContent,
                               shrinkWrap: true,
-                              onLinkTap: (url, _, __, ___) {
+                              onLinkTap: (url, _, __) {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => WebviewScreen(
                                           url: url!,

@@ -37,7 +37,7 @@ class _QrCodeScreen extends State<QrCodeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            QrImage(
+            QrImageView(
               data: user.refLink,
               version: QrVersions.auto,
               size: qrWidth,

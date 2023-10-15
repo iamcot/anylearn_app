@@ -1,4 +1,4 @@
-import 'package:anylearn/blocs/listing/listing_bloc.dart';
+import 'package:anylearn/firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -12,6 +12,7 @@ import 'blocs/account/account_bloc.dart';
 import 'blocs/article/article_bloc.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'blocs/course/course_bloc.dart';
+import 'blocs/listing/listing_bloc.dart';
 import 'blocs/notif/notif_bloc.dart';
 import 'blocs/search/search_bloc.dart';
 import 'dto/notification_dto.dart';
@@ -32,8 +33,41 @@ String locale = "vi";
 UserDTO user = UserDTO(id: 0, token: "");
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await setupFlutterNotifications();
+  showFlutterNotification(message);
   print('Handling a background message ${message.messageId}');
+}
+
+bool isFlutterLocalNotificationsInitialized = false;
+
+Future<void> setupFlutterNotifications() async {
+  if (isFlutterLocalNotificationsInitialized) {
+    return;
+  }
+
+  /// Update the iOS foreground notification presentation options to allow
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+  isFlutterLocalNotificationsInitialized = true;
+}
+
+void showFlutterNotification(RemoteMessage message) {
+  final notifObj = NotificationDTO.fromFireBase(message);
+  showSimpleNotification(
+      Card(
+        child: Container(
+          padding: EdgeInsets.all(15),
+          child: Text(
+            notifObj.content,
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+      background: Colors.transparent);
 }
 
 void main() async {
@@ -47,7 +81,8 @@ void main() async {
   final pageRepo = PageRepository(config: config);
   final transRepo = TransactionRepository(config: config);
   final itemRepo = ItemRepository(config: config);
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await setupFlutterNotifications();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   return runApp(
@@ -105,18 +140,7 @@ class _MyApp extends State<MyApp> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('A new onMessage event was published!');
-      final notifObj = NotificationDTO.fromFireBase(message);
-      showSimpleNotification(
-          Card(
-            child: Container(
-              padding: EdgeInsets.all(15),
-              child: Text(
-                notifObj.content,
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ),
-          background: Colors.transparent);
+      showFlutterNotification(message);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
