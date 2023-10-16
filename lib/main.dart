@@ -164,6 +164,10 @@ class _MyApp extends State<MyApp> {
     print(context.locale.toString());
     return OverlaySupport(
       child: MaterialApp(
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+          child: child!,
+        ),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

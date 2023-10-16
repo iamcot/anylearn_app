@@ -1,9 +1,10 @@
-import 'package:anylearn/screens/loading.dart';
-import 'package:anylearn/blocs/listing/listing_bloc.dart';
-import 'package:anylearn/screens/v3/listing/args.dart';
-import 'package:anylearn/screens/v3/listing/card.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../blocs/listing/listing_bloc.dart';
+import '../../loading.dart';
+import 'args.dart';
+import 'card.dart';
 
 class ListingScreen extends StatefulWidget {
   final ListingRouteArguments? args;

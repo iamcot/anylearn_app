@@ -66,9 +66,9 @@ class HomeVoucher extends StatelessWidget {
         ),
         title: Text(
           item.title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.black87),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black87),
         ),
-        subtitle: Text("Nhận khuyến mãi"),
+        // subtitle: Text("Nhận khuyến mãi"),
         trailing: Icon(Icons.chevron_right),
         onTap: () {
           // Navigator.of(context).pushNamed("/article", arguments: item.id);

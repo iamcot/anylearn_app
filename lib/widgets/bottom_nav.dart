@@ -25,7 +25,7 @@ class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.green[800],
         unselectedItemColor: Colors.grey[500],
         unselectedIconTheme: IconThemeData(color: Colors.black45),
@@ -76,14 +76,15 @@ class BottomNav extends StatelessWidget {
   }
 
   void _navigate(BuildContext context, int route) {
-    if (route == index) {
+    Navigator.of(context).popUntil(ModalRoute.withName("/"));
+
+    if (route == index || route == HOME_INDEX) {
       return;
     }
-    if (route == HOME_INDEX) {
-      return Navigator.of(context).popUntil(ModalRoute.withName("/"));
-    }
-    Navigator.of(context).canPop()
-        ? Navigator.of(context).popAndPushNamed(_routes[route]!)
-        : Navigator.of(context).pushNamed(_routes[route]!);
+    if (route == HOME_INDEX) {}
+    // Navigator.of(context).canPop()
+    // ? Navigator.of(context).popAndPushNamed(_routes[route]!)
+    // :
+    Navigator.of(context).pushNamed(_routes[route]!);
   }
 }

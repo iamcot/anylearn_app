@@ -93,7 +93,7 @@ class _V3HomeScreen extends State<V3HomeScreen> {
                     ? LoadingScreen()
                     : Scaffold(
                         appBar: PreferredSize(
-                          preferredSize: Size.fromHeight(100.0),
+                          preferredSize: Size.fromHeight(120.0),
                           child: Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -108,7 +108,7 @@ class _V3HomeScreen extends State<V3HomeScreen> {
                             ),
                             child: Container(
                               // height: 100.0,
-                              margin: EdgeInsets.fromLTRB(15, 80.0, 15, 10),
+                              margin: EdgeInsets.fromLTRB(15, 50.0, 15, 10),
                               child: Row(
                                 children: [
                                   Container(
