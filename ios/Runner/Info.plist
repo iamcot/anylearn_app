@@ -58,11 +58,13 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Chúng tôi cần sử dụng camera của bạn để giúp bạn đổi ảnh cá nhân, scan barcode và cập nhật các giấy tờ liên quan</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Trong trường hợp bạn muốn dùng tính năng tìm trường xung quanh, vui lòng cấp quyền truy cập quyền để truy xuất vị trị hiện tại của bạn.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Chúng tôi cần truy xuất thư viện hình ảnh của bạn để giúp bạn đổi ảnh cá nhân và hỗ trợ soạn thảo bài giảng.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>Trong trường hợp bạn muốn dùng tính năng tìm trường xung quanh, vui lòng cấp quyền truy cập quyền để truy xuất vị trị hiện tại của bạn.</string>
-    <key>UIBackgroundModes</key>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
 		<string>remote-notification</string>
@@ -87,8 +89,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 </dict>
 </plist>
