@@ -27,11 +27,15 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
 
   @override
   void didChangeDependencies() {
-    if (user.token == "") {
-      Navigator.of(context).popAndPushNamed("/login");
-    }
     final userRepo = RepositoryProvider.of<UserRepository>(context);
-    _accountBloc = AccountBloc(userRepository: userRepo)..add(AccLoadMyCalendarEvent(token: user.token));
+    _accountBloc = AccountBloc(userRepository: userRepo);
+    if (user.token == "") {
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).popAndPushNamed("/login");
+      });
+    } else {
+      _accountBloc..add(AccLoadMyCalendarEvent(token: user.token));
+    }
     super.didChangeDependencies();
   }
 
@@ -56,9 +60,7 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                 height: 120.0,
                 child: Image.asset("assets/banners/schedule_banner.jpg", fit: BoxFit.cover),
               ),
-              TabBar(
-                controller: _tabController, 
-                tabs: [
+              TabBar(controller: _tabController, tabs: [
                 Tab(child: Text("Đã qua").tr()),
                 Tab(child: Text("Đang mở").tr()),
                 Tab(child: Text("Quan tâm").tr()),
@@ -78,13 +80,14 @@ class _AccountCalendarScreen extends State<AccountCalendarScreen> with TickerPro
                   context: context,
                   builder: (context) => AlertDialog(
                         title: Text("Mời đánh giá khóa học.").tr(),
-                        content: Text("Chúc mừng bạn vừa hoàn thành buổi học. Vui lòng để lại đánh giá của bạn nhé.").tr(),
+                        content:
+                            Text("Chúc mừng bạn vừa hoàn thành buổi học. Vui lòng để lại đánh giá của bạn nhé.").tr(),
                         actions: [
                           TextButton(
                               onPressed: () async {
                                 Navigator.of(context).pop();
                                 // final sentReview =
-                                    await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                                await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                                   return RatingInputScreen(
                                       user: user, itemId: state.itemId, itemTitle: "", lastRating: 0);
                                 }));

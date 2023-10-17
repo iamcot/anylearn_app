@@ -64,8 +64,6 @@ class _AccountProfileScreen extends State<AccountProfileScreen> {
             appBar: AppBar(
               actions: [],
             ),
-            floatingActionButton: FloatingActionButtonHome(),
-            floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
             bottomNavigationBar: BottomNav(
               BottomNav.ACCOUNT_INDEX,
             ),

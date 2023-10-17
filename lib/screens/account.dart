@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,13 @@ class _AccountScreen extends State<AccountScreen> {
 
   @override
   void didChangeDependencies() {
-    _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
+    if (user.token == "") {
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).popAndPushNamed("/login");
+      });
+    }
+
+    _authBloc = BlocProvider.of<AuthBloc>(context);
     super.didChangeDependencies();
   }
 
@@ -33,20 +40,14 @@ class _AccountScreen extends State<AccountScreen> {
         builder: (context, state) {
           if (state is AuthSuccessState) {
             user = state.user;
-          } 
-          return Scaffold(
-            body: AccountBody(
-                      authBloc: _authBloc,
-                    )
-            // user.token != ""
-            //     ? CustomFeedback(
-            //         user: user,
-            //         child: AccountBody(
-            //           authBloc: _authBloc,
-            //         ),
-            //       )
-            //     : LoadingWidget(),
-          );
+          }
+
+          return user.token == ""
+              ? LoadingScreen()
+              : Scaffold(
+                  body: AccountBody(
+                  authBloc: _authBloc,
+                ));
         },
       ),
     );

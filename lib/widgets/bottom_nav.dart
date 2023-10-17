@@ -76,15 +76,15 @@ class BottomNav extends StatelessWidget {
   }
 
   void _navigate(BuildContext context, int route) {
-    Navigator.of(context).popUntil(ModalRoute.withName("/"));
-
-    if (route == index || route == HOME_INDEX) {
+    if (route == index) {
       return;
     }
-    if (route == HOME_INDEX) {}
-    // Navigator.of(context).canPop()
-    // ? Navigator.of(context).popAndPushNamed(_routes[route]!)
-    // :
-    Navigator.of(context).pushNamed(_routes[route]!);
+    if (route == HOME_INDEX) {
+      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+      return;
+    }
+    Navigator.of(context).canPop()
+        ? Navigator.of(context).popAndPushNamed(_routes[route]!)
+        : Navigator.of(context).pushNamed(_routes[route]!);
   }
 }

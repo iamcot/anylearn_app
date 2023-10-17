@@ -5,7 +5,6 @@ import '../../../dto/item_dto.dart';
 import '../../../widgets/price_box.dart';
 import '../../../widgets/rating.dart';
 
-
 class ItemCard extends StatelessWidget {
   final ItemDTO item;
   final double width;
@@ -23,7 +22,7 @@ class ItemCard extends StatelessWidget {
           Container(
             height: width,
             alignment: Alignment.center,
-            child: item.image != "" 
+            child: item.image != ""
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     // borderRadius: BorderRadius.circular(8.0),
@@ -49,6 +48,13 @@ class ItemCard extends StatelessWidget {
             ),
           ),
           Container(
+            // padding: EdgeInsets.only(left: 10),
+            child: RatingBox(
+              score: 5,
+              alignment: "left",
+            ),
+          ),
+          Container(
               // padding: EdgeInsets.only(left: 10),
               height: 18,
               child: PriceBox(
@@ -56,13 +62,7 @@ class ItemCard extends StatelessWidget {
                 price: item.price,
                 fontSize: 13,
               )),
-          Container(
-            // padding: EdgeInsets.only(left: 10),
-            child: RatingBox(
-              score: 5,
-              alignment: "left",
-            ),
-          ),
+
           // Expanded(
           //   child: Align(
           //     alignment: Alignment.bottomCenter,

@@ -46,15 +46,6 @@ class _CourseFormScreen extends State<CourseFormScreen> {
 
   @override
   void didChangeDependencies() {
-    if (user.token == "") {
-      Navigator.of(context).popAndPushNamed("/login");
-    }
-    // if (user.updateDoc == 0) {
-    //   Navigator.of(context).pushNamed("/account/docs", arguments: user.token);
-    // }
-    // if (user.isSigned < MyConst.CONTRACT_SIGNED) {
-    //   Navigator.of(context).pushNamed("/contract/" + user.role);
-    // }
     try {
       editId = int.parse(ModalRoute.of(context)!.settings.arguments.toString());
     } catch (e) {
@@ -64,13 +55,26 @@ class _CourseFormScreen extends State<CourseFormScreen> {
     final userRepo = RepositoryProvider.of<UserRepository>(context);
     _courseBloc = CourseBloc(itemRepository: itemRepo, userRepository: userRepo);
 
-    if (editId > 0) {
-      _courseBloc..add(LoadCourseEvent(id: editId, token: user.token));
+    if (user.token == "") {
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).popAndPushNamed("/login");
+      });
     } else {
-      _itemDTO = new ItemDTO(
-        type: MyConst.ITEM_CLASS,
-      );
+      if (editId > 0) {
+        _courseBloc..add(LoadCourseEvent(id: editId, token: user.token));
+      } else {
+        _itemDTO = new ItemDTO(
+          type: MyConst.ITEM_CLASS,
+        );
+      }
     }
+    // if (user.updateDoc == 0) {
+    //   Navigator.of(context).pushNamed("/account/docs", arguments: user.token);
+    // }
+    // if (user.isSigned < MyConst.CONTRACT_SIGNED) {
+    //   Navigator.of(context).pushNamed("/contract/" + user.role);
+    // }
+
     super.didChangeDependencies();
   }
 

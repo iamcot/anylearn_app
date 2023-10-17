@@ -14,27 +14,27 @@ class CourseListScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _AccountCalendarScreen();
 }
 
-class _AccountCalendarScreen extends State<CourseListScreen>
-    with TickerProviderStateMixin {
+class _AccountCalendarScreen extends State<CourseListScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   late CourseBloc _courseBloc;
   UserCoursesDTO? _data;
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    if (user.token == "") {
-      Navigator.of(context).popAndPushNamed("/login");
-    }
     _tabController = new TabController(vsync: this, length: 2, initialIndex: 0);
-    _courseBloc = BlocProvider.of<CourseBloc>(context)
-      ..add(ListCourseEvent(token: user.token));
+    _courseBloc = BlocProvider.of<CourseBloc>(context);
+    if (user.token == "") {
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).popAndPushNamed("/login");
+      });
+    } else {
+      _courseBloc..add(ListCourseEvent(token: user.token));
+    }
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -84,8 +84,7 @@ class _AccountCalendarScreen extends State<CourseListScreen>
                       )
                     : CustomFeedback(
                         user: user,
-                        child:
-                            TabBarView(controller: _tabController, children: [
+                        child: TabBarView(controller: _tabController, children: [
                           CourseList(
                             list: _data!.open,
                             hasMenu: true,

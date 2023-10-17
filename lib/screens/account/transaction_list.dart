@@ -16,7 +16,6 @@ class TransactionList extends StatelessWidget {
     var monneyF = new NumberFormat("###,###,###", "vi_VN");
     return CustomScrollView(
       slivers: <Widget>[
-
         transactions.length > 0
             ? SliverList(
                 delegate: SliverChildBuilderDelegate(
@@ -67,15 +66,7 @@ class TransactionList extends StatelessWidget {
                 ),
               )
             : SliverToBoxAdapter(
-                  
-
-                child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed("/event");
-                    },
-                        
-
-                    child: Text("Bạn không có giao dịch nào. Xem các lịch học đang có").tr()),
+                child: Text("Bạn không có giao dịch nào").tr(),
               )
       ],
     );

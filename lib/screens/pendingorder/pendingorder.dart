@@ -27,14 +27,15 @@ class _MyWidgetState extends State<PendingOrder> with TickerProviderStateMixin {
   final dateF = new DateFormat("dd/MM\nyyyy");
 
   void didChangeDependencies() {
-    if (user.token == "") {
-      Navigator.of(context).popAndPushNamed("/login");
-    }
-
     final pendingOrderRepo = RepositoryProvider.of<UserRepository>(context);
-    _pendingorderBloc =
-        PendingOrderBloc(pendingorderRepository: pendingOrderRepo);
-    _pendingorderBloc..add(LoadPendingorderPageEvent(token: user.token));
+    _pendingorderBloc = PendingOrderBloc(pendingorderRepository: pendingOrderRepo);
+    if (user.token == "") {
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).popAndPushNamed("/login");
+      });
+    } else {
+      _pendingorderBloc..add(LoadPendingorderPageEvent(token: user.token));
+    }
 
     // _tabController =
     //     new TabController(vsync: this, length: 2, initialIndex: initTab);
@@ -61,9 +62,7 @@ class _MyWidgetState extends State<PendingOrder> with TickerProviderStateMixin {
                       actions: [
                         IconButton(
                             onPressed: () {
-                              _pendingorderBloc
-                                ..add(LoadPendingorderPageEvent(
-                                    token: user.token));
+                              _pendingorderBloc..add(LoadPendingorderPageEvent(token: user.token));
                             },
                             icon: Icon(Icons.refresh))
                       ],
@@ -78,22 +77,17 @@ class _MyWidgetState extends State<PendingOrder> with TickerProviderStateMixin {
                               ),
                               trailing: Icon(Icons.chevron_right),
                               title: Text(datas![index].classes.toString()),
-                              subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Tổng tiền: ".tr() +
-                                          monneyF.format(datas![index].amount),
-                                      style: TextStyle(color: Colors.pink),
-                                    ),
-                                  ]),
+                              subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                Text(
+                                  "Tổng tiền: ".tr() + monneyF.format(datas![index].amount),
+                                  style: TextStyle(color: Colors.pink),
+                                ),
+                              ]),
                               onTap: () async {
                                 await Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => WebviewScreen(
-                                      url: config.webUrl +
-                                          "/payment-help?order_id=" +
-                                          datas![index].id.toString(),
+                                      url: config.webUrl + "/payment-help?order_id=" + datas![index].id.toString(),
                                       token: user.token,
                                     ),
                                   ),
@@ -101,9 +95,7 @@ class _MyWidgetState extends State<PendingOrder> with TickerProviderStateMixin {
                                 toast(
                                     "Nếu bạn đã thực hiện chuyển khoản, vui lòng đợi ít phút để anyLEARN xác nhận đơn hàng."
                                         .tr());
-                                _pendingorderBloc
-                                  ..add(LoadPendingorderPageEvent(
-                                      token: user.token));
+                                _pendingorderBloc..add(LoadPendingorderPageEvent(token: user.token));
                               },
                             )),
                         separatorBuilder: ((context, index) => Divider()),

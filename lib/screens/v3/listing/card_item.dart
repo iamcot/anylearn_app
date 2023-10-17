@@ -14,15 +14,14 @@ class ListingCardItem extends StatelessWidget {
     return Row(children: [
       Expanded(
         child: Container(
-          height: width + 75 ,
-          child: ListView.builder(
-            physics: ScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: data.items.length,
-            itemBuilder: (context, index) => _itemBuilder(context, data.items[index], width),
-          )
-        ),
+            height: width + 75,
+            child: ListView.builder(
+              physics: ScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: data.items.length,
+              itemBuilder: (context, index) => _itemBuilder(context, data.items[index], width),
+            )),
       ),
     ]);
   }
@@ -40,21 +39,22 @@ class ListingCardItem extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: CachedNetworkImage(
-                imageUrl: item.image, 
-                fit: BoxFit.cover, 
-                width: width, 
+                imageUrl: item.image,
+                fit: BoxFit.cover,
+                width: width,
                 height: width - 5,
               ),
             ),
-      
-            SizedBox(height: 10),
-            Text(
-              '${f.format(item.price)}',        
-              style: Theme.of(context).textTheme.titleMedium,
+            Container(
+              margin: EdgeInsets.only(top: 5, bottom: 5),
+              child: Text(item.title, maxLines: 3, style: TextStyle(
+                fontSize: 14
+              ),),
             ),
-      
-            SizedBox(height: 5),
-            Text(item.title, maxLines: 2),
+            Text(
+              '${f.format(item.price)}',
+              style: TextStyle(color: Colors.green),
+            ),
           ],
         ),
       ),

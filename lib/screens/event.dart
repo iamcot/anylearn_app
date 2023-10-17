@@ -23,11 +23,14 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
 
   @override
   void didChangeDependencies() {
-    if (user.token == "") {
-      Navigator.of(context).popAndPushNamed("/login");
-    }
     final PageRepository pageRepository = RepositoryProvider.of<PageRepository>(context);
-    _eventBloc = EventBloc(pageRepository: pageRepository);//..add(LoadEventEvent(month: DateTime.now()));
+    _eventBloc = EventBloc(pageRepository: pageRepository);
+    if (user.token == "") {
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).popAndPushNamed("/login");
+      });
+    }
+    //..add(LoadEventEvent(month: DateTime.now()));
     super.didChangeDependencies();
   }
 
@@ -58,7 +61,7 @@ class _EventScreen extends State<EventScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-        Text('title').tr();
+    Text('title').tr();
 
     return Scaffold(
       appBar: BaseAppBar(

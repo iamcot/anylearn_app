@@ -15,6 +15,11 @@ class _QrCodeScreen extends State<QrCodeScreen> {
 
   @override
   void didChangeDependencies() {
+    if (user.token == "") {
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).popAndPushNamed("/login");
+      });
+    }
     super.didChangeDependencies();
     // _authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
   }

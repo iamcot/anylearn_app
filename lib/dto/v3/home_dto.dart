@@ -1,3 +1,5 @@
+import 'package:anylearn/dto/v3/voucher_dto.dart';
+
 import '../ask_dto.dart';
 import '../hot_items_dto.dart';
 import 'package:equatable/equatable.dart';
@@ -91,7 +93,7 @@ class HomeV3DTO extends Equatable {
           : HotItemsDTO.fromJson(json['recommendations']),
         vouchers: json['vouchers'] == null || json ['vouchers'].isEmpty
           ? []
-          : List<ArticleDTO>.from(json['vouchers']?.map((v) => v == null ? null : ArticleDTO.fromJson(v)))
+          : List<VoucherDTO>.from(json['vouchers']?.map((v) => v == null ? null : VoucherDTO.fromJson(v)))
             .toList(),
         articles: json['articles'] == null || json['articles'].isEmpty
           ? []

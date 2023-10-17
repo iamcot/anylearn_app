@@ -1,19 +1,18 @@
 import 'dart:async';
 
-import 'package:anylearn/blocs/auth/auth_bloc.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/screens/v3/map/screen.dart';
-
-import '../../loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../blocs/auth/auth_bloc.dart';
 import '../../../blocs/subtype/subtype_bloc.dart';
+import '../../../dto/user_dto.dart';
 import '../../../dto/v3/subtype_dto.dart';
 import '../../../main.dart';
 import '../../../models/page_repo.dart';
 import '../../../widgets/bottom_nav.dart';
+import '../../loading.dart';
 import '../home/search_box.dart';
+import '../map/screen.dart';
 import 'body.dart';
 
 class SubtypeScreen extends StatefulWidget {
@@ -28,22 +27,19 @@ class _SubtypeScreen extends State<SubtypeScreen> {
   final searchController = TextEditingController();
   SubtypeDTO? data;
 
-  late UserDTO _user;
   late SubtypeBloc _bloc;
   
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
-    final authBloc = BlocProvider.of<AuthBloc>(context)..add(AuthCheckEvent());
     _bloc = SubtypeBloc(pageRepository: pageRepo);
-    _user = authBloc.state.user; 
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SubtypeBloc, SubtypeState>(
-      bloc: _bloc..add(LoadSubtypePageEvent(category: widget.subtype['type'], token: _user.token)),
+      bloc: _bloc..add(LoadSubtypePageEvent(category: widget.subtype['type'])),
       builder: (context, state) {
         if (state is SubtypeSuccessState) {
           data = state.data;
@@ -130,6 +126,6 @@ class _SubtypeScreen extends State<SubtypeScreen> {
   }
 
   Future<void> _reloadPage() async {
-    _bloc..add(LoadSubtypePageEvent(category: widget.subtype['type'], token: _user.token));
+    _bloc..add(LoadSubtypePageEvent(category: widget.subtype['type']));
   }
 }

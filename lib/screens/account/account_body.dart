@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -30,30 +28,28 @@ class _AccountBody extends State<AccountBody> {
         AccountAppBarWithImage(user: user),
         SliverToBoxAdapter(
           child: Column(children: <Widget>[
-            (Platform.isIOS && !user.enableIosTrans)
-                ? SizedBox(height: 0)
-                : AccountNormalMenu(
-                    title: "Giao dịch của tôi".tr(),
-                    route: "/transaction",
-                    leadingIcon: MdiIcons.wallet,
-                    trailing: Icon(Icons.chevron_right),
-                    // subContent: Text(
-                    //   "anyPoint: " + moneyFormat.format(user.walletC),
-                    //   style: TextStyle(
-                    //     color: Colors.orange,
-                    //     fontSize: 12.0,
-                    //     fontFeatures: [FontFeature.tabularFigures()],
-                    //   ),
-                    // ),
-                  ),
-            (Platform.isIOS && !user.enableIosTrans)
-                ? SizedBox(height: 0)
-                : AccountNormalMenu(
-                    title: "Chờ thanh toán".tr(),
-                    route: "/pendingorder/pendingorder",
-                    leadingIcon: MdiIcons.walletMembership,
-                    trailing: Icon(Icons.chevron_right),
-                  ),
+            AccountNormalMenu(
+              title: "Giao dịch của tôi".tr(),
+              route: "/transaction",
+              leadingIcon: MdiIcons.wallet,
+              trailing: Icon(Icons.chevron_right),
+              // subContent: Text(
+              //   "anyPoint: " + moneyFormat.format(user.walletC),
+              //   style: TextStyle(
+              //     color: Colors.orange,
+              //     fontSize: 12.0,
+              //     fontFeatures: [FontFeature.tabularFigures()],
+              //   ),
+              // ),
+            ),
+            // (Platform.isIOS && !user.enableIosTrans)
+            //     ? SizedBox(height: 0)
+            AccountNormalMenu(
+              title: "Chờ thanh toán".tr(),
+              route: "/pendingorder/pendingorder",
+              leadingIcon: MdiIcons.walletMembership,
+              trailing: Icon(Icons.chevron_right),
+            ),
 
             user.role == MyConst.ROLE_MEMBER
                 ? SizedBox(height: 0)
@@ -65,7 +61,6 @@ class _AccountBody extends State<AccountBody> {
                       Icons.chevron_right,
                     ),
                   ),
-           
 
             AccountNormalMenu(
               title: "Danh sách bạn bè".tr(),
@@ -200,7 +195,7 @@ class _AccountBody extends State<AccountBody> {
   }
 
   // void _tabToCopy(String text) {
-    // Clipboard.setData(new ClipboardData(text: text));
-    // Share.share(text);
+  // Clipboard.setData(new ClipboardData(text: text));
+  // Share.share(text);
   // }
 }

@@ -1,11 +1,14 @@
+import 'package:anylearn/dto/v3/voucher_dto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../../../customs/custom_carousel.dart';
 import '../../../dto/article_dto.dart';
 
 class HomeVoucher extends StatelessWidget {
   late double width;
-  final List<ArticleDTO> vouchers;
+  final List<VoucherDTO> vouchers;
 
   HomeVoucher({Key? key, required this.vouchers}) : super(key: key);
 
@@ -66,12 +69,17 @@ class HomeVoucher extends StatelessWidget {
         ),
         title: Text(
           item.title,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black87),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
-        // subtitle: Text("Nhận khuyến mãi"),
-        trailing: Icon(Icons.chevron_right),
+        subtitle: Text("<Nhấn để chép mã>"),
+        trailing: Text(
+          item.code,
+          style: TextStyle(color: Colors.green),
+        ),
         onTap: () {
-          // Navigator.of(context).pushNamed("/article", arguments: item.id);
+          Clipboard.setData(new ClipboardData(text: item.code));
+          toast("Đã copy vào bộ nhớ");
         },
       ),
     );

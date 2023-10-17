@@ -134,7 +134,6 @@ class ConfigServices extends BaseService {
     final api = token == '' ? '/v3/main-subtypes/' : '/v3/auth/main-subtypes/';
     final url = buildUrl(appConfig: config, endPoint: api + category, token: token);
     final json = await get(httpClient, url);
-    print(url);
     return SubtypeDTO.fromJson(json);
   }
 

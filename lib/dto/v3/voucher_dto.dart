@@ -4,8 +4,9 @@ class VoucherDTO extends Equatable {
   final title;
   final id;
   final value;
+  final code;
 
-  VoucherDTO({this.title, this.id, this.value});
+  VoucherDTO({this.title, this.id, this.value, this.code});
 
   @override
   List<Object> get props => [title, id, value];
@@ -17,6 +18,7 @@ class VoucherDTO extends Equatable {
           title: json['title'] ?? "",
           id: json['id'] ?? 0,
           value: json['value'] ?? 0.0,
+          code: json['code'] ?? "",
     );
   }
 }

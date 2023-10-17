@@ -1,7 +1,8 @@
-import 'package:anylearn/dto/article_dto.dart';
-import 'package:anylearn/dto/user_dto.dart';
-import 'package:anylearn/dto/v3/home_dto.dart';
-import 'package:anylearn/dto/hot_items_dto.dart';
+import '../article_dto.dart';
+import '../user_dto.dart';
+import 'home_dto.dart';
+import '../hot_items_dto.dart';
+import 'voucher_dto.dart';
 import 'package:equatable/equatable.dart';
 
 //import '../article_dto.dart';
@@ -69,12 +70,11 @@ class SubtypeDTO extends Equatable {
             .toList(),
         vouchers: json['vouchers'] == null 
           ? []
-          : List<ArticleDTO>
-            .from(json['vouchers']?.map((v) => v == null ? null : ArticleDTO.fromJson(v)))
+          : List<VoucherDTO>
+            .from(json['vouchers']?.map((v) => v == null ? null : VoucherDTO.fromJson(v)))
             .toList(),
       );
   }
-
   /*static SubtypeDTO fromJson(dynamic json) {
     return json == ""
         ? SubtypeDTO()

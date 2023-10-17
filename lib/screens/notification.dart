@@ -24,11 +24,16 @@ class _NotificationScreen extends State<NotificationScreen> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (user.token.isEmpty) {
-      Navigator.of(context).popAndPushNamed("/login", arguments: LoginCallback(routeName: "/notification"));
+    _notifBloc = BlocProvider.of<NotifBloc>(context);
+    if (user.token == "") {
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).popAndPushNamed("/login");
+      });
+    } else {
+      _notifBloc..add(NotifLoadEvent(token: user.token));
     }
-    _notifBloc = BlocProvider.of<NotifBloc>(context)..add(NotifLoadEvent(token: user.token));
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -59,8 +64,8 @@ class _NotificationScreen extends State<NotificationScreen> {
                               child: ListTile(
                                 onTap: () {
                                   _notifBloc
-                                  ..add(NotifReadEvent(token: user.token, id: _notif.data[index].id))
-                                  ..add(NotifLoadEvent(token: user.token));
+                                    ..add(NotifReadEvent(token: user.token, id: _notif.data[index].id))
+                                    ..add(NotifLoadEvent(token: user.token));
                                   if (_notif.data[index].extraContent == "copy") {
                                     Clipboard.setData(new ClipboardData(text: _notif.data[index].route));
                                     toast("Đã copy vào bộ nhớ".tr());

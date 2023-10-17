@@ -76,19 +76,17 @@ class _PdpBody extends State<PdpBody> {
                         Text(widget.data.author.role == 'school' ? " Trường: ".tr() : " Giảng viên: ".tr()),
                         Expanded(
                           child: Text.rich(
-                            TextSpan(
-                                text: widget.data.author.name,
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.of(context)
-                                        .pushNamed("/partner", arguments: widget.data.author.id);
-                                  }),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis
-                          ),
+                              TextSpan(
+                                  text: widget.data.author.name,
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.of(context).pushNamed("/partner", arguments: widget.data.author.id);
+                                    }),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
                         ),
                       ],
                     ),
@@ -125,32 +123,30 @@ class _PdpBody extends State<PdpBody> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 5.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.calendar_today, color: Colors.black54, size: 14.0),
-                                  Text(" Khai giảng: ".tr() +
-                                          widget.data.item.timeStart +
-                                          " " +
-                                          DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart)))
-                                      .tr(),
-                                  widget.data.numSchedule > 1
-                                      ? Text(" (${widget.data.numSchedule} buổi học)".tr())
-                                      : SizedBox(height: 1)
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: EdgeInsets.only(top: 5.0),
+                            //   child: Row(
+                            //     children: <Widget>[
+                            //       Icon(Icons.calendar_today, color: Colors.black54, size: 14.0),
+                            //       Text(" Khai giảng: ".tr() +
+                            //               widget.data.item.timeStart +
+                            //               " " +
+                            //               DateFormat('dd/MM').format(DateTime.parse(widget.data.item.dateStart)))
+                            //           .tr(),
+                            //       widget.data.numSchedule > 1
+                            //           ? Text(" (${widget.data.numSchedule} buổi học)".tr())
+                            //           : SizedBox(height: 1)
+                            //     ],
+                            //   ),
+                            // ),
                             Padding(
                               padding: EdgeInsets.only(top: 10.0),
-                              child: (Platform.isIOS && !widget.data.enableIosTrans)
-                                  ? SizedBox(height: 0)
-                                  : PriceBox(
-                                      price: widget.data.item.price,
-                                      orgPrice: widget.data.item.priceOrg,
-                                      fontSize: 18.0,
-                                      showOrgPrice: true,
-                                    ),
+                              child: PriceBox(
+                                price: widget.data.item.price,
+                                orgPrice: widget.data.item.priceOrg,
+                                fontSize: 18.0,
+                                showOrgPrice: true,
+                              ),
                             ),
                           ],
                         ),
@@ -166,7 +162,7 @@ class _PdpBody extends State<PdpBody> {
                                   icon: Icons.add_shopping_cart,
                                   color: Colors.green)
                               : SizedBox(height: 0),
-                          widget.data.item.numShare != null
+                          (widget.data.item.numShare != null &&  widget.data.item.numShare > 0)
                               ? ItemFavorStatusItem(
                                   text: widget.data.item.numShare.toString(), icon: Icons.share, color: Colors.blue)
                               : SizedBox(height: 0),
@@ -188,26 +184,25 @@ class _PdpBody extends State<PdpBody> {
                         //     ? SizedBox(
                         //         height: 0,
                         //       )
-                        //     : 
-                            Expanded(
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>((Colors.green[600])!),
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18),
-                                      ))),
-                                  onPressed: () {
-                                    user.token != ""
-                                        ? _add2Cart(context, user.token, widget.data.item.id)
-                                        : Navigator.of(context).pushNamed('/login',
-                                            arguments:
-                                                LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                                  },
-                                  child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [Icon(Icons.app_registration), Text(" ĐĂNG KÝ").tr()]),
-                                ),
-                              ),
+                        //     :
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>((Colors.green[600])!),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ))),
+                            onPressed: () {
+                              user.token != ""
+                                  ? _add2Cart(context, user.token, widget.data.item.id)
+                                  : Navigator.of(context).pushNamed('/login',
+                                      arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                            },
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [Icon(Icons.app_registration), Text(" ĐĂNG KÝ").tr()]),
+                          ),
+                        ),
                         BlocListener(
                           bloc: widget.pdpBloc,
                           listener: (BuildContext context, state) {
@@ -221,58 +216,55 @@ class _PdpBody extends State<PdpBody> {
                           child: BlocBuilder<PdpBloc, PdpState>(
                             bloc: widget.pdpBloc,
                             builder: (context, state) {
-                              return 
-                              // (Platform.isIOS && !widget.data.enableIosTrans)
-                              //     ? Expanded(
-                              //         child: ElevatedButton(
-                              //         onPressed: () {
-                              //           if (user.token != "") {
-                              //             widget.pdpBloc
-                              //               ..add(
-                              //                   PdpFavoriteTouchEvent(itemId: widget.data.item.id, token: user.token));
-                              //           } else {
-                              //             Navigator.of(context).pushNamed('/login',
-                              //                 arguments:
-                              //                     LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                              //           }
-                              //         },
-                              //         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                              //           Icon(
-                              //             widget.data.isFavorite == true ? Icons.favorite : Icons.favorite_border,
-                              //             color: widget.data.isFavorite != true ? Colors.red : Colors.white,
-                              //           ),
-                              //           Text(
-                              //             " Quan tâm",
-                              //             style: TextStyle(
-                              //                 color: widget.data.isFavorite != true ? Colors.red : Colors.white),
-                              //           ).tr()
-                              //         ]),
-                              //         style: ButtonStyle(
-                              //             backgroundColor: MaterialStateProperty.all<Color>(
-                              //               widget.data.isFavorite == true ? Colors.red : Colors.white,
-                              //             ),
-                              //             shape:
-                              //                 MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                              //               borderRadius: BorderRadius.circular(18),
-                              //             ))),
-                              //       ))
-                              //     : 
+                              return
+                                  // (Platform.isIOS && !widget.data.enableIosTrans)
+                                  //     ? Expanded(
+                                  //         child: ElevatedButton(
+                                  //         onPressed: () {
+                                  //           if (user.token != "") {
+                                  //             widget.pdpBloc
+                                  //               ..add(
+                                  //                   PdpFavoriteTouchEvent(itemId: widget.data.item.id, token: user.token));
+                                  //           } else {
+                                  //             Navigator.of(context).pushNamed('/login',
+                                  //                 arguments:
+                                  //                     LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                                  //           }
+                                  //         },
+                                  //         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                  //           Icon(
+                                  //             widget.data.isFavorite == true ? Icons.favorite : Icons.favorite_border,
+                                  //             color: widget.data.isFavorite != true ? Colors.red : Colors.white,
+                                  //           ),
+                                  //           Text(
+                                  //             " Quan tâm",
+                                  //             style: TextStyle(
+                                  //                 color: widget.data.isFavorite != true ? Colors.red : Colors.white),
+                                  //           ).tr()
+                                  //         ]),
+                                  //         style: ButtonStyle(
+                                  //             backgroundColor: MaterialStateProperty.all<Color>(
+                                  //               widget.data.isFavorite == true ? Colors.red : Colors.white,
+                                  //             ),
+                                  //             shape:
+                                  //                 MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                  //               borderRadius: BorderRadius.circular(18),
+                                  //             ))),
+                                  //       ))
+                                  //     :
                                   IconButton(
-                                      onPressed: () {
-                                        if (user.token != "") {
-                                          widget.pdpBloc
-                                            ..add(
-                                                PdpFavoriteTouchEvent(itemId: widget.data.item.id, token: user.token));
-                                        } else {
-                                          Navigator.of(context).pushNamed('/login',
-                                              arguments:
-                                                  LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
-                                        }
-                                      },
-                                      icon: Icon(
-                                          widget.data.isFavorite == true ? Icons.favorite : Icons.favorite_border,
-                                          color: Colors.red),
-                                    );
+                                onPressed: () {
+                                  if (user.token != "") {
+                                    widget.pdpBloc
+                                      ..add(PdpFavoriteTouchEvent(itemId: widget.data.item.id, token: user.token));
+                                  } else {
+                                    Navigator.of(context).pushNamed('/login',
+                                        arguments: LoginCallback(routeName: "/pdp", routeArgs: widget.data.item.id));
+                                  }
+                                },
+                                icon: Icon(widget.data.isFavorite == true ? Icons.favorite : Icons.favorite_border,
+                                    color: Colors.red),
+                              );
                             },
                           ),
                         ),
