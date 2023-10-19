@@ -1,4 +1,5 @@
-import 'package:anylearn/firebase_options.dart';
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -17,6 +18,7 @@ import 'blocs/notif/notif_bloc.dart';
 import 'blocs/search/search_bloc.dart';
 import 'dto/notification_dto.dart';
 import 'dto/user_dto.dart';
+import 'firebase_options.dart';
 import 'models/item_repo.dart';
 import 'models/page_repo.dart';
 import 'models/transaction_repo.dart';
@@ -26,7 +28,7 @@ import 'screens/v3/home/home.dart';
 import 'themes/default.dart';
 
 bool newNotification = false;
-late String notifToken;
+String notifToken = "";
 late AppConfig config;
 late PackageInfo packageInfo;
 String locale = "vi";
@@ -136,7 +138,7 @@ class _MyApp extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.instance.getInitialMessage().then((value) => print(value?.data.toString()));
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('A new onMessage event was published!');
@@ -146,11 +148,18 @@ class _MyApp extends State<MyApp> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
     });
+    // if (Platform.isIOS) {
+    //   FirebaseMessaging.instance.getAPNSToken().then((token) {
+    //     print("IOS apns token:");
+    //     print(token);
+    //     notifToken = token!;
+    //   });
+    // } else {
     FirebaseMessaging.instance.getToken().then((token) {
-      assert(token != null);
       print(token);
       notifToken = token!;
     });
+    // }
   }
 
   @override

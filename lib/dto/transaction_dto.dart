@@ -57,7 +57,7 @@ class TransactionDTO extends Equatable {
             payMethod: json['pay_method'] ?? "",
             bankInfo: "",
             status: json['status'] ?? "",
-            orderId: json['order_id'] ?? "",
+            orderId: json['order_id'] ?? 0,
             type: json['type'] ?? "",
             refAmount: json['ref_amount'] ?? "",
             refUser: json['ref_user_id'] ?? "",

@@ -60,12 +60,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBT0GtB7AxS9-mHjVfd2QQfQ3CgdUnarxc',
-    appId: '1:90246010853:ios:006c77ff929aefd4f8810c',
+    appId: '1:90246010853:ios:59e76c1e97789efaf8810c',
     messagingSenderId: '90246010853',
     projectId: 'anylearn-vn',
     databaseURL: 'https://anylearn-vn.firebaseio.com',
     storageBucket: 'anylearn-vn.appspot.com',
-    iosClientId: '90246010853-hln2kcdbno1des667vba8ttoet8t6gsm.apps.googleusercontent.com',
-    iosBundleId: 'vn.anylearn',
+    iosBundleId: 'vn.anylearn.buyer',
   );
 }

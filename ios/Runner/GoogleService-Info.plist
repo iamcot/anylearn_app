@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>90246010853-hln2kcdbno1des667vba8ttoet8t6gsm.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.90246010853-hln2kcdbno1des667vba8ttoet8t6gsm</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBT0GtB7AxS9-mHjVfd2QQfQ3CgdUnarxc</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>vn.anylearn</string>
+	<string>vn.anylearn.buyer</string>
 	<key>PROJECT_ID</key>
 	<string>anylearn-vn</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +25,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:90246010853:ios:006c77ff929aefd4f8810c</string>
+	<string>1:90246010853:ios:59e76c1e97789efaf8810c</string>
 	<key>DATABASE_URL</key>
 	<string>https://anylearn-vn.firebaseio.com</string>
 </dict>

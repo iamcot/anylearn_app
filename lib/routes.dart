@@ -90,7 +90,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   // "/passwordupdate": (BuildContext context) => PasswordupdateScreen(),
   "/pendingorder/pendingorder": (BuildContext context) => PendingOrder(),
   "/locale": (BuildContext context) => LocaleScreen(),
-  "/map": (BuildContext context) => MapScreen(),
+  // "/map": (BuildContext context) => MapScreen(),
   "/partner": (BuildContext context) => PartnerScreen(),
   "/listing": (BuildContext context) => ListingScreen(),
 };
