@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:anylearn/screens/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +25,7 @@ class _V3HomeScreen extends State<V3HomeScreen> {
   late AuthBloc _authBloc;
   late HomeBloc _homeBloc;
   //late String _role;
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -118,8 +119,7 @@ class _V3HomeScreen extends State<V3HomeScreen> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8.0),
                                         color: Colors.white,
-                                        border: Border.all(color: Colors.grey, width: 0)
-                                        ),
+                                        border: Border.all(color: Colors.grey, width: 0)),
                                     child: IconButton(
                                       onPressed: () {
                                         Navigator.of(context).pushNamed("/qrcode");
@@ -132,11 +132,36 @@ class _V3HomeScreen extends State<V3HomeScreen> {
                                   ),
                                   Expanded(
                                     child: Container(
-                                      margin: EdgeInsets.only(left: 10.0),
+                                      margin: EdgeInsets.only(left: 10.0, right: 10.0),
                                       height: 50.0,
                                       child: SearchBox(user: user),
                                     ),
-                                  )
+                                  ),
+                                  user.token.isEmpty
+                                      ? Container()
+                                      : Container(
+                                          width: 48,
+                                          height: 48,
+                                          padding: EdgeInsets.all(0),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              color: Colors.white,
+                                              border: Border.all(color: Colors.grey, width: 0)),
+                                          child: IconButton(
+                                            onPressed: () {
+                                              String url = config.webUrl + "cart";
+                                              Navigator.of(context).push(MaterialPageRoute(
+                                                  builder: (context) => WebviewScreen(
+                                                        url: url,
+                                                        token: user.token,
+                                                      )));
+                                            },
+                                            icon: Icon(
+                                              Icons.shopping_cart_outlined,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ),
                                 ],
                               ),
                             ),
@@ -144,10 +169,10 @@ class _V3HomeScreen extends State<V3HomeScreen> {
                         ),
                         body: RefreshIndicator(
                           child: V3HomeBody(
-                              user: user,
-                              homeData: homeData!,
-                              homeBloc: _homeBloc,
-                              ),
+                            user: user,
+                            homeData: homeData!,
+                            homeBloc: _homeBloc,
+                          ),
                           onRefresh: _reloadPage,
                         ),
                         bottomNavigationBar: BottomNav(BottomNav.HOME_INDEX),
