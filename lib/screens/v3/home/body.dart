@@ -53,7 +53,7 @@ class _V3HomeBody extends State<V3HomeBody> {
         )
       : ListView(
           children: [
-            HomeSubtype(user: widget.user),
+            HomeSubtype(user: widget.user, enableIosTrans: widget.homeData.enableIosTrans),
             ItemsList3(hotItems: widget.homeData.recommendations),
             HomeBanner(banners: widget.homeData.banners, promotions: widget.homeData.promotions),
             HomeVoucher(vouchers: widget.homeData.vouchers),
