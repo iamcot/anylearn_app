@@ -10,8 +10,8 @@ class ListingRouteArguments {
   ListingRouteArguments({
     this.page = 1,
     this.size = 12,
-    this.sortBy = false,
-    this.sort = '',
+    this.sortBy = true,
+    this.sort = 'hot',
     this.search = '',
     this.subtype = '',
     this.category = '',
@@ -19,7 +19,17 @@ class ListingRouteArguments {
 
   @override
   String toString() {
-    final filter = sort.isEmpty ? sort : (sortBy ? '$sort-asc' : '$sort-desc');
+    final filter = sortBy ? '$sort-asc' : '$sort-desc';
     return 'search=$search&category=$category&sort=$filter&page=$page&size=$size';
   }
+
+  @override 
+  ListingRouteArguments.clone(ListingRouteArguments obj) 
+    : this(
+      search: obj.search, 
+      subtype: obj.subtype, 
+      category: obj.category, 
+      sortBy: obj.sortBy,
+      sort: obj.sort,
+    );
 }

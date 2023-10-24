@@ -15,7 +15,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
   ListingBloc({required this.pageRepository}) : super(ListingInitState()) {
     on<ListingLoadEvent>(_onListingLoadEvent);
     on<ListingFilterEvent>(_onListingFilterEvent);
-    on<ListingLoadMoreEvent>(_onListingLoadMoreEvent);
+    on<ListingMoreLoadEvent>(_onListingMoreLoadEvent);
   }
 
   Future<void> _onListingLoadEvent(ListingLoadEvent event, Emitter<ListingState> emit) async {     
@@ -37,17 +37,17 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         state.args!.sortBy = true;
       } 
 
-      state.args!.page = 1;
+      final args = ListingRouteArguments.clone(state.args!); 
       final data = await pageRepository.dataListing(state.args.toString());
-      return emit(ListingLoadSuccessState(data: data, args: state.args, isRerender: !state.isRerender));
+      return emit(ListingLoadSuccessState(data: data, args: args, isRerender: !state.isRerender));
 
     } catch (error) {   
-      print('Listing Error: $error');
+      print('Listing Error Filterd: $error');
       return emit(ListingLoadFailState());
     }    
   }
 
-  Future<void> _onListingLoadMoreEvent(ListingLoadMoreEvent event, Emitter<ListingState> emit) async {     
+  Future<void> _onListingMoreLoadEvent(ListingMoreLoadEvent event, Emitter<ListingState> emit) async {     
     try {
       if (state.hasReachedMax) return;
       state.args!.page++;

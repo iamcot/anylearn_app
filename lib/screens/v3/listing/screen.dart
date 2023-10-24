@@ -29,7 +29,7 @@ class _ListingScreenState extends State<ListingScreen> {
     super.initState(); 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.offset) {
-        _bloc..add(ListingLoadMoreEvent());
+        _bloc..add(ListingMoreLoadEvent());
       }
     });
   }
@@ -38,14 +38,14 @@ class _ListingScreenState extends State<ListingScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<ListingBloc, ListingState>(
       bloc: _bloc..add(ListingLoadEvent(args: widget.args)),
-      builder: (context, state) {   
+      builder: (context, state) {
         if (state is ListingLoadSuccessState) {
-
           final searchResults = state.data!.searchResults; 
           if (searchResults.isEmpty) {
-            return Center(child: Text("Rất tiếc, không có thông tin bạn cần tìm."));
+            return Center(
+              child: Text("Rất tiếc, không có thông tin bạn cần tìm.")
+            );
           }
-          
           return Container(
             padding: EdgeInsets.only(top: 10),
             color: Colors.grey.shade100,
@@ -69,7 +69,6 @@ class _ListingScreenState extends State<ListingScreen> {
             ),
           );
         }
-
         return LoadingScreen();
       }  
     );

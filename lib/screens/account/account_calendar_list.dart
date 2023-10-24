@@ -248,6 +248,7 @@ class _AccountCalendarList extends State<AccountCalendarList>
                     : ElevatedButton(
                         // color: Colors.blue,
                         onPressed: () {
+                          print('TES');
                           _dialogJoin(event, true);
                         },
                         child: Text(

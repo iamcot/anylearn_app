@@ -1,12 +1,12 @@
-import 'package:anylearn/blocs/listing/listing_bloc.dart';
-import 'package:anylearn/blocs/search/search_bloc.dart';
-import 'package:anylearn/dto/v3/home_dto.dart' show CategoryDTO;
-import 'package:anylearn/screens/loading.dart';
-import 'package:anylearn/screens/v3/listing/args.dart';
-import 'package:anylearn/screens/v3/listing/filter.dart';
-import 'package:anylearn/screens/v3/listing/screen.dart';
-import 'package:anylearn/screens/v3/search/screen.dart';
-import 'package:anylearn/themes/search.dart';
+import '../blocs/listing/listing_bloc.dart';
+import '../blocs/search/search_bloc.dart';
+import '../dto/v3/home_dto.dart' show CategoryDTO;
+import '../screens/loading.dart';
+import '../screens/v3/listing/args.dart';
+import '../screens/v3/listing/filter.dart';
+import '../screens/v3/listing/screen.dart';
+import '../screens/v3/search/screen.dart';
+import '../themes/search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +56,7 @@ class CustomSearchDelegate extends SearchDelegate {
           showSuggestions(context);
         }
       ),
-      IconButton(
+      if (!_hasFilter.value) IconButton(
         icon: Icon(Icons.search),
         onPressed: () => showResults(context),
       ),
@@ -74,7 +74,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override 
   PreferredSizeWidget? buildBottom(BuildContext context) {
     return _hasFilter.value 
-      ? ListingFilter(callback: listingOnFilterTap) 
+      ? ListingFilter(callback: listingOnFilterTap, args: _listingArgs) 
       : null;
   }
 
@@ -82,7 +82,6 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     _hasFilter.value = true;
     _listingArgs.search = _listingArgs.category.isEmpty ? query : '';
-
     return ListingScreen(args: _listingArgs);
    
     /* if (screen == "school" || screen == "teacher") {
@@ -252,9 +251,9 @@ class CustomSearchDelegate extends SearchDelegate {
     showResults(context);
   }
 
-  void listingOnFilterTap(BuildContext context, String filter) {
+  void listingOnFilterTap(BuildContext context, String sort) {
     //_listingArgs.sort = filter;
-    BlocProvider.of<ListingBloc>(context).add(ListingFilterEvent(sort: filter));
+    BlocProvider.of<ListingBloc>(context).add(ListingFilterEvent(sort: sort));
     showResults(context);
   }
 

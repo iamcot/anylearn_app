@@ -9,9 +9,9 @@ class ListingLoadEvent extends ListingEvent {
   ListingLoadEvent({required args}) : super(args: args);
 }
 
+class ListingMoreLoadEvent extends ListingEvent {}
+
 class ListingFilterEvent extends ListingEvent {
   final String sort;
   ListingFilterEvent({required this.sort});
 }
-
-class ListingLoadMoreEvent extends ListingEvent {}

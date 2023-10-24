@@ -21,4 +21,3 @@ class ListingLoadSuccessState extends ListingState {
   ListingLoadSuccessState({args, data, isRerender = false}) 
     : super(args: args, data: data, isRerender: isRerender);
 }
-
