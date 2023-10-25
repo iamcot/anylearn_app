@@ -16,7 +16,7 @@ class BaseService {
   }) {
     return appConfig.apiUrl +
       endPoint +
-      "?v=" + packageInfo.version +
+      "?v=" + packageInfo.version + "&p=" + Platform.operatingSystem.toLowerCase() +
       "&locale=" + locale +
       (token.isNotEmpty ? "&${appConfig.tokenParam}=$token" : "") +
       (query.isNotEmpty ? ("&" + query) : "");
