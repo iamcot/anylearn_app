@@ -20,9 +20,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   void _onRegisterButtonPressedEvent(RegisterButtonPressedEvent event, Emitter<RegisterState> emit) async {
     try {
       emit(RegisterInprogressState());
-      await userRepository.register(event.userInput.phone, event.userInput.name, event.userInput.password,
-        event.userInput.refcode, event.userInput.role);
-      emit(RegisterSuccessState());
+      await userRepository.register(
+        event.userInput.phone, 
+        event.userInput.name, 
+        event.userInput.password,
+        event.userInput.refcode, 
+        event.userInput.role
+      );
+      return emit(RegisterSuccessState());
       // emit(RegisterInitState();
     } catch (e) {
       emit(RegisterFailState(error: e.toString()));

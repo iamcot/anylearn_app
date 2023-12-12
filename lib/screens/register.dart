@@ -22,9 +22,15 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreen extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   String _toc = "";
-  UserDTO _user = new UserDTO(
-    role: MyConst.ROLE_MEMBER,
-  );
+  // UserDTO _user = new UserDTO(
+  //   role: MyConst.ROLE_MEMBER,
+  // );
+
+  Map<String, String> data = {
+    'role': MyConst.ROLE_MEMBER
+  };
+
+
   late String confirmPassword;
   bool _agreedToc = false;
 
@@ -37,6 +43,7 @@ class _RegisterScreen extends State<RegisterScreen> {
 
   late RegisterBloc _loginBloc;
   late AuthBloc _authBloc;
+
   @override
   void didChangeDependencies() {
     if (user.token != "") {
@@ -126,18 +133,18 @@ class _RegisterScreen extends State<RegisterScreen> {
                     child: Row(
                       children: <Widget>[
                         CustomRadio(
-                          groupValue: _user.role,
+                          groupValue: data['role']!,
                           value: MyConst.ROLE_MEMBER,
                           label: "Thành viên".tr(),
                           func: () => _selectRole(MyConst.ROLE_MEMBER),
                         ),
                         CustomRadio(
-                            groupValue: _user.role,
+                            groupValue:  data['role']!,
                             value: MyConst.ROLE_TEACHER,
                             label: "Giảng viên".tr(),
                             func: () => _selectRole(MyConst.ROLE_TEACHER)),
                         CustomRadio(
-                          groupValue: _user.role,
+                          groupValue:  data['role']!,
                           value: MyConst.ROLE_SCHOOL,
                           label: "Trường học".tr(),
                           func: () => _selectRole(MyConst.ROLE_SCHOOL),
@@ -149,10 +156,10 @@ class _RegisterScreen extends State<RegisterScreen> {
                     padding: const EdgeInsets.only(
                         left: 40.0, right: 40.0, top: 10.0),
                     child: TextFormField(
-                      initialValue: _user.refcode,
+                      // initialValue: _user.refcode,
                       onSaved: (value) {
                         setState(() {
-                          // _user.refcode = value!.trim();
+                          data['refcode'] = value!.trim();
                         });
                       },
                       focusNode: _focusRef,
@@ -171,10 +178,11 @@ class _RegisterScreen extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                     child: TextFormField(
-                      initialValue: _user.name,
+                      // initialValue: _user.name,
                       onSaved: (value) {
                         setState(() {
-                          // _user.name = value!.trim();
+                          data['name'] = value!.trim();
+
                         });
                       },
                       validator: (value) {
@@ -190,7 +198,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         _fieldFocusChange(context, _focusName, _focusPhone);
                       },
                       decoration: InputDecoration(
-                        labelText: _user.role == MyConst.ROLE_SCHOOL
+                        labelText:  data['role']! == MyConst.ROLE_SCHOOL
                             ? "Tên trường".tr()
                             : "Họ & Tên".tr(),
                         prefixIcon: Icon(MdiIcons.account),
@@ -202,10 +210,10 @@ class _RegisterScreen extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                     child: TextFormField(
-                      initialValue: _user.phone,
+                      // initialValue: _user.phone,
                       onSaved: (value) {
                         setState(() {
-                          // _user.phone = value!.trim();
+                          data['phone'] = value!.trim();
                         });
                       },
                       validator: (value) {
@@ -233,7 +241,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     child: TextFormField(
                       onSaved: (value) {
                         setState(() {
-                          // _user.password = value!.trim();
+                          data['password'] = value!.trim();
                         });
                       },
                       validator: (value) {
@@ -271,7 +279,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         _focusRePass.unfocus();
                       },
                       validator: (value) {
-                        if (value != _user.password) {
+                        if (value != confirmPassword) {
                           return "Xác nhận mât khẩu không đúng".tr();
                         }
                         _formKey.currentState?.save();
@@ -373,7 +381,7 @@ class _RegisterScreen extends State<RegisterScreen> {
 
   void _selectRole(String value) {
     setState(() {
-      // _user.role = value;
+      data['role'] = value;
     });
   }
 
@@ -407,8 +415,15 @@ class _RegisterScreen extends State<RegisterScreen> {
       );
     }
     if (_formKey.currentState!.validate()) {
+      final _user = UserDTO(
+        name: data['name']!, 
+        phone: data['phone']!,
+        password: data['password']!,
+        role: data['role']!,
+        refcode: data['refcode']!,
+      );
       _formKey.currentState!.save();
-      _loginBloc.add(RegisterButtonPressedEvent(userInput: _user));
+      _loginBloc.add(RegisterButtonPressedEvent(userInput:  _user));
     }
   }
 }
