@@ -28,7 +28,8 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   table_calendar: ^3.0.5
   material_design_icons_flutter: ^7.0.7296
-  
+  timelines: ^0.1.0
+
   flutter_html: ^3.0.0-alpha.6
   expandable: ^5.0.1
   url_launcher: ^6.0.3

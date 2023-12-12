@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/v3/mycalendar/screen.dart';
 import 'package:anylearn/screens/v3/listing/screen.dart';
 import 'package:anylearn/screens/v3/map/screen.dart';
 import 'package:anylearn/screens/v3/partner/screen.dart';
@@ -57,7 +58,8 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/ask/forum/thread": (BuildContext context) => AskForumThreadScreen(),
   "/account": (BuildContext context) => AccountScreen(),
   "/account/friends": (BuildContext context) => AccountFriendsScreen(),
-  "/account/calendar": (BuildContext context) => AccountCalendarScreen(),
+  //"/account/calendar": (BuildContext context) => AccountCalendarScreen(),
+  "/account/calendar": (BuildContext context) => CalendarScreen(),
   "/account/helpcenter": (BuildContext context) => AccountHelpCenterScreen(),
   "/account/about": (BuildContext context) => AccountAboutScreen(),
   "/account/edit": (BuildContext context) => AccountEditScreen(),
