@@ -1,0 +1,70 @@
+{
+    "student_id": 214,
+    "student_list": [
+        {
+            "id": 123,
+            "name": "Banh Bao"
+        },
+        {
+            "id": 214,
+            "name": "Banh Bap"
+        }
+    ],
+    "today_courses": 3,
+    "upcoming_courses": [
+       {
+        "id": 1,
+        "title": "Title of Course 1 Locatgal ",
+        "author": "Cam",
+        "author_image": "img_1.jpg",
+        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
+        "subtype": "Digital",
+        "confirmed": false,
+        "rate": 4.5,
+        "date_start": "2023-12-31",
+        "time_start": "10:00 AM",
+        "time_end": "12:00 PM"
+       },
+       {
+        "id": 2,
+        "title": "Title of Course 2",
+        "author": "Cam",
+        "author_image": "img_1.jpg",
+        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
+        "subtype": "Digital",
+        "confirmed": true,
+        "rate": 4.5,
+        "date_start": "2023-12-31",
+        "time_start": "10:00",
+        "time_end": "12:00"
+       },
+       {
+        "id": 3,
+        "title": "Title of Course 1",
+        "author": "Cam",
+        "author_image": "img_1.jpg",
+        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
+        "subtype": "Digital",
+        "confirmed": false,
+        "rate": 4.5,
+        "date_start": "2023-12-31",
+        "time_start": "10:00 AM",
+        "time_end": "12:00 PM"
+       },
+       {
+        "id": 4,
+        "title": "Title of Course 2",
+        "author": "Cam",
+        "author_image": "img_1.jpg",
+        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
+        "subtype": "Digital",
+        "confirmed": true,
+        "rate": 4.5,
+        "date_start": "2023-12-31",
+        "time_start": "10:00",
+        "time_end": "12:00"
+       }
+    ],
+    "schedule_courses": [],
+    "done_courses": []
+}

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:anylearn/dto/v3/listing_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
+import 'package:anylearn/dto/v3/study_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -181,5 +182,9 @@ class PageRepository {
 
   Future<List<ItemDTO>> suggestFromKeyword(String screen, String query) async {
     return await configService.searchItem(screen, query);
+  }
+
+  Future<StudyDTO> dataStudy(String token, int studentID) async {
+    return await configService.dataStudy(token, studentID);
   }
 }

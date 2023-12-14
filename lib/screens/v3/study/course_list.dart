@@ -1,20 +1,24 @@
+import 'package:anylearn/dto/v3/registered_courses_dto.dart';
 import 'package:flutter/material.dart';
 
-class Courses extends StatelessWidget {
+class CourseList extends StatelessWidget {
   final String title;
   final String intro;
 
   final num itemHeight;
   final num itemWidth;
-  final Widget Function(int index) itemBuilder;
 
-  Courses({
+  final List<dynamic> data;
+  final Widget Function(RegisteredCourseDTO course) itemBuilder;
+
+  CourseList({
     Key? key, 
     required this.title,
     required this.intro,
-    this.itemHeight = 150, 
-    this.itemWidth = 160,
+    required this.data,
     required this.itemBuilder,
+    this.itemHeight = 160, 
+    this.itemWidth = 160,
   }) : super(key: key);
 
   @override
@@ -51,8 +55,8 @@ class Courses extends StatelessWidget {
               physics: ScrollPhysics(),
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              itemCount: 6,
-              itemBuilder: (context, index) => itemBuilder(index),
+              itemCount: data.length,
+              itemBuilder: (context, index) => itemBuilder(data[index]),
             ),
           ),
         ],

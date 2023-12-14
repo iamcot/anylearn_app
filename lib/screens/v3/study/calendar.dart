@@ -1,4 +1,4 @@
-import 'package:anylearn/screens/v3/mycalendar/item_schedule.dart';
+import 'package:anylearn/screens/v3/study/item_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';

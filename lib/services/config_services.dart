@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:anylearn/dto/v3/listing_dto.dart';
+import 'package:anylearn/dto/v3/study_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -154,6 +157,11 @@ class ConfigServices extends BaseService {
   Future<bool> imageValidation(String url) async {
     final response = await httpClient.get(Uri.parse(url));
     return response.statusCode == 200 ? true : false;
+  }
+
+  Future<StudyDTO> dataStudy(String token, int studentID) async {
+    final data = await rootBundle.loadString('assets/mock/study.json');
+    return StudyDTO.fromJson(jsonDecode(data));
   }
 
 }

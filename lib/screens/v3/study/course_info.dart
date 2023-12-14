@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 class CourseInfo extends StatelessWidget {
   const CourseInfo({Key? key}) : super(key: key);
