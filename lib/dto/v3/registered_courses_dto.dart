@@ -8,7 +8,7 @@ class RegisteredCourseDTO extends Equatable {
   final courseImage;
   final subtype;
   final confirmed;
-  final rate;
+  final rating;
   final startDate;
   final endDate;
   final startTime;
@@ -23,7 +23,7 @@ class RegisteredCourseDTO extends Equatable {
     courseImage,
     subtype,
     confirmed,
-    rate,
+    rating,
     startDate,
     endDate,
     startTime,
@@ -38,7 +38,7 @@ class RegisteredCourseDTO extends Equatable {
     this.authorImage = '',
     this.courseImage = '',
     this.confirmed = false,
-    this.rate = 0.0,
+    this.rating = 0.0,
     this.startDate = '',
     this.endDate = '',
     this.startTime = '',
@@ -55,7 +55,7 @@ class RegisteredCourseDTO extends Equatable {
       courseImage: json['course_image'] ?? '',
       subtype: json['subtype'] ?? '',
       confirmed: json['confirmed'] ?? false,
-      rate: json['rate'] ?? 0.0,
+      rating: json['rating'] ?? 0.0,
       startDate: json['date_start'] ?? '',
       endDate: json['date_end'] ?? '',
       startTime: json['time_start'] ?? '',

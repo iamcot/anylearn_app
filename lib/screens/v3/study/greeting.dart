@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Intro extends StatelessWidget {
-  const Intro({Key? key}) : super(key: key);
-
-  @override
+class Greeting extends StatelessWidget {
+  const Greeting({Key? key}) : super(key: key);
+ @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 20, top: 15, bottom: 15),
@@ -14,7 +13,7 @@ class Intro extends StatelessWidget {
             fontSize: 22,
           ),
           children: [
-            TextSpan(text: 'Chào Name O.o \n'),
+            TextSpan(text: 'Chào Name \n'),
             TextSpan(text: 'Bạn có 3 lớp học hôm nay.'),
           ]
         ),

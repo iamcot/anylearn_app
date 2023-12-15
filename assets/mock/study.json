@@ -14,26 +14,26 @@
     "upcoming_courses": [
        {
         "id": 1,
-        "title": "Title of Course 1 Locatgal ",
+        "title": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
         "author": "Cam",
         "author_image": "img_1.jpg",
         "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
         "subtype": "Digital",
         "confirmed": false,
-        "rate": 4.5,
+        "rating": 4.5,
         "date_start": "2023-12-31",
         "time_start": "10:00 AM",
         "time_end": "12:00 PM"
        },
        {
         "id": 2,
-        "title": "Title of Course 2",
+        "title": "GÓI ĐẦU TƯ GIÁO DỤC 12 NĂM",
         "author": "Cam",
         "author_image": "img_1.jpg",
-        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
+        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/713/oylIO6u7xe1662647552.jpg",
         "subtype": "Digital",
         "confirmed": true,
-        "rate": 4.5,
+        "rating": 4.5,
         "date_start": "2023-12-31",
         "time_start": "10:00",
         "time_end": "12:00"
@@ -46,7 +46,7 @@
         "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
         "subtype": "Digital",
         "confirmed": false,
-        "rate": 4.5,
+        "rating": 4.5,
         "date_start": "2023-12-31",
         "time_start": "10:00 AM",
         "time_end": "12:00 PM"
@@ -59,7 +59,7 @@
         "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
         "subtype": "Digital",
         "confirmed": true,
-        "rate": 4.5,
+        "rating": 4.5,
         "date_start": "2023-12-31",
         "time_start": "10:00",
         "time_end": "12:00"

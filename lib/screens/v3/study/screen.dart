@@ -1,20 +1,22 @@
 import 'package:anylearn/blocs/study/study_bloc.dart';
 import 'package:anylearn/models/page_repo.dart';
+import 'package:anylearn/screens/loading.dart';
 import 'package:anylearn/screens/v3/study/course_list.dart';
+import 'package:anylearn/screens/v3/study/greeting.dart';
 import 'package:anylearn/screens/v3/study/item_course.dart';
 import 'package:anylearn/screens/v3/study/item_schedule.dart';
 import 'package:anylearn/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({Key? key}) : super(key: key);
+class StudyScreen extends StatefulWidget {
+  const StudyScreen({Key? key}) : super(key: key);
 
   @override
-  State<CalendarScreen> createState() => _CalendarScreenState();
+  State<StudyScreen> createState() => _StudyScreenState();
 }
 
-class _CalendarScreenState extends State<CalendarScreen> {
+class _StudyScreenState extends State<StudyScreen> {
   late StudyBloc _studyBloc;
   
   @override
@@ -39,32 +41,36 @@ class _CalendarScreenState extends State<CalendarScreen> {
           switch (state.runtimeType) { 
             case StudyLoadSuccessState:
               final data = (state as StudyLoadSuccessState).data;
-              print('objec');
               return Container(
                 color: Colors.white,
                 child: ListView(
                   children: [
+                    Greeting(),
                     CourseList(
-                      title: 'Khóa học tham gia',
+                      title: 'Khóa học',
                       intro: 'Đây là các khóa học bạn đang hoặc chuẩn bị tham gia.',
                       data: data.upcomingCourses,
-                      itemBuilder: (index) => ItemCourse(index),
+                      itemBuilder: (course, type) => ItemCourse(data: course),
                     ),
-                    // CourseList(
-                    //   title: 'Lịch học hôm nay',
-                    //   intro: 'Đây là lịch học hôm nay của bạn.',
-                    // itemBuilder: (index) => ItemSchedule(index),
-                    // ),
-                    // CourseList(
-                    //   title: 'Khóa học hoàn thành',
-                    //   intro: 'Đây là các khóa học bạn đã hoàn thành.',
-                    //   itemBuilder: (index) => ItemCourse(state.data.doneCourses),
-                    // ),                  
+                    CourseList(
+                      title: 'Lịch học',
+                      intro: 'Đây là thời khóa biểu tuần này của bạn.',
+                      data: data.upcomingCourses,
+                      itemBuilder: (course, type) => ItemSchedule(course),
+                      itemWidth: MediaQuery.of(context).size.width - 50,
+                    ),
+                    CourseList(
+                      title: 'Hoàn thành',
+                      intro: 'Đây là các khóa học bạn đã hoàn thành.',
+                      data: data.upcomingCourses,
+                      itemType: ItemCourse.COMPLETION_TYPE,
+                      itemBuilder: (course, type) => ItemCourse(data: course, type: type),
+                    ),                  
                   ]
                 ),
               );
             default:
-              return Placeholder();
+              return LoadingScreen();
           }
         } 
       ),
