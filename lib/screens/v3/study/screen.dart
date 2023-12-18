@@ -42,10 +42,16 @@ class _StudyScreenState extends State<StudyScreen> {
             case StudyLoadSuccessState:
               final data = (state as StudyLoadSuccessState).data;
               return Container(
+                margin: EdgeInsets.only(top: 15),
                 color: Colors.white,
                 child: ListView(
                   children: [
-                    Greeting(),
+                    Greeting(
+                      studentID: data.studentID,               
+                      studentImage: data.studentImage,
+                      studentList: data.studentList,
+                      numCourses: data.numCourses,
+                    ),
                     CourseList(
                       title: 'Khóa học',
                       intro: 'Đây là các khóa học bạn đang hoặc chuẩn bị tham gia.',
@@ -57,7 +63,8 @@ class _StudyScreenState extends State<StudyScreen> {
                       intro: 'Đây là thời khóa biểu tuần này của bạn.',
                       data: data.upcomingCourses,
                       itemBuilder: (course, type) => ItemSchedule(course),
-                      itemWidth: MediaQuery.of(context).size.width - 50,
+                      itemWidth: MediaQuery.of(context).size.width - 90,
+                      itemHeight: 155,
                     ),
                     CourseList(
                       title: 'Hoàn thành',
@@ -74,7 +81,7 @@ class _StudyScreenState extends State<StudyScreen> {
           }
         } 
       ),
-      bottomNavigationBar: BottomNav(BottomNav.MYCLASS_INDEX),
+      // bottomNavigationBar: BottomNav(BottomNav.MYCLASS_INDEX),
     );
   }
 }

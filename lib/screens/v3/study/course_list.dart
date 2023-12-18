@@ -16,7 +16,7 @@ class CourseList extends StatelessWidget {
     required this.title,
     required this.data,
     required this.itemBuilder,
-    this.itemHeight = 155,
+    this.itemHeight = 180,
     this.itemWidth = 160,
     this.itemType = '',
     this.intro = '',
@@ -39,12 +39,12 @@ class CourseList extends StatelessWidget {
             )
           ),
           SizedBox(height: 10),
-          Text(
-            intro, 
-            style: TextStyle(
-              fontSize: 14, 
-              color: Colors.grey.shade800,
-            )
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Text(
+              intro, 
+              style: TextStyle(color: Colors.grey.shade800)
+            ),
           ),
           SizedBox(height: 10),
           SizedBox(
@@ -60,8 +60,8 @@ class CourseList extends StatelessWidget {
                   height: itemHeight,
                   margin: EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
-                    color: Colors.blue.shade50,
-                    borderRadius: BorderRadius.circular(8)
+                    // color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(10)
                   ),
                   child: itemBuilder(data[index], itemType),
                 );

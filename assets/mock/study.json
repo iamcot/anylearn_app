@@ -1,13 +1,14 @@
 {
-    "student_id": 214,
+    "student_id": 123,
+    "student_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/images/rcYGHzIZFu1631370147.jpg",
     "student_list": [
         {
             "id": 123,
-            "name": "Banh Bao"
+            "name": "Hồng Hương"
         },
         {
             "id": 214,
-            "name": "Banh Bap"
+            "name": "Bắp"
         }
     ],
     "today_courses": 3,
@@ -15,7 +16,7 @@
        {
         "id": 1,
         "title": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
-        "author": "Cam",
+        "author": "Nguyễn Thị Hồng Hương",
         "author_image": "img_1.jpg",
         "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
         "subtype": "Digital",
@@ -28,9 +29,9 @@
        {
         "id": 2,
         "title": "GÓI ĐẦU TƯ GIÁO DỤC 12 NĂM",
-        "author": "Cam",
+        "author": "Hoài Trinh",
         "author_image": "img_1.jpg",
-        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/713/oylIO6u7xe1662647552.jpg",
+        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
         "subtype": "Digital",
         "confirmed": true,
         "rating": 4.5,
@@ -41,7 +42,7 @@
        {
         "id": 3,
         "title": "Title of Course 1",
-        "author": "Cam",
+        "author": "Hoài Trinh",
         "author_image": "img_1.jpg",
         "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
         "subtype": "Digital",
@@ -54,7 +55,7 @@
        {
         "id": 4,
         "title": "Title of Course 2",
-        "author": "Cam",
+        "author": "Hoài Trinh",
         "author_image": "img_1.jpg",
         "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/714/HRHsMSrMSH1662562998.jpg",
         "subtype": "Digital",

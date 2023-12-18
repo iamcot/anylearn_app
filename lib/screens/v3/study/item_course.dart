@@ -13,76 +13,83 @@ class ItemCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              child: CachedNetworkImage(
-                imageUrl: data.courseImage, 
-                fit: BoxFit.cover, 
-                width: constraints.maxWidth,
-                height: 90,
+        return InkWell(
+          onTap: () => print('Show info'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                child: CachedNetworkImage(
+                  imageUrl: data.courseImage, 
+                  fit: BoxFit.cover, 
+                  width: constraints.maxWidth,
+                  height: 110,
+                ),
+                borderRadius: BorderRadius.circular(8),
               ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            SizedBox(height: 5),
-            Text(
-              data.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: Colors.grey.shade800
-              ), 
-            ),
-            SizedBox(height: 3),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (CONFIRMATION_TYPE == type)
-                InkWell(
-                  onTap: () => print('Confirmation'),
-                  child: Row(
+              SizedBox(height: 5),
+              SizedBox(
+                height: 35,
+                child: Text(
+                  data.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade800
+                  ), 
+                ),
+              ),
+              SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (CONFIRMATION_TYPE == type)
+                  InkWell(
+                    onTap: () => print('Confirmation'),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.group,            
+                          size: 15,
+                          color: data.confirmed ? Colors.green.shade400 : Colors.grey,
+                        ),
+                        SizedBox(width: 5.0),
+                        Text(data.confirmed ? 'Đang tham gia' : 'Chưa tham gia'),
+                      ],
+                    ),
+                  ),
+                  if (COMPLETION_TYPE == type)
+                  Row (
                     children: [
                       Icon(
-                        Icons.group,            
-                        size: 18,
-                        color: data.confirmed ? Colors.green : Colors.grey,
+                        Icons.workspace_premium,            
+                        size: 15,
+                        color: Colors.green.shade400,
+                      ),
+                      Icon(
+                        Icons.workspace_premium,            
+                        size: 15,
+                        color: Colors.green.shade400,
                       ),
                       SizedBox(width: 5.0),
-                      Text(data.confirmed ? 'Đang tham gia' : 'Chưa tham gia',),
+                      Text('21/12/2030'),
                     ],
-                  ),
-                ),
-                if (COMPLETION_TYPE == type)
-                Row (
-                  children: [
-                    Icon(
-                      Icons.workspace_premium,            
-                      size: 15,
-                      color: Colors.green.shade400,
+                  ),    
+                  InkWell(
+                    onTap: () => print('Rating'),
+                    child: Row(
+                      children: [
+                        Icon(Icons.grade, size: 15, color: Colors.orange.shade300),
+                        Text(data.rating.toString()),
+                      ],
                     ),
-                    Icon(
-                      Icons.workspace_premium,            
-                      size: 15,
-                      color: Colors.green.shade400,
-                    ),
-                    SizedBox(width: 5.0),
-                    Text('21/12/2030'),
-                  ],
-                ),    
-                InkWell(
-                  onTap: () => print('Rating'),
-                  child: Row(
-                    children: [
-                      Icon(Icons.grade, size: 16, color: Colors.yellow),
-                      Text(data.rating.toString()),
-                    ],
                   ),
-                ),
-              ],
-            ),           
-          ]
+                ],
+              ),           
+            ]
+          ),
         );
       }
     );
