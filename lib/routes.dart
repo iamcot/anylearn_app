@@ -1,4 +1,4 @@
-import 'package:anylearn/screens/v3/study/screen.dart';
+import 'package:anylearn/screens/v3/study/study_screen.dart';
 import 'package:anylearn/screens/v3/listing/screen.dart';
 import 'package:anylearn/screens/v3/map/screen.dart';
 import 'package:anylearn/screens/v3/partner/screen.dart';
