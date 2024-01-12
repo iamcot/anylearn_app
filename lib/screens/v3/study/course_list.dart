@@ -8,7 +8,8 @@ class CourseList extends StatelessWidget {
 
   final double itemHeight;
   final double itemWidth;
-  final String itemType;
+  final String itemType; 
+  final Axis scrollDirection;
   final Widget Function(RegisteredCourseDTO course, String type) itemBuilder;
 
   CourseList({
@@ -16,7 +17,8 @@ class CourseList extends StatelessWidget {
     required this.title,
     required this.data,
     required this.itemBuilder,
-    this.itemHeight = 180,
+    this.scrollDirection = Axis.horizontal,
+    this.itemHeight = 160,
     this.itemWidth = 160,
     this.itemType = '',
     this.intro = '',
@@ -26,50 +28,47 @@ class CourseList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 20, bottom: 15),
-      // color: Colors.blue,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title, 
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade800,    
-            )
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Padding(
             padding: EdgeInsets.only(right: 20),
-            child: Text(
-              intro, 
-              style: TextStyle(color: Colors.grey.shade800)
-            ),
+            child: Text(intro),
           ),
-          SizedBox(height: 10),
-          SizedBox(
-            height: itemHeight,
-            child: ListView.builder(    
-              physics: ScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  width: itemWidth,
-                  height: itemHeight,
-                  margin: EdgeInsets.only(right: 10),
-                  decoration: BoxDecoration(
-                    // color: Colors.blue.shade50,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: itemBuilder(data[index], itemType),
-                );
-              }
-            ),
-          ),
+          const SizedBox(height: 10),
+          _buildListView(context),
         ],
-      )
+      ),
+    );
+  }
+
+  Widget _buildListView(BuildContext context) {
+    return SizedBox(
+      height: Axis.horizontal == scrollDirection ? itemHeight : null,
+      child: ListView.builder(
+        physics: ScrollPhysics(),
+        scrollDirection: scrollDirection,
+        shrinkWrap: true,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return Container(
+            width: itemWidth,
+            height: itemHeight,
+            margin: Axis.horizontal == scrollDirection 
+              ? EdgeInsets.only(right: 10) 
+              : EdgeInsets.only(bottom: 10),
+            decoration: BoxDecoration(
+              // color: Colors.blue.shade100,
+              borderRadius: BorderRadius.circular(10)),
+            child: itemBuilder(data[index], itemType),
+          );
+        }
+      ),
     );
   }
 }

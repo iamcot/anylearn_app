@@ -86,7 +86,7 @@ class _StudyScreenState extends State<StudyScreen> {
                   CourseList(
                     title: 'Khóa học',
                     intro: 'Các khóa học bạn đang hoặc chuẩn bị tham gia.',
-                    data: data.upcomingCourses,
+                    data: data.upcomingCourses,  
                     itemBuilder: (course, type) => ItemCourse(data: course),
                   ),
                   CourseList(
@@ -95,15 +95,14 @@ class _StudyScreenState extends State<StudyScreen> {
                     data: data.upcomingCourses,
                     itemBuilder: (course, type) => ItemSchedule(course),
                     itemWidth: MediaQuery.of(context).size.width - 40,
-                    // vertical: true,
+                    scrollDirection: Axis.vertical,
                   ),
                   CourseList(
                     title: 'Hoàn thành',
                     intro: 'Các khóa học bạn đã hoàn thành.',
                     data: data.doneCourses,
                     itemType: ItemCourse.COMPLETION_TYPE,
-                    itemBuilder: (course, type) =>
-                        ItemCourse(data: course, type: type),
+                    itemBuilder: (course, type) => ItemCourse(data: course, type: type),
                   ),
                 ]
               ),

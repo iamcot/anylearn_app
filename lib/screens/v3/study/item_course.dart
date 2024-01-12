@@ -8,7 +8,12 @@ class ItemCourse extends StatelessWidget {
 
   final RegisteredCourseDTO data;
   final String type;
-  ItemCourse({ Key? key, required this.data, this.type = CONFIRMATION_TYPE}) : super(key: key);
+  
+  ItemCourse({ 
+    Key? key, 
+    required this.data, 
+    this.type = CONFIRMATION_TYPE
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,76 +23,57 @@ class ItemCourse extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                child: CachedNetworkImage(
-                  imageUrl: data.courseImage, 
-                  fit: BoxFit.cover, 
-                  width: constraints.maxWidth,
-                  height: 110,
-                ),
-                borderRadius: BorderRadius.circular(8),
+              Stack(
+                children: [
+                  ClipRRect(
+                    child: CachedNetworkImage(
+                      imageUrl: data.courseImage, 
+                      fit: BoxFit.cover, 
+                      width: constraints.maxWidth,
+                      height: 99,
+                    ),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  if (CONFIRMATION_TYPE == type)
+                  Positioned(right: 0, bottom: 0, child: _buildConfimationTag(context)),
+                ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               SizedBox(
                 height: 35,
                 child: Text(
                   data.title,
                   maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade800
-                  ), 
+                  style: TextStyle(fontWeight: FontWeight.bold), 
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (CONFIRMATION_TYPE == type)
-                  InkWell(
-                    onTap: () => print('Confirmation'),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.group,            
-                          size: 15,
-                          color: data.confirmed ? Colors.green.shade400 : Colors.grey,
-                        ),
-                        SizedBox(width: 5.0),
-                        Text(data.confirmed ? 'Đang tham gia' : 'Chưa tham gia'),
-                      ],
-                    ),
-                  ),
-                  if (COMPLETION_TYPE == type)
-                  Row (
+                  Wrap(
                     children: [
-                      Icon(
-                        Icons.workspace_premium,            
-                        size: 15,
-                        color: Colors.green.shade400,
+                      CONFIRMATION_TYPE == type 
+                        ? Icon(Icons.local_library, color: Colors.grey, size: 15)
+                        : Icon(Icons.workspace_premium, color: Colors.amber, size: 15),
+                      const SizedBox(width: 2),
+                      Text(
+                        CONFIRMATION_TYPE == type ? data.startDate : data.endDate,
+                        style: TextStyle(fontSize: 14),
                       ),
-                      Icon(
-                        Icons.workspace_premium,            
-                        size: 15,
-                        color: Colors.green.shade400,
-                      ),
-                      SizedBox(width: 5.0),
-                      Text('21/12/2030'),
                     ],
-                  ),    
-                  InkWell(
-                    onTap: () => print('Rating'),
-                    child: Row(
-                      children: [
-                        Icon(Icons.grade, size: 15, color: Colors.orange.shade300),
-                        Text(data.rating.toString()),
-                      ],
-                    ),
+                  ),
+                  Wrap(
+                    children: [
+                      Icon(Icons.grade, color: Colors.amber, size: 15),
+                      Text(
+                        data.rating.toString(), 
+                        style: TextStyle(fontSize: 14),
+                      )
+                    ]
                   ),
                 ],
-              ),           
+              )
             ]
           ),
         );
@@ -95,29 +81,69 @@ class ItemCourse extends StatelessWidget {
     );
   }
 
-  Widget _checkConfirmationStatus(bool confirmed) {
-    if (!confirmed) {
-      return InkWell(
-        onTap: () {
-          print('!!!!!!!!!!!!!!!!');
-        },
-        child: _buildConfirmationStatusTag(confirmed),
-      );
-    }
-    return _buildConfirmationStatusTag(confirmed);     
+  Widget _buildConfimationTag(BuildContext context) {
+    return InkWell(
+      onTap: () => data.confirmed 
+        ? _buildConfimationSnackBar(context)
+        : _buildConfimationDialog(context),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.5),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(6), // Adjust the radius as needed
+            bottomRight: Radius.circular(6))),
+        child: Row(
+          children: [
+            Icon(
+              data.confirmed ? Icons.check : Icons.info_outline,
+              color: Colors.white,
+              size: 15,
+            ),
+            const SizedBox(width: 3),
+            Text(
+              data.confirmed ? 'Đang tham gia' : 'Chưa tham gia',
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  Widget _buildConfirmationStatusTag(bool confirmed) {
-    return  Row(
-      children: [
-        Icon(
-          Icons.group,            
-          size: 18,
-          color:confirmed ? Colors.green : Colors.grey,
-        ),
-        SizedBox(width: 5.0),
-        Text(confirmed ? 'Đang tham gia' : 'Chưa tham gia',),
-      ],
-    );    
+  void _buildConfimationDialog(BuildContext context) {
+    showDialog(
+      context: context, 
+      builder: (context) =>  AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        content: Text(
+          'Xác nhận tham gia ${data.title}?',
+          style: TextStyle(fontSize: 15, color: Colors.grey.shade800)),
+        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+        actionsPadding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+        actions: [
+          TextButton(
+            onPressed: () => 'Confirmation!',
+            child: Text('Tham gia')),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(), 
+            child: Text('Đóng')
+          ),
+        ],
+      ),
+    );
+  }
+
+   void _buildConfimationSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      .showSnackBar(SnackBar(
+        content: Text('Bạn đang tham gia khóa học này.'),
+        backgroundColor: Colors.black.withOpacity(.5),  
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      )
+    );
   }
 }
