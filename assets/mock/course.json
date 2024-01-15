@@ -1,0 +1,36 @@
+{
+    "id": 1,
+    "title": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
+    "author": "TRƯỜNG QUỐC TẾ BẮC MỸ SNA - International School of North America",
+    "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/645/sVRAqWZBgA1654786302.jpg",
+    "subtype": "digital",
+    "student": "Lê Nguyễn Văn Khanh",
+    "confirmed": false,
+    "date_start": "01/01/1970",
+    "date_end": "01/01/1970",
+    "location": "9 Đ. Võ Thị Sáu, P. ĐaKao, Quận 1, TP. HCM",
+    "rating": 4.6,
+    "schedule": [
+        {
+            "day_of_week": "Thứ 4",
+            "time_start": "12:20",
+            "time_end": "12:30"
+        },
+        {
+            "day_of_week": "Thứ 6",
+            "time_start": "12:20",
+            "time_end": "12:30"
+        },
+        {
+            "day_of_week": "Chủ nhật",
+            "time_start": "12:20",
+            "time_end": "12:30"
+        }
+    ],
+    "activation": {
+        "username": "username_123",
+        "password": "password_123",
+        "code": "AC1BCD09lanvQW46",
+        "link": "https://anylearn.com/activation/..."
+    }
+}

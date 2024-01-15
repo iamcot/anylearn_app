@@ -1,4 +1,5 @@
 import 'package:anylearn/dto/v3/registered_courses_dto.dart';
+import 'package:anylearn/dto/v3/schedule_dto.dart';
 import 'package:equatable/equatable.dart';
 
 class StudyDTO extends Equatable { 
@@ -28,7 +29,7 @@ class StudyDTO extends Equatable {
     this.scheduleCourses = const [],
   });
 
-  factory StudyDTO.fromJson(Map<String, dynamic>? json) {
+  factory StudyDTO.fromJson(dynamic json) {
     json ??= {};
     return StudyDTO(
       studentID: json['student_id'] ?? 0,
@@ -44,15 +45,15 @@ class StudyDTO extends Equatable {
         })
         .toList() ?? [],
       upcomingCourses: json['upcoming_courses']
-        ?.map((courseJson) => RegisteredCourseDTO.fromJson(courseJson as Map<String, dynamic>))
-        .toList() ?? [],
-      scheduleCourses: json['schedule_courses']
-        ?.map((courseJson) => RegisteredCourseDTO.fromJson(courseJson as Map<String, dynamic>))
+        ?.map((courseJson) => RegisteredCourseDTO.fromJson(courseJson))
         .toList() ?? [],
       doneCourses: json['done_courses']
-        ?.map((courseJson) => RegisteredCourseDTO.fromJson(courseJson as Map<String, dynamic>))
+        ?.map((courseJson) => RegisteredCourseDTO.fromJson(courseJson))
         .toList() ??
         [],
+      scheduleCourses: json['schedule_courses']
+        ?.map((scheduleJson) => ScheduleDTO.fromJson(scheduleJson as Map<String, dynamic>))
+        .toList() ?? [],
     );
   }
 }

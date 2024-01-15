@@ -65,38 +65,40 @@
         "time_end": "12:00 PM"
        }
     ],
-    "schedule_courses": [],
+    "schedule_courses": [
+        {
+            "id": 1,
+            "course": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
+            "author": "Nguyễn Thị Hồng Hương",
+            "time_start": "10:00 AM",
+            "time_end": "12:00 PM",
+            "date_on":  "Thứ 4, 21/12/2023",
+            "location_on": "9 Đ. Võ Thị Sáu, ĐaKao, Q1, HCM"
+        },
+        {    
+            "id": 1,
+            "course": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
+            "author": "Nguyễn Thị Hồng Hương",
+            "time_start": "10:00 AM",
+            "time_end": "12:00 PM",
+            "date_on":  "Thứ 4, 21/12/2023",
+            "location_on": "9 Đ. Võ Thị Sáu, ĐaKao, Q1, HCM"
+        },
+        {    
+            "id": 1,
+            "course": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
+            "author": "Nguyễn Thị Hồng Hương",
+            "time_start": "10:00 AM",
+            "time_end": "12:00 PM",
+            "date_on":  "Thứ 4, 21/12/2023",
+            "location_on": "9 Đ. Võ Thị Sáu, ĐaKao, Q1, HCM"
+        }
+    ],
     "done_courses": [
        {
         "id": 1,
         "title": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
         "author": "Nguyễn Thị Hồng Hương",
-        "author_image": "img_1.jpg",
-        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/645/sVRAqWZBgA1654786302.jpg",
-        "subtype": "Digital",
-        "confirmed": false,
-        "rating": 4.5,
-        "date_end": "21/12/2023",
-        "time_start": "10:00 AM",
-        "time_end": "12:00 PM"
-       },
-       {
-        "id": 2,
-        "title": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
-        "author": "Hoài Trinh",
-        "author_image": "img_1.jpg",
-        "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/645/sVRAqWZBgA1654786302.jpg",
-        "subtype": "Digital",
-        "confirmed": true,
-        "rating": 4.5,
-        "date_end": "21/12/2023",
-        "time_start": "10:00",
-        "time_end": "12:00"
-       },
-       {
-        "id": 3,
-        "title": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
-        "author": "Hoài Trinh",
         "author_image": "img_1.jpg",
         "course_image": "https://s3-ap-southeast-1.amazonaws.com/anylearns2/items/645/sVRAqWZBgA1654786302.jpg",
         "subtype": "Digital",

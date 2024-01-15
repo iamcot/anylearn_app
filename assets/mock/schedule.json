@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "course": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
+        "author": "Nguyễn Thị Hồng Hương",
+        "time_start": "10:00 AM",
+        "time_end": "12:00 PM",
+        "date_on":  "Thứ 4, 21/12/2023",
+        "location_on": "9 Đ. Võ Thị Sáu, ĐaKao, Q1, HCM"
+    },
+    {
+        "id": 1,
+        "course": "Trải nghiệm lớp Vẽ dành cho Thiếu nhi (Online - 1 buổi)",
+        "author": "Nguyễn Thị Hồng Hương",
+        "time_start": "10:00 AM",
+        "time_end": "12:00 PM",
+        "date_on":  "Thứ 4, 21/12/2023",
+        "location_on": "9 Đ. Võ Thị Sáu, ĐaKao, Q1, HCM"
+    }
+]

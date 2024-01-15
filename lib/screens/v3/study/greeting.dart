@@ -1,4 +1,4 @@
-import 'package:anylearn/screens/v3/study/account_conversion.dart';
+import 'package:anylearn/screens/v3/study/conversion_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ class Greeting extends StatelessWidget {
             child: _buildStudentAvatar(context),
             onTap: () => showDialog(
               context: context,
-              builder: (context) => AccountConversion(
+              builder: (context) => ConversionDialog(
                 studentID: studentInfo['id'],
                 studentList: studentList,
                 changeAccountCallback: changeAccountCallback
@@ -54,7 +54,7 @@ class Greeting extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: 'Bạn có ',
-            style: TextStyle(color: Colors.grey.shade800, fontSize: 17),
+            style: TextStyle(color: Colors.grey.shade800, fontSize: 16),
             children: [
               TextSpan(
                 text: '$numCourses lớp học ',

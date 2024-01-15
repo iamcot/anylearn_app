@@ -6,6 +6,7 @@ class RegisteredCourseDTO extends Equatable {
   final author;
   final authorImage;
   final courseImage;
+  final student;
   final subtype;
   final confirmed;
   final favorited;
@@ -24,6 +25,7 @@ class RegisteredCourseDTO extends Equatable {
     author,
     authorImage,
     courseImage,
+    student,
     subtype,
     confirmed,
     favorited,
@@ -43,6 +45,7 @@ class RegisteredCourseDTO extends Equatable {
     this.author = '',
     this.authorImage = '',
     this.courseImage = '',
+    this.student = '',
     this.confirmed = false,
     this.favorited = false,
     this.rating = 0.0,
@@ -62,6 +65,7 @@ class RegisteredCourseDTO extends Equatable {
       author: json['author'] ?? '',
       authorImage: json['author_image'] ?? '',
       courseImage: json['course_image'] ?? '',
+      student: json['student'] ?? '',
       subtype: json['subtype'] ?? '',
       confirmed: json['confirmed'] ?? false,
       favorited: json['favorited'] ?? false,
@@ -70,8 +74,47 @@ class RegisteredCourseDTO extends Equatable {
       endDate: json['date_end'] ?? '',
       startTime: json['time_start'] ?? '',
       endTime: json['time_end'] ?? '',
-      activation: json['activation']?.map((activationJson) => activationJson).toList() ?? [],
-      schedule: json['schedule']?.map((scheduleJson) => scheduleJson).toList() ?? [] 
+      activation: json['activation'] != null 
+        ? ActivationDTO.fromJson(json['activation']) 
+        : [],
+      schedule: json['schedule']?.map((scheduleJson) {
+        scheduleJson['day_of_week'] ??= '';
+        scheduleJson['time_start'] ??= '';
+        scheduleJson['time_end'] ??= '';
+        return scheduleJson;
+      }).toList() ?? [], 
     );
   }
+}
+
+class ActivationDTO extends Equatable {
+  final username;
+  final password;
+  final code;
+  final link;
+
+  @override
+  List<Object?> get props => [
+    username,
+    password,
+    code,
+    link,
+  ];
+
+  ActivationDTO({
+    this.username = '',
+    this.password = '',
+    this.code = '',
+    this.link = '',
+  });
+
+  factory ActivationDTO.fromJson(Map<String, dynamic>? json) {
+    json ??= {};
+    return ActivationDTO(
+      username: json['username'] ?? '',
+      password: json['password'] ?? '',
+      code: json['code'] ?? '',
+      link: json['link'] ?? '',
+    );
+  } 
 }

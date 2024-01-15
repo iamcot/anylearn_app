@@ -1,4 +1,5 @@
 import 'package:anylearn/dto/v3/registered_courses_dto.dart';
+import 'package:anylearn/screens/v3/study/course_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,8 @@ class ItemCourse extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
         return InkWell(
-          onTap: () => print('Show info'),
+          onTap: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => CourseScreen(orderItemID: 1))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -30,12 +32,16 @@ class ItemCourse extends StatelessWidget {
                       imageUrl: data.courseImage, 
                       fit: BoxFit.cover, 
                       width: constraints.maxWidth,
-                      height: 99,
+                      height: constraints.maxWidth - 55,
                     ),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   if (CONFIRMATION_TYPE == type)
-                  Positioned(right: 0, bottom: 0, child: _buildConfimationTag(context)),
+                  Positioned(
+                    right: 0, 
+                    bottom: 0, 
+                    child: _buildConfimationTag(context),
+                  ),
                 ],
               ),
               const SizedBox(height: 5),
@@ -47,7 +53,6 @@ class ItemCourse extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold), 
                 ),
               ),
-              const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -59,7 +64,7 @@ class ItemCourse extends StatelessWidget {
                       const SizedBox(width: 2),
                       Text(
                         CONFIRMATION_TYPE == type ? data.startDate : data.endDate,
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 13),
                       ),
                     ],
                   ),
@@ -68,7 +73,7 @@ class ItemCourse extends StatelessWidget {
                       Icon(Icons.grade, color: Colors.amber, size: 15),
                       Text(
                         data.rating.toString(), 
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 13),
                       )
                     ]
                   ),
@@ -104,7 +109,7 @@ class ItemCourse extends StatelessWidget {
             Text(
               data.confirmed ? 'Đang tham gia' : 'Chưa tham gia',
               style: TextStyle(
-                fontSize: 13,
+                fontSize: 12,
                 color: Colors.white,
               ),
             ),
@@ -121,7 +126,7 @@ class ItemCourse extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         content: Text(
           'Xác nhận tham gia ${data.title}?',
-          style: TextStyle(fontSize: 15, color: Colors.grey.shade800)),
+          style: TextStyle(fontSize: 14, color: Colors.grey.shade800)),
         contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
         actionsPadding: EdgeInsets.fromLTRB(20, 0, 20, 10),
         actions: [

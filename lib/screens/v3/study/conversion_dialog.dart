@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class AccountConversion extends StatelessWidget {
+class ConversionDialog extends StatelessWidget {
   final Function(int studentID) changeAccountCallback;
   final List<dynamic> studentList;
   final int studentID;
 
-  const AccountConversion({
+  const ConversionDialog({
     Key? key,
     required this.studentID,
     required this.studentList,
@@ -16,7 +16,7 @@ class AccountConversion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       title: Text('Chọn tài khoản'),
       titleTextStyle: TextStyle(
         fontSize: 17,

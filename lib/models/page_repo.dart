@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:anylearn/dto/v3/listing_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
+import 'package:anylearn/dto/v3/registered_courses_dto.dart';
+import 'package:anylearn/dto/v3/schedule_dto.dart';
 import 'package:anylearn/dto/v3/study_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
 import 'package:http/http.dart' as http;
@@ -186,5 +188,13 @@ class PageRepository {
 
   Future<StudyDTO> dataStudy(String token, int studentID) async {
     return await configService.dataStudy(token, studentID);
+  }
+
+  Future<List<ScheduleDTO>> dataSchedule(String token, String dateOn) async {
+    return await configService.dataSchedule(token, dateOn);
+  }
+
+  Future<RegisteredCourseDTO> dataRegisteredCourse(String token, int orderItemID) async {
+    return await configService.dataRegisteredCourse(token, orderItemID);
   }
 }

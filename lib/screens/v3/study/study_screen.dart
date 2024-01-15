@@ -59,7 +59,7 @@ class _StudyScreenState extends State<StudyScreen> {
         overflow: TextOverflow.ellipsis,
         style: TextStyle(
           color: Colors.grey.shade800,
-          fontSize: 15,
+          fontSize: 14,
         ),
       ),
     );
@@ -67,34 +67,35 @@ class _StudyScreenState extends State<StudyScreen> {
 
   Widget _buildContent(UserDTO user) {
     return BlocBuilder(
-      bloc: _studyBloc
-        ..add(StudyLoadDataEvent(token: 'token', studentID: user.id)),
-      builder: (context, state) {
-        switch (state.runtimeType) {
-          case StudyLoadSuccessState:
-            final data = (state as StudyLoadSuccessState).data;
-            return Container(
-              margin: const EdgeInsets.symmetric(vertical: 20),
-              child: ListView(
-                children: [
+        bloc: _studyBloc
+          ..add(StudyLoadMainDataEvent(token: 'token', studentID: user.id)),
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case StudyLoadSuccessState:
+              final data = (state as StudyLoadSuccessState).data;
+              return Container(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: ListView(children: [
                   Greeting(
                     numCourses: data.numCourses,
                     studentList: data.studentList,
-                    studentInfo: _getCurrentStudentInfo(data.studentID, data.studentList),
-                    changeAccountCallback: (studentID) => _changeAccount(studentID, token: user.token),
+                    studentInfo: _getCurrentStudentInfo(
+                        data.studentID, data.studentList),
+                    changeAccountCallback: (studentID) =>
+                        _changeAccount(studentID, token: user.token),
                   ),
                   CourseList(
                     title: 'Khóa học',
                     intro: 'Các khóa học bạn đang hoặc chuẩn bị tham gia.',
-                    data: data.upcomingCourses,  
+                    data: data.upcomingCourses,
                     itemBuilder: (course, type) => ItemCourse(data: course),
                   ),
                   CourseList(
                     title: 'Lịch học',
                     intro: 'Thời khóa biểu tuần này của bạn.',
-                    data: data.upcomingCourses,
-                    itemBuilder: (course, type) => ItemSchedule(course),
-                    itemWidth: MediaQuery.of(context).size.width - 40,
+                    data: data.scheduleCourses,
+                    itemBuilder: (schedule, type) =>
+                        ItemSchedule(data: schedule),
                     scrollDirection: Axis.vertical,
                   ),
                   CourseList(
@@ -102,26 +103,24 @@ class _StudyScreenState extends State<StudyScreen> {
                     intro: 'Các khóa học bạn đã hoàn thành.',
                     data: data.doneCourses,
                     itemType: ItemCourse.COMPLETION_TYPE,
-                    itemBuilder: (course, type) => ItemCourse(data: course, type: type),
+                    itemBuilder: (course, type) =>
+                        ItemCourse(data: course, type: type),
                   ),
-                ]
-              ),
-            );
-          default:
-            return LoadingScreen();
-        }
-      }
-    );
+                ]),
+              );
+            default:
+              return LoadingScreen();
+          }
+        });
   }
 
   Future<void> _changeAccount(int studentID, {String token = ''}) async {
-    _studyBloc..add(StudyLoadDataEvent(studentID: studentID, token: token));
+    _studyBloc..add(StudyLoadMainDataEvent(token: token, studentID: studentID));
   }
 
-  Map<String, dynamic> _getCurrentStudentInfo(int studentID, List<dynamic> studentList) {
-    return studentList.firstWhere(
-      (student) => student['id'] == studentID,
-      orElse: () => {}
-    );
+  Map<String, dynamic> _getCurrentStudentInfo(
+      int studentID, List<dynamic> studentList) {
+    return studentList.firstWhere((student) => student['id'] == studentID,
+        orElse: () => {});
   }
 }

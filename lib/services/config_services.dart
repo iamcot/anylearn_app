@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:anylearn/dto/v3/listing_dto.dart';
+import 'package:anylearn/dto/v3/registered_courses_dto.dart';
+import 'package:anylearn/dto/v3/schedule_dto.dart';
 import 'package:anylearn/dto/v3/study_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
@@ -164,4 +166,14 @@ class ConfigServices extends BaseService {
     return StudyDTO.fromJson(jsonDecode(data));
   }
 
+  Future<List<ScheduleDTO>> dataSchedule(String token, String dataOn) async {
+    final data = await rootBundle.loadString('assets/mock/schedule.json');
+    return List<ScheduleDTO>.from(jsonDecode(data).map((data) => ScheduleDTO.fromJson(data)));
+  }
+
+  Future<RegisteredCourseDTO> dataRegisteredCourse(String token, int orderItemID) async {
+    final data = await rootBundle.loadString('assets/mock/course.json');
+    print(jsonDecode(data).runtimeType);
+    return RegisteredCourseDTO.fromJson(jsonDecode(data));
+  }
 }

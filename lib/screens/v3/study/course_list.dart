@@ -1,4 +1,3 @@
-import 'package:anylearn/dto/v3/registered_courses_dto.dart';
 import 'package:flutter/material.dart';
 
 class CourseList extends StatelessWidget {
@@ -6,11 +5,9 @@ class CourseList extends StatelessWidget {
   final String intro;
   final List<dynamic> data;
 
-  final double itemHeight;
-  final double itemWidth;
-  final String itemType; 
   final Axis scrollDirection;
-  final Widget Function(RegisteredCourseDTO course, String type) itemBuilder;
+  final String itemType; 
+  final Widget Function(dynamic course, String type) itemBuilder;
 
   CourseList({
     Key? key, 
@@ -18,8 +15,6 @@ class CourseList extends StatelessWidget {
     required this.data,
     required this.itemBuilder,
     this.scrollDirection = Axis.horizontal,
-    this.itemHeight = 160,
-    this.itemWidth = 160,
     this.itemType = '',
     this.intro = '',
   }) : super(key: key);
@@ -33,11 +28,13 @@ class CourseList extends StatelessWidget {
         children: [
           Text(
             title, 
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
+            style: TextStyle(
+              fontSize: 18, 
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          const SizedBox(height: 10),
           Padding(
-            padding: EdgeInsets.only(right: 20),
+            padding: EdgeInsets.only(top: 10, right: 20),
             child: Text(intro),
           ),
           const SizedBox(height: 10),
@@ -48,22 +45,24 @@ class CourseList extends StatelessWidget {
   }
 
   Widget _buildListView(BuildContext context) {
+    final listWidth = MediaQuery.of(context).size.width - 20;
+    final itemWidth = Axis.horizontal == scrollDirection ? listWidth / 2.45 : listWidth - 20; 
     return SizedBox(
-      height: Axis.horizontal == scrollDirection ? itemHeight : null,
+      width: Axis.horizontal == scrollDirection ? listWidth : listWidth - 20,
+      height: Axis.horizontal == scrollDirection ? itemWidth : null,
       child: ListView.builder(
         physics: ScrollPhysics(),
-        scrollDirection: scrollDirection,
         shrinkWrap: true,
+        scrollDirection: scrollDirection,  
         itemCount: data.length,
         itemBuilder: (context, index) {
           return Container(
             width: itemWidth,
-            height: itemHeight,
             margin: Axis.horizontal == scrollDirection 
               ? EdgeInsets.only(right: 10) 
-              : EdgeInsets.only(bottom: 10),
+              : data.length - 1  != index ? EdgeInsets.only(bottom: 10) : null,
             decoration: BoxDecoration(
-              // color: Colors.blue.shade100,
+              // color: Colors.blue.shade50,
               borderRadius: BorderRadius.circular(10)),
             child: itemBuilder(data[index], itemType),
           );
