@@ -55,8 +55,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         _changeAccount(studentID, token: ''),
                   ),
                   Container(
-                    color: Colors.amber.shade50,
+                    // color: Colors.amber.shade50,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TableCalendar(
+                      headerStyle: HeaderStyle(
+                        leftChevronVisible: false,
+                        rightChevronVisible: false,
+                        // formatButtonVisible: true,
+                        // formatButtonShowsNext: false,
+                      ),
+                      calendarStyle: CalendarStyle(
+
+                      ),
                       firstDay: DateTime.utc(2010, 10, 16),
                       lastDay: DateTime.utc(2030, 3, 14),
                       focusedDay: DateTime.now(),
@@ -73,29 +83,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       calendarFormat: CalendarFormat.week,
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    child: FixedTimeline.tileBuilder(
-                      builder: TimelineTileBuilder.connectedFromStyle(
-                        nodePositionBuilder: (context, index) => 0.1,
-                        indicatorPositionBuilder: (context, index) => 0,
-                        connectorStyleBuilder: (context, index) =>
-                            ConnectorStyle.solidLine,
-                        indicatorStyleBuilder: (context, index) =>
-                            IndicatorStyle.outlined,
-                        itemExtent: 190.0,
-                        itemCount: 3,
-                        oppositeContentsBuilder: (context, index) =>
-                            Text('12:00'),
-                        contentsBuilder: (context, index) => SizedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ItemSchedule(data: data.scheduleCourses[index]),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  _buildTimeline(context, data.scheduleCourses),
                 ],
               ),
             );
@@ -105,7 +93,31 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ),
     );
   }
-    Future<void> _changeAccount(int studentID, {String token = ''}) async {
+
+  Widget _buildTimeline(BuildContext context, dynamic data) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: FixedTimeline.tileBuilder(
+        builder: TimelineTileBuilder.connectedFromStyle(
+          nodePositionBuilder: (context, index) => 0.1,
+          indicatorPositionBuilder: (context, index) => 0,
+          connectorStyleBuilder: (context, index) => ConnectorStyle.solidLine,
+          indicatorStyleBuilder: (context, index) => IndicatorStyle.outlined,
+          itemExtent: 190.0,
+          itemCount: 3,
+          oppositeContentsBuilder: (context, index) => Text('12:00'),
+          contentsBuilder: (context, index) => SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ItemSchedule(data: data[index]), 
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  
+  Future<void> _changeAccount(int studentID, {String token = ''}) async {
     _studyBloc..add(StudyLoadMainDataEvent(token: token, studentID: studentID));
   }
 

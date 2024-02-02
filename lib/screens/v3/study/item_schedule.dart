@@ -14,18 +14,18 @@ class ItemSchedule extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: Colors.amber.shade50,
-          borderRadius: BorderRadius.circular(15)
+          color: Colors.lightBlue.shade50,
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Stack(
           children: [
             Positioned (
               right: 0,
-              bottom: 15,
+              bottom: 25,
               child: Image.asset(
                 'assets/images/item_schedule.png',
                 fit: BoxFit.contain,
-                width: 80,
+                width: 70,
               ),
             ),
             Column(
