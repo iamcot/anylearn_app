@@ -4,9 +4,9 @@ abstract class StudyEvent {
 }
 
 class StudyLoadMainDataEvent extends StudyEvent {
+  final UserDTO account;
   final String token;
-  final int studentID;
-  StudyLoadMainDataEvent({required this.token, required this.studentID});
+  StudyLoadMainDataEvent({required this.token, required this.account});
 }
 
 class StudyLoadCourseDataEvent extends StudyEvent {
@@ -17,6 +17,6 @@ class StudyLoadCourseDataEvent extends StudyEvent {
 
 class StudyLoadScheduleDataEvent extends StudyEvent {
   final String token;
-  final String dateOn;
-  StudyLoadScheduleDataEvent({required this.token, required this.dateOn});
+  final String date;
+  StudyLoadScheduleDataEvent({required this.token, required this.date});
 }

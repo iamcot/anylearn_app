@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:anylearn/dto/v3/calendar_dto.dart';
 import 'package:anylearn/dto/v3/listing_dto.dart';
-import 'package:anylearn/dto/v3/registered_courses_dto.dart';
+import 'package:anylearn/dto/v3/registered_item_dto.dart';
 import 'package:anylearn/dto/v3/schedule_dto.dart';
 import 'package:anylearn/dto/v3/study_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
@@ -161,19 +162,34 @@ class ConfigServices extends BaseService {
     return response.statusCode == 200 ? true : false;
   }
 
-  Future<StudyDTO> dataStudy(String token, int studentID) async {
-    final data = await rootBundle.loadString('assets/mock/study.json');
-    return StudyDTO.fromJson(jsonDecode(data));
+  Future<StudyDTO> dataStudy(UserDTO account, String token) async {
+    // final data = await rootBundle.loadString('assets/mock/study.json');
+    final url = buildUrl(
+      appConfig: config, 
+      endPoint: '/v3/auth/study?', 
+      query: 0 == account.isChild ? '' : 'child=${account.id}',
+      token: token
+    );
+    final json = await get(httpClient, url);
+    return StudyDTO.fromJson(json);
   }
 
-  Future<List<ScheduleDTO>> dataSchedule(String token, String dataOn) async {
-    final data = await rootBundle.loadString('assets/mock/schedule.json');
-    return List<ScheduleDTO>.from(jsonDecode(data).map((data) => ScheduleDTO.fromJson(data)));
+  Future<CalendarDTO> dataSchedule(String token, String date) async {
+    // final data = await rootBundle.loadString('assets/mock/schedule.json');
+    final url = buildUrl(
+      appConfig: config, 
+      endPoint: '/v3/auth/study/lookup',
+      query: 'date=$date', 
+      token: token
+    );
+    final json = await get(httpClient, url);
+    return CalendarDTO.fromJson(json);
   }
 
-  Future<RegisteredCourseDTO> dataRegisteredCourse(String token, int orderItemID) async {
-    final data = await rootBundle.loadString('assets/mock/course.json');
-    print(jsonDecode(data).runtimeType);
-    return RegisteredCourseDTO.fromJson(jsonDecode(data));
+  Future<RegisteredItemDTO> dataRegisteredCourse(String token, int orderItemID) async {
+    // final data = await rootBundle.loadString('assets/mock/course.json');
+    final url = buildUrl(appConfig: config, endPoint: '/v3/auth/study/$orderItemID', token: token);
+    final json = await get(httpClient, url);
+    return RegisteredItemDTO.fromJson(json);
   }
 }

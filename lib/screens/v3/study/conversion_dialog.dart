@@ -1,15 +1,17 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ConversionDialog extends StatelessWidget {
-  final Function(int studentID) changeAccountCallback;
-  final List<dynamic> studentList;
-  final int studentID;
+  final Function(UserDTO account) changeAccountCallback;
+  final List<dynamic> userAccounts;
+  final int userID;
 
   const ConversionDialog({
     Key? key,
-    required this.studentID,
-    required this.studentList,
+    required this.userID,
+    required this.userAccounts,
     required this.changeAccountCallback,
   }) : super(key: key);
 
@@ -31,13 +33,18 @@ class ConversionDialog extends StatelessWidget {
         child: ListView.builder(
           physics: ScrollPhysics(),
           shrinkWrap: true,
-          itemCount: studentList.length,
+          itemCount: userAccounts.length,
           itemBuilder: (BuildContext context, int index) {
-            final subtitle = studentList[index]['primary'] == false
-              ? 'Ngày tạo: ${studentList[index]['created_at']}'
+            final parsedDate = DateTime.parse(userAccounts[index].createdAt);
+            final formattedDate = DateFormat('dd-MM-yyyy').format(parsedDate);
+            final subtitle = userAccounts[index].isChild  == 1
+              ? 'Ngày tạo: $formattedDate'
               : 'Tài khoản chính';
             return InkWell(
-              onTap: () => changeAccountCallback(studentList[index]['id']),
+              onTap: () {
+                changeAccountCallback(userAccounts[index]);
+                Navigator.of(context).pop(); 
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child:
@@ -47,7 +54,7 @@ class ConversionDialog extends StatelessWidget {
                     height: 40,
                     child: CachedNetworkImage(
                       fit: BoxFit.contain,
-                      imageUrl: studentList[index]['image'],
+                      imageUrl: userAccounts[index].image,
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
@@ -68,7 +75,7 @@ class ConversionDialog extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          studentList[index]['student'],
+                          userAccounts[index].name,
                           maxLines: 1,
                           style: TextStyle(
                               fontSize: 15,
@@ -87,7 +94,7 @@ class ConversionDialog extends StatelessWidget {
                     width: 30,
                     child: Icon(
                       Icons.check,
-                      color: studentList[index]['id'] == studentID
+                      color: userAccounts[index].id == userID
                         ? Colors.green.shade400
                         : Colors.transparent
                     ),

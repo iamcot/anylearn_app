@@ -1,3 +1,4 @@
+import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/screens/v3/study/conversion_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
@@ -5,15 +6,15 @@ import 'package:flutter/material.dart';
 
 class Greeting extends StatelessWidget {
   final int numCourses;
-  final List<dynamic> studentList;
-  final Map<String, dynamic> studentInfo;
-  final Function(int studentID) changeAccountCallback;
+  final UserDTO userInfo;
+  final List<dynamic> userAccounts;
+  final Function(UserDTO account) changeAccountCallback;
 
   const Greeting({
     Key? key,
     required this.numCourses,
-    required this.studentList,
-    required this.studentInfo,
+    required this.userInfo,
+    required this.userAccounts,
     required this.changeAccountCallback,
   }) : super(key: key);
 
@@ -31,8 +32,8 @@ class Greeting extends StatelessWidget {
             onTap: () => showDialog(
               context: context,
               builder: (context) => ConversionDialog(
-                studentID: studentInfo['id'],
-                studentList: studentList,
+                userID: userInfo.id,
+                userAccounts: userAccounts,
                 changeAccountCallback: changeAccountCallback
               ),
             ),
@@ -47,7 +48,7 @@ class Greeting extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Chào ${studentInfo['student']}',
+          'Chào ${userInfo.name}',
           style: TextStyle(fontSize: 18),
         ),
         const SizedBox(height: 5),
@@ -80,7 +81,7 @@ class Greeting extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: CachedNetworkImage(
-              imageUrl: studentInfo['image'],
+              imageUrl: userInfo.image,
               fit: BoxFit.cover,
               errorWidget: (context, url, error) => Icon(
                 Icons.account_circle,

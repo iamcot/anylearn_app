@@ -1,58 +1,50 @@
-import 'package:anylearn/dto/v3/registered_courses_dto.dart';
-import 'package:anylearn/dto/v3/schedule_dto.dart';
+import 'package:anylearn/dto/user_dto.dart';
+import 'package:anylearn/dto/v3/registered_item_dto.dart';
 import 'package:equatable/equatable.dart';
 
 class StudyDTO extends Equatable { 
-  final studentID;
-  final studentList;
+  final userInfo;
+  final userAccounts;
   final numCourses;
+  final ongoingCourses;
   final upcomingCourses;
-  final scheduleCourses;
-  final doneCourses;
+  final completedCourses;
 
   @override
   List<Object?> get props => [
-    studentID,
-    studentList, 
-    numCourses, 
-    upcomingCourses, 
-    scheduleCourses, 
-    doneCourses
+    userInfo,
+    userAccounts,
+    numCourses,
+    ongoingCourses,
+    upcomingCourses,
+    completedCourses,
   ];
 
   const StudyDTO({
-    this.studentID,
-    this.studentList,
+    this.userInfo = '',
+    this.userAccounts = '',
     this.numCourses = 0,
-    this.doneCourses = const [],
-    this.upcomingCourses = const [],
-    this.scheduleCourses = const [],
+    this.ongoingCourses = '',
+    this.upcomingCourses = '',
+    this.completedCourses = '',
   });
 
   factory StudyDTO.fromJson(dynamic json) {
     json ??= {};
     return StudyDTO(
-      studentID: json['student_id'] ?? 0,
-      numCourses: json['num_courses'] ?? 0,
-      studentList: json['student_list']
-        ?.map((studentJson) {
-          studentJson['id'] ??= 0;
-          studentJson['primary'] ??= false;    
-          studentJson['student'] ??= '';
-          studentJson['image'] ??= '';
-          studentJson['created_at'] ??= '';
-          return studentJson;
-        })
+      userInfo: json['user_info'] != null ? UserDTO.fromJson(json['user_info']) : {},
+      userAccounts: json['user_accounts']
+        ?.map((userJson) => UserDTO.fromJson(userJson))
         .toList() ?? [],
-      upcomingCourses: json['upcoming_courses']
-        ?.map((courseJson) => RegisteredCourseDTO.fromJson(courseJson))
+      numCourses: json['num_items'] ?? 0,
+      ongoingCourses: json['ongoing_items']
+        ?.map((itemJson) => RegisteredItemDTO.fromJson(itemJson))
         .toList() ?? [],
-      doneCourses: json['done_courses']
-        ?.map((courseJson) => RegisteredCourseDTO.fromJson(courseJson))
-        .toList() ??
-        [],
-      scheduleCourses: json['schedule_courses']
-        ?.map((scheduleJson) => ScheduleDTO.fromJson(scheduleJson as Map<String, dynamic>))
+      upcomingCourses: json['upcoming_items']
+        ?.map((itemJson) => RegisteredItemDTO.fromJson(itemJson))
+        .toList() ?? [],
+      completedCourses: json['completed_items']
+         ?.map((itemJson) => RegisteredItemDTO.fromJson(itemJson))
         .toList() ?? [],
     );
   }

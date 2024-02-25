@@ -24,7 +24,7 @@ class StudyLoadSuccessState extends StudyState {
 }
 
 class StudyLoadCourseSuccessState extends StudyState {
-  final RegisteredCourseDTO data;
+  final RegisteredItemDTO data;
   StudyLoadCourseSuccessState({required this.data});
 
   @override
@@ -32,7 +32,7 @@ class StudyLoadCourseSuccessState extends StudyState {
 }
 
 class StudyLoadScheduleSuccessState extends StudyState {
-  final List<ScheduleDTO> data;
+  final CalendarDTO data;
   StudyLoadScheduleSuccessState({required this.data});
 
   @override

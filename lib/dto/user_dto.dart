@@ -43,6 +43,8 @@ class UserDTO extends Equatable {
   final List<UserDTO>? children;
   final cartcount;
   final int inRegisterClassId;
+  final isChild;
+  final createdAt;
 
   static const empty = UserDTO(id: 1);
 
@@ -86,6 +88,8 @@ class UserDTO extends Equatable {
     this.children = const [],
     this.cartcount = 0,
     this.inRegisterClassId = 0,
+    this.isChild = 0,
+    this.createdAt = '',
   });
 
   @override
@@ -127,6 +131,8 @@ class UserDTO extends Equatable {
         rated,
         cartcount,
         inRegisterClassId,
+        isChild,
+        createdAt,
       ];
 
   @override
@@ -181,6 +187,8 @@ class UserDTO extends Equatable {
             children: json['children'] == null
                 ? []
                 : List<UserDTO>.from(json['children']?.map((e) => e == null ? null : UserDTO.fromJson(e))).toList(),
+            isChild: json['is_child'] ?? '',
+            createdAt: json['created_at'] ?? '',
           )
         : UserDTO();
   }

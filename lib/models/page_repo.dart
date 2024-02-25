@@ -1,8 +1,9 @@
 import 'dart:io';
 
+import 'package:anylearn/dto/v3/calendar_dto.dart';
 import 'package:anylearn/dto/v3/listing_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
-import 'package:anylearn/dto/v3/registered_courses_dto.dart';
+import 'package:anylearn/dto/v3/registered_item_dto.dart';
 import 'package:anylearn/dto/v3/schedule_dto.dart';
 import 'package:anylearn/dto/v3/study_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
@@ -186,15 +187,15 @@ class PageRepository {
     return await configService.searchItem(screen, query);
   }
 
-  Future<StudyDTO> dataStudy(String token, int studentID) async {
-    return await configService.dataStudy(token, studentID);
+  Future<StudyDTO> dataStudy(UserDTO account, String token) async {
+    return await configService.dataStudy(account, token);
   }
 
-  Future<List<ScheduleDTO>> dataSchedule(String token, String dateOn) async {
-    return await configService.dataSchedule(token, dateOn);
+  Future<CalendarDTO> dataSchedule(String token, String date) async {
+    return await configService.dataSchedule(token, date);
   }
 
-  Future<RegisteredCourseDTO> dataRegisteredCourse(String token, int orderItemID) async {
+  Future<RegisteredItemDTO> dataRegisteredCourse(String token, int orderItemID) async {
     return await configService.dataRegisteredCourse(token, orderItemID);
   }
 }
