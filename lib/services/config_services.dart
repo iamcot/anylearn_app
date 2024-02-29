@@ -187,7 +187,6 @@ class ConfigServices extends BaseService {
   }
 
   Future<RegisteredItemDTO> dataRegisteredCourse(String token, int orderItemID) async {
-    // final data = await rootBundle.loadString('assets/mock/course.json');
     final url = buildUrl(appConfig: config, endPoint: '/v3/auth/study/$orderItemID', token: token);
     final json = await get(httpClient, url);
     return RegisteredItemDTO.fromJson(json);

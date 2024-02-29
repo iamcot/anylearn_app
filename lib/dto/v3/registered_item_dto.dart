@@ -5,6 +5,7 @@ class RegisteredItemDTO extends Equatable {
   final title; 
   final image;
   final author;
+  final authorID;
   final student;
   final subtype;
   final favorited;
@@ -30,6 +31,7 @@ class RegisteredItemDTO extends Equatable {
     title,
     image,
     author,
+    authorID,
     student,
     subtype,
     favorited,
@@ -55,6 +57,7 @@ class RegisteredItemDTO extends Equatable {
     this.title = '',
     this.image = '',
     this.author = '',
+    this.authorID = 0,
     this.student = '',
     this.subtype = '',
     this.rating = 0.0,
@@ -82,6 +85,7 @@ class RegisteredItemDTO extends Equatable {
       title: json['title'] ?? '',
       image: json['image'] ?? '',
       author: json['author'] ?? '',
+      authorID: json['author_id'] ?? 0,
       student: json['student'] ?? '',
       subtype: json['subtype'] ?? '',
       rating: json['rating'] == null ? 0.0 : double.parse(json['rating'].toString()),
@@ -93,17 +97,12 @@ class RegisteredItemDTO extends Equatable {
       endDate: json['date_end'] ?? '',
       startTime: json['time_start'] ?? '',
       endTime: json['time_end'] ?? '',
-      favorited: json['favorited'] ?? 0,
+      favorited: null != json['favorited'] ? int.parse(json['favorited']) : 0,
       orderItemID: json['order_item_id'] ?? 0,
       purchasedAt: json['purchased_at'] ?? '',
       organizerConfirm: json['organizer_confirm'] ?? 0,
       participantConfirm: json['participant_confirm'] ?? 0,
-      activationInfo: json['activation_info']?.map((actJson) {
-        actJson['code'] ??= '';
-        actJson['username'] ??= '';
-        actJson['password'] ??= '';
-        return actJson;
-      }).toList() ?? [], 
+      activationInfo: json['activation_info']?.map((key, value) => MapEntry(key, value ?? '')) ?? {},
       location: json['location'] ?? '',
     );
   }
