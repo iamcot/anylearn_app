@@ -270,7 +270,7 @@ class _CourseScreenState extends State<CourseScreen> {
         token: widget.user.token,
         itemId: data.id,
         scheduleId: data.orderItemID,
-        childId: user.id
+        childId: data.studentID,
     ));
   }
 }

@@ -7,6 +7,7 @@ class RegisteredItemDTO extends Equatable {
   final author;
   final authorID;
   final student;
+  final studentID;
   final subtype;
   final favorited;
   final rating;
@@ -33,6 +34,7 @@ class RegisteredItemDTO extends Equatable {
     author,
     authorID,
     student,
+    studentID,
     subtype,
     favorited,
     rating,
@@ -59,6 +61,7 @@ class RegisteredItemDTO extends Equatable {
     this.author = '',
     this.authorID = 0,
     this.student = '',
+    this.studentID = 0,
     this.subtype = '',
     this.rating = 0.0,
     this.reviews = 0,
@@ -87,6 +90,7 @@ class RegisteredItemDTO extends Equatable {
       author: json['author'] ?? '',
       authorID: json['author_id'] ?? 0,
       student: json['student'] ?? '',
+      studentID: json['user_id'] ?? 0,
       subtype: json['subtype'] ?? '',
       rating: json['rating'] == null ? 0.0 : double.parse(json['rating'].toString()),
       reviews: json['reviews'] ?? 0,

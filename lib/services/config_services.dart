@@ -160,10 +160,9 @@ class ConfigServices extends BaseService {
   }
 
   Future<StudyDTO> dataStudy(UserDTO account, String token) async {
-    // final data = await rootBundle.loadString('assets/mock/study.json');
     final url = buildUrl(
       appConfig: config, 
-      endPoint: '/v3/auth/study?', 
+      endPoint: '/v3/auth/study', 
       query: 0 == account.isChild ? '' : 'child=${account.id}',
       token: token
     );

@@ -174,7 +174,7 @@ class _StudyScreenState extends State<StudyScreen> {
         token: _user.token,
         itemId: data.id,
         scheduleId: data.orderItemID,
-        childId: _user.id
+        childId: data.studentID,
     ));
   }
 
