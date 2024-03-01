@@ -7,9 +7,8 @@ class CourseList extends StatelessWidget {
   final List<dynamic> data;
 
   final Axis scrollDirection;
-  final String itemType; 
   final Widget? additional;
-  final Widget Function(dynamic course, String type) itemBuilder;
+  final Widget Function(dynamic course) itemBuilder;
   final Route Function(int orderItemID) linkBuilder;
 
   CourseList({
@@ -18,9 +17,8 @@ class CourseList extends StatelessWidget {
     required this.data,
     required this.itemBuilder,
     required this.linkBuilder,
-    this.additional,
     this.scrollDirection = Axis.horizontal,
-    this.itemType = '',
+    this.additional,
     this.intro = '',
   }) : super(key: key);
 
@@ -40,8 +38,7 @@ class CourseList extends StatelessWidget {
                 if (null != additional) additional!, 
               ],
             ),
-          ),
-         
+          ),     
           const SizedBox(height: 10.0),
           _buildListView(context),
         ],
@@ -70,7 +67,7 @@ class CourseList extends StatelessWidget {
               // color: Colors.blue.shade50,
               borderRadius: BorderRadius.circular(10)),
             child: InkWell(
-              child: itemBuilder(data[index], itemType),
+              child: itemBuilder(data[index]),
               onTap: () => Navigator.of(context).push(linkBuilder(data[index].orderItemID)),
             ),
           );

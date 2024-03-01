@@ -55,28 +55,40 @@ class _CourseScreenState extends State<CourseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PdpBloc, PdpState>(
-      bloc: _pdpBloc,
-      listener: (context, state) {
-        if (state is PdpFavoriteTouchSuccessState) {
-          _loadBodyData();
-        }
-      },
-      child: BlocBuilder<StudyBloc, StudyState>(
-        bloc: _studyBloc,
-        builder: (context, state) {
-          if (state is StudyLoadCourseSuccessState) {
-            data = state.data;
-            return DefaultScaffold(
-              body: SingleChildScrollView(
-                child: _buildBodyContent(context)
-              ),
-              fontSize: 15.0,
-            );
-          }
-          return LoadingScreen();
-        },
-    ));
+    return MultiBlocListener(
+        listeners: [
+          BlocListener<PdpBloc, PdpState>(
+            bloc: _pdpBloc,
+            listener: (context, state) {
+              if (state is PdpFavoriteTouchSuccessState) {
+                _loadBodyData();
+              }
+            },
+          ),
+          BlocListener<AccountBloc, AccountState>(
+            listener: (context, state) {
+              if (state is AccJoinSuccessState) {
+                _loadBodyData();
+              }
+            },
+          ),
+        ],
+        child: BlocBuilder<StudyBloc, StudyState>(
+            bloc: _studyBloc,
+            builder: (context, state) {
+              if (state is StudyLoadCourseSuccessState) {
+                data = state.data;
+                return DefaultScaffold(
+                  body: SingleChildScrollView(
+                    child: _buildBodyContent(context)
+                  ),
+                  fontSize: 15.0,
+                );
+              }
+              return LoadingScreen();
+            },
+      )
+    );
   }
 
   Widget _buildBodyContent(BuildContext context) {
@@ -111,7 +123,7 @@ class _CourseScreenState extends State<CourseScreen> {
             ),
           ],
         ),
-        if (ItemConstants.CONFIRMABLE_SUBTYPES.contains(data.subtype))
+        if (ItemConstants.CONFIRMABLE_SUBTYPES.contains(data.subtype) )
           Container(
             margin: EdgeInsets.all(20),
             child: ScheduleBox(

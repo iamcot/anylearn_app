@@ -97,7 +97,7 @@ class _StudyScreenState extends State<StudyScreen> {
                       title: 'Khóa học',
                       intro: 'Các khóa học bạn đang hoặc chuẩn bị tham gia.',
                       data: data.upcomingCourses,
-                      itemBuilder: (course, type) => ItemCourse(
+                      itemBuilder: (course) => ItemCourse(
                         data: course, 
                         callbackConfirmation: (data) => _updateConfirmation(data),
                       ),
@@ -116,7 +116,7 @@ class _StudyScreenState extends State<StudyScreen> {
                         child: Text('(Tra lịch)',
                             style: TextStyle(color: Colors.blue.shade300)),
                       ),
-                      itemBuilder: (schedule, type) => ItemSchedule(data: schedule),
+                      itemBuilder: (schedule) => ItemSchedule(data: schedule),
                       linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, orderItemID),
                       scrollDirection: Axis.vertical,
                     ),
@@ -125,9 +125,9 @@ class _StudyScreenState extends State<StudyScreen> {
                       title: 'Hoàn thành',
                       intro: 'Các khóa học bạn đã hoàn thành.',
                       data: data.completedCourses,
-                      itemType: ItemCourse.COMPLETION_TYPE,
-                      itemBuilder: (course, type) => ItemCourse(
+                      itemBuilder: (course) => ItemCourse(
                         data: course, 
+                        type: ItemCourse.COMPLETION_TYPE,
                         callbackConfirmation: (data) => _updateConfirmation(data),
                       ),
                       linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, orderItemID),

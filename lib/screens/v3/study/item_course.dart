@@ -20,6 +20,7 @@ class ItemCourse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(type);
     return LayoutBuilder(builder: (context, constraints) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,13 +109,15 @@ class ItemCourse extends StatelessWidget {
         child: Row(
           children: [
             Icon(
-              data.participantConfirm == 1 || data.organizerConfirm == 1 ? Icons.check : Icons.info_outline,
+              1 == data.participantConfirm 
+                ? 1 == data.organizerConfirm ? Icons.done_all : Icons.check 
+                : Icons.info_outline,
               color: Colors.white,
               size: 15,
             ),
             const SizedBox(width: 3),
             Text(
-              data.participantConfirm == 1 || data.organizerConfirm == 1 ? 'Đang tham gia' : 'Chưa tham gia',
+              1 == data.participantConfirm ? 'Đang tham gia' : 'Chưa tham gia',
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.white,
