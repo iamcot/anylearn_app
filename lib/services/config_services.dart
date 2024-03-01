@@ -1,14 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:anylearn/dto/v3/calendar_dto.dart';
 import 'package:anylearn/dto/v3/listing_dto.dart';
 import 'package:anylearn/dto/v3/registered_item_dto.dart';
-import 'package:anylearn/dto/v3/schedule_dto.dart';
 import 'package:anylearn/dto/v3/study_dto.dart';
 import 'package:anylearn/dto/v3/partner_dto.dart';
 import 'package:anylearn/dto/v3/subtype_dto.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 

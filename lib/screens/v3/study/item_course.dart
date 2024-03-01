@@ -2,7 +2,6 @@ import 'package:anylearn/app_datetime.dart';
 import 'package:anylearn/dto/v3/registered_item_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ItemCourse extends StatelessWidget {
   static const CONFIRMATION_TYPE = 'confirmation';
@@ -10,10 +9,12 @@ class ItemCourse extends StatelessWidget {
 
   final RegisteredItemDTO data;
   final String type;
+  final Function (RegisteredItemDTO data) callbackConfirmation;
   
   ItemCourse({ 
     Key? key, 
     required this.data,
+    required this.callbackConfirmation,
     this.type = CONFIRMATION_TYPE
   }) : super(key: key);
 
@@ -136,10 +137,9 @@ class ItemCourse extends StatelessWidget {
         contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
         actionsPadding: EdgeInsets.fromLTRB(20, 0, 20, 10),
         actions: [
-          // TextButton(
-          //   onPressed: () => BlocProvider.of<AccountBloc>(context)
-          //     .add(AccJoinCourseEvent(token: user.token, itemId: data.id, scheduleId: data.orderItemID, childId: user.id)),
-          //   child: Text('Tham gia')),
+          TextButton(
+            onPressed: () => callbackConfirmation(data),
+            child: Text('Tham gia')),
           TextButton(
             onPressed: () => Navigator.of(context).pop(), 
             child: Text('Đóng')

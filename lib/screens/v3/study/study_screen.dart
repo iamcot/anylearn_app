@@ -1,6 +1,8 @@
+import 'package:anylearn/blocs/account/account_bloc.dart';
 import 'package:anylearn/blocs/auth/auth_bloc.dart';
 import 'package:anylearn/blocs/study/study_bloc.dart';
 import 'package:anylearn/dto/user_dto.dart';
+import 'package:anylearn/dto/v3/registered_item_dto.dart';
 import 'package:anylearn/models/page_repo.dart';
 import 'package:anylearn/screens/loading.dart';
 import 'package:anylearn/screens/v3/study/calendar_screen.dart';
@@ -22,6 +24,8 @@ class StudyScreen extends StatefulWidget {
 
 class _StudyScreenState extends State<StudyScreen> {
   late StudyBloc _studyBloc;
+  late AccountBloc _accountBloc;
+  late UserDTO _user;
 
   @override
   void initState() {
@@ -29,6 +33,7 @@ class _StudyScreenState extends State<StudyScreen> {
     BlocProvider.of<AuthBloc>(context).add(AuthCheckEvent());
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
     _studyBloc = StudyBloc(pageRepository: pageRepo);
+    _accountBloc = BlocProvider.of<AccountBloc>(context);
   }
 
   @override
@@ -41,7 +46,26 @@ class _StudyScreenState extends State<StudyScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
       if (state is AuthSuccessState) {
-        return _buildScaffold(context, _buildContent(state.user));
+        _user = state.user;
+        return BlocListener<AccountBloc, AccountState>(
+          listener: (context, state) {
+            if (state is AccJoinSuccessState) {
+              _loadBodyContent(_user);
+            }
+          },
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            bottomNavigationBar: BottomNav(BottomNav.MYCLASS_INDEX),
+            body: DefaultTextStyle(
+              child: _buildBodyContent(),
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Colors.grey.shade800,
+                fontSize: 14,
+              ),
+            ),
+          )
+        );
       }
       if (state is AuthFailState) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -52,25 +76,9 @@ class _StudyScreenState extends State<StudyScreen> {
     });
   }
 
-  Widget _buildScaffold(BuildContext context, Widget content) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      bottomNavigationBar: BottomNav(BottomNav.MYCLASS_INDEX),
-      body: DefaultTextStyle(
-        child: content,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          color: Colors.grey.shade800,
-          fontSize: 14,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContent(UserDTO user) {
+  Widget _buildBodyContent() {
     return BlocBuilder(
-        bloc: _studyBloc
-          ..add(StudyLoadMainDataEvent(account: user, token: user.token)),
+        bloc: _loadBodyContent(_user),
         builder: (context, state) {
           switch (state.runtimeType) {
             case StudyLoadSuccessState:
@@ -82,59 +90,67 @@ class _StudyScreenState extends State<StudyScreen> {
                     numCourses: data.numCourses,
                     userInfo: data.userInfo,
                     userAccounts: data.userAccounts,
-                    changeAccountCallback: (account) =>_changeAccount(account, token: user.token),
+                    changeAccountCallback: (account) => _loadBodyContent(account)
                   ),
-                  if (data.upcomingCourses.isNotEmpty) 
-                  CourseList(
-                    title: 'Khóa học',
-                    intro: 'Các khóa học bạn đang hoặc chuẩn bị tham gia.',
-                    data: data.upcomingCourses,          
-                    itemBuilder: (course, type) => ItemCourse(data: course),
-                    linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, user, orderItemID),
-                  ),
-                  if (data.ongoingCourses.isNotEmpty) 
-                  CourseList(
-                    title: 'Lịch học',
-                    intro: 'Thời khóa biểu tuần này của bạn. ',
-                    data: data.ongoingCourses,
-                    additional: GestureDetector(
-                      onTap: () => Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => CalendarScreen(user: user))),
-                      child: Text(
-                        '(Tra lịch)', 
-                        style: TextStyle(color: Colors.blue.shade300)
+                  if (data.upcomingCourses.isNotEmpty)
+                    CourseList(
+                      title: 'Khóa học',
+                      intro: 'Các khóa học bạn đang hoặc chuẩn bị tham gia.',
+                      data: data.upcomingCourses,
+                      itemBuilder: (course, type) => ItemCourse(
+                        data: course, 
+                        callbackConfirmation: (data) => _updateConfirmation(data),
                       ),
+                      linkBuilder: (orderItemID) =>_buildCourseScreenRoute(context, orderItemID),
                     ),
-                    itemBuilder: (schedule, type) => ItemSchedule(data: schedule),
-                    linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, user, orderItemID),
-                    scrollDirection: Axis.vertical,
-                  ),
-                  if (data.completedCourses.isNotEmpty) 
-                  CourseList(
-                    title: 'Hoàn thành',
-                    intro: 'Các khóa học bạn đã hoàn thành.',
-                    data: data.completedCourses,
-                    itemType: ItemCourse.COMPLETION_TYPE,
-                    itemBuilder: (course, type) => ItemCourse(data: course, type: type),
-                    linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, user, orderItemID),
-                  ),
-                  if (data.upcomingCourses.isEmpty || data.upcomingCourses.isEmpty || data.completedCourses.isEmpty) 
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Uh oh! 🌟 Bạn chưa tham gia bất kỳ khóa học nào trên AnyLearn sao?🌻🌻🌻 \nNhanh tay lên! Vũ trụ kiến thức đang chờ bạn khám phá!🚀✨',
-                            maxLines: 10,
-                            style: TextStyle(
-                              fontSize: 16.0,
+                  if (data.ongoingCourses.isNotEmpty)
+                    CourseList(
+                      title: 'Lịch học',
+                      intro: 'Thời khóa biểu tuần này của bạn. ',
+                      data: data.ongoingCourses,
+                      additional: GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CalendarScreen(user: _user))),
+                        child: Text('(Tra lịch)',
+                            style: TextStyle(color: Colors.blue.shade300)),
+                      ),
+                      itemBuilder: (schedule, type) => ItemSchedule(data: schedule),
+                      linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, orderItemID),
+                      scrollDirection: Axis.vertical,
+                    ),
+                  if (data.completedCourses.isNotEmpty)
+                    CourseList(
+                      title: 'Hoàn thành',
+                      intro: 'Các khóa học bạn đã hoàn thành.',
+                      data: data.completedCourses,
+                      itemType: ItemCourse.COMPLETION_TYPE,
+                      itemBuilder: (course, type) => ItemCourse(
+                        data: course, 
+                        callbackConfirmation: (data) => _updateConfirmation(data),
+                      ),
+                      linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, orderItemID),
+                    ),
+                  if (data.upcomingCourses.isEmpty ||
+                      data.upcomingCourses.isEmpty ||
+                      data.completedCourses.isEmpty)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Uh oh! 🌟 Bạn chưa tham gia bất kỳ khóa học nào trên AnyLearn sao?🌻🌻🌻 \nNhanh tay lên! Vũ trụ kiến thức đang chờ bạn khám phá!🚀✨',
+                              maxLines: 10,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                 ]),
               );
             default:
@@ -143,13 +159,23 @@ class _StudyScreenState extends State<StudyScreen> {
         });
   }
 
-  Route _buildCourseScreenRoute(BuildContext context, UserDTO user, int orderItemID) {
+  Route _buildCourseScreenRoute(BuildContext context, int orderItemID) {
     return MaterialPageRoute(
-      builder: (context) => CourseScreen(orderItemID: orderItemID, user: user)
+        builder: (context) => CourseScreen(orderItemID: orderItemID, user: _user)
     );
   }
 
-  Future<void> _changeAccount(UserDTO account, {String token = ''}) async {
-    _studyBloc..add(StudyLoadMainDataEvent(account: account, token: token));
+  StudyBloc _loadBodyContent(UserDTO account) {
+    return _studyBloc..add(StudyLoadMainDataEvent(account: account, token: _user.token));
   }
+
+   void _updateConfirmation(RegisteredItemDTO data) {
+    _accountBloc..add(AccJoinCourseEvent(
+        token: _user.token,
+        itemId: data.id,
+        scheduleId: data.orderItemID,
+        childId: _user.id
+    ));
+  }
+
 }

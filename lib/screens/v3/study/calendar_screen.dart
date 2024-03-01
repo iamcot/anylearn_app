@@ -52,7 +52,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           _data = state.data;
           return Scaffold(
             backgroundColor: Colors.blue.shade50,
-            bottomNavigationBar: BottomNav(BottomNav.MYCLASS_INDEX),
+            // bottomNavigationBar: BottomNav(BottomNav.MYCLASS_INDEX),
             body: Container(
               margin: const EdgeInsets.only(top: kToolbarHeight),
               child: _buildBodyContent(context))
