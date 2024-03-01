@@ -32,7 +32,8 @@ class StudyBloc extends Bloc<StudyEvent, StudyState> {
 
   Future<void> _loadSchedule(StudyLoadScheduleDataEvent event, Emitter emit) async {
     try {
-      final data = await pageRepository.dataSchedule(event.token, event.date);
+      final data = await pageRepository
+        .dataSchedule(event.token, event.lookupDate, event.dateFrom, event.dateTo);
       return emit(StudyLoadScheduleSuccessState(data: data));
     } catch (e) {
       print('Schedule Screen:' + e.toString());
@@ -42,7 +43,6 @@ class StudyBloc extends Bloc<StudyEvent, StudyState> {
 
   Future<void> _loadCourse(StudyLoadCourseDataEvent event, Emitter emit) async {
     try {
-      print(event.orderItemID);
       final data = await pageRepository.dataRegisteredCourse(event.token, event.orderItemID);
       return emit(StudyLoadCourseSuccessState(data: data));
     } catch (e) {

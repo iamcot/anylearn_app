@@ -88,7 +88,7 @@ class ScheduleBox extends StatelessWidget {
                   children: [
                     SizedBox(width: 75, child: BoldText('Ngày học:')),
                     Expanded(
-                      child: Text(_getSchoolDays(data.weekdays, locale), maxLines: 2)
+                      child: Text(AppDateTime.getSchoolDays(data.weekdays, locale), maxLines: 2)
                     ),
                   ],
                 ),
@@ -97,7 +97,7 @@ class ScheduleBox extends StatelessWidget {
                   children: [
                     SizedBox(width: 75, child: BoldText('Thời gian:')),
                     Expanded(
-                      child: Text(_getSchoolTime(data.startTime, data.endTime))
+                      child: Text(AppDateTime.getSchoolTime(data.startTime, data.endTime))
                     ),
                   ],
                 ),
@@ -133,27 +133,6 @@ class ScheduleBox extends StatelessWidget {
     }
     if (startDate.isNotEmpty && endDate.isEmpty) {
       return 'Từ $convertedStartDate';
-    }
-    return ItemConstants.DEFAULT_STATUS;
-  }
-
-  String _getSchoolDays(String days, String locale) {  
-    final List<String> daysOfWeek = AppDateTime.getDaysOfWeek(locale);
-    if (days.isNotEmpty) {
-      final List<String> schoolDays = days.split(',').map((e) => daysOfWeek[int.parse(e) - 1]).toList();
-      return schoolDays.join(', ');
-    }
-    return ItemConstants.DEFAULT_STATUS;
-  }
-  
-  String _getSchoolTime(String startTime, String endTime) {
-    final String convertedStartTime = AppDateTime.convertTimeFormat(startTime);
-    final String convertedEndTime = AppDateTime.convertTimeFormat(endTime);
-    if (startTime.isNotEmpty && endTime.isNotEmpty) {
-      return '$convertedStartTime - $convertedEndTime';
-    }
-    if (startTime.isNotEmpty && endTime.isEmpty) {
-      return convertedStartTime;
     }
     return ItemConstants.DEFAULT_STATUS;
   }

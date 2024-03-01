@@ -1,3 +1,4 @@
+import 'package:anylearn/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
 class CourseList extends StatelessWidget {
@@ -7,13 +8,17 @@ class CourseList extends StatelessWidget {
 
   final Axis scrollDirection;
   final String itemType; 
+  final Widget? additional;
   final Widget Function(dynamic course, String type) itemBuilder;
+  final Route Function(int orderItemID) linkBuilder;
 
   CourseList({
     Key? key, 
     required this.title,
     required this.data,
     required this.itemBuilder,
+    required this.linkBuilder,
+    this.additional,
     this.scrollDirection = Axis.horizontal,
     this.itemType = '',
     this.intro = '',
@@ -22,22 +27,22 @@ class CourseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, bottom: 15),
+      padding: const EdgeInsets.only(left: 20.0, bottom: 15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title, 
-            style: TextStyle(
-              fontSize: 18, 
-              fontWeight: FontWeight.bold,
+          TitleText(title),
+          Padding(
+            padding: EdgeInsets.only(top: 10.0, right: 20.0),
+            child: Row(
+              children: [
+                Text(intro),
+                if (null != additional) additional!, 
+              ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 10, right: 20),
-            child: Text(intro),
-          ),
-          const SizedBox(height: 10),
+         
+          const SizedBox(height: 10.0),
           _buildListView(context),
         ],
       ),
@@ -64,7 +69,10 @@ class CourseList extends StatelessWidget {
             decoration: BoxDecoration(
               // color: Colors.blue.shade50,
               borderRadius: BorderRadius.circular(10)),
-            child: itemBuilder(data[index], itemType),
+            child: InkWell(
+              child: itemBuilder(data[index], itemType),
+              onTap: () => Navigator.of(context).push(linkBuilder(data[index].orderItemID)),
+            ),
           );
         }
       ),

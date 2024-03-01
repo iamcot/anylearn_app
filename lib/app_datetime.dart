@@ -1,3 +1,4 @@
+import 'package:anylearn/screens/v3/study/item_constants.dart';
 import 'package:intl/intl.dart';
 
 class AppDateTime {
@@ -32,5 +33,26 @@ class AppDateTime {
       print('Error parsing datetime: $e');
       return '';
     }
+  }
+
+    static String getSchoolDays(String days, String locale) {  
+    final List<String> daysOfWeek = AppDateTime.getDaysOfWeek(locale);
+    if (days.isNotEmpty) {
+      final List<String> schoolDays = days.split(',').map((e) => daysOfWeek[int.parse(e) - 1]).toList();
+      return schoolDays.join(', ');
+    }
+    return ItemConstants.DEFAULT_STATUS;
+  }
+  
+  static String getSchoolTime(String startTime, String endTime) {
+    final String convertedStartTime = AppDateTime.convertTimeFormat(startTime);
+    final String convertedEndTime = AppDateTime.convertTimeFormat(endTime);
+    if (startTime.isNotEmpty && endTime.isNotEmpty) {
+      return '$convertedStartTime - $convertedEndTime';
+    }
+    if (startTime.isNotEmpty && endTime.isEmpty) {
+      return convertedStartTime;
+    }
+    return ItemConstants.DEFAULT_STATUS;
   }
 }

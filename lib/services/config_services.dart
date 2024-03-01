@@ -174,12 +174,11 @@ class ConfigServices extends BaseService {
     return StudyDTO.fromJson(json);
   }
 
-  Future<CalendarDTO> dataSchedule(String token, String date) async {
-    // final data = await rootBundle.loadString('assets/mock/schedule.json');
+  Future<CalendarDTO> dataSchedule(String token, String lookupDate, String dateFrom, String dateTo) async {
     final url = buildUrl(
       appConfig: config, 
       endPoint: '/v3/auth/study/lookup',
-      query: 'date=$date', 
+      query: 'date=$lookupDate&from=$dateFrom&to=$dateTo', 
       token: token
     );
     final json = await get(httpClient, url);

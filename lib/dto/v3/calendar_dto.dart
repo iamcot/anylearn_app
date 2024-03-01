@@ -25,11 +25,11 @@ class CalendarDTO extends Equatable {
       lookupDate: json['lookup_date'] != null ? DateTime.parse(json['lookup_date']) : DateTime.now(),
       currentPlans: json['current_plans']?.map((planJson) => RegisteredItemDTO.fromJson(planJson))
         .toList() ?? [],
-      schedulePlans: json['schedule_plans']?.map((date, plans) {
-        return MapEntry(
-          DateTime.parse(date), 
-          plans.map((plan) => RegisteredItemDTO.fromJson(plan)).toList());
-      }) ?? {},
+      schedulePlans: json['schedule_plans'].isNotEmpty 
+        ? json['schedule_plans'].map((date, plans) {
+            return MapEntry(DateTime.parse(date), plans.map((plan) => RegisteredItemDTO.fromJson(plan)).toList());
+          })
+        : {},
     );
   }
 }

@@ -3,7 +3,9 @@ import 'package:anylearn/blocs/study/study_bloc.dart';
 import 'package:anylearn/dto/user_dto.dart';
 import 'package:anylearn/models/page_repo.dart';
 import 'package:anylearn/screens/loading.dart';
+import 'package:anylearn/screens/v3/study/calendar_screen.dart';
 import 'package:anylearn/screens/v3/study/course_list.dart';
+import 'package:anylearn/screens/v3/study/course_screen.dart';
 import 'package:anylearn/screens/v3/study/greeting.dart';
 import 'package:anylearn/screens/v3/study/item_course.dart';
 import 'package:anylearn/screens/v3/study/item_schedule.dart';
@@ -68,43 +70,70 @@ class _StudyScreenState extends State<StudyScreen> {
   Widget _buildContent(UserDTO user) {
     return BlocBuilder(
         bloc: _studyBloc
-          ..add(StudyLoadMainDataEvent(token: 'token', studentID: user.id)),
+          ..add(StudyLoadMainDataEvent(account: user, token: user.token)),
         builder: (context, state) {
           switch (state.runtimeType) {
             case StudyLoadSuccessState:
               final data = (state as StudyLoadSuccessState).data;
               return Container(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                margin: const EdgeInsets.only(top: 30),
                 child: ListView(children: [
                   Greeting(
                     numCourses: data.numCourses,
-                    studentList: data.studentList,
-                    studentInfo: _getCurrentStudentInfo(
-                        data.studentID, data.studentList),
-                    changeAccountCallback: (studentID) =>
-                        _changeAccount(studentID, token: user.token),
+                    userInfo: data.userInfo,
+                    userAccounts: data.userAccounts,
+                    changeAccountCallback: (account) =>_changeAccount(account, token: user.token),
                   ),
+                  if (data.upcomingCourses.isNotEmpty) 
                   CourseList(
                     title: 'Khóa học',
                     intro: 'Các khóa học bạn đang hoặc chuẩn bị tham gia.',
-                    data: data.upcomingCourses,
+                    data: data.upcomingCourses,          
                     itemBuilder: (course, type) => ItemCourse(data: course),
+                    linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, user, orderItemID),
                   ),
+                  if (data.ongoingCourses.isNotEmpty) 
                   CourseList(
                     title: 'Lịch học',
-                    intro: 'Thời khóa biểu tuần này của bạn.',
-                    data: data.scheduleCourses,
-                    itemBuilder: (schedule, type) =>
-                        ItemSchedule(data: schedule),
+                    intro: 'Thời khóa biểu tuần này của bạn. ',
+                    data: data.ongoingCourses,
+                    additional: GestureDetector(
+                      onTap: () => Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => CalendarScreen(user: user))),
+                      child: Text(
+                        '(Tra lịch)', 
+                        style: TextStyle(color: Colors.blue.shade300)
+                      ),
+                    ),
+                    itemBuilder: (schedule, type) => ItemSchedule(data: schedule),
+                    linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, user, orderItemID),
                     scrollDirection: Axis.vertical,
                   ),
+                  if (data.completedCourses.isNotEmpty) 
                   CourseList(
                     title: 'Hoàn thành',
                     intro: 'Các khóa học bạn đã hoàn thành.',
-                    data: data.doneCourses,
+                    data: data.completedCourses,
                     itemType: ItemCourse.COMPLETION_TYPE,
-                    itemBuilder: (course, type) =>
-                        ItemCourse(data: course, type: type),
+                    itemBuilder: (course, type) => ItemCourse(data: course, type: type),
+                    linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, user, orderItemID),
+                  ),
+                  if (data.upcomingCourses.isEmpty || data.upcomingCourses.isEmpty || data.completedCourses.isEmpty) 
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Uh oh! 🌟 Bạn chưa tham gia bất kỳ khóa học nào trên AnyLearn sao?🌻🌻🌻 \nNhanh tay lên! Vũ trụ kiến thức đang chờ bạn khám phá!🚀✨',
+                            maxLines: 10,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ]),
               );
@@ -114,13 +143,13 @@ class _StudyScreenState extends State<StudyScreen> {
         });
   }
 
-  Future<void> _changeAccount(int studentID, {String token = ''}) async {
-    _studyBloc..add(StudyLoadMainDataEvent(token: token, studentID: studentID));
+  Route _buildCourseScreenRoute(BuildContext context, UserDTO user, int orderItemID) {
+    return MaterialPageRoute(
+      builder: (context) => CourseScreen(orderItemID: orderItemID, user: user)
+    );
   }
 
-  Map<String, dynamic> _getCurrentStudentInfo(
-      int studentID, List<dynamic> studentList) {
-    return studentList.firstWhere((student) => student['id'] == studentID,
-        orElse: () => {});
+  Future<void> _changeAccount(UserDTO account, {String token = ''}) async {
+    _studyBloc..add(StudyLoadMainDataEvent(account: account, token: token));
   }
 }

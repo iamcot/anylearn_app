@@ -17,6 +17,14 @@ class StudyLoadCourseDataEvent extends StudyEvent {
 
 class StudyLoadScheduleDataEvent extends StudyEvent {
   final String token;
-  final String date;
-  StudyLoadScheduleDataEvent({required this.token, required this.date});
+  final String lookupDate;
+  final String dateFrom;
+  final String dateTo;
+
+  StudyLoadScheduleDataEvent({
+    required this.token, 
+    required this.lookupDate, 
+    required this.dateFrom, 
+    required this.dateTo,
+  });
 }

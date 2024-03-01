@@ -1,421 +1,264 @@
+import 'package:anylearn/blocs/account/account_bloc.dart';
+import 'package:anylearn/blocs/pdp/pdp_bloc.dart';
 import 'package:anylearn/blocs/study/study_bloc.dart';
+import 'package:anylearn/dto/user_dto.dart';
+import 'package:anylearn/dto/v3/registered_item_dto.dart';
+import 'package:anylearn/main.dart';
 import 'package:anylearn/models/page_repo.dart';
+import 'package:anylearn/models/transaction_repo.dart';
 import 'package:anylearn/screens/loading.dart';
+import 'package:anylearn/screens/v3/study/activation_box.dart';
+import 'package:anylearn/screens/v3/study/item_constants.dart';
+import 'package:anylearn/screens/v3/study/schedule_box.dart';
+import 'package:anylearn/widgets/default_scaffold.dart';
+import 'package:anylearn/widgets/random_color.dart';
+import 'package:anylearn/widgets/title_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CourseScreen extends StatefulWidget {
   final int orderItemID;
-  const CourseScreen({Key? key, required this.orderItemID}) : super(key: key);
+  final UserDTO user;
+  const CourseScreen({Key? key, required this.orderItemID, required this.user})
+      : super(key: key);
 
   @override
   State<CourseScreen> createState() => _CourseScreenState();
 }
 
 class _CourseScreenState extends State<CourseScreen> {
+  late PdpBloc _pdpBloc;
   late StudyBloc _studyBloc;
+  late AccountBloc _accountBloc;
+  late RegisteredItemDTO data;
 
   @override
   void initState() {
     super.initState();
     final pageRepo = RepositoryProvider.of<PageRepository>(context);
+    final transRepo = RepositoryProvider.of<TransactionRepository>(context);
+
     _studyBloc = StudyBloc(pageRepository: pageRepo);
+    _loadBodyData();
+
+    _pdpBloc = PdpBloc(pageRepository: pageRepo, transactionRepository: transRepo);
+    _accountBloc = BlocProvider.of<AccountBloc>(context);
   }
 
   @override
   void dispose() {
     _studyBloc.close();
+    _pdpBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: DefaultTextStyle(
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            color: Colors.grey.shade800,
-            fontSize: 14,
-          ),
-          child: BlocBuilder<StudyBloc, StudyState>(
-              bloc: _studyBloc..add(
-                StudyLoadCourseDataEvent(token: 'token', orderItemID: widget.orderItemID)),
-              builder: (context, state) {
-                switch (state.runtimeType) {
-                  case StudyLoadCourseSuccessState:
-                    final data = (state as StudyLoadCourseSuccessState).data;
-                    return Column(
-                      children: [
-                        Stack(
-                          children: [
-                            ColorFiltered(
-                              colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(
-                                    0.3), // Set the overlay color and opacity
-                                BlendMode.srcATop,
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl: data.courseImage,
-                                fit: BoxFit.cover,
-                                width: MediaQuery.of(context).size.width,
-                                height: 200,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  top: kToolbarHeight, left: 20, right: 20),
-                              // color: Colors.amber.shade100,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                      onTap: () => Navigator.of(context).pop(),
-                                      child: Icon(Icons.arrow_back,
-                                          color: Colors.white)),
-                                  Icon(Icons.favorite_border,
-                                      color: Colors.white, size: 25)
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  top: 120, right: 20, left: 20),
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.shade100),
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.white,
-                              ),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.only(bottom: 15),
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                              color: Colors.grey.shade50))),
-                                      child: Text(
-                                          data.title,
-                                          maxLines: 2,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                          )),
-                                    ),
-                                    Container(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 15),
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  color:
-                                                      Colors.grey.shade100))),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(Icons.school,
-                                              color: Colors.grey.shade600,
-                                              size: 20),
-                                          SizedBox(width: 10),
-                                          Expanded(
-                                            child: Text(
-                                              data.author,
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 15),
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  color:
-                                                      Colors.grey.shade100))),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(Icons.account_circle,
-                                              color: Colors.grey.shade600,
-                                              size: 20),
-                                          SizedBox(width: 10),
-                                          Expanded(
-                                            child: Text(data.student),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 15),
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  color:
-                                                      Colors.grey.shade100))),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(Icons.category,
-                                              color: Colors.grey.shade600,
-                                              size: 20),
-                                          SizedBox(width: 10),
-                                          Expanded(
-                                            child: Text(
-                                              'Học qua ứng dụng',
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(top: 15),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(Icons.star,
-                                              color: Colors.grey.shade600,
-                                              size: 20),
-                                          SizedBox(width: 10),
-                                          Expanded(
-                                            child: Text(
-                                              'Đánh giá & nhận xét',
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade100),
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                          ),
-                          child: _getScheduleInfoUI(),
-                        ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   padding: EdgeInsets.all(20),
-                        //   decoration: BoxDecoration(
-                        //     border: Border.all(color: Colors.grey.shade100),
-                        //         borderRadius: BorderRadius.circular(15),
-                        //         color: Colors.white,
-                        //   ),
-                        //   child: _getScheduleInfoUI(),
-                        // )
-                      ],
-                    );
-                  default:
-                    return LoadingScreen();
-                }
-              }),
-        ));
+    return BlocListener<PdpBloc, PdpState>(
+      bloc: _pdpBloc,
+      listener: (context, state) {
+        if (state is PdpFavoriteTouchSuccessState) {
+          _loadBodyData();
+        }
+      },
+      child: BlocBuilder<StudyBloc, StudyState>(
+        bloc: _studyBloc,
+        builder: (context, state) {
+          if (state is StudyLoadCourseSuccessState) {
+            data = state.data;
+            return DefaultScaffold(
+              body: SingleChildScrollView(
+                child: _buildBodyContent(context)
+              ),
+              fontSize: 15.0,
+            );
+          }
+          return LoadingScreen();
+        },
+    ));
   }
 
-  Widget _getActivationInfoUI() {
+  Widget _buildBodyContent(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Thông tin kích hoạt',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        SizedBox(height: 15),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Stack(
           children: [
-            Icon(Icons.info_outline, color: Colors.grey.shade600, size: 20),
-            const SizedBox(width: 5),
-            Expanded(
-              child: Text(
-                'Điều này đảm bảo rằng bạn có quyền sử dụng một cách an toàn và bảo vệ thông tin cá nhân của bạn. Vui lòng không chia sẻ thông tin này!',
-                maxLines: 6,
+            ShaderMask(
+              shaderCallback: (bounds) => LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.black, Colors.transparent],
+                stops: [0.5, 1.0], // Adjust stops for the desired fade effect
+              ).createShader(bounds),
+              blendMode: BlendMode.dstIn,
+              child: CachedNetworkImage(
+                imageUrl: data.image,
+                fit: BoxFit.cover,
+                width: MediaQuery.of(context).size.width,
+                height: 230,
+                errorWidget: (context, url, error) => RandomColor(),
               ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: kToolbarHeight, left: 20, right: 20),
+              child: _buildNavigationBar(context),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 130, right: 20, left: 20),
+              child: _buildCourseInfoBox(context),
             ),
           ],
         ),
-        SizedBox(height: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(Icons.link, color: Colors.grey.shade600, size: 20),
-            const SizedBox(width: 5),
-            Expanded(
-              child: Text(
-                'https://anylearn.com....',
-                maxLines: 6,
-              ),
+        if (ItemConstants.CONFIRMABLE_SUBTYPES.contains(data.subtype))
+          Container(
+            margin: EdgeInsets.all(20),
+            child: ScheduleBox(
+              data: data,
+              confirmationCallback: () => _updateConfirmation(),
+              iconColor: Colors.blue.shade200,
+              keyColor: Colors.blue.shade50,
             ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Container(
-          padding: EdgeInsets.all(15.0),
-          decoration: BoxDecoration(
-            color: Colors.amber.shade50,
-            borderRadius: BorderRadius.circular(8),
           ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                      width: 80,
-                      child: Text('Tài khoản:',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
-                  Text('username123', style: TextStyle()),
-                ],
-              ),
-              SizedBox(height: 5),
-              Row(
-                children: [
-                  SizedBox(
-                      width: 80,
-                      child: Text('Mật khẩu:',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
-                  Text('password123'),
-                ],
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () {
-                // Add your button press logic here
-                print('TextButton Pressed');
-              },
-              child: Text(
-                'Hướng dẫn sử dụng',
-                style: TextStyle(fontSize: 16),
-              ),
+        if (ItemConstants.UNCONFIRMABLE_SUBTYPES.contains(data.subtype))
+          Container(
+            margin: EdgeInsets.all(20),
+            child: ActivationBox(
+              data: data,
+              iconColor: Colors.amber.shade200,
+              keyColor: Colors.amber.shade50,
             ),
-          ],
-        )
+          )
       ],
     );
   }
 
-  Widget _getScheduleInfoUI() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildNavigationBar(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          'Thời khóa biểu ',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        SizedBox(height: 15),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(Icons.info_outline, color: Colors.grey.shade600, size: 20),
-            const SizedBox(width: 5),
-            Expanded(
-              child: Text(
-                'Bạn chưa tham gia khóa học này',
-                maxLines: 6,
-              ),
+        InkWell(
+          onTap: () => Navigator.of(context).pop(),
+          child: Container(
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20.0),
             ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(Icons.event, color: Colors.grey.shade600, size: 20),
-            const SizedBox(width: 5),
-            Expanded(
-              child: Text(
-                '12/12/2021 - 12/12/2122',
-                maxLines: 6,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(Icons.location_on, color: Colors.grey.shade600, size: 20),
-            const SizedBox(width: 5),
-            Expanded(
-              child: Text(
-                '9 Đ. Võ Thị Sáu, P. ĐaKao, Quận 1, TP.HCM',
-                maxLines: 6,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Container(
-          padding: EdgeInsets.all(15.0),
-          decoration: BoxDecoration(
-            color: Colors.cyan.shade50,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                      width: 50,
-                      child: Text('Thứ 4:',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
-                  Text('12:34 AM - 15:50 PM'),
-                ],
-              ),
-              SizedBox(height: 5),
-              Row(
-                children: [
-                  SizedBox(
-                      width: 50,
-                      child: Text('Thứ 6:',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
-                  Text('12:34 AM - 15:50 PM'),
-                ],
-              ),
-            ],
+            child: Icon(Icons.arrow_back, color: Colors.grey, size: 20.0),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () {
-                // Add your button press logic here
-                print('TextButton Pressed');
-              },
-              child: Text(
-                'Tham gia',
-                style: TextStyle(fontSize: 16),
+        InkWell(
+          onTap: () => _updateFavorite(),
+          child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20.0),
               ),
-            ),
-          ],
-        )
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  1 == data.favorited
+                    ? Icon(Icons.favorite_sharp, color: Colors.pink.shade400, size: 20.0)
+                    : Icon(Icons.favorite_border, color: Colors.grey.shade400, size: 20.0),
+                  const SizedBox(width: 5.0),
+                  Text('Yêu thích', style: TextStyle(fontSize: 15.0)),
+                ],
+              )),
+        ),
       ],
     );
+  }
+
+  Widget _buildCourseInfoBox(BuildContext context) {
+    final List<Map<String, dynamic>> courseInfo = [
+      {'info': data.title, 'route': '/pdp', 'args': data.id},
+      {'icon': Icons.school, 'info': data.author, 'route':'/partner', 'args': data.authorID},
+      {'icon': Icons.account_circle, 'info': data.student},
+      {'icon': Icons.category, 'info': _getTextSubtype(data.subtype)},
+      {'icon': Icons.star, 'info': 'Đánh giá & nhận xét'},
+    ];
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade100),
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
+      ),
+      child: ListView.builder(
+          padding: EdgeInsets.zero,
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: courseInfo.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                ListTile(
+                  title: 0 == index
+                    ? TitleText(courseInfo[index]['info'])
+                    : Text(
+                        courseInfo[index]['info'],
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 15.0, 
+                          color: Colors.grey.shade800,
+                        ),
+                      ),
+                  leading: null != courseInfo[index]['icon']
+                    ? Icon(courseInfo[index]['icon'], color: Colors.grey.shade400, size: 20.0)
+                    : courseInfo[index]['icon'],
+                  contentPadding: EdgeInsets.zero,
+                  trailing: Icon(Icons.chevron_right, color: Colors.grey.shade300, size: 20.0),
+                  minLeadingWidth: 10.0,
+                  hoverColor: Colors.blue,
+                  onTap: () {
+                    if (null != courseInfo[index]['route']) {
+                      Navigator.of(context)
+                       .pushNamed(courseInfo[index]['route'], arguments: courseInfo[index]['args']);
+                    }      
+                  }
+                ),
+                if (index < courseInfo.length - 1)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Divider(
+                      height: 0, 
+                      thickness: 0.5, 
+                      color: Colors.grey.shade100,
+                    ),
+                  ),
+              ],
+            );
+          }),
+    );
+  }
+
+  String _getTextSubtype(String subtype) {
+    return subtype.isNotEmpty ? ItemConstants.STUBYPES[subtype]! :  ItemConstants.DEFAULT_STATUS;
+  }
+
+  StudyBloc _loadBodyData() {
+    return _studyBloc
+      ..add(StudyLoadCourseDataEvent(
+        token: widget.user.token, 
+        orderItemID: widget.orderItemID
+      ));
+  }
+
+  void _updateFavorite() {
+    _pdpBloc..add(PdpFavoriteTouchEvent(itemId: data.id, token: user.token));
+  }
+
+  void _updateConfirmation() {
+    _accountBloc..add(AccJoinCourseEvent(
+        token: widget.user.token,
+        itemId: data.id,
+        scheduleId: data.orderItemID,
+        childId: user.id
+    ));
   }
 }

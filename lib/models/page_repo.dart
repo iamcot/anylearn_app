@@ -191,8 +191,8 @@ class PageRepository {
     return await configService.dataStudy(account, token);
   }
 
-  Future<CalendarDTO> dataSchedule(String token, String date) async {
-    return await configService.dataSchedule(token, date);
+  Future<CalendarDTO> dataSchedule(String token, String lookupDate, String dateFrom, String dateTo) async {
+    return await configService.dataSchedule(token, lookupDate, dateFrom, dateTo);
   }
 
   Future<RegisteredItemDTO> dataRegisteredCourse(String token, int orderItemID) async {

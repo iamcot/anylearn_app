@@ -48,7 +48,7 @@ class Greeting extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Chào ${userInfo.name}',
+          'Chào ${userInfo.name} 🌻',
           style: TextStyle(fontSize: 18),
         ),
         const SizedBox(height: 5),
@@ -60,7 +60,7 @@ class Greeting extends StatelessWidget {
               TextSpan(
                 text: '$numCourses lớp học ',
                 style: TextStyle(
-                  color: Colors.cyan.shade300,
+                  color: Colors.blue.shade300,
                   fontWeight: FontWeight.bold,
                 ),
                 recognizer: TapGestureRecognizer()
