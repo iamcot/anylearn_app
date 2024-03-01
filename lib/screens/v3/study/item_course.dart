@@ -138,7 +138,10 @@ class ItemCourse extends StatelessWidget {
         actionsPadding: EdgeInsets.fromLTRB(20, 0, 20, 10),
         actions: [
           TextButton(
-            onPressed: () => callbackConfirmation(data),
+            onPressed: () {
+              callbackConfirmation(data);
+              Navigator.of(context).pop();
+            },
             child: Text('Tham gia')),
           TextButton(
             onPressed: () => Navigator.of(context).pop(), 

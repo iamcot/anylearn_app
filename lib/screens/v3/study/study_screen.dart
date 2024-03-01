@@ -132,8 +132,8 @@ class _StudyScreenState extends State<StudyScreen> {
                       ),
                       linkBuilder: (orderItemID) => _buildCourseScreenRoute(context, orderItemID),
                     ),
-                  if (data.upcomingCourses.isEmpty ||
-                      data.upcomingCourses.isEmpty ||
+                  if (data.upcomingCourses.isEmpty &&
+                      data.upcomingCourses.isEmpty &&
                       data.completedCourses.isEmpty)
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
