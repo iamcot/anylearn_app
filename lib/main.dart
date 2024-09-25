@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -106,14 +104,21 @@ void main() async {
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<AuthBloc>(create: (context) => AuthBloc(userRepository: userRepo)),
-              BlocProvider<AccountBloc>(create: (context) => AccountBloc(userRepository: userRepo)),
+              BlocProvider<AuthBloc>(
+                  create: (context) => AuthBloc(userRepository: userRepo)),
+              BlocProvider<AccountBloc>(
+                  create: (context) => AccountBloc(userRepository: userRepo)),
               BlocProvider<CourseBloc>(
-                  create: (context) => CourseBloc(itemRepository: itemRepo, userRepository: userRepo)),
-              BlocProvider<SearchBloc>(create: (context) => SearchBloc(pageRepository: pageRepo)),
-              BlocProvider<NotifBloc>(create: (context) => NotifBloc(userRepository: userRepo)),
-              BlocProvider<ArticleBloc>(create: (context) => ArticleBloc(pageRepository: pageRepo)),
-              BlocProvider<ListingBloc>(create: (context) => ListingBloc(pageRepository: pageRepo)),
+                  create: (context) => CourseBloc(
+                      itemRepository: itemRepo, userRepository: userRepo)),
+              BlocProvider<SearchBloc>(
+                  create: (context) => SearchBloc(pageRepository: pageRepo)),
+              BlocProvider<NotifBloc>(
+                  create: (context) => NotifBloc(userRepository: userRepo)),
+              BlocProvider<ArticleBloc>(
+                  create: (context) => ArticleBloc(pageRepository: pageRepo)),
+              BlocProvider<ListingBloc>(
+                  create: (context) => ListingBloc(pageRepository: pageRepo)),
             ],
             child: MyApp(),
           )),
@@ -133,12 +138,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
-  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey =
+      new GlobalKey<NavigatorState>();
 
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.instance.getInitialMessage().then((value) => print(value?.data.toString()));
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((value) => print(value?.data.toString()));
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('A new onMessage event was published!');

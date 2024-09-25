@@ -20,6 +20,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLoggedInEvent>(_onAuthLoggedInEvent);
     on<AuthLoggedOutEvent>(_onAuthLoggedOutEvent);
     on<AuthDeleteEvent>(_onAuthDeleteEvent);
+
+    on<AuthPassOtpEvent>(_onAuthPassOtpEvent);
+    on<AuthResentOtpEvent>(_onAuthResentOtpEvent);
+    on<AuthPassResetEvent>(_onAuthPassResetEvent);
+    on<AuthCheckOtpEvent>(_onAuthCheckOtpEvent);
   }
 
   @override
@@ -54,7 +59,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _onAuthLoggedInEvent(AuthLoggedInEvent event, Emitter<AuthState> emit) async {
+  void _onAuthLoggedInEvent(
+      AuthLoggedInEvent event, Emitter<AuthState> emit) async {
     try {
       await userRepository.storeToken(event.user.token);
       return emit(AuthSuccessState(user: event.user));
@@ -63,7 +69,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _onAuthLoggedOutEvent(AuthLoggedOutEvent event, Emitter<AuthState> emit) async {
+  void _onAuthLoggedOutEvent(
+      AuthLoggedOutEvent event, Emitter<AuthState> emit) async {
     try {
       await userRepository.deleteToken();
       await userRepository.logout(event.token);
@@ -73,12 +80,54 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _onAuthDeleteEvent(AuthDeleteEvent event, Emitter<AuthState> emit) async {
+  void _onAuthDeleteEvent(
+      AuthDeleteEvent event, Emitter<AuthState> emit) async {
     try {
       await userRepository.deleteAccount(event.token);
       return emit(AuthDeleteSuccessState());
     } on Exception catch (e) {
       return emit(AuthDeleteFailState(error: e.toString()));
+    }
+  }
+
+  void _onAuthPassOtpEvent(
+      AuthPassOtpEvent event, Emitter<AuthState> emit) async {
+    try {
+      await userRepository.sentOtp(event.phone);
+      return emit(AuthPassOtpSuccessState());
+    } on Exception catch (e) {
+      return emit(AuthPassOtpFailState(error: e.toString()));
+    }
+  }
+
+  void _onAuthResentOtpEvent(
+      AuthResentOtpEvent event, Emitter<AuthState> emit) async {
+    try {
+      await userRepository.resentOtp(event.phone);
+      return emit(AuthResentOtpSuccessState());
+    } on Exception catch (e) {
+      return emit(AuthPassOtpFailState(error: e.toString()));
+    }
+  }
+
+  void _onAuthPassResetEvent(
+      AuthPassResetEvent event, Emitter<AuthState> emit) async {
+    try {
+      await userRepository.resetOtp(
+          event.phone, event.otp, event.password, event.confirmPassword);
+      return emit(AuthPassResetSuccessState());
+    } on Exception catch (e) {
+      return emit(AuthPassOtpFailState(error: e.toString()));
+    }
+  }
+
+  void _onAuthCheckOtpEvent(
+      AuthCheckOtpEvent event, Emitter<AuthState> emit) async {
+    try {
+      await userRepository.checkOtp(event.otp, event.phone);
+      return emit(AuthCheckPhoneOTPResetSuccessState());
+    } on Exception catch (e) {
+      return emit(AuthCheckPhoneOtpFailState(error: e.toString()));
     }
   }
 
